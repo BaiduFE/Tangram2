@@ -1,0 +1,26 @@
+/// include baidu;
+
+/**
+ * 对 ArrayLike 中的每一个元素都进行指定函数操作
+ * 
+ * @author: meizz
+ * @namespace: baidu.each
+ * @version: 2012-05-04
+ */
+baidu.each = function( object, fn, context ) {
+    var i = 0,
+        result,
+        n = object.length;
+
+    if (typeof fn == "function") {
+
+        for (; i<n; i++) { /* array*/
+            //被循环执行的函数，默认会传入三个参数(array[i], i, array)
+            result = fn.call(context||null, object[i], i, object);
+
+            //被循环执行的函数的返回值若为"continue"和"break"时可以影响each方法的流程
+            if (result === false || result == "break") {break;}
+        }
+    }
+    return object;
+};
