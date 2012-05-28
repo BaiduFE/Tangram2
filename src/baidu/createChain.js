@@ -1,12 +1,18 @@
-/// include baidu;
-/// include baidu.extend;
+/// import baidu;
+/// import baidu.extend;
 
 /**
- * 创建链头，用于链式语法
+ * @fileoverview
+ * @name baidu.createChain
+ * @author meizz
+ * @create 2012-05-20
+ * @modify 
+ */
+
+/**
+ * 创建链头对象，用于链式语法
  * 
- * @author: meizz
- * @namespace: baidu.createChain
- * @version: 2012-05-16
+ * @grammer baidu.createChain(chainName[, fn[, constructor]])
  * 
  * @param   {String}    chainName   链头方法名，一般小写
  * @param   {Function}  fn          链头方法函数体

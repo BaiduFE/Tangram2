@@ -12,15 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/*
- * Tangram
+/**
+ * @fileoverview Tangram
  * Copyright 2012 Baidu Inc. All rights reserved.
- * @author:meizz, dron, erik, berg, allstar
+ *
+ * @author meizz, dron, linlingyu, erik, berg, allstar
+ * @modify 2012-05-20   meizz 转接到baidu.dom()做链头方法用
  */
 
 
 /**
  * 声明 baidu 包
+ *
  */
 var T,
     baidu = T = baidu || function(q, c) {
