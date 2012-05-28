@@ -4,11 +4,16 @@
 /// import baidu.createChain;
 
 /**
- * baidu.dom 所有与 DOM 相关的操作方法都在此命名空间之下
+ * @fileoverview
+ * @param baidu.dom
+ * @author meizz
+ * @create 2012-05-20
+ * @modify 
+ */
+
+/**
+ * dom对象链式语法的链头
  * 
- * @author: meizz
- * @namespace: baidu.dom
- * @version: 2012-04-20
  * @param   String|Element|tangramDom   selector
  * @param   Document                    context
  * @return  tangramDom
