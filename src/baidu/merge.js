@@ -1,11 +1,19 @@
 /// include baidu;
 
 /**
+ * @fileoverview
+ * @name baidu.merge
+ * @author meizz
+ * @create 2012-05-20
+ * @modify
+ */
+
+/**
  * 将第二个 ArrayLike对象合并到第一个 ArrayLike 中去
  * 
- * @author: meizz
- * @namespace: baidu.merge
- * @version: 2012-05-04
+ * @param   {Object}    first
+ * @param   {Object}    second
+ * @return              first
  */
 baidu.merge = function(first, second) {
     var i = first.length,

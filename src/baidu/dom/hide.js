@@ -1,4 +1,4 @@
-/// include baidu.dom;
+/// import baidu.dom;
 
 
 baidu.dom.extend({
