@@ -1,5 +1,5 @@
-/// include baidu;
-/// include baidu.type;
+///import baidu;
+///import baidu.type;
 
 /**
  * @fileoverview
