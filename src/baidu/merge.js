@@ -1,4 +1,4 @@
-/// include baidu;
+///import baidu;
 
 /**
  * @fileoverview
