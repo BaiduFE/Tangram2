@@ -1,6 +1,6 @@
-/// import baidu;
-/// import baidu.overwrite;
-/// import baidu.createChain;
+///import baidu;
+///import baidu.overwrite;
+///import baidu.createChain;
 
 /**
  * @fileoverview

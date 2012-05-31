@@ -1,5 +1,5 @@
-/// import baidu;
-/// import baidu.extend;
+///import baidu;
+///import baidu.extend;
 
 /**
  * @fileoverview
