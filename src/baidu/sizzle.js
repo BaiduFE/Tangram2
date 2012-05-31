@@ -1,5 +1,5 @@
-/// include baidu;
-/// include baidu.merge;
+///import baidu;
+///import baidu.merge;
 
 /**
  * @fileoverview
