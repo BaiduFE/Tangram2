@@ -16,13 +16,17 @@
  * @return  {String}            对象类型字符串，以逗号分隔
  */
 baidu.param = function(arg) {
+    arg = arg || arguments.callee.caller.arguments;
+
     var s = ""
-        ,i = 0
         ,n = arg.length;
 
-    for (; i<n; i++) {
+    for (var i=0; i<n; i++) {
         s += ","+ baidu.type(arg[i]);
     }
 
     return s ? s.substr(1) : "";
 };
+
+// [Notice] meizz callee等操作是一个低性能的处理，因此 arg 参数尽量传过来，尽管不传这个参数本方法也能正确执行
+// [Notice] meizz 本方法是一个被其它方法调用的方法，在不传arg又不是被调用的状态下，本方法会报错

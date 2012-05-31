@@ -1,4 +1,4 @@
-/// include baidu;
+///import baidu;
 
 /**
  * @fileoverview
@@ -13,7 +13,7 @@
  * 
  * @param   {Object}        object
  * @param   {Function}      fn
- * @param   {object}       context
+ * @param   {object}        context
  */
 baidu.each = function( object, fn, context ) {
     var i = 0,
