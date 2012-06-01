@@ -18,9 +18,9 @@ baidu.dom.extend({
             switch(baidu.type(args[i])){
                 case 'string':
                     div.innerHTML = args[i];
-                    baidu.each(div.childNodes, function(item){
-                        fragment.appendChild(item);
-                    });
+                    while(div.firstChild){
+                        fragment.appendChild(div.firstChild);
+                    }
                     break;
                 case 'HTMLElement':
                     fragment.appendChild(args[i]);
