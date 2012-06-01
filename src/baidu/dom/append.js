@@ -26,7 +26,7 @@ baidu.dom.extend({
                     });
                     break;
                 case 'HTMLElement':
-                    fragment.appendChild(item);
+                    fragment.appendChild(args[i]);
                     break;
                 case '$DOM':
                 case 'array':
