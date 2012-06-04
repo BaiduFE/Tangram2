@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type='text/javascript' src='../../src/import.php?f=baidu.dom.addClass'></script>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.removeClass'></script>
 <style>
 p{
 	margin:8px;
@@ -20,13 +20,9 @@ p{
 <p>google</p>
 <p>facebook</p>
 <script>
-baidu("p").addClass('selected');
 
-baidu("p").addClass(function(index,className){
-	alert(index);
-	alert(className);
-	return 'selected';
-});
+baidu("p").removeClass('selected');
+
 </script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 ///import baidu.each;
 
 baidu.dom.extend({
-    addClass: function(value){
+    removeClass: function(value){
     	
         //异常处理
         if(arguments.length <= 0 ){
@@ -27,15 +27,13 @@ baidu.dom.extend({
 
                 baidu.each(this, function(item){
                     for(var i = 0;i<arr.length;i++){
-                        if(!new RegExp('\\b'+arr[i]+'\\b').test(item.className)){
-                            item.className += (' '+arr[i]);
-                        }
+                        item.className = item.className.replace(arr[i],'');
                     };
                 });
             break;
             case 'function':
                 baidu.each(this, function(item, index ,className){
-                    baidu.dom(item).addClass(value.call(item, index, item.className));
+                    baidu.dom(item).removeClass(value.call(item, index, item.className));
                 });
             break;
             default:
