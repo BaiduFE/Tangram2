@@ -38,7 +38,6 @@ baidu.dom.extend({
                         baidu.dom(item).append(args[i].call(item, index, item.innerHTML));
                     });
                     break;
-            }
         }
 
         baidu.each(this, function(item){

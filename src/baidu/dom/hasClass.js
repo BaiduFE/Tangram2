@@ -4,7 +4,6 @@
 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.type;
 ///import baidu.each;
 
 baidu.dom.extend({
