@@ -1,7 +1,6 @@
 /**
  * @author linlingyu
  */
-///import baidu;
 ///import baidu.dom;
 baidu.dom.extend({
     getDocument: function(){

@@ -1,8 +1,6 @@
 /**
  * @author linlingyu
  */
-
-///import baidu;
 ///import baidu.dom;
 ///import baidu.dom._smartInsert;
 baidu.dom.extend({
