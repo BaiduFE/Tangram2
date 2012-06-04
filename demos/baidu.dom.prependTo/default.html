@@ -16,20 +16,22 @@
 <script type='text/javascript' src='../../src/import.php?f=baidu.dom.prependTo'></script>
 </head>
 <body>
-<h3>插入DOM节点到匹配元素</h3>
+<h3>将匹配元素插入到DOM节内部开始处</h3>
+<div id='div-one' class='div-css'>hello world div</div>
 <div id='div-one-a' class='div-border-blue'>我是需要插入到hello world div末端的元素</div>
-<div id='div-one' class='div-css'>hello world div</div><br/>
+<br/>
 <input type='button' value='prependTo(DOM)' onclick='main_one();'/>
 <hr/>
 
-<h3>插入HTML String到匹配元素</h3>
+<h3>将匹配元素插入到HTML String内部开始处</h3>
 <div id='div-two' class='div-css'>我是一个div;</div>
 <input type='button' value='prependTo(HTML String)' onclick='main_two();'/>
 <hr/>
 
-<h3>插入TangramDom到匹配元素</h3>
+<h3>将匹配元素插入到TangramDom内部开如处</h3>
+<div id='div-three' class='div-css'>hello world div</div>
 <div id='div-three-a' class='div-border-blue'>我是需要插入到hello world div末端的元素</div>
-<div id='div-three' class='div-css'>hello world div</div><br/>
+<br/>
 <input type='button' value='prependTo(TangramDom)' onclick='main_three();'/>
 <hr/>
 
