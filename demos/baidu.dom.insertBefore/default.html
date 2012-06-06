@@ -10,29 +10,30 @@
 }
 .div-border-blue {
     border: blue solid 2px;
+    width: 600px;
 }
 </style>
 <script type='text/javascript' src='../../src/import.php?f=baidu.sizzle'></script>
-<script type='text/javascript' src='../../src/import.php?f=baidu.dom.prependTo'></script>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.insertBefore'></script>
 </head>
 <body>
-<h3>将匹配元素插入到DOM节内部开始处</h3>
+<h3>将匹配元素插入到DOM节之前</h3>
 <div id='div-one' class='div-css'>hello world div</div>
 <div id='div-one-a' class='div-border-blue'>我是需要插入到hello world div末端的元素</div>
 <br/>
-<input type='button' value='prependTo(DOM)' onclick='main_one();'/>
+<input type='button' value='insertBefore(DOM)' onclick='main_one();'/>
 <hr/>
 
-<h3>将匹配元素插入到HTML String内部开始处</h3>
+<h3>将匹配元素插入到HTML String之前</h3>
 <div id='div-two' class='div-css'>我是一个div;</div>
-<input type='button' value='prependTo(HTML String)' onclick='main_two();'/>
+<input type='button' value='insertBefore(HTML String)' onclick='main_two();'/>
 <hr/>
 
-<h3>将匹配元素插入到TangramDom内部开如处</h3>
-<div id='div-three' class='div-css'>hello world div</div>
-<div id='div-three-a' class='div-border-blue'>我是需要插入到hello world div末端的元素</div>
+<h3>将匹配元素插入到TangramDom之前</h3>
+<div id='div-three-a' class='div-css'>hello world div</div>
+<div id='div-three' class='div-border-blue'>我是需要插入到hello world div末端的元素</div>
 <br/>
-<input type='button' value='prependTo(TangramDom)' onclick='main_three();'/>
+<input type='button' value='insertBefore(TangramDom)' onclick='main_three();'/>
 <hr/>
 
 <h3>支持参数是一个选择器</h3>
@@ -42,24 +43,24 @@
     <div class='div-border-blue'>hello world div ~2</div>
     <div class='div-border-blue'>hello world div ~3</div>
 </div><br/>
-<input type='button' value='prependTo(selector)' onclick='main_four();'/>
+<input type='button' value='insertBefore(selector)' onclick='main_four();'/>
 
 </body>
 <script type='text/javascript'>
 function main_one(){
-    baidu.dom('#div-one-a').prependTo(document.getElementById('div-one'));
+    baidu.dom('#div-one-a').insertBefore(document.getElementById('div-one'));
 }
 //
 function main_two(){
-    baidu.dom('#div-two').prependTo('<div style="border: red solid 1px">&nbsp;</div><div style="border: red solid 1px">&nbsp;</div>');
+    baidu.dom('#div-two').insertBefore('<div style="border: red solid 1px"></div><div style="border: red solid 1px"></div>');
 }
 //
 function main_three(){
-    baidu.dom('#div-three-a').prependTo(baidu.dom('#div-three'));
+    baidu.dom('#div-three').insertBefore(baidu.dom('#div-three-a'));
 }
 //
 function main_four(){
-    baidu.dom('#div-four-a .div-border-blue').prependTo('#div-four')
+    baidu.dom('#div-four-a .div-border-blue').insertBefore('#div-four')
 }
 </script>
 </html>
