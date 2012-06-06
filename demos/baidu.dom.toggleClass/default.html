@@ -21,11 +21,13 @@ p{
 <p>facebook</p>
 <script>
 
+//baidu("p").toggleClass('selected');
+
 baidu("p").toggleClass(function(index,className){
 	alert(index);
 	alert(className);
-	return 'selected';	
-});
+	return 'selected';
+},true);
 
 </script>
 </body>
