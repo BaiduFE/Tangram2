@@ -17,6 +17,7 @@ baidu.dom.extend({
         switch(typeof value){
             case 'string':
                 //对输入进行处理
+                    
                 value = String(value)
                             .replace(/^\s+/g,'')
                             .replace(/\s+$/g,'')
