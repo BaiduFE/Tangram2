@@ -14,29 +14,33 @@ baidu.dom.extend({
             return this;
         };
 
+        /*
         //对输入进行处理
         className = String(className)
                     .replace(/^\s+/g,'')
                     .replace(/\s+$/g,'')
                     .replace(/\s+/g,' ')
                     .replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
+        */
 
         var arr = className.split(' ');
         var result;
 
         baidu.each(this, function(item){
+
+            var className = item.className;
+
             for(var i = 0;i<arr.length;i++){
-                
                 if(!new RegExp('\\b'+arr[i]+'\\b').test(item.className)){
                     //有一个不含有
                     result = false;
                     return;
                 };
+            }
 
-                //都含有
-                if(result){
-                    result = true;
-                };
+            if(result!==false){
+                result = true;
+                return;
             }
         });
 
