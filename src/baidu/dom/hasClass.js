@@ -31,7 +31,7 @@ baidu.dom.extend({
             var str = item.className;
 
             for(var i = 0;i<arr.length;i++){
-                if(!new RegExp('\\b'+arr[i]+'\\b').test(str)){
+                if((' '+str+' ').indexOf(' '+arr[i]+' ') == -1){
                     //有一个不含有
                     result = false;
                     return;
