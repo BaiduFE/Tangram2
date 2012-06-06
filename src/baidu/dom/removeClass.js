@@ -9,20 +9,15 @@
 baidu.dom.extend({
     removeClass: function(value){
     	
-        //异常处理
         if(arguments.length <= 0 ){
-            return this;
+            baidu.each(this,function(item){
+                item.className = '';
+            });
         };
 
         switch(typeof value){
             case 'string':
-                //对输入进行处理
-                value = String(value)
-                            .replace(/^\s+/g,'')
-                            .replace(/\s+$/g,'')
-                            .replace(/\s+/g,' ')
-                            .replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-
+            
                 var arr = value.split(' ');
 
                 baidu.each(this, function(item){

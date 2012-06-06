@@ -20,13 +20,14 @@ p{
 <p>google</p>
 <p>facebook</p>
 <script>
-baidu("p").addClass('selected');
+//baidu("p").addClass();
 
 baidu("p").addClass(function(index,className){
 	alert(index);
 	alert(className);
 	return 'selected';
 });
+
 </script>
 </body>
 </html>
