@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.removeProp'></script>
+<style>
+p{
+	margin:8px;
+	font-size:16px;
+}
+.selected{
+	color:blue;
+}
+.highlight{
+	background:yellow;
+}
+</style>
+</head>
+<body>
+
+<input type="checkbox" checked="checked" data='123' />
+
+<script>
+console.log(baidu("input").removeProp("data"));
+</script>
+
+</body>
+</html>
