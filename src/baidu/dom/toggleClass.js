@@ -15,7 +15,7 @@ baidu.dom.extend({
             });
         };
 
-        switch(typeof value){
+        switch(typeof arguments[1]){
             case 'string':
                 var arr = value.split(' ');
 

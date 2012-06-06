@@ -16,7 +16,6 @@ baidu.dom.extend({
 
         switch(typeof value){
             case 'string':
-                
                 /*
                 //对输入进行处理           
                 value = String(value)
@@ -28,7 +27,10 @@ baidu.dom.extend({
 
                 var arr = value.split(' ');
                 baidu.each(this, function(item){
-                    var str = item.className;
+                    var str = '';
+                    if(item.className){
+                        str = item.className;
+                    };
                     for(var i = 0; i<arr.length; i++){
                         if((' '+str+' ').indexOf(' '+arr[i]+' ') == -1){
                             item.className += (' '+arr[i]);
@@ -37,7 +39,7 @@ baidu.dom.extend({
                 });
             break;
             case 'function':
-                baidu.each(this, function(item, index ,className){
+                baidu.each(this, function(item,index){
                     baidu.dom(item).addClass(value.call(item, index, item.className));
                 });
             break;
