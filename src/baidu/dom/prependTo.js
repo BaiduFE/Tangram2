@@ -1,7 +1,6 @@
 /**
  * @author linlingyu
  */
-///import baidu;
 ///import baidu.dom;
 ///import baidu.dom._smartInsertTo;
  
