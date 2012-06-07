@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type='text/javascript' src='../../src/import.php?f=baidu.dom.removeAttr'></script>
 <style>
 p{
@@ -17,12 +18,12 @@ p{
 </head>
 <body>
 
-<input type="text" title="hello there" />
+<input id="input" type="text" title="hello" />
 
 <script>
-
-console.log(baidu("input").removeAttr("title"));
-
+alert(document.getElementById("input").getAttribute("title"));
+alert(baidu("input").removeAttr("title"));
+alert(document.getElementById("input").getAttribute("title"));
 </script>
 
 </body>

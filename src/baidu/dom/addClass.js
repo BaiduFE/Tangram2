@@ -37,11 +37,13 @@ baidu.dom.extend({
                         };
                     };
                 });
+
             break;
             case 'function':
                 baidu.each(this, function(item,index){
                     baidu.dom(item).addClass(value.call(item, index, item.className));
                 });
+
             break;
             default:
             break;

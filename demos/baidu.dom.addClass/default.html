@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type='text/javascript' src='../../src/import.php?f=baidu.dom.addClass'></script>
 <style>
 p{
@@ -20,11 +21,10 @@ p{
 <p>google</p>
 <p>facebook</p>
 <script>
-//baidu("p").addClass();
-
-baidu("p").addClass(function(index){
+//console.log(baidu("p").addClass());
+baidu("p").addClass(function(index,className){
 	alert(index);
-	//alert(className);
+	alert(className);
 	return 'selected';
 });
 

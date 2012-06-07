@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
-<script type='text/javascript' src='../../src/import.php?f=baidu.dom.toggleClass'></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.attr'></script>
+
 <style>
 p{
 	margin:8px;
@@ -15,18 +16,18 @@ p{
 	background:yellow;
 }
 </style>
+
 </head>
 <body>
 <p class='selected'>baidu</p>
 <p>google</p>
 <p>facebook</p>
 <script>
+//baidu("p").addClass();
 
-//baidu("p").toggleClass('selected');
-
-baidu("p").toggleClass(function(index,className){
+baidu("p").addClass(function(index){
 	alert(index);
-	alert(className);
+	//alert(className);
 	return 'selected';
 });
 

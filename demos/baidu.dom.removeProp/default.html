@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type='text/javascript' src='../../src/import.php?f=baidu.dom.removeProp'></script>
 <style>
 p{
@@ -17,10 +18,12 @@ p{
 </head>
 <body>
 
-<input type="checkbox" checked="checked" data='123' />
+<input id='input' type="checkbox" checked="checked" data='123' />
 
 <script>
-console.log(baidu("input").removeProp("data"));
+alert(document.getElementById('input')['checked']);
+baidu('input').removeProp('checked');
+alert(document.getElementById('input')['checked']);
 </script>
 
 </body>
