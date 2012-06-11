@@ -1,11 +1,19 @@
-/// include baidu;
+///import baidu;
+
+/**
+ * @fileoverview
+ * @name baidu.each
+ * @author meizz
+ * @create 2012-05-20
+ * @modify 
+ */
 
 /**
  * 对 ArrayLike 中的每一个元素都进行指定函数操作
  * 
- * @author: meizz
- * @namespace: baidu.each
- * @version: 2012-05-04
+ * @param   {Object}        object
+ * @param   {Function}      fn
+ * @param   {object}        context
  */
 baidu.each = function( object, fn, context ) {
     var i = 0,

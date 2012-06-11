@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.addClass'></script>
+<style>
+p{
+	margin:8px;
+	font-size:16px;
+}
+.selected{
+	color:blue;
+}
+.highlight{
+	background:yellow;
+}
+</style>
+</head>
+<body>
+<p class='selected'>baidu</p>
+<p>google</p>
+<p>facebook</p>
+<script>
+//console.log(baidu("p").addClass());
+baidu("p").addClass(function(index,className){
+	alert(index);
+	alert(className);
+	return 'selected';
+});
+
+</script>
+</body>
+</html>
