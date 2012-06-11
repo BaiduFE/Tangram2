@@ -28,7 +28,7 @@
  * @return  {Array}                 筛选后的对象组
  */
     baidu.selector = function(selector, context, results) {
-        return baidu.merge(results || [], Sizzle(selector, context));
+        return baidu.merge(results || [], baidu.sizzle(selector, context));
     };
 
 var document = window.document,
@@ -1429,6 +1429,6 @@ var posProcess = function( selector, context, seed, contextXML ) {
 
 // EXPOSE
 
-window.Sizzle = Sizzle;
+window.Sizzle = baidu.sizzle = Sizzle;
 
 })( window );
