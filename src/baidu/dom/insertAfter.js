@@ -2,10 +2,10 @@
  * @author linlingyu
  */
 ///import baidu.dom;
-///import baidu.dom._smartInsert;
+///import baidu.dom._smartInsertTo;
 baidu.dom.extend({
-    after: function(){
-        return this._smartInsert(arguments, function(item, node){
+    insertAfter: function(target){
+        return this._smartInsertTo(target, function(item, node){
             item.parentNode.insertBefore(node, item.nextSibling);
         });
     }

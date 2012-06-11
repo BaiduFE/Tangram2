@@ -1,7 +1,6 @@
 /**
  * @author linlingyu
  */
-///import baidu;
 ///import baidu.dom;
 ///import baidu.type;
 ///import baidu.each;
@@ -20,9 +19,9 @@ baidu.dom.extend({
                     div = document.createElement('div');
                     document.createDocumentFragment().appendChild(div);
                     div.innerHTML = target;
-                    while(div.firstChild){
-                        callback.call(null, div.firstChild, fragment.cloneNode(true));
-                    }
+                    baidu.each(div.childNodes, function(item){
+                        callback.call(null, item, fragment.cloneNode(true));
+                    });
                 }else{//selector
                     this._smartInsertTo(baidu.dom(target), callback);
                 }
