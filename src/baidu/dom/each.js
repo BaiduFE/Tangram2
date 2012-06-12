@@ -11,6 +11,7 @@
 /**
  * 枚举当前 TangramDom 对象里的所有 DOM 元素，并执行指定的函数
  * 指定的函数参数（index[, dom]），函数里的 this 指向 DOM 元素
+ * @grammer TangramDom.each(fn)
  * @param   {Function}      fn  迭代器
  * @return  {TangramDom}        tangramDom(this)
  */
