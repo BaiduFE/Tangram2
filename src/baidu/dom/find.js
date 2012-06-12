@@ -20,7 +20,7 @@
  */
 baidu.dom.extend({
     find : function (selector) {
-        var a=[], all,
+        var a=[],
             expr,
             id = "__tangram__find__",
             td = baidu.dom();
@@ -31,7 +31,6 @@ baidu.dom.extend({
             break;
         case "HTMLElement" :
             expr = selector.tagName +"#"+ (selector.id ? selector.id : (selector.id = id));
-        alert(expr);
             this.each(function(){if(baidu.selector(expr, this).length > 0) a.push(selector);});
             selector.id == id && (selector.id = "");
             if (a.length > 0) baidu.merge(td, a);
