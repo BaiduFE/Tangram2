@@ -103,6 +103,8 @@ baidu.createChain("dom",
             } else {
                 baidu.selector(selector, context, me);
             }
+        } else if (typeof selector == "function") {
+            return me.ready(selector);
         }
 
         return me;
