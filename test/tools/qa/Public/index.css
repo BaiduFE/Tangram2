@@ -1,0 +1,13 @@
+html{ color:#000; background:#FFF;}body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td{ margin:0; padding:0;}table{ border-collapse: collapse; border-spacing: 0;}fieldset, img{ border: 0;}address, caption, cite, code, dfn, em, strong, th, var{ font-style: normal; font-weight: normal;}li{ list-style:none;}caption, th{ text-align:left;}h1, h2, h3, h4, h5, h6{ font-size: 100%; font-weight: normal;}q:before, q:after{ content: '';}abbr, acronym{ border: 0; font-variant: normal;}sup{ vertical-align: text-top;}sub{ vertical-align: text-bottom;}input, textarea, select{ font-family: inherit; font-size: inherit; font-weight: inherit;}input, textarea, select{ *font-size: 100%;}legend{ color: #000;}
+
+.wrap-testing{width:950px;height:auto;background-color: #EFEFEF;margin: 20px auto;clear: both;border-radius: 15px;}
+.wrap-testing-left {width:200px;height:100px;float:left;height:auto;padding: 0px 0px 20px 0px;}
+.wrap-testing-right{width:750px;height:auto;float:left;height:auto;}
+.wrap-testing-run,
+.wrap-testing-src{width:750px;height:auto;}
+.wrap-testing-run{padding-top: 20px;}
+.wrap-testing-src{width:734px;margin: 0px auto;display: none;}
+.wrap-testing-tool{padding:10px;text-align:right;}
+.test-Runing-frame{border:0;margin:0px;padding:0px;width:100%;height:400px;}
+.CodeMirror-gutter,
+.cm-s-blackboard {border-radius: 15px;}
