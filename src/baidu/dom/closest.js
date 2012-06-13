@@ -25,7 +25,7 @@ baidu.dom.extend({
             td[0] = dom;
 
             if (td.is(selector, context)) return td;
-        } while ();
+        } while (dom = dom.parentNode);
 
         return baidu.dom();
     }

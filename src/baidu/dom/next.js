@@ -1,5 +1,6 @@
 /// import baidu.dom;
 /// import baidu.each;
+/// import baidu.dom.filter;
 
 /**
  * @fileoverview
@@ -15,7 +16,7 @@
  * @return
  */
 baidu.dom.extend({
-    next : function () {
+    next : function (selector) {
         var td = baidu.dom();
 
         baidu.each(this, function(dom){
@@ -23,6 +24,6 @@ baidu.dom.extend({
             td[td.length ++] = dom
         });
 
-        return td;
+        return selector ? td.filter(selector) : td;
     }
 });

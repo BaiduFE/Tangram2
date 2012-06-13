@@ -22,7 +22,7 @@ baidu.dom.extend({
 
         baidu.each(this, function(dom){
             td[0] = dom;
-            td.find(selector) && a.push(dom);
+            td.find(selector).length && a.push(dom);
         });
 
         return baidu.dom(a);

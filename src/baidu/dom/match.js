@@ -20,7 +20,7 @@
  * @param   {String}        selector    CSS选择器
  * @return  {Array}         Array
  */
-(function(div){
+;(function(div){
 baidu.dom.extend({
     match : function (selector) {
         var results = []
@@ -50,8 +50,9 @@ baidu.dom.extend({
             case "string" :
                 this.each(function(){
                     div.appendChild(this.cloneNode(false));
+                    baidu.selector(selector, div).length && results.push(this);
+                    div.removeChild(div.firstChild);
                 });
-                results = baidu.selector(selector, div);
                 div.innerHTML = "";
                 break;
             

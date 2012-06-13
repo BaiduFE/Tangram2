@@ -45,7 +45,6 @@ baidu.dom.extend({
                 a.push(object);
                 break;
 
-            // [TODO] case "NodeList" :
             case "$DOM" :
             case "array" :
                 baidu.merge(a, object)
@@ -55,6 +54,11 @@ baidu.dom.extend({
             case "string" :
                 baidu.merge(a, baidu.selector(object, context));
                 break;
+            // [TODO] case "NodeList" :
+            default :
+                if (typeof object == "object" && object.length) {
+                    baidu.merge(a, object)
+                }
         }
         return baidu.dom(baidu.unique(a));
     }

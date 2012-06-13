@@ -1,13 +1,12 @@
 ///import baidu;
 ///import baidu.overwrite;
 ///import baidu.createChain;
-
 /**
  * @fileoverview
  * @name baidu.array
  * @author meizz
  * @create 2012-05-20
- * @modify 
+ * @modify
  */
 
 /**
@@ -19,9 +18,9 @@
  */
 baidu.createChain("array");
 
-// 对系统方法新产生的array对象注入自定义方法，支持完美的链式语法
-baidu.overwrite(baidu.array.$Chain, "concat slice".split(" "), function(key){
-    return function(){
-        return baidu.array(Array.prototype[key].apply(this, arguments));
-    }
+// 对系统方法新产生的 array 对象注入自定义方法，支持完美的链式语法
+baidu.overwrite(baidu.array.$Chain, "concat slice".split(" "), function(key) {
+	return function() {
+		return baidu.array(Array.prototype[key].apply(this, arguments));
+	}
 });

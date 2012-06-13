@@ -1,11 +1,10 @@
 ///import baidu;
-
 /**
  * @fileoverview
  * @name baidu.each
  * @author meizz
  * @create 2012-05-20
- * @modify 
+ * @modify
  */
 
 /**
@@ -27,7 +26,7 @@ baidu.each = function( object, fn, context ) {
 
         for (i=0, n=object.length; i<n; i++) { /* array*/
             //被循环执行的函数，默认会传入三个参数(array[i], i, array)
-            result = fn.call(context||null, object[i], i, object);
+            result = fn.call(context || null, object[i], i, object);
 
             //被循环执行的函数的返回值若为"continue"和"break"时可以影响each方法的流程
             if (result === false || result == "break") {return object;}
