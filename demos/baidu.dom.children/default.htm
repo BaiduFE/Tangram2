@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript">
+    // for ie 本地测试
+    if (/^file:\/\//i.test(location.href)) document.write("<base href='http://localhost/svn/github/Tangram2/demos/baidu.dom/'/>");
+
+    function mm(code, n) {
+        var result = new Function("return "+ code)();
+
+        document.getElementById("txt_show").value = json(result);
+
+        return result;
+    }
+    // 给按钮添加 click 事件
+    function attach(list, n){
+        baidu.each(list, function(input){
+            if (input.type == "button") {
+                input.onclick = function() {
+                    baidu.each(list, function(input){input.style.backgroundColor=""});
+                    this.style.backgroundColor = "yellow";
+
+                    document.getElementById("txt"+ n).value = foreach(mm(this.value));
+                }
+            }
+        });
+    }
+    function foreach(object){
+        var str = "";
+
+        if (object._type_ == "$DOM" || object.jquery) {
+            for (var i=0, n=object.length; i<n; i++) {
+                str += (object[i].nodeType ? object[i].outerHTML : object[i]) +"\n";
+            }
+        }
+
+        return str;
+    }
+    window.onload = function() {
+        var ns = document.getElementById("hide").value;
+        Import(ns);
+        document.title = ns +" demo - meizz";
+        document.getElementById("caption").innerHTML = ns;
+        attach(baidu.selector("#td1 input"), 1);
+        attach(baidu.selector("#td2 input"), 2);
+
+        if (window.HTMLElement && !document.body.outerHTML) {
+            HTMLElement.prototype.__defineGetter__("outerHTML",function(){
+                var attr;
+                var attrs=this.attributes;
+                var str="<"+this.tagName;
+                for(var i=0;i<attrs.length;i++){
+                    attr=attrs[i];
+                    if(attr.specified)
+                        str+=" "+attr.name+'="'+attr.value+'"';
+                    }
+                if(!this.canHaveChildren)
+                    return str+">";
+                return str+">"+this.innerHTML+"</"+this.tagName+">";
+            });
+        }
+    }
+
+    </script>
+    <script type="text/javascript" src="../../src/import.js"></script>
+    <script type="text/javascript" src="../jquery-1.7.2.js"></script>
+    <title>meizz demo</title>
+    <style type="text/css">
+    body{font-size:12px; font-family:SimSun;}
+    li{font-size:12px;}
+    td{vertical-align:top}
+    h3{margin:0px;}
+    textarea{font-size:10px; width:400px;}
+    .ul{margin:1em 0em 1em 2em; padding:0px;}
+    </style>
+</head>
+
+</head>
+<body>
+    <h1><span id="caption">baidu.dom</span> 测试用例</h1>
+<table border="1" cellspacing="0" style="width:100%">
+    <tr>
+        <th><input type="text" style="font-family:SimSun; border:none; width:98%;" onblur="this.value && (document.getElementById('txt1').value = foreach(mm(this.value)))"></th>
+        <th style="width:100px;">目标DOM元素</th>
+        <th style="width:420px;">HTML代码</th>
+    </tr>
+    <tr>
+        <td>
+            <table border="1" cellspacing="0" width="100%">
+                <tr>
+                    <td id="td1"><h3>Tangram</h3>
+
+<input value="baidu.dom.children" type="hidden" id="hide"/>
+
+<input value="baidu.dom('ul').children()" type="button"><br/>
+<input value="baidu.dom('ul').children('.c')" type="button"><br/>
+
+                    </td>
+                    <td style="width:420px;"><textarea id="txt1" style="height:200px"></textarea></td>
+                </tr>
+                <tr>
+                    <td id="td2"><h3>jQuery</h3>
+
+<input value="$('ul').children()" type="button"><br/>
+<input value="$('ul').children('.c')" type="button"><br/>
+
+                    </td>
+                    <td><textarea id="txt2" style="height:200px"></textarea></td>
+                </tr>
+            </table>
+        </td>
+
+        <td style="background-color:#F7F7F7;">
+<div id="div">
+    <ul id="first" class="ul">
+        <li class="a" id="li1">first li</li>
+        <li class="b" id="li2">second <b><u>li</u></b></li>
+        <li class="c" id="li3">third <i><b>li</b></i></li>
+        <li class="d" id="li4">fourth <u>li</u></li>
+        <li class="d" id="li4">fifth <u><b>li</b></u></li>
+    </ul>
+    <ol id="second" class="ul">
+        <li class="a" id="li5">first li</li>
+        <li class="b" id="li6">second <b>li</b></li>
+        <li class="c" id="li7">third <i><b>li</b></i></li>
+        <li class="d" id="li8">fourth <u>li</u></li>
+        <li class="d" id="li9">fifth <u><b>li</b></u></li>
+    </ol>
+</div>
+        </td>
+        <td rowspan="2"><textarea id="txt0" style="height:400px; border:none; overflow:auto">
+<div id="div">
+    <ul id="first" class="ul">
+        <li class="a" id="li1">first li</li>
+        <li class="b" id="li2">second <b><u>li</u></b></li>
+        <li class="c" id="li3">third <i><b>li</b></i></li>
+        <li class="d" id="li4">fourth <u>li</u></li>
+        <li class="d" id="li4">fifth <u><b>li</b></u></li>
+    </ul>
+    <ul id="second" class="ul">
+        <li class="a" id="li5">first li</li>
+        <li class="b" id="li6">second <b>li</b></li>
+        <li class="c" id="li7">third <i><b>li</b></i></li>
+        <li class="d" id="li8">fourth <u>li</u></li>
+        <li class="d" id="li9">fifth <u><b>li</b></u></li>
+    </ul>
+</div>
+        </textarea></td>
+    </tr>
+</table>
+
+<textarea id="txt_show" style="width:100%; height:1000px; margin-top:5px;">这里显示目标 for...in 遍历</textarea>
+<script type="text/javascript">
+Import("baidu.dom");
+Import("baidu.each");
+Import("baidu.type");
+Import("baidu.selector");
+
+
+
+var json = function(object, prefix, deep) {
+	var a = [];
+	prefix = prefix || "";
+
+    for (var i in object) {
+        var item = object[i];
+
+        switch (typeof item) {
+        	case "function" :
+	        	item = "function(){}";
+	        	break;
+        	case "object" :
+                //if (typeof deep!="number") {
+        		//    item = "\n"+ json(item, prefix +"    ", 1);
+                //}
+                item = "[object]";
+	        	break;
+        }
+
+        a.push(prefix +"["+ (object.__type || "object") +"]."+ i + " = "+ item);
+    }
+    return a.join("\n");
+}
+</script>
+
+</body>
+</html>
+
+
