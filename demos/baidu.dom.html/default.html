@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.html'></script>
+
+</head>
+<body>
+
+<div>
+	<a href='http://www.baidu.com'>baidu</a>
+</div>
+<div>
+	<a href='http://www.baidu.com'>baidu</a>
+</div>
+<div>
+	<a href='http://www.baidu.com'>baidu</a>
+</div>
+<div>
+	<a href='http://www.baidu.com'>baidu</a>
+</div>
+
+<script>
+baidu.dom('div').html(function(index,html){
+	alert(index);
+	alert(html);
+});
+</script>
+</body>
+</html>
