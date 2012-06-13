@@ -83,7 +83,7 @@ baidu.createChain("dom",
             return selector;
         
         // Handle $(DOMElement)
-        } else if (selector.nodeType) {
+        } else if (selector.nodeType || selector == selector.window) {
             me[0] = selector;
             me.length = 1;
             return me;
@@ -133,10 +133,10 @@ baidu.createChain("dom",
     ,get : function(index){
 
         if ( typeof index == "number" ) {
-            return this[index];
+            return index < 0 ? this[this.length + index] : this[index];
         }
 
-        return baidu.merge([], this);
+        return Array.prototype.slice.call(this, 0);
     }
 
 });
