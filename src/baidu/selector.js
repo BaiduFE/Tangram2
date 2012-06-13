@@ -2,7 +2,6 @@
 ///import baidu.each;
 ///import baidu.merge;
 ///import baidu.unique;
-
 /**
  * @fileoverview
  * @name baidu.selector
@@ -22,16 +21,18 @@
  * @param   {Array}     results     返回的结果对象（数组）
  * @return  {Array}                 筛选后的对象组
  */
-(function(){
-    baidu.selector = baidu.selector || function(selector, context, results) {
+(function() {
+
+    baidu.selector = baidu.selector ||
+    function(selector, context, results) {
         context = context || document;
 
         if (!selector || typeof selector != "string") {
             return results || [];
         }
-        
+
         var arr = [];
-        baidu.each(selector.indexOf(",")>0 ? selector.split(rDivider) : [selector], function(item) {
+        baidu.each(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(item) {
             arr = arr.concat(queryCombo(item, context));
         });
 
@@ -41,15 +42,17 @@
         return baidu.unique(results);
     };
 
-    var rId = /^(\w*)#([\w\$]+)$/
-       ,rTag = /^\w+$/
-       ,rClass = /^(\w*)\.([\w\-\$]+)$/
-       ,rDivider = /\s*,\s*/;
+    var rId = /^(\w*)#([\w\$]+)$/,
+        rTag = /^\w+$/,
+        rClass = /^(\w*)\.([\w\-\$]+)$/,
+        rDivider = /\s*,\s*/;
 
     // selector: #id, .className, tagName, *
+
+
     function query(selector, context) {
         var id, dom, tagName, className, arr, array = [];
-        
+
         // tag#id
         if (rId.test(selector)) {
             id = RegExp.$2;
@@ -60,19 +63,19 @@
                 baidu.each(context.getElementsByTagName(tagName), function(dom) {
                     dom.id == id && array.push(dom);
                 });
-            
-            // # 前没有 TagName 范围限制则返回 first
+
+                // # 前没有 TagName 范围限制则返回 first
             } else {
                 (dom = document.getElementById(id)) && array.push(dom);
             }
-        
-        // tagName or *
+
+            // tagName or *
         } else if (rTag.test(selector) || selector == "*") {
             baidu.each(context.getElementsByTagName(selector), function(dom) {
                 array.push(dom);
             });
-        
-        // .className
+
+            // .className
         } else if (rClass.test(selector)) {
             arr = [];
             tagName = RegExp.$1;
@@ -81,19 +84,19 @@
             if (context.getElementsByClassName) {
                 arr = context.getElementsByClassName(className);
             } else {
-                baidu.each(context.getElementsByTagName("*"), function(dom){
-                    dom.className
-                      && (" "+ dom.className +" ").indexOf(" "+ className +" ")>-1
-                      && arr.push(dom);
+                baidu.each(context.getElementsByTagName("*"), function(dom) {
+                    dom.className && (" " + dom.className + " ").indexOf(" " + className + " ") > -1 && arr.push(dom);
                 });
             }
 
             if (tagName && (tagName = tagName.toUpperCase())) {
-                baidu.each(arr, function(dom){
+                baidu.each(arr, function(dom) {
                     dom.tagName.toUpperCase() == tagName && array.push(dom);
                 });
             } else {
-                baidu.each(arr, function(dom){array.push(dom)});
+                baidu.each(arr, function(dom) {
+                    array.push(dom)
+                });
             }
         }
 
@@ -101,16 +104,17 @@
     }
 
     // selector 还可以是上述四种情况的组合，以空格分隔
+
+
     function queryCombo(selector, context, array) {
-        var a, s
-            , id = "__tangram__"
-            , array = array || [];
+        var a, s, id = "__tangram__",
+            array = array || [];
 
         if (context.querySelectorAll) {
             // 在使用 querySelectorAll 时，若 context 无id将貌似 document 而出错
             if (context.nodeType == 1 && !context.id) {
                 context.id = id;
-                a = context.querySelectorAll("#"+ id +" "+ selector);
+                a = context.querySelectorAll("#" + id + " " + selector);
                 context.id = "";
             } else {
                 a = context.querySelectorAll(selector);
@@ -124,8 +128,8 @@
 
             a = selector.split(/\s+/);
             s = a.join(" ");
-            baidu.each(query(a[0], context), function(dom){ // 递归
-                baidu.merge(array, queryCombo(s.substr(s.indexOf(" ")+1), dom));
+            baidu.each(query(a[0], context), function(dom) { // 递归
+                baidu.merge(array, queryCombo(s.substr(s.indexOf(" ") + 1), dom));
             });
         }
 
