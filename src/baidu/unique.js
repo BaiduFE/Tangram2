@@ -39,4 +39,4 @@ baidu.unique = function(array, fn) {
     }
 
     return result;
-}
+};
