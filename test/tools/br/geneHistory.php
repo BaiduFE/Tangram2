@@ -1,7 +1,7 @@
 <?php
 
 function geneHistory($html){
-	$path = '/home/work/repos/report/ui';
+	$path = '/home/work/repos/report/base';
 	if (!file_exists($path))
 	mkdir($path,0777,true);
 	date_default_timezone_set('PRC');

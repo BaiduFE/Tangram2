@@ -1,0 +1,79 @@
+.simpletree{
+
+}
+
+.simpletree .node{
+	clear: both;
+}
+
+.simpletree .node .relation{
+	float: left;
+	width: 20px;
+	height: 20px;
+	background: transparent url(tree/relation.gif) no-repeat 0 0;
+}
+
+.simpletree .node .relation-last{
+	background-position: 0 -20px;
+}
+
+.simpletree .node .relation .expanded-viewer{
+	display: none;
+	width: 20px;
+	height: 20px;
+	background: transparent url(tree/expanded-viewer.gif) no-repeat 0 0;
+}
+
+.simpletree .node .selection{
+	float: left;
+	width: 20px;
+	height: 20px;
+	overflow: hidden;
+}
+
+.simpletree .node .selection .selection-clicker{
+	position: relative;
+	left: 0;
+	top: -20px;
+	width: 20px;
+	height: 20px;
+	background-image: url(blank.gif);
+}
+
+.simpletree .node .selection .selection-inputer{
+
+}
+
+.simpletree .node .icon{
+	float: left;
+	width: 20px;
+	height: 20px;
+	background: transparent url(blank.gif) no-repeat 0 0;
+}
+
+.simpletree .node .name a{
+	color: #000;
+	text-decoration: none;
+	padding: 0 1px;
+	font-size: 14px;
+}
+
+.simpletree .node .name a.selected{
+	color: #000;
+	background-color: #d4d0c8;
+}
+
+.simpletree .node .name a.focus{
+	color: #fff;
+	background-color: #0a246a;
+	outline: 1px dotted #808080;
+}
+
+.simpletree .dropdownlayer{
+	padding-left: 20px;
+	background: transparent url(tree/relation.gif) repeat-y -20px 0;
+}
+
+.simpletree .dropdownlayer-last{
+	background-image: url(blank.gif);
+}
