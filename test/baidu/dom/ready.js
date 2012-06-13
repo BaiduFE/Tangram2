@@ -1,5 +1,17 @@
 module('baidu.dom.ready');
 
+test("baidu.dom(fn)", function(){
+	expect(2);
+	baidu.dom(function(){
+	    ok( true, "baidu.dom(fn)" );
+	});
+	baidu(function(){
+	    ok( true, "baidu(fn)" );
+	});
+});
+
+// 老接口
+
 test('页面载入完毕后调用该方法？', function() {
 	stop();
 	expect(1);
