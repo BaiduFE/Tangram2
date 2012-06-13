@@ -1,6 +1,5 @@
 ///import baidu;
 ///import baidu.each;
-
 /**
  * @fileoverview
  * @name baidu.type
@@ -11,31 +10,25 @@
 
 /**
  * 判断对象类型，返回值为全小写对象名
- * 
+ *
  * @param   {Object}    object  被判断的对象
  * @return  {String}            对象类型名
  */
-(function(){
+(function() {
     var objectType = {},
-        nodeType = [,"HTMLElement","Attribute","Text",,,,,"Comment","Document",,"DocumentFragment",],
+        nodeType = [, "HTMLElement", "Attribute", "Text", , , , , "Comment", "Document", , "DocumentFragment", ],
         toString = objectType.toString;
 
     // 给 objectType 集合赋值，建立映射
     baidu.each("Array Boolean Date Error Function Number RegExp String".split(" "), function(name) {
-        objectType[ "[object " + name + "]" ] = name.toLowerCase();
+        objectType["[object " + name + "]"] = name.toLowerCase();
     });
 
     // 方法主体
-    baidu.type = function (object) {
+    baidu.type = function(object) {
         var s = typeof object;
 
-        return  s != "object" ? s
-            :  object == null ? "null"
-            :  object._type_
-            || objectType[ toString.call(object) ]
-            || nodeType[object.nodeType]
-            || (object == object.window ? "Window" : "")
-            || "object";
+        return s != "object" ? s : object == null ? "null" : object._type_ || objectType[toString.call(object)] || nodeType[object.nodeType] || (object == object.window ? "Window" : "") || "object";
     };
 
 })();

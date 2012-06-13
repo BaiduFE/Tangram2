@@ -18,6 +18,40 @@ void function(global, tree){
 	var flagedMapping = {};
 	var treeData, autoRunTask, autoRunning = false;
 	var stopOnError = true;
+
+	function hash(unknown, callback){
+		var f;
+		if(unknown instanceof RegExp){
+			f = function(h){
+				if(unknown.test(h))
+					callback(h, RegExp.$1, RegExp.$2, RegExp.$3);
+			}
+		}else if(typeof unknown == "string"){
+			f = function(h){
+				if(h == unknown)
+					callback(h);
+			}
+		}
+
+		hash.callbacks.push(f);
+		if(!hash.interval)
+			hash.interval = setInterval(hash.intervalFunction, 100);
+	}
+
+	hash.callbacks = [];
+	hash.lastHash = "";
+	hash.interval = null;
+	hash.intervalFunction = function(){
+		if(location.hash != hash.lastHash){
+			var h = hash.lastHash = location.hash, cbs = hash.callbacks;
+			if(/^#(.*)$/.test(h)){
+				h = RegExp.$1;
+			}
+			for(var i = 0, r, l = cbs.length; i < l; i ++){
+				cbs[i].call(null, h);
+			}
+		}
+	};
 	
 	var icons = {
 		norm: "images/tree/etfile.gif",
@@ -75,6 +109,11 @@ void function(global, tree){
 	};
 
 	global.dataCallBack = function(arr){
+
+		arr = arr.filter(function(item){
+		    return item.name.indexOf("_") != 0;
+		});
+
 		tree = new tree({
 			container: "test-tree",
 			data: treeData = arr,
@@ -82,12 +121,27 @@ void function(global, tree){
 			clickHandler: function(conf){
 			    if(conf.nodeType == "normal")
 			        runTest(conf.id);
-			},
-			nameRenderer: function(name, data){ 
-				return data.nodeType == "normal" ? name + ".js" : name;
 			}
+			// nameRenderer: function(name, data){ 
+			// 	return data.nodeType == "normal" ? name + ".js" : name;
+			// }
 		});
 		tree.render();
+
+		hash(/^\/api\/([^\/]+)$/, function(s, name){
+		    var id = function(){
+		        for(var i = 0, r, l = treeData.length; i < l; i ++){
+		        	r = treeData[i];
+		        	if(r.api == name)
+		        	    return r.id;
+		        }
+		        return 0;
+		    }();
+		    if(id){
+		        tree.focusToKey(id),
+		        runTest(id);
+		    }
+		});
 	};
 
 	global.testDoneCallBack = function(data){
@@ -126,6 +180,6 @@ void function(global, tree){
 	    	el = document.getElementById(sec + "Button");
 	    	el.className = el.className.replace(/( disabled)|$/, "");
 	    }
-	};
+	};	
 
 }(this, tree);
