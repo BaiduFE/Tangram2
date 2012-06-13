@@ -16,7 +16,7 @@
  */
 baidu.unique = function(array, fn) {
     var len = array.length,
-        result = array.slice(0),
+        result = Array.prototype.slice.call(array, 0),
         i, datum;
         
     if ('function' != typeof fn) {
