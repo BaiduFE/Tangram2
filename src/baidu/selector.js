@@ -65,6 +65,7 @@
                 });
 
                 // # 前没有 TagName 范围限制则返回 first
+                // [TODO] 在 DocumentFragment 里按 id 取对象，目前取不到
             } else {
                 (dom = document.getElementById(id)) && array.push(dom);
             }
@@ -110,18 +111,20 @@
         var a, s, id = "__tangram__",
             array = array || [];
 
-        if (context.querySelectorAll) {
-            // 在使用 querySelectorAll 时，若 context 无id将貌似 document 而出错
-            if (context.nodeType == 1 && !context.id) {
-                context.id = id;
-                a = context.querySelectorAll("#" + id + " " + selector);
-                context.id = "";
-            } else {
-                a = context.querySelectorAll(selector);
-            }
-            // 保持统一的返回值类型(Array)
-            return baidu.merge(array, a);
-        } else {
+        // [TODO 20120614] 使用 querySelectorAll 方法时 bug 不少，以后再启用吧
+        // 用 querySelectorAll 时若取 #id 这种唯一值时会多选
+        //if (context.querySelectorAll) {
+        //    // 在使用 querySelectorAll 时，若 context 无id将貌似 document 而出错
+        //    if (context.nodeType == 1 && !context.id) {
+        //        context.id = id;
+        //        a = context.querySelectorAll("#" + id + " " + selector);
+        //        context.id = "";
+        //    } else {
+        //        a = context.querySelectorAll(selector);
+        //    }
+        //    // 保持统一的返回值类型(Array)
+        //    return baidu.merge(array, a);
+        //} else {
             if (selector.indexOf(" ") == -1) {
                 return query(selector, context);
             }
@@ -131,7 +134,7 @@
             baidu.each(query(a[0], context), function(dom) { // 递归
                 baidu.merge(array, queryCombo(s.substr(s.indexOf(" ") + 1), dom));
             });
-        }
+        //}
 
         return array;
     }
