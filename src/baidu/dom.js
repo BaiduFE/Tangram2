@@ -71,7 +71,7 @@ baidu.createChain("dom",
 
 
 function(selector, context) {
-    var e, me = new baidu.dom.$Chain(context);
+    var e, me = new baidu.$DOM(context);
 
     // Handle $(""), $(null), or $(undefined)
     if (!selector) {
