@@ -1,6 +1,6 @@
 /// import baidu.dom;
 /// import baidu.dom.each;
-/// import baidu.selector;
+/// import baidu.query;
 /// import baidu.merge;
 /// import baidu.each;
 /// import baidu.type;
@@ -27,18 +27,18 @@ baidu.dom.extend({
 
         switch (baidu.type(selector)) {
         case "string" :
-            this.each(function(){baidu.merge(td, baidu.selector(selector, this));});
+            this.each(function(){baidu.merge(td, baidu.query(selector, this));});
             break;
         case "HTMLElement" :
             expr = selector.tagName +"#"+ (selector.id ? selector.id : (selector.id = id));
-            this.each(function(){if(baidu.selector(expr, this).length > 0) a.push(selector);});
+            this.each(function(){if(baidu.query(expr, this).length > 0) a.push(selector);});
             selector.id == id && (selector.id = "");
             if (a.length > 0) baidu.merge(td, a);
             break;
         case "$DOM" :
             a = selector.get();
             this.each(function(){
-                baidu.each(baidu.selector("*", this), function(dom){
+                baidu.each(baidu.query("*", this), function(dom){
                     for (var i=0, n=a.length; i<n; i++) {
                         dom === a[i] && (td[td.length ++] = a[i]);
                     }

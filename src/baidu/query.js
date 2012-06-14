@@ -4,7 +4,7 @@
 ///import baidu.unique;
 /**
  * @fileoverview
- * @name baidu.selector
+ * @name baidu.query
  * @author meizz
  * @create 2012-05-30
  * @modify 2012-06-10 将大函数分拆成 query() 和 queryCombo()；使用 querySelectAll()；
@@ -15,7 +15,7 @@
  * 在用户选择使用 Sizzle 时会被覆盖成 Sizzle 方法
  * 目前这个简版的 selector 函数支持四种选择器 * #id .class tagName
  *
- * @grammer baidu.selector(selector[, context[, results]])
+ * @grammer baidu.query(selector[, context[, results]])
  * @param   {String}    selector    CSS选择器字符串
  * @param   {Document}  context     选择的范围
  * @param   {Array}     results     返回的结果对象（数组）
@@ -23,7 +23,7 @@
  */
 (function() {
 
-    baidu.selector = baidu.selector ||
+    baidu.query = baidu.query ||
     function(selector, context, results) {
         context = context || document;
 
