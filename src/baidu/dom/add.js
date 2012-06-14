@@ -2,7 +2,7 @@
 ///import baidu.merge;
 ///import baidu.type;
 ///import baidu.unique;
-///import baidu.selector;
+///import baidu.query;
 
 /**
  * @fileoverview
@@ -52,7 +52,7 @@ baidu.dom.extend({
 
             // HTMLString or selector
             case "string" :
-                baidu.merge(a, baidu.selector(object, context));
+                baidu.merge(a, baidu.query(object, context));
                 break;
             // [TODO] case "NodeList" :
             default :
