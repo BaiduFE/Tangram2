@@ -2,13 +2,12 @@
 ///import baidu.merge;
 ///import baidu.selector;
 ///import baidu.createChain;
-
 /**
  * @fileoverview
  * @param baidu.dom
  * @author meizz
  * @create 2012-05-20
- * @modify 
+ * @modify
  */
 
 /**
@@ -68,61 +67,67 @@
  */
 baidu.createChain("dom",
 
-    // method function
-    function(selector, context){
-        var e,
-            me = new baidu.dom.$Chain(context);
+// method function
 
-        // Handle $(""), $(null), or $(undefined)
-        if (!selector) {
-            return me;
-        }
 
-        // Handle $($DOM)
-        if (selector._type_ == "$DOM") {
-            return selector;
-        
+function(selector, context) {
+    var e, me = new baidu.dom.$Chain(context);
+
+    // Handle $(""), $(null), or $(undefined)
+    if (!selector) {
+        return me;
+    }
+
+    // Handle $($DOM)
+    if (selector._type_ == "$DOM") {
+        return selector;
+
         // Handle $(DOMElement)
-        } else if (selector.nodeType) {
+        } else if (selector.nodeType || selector == selector.window) {
             me[0] = selector;
             me.length = 1;
             return me;
 
         // Handle $(Array) or $(Collection)
-        } else if (selector.length && me.toString.call(selector) != "[object String]" ) {
-            baidu.merge(me, selector);
-            return me;
-
-        } else if (typeof selector == "string") {
-
-            // HTMLString
-            if (selector.charAt(0) == "<" && selector.charAt(selector.length-1) == ">" && selector.length > 3) {
-                // [TODO] 0531 HTMLString 模式暂缓
-
-            // baidu.selector
-            } else {
-                baidu.selector(selector, context, me);
-            }
-        }
-
+    } else if (selector.length && me.toString.call(selector) != "[object String]") {
+        baidu.merge(me, selector);
         return me;
-    },
 
-    // constructor
-    function(context) {
-        this.length = 0;
-        this._type_ = "$DOM";
-        this.context = context || document;
+    } else if (typeof selector == "string") {
+
+        // HTMLString
+        if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 3) {
+            // [TODO] 0531 HTMLString 模式暂缓
+            // baidu.selector
+        } else {
+            baidu.selector(selector, context, me);
+        }
+    } else if (typeof selector == "function") {
+        return me.ready(selector);
     }
 
-).extend ({
+    return me;
+},
+
+// constructor
+
+
+function(context) {
+    this.length = 0;
+    this._type_ = "$DOM";
+    this.context = context || document;
+}
+
+).extend({
 
     /**
      * 取得 TangramDom 对象里的 length
      * @grammer TangramDom.size()
      * @return  {Number}    TangramDom对象里DOM元素的个数
      */
-    size : function(){return this.length;}
+    size: function() {
+        return this.length;
+    }
 
     /**
      * 按指定序号返回TangramDom对象里的DOM元素，如果不传序号则返回所有的DOM对象
@@ -130,13 +135,14 @@ baidu.createChain("dom",
      * @param   {Number}    index   序号
      * @return  {Array}     TangramDom对象里DOM元素
      */
-    ,get : function(index){
+    ,
+    get: function(index) {
 
         if ( typeof index == "number" ) {
-            return this[index];
+            return index < 0 ? this[this.length + index] : this[index];
         }
 
-        return baidu.merge([], this);
+        return Array.prototype.slice.call(this, 0);
     }
 
 });

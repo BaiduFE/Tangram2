@@ -22,8 +22,7 @@ var QUnit = {
 			autorun: false,
 			assertions: [],
 			filters: [],
-			queue: [],
-			testTimeoutFlag : false
+			queue: []
 		};
 
 		var tests = id("qunit-tests"),
@@ -92,16 +91,7 @@ var QUnit = {
 
 		synchronize(function() {
 			QUnit.testStart( testName );
-			
-			// 田丽丽添加对test的timeout处理 start
-			if(/batchrun=true/.test(location.search))
-			config.testTimeout = window.setTimeout(function(){
-				config.blocking = false;
-				config.testTimeoutFlag = true;
-			    process();
-			}, 3000);
-			// 田丽丽添加对test的timeout处理 end
-			
+
 			testEnvironment = extend({
 				setup: function() {},
 				teardown: function() {}
@@ -146,13 +136,6 @@ var QUnit = {
 		});
 
 		synchronize(function() {
-			
-			// 田丽丽添加对test的timeout处理 start
-			if(config.testTimeout){
-				clearTimeout(config.testTimeout);
-			}
-			// 田丽丽添加对test的timeout处理 end
-			
 			try {
 				checkPollution();
 				testEnvironment.teardown.call(testEnvironment);
@@ -224,11 +207,7 @@ var QUnit = {
 				});
 
 				var li = document.createElement("li");
-				
-				// li.className = bad ? "fail" : "pass";
-				// 田丽丽修改 原本的逻辑见上一行代码，现在改为test超时，也将此test的显示结果设为false
-				li.className = (bad || config.testTimeoutFlag) ? "fail" : "pass";
-				config.testTimeoutFlag = false;
+				li.className = bad ? "fail" : "pass";
 				li.appendChild( b );
 				li.appendChild( ol );
 				tests.appendChild( li );
@@ -251,7 +230,7 @@ var QUnit = {
 					}
 				}
 			}
-			
+
 			QUnit.testDone( testName, bad, config.assertions.length );
 
 			if ( !window.setTimeout && !config.queue.length ) {
@@ -268,12 +247,10 @@ var QUnit = {
 				}
 			}, 13);
 		}
-
 	},
 	
 	/**
-	 * Specify the number of expected assertions to gurantee that failed test
-	 * (no assertions are run at all) don't slip through.
+	 * Specify the number of expected assertions to gurantee that failed test (no assertions are run at all) don't slip through.
 	 */
 	expect: function(asserts) {
 		config.expected = asserts;
@@ -281,7 +258,6 @@ var QUnit = {
 
 	/**
 	 * Asserts true.
-	 * 
 	 * @example ok( "asdfasdf".length > 5, "There must be at least 5 chars" );
 	 */
 	ok: function(a, msg) {
@@ -296,17 +272,14 @@ var QUnit = {
 	/**
 	 * Checks that the first two arguments are equal, with an optional message.
 	 * Prints out both actual and expected values.
-	 * 
+	 *
 	 * Prefered to ok( actual == expected, message )
-	 * 
+	 *
 	 * @example equal( format("Received {0} bytes.", 2), "Received 2 bytes." );
-	 * 
-	 * @param Object
-	 *            actual
-	 * @param Object
-	 *            expected
-	 * @param String
-	 *            message (optional)
+	 *
+	 * @param Object actual
+	 * @param Object expected
+	 * @param String message (optional)
 	 */
 	equal: function(actual, expected, message) {
 		push(expected == actual, actual, expected, message);
@@ -339,6 +312,7 @@ var QUnit = {
 				if ( config.timeout ) {
 					clearTimeout(config.timeout);
 				}
+
 				config.blocking = false;
 				process();
 			}, 13);
@@ -372,13 +346,11 @@ var QUnit = {
 	
 	/**
 	 * Trigger an event on an element.
-	 * 
+	 *
 	 * @example triggerEvent( document.body, "click" );
-	 * 
-	 * @param DOMElement
-	 *            elem
-	 * @param String
-	 *            type
+	 *
+	 * @param DOMElement elem
+	 * @param String type
 	 */
 	triggerEvent: function( elem, type, event ) {
 		if ( document.createEvent ) {
@@ -573,8 +545,7 @@ function done() {
 		result.innerHTML = html;
 	}
 
-	// 田丽丽修改 原本此处只有前两个参数，但是为了标识有test超时，传入config.testTimeoutFlag
-	QUnit.done( config.stats.bad, config.stats.all, config.testTimeoutFlag);
+	QUnit.done( config.stats.bad, config.stats.all );
 }
 
 function validTest( name ) {
@@ -742,9 +713,9 @@ QUnit.equiv = function () {
             return "date";
 
         // consider: /./ instanceof Object;
-        // /./ instanceof RegExp;
-        // typeof /./ === "function"; // => false in IE and Opera,
-        // true in FF and Safari
+        //           /./ instanceof RegExp;
+        //          typeof /./ === "function"; // => false in IE and Opera,
+        //                                          true in FF and Safari
         } else if (QUnit.is( "RegExp", o)) {
             return "regexp";
 
@@ -777,7 +748,7 @@ QUnit.equiv = function () {
             if (b instanceof a.constructor || a instanceof b.constructor) {
                 // to catch short annotaion VS 'new' annotation of a declaration
                 // e.g. var i = 1;
-                // var j = new Number(1);
+                //      var j = new Number(1);
                 return a == b;
             } else {
                 return a === b;
@@ -809,7 +780,7 @@ QUnit.equiv = function () {
 
             // - skip when the property is a method of an instance (OOP)
             // - abort otherwise,
-            // initial === would have catch identical references anyway
+            //   initial === would have catch identical references anyway
             "function": function () {
                 var caller = callers[callers.length - 1];
                 return caller !== Object &&
@@ -850,8 +821,7 @@ QUnit.equiv = function () {
                 // stack constructor before traversing properties
                 callers.push(a.constructor);
 
-                for (i in a) { // be strict: don't ensures hasOwnProperty and
-								// go deep
+                for (i in a) { // be strict: don't ensures hasOwnProperty and go deep
 
                     aProperties.push(i); // collect a's properties
 
@@ -896,10 +866,10 @@ QUnit.equiv = function () {
 }();
 
 /**
- * jsDump Copyright (c) 2008 Ariel Flesler - aflesler(at)gmail(dot)com |
- * http://flesler.blogspot.com Licensed under BSD
- * (http://www.opensource.org/licenses/bsd-license.php) Date: 5/15/2008
- * 
+ * jsDump
+ * Copyright (c) 2008 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
+ * Licensed under BSD (http://www.opensource.org/licenses/bsd-license.php)
+ * Date: 5/15/2008
  * @projectDescription Advanced and extensible data dumping for Javascript.
  * @version 1.0.0
  * @author Ariel Flesler
@@ -934,8 +904,7 @@ QUnit.jsDump = (function() {
 	var reName = /^function (\w+)/;
 	
 	var jsDump = {
-		parse:function( obj, type ) { // type is used mostly internally, you
-										// can fix a (custom)type in advance
+		parse:function( obj, type ) { //type is used mostly internally, you can fix a (custom)type in advance
 			var	parser = this.parsers[ type || this.typeOf(obj) ];
 			type = typeof parser;			
 			
@@ -973,8 +942,7 @@ QUnit.jsDump = (function() {
 		separator:function() {
 			return this.multiline ?	this.HTML ? '<br />' : '\n' : this.HTML ? '&nbsp;' : ' ';
 		},
-		indent:function( extra ) {// extra can be a number, shortcut for
-									// increasing-calling-decreasing
+		indent:function( extra ) {// extra can be a number, shortcut for increasing-calling-decreasing
 			if ( !this.multiline )
 				return '';
 			var chr = this.indentChar;
@@ -1001,18 +969,13 @@ QUnit.jsDump = (function() {
 		parsers:{
 			window: '[Window]',
 			document: '[Document]',
-			error:'[ERROR]', // when no parser is found, shouldn't happen
+			error:'[ERROR]', //when no parser is found, shouldn't happen
 			unknown: '[Unknown]',
 			'null':'null',
 			undefined:'undefined',
 			'function':function( fn ) {
 				var ret = 'function',
-					name = 'name' in fn ? fn.name : (reName.exec(fn)||[])[1];// functions
-																				// never
-																				// have
-																				// name
-																				// in
-																				// IE
+					name = 'name' in fn ? fn.name : (reName.exec(fn)||[])[1];//functions never have name in IE
 				if ( name )
 					ret += ' ' + name;
 				ret += '(';
@@ -1045,38 +1008,32 @@ QUnit.jsDump = (function() {
 				}
 				return ret + close + open + '/' + tag + close;
 			},
-			functionArgs:function( fn ) {// function calls it internally,
-											// it's the arguments part of the
-											// function
+			functionArgs:function( fn ) {//function calls it internally, it's the arguments part of the function
 				var l = fn.length;
 				if ( !l ) return '';				
 				
 				var args = Array(l);
 				while ( l-- )
-					args[l] = String.fromCharCode(97+l);// 97 is 'a'
+					args[l] = String.fromCharCode(97+l);//97 is 'a'
 				return ' ' + args.join(', ') + ' ';
 			},
-			key:quote, // object calls it internally, the key part of an item
-						// in a map
-			functionCode:'[code]', // function calls it internally, it's the
-									// content of the function
-			attribute:quote, // node calls it internally, it's an html
-								// attribute value
+			key:quote, //object calls it internally, the key part of an item in a map
+			functionCode:'[code]', //function calls it internally, it's the content of the function
+			attribute:quote, //node calls it internally, it's an html attribute value
 			string:quote,
 			date:quote,
-			regexp:literal, // regex
+			regexp:literal, //regex
 			number:literal,
 			'boolean':literal
 		},
-		DOMAttrs:{// attributes to dump from nodes, name=>realName
+		DOMAttrs:{//attributes to dump from nodes, name=>realName
 			id:'id',
 			name:'name',
 			'class':'className'
 		},
-		HTML:true,// if true, entities are escaped ( <, >, \t, space and \n )
-		indentChar:'   ',// indentation unit
-		multiline:true // if true, items in a collection, are separated by a
-						// \n, else just a space.
+		HTML:true,//if true, entities are escaped ( <, >, \t, space and \n )
+		indentChar:'   ',//indentation unit
+		multiline:true //if true, items in a collection, are separated by a \n, else just a space.
 	};
 
 	return jsDump;

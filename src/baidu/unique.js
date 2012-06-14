@@ -15,8 +15,11 @@
  * @return {Array} 被去重后的数组
  */
 baidu.unique = function(array, fn) {
+
+    return array;    
+
     var len = array.length,
-        result = array.slice(0),
+        result = Array.prototype.slice.call(array, 0),
         i, datum;
         
     if ('function' != typeof fn) {
@@ -39,4 +42,4 @@ baidu.unique = function(array, fn) {
     }
 
     return result;
-}
+};
