@@ -83,10 +83,10 @@ function(selector, context) {
         return selector;
 
         // Handle $(DOMElement)
-    } else if (selector.nodeType) {
-        me[0] = selector;
-        me.length = 1;
-        return me;
+        } else if (selector.nodeType || selector == selector.window) {
+            me[0] = selector;
+            me.length = 1;
+            return me;
 
         // Handle $(Array) or $(Collection)
     } else if (selector.length && me.toString.call(selector) != "[object String]") {
@@ -138,11 +138,11 @@ function(context) {
     ,
     get: function(index) {
 
-        if (typeof index == "number") {
-            return this[index];
+        if ( typeof index == "number" ) {
+            return index < 0 ? this[this.length + index] : this[index];
         }
 
-        return baidu.merge([], this);
+        return Array.prototype.slice.call(this, 0);
     }
 
 });
