@@ -1,7 +1,7 @@
-/// import baidu.dom;
-/// import baidu.type;
-/// import baidu.query;
-/// import baidu.dom.each;
+///import baidu.dom;
+///import baidu.type;
+///import baidu.query;
+///import baidu.dom.each;
 
 /**
  * @fileoverview

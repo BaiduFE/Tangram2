@@ -1,9 +1,9 @@
-/// import baidu.dom;
-/// import baidu.dom.each;
-/// import baidu.query;
-/// import baidu.merge;
-/// import baidu.each;
-/// import baidu.type;
+///import baidu.dom;
+///import baidu.dom.each;
+///import baidu.query;
+///import baidu.merge;
+///import baidu.each;
+///import baidu.type;
 
 /**
  * @fileoverview
