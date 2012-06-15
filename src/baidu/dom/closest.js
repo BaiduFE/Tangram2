@@ -1,5 +1,5 @@
-/// import baidu.dom;
-/// import baidu.dom.is;
+///import baidu.dom;
+///import baidu.dom.is;
 
 /**
  * @fileoverview
