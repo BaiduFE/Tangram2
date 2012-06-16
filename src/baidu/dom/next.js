@@ -1,6 +1,6 @@
-/// import baidu.dom;
-/// import baidu.each;
-/// import baidu.dom.filter;
+///import baidu.dom;
+///import baidu.each;
+///import baidu.dom.filter;
 
 /**
  * @fileoverview

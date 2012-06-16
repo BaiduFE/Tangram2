@@ -1,7 +1,7 @@
-/// import baidu.dom;
-/// import baidu.type;
-/// import baidu.selector;
-/// import baidu.dom.each;
+///import baidu.dom;
+///import baidu.type;
+///import baidu.query;
+///import baidu.dom.each;
 
 /**
  * @fileoverview
@@ -50,7 +50,7 @@ baidu.dom.extend({
             case "string" :
                 this.each(function(){
                     div.appendChild(this.cloneNode(false));
-                    baidu.selector(selector, div).length && results.push(this);
+                    baidu.query(selector, div).length && results.push(this);
                     div.removeChild(div.firstChild);
                 });
                 div.innerHTML = "";

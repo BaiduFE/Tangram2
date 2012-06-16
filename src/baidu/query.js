@@ -4,7 +4,7 @@
 ///import baidu.unique;
 /**
  * @fileoverview
- * @name baidu.selector
+ * @name baidu.query
  * @author meizz
  * @create 2012-05-30
  * @modify 2012-06-10 将大函数分拆成 query() 和 queryCombo()；使用 querySelectAll()；
@@ -15,7 +15,7 @@
  * 在用户选择使用 Sizzle 时会被覆盖成 Sizzle 方法
  * 目前这个简版的 selector 函数支持四种选择器 * #id .class tagName
  *
- * @grammer baidu.selector(selector[, context[, results]])
+ * @grammer baidu.query(selector[, context[, results]])
  * @param   {String}    selector    CSS选择器字符串
  * @param   {Document}  context     选择的范围
  * @param   {Array}     results     返回的结果对象（数组）
@@ -23,7 +23,7 @@
  */
 (function() {
 
-    baidu.selector = baidu.selector ||
+    baidu.query = baidu.query ||
     function(selector, context, results) {
         context = context || document;
 
@@ -65,6 +65,7 @@
                 });
 
                 // # 前没有 TagName 范围限制则返回 first
+                // [TODO] 在 DocumentFragment 里按 id 取对象，目前取不到
             } else {
                 (dom = document.getElementById(id)) && array.push(dom);
             }
@@ -110,18 +111,20 @@
         var a, s, id = "__tangram__",
             array = array || [];
 
-        if (context.querySelectorAll) {
-            // 在使用 querySelectorAll 时，若 context 无id将貌似 document 而出错
-            if (context.nodeType == 1 && !context.id) {
-                context.id = id;
-                a = context.querySelectorAll("#" + id + " " + selector);
-                context.id = "";
-            } else {
-                a = context.querySelectorAll(selector);
-            }
-            // 保持统一的返回值类型(Array)
-            return baidu.merge(array, a);
-        } else {
+        // [TODO 20120614] 使用 querySelectorAll 方法时 bug 不少，以后再启用吧
+        // 用 querySelectorAll 时若取 #id 这种唯一值时会多选
+        //if (context.querySelectorAll) {
+        //    // 在使用 querySelectorAll 时，若 context 无id将貌似 document 而出错
+        //    if (context.nodeType == 1 && !context.id) {
+        //        context.id = id;
+        //        a = context.querySelectorAll("#" + id + " " + selector);
+        //        context.id = "";
+        //    } else {
+        //        a = context.querySelectorAll(selector);
+        //    }
+        //    // 保持统一的返回值类型(Array)
+        //    return baidu.merge(array, a);
+        //} else {
             if (selector.indexOf(" ") == -1) {
                 return query(selector, context);
             }
@@ -131,7 +134,7 @@
             baidu.each(query(a[0], context), function(dom) { // 递归
                 baidu.merge(array, queryCombo(s.substr(s.indexOf(" ") + 1), dom));
             });
-        }
+        //}
 
         return array;
     }
