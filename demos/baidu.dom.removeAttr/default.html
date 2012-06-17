@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.removeAttr'></script>
+<style>
+p{
+	margin:8px;
+	font-size:16px;
+}
+.selected{
+	color:blue;
+}
+.highlight{
+	background:yellow;
+}
+</style>
+</head>
+<body>
+
+<input id="input" type="text" title="hello" />
+
+<script>
+alert(document.getElementById("input").getAttribute("title"));
+alert(baidu("input").removeAttr("title"));
+alert(document.getElementById("input").getAttribute("title"));
+</script>
+
+</body>
+</html>
