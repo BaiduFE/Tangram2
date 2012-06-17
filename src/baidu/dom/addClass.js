@@ -16,26 +16,22 @@ baidu.dom.extend({
 
         switch(typeof value){
             case 'string':
-                /*
-                //对输入进行处理           
-                value = String(value)
-                            .replace(/^\s+/g,'')
-                            .replace(/\s+$/g,'')
-                            .replace(/\s+/g,' ')
-                            .replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-                */
 
+                //对输入进行处理
+                value = value.replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
+                
                 var arr = value.split(' ');
-                baidu.each(this, function(item){
+                baidu.each(this, function(item,index){
                     var str = '';
                     if(item.className){
                         str = item.className;
                     };
                     for(var i = 0; i<arr.length; i++){
                         if((' '+str+' ').indexOf(' '+arr[i]+' ') == -1){
-                            item.className += (' '+arr[i]);
+                            str += (' '+arr[i]);
                         };
                     };
+                    item.className = str ;
                 });
 
             break;

@@ -7,4 +7,4 @@
  * @meta standard
  * @returns {Boolean} 布尔值
  */
-baidu.browser.isStrict = document.compatMode == 'CSS1Compat';
+baidu.browser.isStrict = document.compatMode == "CSS1Compat";
