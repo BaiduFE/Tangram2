@@ -9,7 +9,6 @@
 
 baidu._eventBase = function(){
 
-	var fnKey = "tangram-event-id";
 	var eventsCache = {
 		/*
 			tangram-id: {
@@ -44,7 +43,7 @@ baidu._eventBase = function(){
 		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
 		var eventArray = c[name] || (c[name] = []);
 
-		eventArray.push(fn, call);
+		eventArray.push(call, fn);
 
 		return call;
 	};
@@ -55,13 +54,24 @@ baidu._eventBase = function(){
 		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
 		var eventArray = c[name] || (c[name] = []);
 
-		
+		var realf;
+		for(var i = eventArray.length - 1, f; i >= 0; i --){
+			f = eventArray[i];
+			if(f == fn){
+			    realf = eventArray[i - 1];
+			    eventArray.splice(i - 1, 2);
+			    break;
+			}
+		}
+
+		if(!realf)
+		    return;
 
 		if(window.detachEvent){
-			target.detachEvent("on" + name, fn);
+			target.detachEvent("on" + name, realf);
 		}else if(window.removeEventListener){
-			target.removeEventListener(name, fn, false);
-		}else if(target["on" + name] == fn){
+			target.removeEventListener(name, realf, false);
+		}else if(target["on" + name] == realf){
 			target["on" + name] = null;
 		}
 	};
