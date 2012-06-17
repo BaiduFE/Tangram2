@@ -10,12 +10,12 @@ baidu.dom.extend({
         switch(type){
             case 'string'://高频
                 if(value === undefined){
-                    return callback(this[0], key);
+                    return callback.call(this, this[0], key);
                 }else{
                     len = this.length;
                     for(var i = 0; i < len; i++){
-                        callback(this[i], key,
-                            baidu.type(value) === 'function' ? value.call(this[i], i, callback(this[i], key)) : value);
+                        callback.call(this, this[i], key,
+                            baidu.type(value) === 'function' ? value.call(this[i], i, callback.call(this, this[i], key)) : value);
                     }
                 }
                 break;
