@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type='text/css'>
+
+</style>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.on,baidu.dom.off,baidu.sizzle'></script>
+</head>
+<body>
+
+<h3>baidu.dom("#one-button").on(...)</h3>
+<input id="button-one" type="button" value="click me, or contextmenu on me." /> <input id="button-one-off" type="button" value="off" />
+<script type="text/javascript">
+	function buttonOneClick(event){
+	    alert(event.type);
+	}
+
+    baidu("#button-one").on("click,contextmenu", buttonOneClick);
+
+    baidu("#button-one-off").on("click", function(){
+		baidu("#button-one").off("click,contextmenu", buttonOneClick);        
+    });
+</script>
+
+
+
+</body>
+</html>
