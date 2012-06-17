@@ -5,8 +5,7 @@
 ///import baidu.dom.getDocument;
 baidu.dom.extend({
     getWindow: function(){
-        var ele = this[0],
-            doc = baidu.dom(ele).getDocument();
+        var doc = this.getDocument();
         return doc.parentWindow || doc.defaultView;
     }
 });

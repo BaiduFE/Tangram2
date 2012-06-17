@@ -42,7 +42,7 @@
         return baidu.unique(results);
     };
 
-    var rId = /^(\w*)#([\w\$]+)$/,
+    var rId = /^(\w*)#([\w\-\$]+)$/,
         rTag = /^\w+$/,
         rClass = /^(\w*)\.([\w\-\$]+)$/,
         rDivider = /\s*,\s*/;
