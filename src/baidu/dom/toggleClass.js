@@ -19,6 +19,10 @@ baidu.dom.extend({
 
         switch(typeof value){
             case 'string':
+
+                //对输入进行处理
+                value = value.replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
+
                 var arr = value.split(' ');
                 baidu.each(this, function(item){
                     var str = item.className;
@@ -26,19 +30,20 @@ baidu.dom.extend({
 
                         //有这个className
                         if(((' '+str+' ').indexOf(' '+arr[i]+' ') > -1)&&(typeof status === 'undefined')){
-                            item.className = str.replace(arr[i],'');
+                            str = str.replace(arr[i],'');
 
                         }else if(((' '+str+' ').indexOf(' '+arr[i]+' ') === -1)&&(typeof status === 'undefined')){
-                            item.className += arr[i];
+                            str += ' '+arr[i];
 
                         }else if(((' '+str+' ').indexOf(' '+arr[i]+' ') === -1)&&(status === true)){
-                            item.className += arr[i];
+                            str += ' '+arr[i];
 
                         }else if(((' '+str+' ').indexOf(' '+arr[i]+' ') > -1)&&(status === false)){
-                            item.className = str.replace(arr[i],'');
+                            str = str.replace(arr[i],'');
 
-                        }
+                        };
                     };
+                    item.className = str ;
                 });
             break;
             case 'function':
