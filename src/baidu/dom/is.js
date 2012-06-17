@@ -1,4 +1,4 @@
-/// import baidu.dom.match;
+///import baidu.dom.match;
 
 /**
  * @fileoverview

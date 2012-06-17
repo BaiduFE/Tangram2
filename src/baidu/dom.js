@@ -1,6 +1,6 @@
 ///import baidu;
 ///import baidu.merge;
-///import baidu.selector;
+///import baidu.query;
 ///import baidu.createChain;
 /**
  * @fileoverview
@@ -71,7 +71,7 @@ baidu.createChain("dom",
 
 
 function(selector, context) {
-    var e, me = new baidu.dom.$Chain(context);
+    var e, me = new baidu.$DOM(context);
 
     // Handle $(""), $(null), or $(undefined)
     if (!selector) {
@@ -98,9 +98,9 @@ function(selector, context) {
         // HTMLString
         if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 3) {
             // [TODO] 0531 HTMLString 模式暂缓
-            // baidu.selector
+            // baidu.query
         } else {
-            baidu.selector(selector, context, me);
+            baidu.query(selector, context, me);
         }
     } else if (typeof selector == "function") {
         return me.ready(selector);

@@ -7,23 +7,17 @@
 ///import baidu.each;
 
 baidu.dom.extend({
-    hasClass: function(className){
+    hasClass: function(value){
     	
         //异常处理
-        if(arguments.length <= 0 || typeof className === 'function'){
+        if(arguments.length <= 0 || typeof value === 'function'){
             return this;
         };
 
-        /*
         //对输入进行处理
-        className = String(className)
-                    .replace(/^\s+/g,'')
-                    .replace(/\s+$/g,'')
-                    .replace(/\s+/g,' ')
-                    .replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
-        */
+        value = value.replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
 
-        var arr = className.split(' ');
+        var arr = value.split(' ');
         var result;
 
         baidu.each(this, function(item){

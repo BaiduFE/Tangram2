@@ -2,10 +2,10 @@
  * @author linlingyu
  */
 ///import baidu.dom;
+///import baidu.dom.getDocument;
 baidu.dom.extend({
     getWindow: function(){
-        var ele = this[0],
-            doc = ele.nodeType == 9 ? ele : ele.ownerDocument || ele.document;
-        return baidu.dom(doc.parentWindow || doc.defaultView);
+        var doc = this.getDocument();
+        return doc.parentWindow || doc.defaultView;
     }
 });

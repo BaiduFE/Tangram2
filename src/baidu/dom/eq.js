@@ -1,4 +1,4 @@
-/// import baidu.dom;
+///import baidu.dom;
 
 /**
  * @fileoverview
