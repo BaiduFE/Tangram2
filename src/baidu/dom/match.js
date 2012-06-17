@@ -1,7 +1,7 @@
-/// import baidu.dom;
-/// import baidu.type;
-/// import baidu.selector;
-/// import baidu.dom.each;
+///import baidu.dom;
+///import baidu.type;
+///import baidu.query;
+///import baidu.dom.each;
 
 /**
  * @fileoverview
@@ -20,7 +20,7 @@
  * @param   {String}        selector    CSS选择器
  * @return  {Array}         Array
  */
-(function(div){
+;(function(div){
 baidu.dom.extend({
     match : function (selector) {
         var results = []
@@ -50,8 +50,9 @@ baidu.dom.extend({
             case "string" :
                 this.each(function(){
                     div.appendChild(this.cloneNode(false));
+                    baidu.query(selector, div).length && results.push(this);
+                    div.removeChild(div.firstChild);
                 });
-                results = baidu.selector(selector, div);
                 div.innerHTML = "";
                 break;
             

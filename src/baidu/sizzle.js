@@ -19,15 +19,15 @@
 
 /**
  * 通过指定的CSS选择器取指定的DOM元素
- * 在用户选择使用 Sizzle 时会被覆盖原有简化版本的baidu.selector方法
+ * 在用户选择使用 Sizzle 时会被覆盖原有简化版本的baidu.query方法
  *
- * @grammer baidu.selector(selector[, context[, results]])
+ * @grammer baidu.query(selector[, context[, results]])
  * @param   {String}    selector    CSS选择器字符串
  * @param   {Document}  context     选择的范围
  * @param   {Array}     results     返回的结果对象（数组）
  * @return  {Array}                 筛选后的对象组
  */
-    baidu.selector = function(selector, context, results) {
+    baidu.query = function(selector, context, results) {
         return baidu.merge(results || [], baidu.sizzle(selector, context));
     };
 

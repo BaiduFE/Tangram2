@@ -20,7 +20,7 @@
  */
 baidu.createChain = function(chainName, fn, constructor) {
     // 创建一个内部类名
-    var className = "$Chain";
+    var className = chainName=="dom"?"$DOM":"$"+chainName.charAt(0).toUpperCase()+chainName.substr(1);
     var slice = Array.prototype.slice;
 
     // 构建链头执行方法
@@ -43,10 +43,10 @@ baidu.createChain = function(chainName, fn, constructor) {
     };
 
     // 创建 链头对象 构造器
-    chain[className] = chain[className] || constructor || function() {};
+    baidu[className] = baidu[className] || constructor || function() {};
 
     // 给 链头对象 原型链做一个短名映射
-    chain.fn = chain[className].prototype;
+    chain.fn = baidu[className].prototype;
 
     return chain;
 };

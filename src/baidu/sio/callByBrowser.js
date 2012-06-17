@@ -1,8 +1,3 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- */
-
 ///import baidu.sio;
 ///import baidu.sio._createScriptTag;
 ///import baidu.sio._removeScriptTag;
@@ -24,6 +19,7 @@
  * @meta standard
  * @see baidu.sio.callByServer
  */
+ 
 baidu.sio.callByBrowser = function (url, opt_callback, opt_options) {
     var scr = document.createElement("SCRIPT"),
         scriptLoaded = 0,

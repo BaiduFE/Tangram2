@@ -1,4 +1,4 @@
-/// include baidu.array;
+///import baidu.array;
 
 
 baidu.array.extend({
