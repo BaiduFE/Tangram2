@@ -1,7 +1,6 @@
 /**
  * @author linlingyu
  */
-
 ///import baidu.dom._smartScroll;
 
 baidu.dom.extend({
