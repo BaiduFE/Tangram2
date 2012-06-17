@@ -47,7 +47,7 @@ function(event){
 
     if (typeof event == "object") {
         this.origin = event;
-        baidu.each(this, event);
+        baidu.extend(this, event);
     }
 
     // event.type

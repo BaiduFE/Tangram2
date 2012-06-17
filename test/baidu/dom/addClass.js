@@ -9,7 +9,7 @@ var formatHTML = function(html){
 	return html;
 };
 
-waiting(function(){ return baidu.selector; }, function(){
+waiting(function(){ return baidu.query; }, function(){
 
 //新接口测试
 	test("给没有className的元素添加", function(){
