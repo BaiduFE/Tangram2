@@ -22,7 +22,6 @@
  * @return  {Array}                 筛选后的对象组
  */
 baidu.query = baidu.query || (function(){
-
     var rId = /^(\w*)#([\w\-\$]+)$/,
         rTag = /^\w+$/,
         rClass = /^(\w*)\.([\w\-\$]+)$/,

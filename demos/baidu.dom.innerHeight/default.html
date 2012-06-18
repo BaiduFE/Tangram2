@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type='text/css'>
+.div-css {
+    border: pink solid 1px;
+    padding: 10px;
+    width: 200px;
+}
+
+.div-border-blue {
+    border: blue solid 2px;
+}
+</style>
+
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.innerHeight'></script>
+<script type='text/javascript' src='../../../jquery/jquery-1.7.2.js'></script>
+
+
+</head>
+<body>
+    <div id='divId-one' class='div-css'>&nbsp;</div>
+    <input type='button' value='tangram' onclick='main();'/>
+</body>
+<script type='text/javascript'>
+function main(){
+    var jq = baidu('#divId-one').innerHeight();
+    alert(jq);
+}
+
+debugger;
+var jq = $(window).outerWidth(200);
+alert(jq);
+
+
+</script>
+</html>

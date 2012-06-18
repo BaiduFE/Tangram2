@@ -16,27 +16,35 @@
  * @param   {Object}        context     context.fn()
  * @param   {Object}        object
  */
-baidu.each = function( object, fn, context ) {
-    if (typeof fn != "function") {return object;}
+baidu.each = function(object, fn, context) {
+    if (typeof fn != "function" || !object) {
+        return object;
+    }
 
     var i, n, result;
 
     // Array or ArrayLike
     if (typeof object.length == "number") {
 
-        for (i=0, n=object.length; i<n; i++) { /* array*/
-            //被循环执行的函数，默认会传入三个参数(array[i], i, array)
+        for (i = 0, n = object.length; i < n; i++) { /* array */
+            // 被循环执行的函数，默认会传入三个参数(array[i], i, array)
             result = fn.call(context || null, object[i], i, object);
 
-            //被循环执行的函数的返回值若为"continue"和"break"时可以影响each方法的流程
-            if (result === false || result == "break") {return object;}
+            // 被循环执行的函数的返回值若为 "continue" 和 "break" 时可以影响 each 方法的流程
+            if (result === false || result == "break") {
+                return object;
+            }
         }
-    
+
     // JSON
     } else {
         for (i in object) {
-            result = fn.call(context||null, object[i], i, object);
-            if (result === false || result == "break") {return object;}
+            if(!object.hasOwnProperty(i))
+                continue;
+            result = fn.call(context || null, object[i], i, object);
+            if (result === false || result == "break") {
+                return object;
+            }
         }
     }
     return object;

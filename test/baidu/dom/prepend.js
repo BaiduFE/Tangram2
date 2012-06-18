@@ -3,7 +3,7 @@ stop();
 
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };
 
-waiting(function(){ return baidu.selector; }, function(){
+waiting(function(){ return baidu.query; }, function(){
 
 	var div = document.createElement("div");
 		div.style.position = "absolute";
