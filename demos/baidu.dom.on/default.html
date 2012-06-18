@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type='text/css'>
-
+	li{ cursor: default; }
 </style>
-<script type='text/javascript' src='../../src/import.php?f=baidu.dom.on,baidu.dom.off,baidu.sizzle'></script>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.on,baidu.dom.off,baidu.dom.one,baidu.dom.trigger,baidu.sizzle'></script>
 </head>
 <body>
 
-<h3>baidu.dom("#one-button").on(...)</h3>
+<h3>baidu(selector).on(event, fn)</h3>
 <input id="button-one" type="button" value="click me, or contextmenu on me." /> <input id="button-one-off" type="button" value="off" />
 <script type="text/javascript">
 	function buttonOneClick(event){
@@ -24,7 +24,53 @@
     });
 </script>
 
+<h3>baidu(selector).on(event, selector, fn)</h3>
+<ul id="ul-one">
+	<li class="a">click me</li>
+	<li class="b">click me (invalid)</li>
+</ul>
+<script type="text/javascript">
+	baidu("#ul-one").on("click", ".a", function(event){
+	    alert(event.target.className);
+	});
+</script>
 
+<h3>baidu(selector).on(event, data, fn)</h3>
+<input id="button-two" type="button" value="event with data" />
+<script type="text/javascript">
+	baidu("#button-two").on("click", { foo: "bar" }, function(event){
+	    alert(event.data.foo);
+	})
+</script>
+
+<h3>baidu(selector).on(event-map, ...)</h3>
+<ul id="ul-two">
+	<li class="a">click me</li>
+	<li class="b">click me (invalid)</li>
+</ul>
+<script type="text/javascript">
+	baidu("#ul-two").on({
+		click: function(event){
+		    alert(event.target.className);
+		}
+	}, ".a");
+</script>
+
+<h3>baidu(selector).one(event, data, fn)</h3>
+<input id="button-three" type="button" value="click me, and then click me once." />
+<script type="text/javascript">
+	baidu("#button-three").one("click", { foo: "bar" }, function(event){
+	    alert(event.data.foo);
+	})
+</script>
+
+<h3>baidu(selector).trigger(type, data)</h3>
+<input id="button-four" type="button" value="trigger #button-two click event" />
+<script type="text/javascript">
+	baidu("#button-four").one("click", function(event){
+	    baidu("#button-two").trigger("click", { foo: "trigger with data" });
+	})
+</script>
 
 </body>
 </html>
