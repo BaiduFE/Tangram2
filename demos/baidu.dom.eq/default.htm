@@ -4,20 +4,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript">
         var config = {
-            namespace : "baidu.dom.closest"
+            namespace : "baidu.dom.eq"
            ,programer : [
-                "baidu.dom('#li_2').closest()"
-               ,"baidu.dom('#li_2').closest('#li_2')"
-               ,"baidu.dom('#li_2').closest('#first')"
-               ,"baidu.dom('#li_2').closest(baidu.dom('#div'))"
-               ,"baidu.dom('#li_2').closest(document.getElementById('first'))"
+                "baidu.dom('li').eq(0)"
+               ,"baidu.dom('li').eq(1)"
+               ,"baidu.dom('li').eq(-1)"
+               ,"baidu.dom('li').eq(-2)"
             ]
 
             // 性能测试
            ,performanceTest : {
                  times : 10000          // 循环次数
-                ,testA : function(){var mm = baidu("#li_2"); for (var i=config.performanceTest.times; i>-1; i--) mm.closest('#div')}
-                ,testB : function(){var mm = $("#li_2");     for (var i=config.performanceTest.times; i>-1; i--) mm.closest('#div')}
+                ,testA : function(){var mm = baidu("li"); for (var i=config.performanceTest.times; i>-1; i--) mm.eq(1)}
+                ,testB : function(){var mm = $("li");     for (var i=config.performanceTest.times; i>-1; i--) mm.eq(1)}
            }
            // 将表达式的运算结果指定输出
            ,showResult: function(result){
@@ -30,7 +29,7 @@
                 return str;
             }
         }
-    /* for ie 本地测试 meizz //*/ if (/^file:\/\//i.test(location.href)) document.write("<base href='http://localhost/svn/github/Tangram2/demos/baidu.dom/'/>");
+    //* for ie 本地测试 meizz //*/ if (/^file:\/\//i.test(location.href)) document.write("<base href='http://localhost/svn/github/Tangram2/demos/baidu.dom/'/>");
     </script>
     <script type="text/javascript" src="../../src/import.js"></script>
     <script type="text/javascript" src="../common/jquery-1.7.2.js"></script>

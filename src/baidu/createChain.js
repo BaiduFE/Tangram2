@@ -35,8 +35,16 @@ baidu.createChain = function(chainName, fn, constructor) {
         // 直接构建静态接口方法，如 baidu.array.each() 指向到 baidu.array().each()
         for (method in extended) {
             chain[method] = function() {
-                var object = chain(arguments[0]);
-                return object[method].apply(object, slice.call(arguments, 1));
+                var id = arguments[0];
+
+                // 在新版接口中，ID选择器必须用 # 开头
+                chainName=="dom" && baidu.type(id)=="string" && (id = "#"+ id);
+
+                var object = chain(id);
+                var result = object[method].apply(object, slice.call(arguments, 1));
+
+                // 老版接口返回实体对象 getFirst
+                return baidu.type(result) == "$DOM" ? result.get(0) : result;
             }
         }
         return baidu.extend(baidu[chainName].fn, extended);
