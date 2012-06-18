@@ -21,7 +21,7 @@ baidu.dom.extend({
 
         baidu.each(this, function(dom){
             while((dom = dom.nextSibling) && dom && dom.nodeType != 1);
-            td[td.length ++] = dom
+            dom && (td[td.length ++] = dom);
         });
 
         return selector ? td.filter(selector) : td;

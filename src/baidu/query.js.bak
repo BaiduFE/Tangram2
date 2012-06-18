@@ -22,6 +22,29 @@
  * @return  {Array}                 筛选后的对象组
  */
 baidu.query = baidu.query || (function(){
+
+<<<<<<< HEAD
+=======
+    baidu.query = baidu.query ||
+    function(selector, context, results) {
+        context = context || document;
+
+        if (!selector || typeof selector != "string") {
+            return results || [];
+        }
+
+        var arr = [];
+        baidu.each(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(item) {
+            arr = arr.concat(queryCombo(item, context));
+        });
+
+        // results 可能是传入的 ArrayLike ，所以只能使用 merge()
+        results ? baidu.merge(results, arr) : results = arr;
+        // 去重
+        return baidu.unique(results);
+    };
+
+>>>>>>> 7798dd55afc9e47c369f7a487383c0bd80de939c
     var rId = /^(\w*)#([\w\-\$]+)$/,
         rTag = /^\w+$/,
         rClass = /^(\w*)\.([\w\-\$]+)$/,
