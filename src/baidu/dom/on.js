@@ -10,26 +10,29 @@
 
 baidu.dom.extend({
 	on: function(){
-		var eb = baidu._eventBase;
+		var eb = baidu.dom._eventBase;
 	    return function(events, selector, data, fn){
 
 			if(typeof events == "string"){
 
 			    if(typeof selector == "function"){
 			        fn = selector;
+			        selector = null;
 			    }else if(typeof data == "function"){
 			    	fn = data;
+			    	data = null;
 			    }
 
 			    if(typeof selector == "object"){
 			        data = selector;
+			        selector = null;
 			    }
 
 			    events = events.split(/[ ,]/);
 
 			    baidu.each(this, function(item){
 			        baidu.each(events, function(event){
-			            eb.add(item, event, fn);
+			            eb.add(item, event, fn, selector, data);
 			        });
 			    });
 			}else if(typeof events == "object"){
@@ -42,3 +45,5 @@ baidu.dom.extend({
 		}
 	}()
 });
+
+baidu.dom.fn.bind = baidu.dom.fn.on;
