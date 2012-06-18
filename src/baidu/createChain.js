@@ -1,4 +1,5 @@
 ///import baidu;
+///import baidu.type;
 ///import baidu.extend;
 /**
  * @fileoverview
