@@ -5,7 +5,7 @@
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.event;
-///import baidu.each;
+///import baidu.dom.each;
 ///import baidu.dom._eventBase;
 
 baidu.dom.extend({
@@ -30,20 +30,24 @@ baidu.dom.extend({
 
 			    events = events.split(/[ ,]/);
 
-			    baidu.each(this, function(item){
+			    this.each(function(){
+			    	var me = this;
 			        baidu.each(events, function(event){
-			            eb.add(item, event, fn, selector, data);
+			            eb.add(me, event, fn, selector, data);
 			        });
 			    });
+
 			}else if(typeof events == "object"){
+
 				var me = this;
 				
 				baidu.each(events, function(fn, events){
 				    me.on(events, selector, data, fn);
 				});
+
 			}
+
+			return this;
 		}
 	}()
 });
-
-baidu.dom.fn.bind = baidu.dom.fn.on;

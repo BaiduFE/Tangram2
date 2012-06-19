@@ -7,9 +7,9 @@
 ///import baidu.id;
 ///import baidu.event;
 ///import baidu.dom.is;
+///import baidu.extend;
 
 baidu.dom._eventBase = function(){
-
 	var eventsCache = {
 		/*
 			tangram-id: {
@@ -30,13 +30,19 @@ baidu.dom._eventBase = function(){
 	    var call = function(e){
 	    	var args = [].slice.call(arguments, 1);
 	    	args.unshift(e = baidu.event(e));
+
 	    	if(data && !e.data)
 	    	    e.data = data;
+
+	    	if(e.triggerData)
+	    		args.push.apply(args, e.triggerData);
+
 	    	if( !selector )
 	    	    return fn.apply(target, args);
 	    	if( baidu(e.target).is(selector) )
 				return fn.apply(target, args);
 		};
+
 		if(window.attachEvent)
 			target.attachEvent("on" + name, call);
 		else if(window.addEventListener)
@@ -78,29 +84,63 @@ baidu.dom._eventBase = function(){
 			target["on" + name] = null;
 	};
 
-	var fire = function(target, name, data){
+	var fireHandler = function(target, name, triggerData){
 		var tangId = baidu.id(target);
 		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
 		var eventArray = c[name] || (c[name] = []);
-
 		var event = baidu.event({ type: name });
-		if(data)
-		    event.data = data;
+
+		var args = [event];
+
+		if(triggerData){
+			event.triggerData = triggerData;
+			args.push.apply(args, triggerData);
+		};
+
 		for(var i = 0, l = eventArray.length; i < l; i += 2)
-			eventArray[i](event);
+			eventArray[i].apply(this, args);
 	};
 
     return {
     	add: function(dom, event, fn, selector, data){
-    		addEvent(dom, event, fn, selector, data);
+    		return addEvent(dom, event, fn, selector, data);
     	},
 
     	remove: function(dom, event, fn, selector){
-    	    removeEvent(dom, event, fn, selector);
+    	    return removeEvent(dom, event, fn, selector);
     	},
 
-    	fire: function(dom, event, data){
-    	    fire(dom, event, data);
+    	fireHandler: function(dom, event, triggerData){
+    	    return fireHandler(dom, event, triggerData);
+    	},
+
+    	method: function(name){
+    	    if(arguments.length > 1){
+    	        for(var i = 0, l = arguments.length; i < l; i ++)
+    	        	this.method(arguments[i]);
+    	        return this;
+    	    }
+
+    	    var object = {};
+    	    object[name] = function(data, fn){
+    	    	if(arguments.length == 0){
+    	    	    return this.trigger(name);
+    	    	}else{
+    	    	    if(typeof data == "function"){
+    	    	        fn = data;
+    	    	        data = null;
+    	    	    }
+    	    	    return this.on(name, data, fn);
+    	    	}
+    	    };
+    	    baidu.dom.extend(object);
     	}
     }
 }();
+
+baidu.dom._eventBase.method(
+	"blur", "change", "click", "dblclick", "error",
+	"focus", "focusin", "focusout",
+	"keydown", "keypress", "keyup",
+	"mousedown", "mouseenter", "mouseleave", "mousemove", "mouseout", "mouseover", "mouseup",
+	"resize", "scroll", "select", "submit", "unload");
