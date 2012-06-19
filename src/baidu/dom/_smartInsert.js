@@ -60,9 +60,9 @@ baidu.dom._smartInsert = baidu.dom._smartInsert || function(){
     return function(tang, args, callback){
         if(args.length <= 0){return;}
         if(baidu.type(args[0]) === 'function'){
-            return baidu.each(this, function(item, index){
+            return baidu.each(tang, function(item, index){
                 args[0] = args[0].call(this, index, item.innerHTML);
-                baidu.dom._smartInsert(baidu.dom(this), args, callback);
+                baidu.dom._smartInsert(baidu.dom(item), args, callback);
             });
         }
         var doc = tang.getDocument() || document,
