@@ -6,70 +6,118 @@
 <style type='text/css'>
 	li{ cursor: default; }
 </style>
-<script type='text/javascript' src='../../src/import.php?f=baidu.dom.on,baidu.dom.off,baidu.dom.one,baidu.dom.trigger,baidu.sizzle'></script>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.on,baidu.dom.off,baidu.dom.one,baidu.dom.trigger,baidu.dom.triggerHandler,baidu.dom.delegate'></script>
 </head>
 <body>
 
 <h3>baidu(selector).on(event, fn)</h3>
-<input id="button-one" type="button" value="click me, or contextmenu on me." /> <input id="button-one-off" type="button" value="off" />
+<input id="button-one" type="button" value="click me, or contextmenu on me. (show event type)" /> <input id="button-one-off" type="button" value="off" />
 <script type="text/javascript">
 	function buttonOneClick(event){
-	    alert(event.type);
+	    alert("event.type = " + event.type);
 	}
 
     baidu("#button-one").on("click,contextmenu", buttonOneClick);
 
     baidu("#button-one-off").on("click", function(){
-		baidu("#button-one").off("click,contextmenu", buttonOneClick);        
+		baidu("#button-one").off("click,contextmenu", buttonOneClick);
     });
 </script>
 
 <h3>baidu(selector).on(event, selector, fn)</h3>
 <ul id="ul-one">
-	<li class="a">click me</li>
-	<li class="b">click me (invalid)</li>
+	<li class="a">click me. (show event.target.className)</li>
+	<li class="b">click me. (invalid)</li>
 </ul>
 <script type="text/javascript">
 	baidu("#ul-one").on("click", ".a", function(event){
-	    alert(event.target.className);
+	    alert("event.target.className = " + event.target.className);
 	});
 </script>
 
 <h3>baidu(selector).on(event, data, fn)</h3>
-<input id="button-two" type="button" value="event with data" />
+<input id="button-two" type="button" value="click me. (show event.data.foo)" />
 <script type="text/javascript">
-	baidu("#button-two").on("click", { foo: "bar" }, function(event){
-	    alert(event.data.foo);
-	})
+	baidu("#button-two").on("click", { foo: "bar" }, function(event, a, b){
+	    if(event.data){
+	        alert("event.data.foo = " + event.data.foo);
+	    }
+	    if(a){ // see the method 'trigger' or 'triggerHandler' at last.
+	        alert("a = " + a + ", b = " + b);
+	    }
+	});
 </script>
 
 <h3>baidu(selector).on(event-map, ...)</h3>
 <ul id="ul-two">
-	<li class="a">click me</li>
+	<li class="a">click me (show event.target.className)</li>
 	<li class="b">click me (invalid)</li>
 </ul>
 <script type="text/javascript">
 	baidu("#ul-two").on({
 		click: function(event){
-		    alert(event.target.className);
+		    alert("event.target.className = " + event.target.className);
 		}
 	}, ".a");
 </script>
 
 <h3>baidu(selector).one(event, data, fn)</h3>
-<input id="button-three" type="button" value="click me, and then click me once." />
+<input id="button-three" type="button" value="click me, and then click me once. (first, event.data.foo, then invalid)" />
 <script type="text/javascript">
 	baidu("#button-three").one("click", { foo: "bar" }, function(event){
-	    alert(event.data.foo);
-	})
+	    alert("event.data.foo = " + event.data.foo);
+	});
+</script>
+
+<h3>baidu(selector).triggerHandler(type, data)</h3>
+<input id="button-four" type="button" value="click me. (triggerHandler #button-two click event)" />
+<script type="text/javascript">
+	baidu("#button-four").on("click", function(event){
+	    baidu("#button-two").triggerHandler("click", [1, 2]);
+	});
 </script>
 
 <h3>baidu(selector).trigger(type, data)</h3>
-<input id="button-four" type="button" value="trigger #button-two click event" />
+<input id="button-five" type="button" value="click me. (trigger #button-two click event)" />
 <script type="text/javascript">
-	baidu("#button-four").one("click", function(event){
-	    baidu("#button-two").trigger("click", { foo: "trigger with data" });
-	})
+	baidu("#button-five").on("click", function(event){
+	    baidu("#button-two").trigger("click", [1, 2]);
+	});
+</script>
+
+<h3>baidu(selector).delegate(selector, type, data, fn)</h3>
+<ul id="ul-three">
+	<li>click me. (show event.target.tagName)</li>
+	<li>click me. (show event.target.tagName)</li>
+</ul>
+<script type="text/javascript">
+	baidu("#ul-three").delegate("li", "click", { foo: "bar" }, function(event){
+	    alert("event.target.tagName = " + event.target.tagName);
+	});
+</script>
+
+<h3>baidu(selector).click(fn)</h3>
+<input id="button-six" type="button" value="click me" />
+<script type="text/javascript">
+	baidu("#button-six").click(function(){
+	    alert(".click fn is called");
+	});
+</script>
+
+<h3>baidu(selector).click(data, fn)</h3>
+<input id="button-seven" type="button" value="click me. (show event.data.foo)" />
+<script type="text/javascript">
+	baidu("#button-seven").click({ foo: "bar" }, function(event){
+	    alert(event.data.foo);
+	});
+</script>
+
+<h3>baidu(selector).click()</h3>
+<input id="button-eight" type="button" value="click me. (to trigger #button-seven click event)" />
+<script type="text/javascript">
+	baidu("#button-eight").click(function(){
+	    baidu("#button-seven").click();
+	});
 </script>
 
 </body>

@@ -12,6 +12,6 @@ baidu.dom.extend({
 		    return fn.apply(me, arguments);
 		};
 
-		this.on(type, data, newfn);
+		return this.on(type, data, newfn);
 	}
 });
