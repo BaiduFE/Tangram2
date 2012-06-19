@@ -21,35 +21,13 @@
  * @param   {Array}     results     返回的结果对象（数组）
  * @return  {Array}                 筛选后的对象组
  */
-(function() {
-
-    baidu.query = baidu.query ||
-    function(selector, context, results) {
-        context = context || document;
-
-        if (!selector || typeof selector != "string") {
-            return results || [];
-        }
-
-        var arr = [];
-        baidu.each(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(item) {
-            arr = arr.concat(queryCombo(item, context));
-        });
-
-        // results 可能是传入的 ArrayLike ，所以只能使用 merge()
-        results ? baidu.merge(results, arr) : results = arr;
-        // 去重
-        return baidu.unique(results);
-    };
-
+baidu.query = baidu.query || (function(){
     var rId = /^(\w*)#([\w\-\$]+)$/,
         rTag = /^\w+$/,
         rClass = /^(\w*)\.([\w\-\$]+)$/,
         rDivider = /\s*,\s*/;
 
     // selector: #id, .className, tagName, *
-
-
     function query(selector, context) {
         var id, dom, tagName, className, arr, array = [];
 
@@ -105,8 +83,6 @@
     }
 
     // selector 还可以是上述四种情况的组合，以空格分隔
-
-
     function queryCombo(selector, context, array) {
         var a, s, id = "__tangram__",
             array = array || [];
@@ -138,4 +114,22 @@
 
         return array;
     }
+
+    return function(selector, context, results) {
+        context = context || document;
+
+        if (!selector || typeof selector != "string") {
+            return results || [];
+        }
+
+        var arr = [];
+        baidu.each(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(item) {
+            arr = arr.concat(queryCombo(item, context));
+        });
+
+        // results 可能是传入的 ArrayLike ，所以只能使用 merge()
+        results ? baidu.merge(results, arr) : results = arr;
+        // 去重
+        return baidu.unique(results);
+    };
 })();

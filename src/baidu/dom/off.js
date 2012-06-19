@@ -10,20 +10,21 @@
 
 baidu.dom.extend({
 	off: function(){
-		var eb = baidu._eventBase;
+		var eb = baidu.dom._eventBase;
 	    return function(events, selector, fn){
 
 			if(typeof events == "string"){
 
 			    if(typeof selector == "function"){
 			        fn = selector;
+			        selector = null;
 			    }
 
 			    events = events.split(/[ ,]/);
 
 			    baidu.each(this, function(item){
 			        baidu.each(events, function(event){
-			            eb.remove(item, event, fn);
+			            eb.remove(item, event, fn, selector);
 			        });
 			    });
 			}else if(typeof events == "object"){
@@ -33,6 +34,8 @@ baidu.dom.extend({
 				    me.off(events, selector);
 				});
 			}
+
+			return this;
 		}
 	}()
 });

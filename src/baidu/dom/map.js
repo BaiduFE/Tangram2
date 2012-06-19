@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.dom.each;
+///import baidu.each;
 
 /**
  * @fileoverview
@@ -16,11 +16,13 @@
  */
 baidu.dom.extend({
     map : function (fn) {
-        var me = this;
+        var me = this,
+            td = baidu.dom();
 
-        this.each(function(index){
-            me[index] = fn.call(this);
+        baidu.each(this, function(dom){
+            td[td.length ++] = fn.call(dom);
         });
-        return me;
+
+        return td;
     }
 });
