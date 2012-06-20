@@ -8,6 +8,12 @@
 
 baidu.dom.extend({
     val: function(value){
+    	var html = function (ele){
+            return ele.nodeType === 1 ? ele.innerHTML.toLowerCase() : null;
+        };
+        var hooks, ret,
+			elem = this[0];
+			
         var valHooks = {
             option: {
                 get: function( elem ) {
@@ -37,11 +43,12 @@ baidu.dom.extend({
                         option = options[ i ];
 
                         // Don't return options that are disabled or in a disabled optgroup
-                        if ( option.selected && (!opt.disabled ? !option.disabled : option.getAttribute("disabled") === null) &&
-                                (!option.parentNode.disabled || !jQuery.nodeName( option.parentNode, "optgroup" )) ) {
+                        if ( option.selected && (!option.disabled ? !option.disabled : option.getAttribute("disabled") === null) &&
+                                (!option.parentNode.disabled || 
+                                	option.parentNode.nodeName && !(option.parentNode.nodeName.toUpperCase() === 'optgroup'.toUpperCase())) ) {
 
                             // Get the specific value for the option
-                            value = jQuery( option ).val();
+                            value = baidu.dom( option ).val();
 
                             // We don't need an array for one selects
                             if ( one ) {
@@ -53,7 +60,6 @@ baidu.dom.extend({
                         }
                     }
 
-                    // Fixes Bug #2551 -- select.val() broken in IE after form.reset()
                     if ( one && !values.length && options.length ) {
                         return jQuery( options[ index ] ).val();
                     }
@@ -62,15 +68,27 @@ baidu.dom.extend({
                 }
             }
         };
+     
+        if ( !arguments.length ) {
+        	if ( elem ) {
+        		hooks = valHooks[ elem.type ] || valHooks[ elem.nodeName.toLowerCase() ];
+
+				if ( hooks && "get" in hooks && (ret = hooks.get( elem, "value" )) !== undefined ) {
+					return ret;
+				}
+
+				ret = elem.value;
+
+				return typeof ret === "string" ?
+					// handle most common string cases
+					ret.replace(/\r\n/g, "") :
+					// handle cases where value is null/undef or number
+					ret == null ? "" : ret;
+        	}
+        	return;
+        }
         
         switch(typeof value){
-            case 'undefined':
-            break;
-
-            case 'string':
-
-            break;
-
             case 'function':
                 baidu.each(this, function(item,index){
                     baidu.dom(item).html(value.call(item, index, html(item)));
@@ -78,6 +96,10 @@ baidu.dom.extend({
             break;
 
             default:
+            	hooks = valHooks[ elem.type ] || valHooks[ elem.nodeName.toLowerCase() ];
+				if ( !hooks || !("set" in hooks) || hooks.set( elem, val, "value" ) === undefined ) {
+					elem.value = value;
+				}
             break;
         };
 
