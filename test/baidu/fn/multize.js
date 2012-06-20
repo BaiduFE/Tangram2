@@ -7,6 +7,54 @@
  */
 module('baidu.fn.multize');
 
+//新接口
+
+test('base', function() {
+	var fn = baidu.fn(function(a) {
+		if (a instanceof Array)
+			return a[0] + 1;
+		return a + 1;
+	}).multize();
+	var ret = fn( [ 1, 2 ]);
+	equals(ret.length, 2, 'length of return');
+	equals(ret[0], 2, 'first return');
+	equals(ret[1], 3, 'second return');
+	var ret = fn( [ 1, [ 1 ] ]);
+	equals(ret.length, 2, 'length of return');
+	equals(ret[0], 2, 'first return');
+	equals(ret[1], 2, 'second return');
+});
+
+test('recursive', function() {
+	var fn = baidu.fn(function(a) {
+		return a + 1;
+	}).multize( true);
+	var ret = fn( [ 1, 2, [ 3, 4 ] ]);
+	equals(ret.length, 3, 'length of return');
+	equals(ret[0], 2, '1');
+	equals(ret[1], 3, '2');
+	equals(ret[2][0], 4, '3-1');
+	equals(ret[2][1], 5, '3-2');
+
+	ret = fn( [ [ 1, 2 ] ]);
+	equals(ret.length, 1, 'length of return');
+	equals(ret[0][0], 2, '1-1');
+	equals(ret[0][1], 3, '1-2');
+});
+
+test('multi params', function() {
+	var fn = baidu.fn(function(a, b) {
+		return a + b;
+	}).multize();
+	var ret = fn( [ 1, 2 ], 3);
+	equals(ret.length, 2, 'length of return');
+	equals(ret[0], 4);
+	equals(ret[1], 5);
+});
+
+
+
+//老接口
 test('base', function() {
 	var fn = baidu.fn.multize(function(a) {
 		if (a instanceof Array)

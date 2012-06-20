@@ -17,6 +17,15 @@
  * @version 1.3.5
  * @return {function} 包装后的函数
  */
+
+
+baidu.fn.extend({
+    wrapReturnValue : function (wrapper, mode) {
+        var fn = this.fn ;
+        return baidu.fn.wrapReturnValue(fn, wrapper, mode);
+    }
+});
+
 baidu.fn.wrapReturnValue = function (func, wrapper, mode) {
     mode = mode | 0;
     return function(){

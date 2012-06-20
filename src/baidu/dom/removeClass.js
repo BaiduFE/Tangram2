@@ -1,5 +1,6 @@
 /**
  * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu;
@@ -44,3 +45,6 @@ baidu.dom.extend({
         return this;
     }
 });
+
+//兼容以前的快捷方式
+baidu.removeClass = baidu.dom.removeClass ;
