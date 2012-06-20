@@ -1,3 +1,8 @@
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
+ */
+
 ///import baidu.sio;
 ///import baidu.sio._createScriptTag;
 ///import baidu.sio._removeScriptTag;
@@ -20,45 +25,48 @@
  * @see baidu.sio.callByServer
  */
  
-baidu.sio.callByBrowser = function (url, opt_callback, opt_options) {
-    var scr = document.createElement("SCRIPT"),
-        scriptLoaded = 0,
-        options = opt_options || {},
-        charset = options['charset'],
-        callback = opt_callback || function(){},
-        timeOut = options['timeOut'] || 0,
-        timer;
-    
-    // IE和opera支持onreadystatechange
-    // safari、chrome、opera支持onload
-    scr.onload = scr.onreadystatechange = function () {
-        // 避免opera下的多次调用
-        if (scriptLoaded) {
-            return;
-        }
+baidu.sio.extend({
+    callByBrowser : function (opt_callback, opt_options) {
+        var url = this.url ;
+        var scr = document.createElement("SCRIPT"),
+            scriptLoaded = 0,
+            options = opt_options || {},
+            charset = options['charset'],
+            callback = opt_callback || function(){},
+            timeOut = options['timeOut'] || 0,
+            timer;
         
-        var readyState = scr.readyState;
-        if ('undefined' == typeof readyState
-            || readyState == "loaded"
-            || readyState == "complete") {
-            scriptLoaded = 1;
-            try {
-                callback();
-                clearTimeout(timer);
-            } finally {
+        // IE和opera支持onreadystatechange
+        // safari、chrome、opera支持onload
+        scr.onload = scr.onreadystatechange = function () {
+            // 避免opera下的多次调用
+            if (scriptLoaded) {
+                return;
+            };
+            
+            var readyState = scr.readyState;
+            if ('undefined' == typeof readyState
+                || readyState == "loaded"
+                || readyState == "complete") {
+                scriptLoaded = 1;
+                try {
+                    callback();
+                    clearTimeout(timer);
+                } finally {
+                    scr.onload = scr.onreadystatechange = null;
+                    baidu.sio._removeScriptTag(scr);
+                }
+            }
+        };
+
+        if( timeOut ){
+            timer = setTimeout(function(){
                 scr.onload = scr.onreadystatechange = null;
                 baidu.sio._removeScriptTag(scr);
-            }
-        }
-    };
+                options.onfailure && options.onfailure();
+            }, timeOut);
+        };
+        baidu.sio._createScriptTag(scr, url, charset);
+    } 
+});
 
-    if( timeOut ){
-        timer = setTimeout(function(){
-            scr.onload = scr.onreadystatechange = null;
-            baidu.sio._removeScriptTag(scr);
-            options.onfailure && options.onfailure();
-        }, timeOut);
-    }
-    
-    baidu.sio._createScriptTag(scr, url, charset);
-};

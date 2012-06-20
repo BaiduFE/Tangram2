@@ -11,17 +11,30 @@
 <body>
 
 <h3>baidu(selector).on(event, fn)</h3>
-<input id="button-one" type="button" value="click me, or contextmenu on me. (show event type)" /> <input id="button-one-off" type="button" value="off" />
+<input id="button-one" type="button" value="click me, or contextmenu on me. (show event type)" />
+<input id="button-one-off" type="button" value="remove click event" />
+<input id="button-one-off-all" type="button" value="remove all #button-on event (click and contextmenu)" />
+<input id="off-all" type="button" value="remove all event on page" />
 <script type="text/javascript">
 	function buttonOneClick(event){
 	    alert("event.type = " + event.type);
+	    // event.preventDefault();
 	}
 
     baidu("#button-one").on("click,contextmenu", buttonOneClick);
 
     baidu("#button-one-off").on("click", function(){
-		baidu("#button-one").off("click,contextmenu", buttonOneClick);
+		baidu("#button-one").off("click", buttonOneClick);
+		// baidu("#button-one").off("click"); // if have no event function, remove all click events
     });
+
+    baidu("#button-one-off-all").on("click", function(){
+		baidu("#button-one").off(); // if have none arguments, remove all events
+    });
+
+    baidu("#off-all").on("click", function(){
+		baidu("*").off();
+    });    
 </script>
 
 <h3>baidu(selector).on(event, selector, fn)</h3>
