@@ -34,6 +34,8 @@ baidu.dom.extend({
 				    me.off(events, selector);
 				});
 			}
+
+			return this;
 		}
 	}()
 });
