@@ -8,12 +8,8 @@
 
 baidu.dom.extend({
     val: function(value){
-    	var html = function (ele){
-            return ele.nodeType === 1 ? ele.innerHTML.toLowerCase() : null;
-        };
         var hooks, ret,
 			elem = this[0];
-			
         var valHooks = {
             option: {
                 get: function( elem ) {
@@ -61,7 +57,7 @@ baidu.dom.extend({
                     }
 
                     if ( one && !values.length && options.length ) {
-                        return jQuery( options[ index ] ).val();
+                        return baidu.dom( options[ index ] ).val();
                     }
 
                     return values;
@@ -91,7 +87,7 @@ baidu.dom.extend({
         switch(typeof value){
             case 'function':
                 baidu.each(this, function(item,index){
-                    baidu.dom(item).html(value.call(item, index, html(item)));
+                    baidu.dom(item).val(value.call(item, index, item.value));
                 });
             break;
 
