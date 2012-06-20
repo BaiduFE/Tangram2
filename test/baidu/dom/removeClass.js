@@ -9,7 +9,7 @@ var formatHTML = function(html){
 	return html;
 };
 
-waiting(function(){ return baidu.selector; }, function(){
+waiting(function(){ return baidu.query; }, function(){
 
 //新接口测试
 test('正常用例',function(){
@@ -17,7 +17,7 @@ test('正常用例',function(){
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	div.className = 'div_class1';
-	equal(div.className,'div_class1','div className')
+	equal(div.className,'div_class1','div className');
 	
 	baidu.dom(div).removeClass('div_class1');//remove 1 class
 	equal(div.className,'','div has no className');
@@ -66,8 +66,7 @@ test('异常用例', function(){
 });
 
 //老接口测试
-/*
-test('正常用例',function(){
+test('老接口：正常用例',function(){
 	expect(4);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -84,8 +83,8 @@ test('正常用例',function(){
 	document.body.removeChild(div);
 });
 
-test('shortcut',function(){
-	expect(3);
+test('老接口：shortcut',function(){
+	//expect(3);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	div.className = 'div_class1';
@@ -100,8 +99,8 @@ test('shortcut',function(){
 	document.body.removeChild(div);
 });
 
-test('异常用例', function(){
-	expect(3);
+test('老接口：异常用例', function(){
+	//expect(3);
 	var html = document.getElementsByTagName('html')[0];
 	var head = document.getElementsByTagName('head')[0];
 	html.className = "html_name";
@@ -114,7 +113,6 @@ test('异常用例', function(){
 	baidu.dom.removeClass(html,'not_exited_class');
 	equal(html.className,'html_name','remove not existed class of html');
 });
-*/
 
 	start();
 });

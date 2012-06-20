@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/ajax/get.js
- * author: allstar, erik
- * version: 1.1.0
- * date: 2009/12/02
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.ajax;
@@ -23,6 +18,12 @@
  *             
  * @returns {XMLHttpRequest} 	发送请求的XMLHttpRequest对象
  */
-baidu.ajax.get = function (url, onsuccess) {
-    return baidu.ajax.request(url, {'onsuccess': onsuccess});
-};
+
+baidu.ajax.extend({
+
+	get : function ( onsuccess) {
+		var url = this.url;
+    	return baidu.ajax.request(url, {'onsuccess': onsuccess});
+	}
+
+});

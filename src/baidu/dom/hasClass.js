@@ -1,5 +1,6 @@
 /**
  * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu;
@@ -21,9 +22,7 @@ baidu.dom.extend({
         var result;
 
         baidu.each(this, function(item){
-
             var str = item.className;
-
             for(var i = 0;i<arr.length;i++){
                 if((' '+str+' ').indexOf(' '+arr[i]+' ') == -1){
                     //有一个不含有

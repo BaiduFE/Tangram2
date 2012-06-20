@@ -16,7 +16,7 @@
  * @return  {Object}                合并后的JS对象
  */
 baidu.extend = function(target, json) {
-    if(target && json && typeof json == "object") {
+    if(target && json && typeof json === "object") {
         for(var p in json) {
             target[p] = json[p];
         }

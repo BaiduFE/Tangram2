@@ -22,6 +22,14 @@
  *
  * @returns {Function} 已集化的函数
  */
+
+baidu.fn.extend({
+    multize : function (recursive, joinArray) {
+        var fn = this.fn ;
+        return baidu.fn.multize(fn, recursive, joinArray);
+    }
+});
+
 baidu.fn.multize = /**@function*/function (func, recursive, joinArray) {
     var newFunc = function(){
         var list = arguments[0],

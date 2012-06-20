@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/fn/bind.js
- * author: berg
- * version: 1.0.0
- * date: 2010/11/02 
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.fn;
@@ -24,8 +19,18 @@
  *
  * @returns {Function} 封装后的函数
  */
+
+baidu.fn.extend({
+	bind : function (obj,args) {
+		var fn = this.fn ;
+        return typeof args === 'undefined'?baidu.fn.bind(fn,obj):baidu.fn.bind(fn,obj,args);
+	}
+});
+
 baidu.fn.bind = function(func, scope) {
+    console.log(arguments);
     var xargs = arguments.length > 2 ? [].slice.call(arguments, 2) : null;
+    console.log(xargs);
     return function () {
         var fn = baidu.lang.isString(func) ? scope[func] : func,
             args = (xargs) ? xargs.concat([].slice.call(arguments, 0)) : arguments;
