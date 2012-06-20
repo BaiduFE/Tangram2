@@ -1,12 +1,13 @@
 module('baidu.sio.callByServer');
 
+//新接口
 test('queryField is input manually and callback is a function',function(){
 stop();
 var check=function(text){
 equals(text,'i am from server');
 start();
 };
-baidu.sio.callByServer(upath+"callByServer.php",check,{
+baidu.sio(upath+"callByServer.php").callByServer(check,{
 queryField : "callback"
 });
 });
@@ -17,7 +18,7 @@ window.check_string=function(text){
 	equals(text,'i am from server');
 	start();
 };
-baidu.sio.callByServer(upath+"callByServer.php","check_string",{
+baidu.sio(upath+"callByServer.php").callByServer("check_string",{
 	queryField : "callback"
 });
 });
@@ -28,12 +29,105 @@ test('charset utf-8', function() {
 		equals(text, '百度中文--UTF');
 		start();
 	};
-	baidu.sio.callByServer(upath + "callByServerCharset_UTF.php", check, {
+	baidu.sio(upath + "callByServerCharset_UTF.php").callByServer( check, {
 		charset : "UTF-8"
 	});
 });
 
 test('charset gbk', function() {
+	stop();
+	var check = function(text) {
+		equals(text, '百度中文--GBK');
+		start();
+	};
+	baidu.sio(upath + "callByServerCharset_GBK.php").callByServer( check, {
+		charset : "GBK"
+	});
+});
+
+test('throw exception in callback', function() {
+	stop();
+	var check = function() {
+		ok(true);
+		throw new Error("custom exception");
+	};
+	baidu.sio(upath + "callByServer.php").callByServer( check);
+	setTimeout(function() {
+		start();
+	}, 500);
+});
+
+/**
+ * 由于不存在网页不会触发回调，设置半秒超时，用例可能会有问题……
+ */
+test('page not exist', function() {
+	stop();
+	var h, check = function(text) {
+		clearTimeout(h);
+		ok(false, 'call back will not call');
+		start();
+	};
+	baidu.sio("notexist.php").callByServer( check);
+	h = setTimeout(function() {
+		ok(true, 'call back not call');
+		start();
+	}, 500);
+});
+
+test('page not exist with timeOut', function() {
+	stop();
+	var h, check = function(text) {
+		clearTimeout(h);
+		ok(false, 'call back will not call');
+		start();
+	};
+	baidu.sio("notexist.php").callByServer( check, {
+        timeOut : 200,
+        onfailure : function(){
+            ok(true, 'onfailure will call');
+        }
+    });
+	h = setTimeout(function() {
+		ok(true, 'call back not call');
+		start();
+	}, 500);
+});
+
+//老接口
+test('老接口：queryField is input manually and callback is a function',function(){
+stop();
+var check=function(text){
+equals(text,'i am from server');
+start();
+};
+baidu.sio.callByServer(upath+"callByServer.php",check,{
+queryField : "callback"
+});
+});
+
+test('老接口：queryField is input manually and callback is a string',function(){
+  stop();
+window.check_string=function(text){
+	equals(text,'i am from server');
+	start();
+};
+baidu.sio.callByServer(upath+"callByServer.php","check_string",{
+	queryField : "callback"
+});
+});
+
+test('老接口：charset utf-8', function() {
+	stop();
+	var check = function(text) {
+		equals(text, '百度中文--UTF');
+		start();
+	};
+	baidu.sio.callByServer(upath + "callByServerCharset_UTF.php", check, {
+		charset : "UTF-8"
+	});
+});
+
+test('老接口：charset gbk', function() {
 	stop();
 	var check = function(text) {
 		equals(text, '百度中文--GBK');
@@ -65,7 +159,7 @@ test('charset gbk', function() {
 //	}
 //});
 
-test('throw exception in callback', function() {
+test('老接口：throw exception in callback', function() {
 	stop();
 	var check = function() {
 		ok(true);
@@ -80,7 +174,7 @@ test('throw exception in callback', function() {
 /**
  * 由于不存在网页不会触发回调，设置半秒超时，用例可能会有问题……
  */
-test('page not exist', function() {
+test('老接口：page not exist', function() {
 	stop();
 	var h, check = function(text) {
 		clearTimeout(h);
@@ -94,7 +188,7 @@ test('page not exist', function() {
 	}, 500);
 });
 
-test('page not exist with timeOut', function() {
+test('老接口：page not exist with timeOut', function() {
 	stop();
 	var h, check = function(text) {
 		clearTimeout(h);

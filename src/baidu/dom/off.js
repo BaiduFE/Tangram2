@@ -12,8 +12,13 @@ baidu.dom.extend({
 	off: function(){
 		var eb = baidu.dom._eventBase;
 	    return function(events, selector, fn){
+	    	if(!events){
+	    	 
+	    		baidu.each(this, function(item){
+	    		    eb.removeAll(item);
+	    		});
 
-			if(typeof events == "string"){
+	    	}else if(typeof events == "string"){
 
 			    if(typeof selector == "function"){
 			        fn = selector;
@@ -27,13 +32,18 @@ baidu.dom.extend({
 			            eb.remove(item, event, fn, selector);
 			        });
 			    });
+
 			}else if(typeof events == "object"){
+
 				var me = this;
 				
-				baidu.each(events, function(fn, events){
-				    me.off(events, selector);
+				baidu.each(events, function(fn, event){
+				    me.off(event, selector, fn);
 				});
+
 			}
+
+			return this;
 		}
 	}()
 });
