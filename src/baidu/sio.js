@@ -1,16 +1,33 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/sio.js
- * author: erik
- * version: 1.1.0
- * date: 2009/12/16
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu;
+///import baidu.createChain;
+
 /**
- * 使用动态script标签请求服务器资源，包括由服务器端的回调和浏览器端的回调
- * @namespace baidu.sio
+ * sio功能链头
+ *
+ * @grammer baidu.sio([url])
+ * @param   {Url}
+ * @return  {tangramSio}          返回 new TangramSio 对象
  */
-baidu.sio = baidu.sio || {};
+
+baidu.createChain("sio",
+
+// 执行方法
+function(url){
+    switch (typeof url) {
+        case "string" :
+            return new baidu.$Sio(url);
+        break;
+        default:
+        break;
+    };
+},
+
+// constructor
+function(url){
+	this.url = url;
+});
