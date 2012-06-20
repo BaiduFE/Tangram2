@@ -3964,7 +3964,7 @@ var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[
 	return 0;
 });
 
-var Sizzle = function( selector, context, results, seed ) {
+var Sizzle = window.Sizzle = function( selector, context, results, seed ) {
 	results = results || [];
 	context = context || document;
 
