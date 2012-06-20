@@ -84,6 +84,26 @@ baidu.dom._eventBase = function(){
 			target["on" + name] = null;
 	};
 
+	var removeAllEvent = function(target, name){
+		var tangId = baidu.id(target);
+		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
+
+		var remove = function(name){
+		    var eventArray = c[name] || (c[name] = []);
+		 	for(var i = eventArray.length - 1, fn; i >= 0; i -= 2){
+	 	   		fn = eventArray[i];
+	 	   		removeEvent(target, name, fn);
+	 	   	}
+		};
+
+		if(name){
+		    remove(name);
+		}else{
+			for(var name in c)
+				remove(name);
+		}
+	};
+
 	var fireHandler = function(target, name, triggerData){
 		var tangId = baidu.id(target);
 		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
@@ -107,7 +127,15 @@ baidu.dom._eventBase = function(){
     	},
 
     	remove: function(dom, event, fn, selector){
-    	    return removeEvent(dom, event, fn, selector);
+    		if(typeof fn == "function"){
+    		 	return removeAllEvent(dom, event, fn, selector);   
+    		}else{
+    		    return removeAllEvent(dom, event, selector);
+    		}
+    	},
+
+    	removeAll: function(dom){
+    		return removeAllEvent(dom);
     	},
 
     	fireHandler: function(dom, event, triggerData){
