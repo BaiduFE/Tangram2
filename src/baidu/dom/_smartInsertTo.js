@@ -1,39 +1,33 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom;
+
 ///import baidu.type;
-///import baidu.each;
-baidu.dom.extend({
-    _smartInsertTo: function(target, callback){
-        if(!target){return this;}
-        var fragment = document.createDocumentFragment(),
-            div;
-        baidu.each(this, function(item){fragment.appendChild(item)});
-        switch(baidu.type(target)){
-            case 'string':
-                if(target.charAt(0) === '<'
-                    && target.charAt(target.length - 1) === '>'
-                    && target.length > 2){//string
-                    
-                    div = document.createElement('div');
-                    document.createDocumentFragment().appendChild(div);
-                    div.innerHTML = target;
-                    baidu.each(div.childNodes, function(item){
-                        callback.call(null, item, fragment.cloneNode(true));
-                    });
-                }else{//selector
-                    this._smartInsertTo(baidu.dom(target), callback);
-                }
-                break;
-            case 'HTMLElement':
-                callback.call(null, target, fragment);
-                break;
-            case '$DOM':                baidu.each(target, function(item){
-                    callback.call(null, item, fragment.cloneNode(true));
-                });
-                break;
+///import baidu.dom.clone;
+///import baidu.dom.getDocument;
+///import baidu.dom._buildElements;
+///import baidu.dom._smartInsert;
+
+baidu.dom._smartInsertTo = baidu.dom._smartInsertTo || function(tang, target, callback, orie){
+    baidu.type(target) === 'string'
+        && target.charAt(0) === '<'
+        && target.charAt(target.length - 1) === '>'
+        && target.length > 2
+        && (target = baidu.dom._buildElements([target], tang.getDocument() || document));
+    var insert = baidu.dom(target),
+        len, tangDom;
+    ///
+    if(orie && insert[0] && !insert[0].parentNode){
+        orie = orie === 'before';
+        tangDom = baidu.merge(orie ? tang : insert, !orie ? tang : insert);
+        if(tang !== tangDom){
+            tang.length = 0;
+            baidu.merge(tang, tangDom);
         }
-        return this;
+    }else{
+        len = insert.length;
+        for(var i = 0; i < len; i++){
+            baidu.dom._smartInsert(baidu.dom(insert[i]), i > 0 ? tang.clone(true) : tang, callback);
+        }
     }
-});
+};

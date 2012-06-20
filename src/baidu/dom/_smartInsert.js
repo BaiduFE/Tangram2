@@ -1,43 +1,38 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom;
+
 ///import baidu.type;
 ///import baidu.each;
+///import baidu.dom._buildElements;
+///import baidu.dom.getDocument;
+///import baidu.dom.html;
 
-baidu.dom.extend({
-    _smartInsert: function(args, callback){
-        if(args.length <= 0){return this;}
-        var len = args.length,
-            fragment = document.createDocumentFragment(),
-            div = document.createElement('div');
-        document.createDocumentFragment().appendChild(div);
-        for(var i = 0; i < len; i++){
-            switch(baidu.type(args[i])){
-                case 'string':
-                    div.innerHTML = args[i];
-                    while(div.firstChild){
-                        fragment.appendChild(div.firstChild);
-                    }
-                    break;
-                case 'HTMLElement':
-                    fragment.appendChild(args[i]);
-                    break;
-                case '$DOM':
-                case 'array':
-                    baidu.each(args[i], function(item){
-                        fragment.appendChild(item);
-                    });
-                    break;
-                case 'function':
-                    baidu.each(this, function(item, index){
-                        baidu.dom(item)._smartInsert([args[i].call(item, index, item.innerHTML)], callback);
-                    });
-                    break;
-            }
-        }
-        //
-        baidu.each(this, function(item){callback.call(null, item, fragment.cloneNode(true));});
-        return this;
+baidu.dom._smartInsert = baidu.dom._smartInsert || function(tang, args, callback){
+    if(args.length <= 0){return;}
+    if(baidu.type(args[0]) === 'function'){
+        var fn = args[0],
+            tangItem;
+        return baidu.each(tang, function(item, index){
+            tangItem = baidu.dom(item);
+            args[0] = fn.call(item, index, tangItem.html());
+            baidu.dom._smartInsert(tangItem, args, callback);
+        });
     }
-});
+    var doc = tang.getDocument() || document,
+        fragment = doc.createDocumentFragment(),
+        len = tang.length - 1,
+        firstChild;
+    //
+    baidu.each(baidu.dom._buildElements(args, doc), function(item, index){
+        index === 0 && (firstChild = item);
+        fragment.appendChild(item);
+    });
+    if(!firstChild){return;}
+    baidu.each(tang, function(item, index){
+        callback.call(item.nodeName.toLowerCase() === 'table'
+            && firstChild.nodeName.toLowerCase() === 'tr' ?
+                item.tBodies[0] || item.appendChild(item.ownerDocument.createElement('tbody'))
+                    : item, index < len ? fragment.cloneNode(true) : fragment);
+    });
+};
