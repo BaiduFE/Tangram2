@@ -1,6 +1,6 @@
-/// include baidu.array;
+///import baidu.array;
 
-/// include baidu.each;
+///import baidu.each;
 
 /**
  * 枚举数组的每一项，作为指定函数执行的参数
