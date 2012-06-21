@@ -119,6 +119,27 @@ function createForm() {
 	return form;
 }
 
+//新接口
+test("传入form，返回结果", function() {
+	expect(13);
+    var f = createForm();
+	var j = baidu.form(f).serialize();
+	equals(j.length, 12, "12 arears");
+	equals(j[0], "param1=param%261%20测试中文", "The text input(escapeUrl) is right");
+	equals(j[1], "param2=", "The text input(no value) is right");
+	equals(j[2], "hidden3=hidden3", "The text input(hidden) is right");
+	equals(j[3], "cb=cb1", "The combox is right");
+	equals(j[4], "cb=cb3", "The combox is right");
+	equals(j[5], "rb=rb2", "The radio is right");
+	equals(j[6], "pwd=pwd", "The password is right");
+	equals(j[7], "ta=textarea", "The textarea is right");
+	equals(j[8], "sel=3", "The select is right");
+	equals(j[9], "selmul=1", "The selmul is right");
+	equals(j[10], "selmul=2", "The selmul is right");
+	equals(j[11], "selmul=3", "The selmul is right");
+	$(f).remove();
+});
+//老接口
 test("传入form，返回结果", function() {
 	expect(13);
     var f = createForm();

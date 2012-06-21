@@ -48,6 +48,8 @@ module("baidu.async.when");
 		};
 	};
 })();
+
+
 //
 test("when第一个参数async方法", function() {
 	QUnit.expect(3);
