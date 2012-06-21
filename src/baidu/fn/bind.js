@@ -4,7 +4,6 @@
  */
 
 ///import baidu.fn;
-
 ///import baidu.lang.isString;
 
 /** 
