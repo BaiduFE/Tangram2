@@ -1,12 +1,8 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/string/toHalfWidth.js
- * author: erik
- * version: 1.1.0
- * date: 2009/11/15
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
+
 
 ///import baidu.string;
 /**
@@ -117,10 +113,11 @@
  *             
  * @returns {string} 转换后的字符串
  */
-
-baidu.string.toHalfWidth = function (source) {
-    return String(source).replace(/[\uFF01-\uFF5E]/g, 
+baidu.string.extend({
+toHalfWidth : function () {
+    return this.replace(/[\uFF01-\uFF5E]/g, 
         function(c){
             return String.fromCharCode(c.charCodeAt(0) - 65248);
         }).replace(/\u3000/g," ");
-};
+}
+});

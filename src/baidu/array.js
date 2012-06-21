@@ -16,7 +16,16 @@
  * @param   {Array}         array   Array对象
  * @return  {TangramArray}          返回 array 对象，该对象被注入链式方法。
  */
-baidu.createChain("array");
+baidu.createChain("array", function(array){
+    var pro = baidu.$Array.prototype
+        ,ap = Array.prototype;
+
+    for (var key in pro) {
+        ap[key] || (array[key] = pro[key]);
+    }
+
+    return array;
+});
 
 // 对系统方法新产生的 array 对象注入自定义方法，支持完美的链式语法
 baidu.overwrite(baidu.$Array, "concat slice".split(" "), function(key) {

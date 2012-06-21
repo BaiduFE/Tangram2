@@ -82,36 +82,36 @@ function(selector, context) {
     if (selector._type_ == "$DOM") {
         return selector;
 
-        // Handle $(DOMElement)
-        } else if (selector.nodeType || selector == selector.window) {
-            me[0] = selector;
-            me.length = 1;
-            return me;
-
-        // Handle $(Array) or $(Collection)
-    } else if (selector.length && me.toString.call(selector) != "[object String]") {
-        baidu.merge(me, selector);
+    // Handle $(DOMElement)
+    } else if (selector.nodeType || selector == selector.window) {
+        me[0] = selector;
+        me.length = 1;
         return me;
+
+    // Handle $(Array) or $(Collection) or $(NodeList)
+    } else if (selector.length && me.toString.call(selector) != "[object String]") {
+        return baidu.merge(me, selector);
 
     } else if (typeof selector == "string") {
 
         // HTMLString
         if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 3) {
             // [TODO] 0531 HTMLString 模式暂缓
-            // baidu.query
+
+        // baidu.query
         } else {
             baidu.query(selector, context, me);
         }
+    
+    // document.ready
     } else if (typeof selector == "function") {
-        return me.ready(selector);
+        return me.ready ? me.ready(selector) : me;
     }
 
     return me;
 },
 
 // constructor
-
-
 function(context) {
     this.length = 0;
     this._type_ = "$DOM";
@@ -128,6 +128,8 @@ function(context) {
     size: function() {
         return this.length;
     }
+
+    ,splice : function(){}
 
     /**
      * 按指定序号返回TangramDom对象里的DOM元素，如果不传序号则返回所有的DOM对象

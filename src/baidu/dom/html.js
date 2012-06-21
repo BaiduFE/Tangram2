@@ -1,5 +1,6 @@
 /**
  * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu;
@@ -11,9 +12,9 @@ baidu.dom.extend({
         var html = function (ele){
             return ele.nodeType === 1 ? ele.innerHTML.toLowerCase() : null;
         };
+        var ele = this[0]||{};
         switch(typeof value){
             case 'undefined':
-                var ele = this[0]||{};
                 return html(ele);
             break;
 
@@ -44,7 +45,7 @@ baidu.dom.extend({
                 var rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig;
                 if(!(/<(?:script|style)/i.test(value)) &&
                     // IE strips leading whitespace when .innerHTML is used
-                    div.nodeType === 3 || !(/^\s+/.test( value )) &&
+                    ( div.nodeType === 3 || !(/^\s+/.test( value )) ) &&
                     !wrapMap[(/<([\w:]+)/.exec( value ) || ["", ""] )[1].toLowerCase() ]){
 
                         baidu.each(this, function(item,index){
@@ -53,7 +54,11 @@ baidu.dom.extend({
                                 item.innerHTML = value;
                             }
                         });
-                };
+					ele = 0;
+                }
+                if(ele){
+                	baidu.dom(ele).empty().append(value);
+                }
             break;
 
             case 'function':

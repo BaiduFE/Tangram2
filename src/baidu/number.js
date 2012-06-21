@@ -1,16 +1,30 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/number.js
- * author: erik
- * version: 1.1.0
- * date: 2009/12/2
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
+ */
+///import baidu;
+///import baidu.createChain
+///import baidu.each;
+/**
+ * number对象链式语法的链头
+ *
+ * @grammer baidu.number(number)
+ * @param   {Number} Number对象
+ * @return  {TangramNumber}   返回Number对象，该对象被注入链式方法。
  */
 
-///import baidu;
-/**
- * 操作number的方法
- * @namespace baidu.number
- */
-baidu.number = baidu.number || {};
+baidu.createChain("number",
+
+// 执行方法
+function(number){
+	var num = new Number(number),
+		pro = Number.prototype;
+
+	baidu.each(baidu.$Number.prototype, function(fn, key) {
+		pro[key] || (num[key] = fn);
+	});
+
+	return num;
+}
+
+);

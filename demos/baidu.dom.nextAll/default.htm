@@ -6,16 +6,15 @@
         var config = {
             namespace : "baidu.dom.nextAll"
            ,programer : [
-                "baidu.dom('li')"
-               ,"baidu.dom('.c')"
-               ,"baidu.dom('#li_1')"
-               ,"baidu.dom(document.getElementById('second'))"
+                "baidu.dom('#li_1, #li_5').nextAll()"
+               ,"baidu.dom('#li_1, #li_5').nextAll('#lid')"
+               ,"baidu.dom('#li_1, #li_5').nextAll('.c')"
             ]
             // 性能测试
            ,performanceTest : {
-                 times : 30000          // 循环次数
-                ,testA : function(){baidu.dom("li#lid")}
-                ,testB : function(){$("li#lid")}
+                 times : 10000          // 循环次数
+                ,testA : function(){var mm = baidu('#li_1, #li_5'); for (var i=config.performanceTest.times; i>-1; i--) mm.nextAll('#lid')}
+                ,testB : function(){var mm = $('#li_1, #li_5');     for (var i=config.performanceTest.times; i>-1; i--) mm.nextAll('#lid')}
            }
            // 将表达式的运算结果指定输出
            ,showResult: function(result){
@@ -24,7 +23,7 @@
                     for (var i=0, n=result.length; i<n; i++) {
                         str += (i+1) +". "+ (result[i].nodeType ? result[i].outerHTML : result[i]) +"\n";
                     }
-                }
+                } else str = result.toString();
                 return str;
             }
         }
@@ -206,7 +205,7 @@ function run(input, index) {
     if (input.tagName) {
         var code = config.programer[index];
 
-        baidu.each(baidu.dom("#command_area input"), function(input){input.style.backgroundColor=""});
+        baidu.each(document.getElementById("command_area").getElementsByTagName("input"), function(input){input.style.backgroundColor=""});
         input.style.backgroundColor = "red";
 
     } else if (typeof input == "string") {

@@ -1,5 +1,6 @@
 /**
  * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu;

@@ -8,6 +8,8 @@
 ///import baidu.event;
 ///import baidu.dom.is;
 ///import baidu.extend;
+///import baidu.dom.on;
+///import baidu.dom.triggerHandler;
 
 baidu.dom._eventBase = function(){
 	var eventsCache = {
@@ -84,6 +86,26 @@ baidu.dom._eventBase = function(){
 			target["on" + name] = null;
 	};
 
+	var removeAllEvent = function(target, name){
+		var tangId = baidu.id(target);
+		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
+
+		var remove = function(name){
+		    var eventArray = c[name] || (c[name] = []);
+		 	for(var i = eventArray.length - 1, fn; i >= 0; i -= 2){
+	 	   		fn = eventArray[i];
+	 	   		removeEvent(target, name, fn);
+	 	   	}
+		};
+
+		if(name){
+		    remove(name);
+		}else{
+			for(var name in c)
+				remove(name);
+		}
+	};
+
 	var fireHandler = function(target, name, triggerData){
 		var tangId = baidu.id(target);
 		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
@@ -101,13 +123,49 @@ baidu.dom._eventBase = function(){
 			eventArray[i].apply(this, args);
 	};
 
+	var special = function( name ){
+		switch( name ){
+		    case "focusin":
+		    case "focusout":
+		    	if(!/firefox/i.test(navigator.userAgent))
+		    		return false;
+		    	var object = {}, fixName = name == "focusin" ? "focus" : "blur";
+	    	    object[name] = function(data, fn){
+	    	    	if(typeof data == "function")
+    	    	        fn = data,
+    	    	        data = null;
+
+    	    	    var me = this, call = function(){ 
+    	    	    	me.triggerHandler(name); 
+    	    	   	};
+
+    	    	    baidu.each(this, function(item){
+	    	    	    baidu("textarea,select,input,button,a", item).on(fixName, call);
+    	    	    });
+
+    	    	    this.on(name, data, fn);
+	    	    };
+
+		    	return baidu.dom.extend(object), true;
+		}
+		return false;
+	};
+
     return {
     	add: function(dom, event, fn, selector, data){
     		return addEvent(dom, event, fn, selector, data);
     	},
 
     	remove: function(dom, event, fn, selector){
-    	    return removeEvent(dom, event, fn, selector);
+    		if(typeof fn == "function"){
+    		 	return removeAllEvent(dom, event, fn, selector);   
+    		}else{
+    		    return removeAllEvent(dom, event, selector);
+    		}
+    	},
+
+    	removeAll: function(dom){
+    		return removeAllEvent(dom);
     	},
 
     	fireHandler: function(dom, event, triggerData){
@@ -121,19 +179,23 @@ baidu.dom._eventBase = function(){
     	        return this;
     	    }
 
-    	    var object = {};
-    	    object[name] = function(data, fn){
-    	    	if(arguments.length == 0){
-    	    	    return this.trigger(name);
-    	    	}else{
-    	    	    if(typeof data == "function"){
-    	    	        fn = data;
-    	    	        data = null;
-    	    	    }
-    	    	    return this.on(name, data, fn);
-    	    	}
-    	    };
-    	    baidu.dom.extend(object);
+    	    if( !special(name) ){
+	    	    var object = {};
+
+	    	    object[name] = function(data, fn){
+	    	    	if(arguments.length == 0){
+	    	    	    return this.trigger(name);
+	    	    	}else{
+	    	    	    if(typeof data == "function"){
+	    	    	        fn = data;
+	    	    	        data = null;
+	    	    	    }
+	    	    	    return this.on(name, data, fn);
+	    	    	}
+	    	    };
+
+	    	    baidu.dom.extend(object);
+    	    }
     	}
     }
 }();

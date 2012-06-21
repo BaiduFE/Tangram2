@@ -6,38 +6,27 @@
 <style type='text/css'>
 .div-css {
     border: pink solid 2px;
-    width: 500px;
+    width: 200px;
 }
+
 .div-border-blue {
     border: blue solid 2px;
 }
 </style>
 
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.styleFixer'></script>
 <script type='text/javascript' src='../../src/import.php?f=baidu.dom.css'></script>
 
 
 </head>
 <body>
-    <div id='divId-one' class='div-css'>
-        <div class='div-border-blue'>&nbsp;</div>
-        <div class='div-border-blue'>&nbsp;</div>
-        <div class='div-border-blue'>&nbsp;</div>
-        <div class='div-border-blue'>&nbsp;</div>
-    </div>
+    <div id='divId-one' class='div-css'>hello world</div>
     <input type='button' value='emtpy' onclick='main();'/>
 </body>
 <script type='text/javascript'>
 function main(){
-//    baidu('.div-border-blue').css('border', 'green solid 1px');
-//    alert( baidu('.div-border-blue').css('border') );
-//    baidu('.div-border-blue').css('border', function(index, val){
-//        alert('index: ' + index + '; value: ' + val);
-//        return 'green solid 1px';
-//    });
-    debugger;
-    var val = baidu('.div-border-blue').css('border');
+    var val = baidu('#divId-one').css('opacity');
     alert(val);
 }
-
 </script>
 </html>

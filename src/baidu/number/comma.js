@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/number/comma.js
- * author: dron, erik, berg
- * version: 1.2.0
- * date: 2010/09/07 
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.number;
@@ -20,7 +15,9 @@
  *             
  * @returns {string} 添加逗号分隔后的字符串
  */
-baidu.number.comma = function (source, length) {
+baidu.number.extend({
+comma : function (length) {
+	var source = this;
     if (!length || length < 1) {
         length = 3;
     }
@@ -28,4 +25,5 @@ baidu.number.comma = function (source, length) {
     source = String(source).split(".");
     source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{'+length+'})+$)','ig'),"$1,");
     return source.join(".");
-};
+}	
+});
