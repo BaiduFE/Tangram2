@@ -1,15 +1,15 @@
 ///import baidu.array;
 
+Array.prototype.map = function (iterator, context) {
+    var i, n,
+        array = baidu.array([]);
 
-baidu.array.extend({
-    map : function (iterator, context) {
-        var array = [],
-            len = this.length,
-            i = 0;
-
-        for (; i < len; i++) {
-            array[i] = iterator.call(context || this, this[i], i, this);
-        }
-        return baidu.array(array);
+    for (i=0, n=this.length; i < n; i++) {
+        array[i] = iterator.call(context || this, this[i], i, this);
     }
-});
+    return array;
+};
+
+baidu.array.map = function(array, iterator, context){
+    return array.map(iterator, context);
+};
