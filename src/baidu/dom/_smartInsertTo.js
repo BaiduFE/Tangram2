@@ -16,11 +16,11 @@ baidu.dom._smartInsertTo = baidu.dom._smartInsertTo || function(tang, target, ca
         && target.length > 2
         && (target = baidu.dom._buildElements([target], tang.getDocument() || document));
     var insert = baidu.dom(target),
-        contains = baidu.dom.contains,
+        first = insert[0],
         len, tangDom;
-    ///
-    if(orie && insert[0] && !(contains(document.body, insert[0])
-        || contains(document.documentElement, insert[0]))){
+        
+    if(orie && first && (!first.parentNode || (first.nodeType !== 3
+        && !baidu.dom.contains(document.documentElement, first)))){
             orie = orie === 'before';
             tangDom = baidu.merge(orie ? tang : insert, !orie ? tang : insert);
             if(tang !== tangDom){
