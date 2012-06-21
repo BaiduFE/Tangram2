@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/string/getByteLength.js
- * author: erik
- * version: 1.1.0
- * date: 2009/11/15
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.string;
@@ -23,6 +18,10 @@
  *             
  * @returns {number} 字节长度
  */
-baidu.string.getByteLength = function (source) {
-    return String(source).replace(/[^\x00-\xff]/g, "ci").length;
-};
+baidu.string.extend({
+getByteLength : function () {
+
+    return this.replace(/[^\x00-\xff]/g, "ci").length;
+}
+
+});

@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/string/decodeHTML.js
- * author: erik
- * version: 1.1.0
- * date: 2009/11/15
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.string;
@@ -22,8 +17,10 @@
  *             
  * @returns {string} html解码后的字符串
  */
-baidu.string.decodeHTML = function (source) {
-    var str = String(source)
+
+baidu.string.extend({
+decodeHTML : function () {
+    var str = this
                 .replace(/&quot;/g,'"')
                 .replace(/&lt;/g,'<')
                 .replace(/&gt;/g,'>')
@@ -32,6 +29,7 @@ baidu.string.decodeHTML = function (source) {
     return str.replace(/&#([\d]+);/g, function(_0, _1){
         return String.fromCharCode(parseInt(_1, 10));
     });
-};
+}
+});
 
 baidu.decodeHTML = baidu.string.decodeHTML;

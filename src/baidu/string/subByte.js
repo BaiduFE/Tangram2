@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/string/subByte.js
- * author: dron, erik, berg
- * version: 1.2
- * date: 2010-06-30
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.string.getByteLength;
@@ -24,8 +19,9 @@
  *             
  * @returns {string} 字符串截取结果
  */
-baidu.string.subByte = function (source, length, tail) {
-    source = String(source);
+baidu.string.extend({
+subByte : function ( length, tail) {
+    source = this.valueOf();
     tail = tail || '';
     if (length < 0 || baidu.string.getByteLength(source) <= length) {
         return source + tail;
@@ -38,4 +34,5 @@ baidu.string.subByte = function (source, length, tail) {
         .replace(/([^\x00-\xff]) /g,"\x241");//还原
     return source + tail;
 
-};
+}
+});

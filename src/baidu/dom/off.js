@@ -9,41 +9,40 @@
 ///import baidu.dom._eventBase;
 
 baidu.dom.extend({
-	off: function(){
-		var eb = baidu.dom._eventBase;
-	    return function(events, selector, fn){
-	    	if(!events){
-	    	 
-	    		baidu.each(this, function(item){
-	    		    eb.removeAll(item);
-	    		});
+	off: function(events, selector, fn){
+    	var eb = baidu.dom._eventBase;
+    	
+    	if(!events){
+    	 
+    		baidu.each(this, function(item){
+    		    eb.removeAll(item);
+    		});
 
-	    	}else if(typeof events == "string"){
+    	}else if(typeof events == "string"){
 
-			    if(typeof selector == "function"){
-			        fn = selector;
-			        selector = null;
-			    }
+		    if(typeof selector == "function"){
+		        fn = selector;
+		        selector = null;
+		    }
 
-			    events = events.split(/[ ,]/);
+		    events = events.split(/[ ,]/);
 
-			    baidu.each(this, function(item){
-			        baidu.each(events, function(event){
-			            eb.remove(item, event, fn, selector);
-			        });
-			    });
+		    baidu.each(this, function(item){
+		        baidu.each(events, function(event){
+		            eb.remove(item, event, fn, selector);
+		        });
+		    });
 
-			}else if(typeof events == "object"){
+		}else if(typeof events == "object"){
 
-				var me = this;
-				
-				baidu.each(events, function(fn, event){
-				    me.off(event, selector, fn);
-				});
+			var me = this;
+			
+			baidu.each(events, function(fn, event){
+			    me.off(event, selector, fn);
+			});
 
-			}
-
-			return this;
 		}
-	}()
+
+		return this;
+	}
 });

@@ -1,14 +1,11 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/string/format.js
- * author: dron, erik
- * version: 1.1.0
- * date: 2009/11/30
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
+
 ///import baidu.string;
+///import baidu.merge;
 
 /**
  * 对目标字符串进行格式化
@@ -23,13 +20,15 @@ opts参数为“Object”时，替换目标字符串中的#{property name}部分
 opts为“string...”时，替换目标字符串中的#{0}、#{1}...部分。
 		
  * @shortcut format
- * @meta standard
- *             
+ * @meta standard    
  * @returns {string} 格式化后的字符串
  */
-baidu.string.format = function (source, opts) {
-    source = String(source);
-    var data = Array.prototype.slice.call(arguments,1), toString = Object.prototype.toString;
+//format(a,a,d,f,c,d,g,c);
+baidu.string.extend({
+
+format : function (opts) {
+	var source = this.valueOf();
+    var data = Array.prototype.slice.call(arguments,0), toString = Object.prototype.toString;
     if(data.length){
 	    data = data.length == 1 ? 
 	    	/* ie 下 Object.prototype.toString.call(null) == '[object Object]' */
@@ -45,7 +44,10 @@ baidu.string.format = function (source, opts) {
     	});
     }
     return source;
-};
+}
+
+});
+
 
 // 声明快捷方法
 baidu.format = baidu.string.format;

@@ -47,7 +47,10 @@ function(event){
 
     if (typeof event == "object") {
         this.origin = event;
+
         baidu.extend(this, event);
+        delete this.stopPropagation;
+        delete this.preventDefault;
     }
 
     // event.type

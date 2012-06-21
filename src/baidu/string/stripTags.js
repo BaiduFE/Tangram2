@@ -1,12 +1,8 @@
-/*
- * tangram
- * copyright 2011 baidu inc. all rights reserved.
- *
- * path: baidu/string/stripTags.js
- * author: leeight
- * version: 1.1.0
- * date: 2011/04/30
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
+
 
 ///import baidu.string;
 
@@ -17,6 +13,9 @@
  * @param {string} source 要处理的字符串.
  * @return {String}
  */
-baidu.string.stripTags = function(source) {
-    return String(source || '').replace(/<[^>]+>/g, '');
-};
+
+baidu.string.extend({
+stripTags : function() {
+    return (this || '').replace(/<[^>]+>/g, '');
+}
+}); 
