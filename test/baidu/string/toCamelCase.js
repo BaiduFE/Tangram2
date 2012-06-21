@@ -1,5 +1,37 @@
 module("baidu.String.toCamelCase测试");
 
+//新接口
+test("输入中划线连字的字符", function(){
+	equals(baidu.string('i-like-baidu').toCamelCase(), 'iLikeBaidu');
+	equals(baidu.string('I-Like-Baidu').toCamelCase(), 'ILikeBaidu');
+}); // 1
+
+test("两个下划线或中划线", function(){
+	equals(baidu.string('i--like--baidu').toCamelCase(), 'i-Like-Baidu');
+	equals(baidu.string('I__Like__Baidu').toCamelCase(), 'I_Like_Baidu');
+}); // 2
+
+test("开头有下划线或中划线", function(){
+	equals(baidu.string('-like-baidu').toCamelCase(), 'LikeBaidu');
+	equals(baidu.string('_like_baidu').toCamelCase(), 'LikeBaidu');
+}); // 3
+
+test("输入下划线连字的字符", function(){
+	equals(baidu.string('i_like_baidu').toCamelCase(), 'iLikeBaidu');
+	equals(baidu.string('I_Like_Baidu').toCamelCase(), 'ILikeBaidu');
+}); // 4
+
+test("下划线和中划线并存", function(){
+	equals(baidu.string('i-like_baidu-oh-yeah_haha_haha').toCamelCase(), 'iLikeBaiduOhYeahHahaHaha');
+	equals(baidu.string('I_Like_Baidu-Oh-Yeah_Haha_Haha').toCamelCase(), 'ILikeBaiduOhYeahHahaHaha');
+}); // 5
+
+test("", function(){
+	equals(baidu.string('ilikebaiduohyeahhahahaha').toCamelCase(), 'ilikebaiduohyeahhahahaha');
+	equals(baidu.string('ILikeBaiduOhYeahHahaHaha').toCamelCase(), 'ILikeBaiduOhYeahHahaHaha');
+}); // 6
+
+//老接口
 test("输入中划线连字的字符", function(){
 	equals(baidu.string.toCamelCase('i-like-baidu'), 'iLikeBaidu');
 	equals(baidu.string.toCamelCase('I-Like-Baidu'), 'ILikeBaidu');

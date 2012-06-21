@@ -1,5 +1,86 @@
 module("baidu.String.escapeReg测试");
 
+//新接口
+
+test("检查所有的需要转义的字符", function(){
+    var strin = ".*+?^=!:${}()|[]/\\";
+    var strout = "\.\*\+\?\^\=\!\:\$\{\}\(\)\|\[\]\/\\";
+    equals(strin, strout);
+}); // 1
+
+test("输入包含需要转义的英文字符串", function(){
+    var strin = "[escape]|.{reg}";
+    var strout = "\[escape\]\|\.\{reg\}";
+    equals(strin, strout);
+}); // 2
+
+test("输入混合字符串", function(){
+    var strin = "(百度)^China?.";
+    var strout = "\(百度\)\^China\?\.";
+    equals(strin, strout);
+    
+  //带减号-的时候不需要转义减号
+    strin = "[^w-z]+?(匹)配$";
+    strout = "\[\^w-z\]\+\?\(匹\)配\$";
+    equals(strin, strout);
+}); // 3
+
+test("输入没有转义字符的串", function(){
+    var strEscapeReg = "";
+    
+    strEscapeReg = baidu.string("百度 中国").escapeReg();
+    equals(strEscapeReg, "百度 中国");
+    
+    strEscapeReg = baidu.string("baidu china").escapeReg();
+    equals(strEscapeReg, "baidu china");
+    
+    strEscapeReg = baidu.string("百度 china").escapeReg();
+    equals(strEscapeReg, "百度 china");
+
+    //带减号的时候不需要转义减号
+    strEscapeReg = baidu.string("234-Hi-自动化").escapeReg();
+    equals(strEscapeReg, "234-Hi-自动化");
+}); // 4
+
+test("输入空串", function(){
+    var strEscapeReg = "";
+    
+    strEscapeReg = baidu.string("").escapeReg();
+    equals(strEscapeReg, "");
+}); // 5
+
+test("构造正则表达式匹配", function(){
+    var basestr = "bai[du]{test}end$^head+d..com";
+    var str1 = "i[du]";
+    var str2 = "^hea";
+    var str3 = "u]{test}en";
+    var str4 = "end$";
+    var str5 = "d+d";
+    var str6 = "d..com";
+    var str7 = "^bai";
+    var str8 = "com$";
+    
+    equals(new RegExp(baidu.string(str1).escapeReg()).test(basestr), true);
+    equals(new RegExp(baidu.string(str2).escapeReg()).test(basestr), true);
+    equals(new RegExp(baidu.string(str3).escapeReg()).test(basestr), true);
+    equals(new RegExp(baidu.string(str4).escapeReg()).test(basestr), true);
+    equals(new RegExp(baidu.string(str5).escapeReg()).test(basestr), true);
+    equals(new RegExp(baidu.string(str6).escapeReg()).test(basestr), true);
+    
+    // baidu.string.escapeReg(str7)返回原字符串，此处为"^bai"，在basestr中不存在，故为false
+    equals(new RegExp(baidu.string(str7).escapeReg()).test(basestr), false); 
+    equals(new RegExp(baidu.string(str8).escapeReg()).test(basestr), false);
+}); // 6
+
+test("异常case", function(){
+    var nullStr = null; 
+    equals(baidu.string(nullStr).escapeReg(), "null");
+    
+    var undefinedStr;
+    equals(baidu.string(undefinedStr).escapeReg(), "undefined");
+}); // 7
+
+//老接口
 /**
  *  Test escape char: .*+?^=!:${}()|[]/\\
  *  Test new RegExp()
