@@ -2,12 +2,13 @@ module("baidu.dom.append");
 stop();
 
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };
+function wrap(val){return val.replace(/[\s\r\n]+/g, '');}
 
 waiting(function(){ return baidu.query; }, function(){
 
 	var div = document.createElement("div");
 		div.style.position = "absolute";
-		div.style.top = "-1000px";
+		div.style.top = "-10000px";
 
 	document.documentElement.appendChild(div);
 
@@ -22,6 +23,8 @@ waiting(function(){ return baidu.query; }, function(){
 		baidu.dom("ul").append(baidu.dom("ul.N li")[1]);
 		equal( getWord(div.innerHTML), "XYZBACB", "ULs append Dom" );
 	});
+	
+	
 
 	test("append HTML", function(){
 	    div.innerHTML = html;
@@ -30,15 +33,16 @@ waiting(function(){ return baidu.query; }, function(){
 
 	   	div.innerHTML = "<table></table>";
 	   	baidu.dom("table").append("<tr><td>123</td></tr>");
-	   	equal( div.innerHTML.toLowerCase(), "<table><tr><td>123</td></tr></table>", "table append tr" );
+	   	
+	   	equal(wrap(div.getElementsByTagName('table')[0].tBodies[0].innerHTML.toLowerCase()), '<tr><td>123</td></tr>', "table append tr");
 
 	   	div.innerHTML = "<ul></ul>";
 	   	baidu.dom("ul").append("<li>123</li>");
-	   	equal( div.innerHTML.toLowerCase(), "<ul><li>123</li></ul>", "ul append li" );
-
+	   	equal( wrap(div.innerHTML.toLowerCase()), "<ul><li>123</li></ul>", "ul append li" );
+//
 	   	div.innerHTML = "<ul></ul>";
 	   	baidu.dom("ul").append("<li>123</li><li>456</li>");
-	   	equal( div.innerHTML.toLowerCase(), "<ul><li>123</li><li>456</li></ul>", "ul append li" );
+	   	equal( wrap(div.innerHTML.toLowerCase()), "<ul><li>123</li><li>456</li></ul>", "ul append li" );
 	});
 
 	test("append TangramDom", function(){
@@ -59,7 +63,6 @@ waiting(function(){ return baidu.query; }, function(){
 	            return "<span>C</span><span>D</span>";
 	        }
 	    });
-
 	    equal( getWord(div.innerHTML), "ABCD", "div append HTML" );
 	});
 
@@ -74,8 +77,13 @@ waiting(function(){ return baidu.query; }, function(){
 
 	   	equal( getWord(div.innerHTML), "DABC", "div append TextNode Array" );
 	});
-
-	start();
+	
+	test('append Script', function(){
+	    div.innerHTML ='<div class="M"></div>';
+	    baidu.dom('div.M', div).append('<script type="text/javascript">window.tangramId = 100;<\/script>');
+	    equal(tangramId, 100, 'script appendTo div and execution');
+	    equal(div.firstChild.firstChild.tagName.toLowerCase(), 'script', 'script tag appendTo div');
+	});
 })
 
 ua.importsrc("baidu.sizzle"); // 由于加载的资源中不存在 baidu.sizzle 这个对象，所以不能使用 importsrc 自带的 callback

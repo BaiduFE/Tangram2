@@ -45,7 +45,6 @@ waiting(function(){ return baidu.query; }, function(){
 	test("after Function", function(){
 		div.innerHTML = "<div class='A'>A</div><div class='A'>A</div><div class='B'>B</div><div class='B'>B</div>";
 		var a = baidu.dom("div.A", div);
-		ok( false, "function(index, html) 中的 html 拿 html() 接口的返回值" );
 		baidu.dom("div.B", div).after(function(index, html){
 		    if(index == 0){
 		        return a[0];
