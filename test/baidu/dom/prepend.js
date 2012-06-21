@@ -2,6 +2,7 @@ module("baidu.dom.prepend");
 stop();
 
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };
+function wrap(val){return val.replace(/[\s\r\n]+/g, '');}
 
 waiting(function(){ return baidu.query; }, function(){
 
@@ -30,15 +31,15 @@ waiting(function(){ return baidu.query; }, function(){
 
 	   	div.innerHTML = "<table></table>";
 	   	baidu.dom("table").prepend("<tr><td>123</td></tr>");
-	   	equal(div.getElementsByTagName('table')[0].tBodies[0].innerHTML.toLowerCase(), "<tr><td>123</td></tr>", "table prepend tr" );
+	   	equal(wrap(div.getElementsByTagName('table')[0].tBodies[0].innerHTML.toLowerCase()), "<tr><td>123</td></tr>", "table prepend tr" );
 
 	   	div.innerHTML = "<ul></ul>";
 	   	baidu.dom("ul").prepend("<li>123</li>");
-	   	equal( div.innerHTML.toLowerCase(), "<ul><li>123</li></ul>", "ul prepend li" );
+	   	equal( wrap(div.innerHTML.toLowerCase()), "<ul><li>123</li></ul>", "ul prepend li" );
 
 	   	div.innerHTML = "<ul></ul>";
 	   	baidu.dom("ul").prepend("<li>123</li><li>456</li>");
-	   	equal( div.innerHTML.toLowerCase(), "<ul><li>123</li><li>456</li></ul>", "ul prepend li" );
+	   	equal( wrap(div.innerHTML.toLowerCase()), "<ul><li>123</li><li>456</li></ul>", "ul prepend li" );
 	});
 
 	test("prepend TangramDom", function(){
