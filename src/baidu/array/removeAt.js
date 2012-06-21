@@ -3,6 +3,6 @@
 
 baidu.array.extend({
     removeAt : function () {
-        return this;
+        return this.splice(index, 1)[0];
     }
 });
