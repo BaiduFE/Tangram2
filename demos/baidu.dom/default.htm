@@ -9,8 +9,8 @@
                 "baidu.dom()"
                ,"baidu.dom('li')"
                ,"baidu.dom('.c')"
+               ,"baidu.dom('#lid b')"
                ,"baidu.dom('ol li u')"
-               ,"baidu.dom('#li_1')"
                ,"baidu.dom('#lid')"
                ,"baidu.dom('li#lid')"
                ,"baidu.dom(document.getElementById('second'))"
@@ -213,7 +213,7 @@ function run(input, index) {
     if (input.tagName) {
         var code = config.programer[index];
 
-        baidu.each(baidu.dom("#command_area input"), function(input){input.style.backgroundColor=""});
+        baidu.each(document.getElementById("command_area").getElementsByTagName("input"), function(input){input.style.backgroundColor=""});
         input.style.backgroundColor = "red";
 
     } else if (typeof input == "string") {

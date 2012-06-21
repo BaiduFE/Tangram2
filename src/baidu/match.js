@@ -2,6 +2,7 @@
 ///import baidu.query;
 ///import baidu.each;
 ///import baidu.merge;
+///import baidu.unique;
 
 /**
  * @fileoverview
@@ -20,54 +21,74 @@
  * @param   {String}        selector    CSS选择器
  * @return  {Array}         Array
  */
-baidu.match = (function(div, doc){
-    var reg = /^[\w\#\-\$\.\*]+$/;
+baidu.match = function(){
+    var reg = /^[\w\#\-\$\.\*]+$/,
 
+        // 使用这个临时的 div 作为CSS选择器过滤
+        div = document.createElement("DIV");
+        div.id = "__tangram__";
 
-    return function(target, selector){
-        var results = [];
+    return function(array, selector){
+        var root, results = [];
 
         switch (baidu.type(selector)) {
             // 取两个 TangramDom 的交集
             case "$DOM" :
-                for (var x=target.length-1; x>-1; x--) {
+                for (var x=array.length-1; x>-1; x--) {
                     for (var y=selector.length-1; y>-1; y--) {
-                        target[x] === selector[y] && results.push(target[x]);
+                        array[x] === selector[y] && results.push(array[x]);
                     }
                 }
                 break;
 
             // 使用过滤器函数，函数返回值是 Array
             case "function" :
-                baidu.each(target, function(item, index){
+                baidu.each(array, function(item, index){
                     selector.call(item, index) && results.push(item);
                 });
                 break;
             
             case "HTMLElement" :
-                baidu.each(target, function(item){
+                baidu.each(array, function(item){
                     item == selector && results.push(item);
                 });
                 break;
 
             // CSS 选择器
             case "string" :
-                // 为提高效率，对单选择器（简版）使用临时div
-                if (reg.test(selector)) {
-                    baidu.each(target, function(item){
-                        div.appendChild(item.cloneNode(false));
-                    });
-                    baidu.merge(results, baidu.query(selector, div));
-                    div.innerHTML = "";
-                
-                // 对于复杂选择器使用 documentFragment
-                } else {
-                }
+                baidu.each(array, function(item){
+                    // in DocumentFragment
+                    root = getRoot(item); 
+                    if (root.nodeType == 1) {
+                        div.appendChild(item);
+                        baidu.merge(results, baidu.query(selector, div));
+                        div.innerHTML = "";
+                    } else {
+                        baidu.merge(results, baidu.query(selector, document));
+                    }
+                });
+                results = baidu.unique(results);
                 break;
         }
         return results;
 
     };
-// 使用这个临时的 div 作为CSS选择器过滤
-})(document.createElement("DIV"), document.createDocumentFragment());
+
+    function getRoot(dom) {
+        var result = [], i;
+
+        while(dom = dom.parentNode) {
+            result.push(dom);
+        }
+
+        for (var i=result.length - 1; i>-1; i--) {
+            // 1. in DocumentFragment
+            // 9. Document
+            if (result[i].nodeType == 1 || result[i].nodeType == 9) {
+                return result[i];
+            }
+        }
+        return null;
+    }
+}();
 
