@@ -27,9 +27,7 @@ baidu.fn.extend({
 });
 
 baidu.fn.bind = function(func, scope) {
-    console.log(arguments);
     var xargs = arguments.length > 2 ? [].slice.call(arguments, 2) : null;
-    console.log(xargs);
     return function () {
         var fn = baidu.lang.isString(func) ? scope[func] : func,
             args = (xargs) ? xargs.concat([].slice.call(arguments, 0)) : arguments;
