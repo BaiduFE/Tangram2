@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/number/pad.js
- * author: dron, erik, berg
- * version: 1.1.0
- * date: 20100412
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.number;
@@ -20,7 +15,10 @@
  *             
  * @returns {string} 对目标数字进行0补齐处理后的结果
  */
-baidu.number.pad = function (source, length) {
+
+baidu.number.extend({
+pad : function (length) {
+	var source = this;
     var pre = "",
         negative = (source < 0),
         string = String(Math.abs(source));
@@ -30,4 +28,5 @@ baidu.number.pad = function (source, length) {
     }
 
     return (negative ?  "-" : "") + pre + string;
-};
+}
+});
