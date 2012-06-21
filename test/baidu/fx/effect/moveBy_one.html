@@ -1,0 +1,896 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>moveBy</title>
+		<!-- uiut js -->
+		<script src="../uiut/uiut.js"></script>
+		<!-- uiut js -->
+		<!-- tangram js -->
+		<script type="text/javascript" src="http://img.baidu.com/js/tangram-1.1.0.js"></script>
+		<!-- tangram js -->
+		<!-- fx.js -->
+		<script type="text/javascript" src="../../../src/fx.js"></script>
+		<script type="text/javascript" src="../../../src/fx/_Timeline.js"></script>
+		<script type="text/javascript" src="../../../src/fx/Effect.js"></script>
+        <script type="text/javascript" src="../../../src/fx/moveBy.js"></script>
+        <script type="text/javascript" src="../../../src/fx/moveTo.js"></script>
+		<!-- fx.js -->
+        <style type="text/css">
+            .c_one {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                font-size: 18px;
+                color: green;
+            }
+            
+            address {
+                position: absolute;
+                background: #FFFF00;
+            }
+            
+            blockquote {
+                position: absolute;
+                left: 105px;
+                top: 0px;
+                background: #6600CC;
+            }
+            
+            center {
+                position: absolute;
+                left: 0px;
+                top: 105px;
+                background: #FF9966;
+            }
+            
+            dir {
+                position: absolute;
+                left: 105px;
+                top: 105px;
+                background: #339933;
+            }
+            
+            p#r_bs {
+                position: absolute;
+                left: 210px;
+                top: 105px;
+            }
+            
+            p#r_bu {
+                position: absolute;
+                left: 210px;
+                top: 125px;
+            }
+            
+            p#r_au {
+                position: absolute;
+                left: 210px;
+                top: 145px;
+            }
+            
+            p#r_af {
+                position: absolute;
+                left: 210px;
+                top: 165px;
+            }
+            
+            div {
+                position: absolute;
+                left: 0px;
+                top: 210px;
+                background: #FFFF99;
+            }
+            
+            dl {
+                position: absolute;
+                left: 105px;
+                top: 210px;
+                background: #FF6666;
+            }
+            
+            fieldset {
+                position: absolute;
+                left: 0px;
+                top: 315px;
+                background: Purple;
+            }
+            
+            h1 {
+                position: absolute;
+                left: 400px;
+                top: 450px;
+                background: #FF6633;
+            }
+            
+            form {
+                position: absolute;
+                left: 0px;
+                top: 555px;
+                background: #66CCFF;
+            }
+            
+            pre {
+                position: absolute;
+                left: 200px;
+                top: 555px;
+                background: #99CCCC;
+            }
+            
+            h2#i_h2 {
+                position: absolute;
+                left: 0px;
+                top: 750px;
+                background: #33CC33;
+                visibility: visible;
+            }
+            
+            h3 {
+                position: absolute;
+                left: 50px;
+                top: 750px;
+                background: #33CC33;
+            }
+            
+            h4 {
+                position: relative;
+                left: 100px;
+                top: 750px;
+                background: #33CC33;
+            }
+            
+            h5 {
+                position: static;
+                left: 150px;
+                top: 750px;
+                background: #33CC33;
+            }
+            
+            h6 {
+                position: fixed;
+                left: 200px;
+                top: 750px;
+                background: #33CC33;
+            }
+            
+            hr {
+                position: absolute;
+                left: 250px;
+                top: 750px;
+                background: #33CC33;
+            }
+            
+            menu {
+                position: absolute;
+                left: 300px;
+                top: 750px;
+                background: #33CC33;
+            }
+            
+            ol {
+                position: absolute;
+                left: 350px;
+                top: 750px;
+                background: #33CC33;
+            }
+            
+            table#i_table {
+                position: absolute;
+                left: 400px;
+                top: 750px;
+                background: #33CC33;
+            }
+            
+            ul {
+                position: absolute;
+                left: 450px;
+                top: 750px;
+                background: #33CC33;
+            }
+            
+            p#i_time {
+                position: absolute;
+                left: 600px;
+                top: 860px;
+            }
+            
+            p#i_p {
+                position: absolute;
+                left: 0px;
+                top: 880px;
+                background: #66CCFF;
+            }
+            
+            p#r_bs_a {
+                position: absolute;
+                left: 400px;
+                top: 880px;
+            }
+            
+            p#r_bu_a {
+                position: absolute;
+                left: 400px;
+                top: 900px;
+            }
+            
+            p#r_au_a {
+                position: absolute;
+                left: 400px;
+                top: 920px;
+            }
+            
+            p#r_af_a {
+                position: absolute;
+                left: 400px;
+                top: 940px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <p style="color: #66CC66" align="center">
+            块级元素
+        </p>
+        <address id="i_address" class="c_one">
+            <a href="mailto:zhouxiuhu@baidu.com">address</a>
+            <br/>
+            baidu
+            <br/>
+            pt
+            <br/>
+        </address>
+        <blockquote id="i_blockquote" class="c_one">
+            blockquote
+        </blockquote>
+        <center id="i_center" class="c_one">
+            center
+        </center>
+        <pre id="i_pre" class="c_one">pre</pre>
+        <dir id="i_dir" class="c_one">
+            dir
+        </dir>
+        <p id="r_bs">
+        </p>
+        <div class="c_one"id="i_div">
+            <h2>div</h2>
+            <p>
+                div
+            </p>
+        </div>
+        <p id="r_bu">
+        </p>
+        <dl id="i_dl" class="c_one">
+            <dt>
+                dl
+            </dt>
+            <dd>
+                dl
+            </dd>
+            <dt>
+                dl
+            </dt>
+            <dd>
+                dl
+            </dd>
+        </dl>
+        <p id="r_au">
+        </p>
+        <fieldset id="i_fieldset" class="c_one">
+            <legend>
+                fieldset
+            </legend>
+            h: <input type="text" />
+            <br>
+            w: <input type="text" />
+        </fieldset>
+        <p id="r_af">
+        </p>
+        <h1 id="i_h1_1" class="c_one">h1_1</h1>
+        <h1 id="i_h1_2" class="c_one">h1_2</h1>
+        <h1 id="i_h1_3" class="c_one">h1_3</h1>
+        <h1 id="i_h1_4" class="c_one">h1_4</h1>
+        <h1 id="i_h1_5" class="c_one">h1_5</h1>
+        <h1 id="i_h1_6" class="c_one">h1_6</h1>
+        <h1 id="i_h1_7" class="c_one">h1_7</h1>
+        <h1 id="i_h1_8" class="c_one">h1_8</h1>
+        <form action="http://www.baidu.com" method="get" id="i_form" class="c_one">
+            <p>
+                Fn: <input type="text" name="fname" />
+            </p>
+            <p>
+                Ln: <input type="text" name="lname" />
+            </p><input type="submit" value="Submit" />
+        </form><h2 id="i_h2" class="c_one">h2</h2>
+        <h3 id="i_h3" class="c_one">h3</h3>
+        <h4 id="i_h4" class="c_one">h4</h4>
+        <h5 id="i_h5" class="c_one">h5</h5>
+        <h6 id="i_h6" class="c_one">h6</h6>
+        <hr id="i_hr" size="14px" class="c_one"/>
+        <table border="1" id="i_table" class="c_one">
+            <tr>
+                <th>
+                    table
+                </th>
+                <th>
+                    Sav
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    table
+                </td>
+                <td>
+                    $100
+                </td>
+            </tr>
+        </table>
+        <menu id="i_menu" class="c_one">
+            <li>
+                menu
+            </li>
+            <li>
+                menu
+            </li>
+        </menu>
+        <ul id="i_ul" class="c_one">
+            <li>
+                ul
+            </li>
+            <li>
+                Tea
+            </li>
+        </ul>
+        <ol id="i_ol" class="c_one">
+            <li>
+                ol
+            </li>
+            <li>
+                ol
+            </li>
+        </ol>
+        <p id="i_time">
+        </p>
+        <p id="i_p" class="c_one">
+            p
+        </p>
+        <p id="r_bs_a">
+        </p>
+        <p id="r_bu_a">
+        </p>
+        <p id="r_au_a">
+        </p>
+        <p id="r_af_a">
+        </p>
+        <script type="text/javascript">
+            //normal options
+            options = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                }
+            };
+            //before start options
+            var start = 1;
+            options_bs = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onbeforestart': function(){
+                    baidu.G("r_bs").innerHTML = "before start:" + start;
+                    ++start;
+                }
+            };
+            //before update case options
+            var update = 1;
+            options_bu = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onbeforeupdate': function(){
+                    baidu.G("r_bu").innerHTML = "before update:" + update;
+                    ++update;
+                }
+            };
+            //after update case options
+            var update_a = 1;
+            options_au = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onafterupdate': function(){
+                    baidu.G("r_au").innerHTML = "after update:" + update_a;
+                    ++update_a;
+                }
+            };
+            //after finish case options
+            var finish = 1;
+            options_af = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onafterfinish': function(){
+                    baidu.G("r_af").innerHTML = "after finish:" + finish;
+                    ++finish;
+                }
+            };
+            //duration options
+            options_du = {
+                'duration': 0,
+                'transition': function(schedule){
+                    return schedule;
+                }
+            };
+            function sleep(time){
+                uiut.nan();
+                setTimeout(function(){
+                    uiut.an();
+                }, time);
+            }
+            
+            function timeCount(time){
+                var c = 0
+                for (i = 1; i <= time / 100; ++i) {
+                    setTimeout(function(){
+                        c = c + 1;
+                        baidu.G("i_time").innerHTML = c / 10 + "秒";
+                    }, 100 * i);
+                }
+            }
+            
+            uiut.at({
+                name: "element参数为元素时正常moveBy",
+                test_element: function(){
+                    baidu.fx.moveBy(baidu.G('i_blockquote'), 495, 50, options);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.getStyle('i_blockquote', 'left') +
+                        ", 50 == " +
+                        baidu.getStyle('i_blockquote', 'top');
+                        t.is('600px', baidu.getStyle('i_blockquote', 'left'));
+                        t.is('50px', baidu.getStyle('i_blockquote', 'top'));
+                    }, 2200);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "未给定options参数时正常moveBy",
+                test_no_options: function(){
+                    baidu.fx.moveBy('i_center', 500, 15);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.getStyle('i_center', 'left') +
+                        ", 120 == " +
+                        baidu.getStyle('i_center', 'top');
+                        t.is('500px', baidu.getStyle('i_center', 'left'));
+                        t.is('120px', baidu.getStyle('i_center', 'top'));
+                    }, 2200);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onbeforestart事件",
+                test_beforestart: function(){
+                    baidu.fx.moveBy('i_dir', 295, 50, options_bs);
+                    t.is(baidu.G("r_bs").innerHTML, 'before start:1');
+                    setTimeout(function(){
+                        baidu.G("r_bs").innerHTML = "";
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_dir', 'left') +
+                        ", 155 == " +
+                        baidu.getStyle('i_dir', 'top');
+                        t.is('400px', baidu.getStyle('i_dir', 'left'));
+                        t.is('155px', baidu.getStyle('i_dir', 'top'));
+                    }, 2200);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onbeforeupdate事件",
+                test_beforeupdate: function(){
+                    baidu.fx.moveBy('i_div', 300, -5, options_bu);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.getStyle('i_div', 'left') +
+                        ", 205 == " +
+                        baidu.getStyle('i_div', 'top');
+                        t.is('300px', baidu.getStyle('i_div', 'left'));
+                        t.is('205px', baidu.getStyle('i_div', 'top'));
+                    }, 2100);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onafterupdate事件",
+                test_afterupdate: function(){
+                    baidu.fx.moveBy('i_dl', 345, -5, options_au);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "450 ==" + baidu.getStyle('i_dl', 'left') +
+                        ", 205 == " +
+                        baidu.getStyle('i_dl', 'top');
+                        t.is('450px', baidu.getStyle('i_dl', 'left'));
+                        t.is('205px', baidu.getStyle('i_dl', 'top'));
+                    }, 2100);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onafterfinish事件",
+                test_afterfinish: function(){
+                    baidu.fx.moveBy('i_fieldset', 400, -65, options_af);
+                    setTimeout(function(){
+                        t.is(baidu.G("r_af").innerHTML, 'after finish:1');
+                        t.is(baidu.G("r_af").innerHTML, 'after finish:1');
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_fieldset', 'left') +
+                        ", 250 == " +
+                        baidu.getStyle('i_fieldset', 'top');
+                        t.is('400px', baidu.getStyle('i_fieldset', 'left'));
+                        t.is('250px', baidu.getStyle('i_fieldset', 'top'));
+                    }, 2100);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "元素可以向各个方向move",
+                test_direction: function(){
+                    baidu.fx.moveBy(baidu.G('i_h1_1'), -200, 0, options);
+                    baidu.fx.moveBy(baidu.G('i_h1_2'), -100, 50, options);
+                    baidu.fx.moveBy(baidu.G('i_h1_3'), 0, 200, options);
+                    baidu.fx.moveBy(baidu.G('i_h1_4'), 100, 50, options);
+                    baidu.fx.moveBy(baidu.G('i_h1_5'), 200, 0, options);
+                    baidu.fx.moveBy(baidu.G('i_h1_6'), 100, -150, options);
+                    baidu.fx.moveBy(baidu.G('i_h1_7'), 0, -200, options);
+                    baidu.fx.moveBy(baidu.G('i_h1_8'), -100, -150, options);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "200 ==" + baidu.getStyle('i_h1_1', 'left') +
+                        ", 450 == " +
+                        baidu.getStyle('i_h1_1', 'top');
+                        t.is('200px', baidu.getStyle('i_h1_1', 'left'));
+                        t.is('450px', baidu.getStyle('i_h1_1', 'top'));
+                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.getStyle('i_h1_2', 'left') +
+                        ", 500 == " +
+                        baidu.getStyle('i_h1_2', 'top');
+                        t.is('300px', baidu.getStyle('i_h1_2', 'left'));
+                        t.is('500px', baidu.getStyle('i_h1_2', 'top'));
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_h1_3', 'left') +
+                        ", 650 == " +
+                        baidu.getStyle('i_h1_3', 'top');
+                        t.is('400px', baidu.getStyle('i_h1_3', 'left'));
+                        t.is('650px', baidu.getStyle('i_h1_3', 'top'));
+                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.getStyle('i_h1_4', 'left') +
+                        ", 500 == " +
+                        baidu.getStyle('i_h1_4', 'top');
+                        t.is('500px', baidu.getStyle('i_h1_4', 'left'));
+                        t.is('500px', baidu.getStyle('i_h1_4', 'top'));
+                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.getStyle('i_h1_5', 'left') +
+                        ", 450 == " +
+                        baidu.getStyle('i_h1_5', 'top');
+                        t.is('600px', baidu.getStyle('i_h1_5', 'left'));
+                        t.is('450px', baidu.getStyle('i_h1_5', 'top'));
+                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.getStyle('i_h1_6', 'left') +
+                        ", 300 == " +
+                        baidu.getStyle('i_h1_6', 'top');
+                        t.is('500px', baidu.getStyle('i_h1_6', 'left'));
+                        t.is('300px', baidu.getStyle('i_h1_6', 'top'));
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_h1_7', 'left') +
+                        ", 250 == " +
+                        baidu.getStyle('i_h1_7', 'top');
+                        t.is('400px', baidu.getStyle('i_h1_7', 'left'));
+                        t.is('250px', baidu.getStyle('i_h1_7', 'top'));
+                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.getStyle('i_h1_8', 'left') +
+                        ", 300 == " +
+                        baidu.getStyle('i_h1_8', 'top');
+                        t.is('300px', baidu.getStyle('i_h1_8', 'left'));
+                        t.is('300px', baidu.getStyle('i_h1_8', 'top'));
+                    }, 2100);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "未给定x、y参数时元素位置没改变",
+                test_not_xy: function(){
+                    baidu.fx.moveBy('i_form');
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "0 ==" + baidu.getStyle('i_form', 'left') +
+                        ", 555 == " +
+                        baidu.getStyle('i_form', 'top');
+                        t.is('0px', baidu.getStyle('i_form', 'left'));
+                        t.is('555px', baidu.getStyle('i_form', 'top'));
+                    }, 900);
+                    sleep(1000);
+                }
+            });
+            uiut.at({
+                name: "options参数的duration为0",
+                test_not_xy: function(){
+                    baidu.fx.moveBy('i_pre', 200, 0, options_du);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_pre', 'left') +
+                        ", 555 == " +
+                        baidu.getStyle('i_pre', 'top');
+                        t.is('400px', baidu.getStyle('i_pre', 'left'));
+                        t.is('555px', baidu.getStyle('i_pre', 'top'));
+                    }, 900);
+                    sleep(800);
+                }
+            });
+            //trasition options
+            options_tr = {
+                'duration': 3000,
+                'transition': function(schedule){
+                    return schedule;
+                }
+            };
+            uiut.at({
+                name: "options参数的transition属性的有效性",
+                test_duration_a: function(){
+                    //transition函数为y = 0
+                    var options_tr_a = options_tr;
+                    options_tr_a.transition = function(schedule){
+                        return 0;
+                    };
+                    baidu.fx.moveBy('i_h2', 50, 110, options_tr_a);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "50 ==" + baidu.getStyle('i_h2', 'left') +
+                        ", 860 == " +
+                        baidu.getStyle('i_h2', 'top');
+                        t.is('50px', baidu.getStyle('i_h2', 'left'));
+                        t.is('860px', baidu.getStyle('i_h2', 'top'));
+                    }, 3100);
+                    sleep(3000);
+                },
+                test_duration_b: function(){
+                    //transition函数为y = 1
+                    var options_tr_b = options_tr;
+                    options_tr_b.transition = function(schedule){
+                        return 1;
+                    };
+                    baidu.fx.moveBy('i_h3', 50, 110, options_tr_b);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "100 ==" + baidu.getStyle('i_h3', 'left') +
+                        ", 860 == " +
+                        baidu.getStyle('i_h3', 'top');
+                        t.is('100px', baidu.getStyle('i_h3', 'left'));
+                        t.is('860px', baidu.getStyle('i_h3', 'top'));
+                    }, 3100);
+                    sleep(3000);
+                },
+                test_duration_c: function(){
+                    //transition函数为y = x*x
+                    var options_tr_c = options_tr;
+                    options_tr_c.transition = function(schedule){
+                        return schedule * schedule;
+                    };
+                    baidu.fx.moveBy('i_h4', 50, 110, options_tr_c);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "150 ==" + baidu.getStyle('i_h4', 'left') +
+                        ", 860 == " +
+                        baidu.getStyle('i_h4', 'top');
+                        t.is('150px', baidu.getStyle('i_h4', 'left'));
+                        t.is('860px', baidu.getStyle('i_h4', 'top'));
+                    }, 3100);
+                    sleep(3000);
+                },
+                test_duration_d: function(){
+                    //transition函数为y = 2x-1
+                    var options_tr_d = options_tr;
+                    options_tr_d.transition = function(schedule){
+                        return 2 * schedule - 1;
+                    };
+                    baidu.fx.moveBy('i_h5', 200, 460, options_tr_d);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "200 ==" + baidu.getStyle('i_h5', 'left') +
+                        ", 460 == " +
+                        baidu.getStyle('i_h5', 'top');
+                        t.is('200px', baidu.getStyle('i_h5', 'left'));
+                        t.is('460px', baidu.getStyle('i_h5', 'top'));
+                    }, 3100);
+                    sleep(3000);
+                },
+                test_duration_e: function(){
+                    //transition函数为y = 2x
+                    //由于IE6.0不支持fixed，故当作static来处理，position的结果会有误
+                    var options_tr_e = options_tr;
+                    options_tr_e.transition = function(schedule){
+                        return 2 * schedule;
+                    };
+                    baidu.fx.moveBy('i_h6', 50, -290, options_tr_e);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "250px ==" + baidu.getStyle('i_h6', 'left') +
+                        ", 460px == " +
+                        baidu.getStyle('i_h6', 'top');
+						if (baidu.ie != 6) {
+							//由于IE6.0不支持fixed，故当作static来处理，position的结果会有误
+							t.is('250px', baidu.getStyle('i_h6', 'left'));
+							t.is('460px', baidu.getStyle('i_h6', 'top'));
+						}
+                    }, 3100);
+                    sleep(3000);
+                },
+                test_duration_f: function(){
+                    //transition函数为y = x, 0 <= x <= 0.5
+                    //                y = 0, 0.5 < x <= 1
+                    var options_tr_f = options_tr;
+                    options_tr_f.transition = function(schedule){
+                        if (schedule <= 0.5) {
+                            return schedule;
+                        }
+                        else {
+                            return 0;
+                        }
+                    };
+                    baidu.fx.moveBy('i_hr', 50, 110, options_tr_f);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.getStyle('i_hr', 'left') +
+                        ", 860 == " +
+                        baidu.getStyle('i_hr', 'top');
+                        t.is('300px', baidu.getStyle('i_hr', 'left'));
+                        t.is('860px', baidu.getStyle('i_hr', 'top'));
+                    }, 3100);
+                    sleep(3000);
+                },
+                test_duration_g: function(){
+                    //transition函数为y = 0, 0 <= x <= 0.5
+                    //                 y = x, 0.5 < x <= 1
+                    var options_tr_g = options_tr;
+                    options_tr_g.transition = function(schedule){
+                        if (schedule <= 0.5) {
+                            return 0;
+                        }
+                        else {
+                            return schedule;
+                        }
+                    };
+                    baidu.fx.moveBy('i_menu', 50, 110, options_tr_g);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "350 ==" + baidu.getStyle('i_menu', 'left') +
+                        ", 860 == " +
+                        baidu.getStyle('i_menu', 'top');
+                        t.is('350px', baidu.getStyle('i_menu', 'left'));
+                        t.is('860px', baidu.getStyle('i_menu', 'top'));
+                    }, 3100);
+                    sleep(3000);
+                },
+                test_duration_h: function(){
+                    //transition函数为y = 2x，0<= x <=0.5
+                    //                 y = 2-2x, 0.5 <= x <= 1
+                    var options_tr_h = options_tr;
+                    options_tr_h.transition = function(schedule){
+                        if (schedule <= 0.5) {
+                            return 2 * schedule;
+                        }
+                        else {
+                            return 2 - 2 * schedule;
+                        }
+                    };
+                    baidu.fx.moveBy('i_ol', 50, 110, options_tr_h);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_ol', 'left') +
+                        ", 860 == " +
+                        baidu.getStyle('i_ol', 'top');
+                        t.is('400px', baidu.getStyle('i_ol', 'left'));
+                        t.is('860px', baidu.getStyle('i_ol', 'top'));
+                    }, 3100);
+                    sleep(3000);
+                },
+                test_duration_i: function(){
+                    //transition函数为 y = 1- x
+                    var options_tr_i = options_tr;
+                    options_tr_i.transition = function(schedule){
+                        return 1 - schedule;
+                    };
+                    baidu.fx.moveBy('i_table', 50, 110, options_tr_i);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "450 ==" + baidu.getStyle('i_table', 'left') +
+                        ", 860 == " +
+                        baidu.getStyle('i_table', 'top');
+                        t.is('450px', baidu.getStyle('i_table', 'left'));
+                        t.is('860px', baidu.getStyle('i_table', 'top'));
+                    }, 3100);
+                    sleep(3000);
+                },
+                test_duration_j: function(){
+                    //transition函数为 y*y = x
+                    var options_tr_j = options_tr;
+                    options_tr_j.transition = function(schedule){
+                        return Math.sqrt(schedule);
+                    };
+                    baidu.fx.moveBy('i_ul', 50, 110, options_tr_j);
+                    timeCount(3000);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.getStyle('i_ul', 'left') +
+                        ", 860 == " +
+                        baidu.getStyle('i_ul', 'top');
+                        t.is('500px', baidu.getStyle('i_ul', 'left'));
+                        t.is('860px', baidu.getStyle('i_ul', 'top'));
+                    }, 3100);
+                    sleep(3000);
+                }
+            });
+            //event case options
+            var all_start = 1, all_update = 1, all_update_a = 1, all_finish = 1;
+            options_all = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onbeforestart': function(){
+                    baidu.G("r_bs_a").innerHTML = "before start:" + all_start;
+                    ++all_start;
+                },
+                'onbeforeupdate': function(){
+                    baidu.G("r_bu_a").innerHTML = "before update:" + all_update;
+                    ++all_update;
+                },
+                'onafterupdate': function(){
+                    baidu.G("r_au_a").innerHTML = "after update:" + all_update_a;
+                    ++all_update_a;
+                },
+                'onafterfinish': function(){
+                    baidu.G("r_af_a").innerHTML = "after finish:" + all_finish;
+                    ++all_finish;
+                }
+            };
+            uiut.at({
+                name: "options参数含有所有属性",
+                test_all: function(){
+					var p = baidu.dom.getPosition('i_p');
+                    baidu.fx.moveBy('i_p', 600, 70, options_all);
+                    timeCount(2000);
+                    setTimeout(function(){
+                        var position = baidu.dom.getPosition('i_p');
+                        baidu.G("r_af_a").innerHTML = "600 ==" + position.left + ",950 == " + position.top;
+                        t.is(p.left+600, position.left);
+                        t.is(p.top+70, position.top);
+                    }, 2100);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "element参数为Id时正常moveBy",
+                test_id: function(){
+					var leftO = parseInt(baidu.getStyle('i_address', 'left'));
+					var topO = parseInt(baidu.getStyle('i_address', 'top'));
+                    baidu.fx.moveBy('i_address', 400, 0, options);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_address', 'left') +
+                        ", 400px == " +
+                        baidu.getStyle('i_address', 'top');
+                        t.is(leftO+400+'px', baidu.getStyle('i_address', 'left'));
+                        t.is(topO+0+'px', baidu.getStyle('i_address', 'top'));
+                    }, 2100);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "element参数为Id时正常moveBy",
+                test_id: function(){
+					var leftO = baidu.getStyle('i_address', 'left');
+					//IE下获取的是auto需要转换为偏移的8px，但由于FE代码中没有处理这种"auto"情况，导致会下面的left比对断言失败
+					if (leftO == "auto") 
+						leftO = 8;
+					else
+						leftO = parseInt(leftO);
+					var topO = parseInt(baidu.getStyle('i_address', 'top'));
+                    baidu.fx.moveBy('i_address', 0, 400, options);
+                    setTimeout(function(){
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_address', 'left') +
+                        ", 0 == " +
+                        baidu.getStyle('i_address', 'top');
+                        t.is(0+leftO+'px', baidu.getStyle('i_address', 'left'));
+                        t.is(400+topO+'px', baidu.getStyle('i_address', 'top'));
+                    }, 2100);
+                    sleep(2000);
+                }
+            });
+        </script>
+    </body>
+</html>
