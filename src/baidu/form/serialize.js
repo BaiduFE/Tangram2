@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/form/serialize.js
- * author: qiaoyue
- * version: 1.1.0
- * date: 2011/12/23
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.form;
@@ -21,7 +16,11 @@
 	           
  * @returns {data} 表单数据数组
  */
-baidu.form.serialize = function (form, replacer) {
+
+baidu.form.extend({
+
+serialize : function (replacer) {
+    var form = this.form;
     var elements = form.elements,
         replacer = replacer || function (value, name) {
             return value;
@@ -81,4 +80,6 @@ baidu.form.serialize = function (form, replacer) {
     }
 
     return data;
-};
+}
+
+});

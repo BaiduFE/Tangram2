@@ -1,6 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.async;
@@ -33,6 +33,13 @@
 
  * @author rocy
  */
+ 
+baidu.async.extend({
+    Deferred:function(){
+        baidu.async.Deferred.apply(this,arguments);
+    }
+});
+
 baidu.async.Deferred = function() {
     var me = this;
     baidu.extend(me, {

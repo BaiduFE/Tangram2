@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/form/json.js
- * author: qiaoyue
- * version: 1.1.0
- * date: 2011/12/23
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.form;
@@ -21,7 +16,11 @@
 	           
  * @returns {data} 表单数据js对象
  */
-baidu.form.json = function (form, replacer) {
+
+baidu.form.extend({
+
+json : function (replacer) {
+    var form = this.form;
     var elements = form.elements,
         replacer = replacer || function (value, name) {
             return value;
@@ -87,4 +86,6 @@ baidu.form.json = function (form, replacer) {
     }
 
     return data;
-};
+}
+
+});
