@@ -7,7 +7,8 @@
 ///import baidu.merge;
 
 baidu.dom._buildElements = baidu.dom._buildElements || function(){
-    var tagPatrn = /^<(\w+)/i,
+    var defaultFragment = document.createDocumentFragment(),
+        tagPatrn = /^<(\w+)/i,
         tagMap = {
             option: [1, '<select multiple="multiple">', '</select>'],
             legend: [1, '<fieldset>', '</fieldset>'],
@@ -42,7 +43,7 @@ baidu.dom._buildElements = baidu.dom._buildElements || function(){
         doc = doc || document;
         var len = array.length,
             ret = [],
-            div, item, wrap, depth;
+            fragment, div, item, wrap, depth;
         //
         for(var i = 0; i < len; i++){
             item = array[i];
@@ -53,10 +54,9 @@ baidu.dom._buildElements = baidu.dom._buildElements || function(){
                     if(item.charAt(0) === '<'
                         && item.charAt(item.length - 1) === '>'
                         && item.length > 2){
-                            if(!div){
-                                div = doc.createElement('div');
-                                doc.createDocumentFragment().appendChild(div);
-                            }
+                            !fragment && (fragment = doc === document ? defaultFragment : doc.createDocumentFragment());
+                            div = document.createElement('div');
+                            fragment.appendChild(div);
                             wrap = tagMap[item.match(tagPatrn)[1].toLowerCase()] || tagMap._default;
                             depth = wrap[0];
                             div.innerHTML = '<div>for IE script</div>' + wrap[1] + item + wrap[2];
@@ -65,6 +65,7 @@ baidu.dom._buildElements = baidu.dom._buildElements || function(){
                             item = div;
                             while(depth--){item = item.lastChild;}
                             item = item.childNodes;
+                            fragment.removeChild(div);
                     }else{
                         item = doc.createTextNode(item);
                     }
