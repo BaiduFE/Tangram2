@@ -21,11 +21,16 @@
 	<a href='http://www.baidu.com'>baidu</a>
 </div>
 
+
+<table id='tableId-one' cellpadding='2' cellspacing='0' border='1'>
+        <tr><td>hello world~!</td></tr>
+    </table>
+
 <script>
-baidu.dom('div').html(function(index,html){
-	alert(index);
-	alert(html);
-});
+    
+    debugger;
+    
+baidu.dom('div').html('<script type="text/javascipr">alert("--------+++")<\/script>');
 </script>
 </body>
 </html>

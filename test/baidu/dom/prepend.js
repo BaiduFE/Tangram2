@@ -30,7 +30,7 @@ waiting(function(){ return baidu.query; }, function(){
 
 	   	div.innerHTML = "<table></table>";
 	   	baidu.dom("table").prepend("<tr><td>123</td></tr>");
-	   	equal( div.innerHTML.toLowerCase(), "<table><tr><td>123</td></tr></table>", "table prepend tr" );
+	   	equal(div.getElementsByTagName('table')[0].tBodies[0].innerHTML.toLowerCase(), "<tr><td>123</td></tr>", "table prepend tr" );
 
 	   	div.innerHTML = "<ul></ul>";
 	   	baidu.dom("ul").prepend("<li>123</li>");

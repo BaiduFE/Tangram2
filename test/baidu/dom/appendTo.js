@@ -14,7 +14,7 @@ waiting(function(){ return baidu.query; }, function(){
 
 	var div = document.createElement("div");
 		div.style.position = "absolute";
-		div.style.top = "-1000px";
+		div.style.top = "-10000px";
 
 	document.documentElement.appendChild(div);
 
