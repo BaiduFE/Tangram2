@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/string/wbr.js
- * author: erik
- * version: 1.1.0
- * date: 2009/11/30
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.string;
@@ -25,8 +20,10 @@
  *             
  * @returns {string} 添加软换行后的字符串
  */
-baidu.string.wbr = function (source) {
-    return String(source)
-        .replace(/(?:<[^>]+>)|(?:&#?[0-9a-z]{2,6};)|(.{1})/gi, '$&<wbr>')
+
+baidu.string.extend({
+wbr : function () {
+    return this.replace(/(?:<[^>]+>)|(?:&#?[0-9a-z]{2,6};)|(.{1})/gi, '$&<wbr>')
         .replace(/><wbr>/g, '>');
-};
+}
+}); 

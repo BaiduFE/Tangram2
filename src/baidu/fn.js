@@ -18,13 +18,7 @@ baidu.createChain("fn",
 
 // 执行方法
 function(fn){
-    switch (typeof fn) {
-        case "function" :
-            return new baidu.$Fn(fn);
-        break;
-        default:
-        break;
-    };
+	return typeof fn === 'function'? new baidu.$Fn(fn):new baidu.$Fn();
 },
 
 // constructor

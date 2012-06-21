@@ -18,13 +18,7 @@ baidu.createChain("ajax",
 
 // 执行方法
 function(url){
-    switch (typeof url) {
-        case "string" :
-            return new baidu.$Ajax(url);
-        break;
-        default:
-        break;
-    };
+	return typeof url === 'string'? new baidu.$Ajax(url):new baidu.$Ajax();
 },
 
 // constructor

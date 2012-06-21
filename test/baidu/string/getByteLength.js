@@ -1,5 +1,51 @@
 module("baidu.string.getByteLength测试");
 
+//新接口
+//分别检查英文串，中文串，有无空格和特殊字符（需要转义的字符以及全角字符）的情况
+test("纯中文串和英文串测试", function(){
+	equals(baidu.string('lovemylife').getByteLength(), 10);
+	equals(baidu.string('中国百度七巧板').getByteLength(), 14);
+}); // 1
+
+test("包含转义字符和空格的字符串测试", function(){
+	equals(baidu.string(new String('love?\tmy life\\')).getByteLength(), 14); // \t \\ 两个转义符
+	equals(baidu.string('中国 百度  七巧板').getByteLength(), 17);
+}); // 2
+
+test("包含全角字符的字符串", function(){
+	equals(baidu.string('＋ｍｏｏ＃').getByteLength(), 10);
+	equals(baidu.string('百＄七 板 ＊）％moon').getByteLength(), 20);
+}); // 3
+
+//混合串的长度，分别测试的是英文奇数个字符，偶数个字符，以及中英文混合的情况
+test("中英文字符混合的字符串", function(){
+	equals(baidu.string('love中国life').getByteLength(), 12);
+	equals(baidu.string('lov中国').getByteLength(), 7);
+	equals(baidu.string('国lif').getByteLength(), 5);
+	equals(baidu.string('love中国life人民').getByteLength(), 16);
+}); // 4
+
+test("中英文混合加上标点符号的字符串", function(){
+	equals(baidu.string('love? 中国 life#').getByteLength(), 16);
+}); // 5
+
+//空串和异常情况
+test("空串", function(){
+	equals(baidu.string("").getByteLength(), 0);
+}); // 6
+
+test("异常case", function(){
+	var nullStr = null;
+	equals(baidu.string(nullStr).getByteLength(), 4);
+	
+	var undefinedStr;
+	equals(baidu.string(undefinedStr).getByteLength(), 9); // undefined is 9 char
+	
+	var num = -108;
+	equals(baidu.string(num).getByteLength(), 4);
+}); // 7
+
+//老接口
 //分别检查英文串，中文串，有无空格和特殊字符（需要转义的字符以及全角字符）的情况
 test("纯中文串和英文串测试", function(){
 	equals(baidu.string.getByteLength('lovemylife'), 10);
