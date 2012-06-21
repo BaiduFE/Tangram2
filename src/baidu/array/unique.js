@@ -1,8 +1,9 @@
 ///import baidu.array;
+///import baidu.unique;
 
 
 baidu.array.extend({
-    unique : function () {
-        return this;
+    unique : function (fn) {
+        return baidu.unique(this, fn);
     }
 });

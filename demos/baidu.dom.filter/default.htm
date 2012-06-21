@@ -210,7 +210,7 @@ function run(input, index) {
     if (input.tagName) {
         var code = config.programer[index];
 
-        baidu.each(baidu.dom("#command_area input"), function(input){input.style.backgroundColor=""});
+        baidu.each(document.getElementById("command_area").getElementsByTagName("input"), function(input){input.style.backgroundColor=""});
         input.style.backgroundColor = "red";
 
     } else if (typeof input == "string") {
