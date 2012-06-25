@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/string/escapeReg.js
- * author: erik
- * version: 1.1.0
- * date: 2009/11/15
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.string;
@@ -22,7 +17,8 @@
  *             
  * @returns {string} 转义后的字符串
  */
-baidu.string.escapeReg = function (source) {
-    return String(source)
-            .replace(new RegExp("([.*+?^=!:\x24{}()|[\\]\/\\\\])", "g"), '\\\x241');
-};
+baidu.string.extend({
+escapeReg : function () {
+    return this.replace(new RegExp("([.*+?^=!:\x24{}()|[\\]\/\\\\])", "g"), '\\\x241');
+}
+});

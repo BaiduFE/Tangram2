@@ -1,11 +1,8 @@
-/*
- * Tangram
- * Copyright 2010 Baidu Inc. All rights reserved.
- * 
- * @author: meizz
- * @namespace: baidu.string.formatColor
- * @version: 2010-01-23
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
+
 
 ///import baidu.string;
 
@@ -42,7 +39,10 @@
             aqua: '#00ffff'
         };
 
-    baidu.string.formatColor = function(color) {
+    baidu.string.extend({
+
+    formatColor : function() {
+        var color = this.valueOf();
         if(reg1.test(color)) {
             // #RRGGBB 直接返回
             return color;
@@ -63,6 +63,8 @@
             return keyword[color];
         
         return "";
-    };
+    }
+
+    });
 })();
 

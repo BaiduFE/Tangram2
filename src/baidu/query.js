@@ -21,83 +21,54 @@
  * @param   {Array}     results     返回的结果对象（数组）
  * @return  {Array}                 筛选后的对象组
  */
-(function() {
-
-    baidu.query = baidu.query ||
-    function(selector, context, results) {
-        context = context || document;
-
-        if (!selector || typeof selector != "string") {
-            return results || [];
-        }
-
-        var arr = [];
-        baidu.each(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(item) {
-            arr = arr.concat(queryCombo(item, context));
-        });
-
-        // results 可能是传入的 ArrayLike ，所以只能使用 merge()
-        results ? baidu.merge(results, arr) : results = arr;
-        // 去重
-        return baidu.unique(results);
-    };
-
+baidu.query = baidu.query || (function(){
     var rId = /^(\w*)#([\w\-\$]+)$/,
+        rId0= /^#([\w\-\$]+)$/
         rTag = /^\w+$/,
         rClass = /^(\w*)\.([\w\-\$]+)$/,
-        rDivider = /\s*,\s*/;
+        rDivider = /\s*,\s*/,
+        rSpace = /\s+/g,
+        slice = Array.prototype.slice;
 
     // selector: #id, .className, tagName, *
-
-
     function query(selector, context) {
-        var id, dom, tagName, className, arr, array = [];
+        var t, id, dom, tagName, className, arr, array = [];
 
         // tag#id
         if (rId.test(selector)) {
             id = RegExp.$2;
-            tagName = RegExp.$1;
+            tagName = RegExp.$1 || "*";
 
-            // # 前有 TagName 范围限制时，返回符合条件的所有对象
-            if (tagName) {
-                baidu.each(context.getElementsByTagName(tagName), function(dom) {
-                    dom.id == id && array.push(dom);
-                });
-
-                // # 前没有 TagName 范围限制则返回 first
-                // [TODO] 在 DocumentFragment 里按 id 取对象，目前取不到
-            } else {
-                (dom = document.getElementById(id)) && array.push(dom);
-            }
-
-            // tagName or *
-        } else if (rTag.test(selector) || selector == "*") {
-            baidu.each(context.getElementsByTagName(selector), function(dom) {
-                array.push(dom);
+            // 本段代码效率很差，不过极少流程会走到这段
+            baidu.each(context.getElementsByTagName(tagName), function(dom) {
+                dom.id == id && array.push(dom);
             });
 
-            // .className
+        // tagName or *
+        } else if (rTag.test(selector) || selector == "*") {
+            baidu.merge(array, context.getElementsByTagName(selector));
+
+        // .className
         } else if (rClass.test(selector)) {
             arr = [];
             tagName = RegExp.$1;
             className = RegExp.$2;
+            t = " " + className + " ";
 
             if (context.getElementsByClassName) {
                 arr = context.getElementsByClassName(className);
             } else {
                 baidu.each(context.getElementsByTagName("*"), function(dom) {
-                    dom.className && (" " + dom.className + " ").indexOf(" " + className + " ") > -1 && arr.push(dom);
+                    dom.className && (" " + dom.className + " ").indexOf(t) > -1 && arr.push(dom);
                 });
             }
 
             if (tagName && (tagName = tagName.toUpperCase())) {
                 baidu.each(arr, function(dom) {
-                    dom.tagName.toUpperCase() == tagName && array.push(dom);
+                    dom.tagName.toUpperCase() === tagName && array.push(dom);
                 });
             } else {
-                baidu.each(arr, function(dom) {
-                    array.push(dom)
-                });
+                baidu.merge(array, arr);
             }
         }
 
@@ -105,37 +76,54 @@
     }
 
     // selector 还可以是上述四种情况的组合，以空格分隔
+    // @return ArrayLike
+    function queryCombo(selector, context) {
+        var a, s = selector, id = "__tangram__", array = [];
 
+        // 在 #id 且没有 context 时取 getSingle，其它时 getAll
+        if (!context && rId0.test(s) && (a=document.getElementById(s.substr(1)))) {
+            return [a];
+        }
 
-    function queryCombo(selector, context, array) {
-        var a, s, id = "__tangram__",
-            array = array || [];
+        context = context || document;
 
-        // [TODO 20120614] 使用 querySelectorAll 方法时 bug 不少，以后再启用吧
         // 用 querySelectorAll 时若取 #id 这种唯一值时会多选
-        //if (context.querySelectorAll) {
-        //    // 在使用 querySelectorAll 时，若 context 无id将貌似 document 而出错
-        //    if (context.nodeType == 1 && !context.id) {
-        //        context.id = id;
-        //        a = context.querySelectorAll("#" + id + " " + selector);
-        //        context.id = "";
-        //    } else {
-        //        a = context.querySelectorAll(selector);
-        //    }
-        //    // 保持统一的返回值类型(Array)
-        //    return baidu.merge(array, a);
-        //} else {
-            if (selector.indexOf(" ") == -1) {
-                return query(selector, context);
+        if (context.querySelectorAll) {
+            // 在使用 querySelectorAll 时，若 context 无id将貌似 document 而出错
+            if (context.nodeType == 1 && !context.id) {
+                context.id = id;
+                a = context.querySelectorAll("#" + id + " " + s);
+                context.id = "";
+            } else {
+                a = context.querySelectorAll(s);
+            }
+            return a;
+        } else {
+            if (s.indexOf(" ") == -1) {
+                return query(s, context);
             }
 
-            a = selector.split(/\s+/);
-            s = a.join(" ");
-            baidu.each(query(a[0], context), function(dom) { // 递归
+            baidu.each(query(s.substr(0, s.indexOf(" ")), context), function(dom, i, o) { // 递归
                 baidu.merge(array, queryCombo(s.substr(s.indexOf(" ") + 1), dom));
             });
-        //}
+        }
 
         return array;
     }
+
+    return function(selector, context, results) {
+        if (!selector || typeof selector != "string") {
+            return results || [];
+        }
+
+        var arr = [];
+        selector = selector.replace(rSpace, " ");
+        results && baidu.merge(arr, results) && (results.length = 0);
+
+        baidu.each(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(item) {
+            baidu.merge(arr, queryCombo(item, context));
+        });
+
+        return baidu.merge(results || [], baidu.unique(arr));
+    };
 })();

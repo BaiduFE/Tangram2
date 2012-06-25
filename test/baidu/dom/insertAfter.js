@@ -41,7 +41,10 @@ waiting(function(){ return baidu.query; }, function(){
 		var a = baidu.dom("div.A");
 		a.insertAfter( "<div>C</div>" );
 		ok( !! a[0], "a[0]" );
-		equal( a[0].prevSibling.innerHTML, "C", "a[0].prevSibling innerHTML" );
+		//
+		equal(a[0].innerHTML, 'C', 'the first element is div');
+		equal(a[1].className, 'A', 'the second element is div');
+		equal(a[2].className, 'A', 'the third element is div');
 	});
 
 	// 老接口

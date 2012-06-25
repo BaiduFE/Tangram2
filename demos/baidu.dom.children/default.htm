@@ -3,159 +3,149 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript">
-    // for ie 本地测试
-    if (/^file:\/\//i.test(location.href)) document.write("<base href='http://localhost/svn/github/Tangram2/demos/baidu.dom/'/>");
+        var config = {
+            namespace : "baidu.dom.children"
+           ,programer : [
+                "baidu.dom('ul').children()"
+               ,"baidu.dom('ul').children('.b')"
+            ]
 
-    function mm(code, n) {
-        var result = new Function("return "+ code)();
-
-        document.getElementById("txt_show").value = json(result);
-
-        return result;
-    }
-    // 给按钮添加 click 事件
-    function attach(list, n){
-        baidu.each(list, function(input){
-            if (input.type == "button") {
-                input.onclick = function() {
-                    baidu.each(list, function(input){input.style.backgroundColor=""});
-                    this.style.backgroundColor = "yellow";
-
-                    document.getElementById("txt"+ n).value = foreach(mm(this.value));
-                }
-            }
-        });
-    }
-    function foreach(object){
-        var str = "";
-
-        if (object._type_ == "$DOM" || object.jquery) {
-            for (var i=0, n=object.length; i<n; i++) {
-                str += (object[i].nodeType ? object[i].outerHTML : object[i]) +"\n";
-            }
-        }
-
-        return str;
-    }
-    window.onload = function() {
-        var ns = document.getElementById("hide").value;
-        Import(ns);
-        document.title = ns +" demo - meizz";
-        document.getElementById("caption").innerHTML = ns;
-        attach(baidu.selector("#td1 input"), 1);
-        attach(baidu.selector("#td2 input"), 2);
-
-        if (window.HTMLElement && !document.body.outerHTML) {
-            HTMLElement.prototype.__defineGetter__("outerHTML",function(){
-                var attr;
-                var attrs=this.attributes;
-                var str="<"+this.tagName;
-                for(var i=0;i<attrs.length;i++){
-                    attr=attrs[i];
-                    if(attr.specified)
-                        str+=" "+attr.name+'="'+attr.value+'"';
+            // 性能测试
+           ,performanceTest : {
+                 times : 10000          // 循环次数
+                ,testA : function(){var mm = baidu("#first"); for (var i=config.performanceTest.times; i>-1; i--) mm.children('.b')}
+                ,testB : function(){var mm = $("#first");     for (var i=config.performanceTest.times; i>-1; i--) mm.children('.b')}
+           }
+           // 将表达式的运算结果指定输出
+           ,showResult: function(result){
+                var str = "";
+                if (result._type_ || result.jquery) {
+                    for (var i=0, n=result.length; i<n; i++) {
+                        str += (i+1) +". "+ (result[i].nodeType ? result[i].outerHTML : result[i]) +"\n";
                     }
-                if(!this.canHaveChildren)
-                    return str+">";
-                return str+">"+this.innerHTML+"</"+this.tagName+">";
-            });
+                } else str = result.toString();
+                return str;
+            }
         }
-    }
-
+    /* for ie 本地测试 meizz //*/ if (/^file:\/\//i.test(location.href)) document.write("<base href='http://localhost/svn/github/Tangram2/demos/baidu.dom/'/>");
     </script>
     <script type="text/javascript" src="../../src/import.js"></script>
-    <script type="text/javascript" src="../jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="../common/jquery-1.7.2.js"></script>
     <title>meizz demo</title>
+    <script type="text/javascript">
+        /*! HTML5 Shiv vpre3.6 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
+          Uncompressed source: https://github.com/aFarkas/html5shiv  */
+        (function(a,b){function h(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function i(){var a=l.elements;return typeof a=="string"?a.split(" "):a}function j(a){var b={},c=a.createElement,f=a.createDocumentFragment,g=f();a.createElement=function(a){if(!l.shivMethods)return c(a);var f;return b[a]?f=b[a].cloneNode():e.test(a)?f=(b[a]=c(a)).cloneNode():f=c(a),f.canHaveChildren&&!d.test(a)?g.appendChild(f):f},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+i().join().replace(/\w+/g,function(a){return c(a),g.createElement(a),'c("'+a+'")'})+");return n}")(l,g)}function k(a){var b;return a.documentShived?a:(l.shivCSS&&!f&&(b=!!h(a,"article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio{display:none}canvas,video{display:inline-block;*display:inline;*zoom:1}[hidden]{display:none}audio[controls]{display:inline-block;*display:inline;*zoom:1}mark{background:#FF0;color:#000}")),g||(b=!j(a)),b&&(a.documentShived=b),a)}var c=a.html5||{},d=/^<|^(?:button|form|map|select|textarea|object|iframe|option|optgroup)$/i,e=/^<|^(?:a|b|button|code|div|fieldset|form|h1|h2|h3|h4|h5|h6|i|iframe|img|input|label|li|link|ol|option|p|param|q|script|select|span|strong|style|table|tbody|td|textarea|tfoot|th|thead|tr|ul)$/i,f,g;(function(){var c=b.createElement("a");c.innerHTML="<xyz></xyz>",f="hidden"in c,f&&typeof injectElementWithStyles=="function"&&injectElementWithStyles("#modernizr{}",function(b){b.hidden=!0,f=(a.getComputedStyle?getComputedStyle(b,null):b.currentStyle).display=="none"}),g=c.childNodes.length==1||function(){try{b.createElement("a")}catch(a){return!0}var c=b.createDocumentFragment();return typeof c.cloneNode=="undefined"||typeof c.createDocumentFragment=="undefined"||typeof c.createElement=="undefined"}()})();var l={elements:c.elements||"abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video",shivCSS:c.shivCSS!==!1,shivMethods:c.shivMethods!==!1,type:"default",shivDocument:k};a.html5=l,k(b)})(this,document);
+        // abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video
+    </script>
+
     <style type="text/css">
-    body{font-size:12px; font-family:SimSun;}
-    li{font-size:12px;}
-    td{vertical-align:top}
-    h3{margin:0px;}
-    textarea{font-size:10px; width:400px;}
-    .ul{margin:1em 0em 1em 2em; padding:0px;}
+        /*html5*/
+        article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
+
+        html, body{height:100%;max-height:100%;}
+        body{margin:auto; text-align:center; color:#333333;
+            background-image:url(../common/bg-content.png);
+            font: 14px/1.428 "Lucida Grande", "Lucida Sans Unicode", Lucida, Arial, Helvetica, sans-serif;
+        }
+        #wrapper{width:100%;margin:auto;text-align:left;}
+
+        header{margin:0px 30px;}
+        h1{margin:10px 0px}
+
+        textarea{background-color:transparent; border:none; overflow:auto; font:14px SimSun;}
+        fieldset{border-radius:0.5em; box-shadow:3px 3px 3px #CCC;}
+
+        section{margin:0 30px;}
+        td{vertical-align:top;}
+        .table_section{
+            width:100%;
+            border:1px solid #DDDDD7;
+            background-color:#FFFFFF;
+            box-shadow:3px 3px 3px #CCC;
+        }
+        .list{margin-top:0px;}
+        #command_area{font-family: "Lucida Grande", "Lucida Sans Unicode", Lucida, Arial, Helvetica, SimSun, sans-serif;}
     </style>
 </head>
 
 </head>
 <body>
-    <h1><span id="caption">baidu.dom</span> 测试用例</h1>
-<table border="1" cellspacing="0" style="width:100%">
-    <tr>
-        <th><input type="text" style="font-family:SimSun; border:none; width:98%;" onblur="this.value && (document.getElementById('txt1').value = foreach(mm(this.value)))"></th>
-        <th style="width:100px;">目标DOM元素</th>
-        <th style="width:420px;">HTML代码</th>
-    </tr>
-    <tr>
-        <td>
-            <table border="1" cellspacing="0" width="100%">
-                <tr>
-                    <td id="td1"><h3>Tangram</h3>
 
-<input value="baidu.dom.children" type="hidden" id="hide"/>
+<div id="wrapper">
+    <header>
+        <h1><span id="caption">baidu.dom</span> 测试用例</h1>
+    </header>
 
-<input value="baidu.dom('ul').children()" type="button"><br/>
-<input value="baidu.dom('ul').children('.c')" type="button"><br/>
+    <section>
+        <table class="table_section" border="0" cellspacing="12px">
+            <tr>
+                <td style="width:600px; line-height:25px; border-right:1px solid #DDDDD7;">
+                    <h3 style="margin:0px 0px 8px;">功能操作</h3>
+                    <input type="button" value=" 性能对比测试 " onclick="per_test()">
+                    <div id="command_area"></div>
+                </td>
 
-                    </td>
-                    <td style="width:420px;"><textarea id="txt1" style="height:200px"></textarea></td>
-                </tr>
-                <tr>
-                    <td id="td2"><h3>jQuery</h3>
+                <td>
+                    <fieldset>
+                        <legend>Tangram 结果展现</legend>
+                        <textarea id="result_tangram" style="width:100%; height:110px; color:red;"></textarea>
+                    </fieldset>
 
-<input value="$('ul').children()" type="button"><br/>
-<input value="$('ul').children('.c')" type="button"><br/>
+                    <fieldset style="margin-top:8px;">
+                        <legend>jQuery 结果展现</legend>
+                        <textarea id="result_jquery" style="width:100%; height:110px; color:blue;"></textarea>
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
 
-                    </td>
-                    <td><textarea id="txt2" style="height:200px"></textarea></td>
-                </tr>
-            </table>
-        </td>
-
-        <td style="background-color:#F7F7F7;">
+        <table class="table_section" border="0" cellspacing="12px" style="margin-top:12px">
+            <tr>
+                <td style="width:520px;"><textarea style="border:1px solid #CCC; width:100%; height:200px;">
 <div id="div">
-    <ul id="first" class="ul">
-        <li class="a" id="li1">first li</li>
-        <li class="b" id="li2">second <b><u>li</u></b></li>
-        <li class="c" id="li3">third <i><b>li</b></i></li>
-        <li class="d" id="li4">fourth <u>li</u></li>
-        <li class="d" id="li4">fifth <u><b>li</b></u></li>
+    <ul id="first" class="list">
+        <li id="li_1" class="a"><font color="red">first li</font></li>
+        <li id="li_2" class="a b">second <b><u>li</u></b></li>
+        <li id="li_3" class="a b c">third <i><b>li</b></i></li>
     </ul>
-    <ol id="second" class="ul">
-        <li class="a" id="li5">first li</li>
-        <li class="b" id="li6">second <b>li</b></li>
-        <li class="c" id="li7">third <i><b>li</b></i></li>
-        <li class="d" id="li8">fourth <u>li</u></li>
-        <li class="d" id="li9">fifth <u><b>li</b></u></li>
+    <ol id="second" class="list">
+        <li id="li_5" class="a"><font color="blue">first li</font></li>
+        <li id="lid" class="a b">second <u><b>li</b></u></li>
+        <li id="lid" class="a b c">third <i><b>li</b></i></li>
+    </ol>
+</div></textarea></td>
+                <td style="width:160px; line-height:25px; border-right:1px solid #DDDDD7;">
+<div id="div">
+    <ul id="first" class="list">
+        <li id="li_1" class="a"><font color="red">first li</font></li>
+        <li id="li_2" class="a b">second <b><u>li</u></b></li>
+        <li id="li_3" class="a b c">third <i><b>li</b></i></li>
+    </ul>
+    <ol id="second" class="list">
+        <li id="li_5" class="a"><font color="blue">first li</font></li>
+        <li id="lid" class="a b">second <u><b>li</b></u></li>
+        <li id="lid" class="a b c">third <i><b>li</b></i></li>
     </ol>
 </div>
-        </td>
-        <td rowspan="2"><textarea id="txt0" style="height:400px; border:none; overflow:auto">
-<div id="div">
-    <ul id="first" class="ul">
-        <li class="a" id="li1">first li</li>
-        <li class="b" id="li2">second <b><u>li</u></b></li>
-        <li class="c" id="li3">third <i><b>li</b></i></li>
-        <li class="d" id="li4">fourth <u>li</u></li>
-        <li class="d" id="li4">fifth <u><b>li</b></u></li>
-    </ul>
-    <ul id="second" class="ul">
-        <li class="a" id="li5">first li</li>
-        <li class="b" id="li6">second <b>li</b></li>
-        <li class="c" id="li7">third <i><b>li</b></i></li>
-        <li class="d" id="li8">fourth <u>li</u></li>
-        <li class="d" id="li9">fifth <u><b>li</b></u></li>
-    </ul>
-</div>
-        </textarea></td>
-    </tr>
-</table>
+                </td>
+                <td>
+                    <input type="text" class="table_section" style="width:100%" onblur="if(this.value) run(this.value)">
+                    <textarea id="txt_show" class="table_section" style="height:180px;">这里显示目标 for...in 遍历</textarea>
+                </td>
+            </tr>
+        </table>
 
-<textarea id="txt_show" style="width:100%; height:1000px; margin-top:5px;">这里显示目标 for...in 遍历</textarea>
+    </section>
+
+</div>
+
 <script type="text/javascript">
 Import("baidu.dom");
 Import("baidu.each");
 Import("baidu.type");
-Import("baidu.selector");
+Import("baidu.query");
+Import(config.namespace);
 
 
 
@@ -171,17 +161,99 @@ var json = function(object, prefix, deep) {
 	        	item = "function(){}";
 	        	break;
         	case "object" :
-                //if (typeof deep!="number") {
-        		//    item = "\n"+ json(item, prefix +"    ", 1);
-                //}
-                item = "[object]";
+                item = "["+ baidu.type(item) +"]";
 	        	break;
         }
 
-        a.push(prefix +"["+ (object.__type || "object") +"]."+ i + " = "+ item);
+        a.push(prefix +"["+ baidu.type(object) +"]."+ i + " = "+ item);
     }
     return a.join("\n");
 }
+
+if (window.HTMLElement && !document.body.outerHTML) {
+    HTMLElement.prototype.__defineGetter__("outerHTML",function(){
+        var attr;
+        var attrs=this.attributes;
+        var str="<"+this.tagName;
+        for(var i=0;i<attrs.length;i++){
+            attr=attrs[i];
+            if(attr.specified)
+                str+=" "+attr.name+'="'+attr.value+'"';
+            }
+        if(!this.canHaveChildren)
+            return str+">";
+        return str+">"+this.innerHTML+"</"+this.tagName+">";
+    });
+}
+
+
+window.onload = function() {
+    var i, n,
+        a = [],
+        codes = config.programer;
+        window.jquery = $();
+
+    for (i=0, n=codes.length; i<n; i++){
+        a.push("<input type='button' value=' run ' onclick='run(this, "+ i +")'> "+ codes[i]);
+    }
+    document.title = config.namespace +" demo - meizz";
+    document.getElementById("caption").innerHTML = config.namespace;
+    document.getElementById("command_area").innerHTML = a.join("<br>");
+};
+
+// 用户点击 [run] 按钮时运行
+function run(input, index) {
+    if (input.tagName) {
+        var code = config.programer[index];
+
+        baidu.each(baidu.dom("#command_area input"), function(input){input.style.backgroundColor=""});
+        input.style.backgroundColor = "red";
+
+    } else if (typeof input == "string") {
+        var code = input;
+    }
+    var str = "表达式运算无结果", result;
+    try{
+        result = eval(code);
+        str = config.showResult(result)
+    }catch (ex){
+        str += "\n"+ ex.message;
+    }
+    
+    document.getElementById("result_tangram").value = str;
+    document.getElementById("txt_show").value = json(result);
+
+    // jQuery
+    try {
+        result = eval(code.replace(/baidu(\.dom)?\(/g, "$("));
+        str = config.showResult(result);
+    } catch (ex) {
+        str = "jQuery 运算无结果\n"+ ex.message;
+    }
+
+    document.getElementById("result_jquery").value = str;
+}
+
+// 性能测试
+function per_test(){
+    var times= config.performanceTest.times
+        , ta = config.performanceTest.testA
+        , tb = config.performanceTest.testB
+        , d  = new Date().getTime()
+        , str= "循环 "+ times + " 次运行\n\nA组耗时：";
+
+    ta();
+
+    var h = new Date().getTime();
+    str  += (h - d) +" 毫秒\n"+ ta +"\n\nB组耗时："
+
+    tb();
+
+    str += (new Date().getTime() - h) +" 毫秒\n"+ tb;
+
+    document.getElementById("txt_show").value = str;
+}
+
 </script>
 
 </body>

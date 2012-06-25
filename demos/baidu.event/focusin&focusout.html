@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type='text/css'>
+	#container{
+		padding: 30px;
+		background-color: #f1f1f1;
+		width: 220px;
+	}
+
+	input, textarea{
+		width: 190px;
+	}
+
+	#container.blue{
+		background-color: #ccf;
+	}
+</style>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom._eventBase,baidu.dom.addClass,baidu.dom.removeClass'></script>
+</head>
+<body>
+
+<h3>baidu(selector).focusin(fn)</h3>
+<div id="container">
+	<div>
+		<p><input type="text" value=""></p>
+		<p><input type="text" value=""></p>
+		<p><textarea name="" id="" cols="30" rows="10"></textarea></p>
+		<p><a href="">hello</a></p>
+	</div>
+</div>
+
+<script type="text/javascript">
+	baidu("#container").focusin(function(event){
+	    baidu(this).addClass("blue");
+	});
+	baidu("#container").focusout(function(event){
+	    baidu(this).removeClass("blue");
+	});
+</script>
+
+</body>
+</html>

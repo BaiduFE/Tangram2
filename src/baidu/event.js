@@ -42,12 +42,15 @@ function(event, json){
 
 // constructor
 function(event){
-    var e, t;
+    var e, t, f;
     this._type_ = "$Event";
 
     if (typeof event == "object") {
         this.origin = event;
+
         baidu.extend(this, event);
+        delete this.stopPropagation;
+        delete this.preventDefault;
     }
 
     // event.type
@@ -57,9 +60,14 @@ function(event){
     this.timeStamp = new Date().getTime();
 
     if (e = this.origin) {
+        f = e.fromElement;
 
         // event.target
         this.target = e.srcElement || ((t=e.target) ? (t.nodeType==1?t:t.parentNode) : null);
+
+        // event.relatedTarget
+        if ( !this.relatedTarget && f )
+            this.relatedTarget = f === e.target ? e.toElement : f;
 
     }
 

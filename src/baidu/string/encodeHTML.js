@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/string/encodeHTML.js
- * author: erik
- * version: 1.1.0
- * date: 2009/11/15
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.string;
@@ -24,13 +19,15 @@
  *             
  * @returns {string} html编码后的字符串
  */
-baidu.string.encodeHTML = function (source) {
-    return String(source)
-                .replace(/&/g,'&amp;')
+baidu.string.extend({
+encodeHTML : function () {
+    return this.replace(/&/g,'&amp;')
                 .replace(/</g,'&lt;')
                 .replace(/>/g,'&gt;')
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#39;");
-};
+}
+
+});
 
 baidu.encodeHTML = baidu.string.encodeHTML;

@@ -1,5 +1,6 @@
 /**
  * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu;
@@ -31,7 +32,7 @@ baidu.dom.extend({
                             str += (' '+arr[i]);
                         };
                     };
-                    item.className = str ;
+                    item.className = str.replace(/^\s+/g,'') ;
                 });
 
             break;
@@ -48,3 +49,6 @@ baidu.dom.extend({
         return this;
     }
 });
+
+//兼容以前的快捷方式
+baidu.addClass = baidu.dom.addClass;

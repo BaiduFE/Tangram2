@@ -2,6 +2,20 @@ module("baidu.trim测试");
 
 test("删除字符串两边的空格", function(){
 	var sStr = "     半角空格tab键	 ";
+	equals(baidu.string(sStr).trim(), "半角空格tab键");
+	
+	//快捷方式
+	sStr = "　　全角空格回车　\n";
+	equals(baidu.trim(sStr), "全角空格回车");
+	
+	//全角与空格
+	sStr = "　　	  ";
+	equals(baidu.string(sStr).trim(), ""); //空
+});
+
+//老接口
+test("删除字符串两边的空格", function(){
+	var sStr = "     半角空格tab键	 ";
 	equals(baidu.string.trim(sStr), "半角空格tab键");
 	
 	//快捷方式

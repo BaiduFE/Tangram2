@@ -1,16 +1,27 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/ajax.js
- * author: allstar, erik
- * version: 1.1.0
- * date: 2009/11/13
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu;
+///import baidu.createChain;
+
 /**
- * 对XMLHttpRequest请求的封装
- * @namespace baidu.ajax
+ * Ajax链头，对XMLHttpRequest请求的封装
+ *
+ * @grammer baidu.ajax([url])
+ * @param   {Url}
+ * @return  {tangramAjax}          返回 new TangramAjax 对象
  */
-baidu.ajax = baidu.ajax || {};
+
+baidu.createChain("ajax",
+
+// 执行方法
+function(url){
+	return typeof url === 'string'? new baidu.$Ajax(url):new baidu.$Ajax();
+},
+
+// constructor
+function(url){
+	this.url = url;
+});

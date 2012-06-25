@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/fn/methodize.js
- * author: berg
- * version: 1.0.0
- * date: 2010/11/02 
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.fn;
@@ -20,8 +15,14 @@
  * @version 1.3
  * @returns {Function} 已方法化的函数
  */
-baidu.fn.methodize = function (func, attr) {
+
+baidu.fn.extend({
+
+methodize : function (attr) {
+	var fn = this.fn ;
     return function(){
-        return func.apply(this, [(attr ? this[attr] : this)].concat([].slice.call(arguments)));
+        return fn.apply(this, [(attr ? this[attr] : this)].concat([].slice.call(arguments)));
     };
-};
+}
+
+});

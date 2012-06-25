@@ -1,11 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/string/toCamelCase.js
- * author: erik, berg
- * version: 1.2
- * date: 2010-06-22
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.string;
@@ -24,7 +19,9 @@
  */
  
  //todo:考虑以后去掉下划线支持？
-baidu.string.toCamelCase = function (source) {
+baidu.string.extend({
+toCamelCase : function () {
+	var source = this.valueOf();
     //提前判断，提高getStyle等的效率 thanks xianwei
     if (source.indexOf('-') < 0 && source.indexOf('_') < 0) {
         return source;
@@ -32,4 +29,5 @@ baidu.string.toCamelCase = function (source) {
     return source.replace(/[-_][^-_]/g, function (match) {
         return match.charAt(1).toUpperCase();
     });
-};
+}
+});

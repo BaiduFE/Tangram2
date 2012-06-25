@@ -1,5 +1,27 @@
 module("baidu.string.decodeHTML 测试");
 
+//新接口
+test('将<>"&的实体字符转义成html字符', function(){
+	var strDecodeHTML = "";
+	
+	strDecodeHTML = baidu.string('&lt;&gt;&quot;&amp;').decodeHTML();
+	equals(strDecodeHTML, '<>"&');
+	
+	strDecodeHTML = baidu.string('&lt;input type=&quot;text&quot; value=&quot;data&quot;/&gt;').decodeHTML();
+	equals(strDecodeHTML, '<input type="text" value="data"/>');
+	
+	strDecodeHTML = baidu.string('&amp;amp;&amp;&lt;&lt;&lt;&gt;&gt;').decodeHTML();
+	equals(strDecodeHTML, '&amp;&<<<>>');
+	
+	strDecodeHTML = baidu.string('&#12345;').decodeHTML();
+	equals(strDecodeHTML, '〹');
+	
+	strDecodeHTML = baidu.string('hi,all&#22909;&#30340;,&#36825;&#20010;javascript&#19981;&#38169;').decodeHTML();
+	equals(strDecodeHTML, 'hi,all好的,这个javascript不错');
+});
+
+//老接口
+
 /**
  * transfer html code to entity, "&lt;" for "<" or "&quot;" for """ and so on
  * use two function(baidu.string.decodeHTML() and baidu.decodeHTML())

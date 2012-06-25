@@ -1,6 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.sio;
@@ -26,64 +26,70 @@
  * @meta standard
  * @see baidu.sio.callByBrowser
  */
-baidu.sio.callByServer = /**@function*/function(url, callback, opt_options) {
-    var scr = document.createElement('SCRIPT'),
-        prefix = 'bd__cbs__',
-        callbackName,
-        callbackImpl,
-        options = opt_options || {},
-        charset = options['charset'],
-        queryField = options['queryField'] || 'callback',
-        timeOut = options['timeOut'] || 0,
-        timer,
-        reg = new RegExp('(\\?|&)' + queryField + '=([^&]*)'),
-        matches;
 
-    if (baidu.lang.isFunction(callback)) {
-        callbackName = prefix + Math.floor(Math.random() * 2147483648).toString(36);
-        window[callbackName] = getCallBack(0);
-    } else if(baidu.lang.isString(callback)){
-        // 如果callback是一个字符串的话，就需要保证url是唯一的，不要去改变它
-        // TODO 当调用了callback之后，无法删除动态创建的script标签
-        callbackName = callback;
-    } else {
-        if (matches = reg.exec(url)) {
-            callbackName = matches[2];
+ 
+baidu.sio.extend({
+    callByServer : function( callback, opt_options) {
+        var url = this.url ;
+        var scr = document.createElement('SCRIPT'),
+            prefix = 'bd__cbs__',
+            callbackName,
+            callbackImpl,
+            options = opt_options || {},
+            charset = options['charset'],
+            queryField = options['queryField'] || 'callback',
+            timeOut = options['timeOut'] || 0,
+            timer,
+            reg = new RegExp('(\\?|&)' + queryField + '=([^&]*)'),
+            matches;
+
+        if (baidu.lang.isFunction(callback)) {
+            callbackName = prefix + Math.floor(Math.random() * 2147483648).toString(36);
+            window[callbackName] = getCallBack(0);
+        } else if(baidu.lang.isString(callback)){
+            // 如果callback是一个字符串的话，就需要保证url是唯一的，不要去改变它
+            // TODO 当调用了callback之后，无法删除动态创建的script标签
+            callbackName = callback;
+        } else {
+            if (matches = reg.exec(url)) {
+                callbackName = matches[2];
+            }
         }
-    }
 
-    if( timeOut ){
-        timer = setTimeout(getCallBack(1), timeOut);
-    }
+        if( timeOut ){
+            timer = setTimeout(getCallBack(1), timeOut);
+        }
 
-    //如果用户在URL中已有callback，用参数传入的callback替换之
-    url = url.replace(reg, '\x241' + queryField + '=' + callbackName);
-    
-    if (url.search(reg) < 0) {
-        url += (url.indexOf('?') < 0 ? '?' : '&') + queryField + '=' + callbackName;
-    }
-    baidu.sio._createScriptTag(scr, url, charset);
+        //如果用户在URL中已有callback，用参数传入的callback替换之
+        url = url.replace(reg, '\x241' + queryField + '=' + callbackName);
+        
+        if (url.search(reg) < 0) {
+            url += (url.indexOf('?') < 0 ? '?' : '&') + queryField + '=' + callbackName;
+        }
+        baidu.sio._createScriptTag(scr, url, charset);
 
-    /*
-     * 返回一个函数，用于立即（挂在window上）或者超时（挂在setTimeout中）时执行
-     */
-    function getCallBack(onTimeOut){
-        /*global callbackName, callback, scr, options;*/
-        return function(){
-            try {
-                if( onTimeOut ){
-                    options.onfailure && options.onfailure();
-                }else{
-                    callback.apply(window, arguments);
-                    clearTimeout(timer);
+        /*
+         * 返回一个函数，用于立即（挂在window上）或者超时（挂在setTimeout中）时执行
+         */
+        function getCallBack(onTimeOut){
+            /*global callbackName, callback, scr, options;*/
+            return function(){
+                try {
+                    if( onTimeOut ){
+                        options.onfailure && options.onfailure();
+                    }else{
+                        callback.apply(window, arguments);
+                        clearTimeout(timer);
+                    }
+                    window[callbackName] = null;
+                    delete window[callbackName];
+                } catch (exception) {
+                    // ignore the exception
+                } finally {
+                    baidu.sio._removeScriptTag(scr);
                 }
-                window[callbackName] = null;
-                delete window[callbackName];
-            } catch (exception) {
-                // ignore the exception
-            } finally {
-                baidu.sio._removeScriptTag(scr);
             }
         }
     }
-};
+
+});
