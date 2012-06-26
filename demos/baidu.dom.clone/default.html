@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type='text/css'>
+.div-css {
+    border: pink solid 2px;
+    width: 500px;
+}
+.div-border-blue {
+    border: blue solid 2px;
+}
+</style>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.clone,baidu.dom.on'></script>
+</head>
+<body>
+<div id='divId' class='div-css'>&nbsp;</div>
+
+<input type='button' value='invoke' onclick='main();'/>
+</body>
+<script type='text/javascript'>
+function main(){
+    var c = baidu('#divId').on('click', function(){alert('hello world')});
+    
+    document.body.appendChild(c.clone(true).get(0));
+}
+</script>
+</html>
