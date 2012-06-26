@@ -85,7 +85,10 @@
 					.Properties {
 					text-align:right;
 					}
-      			</style>
+				</style>
+				<script type="text/javascript">
+
+				</script>
 			</head>
 			<body>
 				<a name="top"></a>
