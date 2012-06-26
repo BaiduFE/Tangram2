@@ -8,15 +8,23 @@
 baidu.support = baidu.support || function(){
     var div = document.createElement('div'),
         support,
-        a;
+        a, input;
     
-    div.innerHTML = '<a href="/a" style="float: left; opacity: .55">Tangram</a>';
+    div.innerHTML = '<a href="/a" style="float: left; opacity: .55">Tangram</a><input type="checkbox">';
     a = div.getElementsByTagName('A')[0];
-
+    input = div.getElementsByTagName('input')[0];
+    input.checked = true;
+    
     support = {
         opacity: a.style.opacity === '0.55',
-        cssFloat: !!a.style.cssFloat
+        cssFloat: !!a.style.cssFloat,
+        noCloneChecked: input.cloneNode(true).checked,
+        noCloneEvent: true
     };
+    if (!div.addEventListener && div.attachEvent && div.fireEvent){
+        div.attachEvent('onclick', function(){support.noCloneEvent = false;});
+        div.cloneNode(true).fireEvent('onclick');
+    }
     
     baidu(function(){
         var body = document.getElementsByTagName('body')[0],
