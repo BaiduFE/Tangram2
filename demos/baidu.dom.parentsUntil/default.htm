@@ -4,17 +4,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript">
         var config = {
-            namespace : "baidu.dom.prevUntil"
+            namespace : "baidu.dom.parentsUntil"
            ,programer : [
-                "baidu.dom('#li_3, ol .c').prevUntil()"
-               ,"baidu.dom('#li_3, ol .c').prevUntil('.b')"
-               ,"baidu.dom('#li_3, ol .c').prevUntil('#li_2')"
+                "baidu.dom('u').parentsUntil()"
+               ,"baidu.dom('u').parentsUntil('#first')"
+               ,"baidu.dom('u').parentsUntil('.list')"
+               ,"baidu.dom('u').parentsUntil('ol')"
+               ,"baidu.dom('u').parentsUntil('#div')"
             ]
             // 性能测试
            ,performanceTest : {
                  times : 100          // 循环次数
-                ,testA : function(){var mm = baidu('#li_3, ol .c'); for (var i=config.performanceTest.times; i>-1; i--) mm.prevUntil('#li_2')}
-                ,testB : function(){var mm = $('#li_3, ol .c');     for (var i=config.performanceTest.times; i>-1; i--) mm.prevUntil('#li_2')}
+                ,testA : function(){var mm = baidu('u'); for (var i=config.performanceTest.times; i>-1; i--) mm.parentsUntil('ol')}
+                ,testB : function(){var mm = $('u');     for (var i=config.performanceTest.times; i>-1; i--) mm.parentsUntil('ol')}
            }
            // 将表达式的运算结果指定输出
            ,showResult: function(result){
