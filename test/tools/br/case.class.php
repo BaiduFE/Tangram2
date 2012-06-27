@@ -92,7 +92,7 @@ class Kiss{
 		print '<script type="text/javascript" src="js/testrunner.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/ext_qunit.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/UserAction.js"></script>'."\n";
-		print '<script type="text/javascript" src="js/newAction.js"></script>'."\n";
+		print '<script type="text/javascript" src="js/tools.js"></script>'."\n";
 		
 		print '<link media="screen" href="css/qunit.css" type="text/css" rel="stylesheet" />'."\n";
 
