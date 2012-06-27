@@ -1,11 +1,10 @@
 ///import baidu;
-
 /**
  * @fileoverview
  * @name baidu.id
  * @author dron,meizz
  * @create 2012-06-13
- * @modify 
+ * @modify
  */
 
 /**
@@ -17,31 +16,42 @@
  * @param   {Object}        context     context.fn()
  * @param   {Object}        new Array()
  */
-baidu.id = function(){
-    var key = "tangram_guid"
-        ,global = window[baidu.guid]
-        ,maps = global._maps = global._maps || {};
+baidu.id = function() {
+    var key = "tangram_guid",
+        global = window[baidu.guid],
+        maps = global._maps = global._maps || {};
+        
     global._counter = global._counter || 1;
 
-    return function(object){
-        var type = typeof object;
+    return function(object, type) {
+        var t = typeof object;
 
-        if (type == "string") {
+        if (t === "string") {
             return maps[object];
-        } else if (type == "object" && object) {
+        } else if (t === "object" && object) {
             if (object.nodeType) {
-                var guid = object.getAttribute(key);
-                
-                if (!guid){
-                    guid = baidu.id();
-                    object.setAttribute(key, guid);
-                    maps[guid] = object;
+                var guid = object[key];
+
+                switch (type) {
+                case "remove":
+                    if (!guid) return;
+                    delete object[key];
+                    delete maps[guid];
+                    break;
+                case "get":
+                    return guid;
+                default:
+                    if (!guid) {
+                        guid = baidu.id();
+                        object[key] = guid;
+                        maps[guid] = object;
+                    }
+                    return guid;
                 }
-                return guid;
             }
         }
 
-        return "TANGRAM__" + global._counter ++;
+        return "TANGRAM__" + global._counter++;
     };
 
 }();

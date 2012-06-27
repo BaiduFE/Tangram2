@@ -39,12 +39,12 @@ test("输入函数并输入iterator", function() {
 	var fn = function(x, y) {
 		return x.length == y.length;
 	};
-	var rArr = baidu.array(arraytest).unique(arraytest, fn);
+	var rArr = baidu.array(arraytest).unique(fn);
 	var array = [ 'name', 'job', 'ghost', 'window', 'we' ];
 	ok(ua.isEqualArray(rArr, array), "输入函数并输入iterator");
 
 	var input = [ "one", "two", "three", "four" ];
-	var output = baidu.array(input).unique(input, function(x, y) {
+	var output = baidu.array(input).unique(function(x, y) {
 		return (x.length == y.length);
 	});
 	equal(output.toString(), "one,three,four", "输入函数");
@@ -62,8 +62,7 @@ test("输入数组有重复元素", function() {
 	var output = baidu.array.unique(input);
 	equal(output.toString(), "1,2,3", "输入数组有重复元素");
 
-	deepEqual([ 'abc', 'hasOwnProperty', 'toString' ], baidu.array.unique([
-			'abc', 'hasOwnProperty', 'toString', 'abc' ]));
+	deepEqual([ 'abc', 'hasOwnProperty', 'toString' ], baidu.array.unique(['abc', 'hasOwnProperty', 'toString', 'abc' ]));
 	deepEqual([ 123 ], baidu.array.unique([ Number(123), 123 ]));
 	deepEqual([ '123' ], baidu.array
 			.unique([ String(123), String('123'), '123' ]));

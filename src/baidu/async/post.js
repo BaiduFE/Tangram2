@@ -1,6 +1,6 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
 ///import baidu.ajax.request;
@@ -14,7 +14,10 @@
  * @version 1.3.9 
  * @return {baidu.async.Deferred} Deferred对象,支持链式调用.
  */
-baidu.async.post = function(url, data){
+
+baidu.async.extend({
+post : function(data){
+    var url = this.url;
     var deferred = new baidu.async.Deferred();
     baidu.ajax.request(url, {
         method: 'POST',
@@ -27,4 +30,5 @@ baidu.async.post = function(url, data){
         }
     });
     return deferred;
-};
+}    
+});

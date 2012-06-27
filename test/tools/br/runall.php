@@ -69,29 +69,10 @@ if(array_key_exists('clear', $_GET)){
 if(file_exists('report')){
 	//	rmdir('report');
 	$reports = scandir('report');
-	var_dump($reports);
-	$count = 0;
-	foreach($reports as $path){
-		if(is_dir("report/$path")){
-			$count++;
-		}
-	}
-	$count = sizeof($reports) - $count;
-	if($count > 0){
-		$info = "wait for last run : $count";
-		echo $info;
-		error_log($info);
-		return;
-	}else{
-		$message = "start running";
-		error_log($message);
-	}
+	print 'on batch run, please waiting : '. (sizeof($reports)-2);
+	return;
 }else{
 	mkdir('report');
-}
-
-if(file_exists("covreport.html")){
-	if( unlink( "covreport.html" ) )echo "成功删除覆盖率报告文件： covreport.html<br />\n";
 }
 
 /*记录运行时信息*/
@@ -99,7 +80,7 @@ $b = array_key_exists('browser', $_GET) ? $_GET['browser'] : 'all';
 if($b !='all'){
 	run($b, $release, true);
 }else{
-	Config::StopAll();//批量执行启动前一定清理一次浏览器环境
+	Config::StopAll();//添加启动前结束浏览器步骤
 	foreach(Config::$BROWSERS as $b=>$i){
 		run($b, $release);
 	}

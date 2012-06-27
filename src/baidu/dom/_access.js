@@ -3,28 +3,24 @@
  */
 ///import baidu.dom;
 ///import baidu.type;
-baidu.dom.extend({
-    _access: function(key, value, callback){
-        var type = baidu.type(key),
-            ret, len;
-        switch(type){
-            case 'string'://高频
-                if(value === undefined){
-                    return callback.call(this, this[0], key);
-                }else{
-                    len = this.length;
-                    for(var i = 0; i < len; i++){
-                        callback.call(this, this[i], key,
-                            baidu.type(value) === 'function' ? value.call(this[i], i, callback.call(this, this[i], key)) : value);
-                    }
+
+baidu.dom._access = function(key, value, callback){
+    switch(baidu.type(key)){
+        case 'string'://高频
+            if(value === undefined){
+                return callback.call(this, this[0], key);
+            }else{
+                for(var i = 0, ele; ele = this[i]; i++){
+                    callback.call(this, ele, key,
+                        baidu.type(value) === 'function' ? value.call(ele, i, callback.call(this, ele, key)) : value);
                 }
-                break;
-            case 'object':
-                for(var i in key){
-                    this._access(i, key[i], callback);
-                }
-                break;
-        }
-        return this;
+            }
+            break;
+        case 'object':
+            for(var i in key){
+                baidu.dom._access.call(this, i, key[i], callback);
+            }
+            break;
     }
-});
+    return this;
+};
