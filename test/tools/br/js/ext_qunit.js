@@ -15,6 +15,11 @@
 				passed : args[1]
 			}, window._$jscoverage || null ]);
 		}
+
+		// dron
+		if(parent && parent.testDoneCallBack){
+		    parent.testDoneCallBack({ failed: args[0], passed: args[1] });
+		}
 	}
 	
 	QUnit.moduleStart = function(name,testEnvironment) {
