@@ -2,7 +2,7 @@
 
 
 baidu.array.extend({
-    removeAt : function () {
+    removeAt : function (index) {
         return this.splice(index, 1)[0];
     }
 });
