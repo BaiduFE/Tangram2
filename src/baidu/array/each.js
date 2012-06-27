@@ -16,13 +16,16 @@
  * @param   {Object}        context                         方法作用域
  * @return  {TangramArray}
  */
-void function (fn) {
-    baidu.array.extend({
-        each : fn,
-        forEach : fn
-    });
-}(
-    function(iterator, context) {
+void function () {
+    var fn = function(iterator, context) {
         return baidu.each(this, iterator, context);
-    }
-);
+    };
+
+    Array.prototype.each = fn
+    Array.prototype.forEach = fn
+
+    // TODO: delete in tangram 3.0
+    baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
+        return array.each(iterator, context);
+    };
+};
