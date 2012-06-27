@@ -56,15 +56,19 @@ baidu.match = function(){
 
             // CSS 选择器
             case "string" :
+                var da = baidu.query(selector, document);
                 baidu.each(array, function(item){
-                    // in DocumentFragment
-                    root = getRoot(item); 
-                    if (root.nodeType == 1) {
-                        div.appendChild(item);
-                        baidu.merge(results, baidu.query(selector, div));
-                        div.innerHTML = "";
-                    } else {
-                        baidu.merge(results, baidu.query(selector, document));
+
+                    var t = (root = getRoot(item)).nodeType == 1
+                        // in DocumentFragment
+                        ? baidu.query(selector, root)
+                        : da;
+
+                    for (var i=0, n=t.length; i<n; i++) {
+                        if (t[i] === item) {
+                            results.push(item);
+                            break;
+                        }
                     }
                 });
                 results = baidu.unique(results);
