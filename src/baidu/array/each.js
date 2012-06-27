@@ -28,4 +28,4 @@ void function () {
     baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
         return array.each(iterator, context);
     };
-};
+}();
