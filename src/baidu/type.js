@@ -14,7 +14,7 @@
  * @param   {Object}    object  被判断的对象
  * @return  {String}            对象类型名
  */
-(function() {
+baidu.type = (function() {
     var objectType = {},
         nodeType = [, "HTMLElement", "Attribute", "Text", , , , , "Comment", "Document", , "DocumentFragment", ],
         toString = objectType.toString;
@@ -25,10 +25,16 @@
     });
 
     // 方法主体
-    baidu.type = function(object) {
+    return function(object) {
         var s = typeof object;
 
-        return s != "object" ? s : object == null ? "null" : object._type_ || objectType[toString.call(object)] || nodeType[object.nodeType] || (object == object.window ? "Window" : "") || "object";
+        return s != "object" ? s
+            : any == null ? "null"
+            : any._type_
+                || objectType[toString.call(any)]
+                || nodeType[any.nodeType]
+                || (any == any.window ? "Window" : "")
+                || "object";
     };
 
 })();
