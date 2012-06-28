@@ -1,15 +1,16 @@
 ///import baidu.array;
+///import baidu.type.isArray;
 
-Array.prototype.filter = function(filter, context) {
+Array.prototype.filter = function(iterator, context) {
     var result = baidu.array([]),
         i, n, item, index=0;
 
-    if (typeof iterator === "function") {
+    if (baidu.type(iterator) === "function") {
         for (i=0, n=this.length; i<n; i++) {
             item = this[i];
 
-            if (filter.call(context || this, item, i, this) === true) {
-                result[result ++] = item;
+            if (iterator.call(context || this, item, i, this) === true) {
+                result[index ++] = item;
             }
         }
     }
@@ -19,5 +20,5 @@ Array.prototype.filter = function(filter, context) {
 
 // TODO: delete in tangram 3.0
 baidu.array.filter = function(array, filter, context) {
-    return array.filter(filter, context);
+    return baidu.type.isArray(array) ? array.filter(filter, context) : [];
 };
