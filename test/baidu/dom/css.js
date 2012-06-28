@@ -107,7 +107,7 @@ ua.importsrc("baidu.dom.styleFixer", function(){
 		equal( css("float"), "left", "float" );
 		equal( div.style.styleFloat || div.style.cssFloat, "left", "float" );
 
-		div.style.display = "none";
+		div.style.display = "none"; 
 	});
 
 	start();
