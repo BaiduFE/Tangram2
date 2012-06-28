@@ -11,7 +11,7 @@
 /**
  * 判断对象类型，返回值为全小写对象名
  *
- * @param   {Object}    object  被判断的对象
+ * @param   {Object}    any     被判断的对象
  * @return  {String}            对象类型名
  */
 baidu.type = (function() {
@@ -25,15 +25,15 @@ baidu.type = (function() {
     });
 
     // 方法主体
-    return function(object) {
-        var s = typeof object;
+    return function(any) {
+        var s = typeof any;
 
         return s != "object" ? s
-            : object == null ? "null"
-            : object._type_
-                || objectType[toString.call(object)]
-                || nodeType[object.nodeType]
-                || (object == object.window ? "Window" : "")
+            : any == null ? "null"
+            : any._type_
+                || objectType[toString.call(any)]
+                || nodeType[any.nodeType]
+                || (any == any.window ? "Window" : "")
                 || "object";
     };
 

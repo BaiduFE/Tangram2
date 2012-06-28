@@ -792,7 +792,7 @@ var UserAction = {
 		else if (array1.length != array2.length)
 			return false;
 		else {
-			for ( var i in array1) {
+			for ( var i=0,n=array1.length; i<n; i++) {
 				if (array1[i] != array2[i])
 					return false;
 			}

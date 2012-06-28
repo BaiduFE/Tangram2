@@ -33,6 +33,7 @@ test("特殊情况", function() {
 		return acc + 1;
 	};
 	equals(baidu.array(arr).reduce(ite, 0), 0, "空串转换应该返回初始值");
+
 	equals(baidu.array([]).reduce(function() {
 	}), undefined, '空串空初始值返回undefined');
 	// If no initialValue was provided, then previousValue will be equal to the
