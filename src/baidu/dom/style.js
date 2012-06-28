@@ -3,15 +3,12 @@
  */
 
 ///import baidu.dom;
-(function(){
+baidu.dom.style = function(){
     
     var cssHooks = {},
         cssProps = {};
-        
-    
-    
-    
-    baidu.dom.style = function(elem, key, value){
+  
+    return function(elem, key, value){
         return 'style hello world~!';
     }
-})();
+}();
