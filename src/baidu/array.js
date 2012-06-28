@@ -1,4 +1,5 @@
 ///import baidu;
+///import baidu.type;
 ///import baidu.overwrite;
 ///import baidu.createChain;
 /**
@@ -19,6 +20,8 @@
 baidu.createChain("array", function(array){
     var pro = baidu.$Array.prototype
         ,ap = Array.prototype;
+
+    baidu.type(array) != "array" && (array = []);
 
     for (var key in pro) {
         ap[key] || (array[key] = pro[key]);
