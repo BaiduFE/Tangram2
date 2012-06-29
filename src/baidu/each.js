@@ -47,5 +47,6 @@ baidu.each = function(object, fn, context) {
             }
         }
     }
+
     return object;
 };

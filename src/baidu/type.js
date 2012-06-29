@@ -24,11 +24,22 @@ baidu.type = (function() {
     // 给 objectType 集合赋值，建立映射
     baidu.each(str.split(" "), function(name) {
         objectType[ "[object " + name + "]" ] = name.toLowerCase();
-        baidu[ "is" + name ] = baidu.lang[ "is" + name ] = function (unknow) {
+        baidu[ "is" + name ] = baidu.lang[ "is" + name ] = function ( unknow ) {
             return baidu.type(unknow) == name.toLowerCase();
         }
     });
 
+    baidu.isElement = baidu.lang.isElement = function( unknow ) {
+        return baidu.type(unknow) == "HTMLElement";
+    };
+
+    baidu.isNumber = baidu.lang.isNumber = function( unknow ) {
+        return baidu.type(unknow) == "number" && isFinite( unknow );
+    };
+
+    baidu.isObject = baidu.lang.isObject = function( unknow ) {
+        return typeof unknow === "function" || ( typeof unknow === "object" && unknow != null );
+    };
 
     // 方法主体
     return function ( unknow ) {
@@ -37,20 +48,12 @@ baidu.type = (function() {
         return s != "object" ? s
             : unknow == null ? "null"
             : unknow._type_
-                || objectType[toString.call(unknow)]
-                || nodeType[unknow.nodeType]
-                || (unknow == unknow.window ? "Window" : "")
+                || objectType[ toString.call( unknow ) ]
+                || nodeType[ unknow.nodeType ]
+                || ( unknow == unknow.window ? "Window" : "" )
                 || "object";
     };
 })();
-
-baidu.isElement = baidu.lang.isElement = function( unknow ) {
-    return baidu.type(unknow) == "HTMLElement";
-};
-
-baidu.isObject = baidu.lang.isObject = function( unknow ) {
-    return typeof unknow === "object" && unknow != null;
-}
 
 /*
  1-ELEMENT
