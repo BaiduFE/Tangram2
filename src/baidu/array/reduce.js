@@ -1,5 +1,5 @@
 ///import baidu.array;
-///import baidu.type.isArray;
+///import baidu.type;
 
 /**
  * 遍历数组中所有元素，将每一个元素应用方法进行合并，并返回合并后的结果。
@@ -26,5 +26,5 @@ Array.prototype.reduce = function (iterator, initializer) {
 
 // TODO: delete in tangram 3.0
 baidu.array.reduce = function(array, iterator, initializer) {
-    return baidu.type.isArray(array) ? array.reduce(iterator, initializer) : array;
+    return baidu.isArray(array) ? array.reduce(iterator, initializer) : array;
 };
