@@ -52,8 +52,8 @@ test("NodeType", function(){
     	"Document": valueis("Document", [document]),
     	"DocumentFragment": valueis("DocumentFragment", [fragment]),
     	"Attribute": valueis("Attribute", [attributes[0]]),
-    	"Text": valueis("Text", [text]),
-    	"NodeList": valueis("NodeList", [document.getElementsByTagName("*")], [document.getElementsByTagName("dd")])
+    	"Text": valueis("Text", [text])
+    	//,"NodeList": valueis("NodeList", [document.getElementsByTagName("*")], [document.getElementsByTagName("dd")])
     });
 });
 
