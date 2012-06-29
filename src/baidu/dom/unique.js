@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.unique;
+///import baidu.array.unique;
 
 /**
  * @fileoverview
@@ -16,6 +16,6 @@
  */
 baidu.dom.extend({
     unique : function (fn) {
-        return baidu.dom(baidu.unique(this.get(), fn));
+        return baidu.dom(baidu.array(this.toArray()).unique(fn));
     }
 });

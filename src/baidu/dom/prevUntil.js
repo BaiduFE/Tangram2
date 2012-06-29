@@ -1,7 +1,7 @@
 ///import baidu.dom;
 ///import baidu.each;
-///import baidu.match;
-///import baidu.unique;
+///import baidu.dom.match;
+///import baidu.array.unique;
 ///import baidu.array.indexOf;
 
 /**
@@ -29,7 +29,7 @@ baidu.dom.extend({
             };
 
             if (selector && a.length) {
-                var b = baidu.match(a, selector);
+                var b = baidu.dom.match(a, selector);
                 // 有符合 selector 的目标存在
                 if (b.length) {
                     a = a.slice(0, a.indexOf(b[0]));
@@ -39,6 +39,8 @@ baidu.dom.extend({
             baidu.merge(array, a);
         });
 
-        return baidu.dom(typeof filter == "string" ? baidu.match(array, filter) : array);
+        array = baidu.array(array).unique();
+
+        return baidu.dom(typeof filter == "string" ? baidu.dom.match(array, filter) : array);
     }
 });

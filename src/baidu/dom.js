@@ -147,4 +147,8 @@ function(context) {
         return Array.prototype.slice.call(this, 0);
     }
 
+    ,toArray: function(){
+        return this.get();
+    }
+
 });
