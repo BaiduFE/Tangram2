@@ -6,9 +6,11 @@
  * author: erik
  * version: 1.1.0
  * date: 2009/12/30
+ * modify: 2012/6/29 mz
  */
 
 ///import baidu.lang;
+///import baidu.type;
 
 /**
  * 判断目标参数是否为Object对象
@@ -22,9 +24,9 @@
  *             
  * @returns {boolean} 类型判断结果
  */
-baidu.lang.isObject = function (source) {
-    return 'function' == typeof source || !!(source && 'object' == typeof source);
-};
+//baidu.lang.isObject = function (source) {
+//    return 'function' == typeof source || !!(source && 'object' == typeof source);
+//};
 
 // 声明快捷方法
-baidu.isObject = baidu.lang.isObject;
+//baidu.isObject = baidu.lang.isObject;

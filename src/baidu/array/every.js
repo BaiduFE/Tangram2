@@ -1,5 +1,5 @@
 ///import baidu.array;
-///import baidu.type.isArray;
+///import baidu.type;
 
 Array.prototype.every = function(iterator, context) {
     var i, n;
@@ -14,5 +14,5 @@ Array.prototype.every = function(iterator, context) {
 
 // TODO: delete in tangram 3.0
 baidu.array.every = function(array, iterator, context) {
-    return baidu.type.isArray(array) ? array.every(iterator, context) : array;
+    return baidu.isArray(array) ? array.every(iterator, context) : array;
 };

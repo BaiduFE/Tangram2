@@ -6,9 +6,11 @@
  * author: erik
  * version: 1.1.0
  * date: 2009/12/30
+ * modify: 2012/6/29 mz
  */
 
 ///import baidu.lang;
+///import baidu.type;
 
 /**
  * 判断目标参数是否为Element对象
@@ -21,7 +23,7 @@
  *             
  * @returns {boolean} 类型判断结果
  */
-baidu.lang.isElement = function (source) {
-    return !!(source && source.nodeName && source.nodeType == 1);
-};
+//baidu.lang.isElement = function (source) {
+//    return !!(source && source.nodeName && source.nodeType == 1);
+//};
 

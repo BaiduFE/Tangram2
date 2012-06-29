@@ -1,4 +1,4 @@
-///import baidu.type.isArray;
+///import baidu.type;
 ///import baidu.array;
 ///import baidu.each;
 
@@ -27,6 +27,6 @@ void function () {
 
     // TODO: delete in tangram 3.0
     baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
-        return baidu.type.isArray(array) ? array.each(iterator, context) : array;
+        return baidu.isArray(array) ? array.each(iterator, context) : array;
     };
 }();
