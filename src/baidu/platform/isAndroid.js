@@ -14,4 +14,4 @@
  * @return {Boolean} 布尔值
  * @author jz
  */
-baidu.platform.isAndroid = /android/i.test(navigator.userAgent);
+//baidu.platform.isAndroid = /android/i.test(navigator.userAgent);
