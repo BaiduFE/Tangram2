@@ -1,7 +1,7 @@
 ///import baidu.dom;
 ///import baidu.merge;
 ///import baidu.type;
-///import baidu.unique;
+///import baidu.array.unique;
 ///import baidu.query;
 
 /**
@@ -60,7 +60,7 @@ baidu.dom.extend({
                     baidu.merge(a, object)
                 }
         }
-        return baidu.dom(baidu.unique(a));
+        return baidu.dom(baidu.array(a).unique());
     }
 });
 

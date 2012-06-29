@@ -2,11 +2,11 @@
 ///import baidu.query;
 ///import baidu.each;
 ///import baidu.merge;
-///import baidu.unique;
+///import baidu.array.unique;
 
 /**
  * @fileoverview
- * @name baidu.match
+ * @name baidu.dom.match
  * @author meizz
  * @create 2012-06-18
  * @modify
@@ -21,7 +21,7 @@
  * @param   {String}        selector    CSS选择器
  * @return  {Array}         Array
  */
-baidu.match = function(){
+baidu.dom.match = function(){
     var reg = /^[\w\#\-\$\.\*]+$/,
 
         // 使用这个临时的 div 作为CSS选择器过滤
@@ -71,7 +71,7 @@ baidu.match = function(){
                         }
                     }
                 });
-                results = baidu.unique(results);
+                results = baidu.array(results).unique();
                 break;
         }
         return results;

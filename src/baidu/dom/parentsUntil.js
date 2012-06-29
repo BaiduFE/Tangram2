@@ -1,7 +1,7 @@
 ///import baidu.dom;
 ///import baidu.each;
-///import baidu.match;
-///import baidu.unique;
+///import baidu.dom.match;
+///import baidu.array.unique;
 ///import baidu.array.indexOf;
 
 
@@ -28,7 +28,7 @@ baidu.dom.extend({
             while ((dom = dom.parentNode) && dom.nodeType == 1) a.push(dom);
 
             if (selector && a.length) {
-                var b = baidu.match(a, selector);
+                var b = baidu.dom.match(a, selector);
                 // 有符合 selector 的目标存在
                 if (b.length) {
                     a = a.slice(0, a.indexOf(b[0]));
@@ -37,8 +37,8 @@ baidu.dom.extend({
             baidu.merge(array, a);
         });
 
-        array = baidu.unique(array);
+        array = baidu.array(array).unique();
 
-        return baidu.dom(filter ? baidu.match(array, filter) : array);
+        return baidu.dom(filter ? baidu.dom.match(array, filter) : array);
     }
 });
