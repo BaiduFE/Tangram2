@@ -6,9 +6,11 @@
  * author: berg
  * version: 1.0.0
  * date: 2010/10/12
+ * modify: 2012/6/29 mz
  */
 
 ///import baidu.lang;
+///import baidu.type;
 
 /**
  * 判断目标参数是否Boolean对象
@@ -21,6 +23,6 @@
  *             
  * @returns {boolean} 类型判断结果
  */
-baidu.lang.isBoolean = function(o) {
-    return typeof o === 'boolean';
-};
+//baidu.lang.isBoolean = function(o) {
+//    return typeof o === 'boolean';
+//};

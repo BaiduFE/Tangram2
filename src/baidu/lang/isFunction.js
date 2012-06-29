@@ -6,9 +6,11 @@
  * author: rocy
  * version: 1.1.2
  * date: 2010/06/12
+ * modify: 2012/6/29 mz
  */
 
 ///import baidu.lang;
+///import baidu.type;
 
 /**
  * 判断目标参数是否为function或Function实例
@@ -21,7 +23,7 @@
  * @meta standard
  * @returns {boolean} 类型判断结果
  */
-baidu.lang.isFunction = function (source) {
+//baidu.lang.isFunction = function (source) {
     // chrome下,'function' == typeof /a/ 为true.
-    return '[object Function]' == Object.prototype.toString.call(source);
-};
+//    return '[object Function]' == Object.prototype.toString.call(source);
+//};

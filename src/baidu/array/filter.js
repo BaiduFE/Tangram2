@@ -1,5 +1,5 @@
 ///import baidu.array;
-///import baidu.type.isArray;
+///import baidu.isArray;
 
 Array.prototype.filter = function(iterator, context) {
     var result = baidu.array([]),
@@ -20,5 +20,5 @@ Array.prototype.filter = function(iterator, context) {
 
 // TODO: delete in tangram 3.0
 baidu.array.filter = function(array, filter, context) {
-    return baidu.type.isArray(array) ? array.filter(filter, context) : [];
+    return baidu.isArray(array) ? array.filter(filter, context) : [];
 };
