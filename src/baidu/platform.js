@@ -13,12 +13,12 @@
  * @modify 2012.6.29 mz 将原 baidu.platform.* 接口全部集成到 baidu.platform.js 中
  */
 baidu.platform = baidu.platform || function(){
-    var ua = navigator.userAgent, result;
+    var ua = navigator.userAgent,
+        result = function(){};
 
     baidu.each("Android iPad iPhone Linux Macintosh Windows X11".split(" "), function( item ) {
         var key = item.charAt(0).toUpperCase() + item.toLowerCase().substr( 1 );
-        var b = baidu[ "is" + key ] = ua.indexOf( item ) > -1;
-        b && (result = item);
+        baidu[ "is" + key ] = result[ "is" + key ] = ua.indexOf( item ) > -1;//) && (result = item);
     });
 
     return result;
