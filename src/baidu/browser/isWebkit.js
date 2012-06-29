@@ -18,4 +18,4 @@
  * @see baidu.browser.isGecko
  * @returns {Boolean} 布尔值
  */
-baidu.browser.isWebkit = /webkit/i.test(navigator.userAgent);
+//baidu.browser.isWebkit = /webkit/i.test(navigator.userAgent);
