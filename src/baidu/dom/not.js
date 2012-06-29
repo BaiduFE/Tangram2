@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.match;
+///import baidu.dom.match;
 
 /**
  * @fileoverview
@@ -18,7 +18,7 @@ baidu.dom.extend({
     not : function (selector) {
         var i, j, n
             ,all = this.get()
-            ,a = baidu.match(this, selector);
+            ,a = baidu.dom.match(this, selector);
 
         for (i=all.length - 1; i>-1; i--) {
             for (j=0, n=a.length; j<n; j++) {

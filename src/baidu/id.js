@@ -1,4 +1,5 @@
 ///import baidu;
+///import baidu.type;
 /**
  * @fileoverview
  * @name baidu.id
@@ -11,19 +12,18 @@
  * 页面级唯一标识的方法
  *
  * @grammer baidu.id([id|object])
- * @param   {Object}        object      Array or ArrayLike or JSON
- * @param   {Function}      fn          function(array[i], i, array)
- * @param   {Object}        context     context.fn()
- * @param   {Object}        new Array()
+ * @param   {Object}        object      id  or Object
+ * @param   {String}        command     操作名()
+ * @param   {Object}        Object or id
  */
 baidu.id = function() {
-    var key = "tangram_guid",
+    var key = baidu.id.key,
         global = window[baidu.guid],
         maps = global._maps = global._maps || {};
         
     global._counter = global._counter || 1;
 
-    return function(object, type) {
+    return function(object, command) {
         var t = typeof object;
 
         if (t === "string") {
@@ -55,3 +55,5 @@ baidu.id = function() {
     };
 
 }();
+
+baidu.id.key = "tangram_guid";

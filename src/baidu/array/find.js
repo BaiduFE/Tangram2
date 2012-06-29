@@ -1,5 +1,5 @@
 ///import baidu.type;
-///import baidu.array.indexOf;
+///import baidu.array;
 
 /**
  * @fileoverview

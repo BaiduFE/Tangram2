@@ -2,18 +2,18 @@
 
 /**
  * @fileoverview
- * @name baidu.type.isArray
+ * @name baidu.type.isFunction
  * @author meizz
  * @create 2012-06-28
  * @modify
  */
 
 /**
- * 判断对象是不是数组
+ * 判断对象是不是 Function
  *
  * @param   {Object}    unknow     被判断的对象
  * @return  {Boolean}
  */
-baidu.type.isArray = function(unknow) {
-    return baidu.type(unknow) === "array";
+baidu.type.isFunction = function(unknow) {
+    return baidu.type(unknow) === "function";
 };

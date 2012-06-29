@@ -1,7 +1,7 @@
 ///import baidu;
 ///import baidu.each;
 ///import baidu.merge;
-///import baidu.unique;
+///import baidu.array.unique;
 /**
  * @fileoverview
  * @name baidu.query
@@ -124,6 +124,6 @@ baidu.query = baidu.query || (function(){
             baidu.merge(arr, queryCombo(item, context));
         });
 
-        return baidu.merge(results || [], baidu.unique(arr));
+        return baidu.merge(results || [], baidu.array(arr).unique());
     };
 })();
