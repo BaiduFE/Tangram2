@@ -14,4 +14,4 @@
  * @return {Boolean} 布尔值 
  * @author jz
  */
-baidu.platform.isX11 = /x11/i.test(navigator.userAgent);
+//baidu.platform.isX11 = /x11/i.test(navigator.userAgent);
