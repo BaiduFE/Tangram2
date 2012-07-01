@@ -1,12 +1,5 @@
-var UserAction =
-/**
- * 用例中常用方法的集合
- * 
- * @author bellcliff
- * @type UserAction
- */
-{
-	beforedispatch : null,
+var UserAction = {
+
 	isf /* is function ? */: function(value) {
 		return value && (typeof value == 'function');
 	},
@@ -195,11 +188,6 @@ var UserAction =
 
 			}
 
-			// before dispatch
-			if (this.beforedispatch && typeof this.beforedispatch == 'function')
-				this.beforedispatch(customEvent);
-			this.beforedispatch = null;
-
 			// fire the event
 			target.dispatchEvent(customEvent);
 
@@ -223,11 +211,6 @@ var UserAction =
 			 */
 			customEvent.keyCode = (charCode > 0) ? charCode : keyCode;
 
-			// before dispatch
-			if (this.beforedispatch && typeof this.beforedispatch == 'function')
-				this.beforedispatch(customEvent);
-			this.beforedispatch = null;
-
 			// fire the event
 			target.fireEvent("on" + type, customEvent);
 
@@ -235,8 +218,6 @@ var UserAction =
 			throw new Error(
 					"simulateKeyEvent(): No event simulation framework present.");
 		}
-
-		this.beforedispatch = null;
 	},
 
 	/**
@@ -435,11 +416,6 @@ var UserAction =
 				}
 			}
 
-			// before dispatch
-			if (this.beforedispatch && typeof this.beforedispatch == 'function')
-				this.beforedispatch(customEvent);
-			this.beforedispatch = null;
-
 			// fire the event
 			target.dispatchEvent(customEvent);
 
@@ -484,10 +460,6 @@ var UserAction =
 			 */
 			customEvent.relatedTarget = relatedTarget;
 
-			// before dispatch
-			if (this.beforedispatch && typeof this.beforedispatch == 'function')
-				this.beforedispatch(customEvent);
-			this.beforedispatch = null;
 			// fire the event
 			target.fireEvent("on" + type, customEvent);
 
@@ -538,6 +510,9 @@ var UserAction =
 	 * @static
 	 */
 	click : function(target /* :HTMLElement */, options /* :Object */) /* :Void */{
+		this.mouseover(target, options);
+		this.mousedown(target, options);
+		this.mouseup(target, options);
 		this.fireMouseEvent(target, "click", options);
 	},
 
@@ -762,7 +737,7 @@ var UserAction =
 		op.finish = function() {
 			pw.$(fid).unbind();
 			setTimeout(function() {
-				pw.$('div#div'+id).remove();
+				pw.$('div#divf').remove();
 				start();
 			}, 20);
 		};
@@ -770,14 +745,22 @@ var UserAction =
 		if (pw.$(fid).length == 0) {
 			/* 添加frame，部分情况下，iframe没有边框，为了可以看到效果，添加一个带边框的div */
 			pw.$(pw.document.body).append('<div id="div' + id + '"></div>');
-			pw.$('div#div' + id).append('<iframe id="' + id + '"></iframe>');
+			pw.$('div#div' + id).append('<iframe id="' + id + '" frameborder="no"></iframe>');
 		}
 		op.onafterstart && op.onafterstart($('iframe#f')[0]);
+		var f = '';
+		var e = '';
 		pw.$('script').each(function() {
 			if (this.src && this.src.indexOf('import.php') >= 0) {
-				url = this.src.split('import.php')[1];
+				//import.php?f=xxx&e=xxx&cov=xxx
+				//url = this.src.split('import.php')[1];
+				/[?&]f=([^&]+)/.test(this.src);
+				f+=','+RegExp.$1;
+				/[?&]e=([^&]+)/.test(this.src);
+				e+=RegExp.$1;
 			}
 		});
+		url='?f='+f.substr(1)+'&e='+e;
 		var srcpath = '';
 		if(location.href.indexOf("/run.do") > 0) {
 			srcpath = location.href.replace("run.do","frame.do");
@@ -809,7 +792,7 @@ var UserAction =
 		else if (array1.length != array2.length)
 			return false;
 		else {
-			for ( var i in array1) {
+			for ( var i=0,n=array1.length; i<n; i++) {
 				if (array1[i] != array2[i])
 					return false;
 			}
@@ -906,9 +889,17 @@ var UserAction =
 		var h = setInterval(function() {
 			var p = win;
 			for ( var i = 0; i < mm.length; i++) {
-				if (typeof (p[mm[i]]) == 'undefined') {
-					// console.log(mm[i]);
-					return;
+				if(i == mm.length - 1 && mm[i].indexOf("$") > -1){ //如果要加载的是插件
+					if (p._addons.length == 1) {
+						// console.log(mm[i]);
+						return;
+					}		
+				}
+				else{
+					if (typeof (p[mm[i]]) == 'undefined') {
+						// console.log(mm[i]);
+						return;
+					}
 				}
 				p = p[mm[i]];
 			}
@@ -953,7 +944,7 @@ var UserAction =
 	delayhelper : function(oncheck, onsuccess, onfail, timeout) {
 		onsuccess = onsuccess || oncheck.onsuccess;
 		onfail = onfail || oncheck.onfail || function() {
-			window.QUnit.fail('timeout wait for timeout : ' + timeout + 'ms');
+			fail('timeout wait for timeout : ' + timeout + 'ms');
 			start();
 		};
 		timeout = timeout || oncheck.timeout || 10000;
@@ -975,9 +966,6 @@ var UserAction =
 		}, timeout);
 	},
 
-	/**
-	 * @constructor
-	 */
 	browser : (function() {
 		var win = window;
 
@@ -1124,7 +1112,7 @@ var UserAction =
 
 		},
 
-		_ua = nav && nav.userAgent,
+		ua = nav && nav.userAgent,
 
 		loc = win && win.location,
 
@@ -1134,30 +1122,30 @@ var UserAction =
 
 		o.secure = href && (href.toLowerCase().indexOf("https") === 0);
 
-		if (_ua) {
+		if (ua) {
 
-			if ((/windows|win32/i).test(_ua)) {
+			if ((/windows|win32/i).test(ua)) {
 				o.os = 'windows';
-			} else if ((/macintosh/i).test(_ua)) {
+			} else if ((/macintosh/i).test(ua)) {
 				o.os = 'macintosh';
-			} else if ((/rhino/i).test(_ua)) {
+			} else if ((/rhino/i).test(ua)) {
 				o.os = 'rhino';
 			}
 
 			// Modern KHTML browsers should qualify as Safari X-Grade
-			if ((/KHTML/).test(_ua)) {
+			if ((/KHTML/).test(ua)) {
 				o.webkit = 1;
 			}
 			// Modern WebKit browsers are at least X-Grade
-			m = _ua.match(/AppleWebKit\/([^\s]*)/);
+			m = ua.match(/AppleWebKit\/([^\s]*)/);
 			if (m && m[1]) {
 				o.webkit = numberify(m[1]);
 
 				// Mobile browser check
-				if (/ Mobile\//.test(_ua)) {
+				if (/ Mobile\//.test(ua)) {
 					o.mobile = "Apple"; // iPhone or iPod Touch
 				} else {
-					m = _ua.match(/NokiaN[^\/]*|Android \d\.\d|webOS\/\d\.\d/);
+					m = ua.match(/NokiaN[^\/]*|Android \d\.\d|webOS\/\d\.\d/);
 					if (m) {
 						o.mobile = m[0]; // Nokia N-series, Android, webOS,
 						// ex:
@@ -1165,14 +1153,14 @@ var UserAction =
 					}
 				}
 
-				var m1 = _ua.match(/Safari\/([^\s]*)/);
+				var m1 = ua.match(/Safari\/([^\s]*)/);
 				if (m1 && m1[1]) // Safari
 					o.safari = numberify(m1[1]);
-				m = _ua.match(/Chrome\/([^\s]*)/);
+				m = ua.match(/Chrome\/([^\s]*)/);
 				if (o.safari && m && m[1]) {
 					o.chrome = numberify(m[1]); // Chrome
 				} else {
-					m = _ua.match(/AdobeAIR\/([^\s]*)/);
+					m = ua.match(/AdobeAIR\/([^\s]*)/);
 					if (m) {
 						o.air = m[0]; // Adobe AIR 1.0 or better
 					}
@@ -1184,29 +1172,26 @@ var UserAction =
 				// fi; U;
 				// try get firefox and it's ver
 				// ssr)
-				m = _ua.match(/Opera[\s\/]([^\s]*)/);
+				m = ua.match(/Opera[\s\/]([^\s]*)/);
 				if (m && m[1]) {
-					m[1]= _ua.match(/Version[\s\/]([^\s]*)/)[1] || m[1]; //tianlili修改，为了得到opera10之后的真实版本信息而非固定标识9.80
 					o.opera = numberify(m[1]);
-					m = _ua.match(/Opera Mini[^;]*/);
+					m = ua.match(/Opera Mini[^;]*/);
 					if (m) {
 						o.mobile = m[0]; // ex: Opera Mini/2.0.4509/1316
 					}
 				} else { // not opera or webkit
-					m = _ua.match(/MSIE\s([^;]*)/);
+					m = ua.match(/MSIE\s([^;]*)/);
 					if (m && m[1]) {
 						o.ie = numberify(m[1]);
 					} else { // not opera, webkit, or ie
-						m = _ua.match(/Gecko\/([^\s]*)/);
+						m = ua.match(/Gecko\/([^\s]*)/);
 						if (m) {
 							o.gecko = 1; // Gecko detected, look for revision
-							m = _ua.match(/rv:([^\s\)]*)/);
+							m = ua.match(/rv:([^\s\)]*)/);
 							if (m && m[1]) {
 								o.gecko = numberify(m[1]);
 							}
 						}
-						m = _ua.match("Firefox/([^\s]*)");
-						o.firefox = numberify(m[1]);
 					}
 				}
 			}
@@ -1244,40 +1229,6 @@ var UserAction =
 					}, delay);
 				} else
 					$(this).trigger('next');
-			}
-		};
-		return check;
-	},
-	fnQueue : function() {
-		var check = {
-			fnlist : [],
-			/**
-			 * 该方法会在fn上注册一个delay属性
-			 * 
-			 * @param fn
-			 * @param delay
-			 */
-			add : function(fn, delay) {
-				delay && (fn.delay = delay);
-				check.fnlist.push(fn);
-				return check;
-			},
-			/**
-			 * 自动下一个
-			 */
-			next : function() {
-				if(check.fnlist.length == 0)
-					return;
-				var fn = check.fnlist[0];		
-				if (fn.delay) {
-					setTimeout(check.next, fn.delay);
-					delete fn.delay;
-				} else {
-					check.fnlist.shift()();
-					// 切断堆栈
-					// setTimeout(fnQueue.next, 0);
-					check.next();
-				}
 			}
 		};
 		return check;

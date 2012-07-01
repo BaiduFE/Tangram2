@@ -11,7 +11,7 @@
 ///import baidu.dom.on;
 ///import baidu.dom.triggerHandler;
 
-baidu.dom._eventBase = function(){
+baidu.dom._eventBase = function() {
 	var eventsCache = {
 		/*
 			tangram-id: {
@@ -28,181 +28,193 @@ baidu.dom._eventBase = function(){
 		*/
 	};
 
-	var addEvent = function(target, name, fn, selector, data){
-	    var call = function(e){
-	    	var args = [].slice.call(arguments, 1);
-	    	args.unshift(e = baidu.event(e));
+	var addEvent = function( target, name, fn, selector, data ){
+		var call = function(e) {
+			var args = [].slice.call( arguments, 1 );
+			args.unshift( e = baidu.event(e) );
 
-	    	if(data && !e.data)
-	    	    e.data = data;
-
-	    	if(e.triggerData)
-	    		args.push.apply(args, e.triggerData);
-
-	    	if( !selector )
-	    	    return fn.apply(target, args);
-	    	if( baidu(e.target).is(selector) )
-				return fn.apply(target, args);
+			if ( data && !e.data ) e.data = data;
+			if ( e.triggerData ) args.push.apply( args, e.triggerData );
+			if ( !selector ) return fn.apply( target, args );
+			if ( baidu( e.target ).is( selector ) ) return fn.apply( target, args );
 		};
 
-		if(window.attachEvent)
-			target.attachEvent("on" + name, call);
-		else if(window.addEventListener)
-			target.addEventListener(name, call, false);
-		else
-			target["on" + name] = call;
+		if ( window.attachEvent ) target.attachEvent( "on" + name, call );
+		else if ( window.addEventListener ) target.addEventListener( name, call, false );
+		else target[ "on" + name ] = call;
 
-		var tangId = baidu.id(target);
-		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
-		var eventArray = c[name] || (c[name] = []);
+		var tangId = baidu.id( target );
+		var c = eventsCache[ tangId ] || ( eventsCache[ tangId ] = {} );
+		var eventArray = c[ name ] || (c[ name ] = []);
 
-		eventArray.push(call, fn);
-
+		eventArray.push( call, fn );
 		return call;
 	};
 
-	var removeEvent = function(target, name, fn, selector){
+	var removeEvent = function( target, name, fn, selector ) {
 
-		var tangId = baidu.id(target);
-		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
-		var eventArray = c[name] || (c[name] = []);
+		var tangId;
+		if(!( tangId = baidu.id( target, "get" ) ))
+		    return ;
+		
+		var c = eventsCache[ tangId ] || ( eventsCache[tangId] = {} );
+		var eventArray = c[ name ] || (c[ name ] = []);
 
 		var realf;
-		for(var i = eventArray.length - 1, f; i >= 0; i --)
-			if(f = eventArray[i], f == fn){
-			    realf = eventArray[i - 1];
-			    eventArray.splice(i - 1, 2);
-			    break;
-			}
+		for (var i = eventArray.length - 1, f; i >= 0; i--)
+		if (f = eventArray[i], f == fn) {
+			realf = eventArray[i - 1];
+			eventArray.splice(i - 1, 2);
+			break;
+		}
 
-		if(!realf)
-		    return;
+		if (!realf) return;
 
-		if(window.detachEvent)
-			target.detachEvent("on" + name, realf);
-		else if(window.removeEventListener)
-			target.removeEventListener(name, realf, false);
-		else if(target["on" + name] == realf)
-			target["on" + name] = null;
+		if (window.detachEvent) target.detachEvent("on" + name, realf);
+		else if (window.removeEventListener) target.removeEventListener(name, realf, false);
+		else if (target["on" + name] == realf) target["on" + name] = null;
 	};
 
 	var removeAllEvent = function(target, name){
-		var tangId = baidu.id(target);
+
+		var tangId;
+		if(!( tangId = baidu.id( target, "get" ) ))
+		    return ;
+
 		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
 
-		var remove = function(name){
-		    var eventArray = c[name] || (c[name] = []);
-		 	for(var i = eventArray.length - 1, fn; i >= 0; i -= 2){
-	 	   		fn = eventArray[i];
-	 	   		removeEvent(target, name, fn);
-	 	   	}
-		};
+		var remove = function(name) {
+				var eventArray = c[name] || (c[name] = []);
+				for (var i = eventArray.length - 1, fn; i >= 0; i -= 2) {
+					fn = eventArray[i];
+					removeEvent(target, name, fn);
+				}
+			};
 
-		if(name){
-		    remove(name);
-		}else{
-			for(var name in c)
-				remove(name);
-		}
+		if (name) remove(name);
+		else for (var name in c)
+		remove(name);
 	};
 
-	var fireHandler = function(target, name, triggerData){
-		var tangId = baidu.id(target);
+	var fireHandler = function(target, name, triggerData) {
+		var tangId;
+		if(!( tangId = baidu.id( target, "get" ) ))
+		    return ;
+
 		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
 		var eventArray = c[name] || (c[name] = []);
-		var event = baidu.event({ type: name });
+		var event = baidu.event({
+			type: name
+		});
 
 		var args = [event];
 
-		if(triggerData){
+		if (triggerData) {
 			event.triggerData = triggerData;
 			args.push.apply(args, triggerData);
 		};
 
-		for(var i = 0, l = eventArray.length; i < l; i += 2)
-			eventArray[i].apply(this, args);
+		for (var i = 0, l = eventArray.length; i < l; i += 2)
+		eventArray[i].apply(this, args);
 	};
 
-	var special = function( name ){
-		switch( name ){
-		    case "focusin":
-		    case "focusout":
-		    	if(!/firefox/i.test(navigator.userAgent))
-		    		return false;
-		    	var object = {}, fixName = name == "focusin" ? "focus" : "blur";
-	    	    object[name] = function(data, fn){
-	    	    	if(typeof data == "function")
-    	    	        fn = data,
-    	    	        data = null;
+	var getHandler = function(target){
+		var tangId;
+		if(!( tangId = baidu.id( target, "get" ) ))
+		    return ;
+		
+	    var c = eventsCache[tangId] || (eventsCache[tangId] = {});
+	    var ret = {}, arr;
 
-    	    	    var me = this, call = function(){ 
-    	    	    	me.triggerHandler(name); 
-    	    	   	};
+	    for(var event in c){
+	        arr = ret[event] = [];
+	        ce = c[event];
+	        for(var i = 1, l = ce.length; i < l; i += 2)
+	        	arr.push( ce[i] );
+	    }
 
-    	    	    baidu.each(this, function(item){
-	    	    	    baidu("textarea,select,input,button,a", item).on(fixName, call);
-    	    	    });
+	    return ret;
+	};
 
-    	    	    this.on(name, data, fn);
-	    	    };
+	var special = function(name) {
+		switch (name) {
+			case "focusin":
+			case "focusout":
+				if (!/firefox/i.test(navigator.userAgent)) return false;
+				var object = {},
+					fixName = name == "focusin" ? "focus" : "blur";
+				object[name] = function(data, fn) {
+					if (typeof data == "function") fn = data, data = null;
 
-		    	return baidu.dom.extend(object), true;
+					var me = this,
+						call = function() {
+							me.triggerHandler(name);
+						};
+
+					baidu.each(this, function(item) {
+						baidu("textarea,select,input,button,a", item).on(fixName, call);
+					});
+
+					this.on(name, data, fn);
+				};
+
+				return baidu.dom.extend(object), true;
 		}
+		
 		return false;
 	};
 
-    return {
-    	add: function(dom, event, fn, selector, data){
-    		return addEvent(dom, event, fn, selector, data);
-    	},
+	return {
+		add: function(dom, event, fn, selector, data) {
+			return addEvent(dom, event, fn, selector, data);
+		},
 
-    	remove: function(dom, event, fn, selector){
-    		if(typeof fn == "function"){
-    		 	return removeAllEvent(dom, event, fn, selector);   
-    		}else{
-    		    return removeAllEvent(dom, event, selector);
-    		}
-    	},
+		get: function(dom){
+			return getHandler(dom);
+		},
 
-    	removeAll: function(dom){
-    		return removeAllEvent(dom);
-    	},
+		remove: function(dom, event, fn, selector) {
+			if (typeof fn == "function") {
+				return removeAllEvent(dom, event, fn, selector);
+			} else {
+				return removeAllEvent(dom, event, selector);
+			}
+		},
 
-    	fireHandler: function(dom, event, triggerData){
-    	    return fireHandler(dom, event, triggerData);
-    	},
+		removeAll: function(dom) {
+			return removeAllEvent(dom);
+		},
 
-    	method: function(name){
-    	    if(arguments.length > 1){
-    	        for(var i = 0, l = arguments.length; i < l; i ++)
-    	        	this.method(arguments[i]);
-    	        return this;
-    	    }
+		fireHandler: function(dom, event, triggerData) {
+			return fireHandler(dom, event, triggerData);
+		},
 
-    	    if( !special(name) ){
-	    	    var object = {};
+		method: function(name) {
+			if (arguments.length > 1) {
+				for (var i = 0, l = arguments.length; i < l; i++)
+				this.method(arguments[i]);
+				return this;
+			}
 
-	    	    object[name] = function(data, fn){
-	    	    	if(arguments.length == 0){
-	    	    	    return this.trigger(name);
-	    	    	}else{
-	    	    	    if(typeof data == "function"){
-	    	    	        fn = data;
-	    	    	        data = null;
-	    	    	    }
-	    	    	    return this.on(name, data, fn);
-	    	    	}
-	    	    };
+			if (!special(name)) {
+				var object = {};
 
-	    	    baidu.dom.extend(object);
-    	    }
-    	}
-    }
+				object[name] = function(data, fn) {
+					if (arguments.length == 0) {
+						return this.trigger(name);
+					} else {
+						if (typeof data == "function") {
+							fn = data;
+							data = null;
+						}
+						return this.on(name, data, fn);
+					}
+				};
+
+				baidu.dom.extend(object);
+			}
+		}
+	}
 }();
 
-baidu.dom._eventBase.method(
-	"blur", "change", "click", "dblclick", "error",
-	"focus", "focusin", "focusout",
-	"keydown", "keypress", "keyup",
-	"mousedown", "mouseenter", "mouseleave", "mousemove", "mouseout", "mouseover", "mouseup",
-	"resize", "scroll", "select", "submit", "unload");
+baidu.dom._eventBase.method("blur", "change", "click", "dblclick", "error", "focus", "focusin", "focusout", "keydown", "keypress", "keyup", "mousedown", "mouseenter", "mouseleave", "mousemove", "mouseout", "mouseover", "mouseup", "resize", "scroll", "select", "submit", "unload");

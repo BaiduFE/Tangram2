@@ -6,7 +6,7 @@
 ///import baidu.dom._getWindowOrDocumentWidthOrHeight;
 baidu.dom.extend({
     height: function(value){
-        return this._access('height', value, function(ele, key, val){
+        return baidu.dom._access.call(this, 'height', value, function(ele, key, val){
             var hasValue = val !== undefined,
                 type = ele != null && ele === ele.window ? 'window'
                     : (ele.nodeType === 9 ? 'document' : false);

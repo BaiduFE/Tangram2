@@ -1,4 +1,4 @@
-///import baidu.match;
+///import baidu.dom.match;
 
 /**
  * @fileoverview
@@ -15,6 +15,6 @@
  */
 baidu.dom.extend({
     is : function (selector) {
-        return baidu.match(this, selector).length > 0;
+        return baidu.dom.match(this, selector).length > 0;
     }
 });

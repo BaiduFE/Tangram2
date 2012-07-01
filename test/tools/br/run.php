@@ -1,4 +1,5 @@
 <?php
+ini_set("error_reporting", E_ALL ^ E_NOTICE);
 header("Content-type: text/html; charset=utf-8");
 header("Cache-Control: no-cache, max-age=10, must-revalidate");
 if(!array_key_exists('quirk', $_GET)){

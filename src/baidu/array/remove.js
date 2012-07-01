@@ -3,11 +3,11 @@
 
 baidu.array.extend({
     remove : function (match) {
-        var len = this.length;
+        var n = this.length;
             
-        while (len--) {
-            if (len in source && this[len] === match) {
-                this.splice(len, 1);
+        while (n--) {
+            if (this[n] === match) {
+                this.splice(n, 1);
             }
         }
         return this;
