@@ -43,14 +43,28 @@ function(event, json){
 // constructor
 function(event){
     var e, t, f;
+    var me = this;
+
     this._type_ = "$Event";
 
-    if (typeof event == "object") {
-        this.origin = event;
+    if (typeof event == "object" && event.type) {
+        me.origin = e = event;
 
-        baidu.extend(this, event);
-        delete this.stopPropagation;
-        delete this.preventDefault;
+        me.type = e.type;
+        me.target = me.srcElement = e.srcElement || ((t=e.target) ? (t.nodeType==1?t:t.parentNode) : null);
+        me.relatedTarget = e.relatedTarget || ((t=e.fromElement) ? (t===e.target?e.toElement:t) : null);
+
+        me.keyCode = me.which = e.keyCode || e.which;
+
+        baidu.each( "altKey clientX clientY ctrlKey metaKey screenX screenY shiftKey".split(" "), function(item){
+            me[ item ] = e[ item ];
+        });
+
+        var doc = document.documentElement, body = document.body;
+        me.pageX = e.pageX || (e.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft  || body && body.clientLeft || 0));
+        me.pageY = e.pageY || (e.clientY + (doc && doc.scrollTop  ||  body && body.scrollTop  || 0) - (doc && doc.clientTop  || body && body.clientTop  || 0));
+
+        me.data;
     }
 
     // event.type
@@ -58,18 +72,6 @@ function(event){
 
     // event.timeStamp
     this.timeStamp = new Date().getTime();
-
-    if (e = this.origin) {
-        f = e.fromElement;
-
-        // event.target
-        this.target = e.srcElement || ((t=e.target) ? (t.nodeType==1?t:t.parentNode) : null);
-
-        // event.relatedTarget
-        if ( !this.relatedTarget && f )
-            this.relatedTarget = f === e.target ? e.toElement : f;
-
-    }
 
 // 扩展两个常用方法
 }).extend({
