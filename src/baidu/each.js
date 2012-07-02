@@ -14,7 +14,7 @@
  *
  * @param   {Object}        enumerable      被枚举的对象（Array|ArrayLike|NodeList|String|Number）
  * @param   {Function}      iterator        遍历操作的函数
- * @param   {Object}        context         作用域
+ * @param   {Object}        context         [可选]作用域
  * @return  {ArrayLike}     arrayLike
  */
 baidu.each = function( enumerable, iterator, context ) {

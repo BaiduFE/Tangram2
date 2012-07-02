@@ -43,14 +43,32 @@ function(event, json){
 // constructor
 function(event){
     var e, t, f;
+    var me = this;
+
     this._type_ = "$Event";
 
-    if (typeof event == "object") {
-        this.origin = event;
+    if (typeof event == "object" && event.type) {
+        me.originalEvent = e = event;
 
-        baidu.extend(this, event);
-        delete this.stopPropagation;
-        delete this.preventDefault;
+        baidu.each( "altKey bubbles button buttons cancelable clientX clientY ctrlKey currentTarget fromElement metaKey screenX screenY shiftKey toElement type view which".split(" "), function(item){
+            me[ item ] = e[ item ];
+        });
+
+        me.target = me.srcElement = e.srcElement || ((t=e.target) ? (t.nodeType==3?t.parentNode:t) : null);
+        me.relatedTarget = e.relatedTarget || ((t=e.fromElement) ? (t===e.target?e.toElement:t) : null);
+
+        me.keyCode = me.which = e.keyCode || e.which;
+
+        // Add which for click: 1 === left; 2 === middle; 3 === right
+        if ( !me.which && e.button !== undefined ) {
+            me.which = ( e.button & 1 ? 1 : ( e.button & 2 ? 3 : ( e.button & 4 ? 2 : 0 ) ) );
+        }
+
+        var doc = document.documentElement, body = document.body;
+        me.pageX = e.pageX || (e.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0));
+        me.pageY = e.pageY || (e.clientY + (doc && doc.scrollTop  || body && body.scrollTop  || 0) - (doc && doc.clientTop  || body && body.clientTop  || 0));
+
+        me.data;
     }
 
     // event.type
@@ -59,30 +77,18 @@ function(event){
     // event.timeStamp
     this.timeStamp = new Date().getTime();
 
-    if (e = this.origin) {
-        f = e.fromElement;
-
-        // event.target
-        this.target = e.srcElement || ((t=e.target) ? (t.nodeType==1?t:t.parentNode) : null);
-
-        // event.relatedTarget
-        if ( !this.relatedTarget && f )
-            this.relatedTarget = f === e.target ? e.toElement : f;
-
-    }
-
 // 扩展两个常用方法
 }).extend({
     // 阻止事件冒泡
     stopPropagation : function() {
-        var e = this.origin;
+        var e = this.originalEvent;
 
         e && (e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true);
     }
 
     // 阻止事件默认行为
     ,preventDefault : function() {
-        var e = this.origin;
+        var e = this.originalEvent;
 
         e && (e.preventDefault ? e.preventDefault() : e.returnvalue = false);
     }
