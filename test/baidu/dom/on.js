@@ -51,7 +51,7 @@ test('bind event to div', function(){
             array.push('D');
             equal(evt.data.tangId, 'Tangram', 'div mouseout trigger');
         }
-    }, {tangId: 'Tangram'});
+    }, {tangId: 'Tangram'}, function(){ok(false, 'exception');});
     ua.mouseout(c.get());//5
     ua.click(c.get());//6
     c.dispose();
