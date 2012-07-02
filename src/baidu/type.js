@@ -12,8 +12,9 @@
 /**
  * 判断对象类型，返回值为全小写对象名
  *
- * @param   {Object}    unknow  被判断的对象
- * @return  {String}            对象类型名
+ * @param   {Any}       unknow  任意类型的对象
+ * @param   {String}    match   [可选]与对象类型作比较的字符串，这个参数如果赋值则.type()方法的返回值为布尔值，使用此种判断的效率只有 is* 系列的 1/7
+ * @return  {String}            对应对象类型的字符串
  */
 baidu.type = (function() {
     var objectType = {},
@@ -24,6 +25,7 @@ baidu.type = (function() {
     // 给 objectType 集合赋值，建立映射
     baidu.each(str.split(" "), function(name) {
         objectType[ "[object " + name + "]" ] = name.toLowerCase();
+
         baidu[ "is" + name ] = baidu.lang[ "is" + name ] = function ( unknow ) {
             return baidu.type(unknow) == name.toLowerCase();
         }
@@ -42,16 +44,18 @@ baidu.type = (function() {
     };
 
     // 方法主体
-    return function ( unknow ) {
+    return function ( unknow, match ) {
         var s = typeof unknow;
 
-        return s != "object" ? s
+        s = s != "object" ? s
             : unknow == null ? "null"
             : unknow._type_
                 || objectType[ toString.call( unknow ) ]
                 || nodeType[ unknow.nodeType ]
                 || ( unknow == unknow.window ? "Window" : "" )
                 || "object";
+
+        return match ? match.toLowerCase().indexOf(s.toLowerCase()) > -1 : s;
     };
 })();
 
