@@ -3,10 +3,8 @@ module('baidu.dom.css');
 var ie = /msie/i.test( navigator.userAgent );
 
 var div = document.createElement("div");
-	div.style.position = "absolute";
+	// div.style.position = "";
 	div.style.top = "-10000px";
-
-document.documentElement.appendChild(div);
 
 var appendStyle = function(text){
 	var style;
@@ -36,13 +34,17 @@ appendStyle(" .a{ color: red; opacity: .5; filter: alpha(opacity=50); display: i
 ua.importsrc("baidu.dom.styleFixer", function(){
 
 	test("baidu.dom(div).css(name)", function(){
+		document.body.appendChild(div);
+
 		div.className = "a";
 
-		equal( css("position"), "absolute", "position" );
+		equal( css("position"), "static", "position" );
 		ok( css("color") == "red" || css("color") == "rgb(255, 0, 0)" || css("color") == "#f00", "color" );
 		equal( css("opacity"), .5, "opacity" );
 		equal( css("display"), "inline", "display" );
-		equal( css("z-index"), "", "z-index" ); // 抹平？
+		equal( css("z-index"), 0, "z-index" ); // 抹平？
+
+		div.className = "";
 	});
 
 	test("baidu.dom(div).css(name,value)", function(){
@@ -54,7 +56,7 @@ ua.importsrc("baidu.dom.styleFixer", function(){
 		ok( get("color") == "green" || get("color") == "rgb(0, 128, 0)" || get("color") == "#008000", "color" );
 
 		if( ie )
-			ok( ~ div.style.filter.indexOf("alpha"), "opacity" );
+			ok( ~ div.style.filter.indexOf("Alpha"), "opacity" );
 
 		try{
 			css( "z-index", 0 );
