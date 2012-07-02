@@ -48,21 +48,25 @@ function(event){
     this._type_ = "$Event";
 
     if (typeof event == "object" && event.type) {
-        me.origin = e = event;
+        me.originalEvent = e = event;
 
-        me.type = e.type;
-        me.target = me.srcElement = e.srcElement || ((t=e.target) ? (t.nodeType==1?t:t.parentNode) : null);
+        baidu.each( "altKey bubbles button buttons cancelable clientX clientY ctrlKey currentTarget fromElement metaKey screenX screenY shiftKey toElement type view which".split(" "), function(item){
+            me[ item ] = e[ item ];
+        });
+
+        me.target = me.srcElement = e.srcElement || ((t=e.target) ? (t.nodeType==3?t.parentNode:t) : null);
         me.relatedTarget = e.relatedTarget || ((t=e.fromElement) ? (t===e.target?e.toElement:t) : null);
 
         me.keyCode = me.which = e.keyCode || e.which;
 
-        baidu.each( "altKey clientX clientY ctrlKey metaKey screenX screenY shiftKey".split(" "), function(item){
-            me[ item ] = e[ item ];
-        });
+        // Add which for click: 1 === left; 2 === middle; 3 === right
+        if ( !me.which && e.button !== undefined ) {
+            me.which = ( e.button & 1 ? 1 : ( e.button & 2 ? 3 : ( e.button & 4 ? 2 : 0 ) ) );
+        }
 
         var doc = document.documentElement, body = document.body;
-        me.pageX = e.pageX || (e.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft  || body && body.clientLeft || 0));
-        me.pageY = e.pageY || (e.clientY + (doc && doc.scrollTop  ||  body && body.scrollTop  || 0) - (doc && doc.clientTop  || body && body.clientTop  || 0));
+        me.pageX = e.pageX || (e.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0));
+        me.pageY = e.pageY || (e.clientY + (doc && doc.scrollTop  || body && body.scrollTop  || 0) - (doc && doc.clientTop  || body && body.clientTop  || 0));
 
         me.data;
     }
@@ -77,14 +81,14 @@ function(event){
 }).extend({
     // 阻止事件冒泡
     stopPropagation : function() {
-        var e = this.origin;
+        var e = this.originalEvent;
 
         e && (e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true);
     }
 
     // 阻止事件默认行为
     ,preventDefault : function() {
-        var e = this.origin;
+        var e = this.originalEvent;
 
         e && (e.preventDefault ? e.preventDefault() : e.returnvalue = false);
     }
