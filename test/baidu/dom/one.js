@@ -18,9 +18,9 @@ test('div event trigger once', function(){
     baidu.dom(c.get()).one('click', function(){
         ok(true, 'click event trigger');
     });
-    ua.click(c.get());
-    ua.click(c.get());
-    ua.click(c.get());
+    ua.fireMouseEvent(c.get(), 'click');
+    ua.fireMouseEvent(c.get(), 'click');
+    ua.fireMouseEvent(c.get(), 'click');
     c.dispose();
     //
     c = new Div();
@@ -39,12 +39,12 @@ test('div event trigger once', function(){
     };
     c = new Div();
     baidu.dom(c.get()).one(map, {tangId: 'Tangram'}, function(){ok(false, 'exception');});
-    ua.click(c.get());
-    ua.click(c.get());
-    ua.mouseover(c.get());
-    ua.mouseover(c.get());
-    ua.mouseout(c.get());
-    ua.mouseout(c.get());
+    ua.fireMouseEvent(c.get(), 'click');
+    ua.fireMouseEvent(c.get(), 'click');
+    ua.fireMouseEvent(c.get(), 'mouseover');
+    ua.fireMouseEvent(c.get(), 'mouseover');
+    ua.fireMouseEvent(c.get(), 'mouseout');
+    ua.fireMouseEvent(c.get(), 'mouseout');
     c.dispose();
 });
 
@@ -56,8 +56,8 @@ test('span event trigger once', function(){
     document.body.appendChild(span);
     span.appendChild(c.get());
     baidu.dom(span).one('click', 'div', function(){ok(true, 'click event trigger')});
-    ua.click(c.get());
-    ua.click(c.get());
+    ua.fireMouseEvent(c.get(), 'click');
+    ua.fireMouseEvent(c.get(), 'click');
     document.body.removeChild(span);
 //    
     span = document.createElement('span');
@@ -67,9 +67,9 @@ test('span event trigger once', function(){
     baidu.dom(span).one('click', 'div', {tangId: 'Tangram'}, function(evt){
         equla(evt.data.tangId, 'Tangram', 'click event trigger and data received');
     });
-    ua.click(c.get());
-    ua.click(c.get());
-    ua.click(span);
+    ua.fireMouseEvent(c.get(), 'click');
+    ua.fireMouseEvent(c.get(), 'click');
+    ua.fireMouseEvent(span, 'click');
     document.body.removeChild(span);
 //    
     var map = {
@@ -82,12 +82,12 @@ test('span event trigger once', function(){
     c = new Div();
     span.appendChild(c.get());
     baidu.dom(span).one(map, 'div', {tangId: 'Tangram'}, function(){ok(false, 'exception')});
-    ua.mousedown(c.get());
-    ua.mousemove(c.get());
-    ua.mouseup(c.get());
-    ua.mousedown(c.get());
-    ua.mousemove(c.get());
-    ua.mouseup(c.get());
+    ua.fireMouseEvent(c.get(), 'mousedown');
+    ua.fireMouseEvent(c.get(), 'mousemove');
+    ua.fireMouseEvent(c.get(), 'mouseup');
+    ua.fireMouseEvent(c.get(), 'mousedown');
+    ua.fireMouseEvent(c.get(), 'mousemove');
+    ua.fireMouseEvent(c.get(), 'mouseup');
     document.body.removeChild(span);
 });
 
@@ -97,8 +97,8 @@ test('fragment attach once event', function(){
     baidu.dom(c.get()).one('mousedown', function(){
         ok(true, 'mousedown event trigger');
     });
-    ua.mousedown(c.get());
-    ua.mousedown(c.get());
+    ua.fireMouseEvent(c.get(), 'mousedown');
+    ua.fireMouseEvent(c.get(), 'mousedown');
     //
     
     c = new Div(true);
@@ -106,10 +106,8 @@ test('fragment attach once event', function(){
         equal(evt.data.tangId, 'Tangram', 'tangId');
         equal(evt.data.tangNum, 100, 'tangNum');
     });
-    ua.click(c.get());
-    ua.click(c.get());
-    
-    
+    ua.fireMouseEvent(c.get(), 'click');
+    ua.fireMouseEvent(c.get(), 'click');
 });
 
 test('off event', function(){
@@ -123,9 +121,8 @@ test('off event', function(){
         ok(!!baidu.dom(c.get()).off, 'baidu.dom.off imported');
         baidu.dom(c.get()).one('click', handler);
         baidu.dom(c.get()).off('click', handler);
-        ua.click(c.get());
-        ua.click(c.get());
-        
+        ua.fireMouseEvent(c.get(), 'click');
+        ua.fireMouseEvent(c.get(), 'click');
         start();
     }, 'baidu.dom.off', 'baidu.dom.one');
 });

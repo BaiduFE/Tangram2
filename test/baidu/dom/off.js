@@ -23,7 +23,7 @@ test('remove a event', function(){
     div.addEventListener && div.addEventListener('click', handler, false);
     div.attachEvent && div.attachEvent('click', handler);
     baidu.dom(div).off('click', handler);
-    ua.click(div);
+    ua.fireMouseEvent(div, 'click');
     div = null;
     c.dispose();
 });
@@ -37,9 +37,9 @@ test('div uninstall event', function(){
             div = c.get();
         function handler(){ok(true, 'event bind');}
         baidu.dom(div).on('click', handler);
-        ua.click(div);
+        ua.fireMouseEvent(div, 'click');
         baidu.dom(div).off('click', handler);
-        ua.click(div);
+        ua.fireMouseEvent(div, 'click');
         div = null;
         c.dispose();
         //
@@ -53,9 +53,9 @@ test('div uninstall event', function(){
         }).on('click', function(){
             ok(true, 'third event');
         });
-        ua.click(div);
+        ua.fireMouseEvent(div, 'click');
         baidu.dom(div).off('click');
-        ua.click(div);
+        ua.fireMouseEvent(div, 'click');
         div = null;
         c.dispose();
         //
@@ -68,13 +68,13 @@ test('div uninstall event', function(){
         c = new Div();
         div = c.get();
         baidu.dom(div).on(map);
-        ua.mouseover(div);
-        ua.click(div);
-        ua.mouseout(div);
+        ua.fireMouseEvent(div, 'mouseover');
+        ua.fireMouseEvent(div, 'click');
+        ua.fireMouseEvent(div, 'mouseout');
         baidu.dom(div).off(map);
-        ua.mouseover(div);
-        ua.click(div);
-        ua.mouseout(div);
+        ua.fireMouseEvent(div, 'mouseover');
+        ua.fireMouseEvent(div, 'click');
+        ua.fireMouseEvent(div, 'mouseout');
         div = null;
         c.dispose();
         //
@@ -82,13 +82,13 @@ test('div uninstall event', function(){
         c = new Div();
         div = c.get();
         baidu.dom(div).on(map);
-        ua.mouseover(div);
-        ua.click(div);
-        ua.mouseout(div);
+        ua.fireMouseEvent(div, 'mouseover');
+        ua.fireMouseEvent(div, 'click');
+        ua.fireMouseEvent(div, 'mouseout');
         baidu.dom(div).off();
-        ua.mouseover(div);
-        ua.click(div);
-        ua.mouseout(div);
+        ua.fireMouseEvent(div, 'mouseover');
+        ua.fireMouseEvent(div, 'click');
+        ua.fireMouseEvent(div, 'mouseout');
         div = null;
         c.dispose();
         
@@ -106,10 +106,10 @@ test('span uninstall event', function(){
         ok(true, 'mouseup event trigger');
     }
     baidu.dom(span).on('mouseup', 'div', handler);
-    ua.mouseup(c.get());
+    ua.fireMouseEvent(c.get(), 'mouseup');
     baidu.dom(span).off('mouseup', 'div', handler);
-    ua.mouseup(c.get());
-    ua.mouseup(span);
+    ua.fireMouseEvent(c.get(), 'mouseup');
+    ua.fireMouseEvent(span, 'mouseup');
     c.dispose();
     document.body.removeChild(span);
     
@@ -124,13 +124,13 @@ test('span uninstall event', function(){
     document.body.appendChild(span);
     span.appendChild(c.get());
     baidu.dom(span).on(map, 'div', function(){ok(false, 'exception')});
-    ua.mousedown(c.get());
-    ua.mousemove(c.get());
-    ua.mouseup(c.get());
+    ua.fireMouseEvent(c.get(), 'mousedown');
+    ua.fireMouseEvent(c.get(), 'mousemove');
+    ua.fireMouseEvent(c.get(), 'mouseup');
     baidu.dom(span).off(map, 'div');
-    ua.mousedown(c.get());
-    ua.mousemove(c.get());
-    ua.mouseup(c.get());
+    ua.fireMouseEvent(c.get(), 'mousedown');
+    ua.fireMouseEvent(c.get(), 'mousemove');
+    ua.fireMouseEvent(c.get(), 'mouseup');
     c.dispose();
     document.body.removeChild(span);
 });
