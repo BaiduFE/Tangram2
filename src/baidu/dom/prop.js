@@ -38,6 +38,9 @@ baidu.dom.extend({
             contenteditable: "contentEditable"
         };
 
+        var rfocusable = /^(?:button|input|object|select|textarea)$/i,
+            rclickable = /^a(?:rea)?$/i;
+
         var propHooks = {
             tabIndex: {
                 get: function( elem ) {
@@ -53,36 +56,65 @@ baidu.dom.extend({
             }
         };
 
+        var elem = this[0], 
+            ret, hooks, notxml, 
+            nType = elem.nodeType;
+
+        // don't get/set properties on text, comment and attribute nodes
+        if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
+            return;
+        };
+
+        notxml = nType !== 1 || !isXML( elem );
+
+        if ( notxml ) {
+            // Fix name and attach hooks
+            name = propFix[ name ] || name;
+            hooks = propHooks[ name ];
+        };
+
         switch(typeof name){
             case 'string':
                 if( typeof value === 'undefined' ){
-                    var ret, hooks, notxml,
-                        nType = this[0].nodeType;
+                    
+                    //get first
+                    if ( hooks && "get" in hooks && (ret = hooks.get( elem, name )) !== null ) {
+                        return ret;
 
-                    // don't get/set properties on text, comment and attribute nodes
-                    if ( !this[0] || nType === 3 || nType === 8 || nType === 2 ) {
-                        return;
+                    } else {
+                        return elem[ name ];
                     };
-                    notxml = nType !== 1 || !isXMLDoc( this[0] );
-
-                    if ( notxml ) {
-                        // Fix name and attach hooks
-                        name = propFix[ name ] || name;
-                        hooks = propHooks[ name ];
-                    };
-
-
-
-                }else if( typeof value === 'string' ){
 
                 }else if( typeof value === 'function' ){
+                    
                     baidu.each(this, function(item,index){
-                        baidu.dom(item).addClass(value.call(item, index, item.className));
+                        var ele = baidu.dom(item);
+                        ele.prop(value.call(item, index, ele.prop(name)));
                     });
-                }
+
+                }else{
+                    
+                    //set all
+                    baidu.each(this, function(item,index){
+                        if ( hooks && "set" in hooks && (ret = hooks.set( item, value, name )) !== undefined ) {
+                            return ret;
+
+                        } else {
+                            item[ name ] = value;
+                        };
+                    });
+                };
 
             break;
             case 'object':
+
+                //set all
+                baidu.each(this, function(item,index){
+                    var ele = baidu.dom(item);
+                    for(key in name){
+                        ele.prop(key,name[key]);
+                    };
+                });
 
             break;
             default:
