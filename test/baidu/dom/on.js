@@ -13,7 +13,7 @@ Div.prototype.dispose = function(){document.body.removeChild(this._div);}
 
 
 test('bind event to div', function(){
-    expect(10);
+    expect( 11 );
     var c = new Div(),
         array = [];
         
@@ -29,8 +29,9 @@ test('bind event to div', function(){
         array.push('B');
         ok(true, 'div event trigger');
     });
-    ua.click(c.get());//2
-    ua.mouseover(c.get());//3
+
+    ua.click(c.get());//2,3
+    ua.mouseover(c.get());//4
     c.dispose();
     
     c = new Div();
@@ -38,7 +39,7 @@ test('bind event to div', function(){
         array.push('C');
         equal(evt.data.tangId, 'Tangram', 'event bind width data');
     });
-    ua.click(c.get());//4
+    ua.click(c.get());//5
     c.dispose();
 //    
     c = new Div();
@@ -51,9 +52,10 @@ test('bind event to div', function(){
             array.push('D');
             equal(evt.data.tangId, 'Tangram', 'div mouseout trigger');
         }
-    }, {tangId: 'Tangram'}, function(){ok(false, 'exception');});
-    ua.mouseout(c.get());//5
-    ua.click(c.get());//6
+    }, {tangId: 'Tangram'}, function(){ ok(false, 'exception');});
+
+    ua.mouseout(c.get());//6
+    ua.click(c.get());//7
     c.dispose();
     
     function handler(){
@@ -64,9 +66,9 @@ test('bind event to div', function(){
     baidu.dom(c.get()).on('click', handler);
     baidu.dom(c.get()).on('click', handler);
     baidu.dom(c.get()).on('click', handler);
-    ua.click(c.get());//7,8,9
+    ua.click(c.get());//8,9,10
     c.dispose();
-    equal(array.join(''), 'ABBCDEFFF', 'array is in order');//10
+    equal(array.join(''), 'ABBBCDEFFF', 'array is in order');//11
 });
 
 test('selector event', function(){
@@ -80,7 +82,6 @@ test('selector event', function(){
     ua.click(c.get());
     ua.click(span);
     c.dispose();
-    //
     
     c = new Div();
     span = document.createElement('span');
