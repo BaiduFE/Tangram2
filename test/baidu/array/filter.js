@@ -77,7 +77,7 @@ test("第一个参数不是数组", function() {
 });
 
 //老接口
-test("返回数组不为空", function() {
+test("老接口：返回数组不为空", function() {
 	{
 		expect(1);
 		var arraytest = [ 1, 2, 3, 4, 6, 7, 8, 9, 11 ];
@@ -89,7 +89,7 @@ test("返回数组不为空", function() {
 	}
 });
 
-test("测试this指针", function() {
+test("老接口：测试this指针", function() {
 	var aArray = [ 1, 2, 3 ], thisObject = {
 		a : 'b'
 	};
@@ -103,7 +103,7 @@ test("测试this指针", function() {
 	});
 });
 
-test("返回空数组", function() {
+test("老接口：返回空数组", function() {
 	{
 		expect(1);
 		var arraytest = [ 1, 2, 3, 4, 6, 7, 8, 9, 11 ];
@@ -115,7 +115,7 @@ test("返回空数组", function() {
 	}
 });
 
-test("第二个参数不是函数", function() {
+test("老接口：第二个参数不是函数", function() {
 	expect(1);
 	var aArray = [ 1, 2, 3 ];
 	var fn = "function";
@@ -123,7 +123,7 @@ test("第二个参数不是函数", function() {
 	equal(rArr.toString(), "", "第二个参数不是函数");
 });
 
-test("第二个参数是空json", function() {
+test("老接口：第二个参数是空json", function() {
 	expect(1);
 	var aArray = [ 1, 2, 3 ];
 	var fn = {};
@@ -131,7 +131,7 @@ test("第二个参数是空json", function() {
 	equal(rArr.toString(), "", "第二个参数不是函数");
 });
 
-test("数组中有未定义的元素", function() {
+test("老接口：数组中有未定义的元素", function() {
 	expect(1);
 	var aArray = [ 1, 2, 3 ];
 	var fn = function(x) {
@@ -141,7 +141,7 @@ test("数组中有未定义的元素", function() {
 	equal(fArray, "2", "数组中有未定义的元素");
 });
 
-test("第一个参数不是数组", function() {
+test("老接口：第一个参数不是数组", function() {
 	expect(1);
 	var iNumber = 10;
 	var fn = function() {

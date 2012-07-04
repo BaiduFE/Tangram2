@@ -19,7 +19,7 @@ test('stripTags', function(){
 });
 
 //老接口
-test('stripTags', function(){
+test('老接口：stripTags', function(){
   equals(baidu.string.stripTags('abc'),'abc');
   equals(baidu.string.stripTags('abc<ab>'), 'abc');
   equals(baidu.string.stripTags('<ab/>abc<ab>'), 'abc');
