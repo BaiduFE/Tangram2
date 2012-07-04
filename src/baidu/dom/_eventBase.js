@@ -29,7 +29,7 @@ baidu.dom._eventBase = function() {
 	};
 
 	var addEvent = function( target, name, fn, selector, data ){
-		var call = function(e) {
+		var call = function( e ) {
 			var args = [].slice.call( arguments, 1 );
 			args.unshift( e = baidu.event(e) );
 
