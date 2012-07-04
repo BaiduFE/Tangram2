@@ -34,7 +34,7 @@ test("特殊情况", function() {
 });
 
 //老接口
-test("基础校验", function() {
+test("老接口：基础校验", function() {
 	var arr = [ 1, 2, 3 ], ite = function(item, i) {
 		return item + i;
 	};
@@ -43,7 +43,7 @@ test("基础校验", function() {
 	for ( var i = 0; i < 3; i++)
 		equals(new_arr[i], ite(arr[i], i), "校验第" + i + "个返回值");
 });
-test("测试this指针", function() {
+test("老接口：测试this指针", function() {
 
 	var aArray = [ 1, 2, 3 ], thisObject = {
 		a : 'b'
@@ -58,7 +58,7 @@ test("测试this指针", function() {
 	});
 });
 
-test("特殊情况", function() {
+test("老接口：特殊情况", function() {
 	// 空数组
 	var arr = [], ite = function() {
 		return 0;
