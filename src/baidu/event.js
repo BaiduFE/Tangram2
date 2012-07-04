@@ -49,7 +49,6 @@ function(event){
 
     if (typeof event == "object" && event.type) {
         me.originalEvent = e = event;
-
         baidu.each( "altKey bubbles button buttons cancelable clientX clientY ctrlKey currentTarget fromElement metaKey screenX screenY shiftKey toElement type view which".split(" "), function(item){
             me[ item ] = e[ item ];
         });
