@@ -140,7 +140,7 @@ test("传入form，返回结果", function() {
 	$(f).remove();
 });
 //老接口
-test("传入form，返回结果", function() {
+test("老接口：传入form，返回结果", function() {
 	expect(13);
     var f = createForm();
 	var j = baidu.form.serialize(f);

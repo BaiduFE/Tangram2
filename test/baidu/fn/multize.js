@@ -55,7 +55,7 @@ test('multi params', function() {
 
 
 //老接口
-test('base', function() {
+test('老接口：base', function() {
 	var fn = baidu.fn.multize(function(a) {
 		if (a instanceof Array)
 			return a[0] + 1;
@@ -71,7 +71,7 @@ test('base', function() {
 	equals(ret[1], 2, 'second return');
 });
 
-test('recursive', function() {
+test('老接口：recursive', function() {
 	var fn = baidu.fn.multize(function(a) {
 		return a + 1;
 	}, true);
@@ -88,7 +88,7 @@ test('recursive', function() {
 	equals(ret[0][1], 3, '1-2');
 });
 
-test('multi params', function() {
+test('老接口：multi params', function() {
 	var fn = baidu.fn.multize(function(a, b) {
 		return a + b;
 	});

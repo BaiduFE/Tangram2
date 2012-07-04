@@ -20,7 +20,7 @@ test("基础校验", function(){
 });
 
 //老接口
-test("基础校验", function(){
+test("老接口：基础校验", function(){
     var source = [1,2,3, '4'];
 
     equals(baidu.array.some(source, function(item, i){
@@ -29,7 +29,7 @@ test("基础校验", function(){
     }), true,  "基础校验");
 });
 
-test("基础校验", function(){
+test("老接口：基础校验", function(){
     var source = [1,2,3];
 
     equals(baidu.array.some(source, function(item, i){

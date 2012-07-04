@@ -79,7 +79,7 @@ test("removeAt函数输入空数组和下标的边界值", function() {
 });
 
 //老接口
-test("removeAt函数输入数组和合法的下标", function() {
+test("老接口：removeAt函数输入数组和合法的下标", function() {
 	expect(4);
 	var arraytest = [ 2, 4, 6, 9, 'name', 'job' ];
 	var r = baidu.array.removeAt(arraytest, 2);
@@ -94,7 +94,7 @@ test("removeAt函数输入数组和合法的下标", function() {
 	ok(ua.isEqualArray(arraytest, array), "删除数组项后");
 });
 
-test("removeAt函数输入数组和下标的边界值", function() {
+test("老接口：removeAt函数输入数组和下标的边界值", function() {
 	expect(4);
 	var arraytest = [ 4, 6, 8, 'one', 'two', 10, 11 ];
 	var r = baidu.array.removeAt(arraytest, 0);
@@ -108,7 +108,7 @@ test("removeAt函数输入数组和下标的边界值", function() {
 	ok(ua.isEqualArray(arraytest, array), "删除上边界下标的数组后");
 });
 
-test("removeAt函数输入数组和下标-1", function() {
+test("老接口：removeAt函数输入数组和下标-1", function() {
 	expect(2);
 	var arraytest = [ 4, 6, 8, 'one', 'two', 10, 11 ];
 	var r = baidu.array.removeAt(arraytest, -1);
@@ -117,7 +117,7 @@ test("removeAt函数输入数组和下标-1", function() {
 	ok(ua.isEqualArray(arraytest, array), "删除数组下标为-1");
 });
 
-test("removeAt函数输入数组和下标超过数组长度", function() {
+test("老接口：removeAt函数输入数组和下标超过数组长度", function() {
 	expect(2);
 	var arraytest = [ 4, 6, 8, 'one', 'two', 10, 11 ];
 	var r = baidu.array.removeAt(arraytest, 7);
@@ -126,7 +126,7 @@ test("removeAt函数输入数组和下标超过数组长度", function() {
 	ok(ua.isEqualArray(arraytest, array), "下标超过数组长度");
 });
 
-test("removeAt函数输入数组和负数下标（超出数组长度）", function() {
+test("老接口：removeAt函数输入数组和负数下标（超出数组长度）", function() {
 	var arraytest = [ 4, 6, 8, 'one', 'two', 10, 11 ];
 	var r = baidu.array.removeAt(arraytest, -100);
 	equal(r, 4, "数组和负数下标（超出数组长度");
@@ -134,7 +134,7 @@ test("removeAt函数输入数组和负数下标（超出数组长度）", functi
 	ok(ua.isEqualArray(arraytest, array), "负数下标下标超过数组长度");
 });
 
-test("removeAt函数输入空数组和合法的下标", function() {
+test("老接口：removeAt函数输入空数组和合法的下标", function() {
 	expect(2);
 	var arraytest = [];
 	var r = baidu.array.removeAt(arraytest, 0);
@@ -142,7 +142,7 @@ test("removeAt函数输入空数组和合法的下标", function() {
 	equal(arraytest.toString(), "", "空数组，无法删除找不到的元素");
 });
 
-test("removeAt函数输入空数组和下标的边界值", function() {
+test("老接口：removeAt函数输入空数组和下标的边界值", function() {
 	expect(4);
 	var arr = [];
 	var r = baidu.array.removeAt(arr, -1);
