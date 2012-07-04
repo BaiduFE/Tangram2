@@ -26,27 +26,20 @@ baidu.dom.extend({
 	    }
 
 		if( typeof events == "string" ){
-
 		    events = events.split(/[ ,]+/);
-
 		    this.each(function(){
 		    	var me = this;
-		        baidu.each(events, function(event){
+		        baidu.each(events, function( event ){
 		            eb.add( me, event, fn, selector, data );
 		        });
 		    });
-
 		}else if( typeof events == "object" ){
-
 			var me = this;
-		
 			if( fn )
 				fn = null;
-
-			baidu.each(events, function(fn, events){
-			    me.on(events, selector, data, fn);
+			baidu.each(events, function( fn, events ){
+			    me.on( events, selector, data, fn );
 			});
-
 		}
 
 		return this;

@@ -40,7 +40,7 @@ test('bind event to div', function(){
     });
     ua.fireMouseEvent(c.get(), 'click');//4
     c.dispose();
-    
+
     c = new Div();
     baidu.dom(c.get()).on({
         'click': function(evt){
@@ -52,8 +52,10 @@ test('bind event to div', function(){
             array.push('D');
         }
     }, {tangId: 'Tangram'}, function(){ ok(false, 'exception');});
+    
     ua.fireMouseEvent(c.get(), 'mouseout');//5
     ua.fireMouseEvent(c.get(), 'click');//6
+    
     c.dispose();
     
     function handler(){
