@@ -1,5 +1,5 @@
 module('baidu.dom.removeClss')
-stop();
+
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };
 var formatHTML = function(html){
 	html = html.toUpperCase();
@@ -8,8 +8,6 @@ var formatHTML = function(html){
 	});
 	return html;
 };
-
-waiting(function(){ return baidu.query; }, function(){
 
 //新接口测试
 test('正常用例',function(){
@@ -113,7 +111,3 @@ test('老接口：异常用例', function(){
 	baidu.dom.removeClass(html,'not_exited_class');
 	equal(html.className,'html_name','remove not existed class of html');
 });
-
-	start();
-});
-ua.importsrc("baidu.sizzle"); // 由于加载的资源中不存在 baidu.sizzle 这个对象，所以不能使用 importsrc 自带的 callback
