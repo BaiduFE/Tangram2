@@ -8,7 +8,7 @@
  * $date$
  */
 
-///import baidu.lang._instances;
+///import baidu.lang;
 
 /**
  * 解除instance中对指定类实例的引用关系。
@@ -20,7 +20,8 @@
  * @see baidu.lang.instance
  */
 baidu.lang.decontrol = function(){
-    var maps = window[baidu.guid]._maps;
+    var global = window[baidu.guid],
+        maps = global._maps = global._maps || {};
 
     return function(guid) {
         delete maps[guid];
