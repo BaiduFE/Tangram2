@@ -193,7 +193,7 @@ test("async fail 方法", function() {
 
 //老接口
 
-test("async resolve", function() {
+test("老接口：async resolve", function() {
 	te.check(options = {
 		arg : [ 'success', '', null, undefined, function() {
 		}, {}, [] ],
@@ -201,7 +201,7 @@ test("async resolve", function() {
 		target : 'success'
 	}, 10);
 });
-test("async reject", function() {
+test("老接口：async reject", function() {
 	te.check({
 		arg : [ 'fail', '', null, undefined, function() {
 		}, {}, [] ],
@@ -209,14 +209,14 @@ test("async reject", function() {
 		target : 'fail'
 	});
 });
-test("async cancel 同步调用cancel success ", function() {
+test("老接口：async cancel 同步调用cancel success ", function() {
 	QUnit.expect(1);
 	var tv = te.validate();
 	tv.init();
 	tv.getDef(0).then(tv.getFn(-1)).cancel();
 	tv.teardown();
 });
-test("async cancel 异步调用cancel success ", function() {
+test("老接口：async cancel 异步调用cancel success ", function() {
 	QUnit.expect(1);
 	var tv = te.validate();
 	tv.init();
@@ -224,7 +224,7 @@ test("async cancel 异步调用cancel success ", function() {
 	tv.teardown();
 });
 // 该用例当内部defer对象cancel掉后不应该影响外部def对象的then？还是直接全部cancel
-test("async cancel 切断内部defer对象", function() {
+test("老接口：async cancel 切断内部defer对象", function() {
 	expect(2);
 	var tv = te.validate();
 	tv.init();
@@ -236,7 +236,7 @@ test("async cancel 切断内部defer对象", function() {
 	tv.teardown();
 });
 
-test("async cancel 切断外部defer对象", function() {
+test("老接口：async cancel 切断外部defer对象", function() {
 	expect(1);
 	var tv = te.validate();
 	tv.init();
@@ -245,7 +245,7 @@ test("async cancel 切断外部defer对象", function() {
 	}).then(-1).cancel();
 	tv.teardown();
 });
-test("async cancel 超时调用cancel fail", function() {
+test("老接口：async cancel 超时调用cancel fail", function() {
 	QUnit.expect(3);
 	var tv = te.validate();
 	tv.init();
@@ -253,7 +253,7 @@ test("async cancel 超时调用cancel fail", function() {
 	setTimeout(def.cancel, 180);
 	tv.teardown();
 });
-test("async then链测试", function() {
+test("老接口：async then链测试", function() {
 	QUnit.expect(3);
 	var tv = te.validate();
 	tv.init();
@@ -261,14 +261,14 @@ test("async then链测试", function() {
 			tv.getFn(2));
 	tv.teardown();
 });
-test("async then 参数测试只有onSuccess", function() {
+test("老接口：async then 参数测试只有onSuccess", function() {
 	QUnit.expect(3);
 	var tv = te.validate();
 	tv.init();
 	tv.getDef(0).then(tv.getFn(1)).then(tv.getFn(2));
 	tv.teardown();
 });
-test("async then参数中async链情况 01", function() {
+test("老接口：async then参数中async链情况 01", function() {
 	QUnit.expect(4);
 	var tv = te.validate();
 	tv.init();
@@ -277,14 +277,14 @@ test("async then参数中async链情况 01", function() {
 	}).then(tv.getFn(3));
 	tv.teardown();
 });
-test("async success 方法", function() {
+test("老接口：async success 方法", function() {
 	QUnit.expect(2);
 	var tv = te.validate();
 	tv.init();
 	tv.getDef(0).success(tv.getFn(1)).fail(tv.getFn(-1));
 	tv.teardown();
 });
-test("async fail 方法", function() {
+test("老接口：async fail 方法", function() {
 	QUnit.expect(3);
 	var tv = te.validate();
 	tv.init();

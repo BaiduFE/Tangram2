@@ -1,14 +1,9 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/dom/setAttr.js
- * author: allstar
- * version: 1.1.0
- * date: 2009/11/17
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
-///import baidu.dom.g;
+///import baidu
 ///import baidu.dom._NAME_ATTRS;
 
 /**
@@ -29,9 +24,10 @@
  *             
  * @returns {HTMLElement} 目标元素
  */
-baidu.dom.setAttr = function (element, key, value) {
-    element = baidu.dom.g(element);
-
+ 
+baidu.dom.extend({
+setAttr : function (key, value) {
+	var element = this[0];
     if ('style' == key){
         element.style.cssText = value;
     } else {
@@ -40,7 +36,8 @@ baidu.dom.setAttr = function (element, key, value) {
     }
 
     return element;
-};
+};	
+});
 
 // 声明快捷方法
 baidu.setAttr = baidu.dom.setAttr;

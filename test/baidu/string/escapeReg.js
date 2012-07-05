@@ -87,19 +87,19 @@ test("异常case", function(){
  *  Test exception case (null undefined)
  */
 
-test("检查所有的需要转义的字符", function(){
+test("老接口：检查所有的需要转义的字符", function(){
 	var strin = ".*+?^=!:${}()|[]/\\";
 	var strout = "\.\*\+\?\^\=\!\:\$\{\}\(\)\|\[\]\/\\";
     equals(strin, strout);
 }); // 1
 
-test("输入包含需要转义的英文字符串", function(){
+test("老接口：输入包含需要转义的英文字符串", function(){
 	var strin = "[escape]|.{reg}";
 	var strout = "\[escape\]\|\.\{reg\}";
     equals(strin, strout);
 }); // 2
 
-test("输入混合字符串", function(){
+test("老接口：输入混合字符串", function(){
 	var strin = "(百度)^China?.";
 	var strout = "\(百度\)\^China\?\.";
     equals(strin, strout);
@@ -110,7 +110,7 @@ test("输入混合字符串", function(){
     equals(strin, strout);
 }); // 3
 
-test("输入没有转义字符的串", function(){
+test("老接口：输入没有转义字符的串", function(){
 	var strEscapeReg = "";
 	
 	strEscapeReg = baidu.string.escapeReg("百度 中国");
@@ -127,14 +127,14 @@ test("输入没有转义字符的串", function(){
     equals(strEscapeReg, "234-Hi-自动化");
 }); // 4
 
-test("输入空串", function(){
+test("老接口：输入空串", function(){
 	var strEscapeReg = "";
 	
 	strEscapeReg = baidu.string.escapeReg("");
     equals(strEscapeReg, "");
 }); // 5
 
-test("构造正则表达式匹配", function(){
+test("老接口：构造正则表达式匹配", function(){
 	var basestr = "bai[du]{test}end$^head+d..com";
 	var str1 = "i[du]";
 	var str2 = "^hea";
@@ -157,7 +157,7 @@ test("构造正则表达式匹配", function(){
     equals(new RegExp(baidu.string.escapeReg(str8)).test(basestr), false);
 }); // 6
 
-test("异常case", function(){
+test("老接口：异常case", function(){
 	var nullStr = null;	
 	equals(baidu.string.escapeReg(nullStr), "null");
 	
