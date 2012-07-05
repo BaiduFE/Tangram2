@@ -1,5 +1,4 @@
 module("baidu.dom.empty");
-stop();
 
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };
 var formatHTML = function(html){
@@ -9,66 +8,58 @@ var formatHTML = function(html){
 	});
 	return html;
 };
+// TODO: 
 
-waiting(function(){ return baidu.query; }, function(){
+test('当前页元素window', function() {
+	expect(5);
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	div.id = 'div_id';
+	equal(baidu.dom(div).getWindow(), window);
+	equal(baidu.dom(document).getWindow(), window);// document
+	equal(baidu.dom(document.body).getWindow(), window);// body
+	equal(baidu.dom(document.documentElement).getWindow(), window);
+	equal(baidu.dom('#div_id').getWindow(), window);
 
-	// TODO: 
+	document.body.removeChild(div);
+});
 
-	test('当前页元素weindow', function() {
-		expect(5);
-		var div = document.createElement('div');
-		document.body.appendChild(div);
-		div.id = 'div_id';
-		equal(baidu.dom(div).getWindow(), window);
-		equal(baidu.dom(document).getWindow(), window);// document
-		equal(baidu.dom(document.body).getWindow(), window);// body
-		equal(baidu.dom(document.documentElement).getWindow(), window);
-		equal(baidu.dom('#div_id').getWindow(), window);
+test('iframe', function() {
+	ua.frameExt(function(w){
+		var gw = w.parent.baidu.dom.getWindow;
 
-		document.body.removeChild(div);
+		w.$(w.document.body).append('<div id="test_div"></div>');
+
+		equals(gw(w.$('div#test_div')[0]), w);
+		equals(gw(w.document), w);
+		equals(w.baidu.dom.getWindow(w.parent.document), w.parent);
+		this.finish();
 	});
+});
 
-	test('iframe', function() {
-		ua.frameExt(function(w){
-			var gw = w.parent.baidu.dom.getWindow;
+// 老接口
 
-			w.parent.baidu.dom(w.document.body).append('<div id="test_div"></div>');
+test('当前页元素window', function() {
+	expect(5);
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	div.id = 'div_id';
+	equal(baidu.dom.getWindow(div), window);
+	equal(baidu.dom.getWindow(document), window);// document
+	equal(baidu.dom.getWindow(document.body), window);// body
+	equal(baidu.dom.getWindow(document.documentElement), window);
+	equal(baidu.dom.getWindow('div_id'), window);
 
-			equals(gw(w.$('div#test_div')[0]), w);
-			equals(gw(w.document), w);
-			equals(w.baidu.dom.getWindow(w.parent.document), w.parent);
-			this.finish();
-		});
+	document.body.removeChild(div);
+});
+
+test('iframe', function() {
+	ua.frameExt(function(w){
+		var gw = w.parent.baidu.dom.getWindow;
+		w.$(w.document.body).append('<div id="test_div"></div>');
+		equals(gw(w.$('div#test_div')[0]), w);
+		equals(gw(w.document), w);
+		equals(w.baidu.dom.getWindow(w.parent.document), w.parent);
+		this.finish();
 	});
-
-	// 老接口
-
-	test('当前页元素weindow', function() {
-		expect(5);
-		var div = document.createElement('div');
-		document.body.appendChild(div);
-		div.id = 'div_id';
-		equal(baidu.dom.getWindow(div), window);
-		equal(baidu.dom.getWindow(document), window);// document
-		equal(baidu.dom.getWindow(document.body), window);// body
-		equal(baidu.dom.getWindow(document.documentElement), window);
-		equal(baidu.dom.getWindow('div_id'), window);
-
-		document.body.removeChild(div);
-	});
-
-	test('iframe', function() {
-		ua.frameExt(function(w){
-			var gw = w.parent.baidu.dom.getWindow;
-			w.$(w.document.body).append('<div id="test_div"></div>');
-			equals(gw(w.$('div#test_div')[0]), w);
-			equals(gw(w.document), w);
-			equals(w.baidu.dom.getWindow(w.parent.document), w.parent);
-			this.finish();
-		});
-	});
-
-	start();
-})
-
-ua.importsrc("baidu.sizzle"); // 由于加载的资源中不存在 baidu.sizzle 这个对象，所以不能使用 importsrc 自带的 callback
+});
