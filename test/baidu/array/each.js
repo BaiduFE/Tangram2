@@ -70,10 +70,15 @@ test("第二个参数是空函数", function() {
 
 test("第一个参数不是数组", function() {
 	expect(1);
-	var iNumber = 10;
-	equal(baidu.array(aArray).each(function() {
-		aArray[iIndex] += iIndex;
-	}), 10, "对number调用each");
+    try{
+        baidu.array(undefined);
+        baidu.array(1);
+        baidu.array(window);
+        baidu.array(1).each(function(){});
+        ok( true, "第一个参数不是数组" );
+    }catch(e){
+        ok( false, "第一个参数不是数组" );
+    }
 });
 
 //老接口

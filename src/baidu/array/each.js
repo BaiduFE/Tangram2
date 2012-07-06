@@ -1,3 +1,4 @@
+///import baidu.type;
 ///import baidu.array;
 ///import baidu.each;
 
@@ -16,13 +17,16 @@
  * @param   {Object}        context                         方法作用域
  * @return  {TangramArray}
  */
-void function (fn) {
-    baidu.array.extend({
-        each : fn,
-        forEach : fn
-    });
-}(
-    function(iterator, context) {
-        return baidu.each(this, iterator, context);
-    }
-);
+void function () {
+    var fn = function(iterator, context) {
+        return baidu.each(this, iterator, context || this);
+    };
+
+    Array.prototype.each = fn
+    Array.prototype.forEach = fn
+
+    // TODO: delete in tangram 3.0
+    baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
+        return baidu.isArray(array) ? array.each(iterator, context) : array;
+    };
+}();

@@ -52,7 +52,7 @@ baidu.dom.styleFixer = function(){
     return function(key, value){
         var origKey = camelCase(key);
         origKey = cssProps[origKey] || origKey;
-        origVal = baidu.type(value) === 'number' && !cssNumber[origKey] ? value + 'px' : value;
+        origVal = baidu.type(value) === 'number' && !~cssNumber.indexOf(origKey) ? value + 'px' : value;
         return {
             key: origKey,
             value: origVal,

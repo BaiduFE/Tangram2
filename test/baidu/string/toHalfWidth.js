@@ -52,7 +52,7 @@ test("异常case", function(){
 
 
 //老接口
-test("输入为纯全角字符串", function(){
+test("老接口：输入为纯全角字符串", function(){
 	strin = "ｑｕａｎ　ＪＩＡＯ％８６５＠　？＄";
 	strout = "quan JIAO%865@ ?$";
 	equals(baidu.string.toHalfWidth(strin), strout);
@@ -67,33 +67,33 @@ test("输入为纯全角字符串", function(){
 	equals(baidu.string.toHalfWidth(strin), strout);
 }); // 1
 
-test("输入为全角和半角混合串", function(){
+test("老接口：输入为全角和半角混合串", function(){
 	strin = "strｉｎｇ　ＣＬＡSS@baidu{．｝ｃｏｍ＃";
 	strout = "string CLASS@baidu{.}com#";
 	equals(baidu.string.toHalfWidth(strin), strout);
 }); // 2
 
-test("输入空串", function(){
+test("老接口：输入空串", function(){
 	equals(baidu.string.toHalfWidth(""), "");
 }); // 3
 
-test("输入串包括中文和全角字符", function(){
+test("老接口：输入串包括中文和全角字符", function(){
 	strin = "中－国Ｌｏ３7８ｖｅ百～度";
 	strout = "中-国Lo378ve百~度";
 	equals(baidu.string.toHalfWidth(strin), strout);
 }); // 4
 
-test("输入不包含全角的字符串", function(){
+test("老接口：输入不包含全角的字符串", function(){
 	equals(baidu.string.toHalfWidth("normal en glish"), "normal en glish");
 	equals(baidu.string.toHalfWidth("正常字符 串 百度"), "正常字符 串 百度");
 	equals(baidu.string.toHalfWidth("百度 n o rmal"), "百度 n o rmal");
 }); // 5
 
-test("输入包含转义字符的字符串", function(){
+test("老接口：输入包含转义字符的字符串", function(){
 	equals(baidu.string.toHalfWidth("n\ten\\gli\nsh\s"), "n\ten\\gli\nsh\s");
 }); // 6
 
-test("异常case", function(){
+test("老接口：异常case", function(){
 	var nullStr = null;
 	equals(baidu.string.toHalfWidth(nullStr), "null");
 	

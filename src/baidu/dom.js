@@ -96,7 +96,9 @@ function(selector, context) {
 
         // HTMLString
         if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 3) {
-            // [TODO] 0531 HTMLString 模式暂缓
+            if ( baidu.dom.createElements ) {
+                baidu.merge( me, baidu.dom.createElements(selector) );
+            }
 
         // baidu.query
         } else {
@@ -145,6 +147,10 @@ function(context) {
         }
 
         return Array.prototype.slice.call(this, 0);
+    }
+
+    ,toArray: function(){
+        return this.get();
     }
 
 });

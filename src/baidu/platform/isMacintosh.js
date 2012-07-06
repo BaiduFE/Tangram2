@@ -14,4 +14,4 @@
  * @return {Boolean} 布尔值 
  * @author jz
  */
-baidu.platform.isMacintosh = /macintosh/i.test(navigator.userAgent);
+//baidu.platform.isMacintosh = /macintosh/i.test(navigator.userAgent);

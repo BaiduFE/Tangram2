@@ -1,4 +1,5 @@
 ///import baidu.array;
+///import baidu.type;
 
 Array.prototype.map = function (iterator, context) {
     var i, n,
@@ -11,5 +12,5 @@ Array.prototype.map = function (iterator, context) {
 };
 
 baidu.array.map = function(array, iterator, context){
-    return array.map(iterator, context);
+    return baidu.isArray(array) ? array.map(iterator, context) : array;
 };

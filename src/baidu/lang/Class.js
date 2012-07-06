@@ -8,7 +8,7 @@
  * date: 2009/12/1
  */
 
-///import baidu.lang.guid;
+///import baidu.id;
 
 /**
  * Tangram继承机制提供的一个基类，用户可以通过继承baidu.lang.Class来获取它的属性及方法。
@@ -22,12 +22,8 @@
  * @see baidu.lang.inherits,baidu.lang.Event
  */
 baidu.lang.Class = function() {
-    this.guid = baidu.lang.guid();
-
-    !this.__decontrolled && (baidu.$$._instances[this.guid] = this);
+    this.guid = baidu.id( this );
 };
-
-baidu.$$._instances = baidu.$$._instances || {};
 
 /**
  * 释放对象所持有的资源，主要是自定义事件。
@@ -36,7 +32,7 @@ baidu.$$._instances = baidu.$$._instances || {};
  * TODO: 将_listeners中绑定的事件剔除掉
  */
 baidu.lang.Class.prototype.dispose = function(){
-    delete baidu.$$._instances[this.guid];
+    baidu.id( this.guid, "delete" );
 
     // this.__listeners && (for (var i in this.__listeners) delete this.__listeners[i]);
 
@@ -52,7 +48,7 @@ baidu.lang.Class.prototype.dispose = function(){
  * @return {string} 对象的String表示形式
  */
 baidu.lang.Class.prototype.toString = function(){
-    return "[object " + (this.__type || this._className || "Object") + "]";
+    return "[object " + (this._type_ || this.__type || this._className || "Object") + "]";
 };
 
 /**
@@ -62,7 +58,7 @@ baidu.lang.Class.prototype.toString = function(){
  * @return  {object}            实例对象
  */
  window["baiduInstance"] = function(guid) {
-     return baidu.$$._instances[guid];
+     return baidu.id( guid );
  }
 
 //  2011.11.23  meizz   添加 baiduInstance 这个全局方法，可以快速地通过guid得到实例对象

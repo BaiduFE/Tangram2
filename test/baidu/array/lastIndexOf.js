@@ -37,7 +37,7 @@ test("异常用例",function(){
 });
 
 //老接口
-test("正常用例",function(){
+test("老接口：正常用例",function(){
 	expect(3);
 	var arraytest = [2,5,8,19,56,5]; //检测indexOf的正常输入
     r = baidu.array.lastIndexOf(arraytest,5);
@@ -48,7 +48,7 @@ test("正常用例",function(){
     equal(r,1,"负数的情况");
 });
 
-test("特殊数组",function(){
+test("老接口：特殊数组",function(){
 	expect(3);
 	var arraytest = [2,5,8,19,'name','44',56,5,'name']; //检测indexOf的正常输入
     var r = baidu.array.lastIndexOf(arraytest,'name');
@@ -62,7 +62,7 @@ test("特殊数组",function(){
 });
 
 
-test("异常用例",function(){
+test("老接口：异常用例",function(){
 	expect(2);
 	var r = baidu.array.lastIndexOf( [], 1);
     equal(r,-1,"空数组查询数组元素");

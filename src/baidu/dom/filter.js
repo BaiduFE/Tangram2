@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.match;
+///import baidu.dom.match;
 
 /**
  * @fileoverview
@@ -27,6 +27,6 @@
  */
 baidu.dom.extend({
     filter : function (selector) {
-        return baidu.dom(baidu.match(this, selector));
+        return baidu.dom(baidu.dom.match(this, selector));
     }
 });

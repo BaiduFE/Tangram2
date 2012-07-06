@@ -10,6 +10,7 @@
 ///import baidu.extend;
 ///import baidu.dom.on;
 ///import baidu.dom.triggerHandler;
+
 baidu.dom._eventBase = function() {
 	var eventsCache = {
 		/*
@@ -27,91 +28,101 @@ baidu.dom._eventBase = function() {
 		*/
 	};
 
-	var addEvent = function(target, name, fn, selector, data) {
-			var call = function(e) {
-					var args = [].slice.call(arguments, 1);
-					args.unshift(e = baidu.event(e));
+	var addEvent = function( target, name, fn, selector, data ){
+		var call = function( e ) {
+			var args = [].slice.call( arguments, 1 );
+			args.unshift( e = baidu.event(e) );
 
-					if (data && !e.data) e.data = data;
-
-					if (e.triggerData) args.push.apply(args, e.triggerData);
-
-					if (!selector) return fn.apply(target, args);
-					if (baidu(e.target).is(selector)) return fn.apply(target, args);
-				};
-
-			if (window.attachEvent) target.attachEvent("on" + name, call);
-			else if (window.addEventListener) target.addEventListener(name, call, false);
-			else target["on" + name] = call;
-
-			var tangId = baidu.id(target);
-			var c = eventsCache[tangId] || (eventsCache[tangId] = {});
-			var eventArray = c[name] || (c[name] = []);
-
-			eventArray.push(call, fn);
-
-			return call;
+			if ( data && !e.data ) e.data = data;
+			if ( e.triggerData ) args.push.apply( args, e.triggerData );
+			if ( !selector ) return fn.apply( target, args );
+			if ( baidu( e.target ).is( selector ) ) return fn.apply( target, args );
 		};
 
-	var removeEvent = function(target, name, fn, selector) {
+		if ( window.attachEvent ) target.attachEvent( "on" + name, call );
+		else if ( window.addEventListener ) target.addEventListener( name, call, false );
+		else target[ "on" + name ] = call;
 
-			var tangId = baidu.id(target);
-			var c = eventsCache[tangId] || (eventsCache[tangId] = {});
-			var eventArray = c[name] || (c[name] = []);
+		var tangId = baidu.id( target );
+		var c = eventsCache[ tangId ] || ( eventsCache[ tangId ] = {} );
+		var eventArray = c[ name ] || (c[ name ] = []);
 
-			var realf;
-			for (var i = eventArray.length - 1, f; i >= 0; i--)
-			if (f = eventArray[i], f == fn) {
-				realf = eventArray[i - 1];
-				eventArray.splice(i - 1, 2);
-				break;
-			}
+		eventArray.push( call, fn );
+		return call;
+	};
 
-			if (!realf) return;
+	var removeEvent = function( target, name, fn, selector ) {
 
-			if (window.detachEvent) target.detachEvent("on" + name, realf);
-			else if (window.removeEventListener) target.removeEventListener(name, realf, false);
-			else if (target["on" + name] == realf) target["on" + name] = null;
-		};
+		var tangId;
+		if(!( tangId = baidu.id( target, "get" ) ))
+		    return ;
+		
+		var c = eventsCache[ tangId ] || ( eventsCache[tangId] = {} );
+		var eventArray = c[ name ] || (c[ name ] = []);
 
-	var removeAllEvent = function(target, name) {
-			var tangId = baidu.id(target);
-			var c = eventsCache[tangId] || (eventsCache[tangId] = {});
+		var realf;
+		for (var i = eventArray.length - 1, f; i >= 0; i--)
+		if (f = eventArray[i], f == fn) {
+			realf = eventArray[i - 1];
+			eventArray.splice(i - 1, 2);
+			break;
+		}
 
-			var remove = function(name) {
-					var eventArray = c[name] || (c[name] = []);
-					for (var i = eventArray.length - 1, fn; i >= 0; i -= 2) {
-						fn = eventArray[i];
-						removeEvent(target, name, fn);
-					}
-				};
+		if (!realf) return;
 
-			if (name) remove(name);
-			else for (var name in c)
-			remove(name);
-		};
+		if (window.detachEvent) target.detachEvent("on" + name, realf);
+		else if (window.removeEventListener) target.removeEventListener(name, realf, false);
+		else if (target["on" + name] == realf) target["on" + name] = null;
+	};
 
-	var fireHandler = function(target, name, triggerData) {
-			var tangId = baidu.id(target);
-			var c = eventsCache[tangId] || (eventsCache[tangId] = {});
-			var eventArray = c[name] || (c[name] = []);
-			var event = baidu.event({
-				type: name
-			});
+	var removeAllEvent = function(target, name){
 
-			var args = [event];
+		var tangId;
+		if(!( tangId = baidu.id( target, "get" ) ))
+		    return ;
 
-			if (triggerData) {
-				event.triggerData = triggerData;
-				args.push.apply(args, triggerData);
+		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
+
+		var remove = function(name) {
+				var eventArray = c[name] || (c[name] = []);
+				for (var i = eventArray.length - 1, fn; i >= 0; i -= 2) {
+					fn = eventArray[i];
+					removeEvent(target, name, fn);
+				}
 			};
 
-			for (var i = 0, l = eventArray.length; i < l; i += 2)
-			eventArray[i].apply(this, args);
+		if (name) remove(name);
+		else for (var name in c)
+		remove(name);
+	};
+
+	var fireHandler = function(target, name, triggerData) {
+		var tangId;
+		if(!( tangId = baidu.id( target, "get" ) ))
+		    return ;
+
+		var c = eventsCache[tangId] || (eventsCache[tangId] = {});
+		var eventArray = c[name] || (c[name] = []);
+		var event = baidu.event({
+			type: name
+		});
+
+		var args = [event];
+
+		if (triggerData) {
+			event.triggerData = triggerData;
+			args.push.apply(args, triggerData);
 		};
 
+		for (var i = 0, l = eventArray.length; i < l; i += 2)
+		eventArray[i].apply(this, args);
+	};
+
 	var getHandler = function(target){
-	    var tangId = baidu.id(target);
+		var tangId;
+		if(!( tangId = baidu.id( target, "get" ) ))
+		    return ;
+		
 	    var c = eventsCache[tangId] || (eventsCache[tangId] = {});
 	    var ret = {}, arr;
 
@@ -126,7 +137,7 @@ baidu.dom._eventBase = function() {
 	};
 
 	var special = function(name) {
-			switch (name) {
+		switch (name) {
 			case "focusin":
 			case "focusout":
 				if (!/firefox/i.test(navigator.userAgent)) return false;
@@ -148,9 +159,10 @@ baidu.dom._eventBase = function() {
 				};
 
 				return baidu.dom.extend(object), true;
-			}
-			return false;
-		};
+		}
+		
+		return false;
+	};
 
 	return {
 		add: function(dom, event, fn, selector, data) {

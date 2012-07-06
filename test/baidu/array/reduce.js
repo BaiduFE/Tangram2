@@ -33,6 +33,7 @@ test("特殊情况", function() {
 		return acc + 1;
 	};
 	equals(baidu.array(arr).reduce(ite, 0), 0, "空串转换应该返回初始值");
+
 	equals(baidu.array([]).reduce(function() {
 	}), undefined, '空串空初始值返回undefined');
 	// If no initialValue was provided, then previousValue will be equal to the
@@ -107,7 +108,7 @@ test('excluding holes in the array', function() {
  * left-to-right) as to reduce it to a single value.
  */
 
-test("基础校验", function() {
+test("老接口：基础校验", function() {
 	var arr = [ 1, 2, 3 ], ite = function(last, now, index, arr) {
 		return last + now;
 	};
@@ -128,7 +129,7 @@ test("基础校验", function() {
 
 });
 
-test("特殊情况", function() {
+test("老接口：特殊情况", function() {
 	// 空数组
 	var arr = [], ite = function(acc, i) {
 		return acc + 1;
@@ -155,7 +156,7 @@ test("特殊情况", function() {
  * <li>// array is always the object [0,1,2,3,4] upon which reduce was called //
  * Return Value: 10
  */
-test('参数判断', function() {
+test('老接口：参数判断', function() {
 	var step = 0;
 	equals(baidu.array.reduce([ 0, 1, 2, 3, 4 ],
 			function(last, now, index, arr) {
@@ -181,14 +182,14 @@ test('参数判断', function() {
  * a.concat(b); });
  * 
  */
-test('混合数组，来自w3c示例', function() {
+test('老接口：混合数组，来自w3c示例', function() {
 	var flatended = [ [ 0, 1 ], [ 2, 3 ], [ 4, 5 ] ];
 	deepEqual(baidu.array.reduce(flatended, function(last, now) {
 		return last.concat(now);
 	}), [ 0, 1, 2, 3, 4, 5 ], 'check mix array');
 });
 
-test('excluding holes in the array', function() {
+test('老接口：excluding holes in the array', function() {
 	equals(baidu.array.reduce([ 0, null, 1 ], function(a, b) {
 		return a + b;
 	}), 1, 'check holes');

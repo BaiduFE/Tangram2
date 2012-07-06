@@ -14,4 +14,4 @@
  * @return {Boolean} 布尔值 
  * @author jz
  */
-baidu.platform.isIpad = /ipad/i.test(navigator.userAgent);
+//baidu.platform.isIpad = /ipad/i.test(navigator.userAgent);

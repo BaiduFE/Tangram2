@@ -19,6 +19,8 @@ void function(global, tree){
 	var treeData, autoRunTask, autoRunning = false;
 	var stopOnError = true;
 
+	var autoTimeouter = null;
+
 	function hash(unknown, callback){
 		var f;
 		if(unknown instanceof RegExp){
@@ -71,7 +73,8 @@ void function(global, tree){
 	    if(id = autoRunTask.shift())
 	        id = id.id,
 	        tree.focusToKey(id),
-	        runTest(id);
+	        runTest(id),
+	        autoTimeouter = setTimeout( autoNext, 1000 );
 	    else
 	        autoRunning = false;
 	}
@@ -110,8 +113,18 @@ void function(global, tree){
 
 	global.dataCallBack = function(arr){
 
+		var regx = /\._/;
+
 		arr = arr.filter(function(item){
-		    return item.name.indexOf("_") != 0;
+			var name = item.name;
+			
+			if( name.indexOf("_") === 0 )
+			    return false;
+
+			if( regx.test( name ) )
+			    return false;
+
+			return true;
 		});
 
 		tree = new tree({
@@ -122,9 +135,6 @@ void function(global, tree){
 			    if(conf.nodeType == "normal")
 			        runTest(conf.id);
 			}
-			// nameRenderer: function(name, data){ 
-			// 	return data.nodeType == "normal" ? name + ".js" : name;
-			// }
 		});
 		tree.render();
 
@@ -145,6 +155,8 @@ void function(global, tree){
 	};
 
 	global.testDoneCallBack = function(data){
+		clearTimeout( autoTimeouter);
+
 		if(data.failed == 0){
 			tree.setNodeIcon(curApi, icons.succ);
 		}else{
