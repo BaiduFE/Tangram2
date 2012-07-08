@@ -18,8 +18,7 @@
  * @return  {HTMLElement}
  */
 baidu.dom.createElements = function() {
-    var div     = document.createElement("div"),
-        tagReg  = /^<(\w+)/i,
+    var tagReg  = /^<(\w+)/i,
         tagMap  = {
             area    : [1, "<map>", "</map>"],
             col     : [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
@@ -39,16 +38,17 @@ baidu.dom.createElements = function() {
     // 将<script>解析成正常可执行代码
     function parseScript ( box, doc ) {
         var list = box.getElementsByTagName("SCRIPT"),
-            i, script, code, item;
+            i, script, item;
 
         for ( i=list.length-1; i>=0; i-- ) {
             item = list[ i ];
             script = doc.createElement( "SCRIPT" );
+
             item.id && (script.id = item.id);
             item.src && (script.src = item.src);
             item.type && (script.type = item.type);
-            code = item.text || item.textContent;
-            script[ item.text ? "text" : "textContent" ] = code;
+            script[ item.text ? "text" : "textContent" ] = item.text || item.textContent;
+
             item.parentNode.replaceChild( script, item );
         }
     }
@@ -60,7 +60,7 @@ baidu.dom.createElements = function() {
         var wrap, depth, box,
             hs  = htmlstring,
             n   = hs.length,
-            div = doc.createElement("div");
+            div = doc.createElement("div"),
             result = [];
 
         if ( baidu.isString( hs ) ) {
