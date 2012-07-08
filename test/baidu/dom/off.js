@@ -92,6 +92,16 @@ test('div uninstall event', function(){
         div = null;
         c.dispose();
         
+        //
+        c = new Div();
+        div = c.get();
+        function handler(){ok(true, 'double bind');}
+        baidu.dom(div).on('click', handler);
+        baidu.dom(div).on('click', handler);
+        baidu.dom(div).off('click', handler);
+        ua.fireMouseEvent(div, 'click');
+        
+        
         start();
     }, 'baidu.dom.on', 'baidu.dom.off');
 });
