@@ -12,6 +12,20 @@ test("window and document", function(){
 	equal( baidu.dom( document ).width(), document.body.clientWidth, "document" );
 });
 
+test("display:none", function(){
+	var div = create( "div" );
+	div.style.width = "100px";
+	div.style.display = "none";
+	equal( baidu.dom( div ).width(), 100, "display:none;" );
+	div.parentNode.removeChild( div );
+
+	var div = create( "div" );
+	div.style.width = "100px";
+	div.style.visibility = "hidden";
+	equal( baidu.dom( div ).width(), 100, "visibility:hidden;" );
+	div.parentNode.removeChild( div );
+});
+
 function testGet( el ){
     diff( el, 100 );
     diff( el, 0 );
