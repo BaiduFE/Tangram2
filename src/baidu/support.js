@@ -57,6 +57,12 @@ baidu.support = baidu.support || function(){
 
 //author wangxiao start
 
+        select = document.createElement( "select" );
+        opt = select.appendChild( document.createElement("option") );
+        // Make sure that a selected-by-default option has a working selected property.
+        // (WebKit defaults to false instead of true, IE too, if it's in an optgroup)
+        support.optSelected = opt.selected;
+
         // Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
         div.setAttribute("className", "t");
         support.getSetAttribute = div.className !== "t";

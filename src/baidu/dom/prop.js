@@ -67,32 +67,31 @@ baidu.dom.extend({
             }
         };
 
-/*
-// Safari mis-reports the default selected property of an option
-// Accessing the parent's selectedIndex property fixes it
-if ( !jQuery.support.optSelected ) {
-    jQuery.propHooks.selected = jQuery.extend( jQuery.propHooks.selected, {
-        get: function( elem ) {
-            var parent = elem.parentNode;
+        // Safari mis-reports the default selected property of an option
+        // Accessing the parent's selectedIndex property fixes it
+        if ( !baidu.support.optSelected ) {
+            propHooks.selected = baidu.extend( propHooks.selected, {
+                get: function( elem ) {
+                    var parent = elem.parentNode;
 
-            if ( parent ) {
-                parent.selectedIndex;
+                    if ( parent ) {
+                        parent.selectedIndex;
 
-                // Make sure that it also works with optgroups, see #5701
-                if ( parent.parentNode ) {
-                    parent.parentNode.selectedIndex;
+                        // Make sure that it also works with optgroups, see #5701
+                        if ( parent.parentNode ) {
+                            parent.parentNode.selectedIndex;
+                        }
+                    }
+                    return null;
                 }
-            }
-            return null;
-        }
-    });
-}
+            });
+        };
 
-// IE6/7 call enctype encoding
-if ( !jQuery.support.enctype ) {
-    jQuery.propFix.enctype = "encoding";
-}
-*/        
+        // IE6/7 call enctype encoding
+        if ( !baidu.support.enctype ) {
+            propFix.enctype = "encoding";
+        };
+        
         notxml = nType !== 1 || !isXML( elem );
 
         if ( notxml ) {
