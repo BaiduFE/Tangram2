@@ -20,16 +20,17 @@ p{
 
 </head>
 <body>
-<p class='selected'>baidu</p>
-<p>google</p>
-<p>facebook</p>
+
+<input type='text' value='wangxiao'>
+<input type='text' value='wangxiao'>
+<input type='text' value='wangxiao'>
+<input type='text' value='wangxiao'>
+
 <script>
 //baidu("p").addClass();
-
-baidu("p").addClass(function(index){
+baidu("input").attr('value',function(index,attr){
 	alert(index);
-	//alert(className);
-	return 'selected';
+	alert(attr);
 });
 
 </script>

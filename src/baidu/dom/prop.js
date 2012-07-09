@@ -11,8 +11,19 @@ baidu.dom.extend({
     prop:function(name,value){
     	
         //异常处理
-        if(arguments.length <= 0 ){
+        if(arguments.length <= 0 || typeof name === 'function'){
             return this;
+        };
+
+        var ret, 
+            hooks, 
+            notxml,
+            elem = this[0], 
+            nType = elem.nodeType;
+
+        // don't get/set properties on text, comment and attribute nodes
+        if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
+            return;
         };
 
         //Sizzle.isXML
@@ -56,15 +67,32 @@ baidu.dom.extend({
             }
         };
 
-        var elem = this[0], 
-            ret, hooks, notxml, 
-            nType = elem.nodeType;
+/*
+// Safari mis-reports the default selected property of an option
+// Accessing the parent's selectedIndex property fixes it
+if ( !jQuery.support.optSelected ) {
+    jQuery.propHooks.selected = jQuery.extend( jQuery.propHooks.selected, {
+        get: function( elem ) {
+            var parent = elem.parentNode;
 
-        // don't get/set properties on text, comment and attribute nodes
-        if ( !elem || nType === 3 || nType === 8 || nType === 2 ) {
-            return;
-        };
+            if ( parent ) {
+                parent.selectedIndex;
 
+                // Make sure that it also works with optgroups, see #5701
+                if ( parent.parentNode ) {
+                    parent.parentNode.selectedIndex;
+                }
+            }
+            return null;
+        }
+    });
+}
+
+// IE6/7 call enctype encoding
+if ( !jQuery.support.enctype ) {
+    jQuery.propFix.enctype = "encoding";
+}
+*/        
         notxml = nType !== 1 || !isXML( elem );
 
         if ( notxml ) {
@@ -89,7 +117,7 @@ baidu.dom.extend({
                     
                     baidu.each(this, function(item,index){
                         var ele = baidu.dom(item);
-                        ele.prop(value.call(item, index, ele.prop(name)));
+                        ele.prop( name, value.call(item, index, ele.prop(name)));
                     });
 
                 }else{

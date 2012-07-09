@@ -36,7 +36,7 @@ setAttr : function (key, value) {
     }
 
     return element;
-};	
+}	
 });
 
 // 声明快捷方法

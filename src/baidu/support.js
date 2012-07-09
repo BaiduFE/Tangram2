@@ -10,7 +10,7 @@ baidu.support = baidu.support || function(){
         support,
         a, input;
     
-    div.innerHTML = '<a href="/a" style="float: left; opacity: .55">Tangram</a><input type="checkbox">';
+    div.innerHTML = '<a href="/a" style="top:1px; float: left; opacity: .55">Tangram</a><input type="checkbox">';
     a = div.getElementsByTagName('A')[0];
     input = div.getElementsByTagName('input')[0];
     input.checked = true;
@@ -54,6 +54,34 @@ baidu.support = baidu.support || function(){
         inner.style.top = '20px';
 
         support.fixedPosition = inner.offsetTop === 20 || inner.offsetTop === 15;
+
+//author wangxiao start
+
+        // Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
+        div.setAttribute("className", "t");
+        support.getSetAttribute = div.className !== "t";
+
+        // Check if a radio maintains its value
+        // after being appended to the DOM
+        var input = document.createElement("input");
+        input.value = "t";
+        input.setAttribute("type", "radio");
+        support.radioValue = input.value === "t";
+
+        // Make sure that URLs aren't manipulated
+        // (IE normalizes it by default)
+        support.hrefNormalized = ( a.getAttribute("href") === "/a" );
+
+        // Get the style information from getAttribute
+        // (IE uses .cssText instead)
+        support.style = /top/.test(a.getAttribute("style"));
+
+        // Tests for enctype support on a form(#6743)
+        support.enctype = !!document.createElement("form").enctype; 
+
+//author wangxiao end
+
+
 //        inner.style.position = inner.style.top = '';
 //        outer.style.overflow = 'hidden';
 //        outer.style.position = 'relative';
