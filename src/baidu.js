@@ -41,4 +41,4 @@ baidu.guid = "$BAIDU$";
 window[baidu.guid] = window[baidu.guid] || {};
 
 // 20120709 mz 添加参数类型检查器，对参数做类型检测保护
-window.baiduParamChecker = window.baiduParamChecker || function(){};
+baidu.paramCheck = baidu.paramCheck || function(){};
