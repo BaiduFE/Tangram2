@@ -364,10 +364,10 @@ var UserAction = {
 		if (!this.isb(metaKey)) {
 			metaKey = false;
 		}
+		
 		if (!this.isn(button)) {
 			button = 0;
 		}
-
 		// try to create a mouse event
 		var customEvent /* :MouseEvent */= null;
 
@@ -448,6 +448,7 @@ var UserAction = {
 				break;
 			case 2:
 				// leave as is
+				customEvent.button = 2;
 				break;
 			default:
 				customEvent.button = 0;

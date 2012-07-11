@@ -158,6 +158,10 @@ baidu.dom._eventBase = function() {
 				};
 
 				return baidu.dom.extend(object), true;
+			case "mouseenter":
+			case "mouseleave":
+			
+				break;
 		}
 		
 		return false;

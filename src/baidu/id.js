@@ -48,6 +48,11 @@ baidu.id = function() {
                 }
                 return id;
             break;
+            case "decontrol" : 
+                !(e = maps[id]) && o_1 && ( object[ key ] = id = baidu.id() );
+                id && delete maps[ id ];
+                return id;
+            break;
             default :
                 if ( s_1 ) {
                     (e = maps[ id ]) && delete maps[ id ];
