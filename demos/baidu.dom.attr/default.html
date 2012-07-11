@@ -26,12 +26,21 @@ p{
 <input type='text' value='wangxiao'>
 <input type='text' value='wangxiao'>
 
+<button>test</button>
+
 <script>
 
 baidu("input").attr('value',function(index,attr){
 	alert(index);
 	alert(attr);
+	return 'test';
 });
+
+baidu("input").attr('value');
+
+//baidu("input").attr({'value':'test','disabled':'disabled'});
+
+//baidu("button").attr('disabled','disabled');
 
 //alert(baidu("input").attr('abc'));
 

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type='text/javascript' src='../../src/import.php?f=baidu.dom.removeProp'></script>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.removeProp,baidu.dom.prop'></script>
 <style>
 p{
 	margin:8px;
@@ -19,11 +19,14 @@ p{
 <body>
 
 <input id='input' type="checkbox" checked="checked" data='123' />
+<input id='input' type="checkbox" checked="checked" data='123' />
+<input id='input' type="checkbox" checked="checked" data='123' />
+<input id='input' type="checkbox" checked="checked" data='123' />
 
 <script>
-alert(document.getElementById('input')['checked']);
+alert(baidu('input').prop('checked'));
 baidu('input').removeProp('checked');
-alert(document.getElementById('input')['checked']);
+alert(baidu('input').prop('checked'));
 </script>
 
 </body>

@@ -1,5 +1,5 @@
 /**
- * @author linlingyu
+ * @author linlingyu  wangxiao
  */
 ///import baidu;
 ///import baidu.dom;
