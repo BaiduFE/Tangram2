@@ -1,4 +1,3 @@
-///import baidu.dom.setAttr;
 ///import baidu.dom;
 ///import baidu.type;
 ///import baidu.merge;
@@ -18,8 +17,8 @@
  * @return  {HTMLElement}
  */
 baidu.dom.createElements = function() {
-    var div     = document.createElement("div"),
-        tagReg  = /^<(\w+)/i,
+//    var div     = document.createElement("div"),
+    var tagReg  = /^<(\w+)/i,
         tagMap  = {
             area    : [1, "<map>", "</map>"],
             col     : [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
@@ -60,7 +59,7 @@ baidu.dom.createElements = function() {
         var wrap, depth, box,
             hs  = htmlstring,
             n   = hs.length,
-            div = doc.createElement("div");
+            div = doc.createElement("div"),
             result = [];
 
         if ( baidu.isString( hs ) ) {

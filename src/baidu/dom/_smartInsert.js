@@ -4,11 +4,11 @@
 
 ///import baidu.type;
 ///import baidu.each;
-///import baidu.dom._buildElements;
+///import baidu.dom.createElements;
 ///import baidu.dom.getDocument;
 ///import baidu.dom.html;
 
-baidu.dom._smartInsert = baidu.dom._smartInsert || function(tang, args, callback){
+baidu.dom._smartInsert = function(tang, args, callback){
     if(args.length <= 0){return;}
     if(baidu.type(args[0]) === 'function'){
         var fn = args[0],
@@ -23,12 +23,18 @@ baidu.dom._smartInsert = baidu.dom._smartInsert || function(tang, args, callback
         fragment = doc.createDocumentFragment(),
         len = tang.length - 1,
         firstChild;
-    //
-    baidu.each(baidu.dom._buildElements(args, doc), function(item, index){
-        index === 0 && (firstChild = item);
-        fragment.appendChild(item);
-    });
-    if(!firstChild){return;}
+    for(var i = 0, item; item = args[i]; i++){
+        if(item.nodeType){
+            fragment.appendChild(item);
+        }else{
+            baidu.each(baidu.type(item, 'string|number') ?
+                baidu.dom.createElements(item, doc)
+                    : item, function(ele){
+                        fragment.appendChild(ele);
+                    });
+        }
+    }
+    if(!(firstChild = fragment.firstChild)){return;}
     baidu.each(tang, function(item, index){
         callback.call(item.nodeName.toLowerCase() === 'table'
             && firstChild.nodeName.toLowerCase() === 'tr' ?
