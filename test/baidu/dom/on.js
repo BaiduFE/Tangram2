@@ -1,20 +1,28 @@
 /**
  * @author linlingyu
  */
-module('baidu.domon');
+module('baidu.dom.on');
 
-
-function Div(noAppend){
-    var div = this._div = document.createElement('div');
-    !noAppend && document.body.appendChild(div);
+var keyEvents = ['keydown', 'keypress', 'keyup'],
+    mouseEvents = ['mousedown', 'mousemove', 'mouseup', 'mouseover', 'mouseout', 'mouseenter', 'mouseleave', 'click', 'dblclick'],
+    uiEvents = ['blur', 'focus', 'focusin', 'focusout', 'change', 'select', 'submit'],
+    htmlEvents = ['load', 'resize', 'unload'],
+    etcEvents = ['error', 'scroll', 'contextmenu'];
+function Elements(tagName, noInsert){
+    var ele = this._ele = document.createElement(tagName || 'div');
+    !noInsert && document.body.appendChild(ele);
 }
-Div.prototype.get = function(){return this._div;}
-Div.prototype.dispose = function(){document.body.removeChild(this._div);}
+Elements.prototype.get = function(){return this._ele;}
+Elements.prototype.dispose = function(){
+    var ele = this._ele;
+    ele.parentNode && ele.parentNode.removeChild(ele);
+    ele = this._ele = null;
+}
 
 
 test('bind event to div', function(){
     expect( 10 );
-    var c = new Div(),
+    var c = new Elements(),
         array = [];
         
     baidu.dom(c.get()).on('click', function(){
@@ -24,7 +32,7 @@ test('bind event to div', function(){
     ua.fireMouseEvent(c.get(), 'click');//1
     c.dispose();
     
-    c = new Div();
+    c = new Elements();
     baidu.dom(c.get()).on('click, mouseover', function(evt){
         array.push('B');
         ok(true, 'div event trigger');
@@ -33,7 +41,7 @@ test('bind event to div', function(){
     ua.fireMouseEvent(c.get(), 'mouseover');//3
     c.dispose();
     
-    c = new Div();
+    c = new Elements();
     baidu.dom(c.get()).on('click', {tangId: 'Tangram'}, function(evt){
         array.push('C');
         equal(evt.data.tangId, 'Tangram', 'event bind width data');
@@ -41,7 +49,7 @@ test('bind event to div', function(){
     ua.fireMouseEvent(c.get(), 'click');//4
     c.dispose();
 
-    c = new Div();
+    c = new Elements();
     baidu.dom(c.get()).on({
         'click': function(evt){
             equal(evt.data.tangId, 'Tangram', 'div click trigger');
@@ -62,7 +70,7 @@ test('bind event to div', function(){
         array.push('F');
         ok(true, 'div click trigger');
     }
-    c = new Div();
+    c = new Elements();
     baidu.dom(c.get()).on('click', handler);
     baidu.dom(c.get()).on('click', handler);
     baidu.dom(c.get()).on('click', handler);
@@ -73,7 +81,7 @@ test('bind event to div', function(){
 
 test('selector event', function(){
     expect(2);
-    var c = new Div(),
+    var c = new Elements(),
         span = document.createElement('span');
     c.get().appendChild(span);
     baidu.dom(c.get()).on('click', 'span', {tangId: 'Tangram'}, function(evt){
@@ -83,7 +91,7 @@ test('selector event', function(){
     ua.fireMouseEvent(span, 'click');
     c.dispose();
     
-    c = new Div();
+    c = new Elements();
     span = document.createElement('span');
     c.get().appendChild(span);
     baidu.dom(c.get()).on('click', 'span', {tangId: 'Tangram'}, function(evt){
@@ -96,7 +104,7 @@ test('selector event', function(){
 
 test('div insert to span', function(){
     expect(1);
-    var c = new Div(true),
+    var c = new Elements('div', true),
         span = document.createElement('span');
     document.body.appendChild(span);
     span.appendChild(c.get());
@@ -105,4 +113,94 @@ test('div insert to span', function(){
     });
     ua.fireMouseEvent(c.get(), 'click');
     document.body.removeChild(span);
+});
+
+test('mouseenter, mouseleave', function(){
+    stop();
+    ua.importsrc('baidu.dom.trigger', function(){
+        expect(2);
+        var div = new Elements('div'),
+            span = new Elements('span', true),
+            innerDiv = new Elements('div', true);
+        div.get().appendChild(span.get());
+        span.get().appendChild(innerDiv.get());
+        
+        baidu.dom(div.get()).on('mouseenter, mouseleave', function(evt){
+            ok(~'mouseenter|mouseleave', 'event is: ' + evt.type);
+        });
+        ua.fireMouseEvent(innerDiv.get(), 'mouseover');
+        ua.fireMouseEvent(innerDiv.get(), 'mouseout');
+        ua.fireMouseEvent(span.get(), 'mouseover');
+        ua.fireMouseEvent(span.get(), 'mouseout');
+        ua.fireMouseEvent(div.get(), 'mouseover');
+        ua.fireMouseEvent(div.get(), 'mouseout');
+        
+        innerDiv.dispose();
+        span.dispose();
+        div.dispose();
+        start();
+    }, 'baidu.dom.trigger', 'baidu.dom.on');
+});
+
+test('focusin, focusout', function(){
+    stop();
+    ua.importsrc('baidu.dom.trigger', function(){
+        expect(4);
+        var div = new Elements('div'),
+            span = new Elements('span', true),
+            input = new Elements('input', true);
+        div.get().appendChild(span.get());
+        span.get().appendChild(input.get());
+        
+        baidu.dom(div.get()).on('focusin, focusout', function(evt){
+            ok(~'focusin|focusout'.indexOf(evt.type), 'event is: ' + evt.type);
+        });
+        input.get().focus();
+        input.get().blur();
+        baidu.dom(div.get()).focusin();
+        baidu.dom(div.get()).focusout();
+        input.dispose();
+        span.dispose();
+        div.dispose();
+        start();
+    }, 'baidu.dom.trigger', 'baidu.dom.on');
+});
+
+test('Events', function(){
+    expect(keyEvents.length + mouseEvents.length + uiEvents.length + htmlEvents.length);
+    var c = new Elements('input'),
+        input = c.get();
+    $.each(keyEvents, function(index, item){
+        baidu.dom(input)[item](function(evt){
+            ok(true, 'event is: ' + evt.type)
+        });
+        baidu.dom(input)[item]();
+    });
+    $.each(mouseEvents, function(index, item){
+        baidu.dom(input)[item](function(evt){
+            ok(true, 'event is: ' + evt.type)
+        });
+        baidu.dom(input)[item]();
+    });
+    
+    $.each(uiEvents, function(index, item){
+        baidu.dom(input)[item](function(evt){
+            ok(true, 'event is: ' + evt.type)
+        });
+        baidu.dom(input)[item]();
+    });
+    $.each(htmlEvents, function(index, item){
+        baidu.dom(window)[item](function(evt){
+            ok(true, 'event is: ' + evt.type)
+        });
+        baidu.dom(input)[item]();
+    });
+    $.each(etcEvents, function(index, item){
+        baidu.dom(document)[item](function(evt){
+            ok(true, 'event is: ' + evt.type);
+        });
+        baidu.dom(input)[item]();
+    });
+    
+    c.dispose();
 });
