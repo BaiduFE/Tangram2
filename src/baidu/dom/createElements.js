@@ -1,4 +1,3 @@
-///import baidu.dom.setAttr;
 ///import baidu.dom;
 ///import baidu.type;
 ///import baidu.merge;
@@ -93,4 +92,3 @@ baidu.dom.createElements = function() {
         return result;
     };
 }();
-
