@@ -2,6 +2,7 @@
  * @author linlingyu
  */
 
+
 ///import baidu.type;
 ///import baidu.each;
 ///import baidu.dom.createElements;
