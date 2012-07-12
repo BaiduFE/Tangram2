@@ -2,6 +2,7 @@
 ///import baidu.each;
 ///import baidu.merge;
 ///import baidu.dom.match;
+///import baidu.array.unique;
 
 /**
  * @fileoverview
@@ -26,6 +27,7 @@ baidu.dom.extend({
 
             baidu.merge(array, a.reverse());
         });
+        array = baidu.array( array ).unique();
 
         return baidu.dom(typeof filter == "string" ? baidu.dom.match(array, filter) : array);
     }
