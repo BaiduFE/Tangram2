@@ -8,23 +8,18 @@
 </head>
 <body>
 
-<div>
-	<a href='http://www.baidu.com'>baidu</a>
-</div>
-<div>
-	<a href='http://www.baidu.com'>baidu</a>
-</div>
-<div>
-	<a href='http://www.baidu.com'>baidu</a>
-</div>
-<div>
-	<a href='http://www.baidu.com'>baidu</a>
-</div>
+<input type='text' value='wangxiao1'>
+<input type='text' value='wangxiao2'>
+<input type='text' value='wangxiao3'>
+<input type='text' value='wangxiao4'>
+<input type='text' value='wangxiao5'>
+<input type='text' value='wangxiao6'>
+<input type='text' value='wangxiao7'>
 
 <script>
-baidu.dom('div').val(function(index,text){
+baidu.dom('input').val(function(index,value){
 	alert(index);
-	alert(text);
+	alert(value);
 });
 </script>
 </body>

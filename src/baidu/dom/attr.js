@@ -6,48 +6,133 @@
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.each;
+///import baidu.support;
+///import baidu.dom._isXML;
+///import baidu.dom._attrHooks;
+
+///import baidu.dom.prop;
+///import baidu.dom.val;
+///import baidu.dom.css;
+///import baidu.dom.html;
+///import baidu.dom.text;
+///import baidu.dom.width;
+///import baidu.dom.height;
+///import baidu.dom.offset;
+
+///import baidu.dom.removeAttr;
 
 baidu.dom.extend({
-    attr:function(attrName,value){
+    attr:function(name,value){
     	
         //异常处理
-        if(arguments.length <= 0 ){
+        if(arguments.length <= 0 || typeof name === 'function'){
             return this;
         };
 
-        switch(typeof attrName){
-            case 'string':
-                if( typeof value === 'undefined' ){
-        
-                    var nType = this[0].nodeType;
-                    // don't get/set attributes on text, comment and attribute nodes
-                    if ( !this[0] || nType === 3 || nType === 8 || nType === 2 ) {
-                        return;
+        //返回结果
+        var result;
+
+        baidu.each(this, function(item,index){
+
+            if(result){
+                return;
+            };
+
+            var ret, 
+                hooks, 
+                notxml,
+                bd = baidu.dom,
+                nType = item.nodeType;
+
+            // don't get/set properties on text, comment and attribute nodes
+            if ( !item || nType === 3 || nType === 8 || nType === 2 ) {
+                return;
+            };
+
+            var attrFn = {
+                val: true,
+                css: true,
+                html: true,
+                text: true,
+                //data: true,
+                width: true,
+                height: true,
+                offset: true
+            };
+
+            if ( name in attrFn ) {
+                return bd( item )[ name ]( value );
+            };
+
+            // Fallback to prop when attributes are not supported
+            if ( typeof item.getAttribute === "undefined" ) {
+                return this.prop( name, value );
+            };
+
+            switch(typeof name){
+                case 'string':
+                    notxml = nType !== 1 || !bd._isXML( item );
+
+                    // All attributes are lowercase
+                    // Grab necessary hook if one is defined
+                    if ( notxml ) {
+                        name = name.toLowerCase();
+                        hooks = bd.attrHooks[ name ] || ( bd.rboolean.test( name ) ? bd.boolHook : bd.nodeHook );
                     };
 
+                    if( typeof value === 'undefined' ){
+                        
+                        //get first
+                        if ( hooks && "get" in hooks && notxml && (ret = hooks.get( item, name )) !== null ) {
+                            //return ret;
+                            result = ret;
+                        } else {
 
-                }else if( typeof value === 'string' ){
+                            ret = item.getAttribute( name );
 
-                    if('style' === attrName){
-                        item.style.cssText = value;
-                    }else {
-                        key = baidu.dom._NAME_ATTRS[key] || key;
-                        element.setAttribute(key, value);
+                            // Non-existent attributes return null, we normalize to undefined
+                            //return ret === null ? undefined : ret;
+                            ret === null ? undefined : ret;
+                            result = ret;
+                        };
+
+                    }else if( typeof value === 'function' ){
+
+                        var ele = bd(item);
+                        ele.attr(name,value.call(item, index, ele.attr(name)));
+                    
+                    }else{
+                        
+                        //set all
+                        if ( value === null ) {
+                            bd(item).removeAttr( name );
+                            return;
+
+                        } else if ( hooks && "set" in hooks && notxml && (ret = hooks.set( item, value, name )) !== undefined ) {
+                            return ret;
+
+                        } else {
+                            item.setAttribute( name, "" + value );
+                            return value;
+                        };
                     };
-                    return element;
 
+                break;
+                case 'object':
 
-                }else if( typeof value === 'function' ){
-                    baidu.each(this, function(item,index){
-                        baidu.dom(item).addClass(value.call(item, index, item.className));
-                    });
-                }
+                    //set all
+                    var ele = bd(item);
+                    for(key in name){
+                        ele.attr(key,name[key]);
+                    };
 
-            break;
-            default:
-            break;
-        };
+                break;
+                default:
+                break;
+            };
+        });
+    
+        return result?result:this;
 
-        return this;
     }
 });
