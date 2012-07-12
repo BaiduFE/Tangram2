@@ -29,7 +29,7 @@ baidu.dom.match = function(){
         div = document.createElement("DIV");
         div.id = "__tangram__";
 
-    return function(array, selector){
+    return function(array, selector, context){
         var root, results = [];
 
         switch (baidu.type(selector)) {
@@ -57,18 +57,19 @@ baidu.dom.match = function(){
 
             // CSS 选择器
             case "string" :
-                var da = baidu.query(selector, document);
+                var da = baidu.query(selector, context || document);
                 baidu.each(array, function(item){
+                    if ( root = getRoot(item) ) {
+                        var t = root.nodeType == 1
+                            // in DocumentFragment
+                            ? baidu.query(selector, root)
+                            : da;
 
-                    var t = (root = getRoot(item)).nodeType == 1
-                        // in DocumentFragment
-                        ? baidu.query(selector, root)
-                        : da;
-
-                    for (var i=0, n=t.length; i<n; i++) {
-                        if (t[i] === item) {
-                            results.push(item);
-                            break;
+                        for (var i=0, n=t.length; i<n; i++) {
+                            if (t[i] === item) {
+                                results.push(item);
+                                break;
+                            }
                         }
                     }
                 });
@@ -83,7 +84,7 @@ baidu.dom.match = function(){
         var result = [], i;
 
         while(dom = dom.parentNode) {
-            result.push(dom);
+            dom.nodeType && result.push(dom);
         }
 
         for (var i=result.length - 1; i>-1; i--) {
