@@ -1,8 +1,9 @@
 ///import baidu.dom;
 ///import baidu.merge;
 ///import baidu.type;
-///import baidu.array.unique;
 ///import baidu.query;
+///import baidu.array.unique;
+///import baidu.dom.createElements;
 
 /**
  * @fileoverview
@@ -52,7 +53,7 @@ baidu.dom.extend({
 
             // HTMLString or selector
             case "string" :
-                baidu.merge(a, baidu.query(object, context));
+                baidu.merge(a, baidu.dom(object, context));
                 break;
             // [TODO] case "NodeList" :
             default :

@@ -26,7 +26,7 @@ test('功能性测试', 24, function () {
 	});
 });
 
-test('嵌套调用测试', 6, function () {
+test('嵌套调用测试', 43, function () {
 	useTangramDom(html, function ($dom) {
 		var actual = $dom.map(function (index, el) {
 			var nextId = $dom.map(function (index2, el2) {
@@ -42,8 +42,8 @@ test('嵌套调用测试', 6, function () {
 			['-', '-', '-', '-', '-', 'div5'],
 			['-', '-', '-', '-', '-', '-'],
 		];
-		equal(actual.length, expect.length);
-		for (var i = 0; i < expected.length; ++i) {
+		equal(actual.length, expected.length, "length : ");
+		for (var i = 0; i < expected.length; i++) {
 			equal(actual[i].length, expected[i].length);
 			for (var j = 0; j < expected[i].length; j++) {
 				equal(actual[i][j], expected[i][j]);
