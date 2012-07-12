@@ -1,6 +1,5 @@
-///import baidu.dom.setAttr;
 ///import baidu.dom;
-///import baidu.type;
+///import baidu.each;
 ///import baidu.merge;
 
 /**
@@ -61,6 +60,7 @@ baidu.dom.createElements = function() {
             hs  = htmlstring,
             n   = hs.length,
             div = doc.createElement("div"),
+            df  = doc.createDocumentFragment(),
             result = [];
 
         if ( baidu.isString( hs ) ) {
@@ -79,6 +79,11 @@ baidu.dom.createElements = function() {
                 while ( depth -- ) { box = box.firstChild; };
 
                 baidu.merge( result, box.childNodes );
+
+                // 去除 item.parentNode
+                baidu.each( result, function (dom) {
+                    df.appendChild( dom );
+                } );
 
                 div = box = null;
             
