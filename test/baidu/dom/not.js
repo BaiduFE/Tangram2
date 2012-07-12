@@ -42,12 +42,12 @@ test('.not( elements )重载测试', function () {
 		equal(target.length, 5);
 		equal(target[0].id, 'div1');
 
-		target = $dom.not([$dom[0], $dom[2], $dom[5]]);
-		equal(target.length, 3);
+		target = $dom.not([$dom[0], $dom[2]]);
+		equal(target.length, 4);
 		equal(target[0].id, 'div1');
 		equal(target[1].id, 'div3');
 		equal(target[2].id, 'div4');
-		equal(target[3].id, 'div6');
+		equal(target[3].id, 'div5');
 	});
 });
 

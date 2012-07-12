@@ -15,11 +15,6 @@
  */
 baidu.dom.extend({
     slice : function (start, end) {
-        var all = this.get();
-
-        start < 0 && (start = all.length + start);
-        end && end < 0 && (end = all.length + end);
-
-        return baidu.dom(all.slice(start, end));
+        return baidu.dom( this.toArray().slice(start, end) );
     }
 });

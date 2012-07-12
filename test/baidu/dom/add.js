@@ -76,8 +76,8 @@ test(".add( element )重载", function () {
 
 test(".add( html )重载", function () {
     useTangramDom(html1, function ($dom) {
-        var target = $dom.add('<div id="e5"></div>');
-        equal(target.length, 5);
+        var target = $dom.add("<div id='e5'>hzl</div>");
+        equal(target.length, 5, '结果长度');
         equal(target[0].id, 'e1', '验证原有元素');
         equal(target[1].id, 'e2', '验证原有元素');
         equal(target[2].id, 'e3', '验证原有元素');

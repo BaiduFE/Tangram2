@@ -15,12 +15,12 @@
  * @return  {TangramDom}    old TangramDom
  */
 baidu.dom.extend({
-    map : function (fn) {
+    map : function (iterator) {
         var me = this,
             td = baidu.dom();
 
-        baidu.each(this, function(dom){
-            td[td.length ++] = fn.call(dom);
+        baidu.each(this, function( dom, index ){
+            td[td.length ++] = iterator.call( dom, index, dom, this );
         });
 
         return td;
