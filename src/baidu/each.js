@@ -20,7 +20,7 @@
 baidu.each = function( enumerable, iterator, context ) {
     var i, n, t, result;
 
-    if ( typeof iterator == "function" ) {
+    if ( typeof iterator == "function" && enumerable) {
 
         // Array or ArrayLike or NodeList or String
         if ( typeof enumerable.length == "number" ) {

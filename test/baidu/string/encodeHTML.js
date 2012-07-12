@@ -22,7 +22,7 @@ test('将字符<>"&转成实体字符', function(){
  */
 
 //老接口
-test('将字符<>"&转成实体字符', function(){
+test('baidu.string.filterFormat将字符<>"&转成实体字符', function(){
 	var strEncodeHTML="";
 	
 	strEncodeHTML = baidu.string.encodeHTML('<>"&');

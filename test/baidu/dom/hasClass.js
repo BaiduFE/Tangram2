@@ -1,5 +1,5 @@
 module("baidu.dom.hasClass")
-stop();
+
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };
 var formatHTML = function(html){
 	html = html.toUpperCase();
@@ -8,8 +8,6 @@ var formatHTML = function(html){
 	});
 	return html;
 };
-
-waiting(function(){ return baidu.query; }, function(){
 
 //新接口测试
 test("新接口测试",function(){
@@ -80,7 +78,3 @@ test("老接口：给有className的元素判断className",function(){
 	ok(baidu.dom.hasClass(div,'  class2     '),"div contains 2 classes");//有空格
 	document.body.removeChild(div);
 });
-
-	start();
-});
-ua.importsrc("baidu.sizzle"); // 由于加载的资源中不存在 baidu.sizzle 这个对象，所以不能使用 importsrc 自带的 callback

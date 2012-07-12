@@ -49,7 +49,7 @@ module("baidu.array.hash");
 		}
 	};
 
-	test("number", function() {
+	test("老接口：number", function() {
 		expect(16);
 		check( [ 1, 2, 3 ], [ 4, 5, 6 ]);
 		check( [ 1, 0 ], [ 0, 1 ]);
@@ -60,13 +60,13 @@ module("baidu.array.hash");
 	 * <li>常规字符串key和value校验
 	 * <li>空串做key情况
 	 */
-	test('string', function() {
+	test('老接口：string', function() {
 		expect(6);
 		check( [ 'a', 'bb' ], [ 'a', 'b' ]);
 		check([' '], [' ']);
 	});
 
-	test('mix', function() {
+	test('老接口：mix', function() {
 		expect(6);
 		var ka = [ 10, 'bb', {} ], va = [ 9, 'b', {} ];
 		check(ka, va);
