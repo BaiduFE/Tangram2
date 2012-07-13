@@ -1,7 +1,7 @@
 ///import baidu.dom;
 ///import baidu.each;
 ///import baidu.dom.each;
-///import baidu.dom.filter;
+///import baidu.dom.match;
 
 /**
  * @fileoverview
@@ -26,8 +26,6 @@ baidu.dom.extend({
             });
         });
 
-        result = baidu.dom(a);
-
-        return selector ? result.filter(selector) : result;
+        return baidu.dom( baidu.dom.match(a, selector) );
     }
 });
