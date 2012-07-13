@@ -29,10 +29,10 @@ baidu.dom.match = function(){
         div = document.createElement("DIV");
         div.id = "__tangram__";
 
-    return function(array, selector, context){
-        var root, results = [];
+    return function( array, selector, context ){
+        var root, results = baidu.array();
 
-        switch (baidu.type(selector)) {
+        switch ( baidu.type(selector) ) {
             // 取两个 TangramDom 的交集
             case "$DOM" :
                 for (var x=array.length-1; x>-1; x--) {
@@ -73,7 +73,11 @@ baidu.dom.match = function(){
                         }
                     }
                 });
-                results = baidu.array(results).unique();
+                results = results.unique();
+                break;
+
+            default :
+                results = baidu.array( array ).unique();
                 break;
         }
         return results;

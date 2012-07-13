@@ -17,7 +17,7 @@
  */
 baidu.dom.extend({
     closest : function (selector, context) {
-        var results = [];
+        var results = baidu.array();
 
         baidu.each ( this, function(dom) {
             var t = [dom];
@@ -28,8 +28,7 @@ baidu.dom.extend({
 
             t.length && results.push(t[0]);
         });
-        results = baidu.array(results).unique();
         
-        return baidu.dom(results);
+        return baidu.dom( results.unique() );
     }
 });

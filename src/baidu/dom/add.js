@@ -39,7 +39,7 @@
  */
 baidu.dom.extend({
     add : function (object, context) {
-        var a = this.get();
+        var a = baidu.array(this.get());
 
         switch (baidu.type(object)) {
             case "HTMLElement" :
@@ -61,7 +61,7 @@ baidu.dom.extend({
                     baidu.merge(a, object)
                 }
         }
-        return baidu.dom(baidu.array(a).unique());
+        return baidu.dom( a.unique() );
     }
 });
 
