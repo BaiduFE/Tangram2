@@ -8,17 +8,31 @@
 ///import baidu.support;
 ///import baidu.dom._getWidthOrHeight;
 ///import baidu.type;
+///import baidu.string.toCamelCase;
 
 baidu.dom.styleFixer = function(){
     var alpha = /alpha\s*\(\s*opacity\s*=\s*(\d{1,3})/i,
-        cssNumber = 'fillOpacity,fontWeight,lineHeight,opacity,orphans,widows,zIndex,zoom',
+        nonpx = /^-?(?:\d*\.)?\d+(?!px)[^\d\s]+$/i,
+        cssNumber = 'fillOpacity,fontWeight,opacity,orphans,widows,zIndex,zoom',
         cssProps = {
             'float': baidu.support.cssFloat ? 'cssFloat' : 'styleFloat'
+        },
+        cssMapping = {
+            fontWeight: {normal: 400, bold: 700, bolder: 700, lighter: 100}
         },
         cssHooks = {
             opacity: {},
             width: {},
-            height: {}
+            height: {},
+            fontWeight: {
+                get: function(ele, key){
+                    var ret = style.get(ele, key);
+                    return cssMapping.fontWeight[ret] || ret;
+                }
+            }
+        },
+        style = {
+            set: function(ele, key, val){ele.style[key] = val;}
         };
     baidu.extend(cssHooks.opacity, baidu.support.opacity ? {
         get: function(ele, key){
@@ -44,19 +58,32 @@ baidu.dom.styleFixer = function(){
         }
     });
     
-    //
-    function camelCase(val){
-        return val.replace(/-([a-z0-9])/gi, function(all, letter){return (letter + '').toUpperCase();});
-    }
-    //
-    return function(key, value){
-        var origKey = camelCase(key);
-        origKey = cssProps[origKey] || origKey;
-        origVal = baidu.type(value) === 'number' && !~cssNumber.indexOf(origKey) ? value + 'px' : value;
-        return {
-            key: origKey,
-            value: origVal,
-            hooks: cssHooks[key]
+    baidu.extend(style, document.documentElement.currentStyle? {
+        get: function(ele, key){
+            var val = baidu.dom(ele).getCurrentStyle(key),
+                defaultLeft;
+            if(nonpx.test(val)){
+                defaultLeft = ele.style.left;
+                ele.style.left = key === 'fontSize' ? '1em' : val;
+                val = ele.style.pixelLeft + 'px';
+                ele.style.left = defaultLeft;
+            }
+            return val;
         }
-    }
+    } : {
+        get: function(ele, key){
+            return baidu.dom(ele).getCurrentStyle(key);
+        }
+    });
+    
+    //
+    return function(ele, key, val){
+        var origKey = baidu.string(key).toCamelCase(),
+            method = val === undefined ? 'get' : 'set',
+            origVal, hooks;
+        origKey = cssProps[origKey] || origKey;
+        origVal = baidu.type(val, 'number') && !~cssNumber.indexOf(origKey) ? val + 'px' : val;
+        hooks = cssHooks.hasOwnProperty(origKey) && cssHooks[origKey][method] || style[method];
+        return hooks(ele, origKey, origVal);
+    };
 }();
