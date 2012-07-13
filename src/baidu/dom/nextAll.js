@@ -1,7 +1,6 @@
 ///import baidu.dom;
 ///import baidu.each;
 ///import baidu.dom.match;
-///import baidu.array.unique;
 
 /**
  * @fileoverview
@@ -26,8 +25,6 @@ baidu.dom.extend({
             };
         });
 
-        array = baidu.array(array).unique();
-
-        return baidu.dom(selector ? baidu.dom.match(array, selector) : array);
+        return baidu.dom( baidu.dom.match(array, selector) );
     }
 });

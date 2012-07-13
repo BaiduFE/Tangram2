@@ -28,6 +28,6 @@ baidu.dom.extend({
             }
         });
 
-        return baidu.dom(typeof filter == "string" ? baidu.dom.match(array, filter) : array);
+        return baidu.dom( baidu.dom.match(array, filter) );
     }
 });
