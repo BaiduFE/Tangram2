@@ -1,5 +1,6 @@
 module("baidu.sio.log");
 
+//新接口
 test("onsuccess", function() {
 	stop();
 	var check = function() {
@@ -22,8 +23,8 @@ test("onsuccess", function() {
 	};
 	ua.importsrc('baidu.ajax.post', check, 'baidu.ajax.post', 'baidu.sio.log');
 });
-
-test("onsuccess", function() {
+//老接口
+test("老接口：onsuccess", function() {
 	stop();
 	var check = function() {
 		var now = new Date();

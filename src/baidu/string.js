@@ -15,16 +15,16 @@
 
 baidu.createChain("string",
 
-// 执行方法
-function(string){
-	var str = new String(string),
-		pro = String.prototype;
+    // 执行方法
+    function(string){
+        var str = typeof string == "string" ? new String(string) : string,
+            pro = String.prototype;
 
-	baidu.each(baidu.$String.prototype, function(fn, key) {
-		pro[key] || (str[key] = fn);
-	});
+        baidu.each(baidu.$String.prototype, function(fn, key) {
+            pro[key] || (str[key] = fn);
+        });
 
-	return str;
-}
+        return str;
+    }
 
 );

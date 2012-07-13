@@ -26,6 +26,11 @@ baidu.array.extend({
             }
         }
 
-        return result;
+        len = this.length = result.length;
+        for ( i=0; i<len; i++ ) {
+            this[ i ] = result[ i ];
+        }
+
+        return this;
     }
 });

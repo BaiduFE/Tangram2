@@ -1,5 +1,6 @@
-///import baidu.dom;
-///import baidu.dom.is;
+///import baidu.each;
+///import baidu.dom.match;
+///import baidu.array.unique;
 
 /**
  * @fileoverview
@@ -16,17 +17,18 @@
  */
 baidu.dom.extend({
     closest : function (selector, context) {
-        var dom = this.get(0)
-            ,td = baidu.dom(dom);
+        var results = baidu.array();
+
+        baidu.each ( this, function(dom) {
+            var t = [dom];
+            while ( dom = dom.parentNode ) {
+                dom.nodeType && t.push( dom );
+            }
+            t = baidu.dom.match( t, selector, context );
+
+            t.length && results.push(t[0]);
+        });
         
-        if (!dom) { return td;}
-
-        do {
-            td[0] = dom;
-
-            if (td.is(selector, context)) return td;
-        } while (dom = dom.parentNode);
-
-        return baidu.dom();
+        return baidu.dom( results.unique() );
     }
 });

@@ -53,7 +53,7 @@ test("空数组", function() {
 });
 
 //老接口
-test("正常用例", function() {
+test("老接口：正常用例", function() {
 	expect(5);
 	var arraytest = [ 1, 2, 3, 4, 5 ];
 	var arrayitem = 1;
@@ -78,7 +78,7 @@ test("正常用例", function() {
 	ok(ua.isEqualArray(arraytest, array), "要删除的元素不存在");
 });
 
-test("多个元素符合条件", function() {
+test("老接口：多个元素符合条件", function() {
 	expect(1);
 	var arraytest = [ 1, '1', 2, '2', 2, '35', 1, 40, 2, '2' ];
 	var arrayitem = 2;
@@ -87,7 +87,7 @@ test("多个元素符合条件", function() {
 	ok(ua.isEqualArray(arraytest, array), "多个元素符合条件");
 });
 
-test("空数组", function() {
+test("老接口：空数组", function() {
 	expect(3);
 	var array = [];
 	baidu.array.remove(array, 2);

@@ -8,7 +8,6 @@
 ///import baidu.event;
 ///import baidu.dom.is;
 ///import baidu.extend;
-///import baidu.dom.on;
 ///import baidu.dom.triggerHandler;
 
 baidu.dom._eventBase = function() {
@@ -29,8 +28,8 @@ baidu.dom._eventBase = function() {
 	};
 
 	var addEvent = function( target, name, fn, selector, data ){
-		var call = function(e) {
-			var args = [].slice.call( arguments, 1 );
+		var call = function( e ) {
+			var args = Array.prototype.slice.call( arguments, 1 );
 			args.unshift( e = baidu.event(e) );
 
 			if ( data && !e.data ) e.data = data;
@@ -62,7 +61,7 @@ baidu.dom._eventBase = function() {
 
 		var realf;
 		for (var i = eventArray.length - 1, f; i >= 0; i--)
-		if (f = eventArray[i], f == fn) {
+		if (f = eventArray[i], f === fn) {
 			realf = eventArray[i - 1];
 			eventArray.splice(i - 1, 2);
 			break;
@@ -159,6 +158,10 @@ baidu.dom._eventBase = function() {
 				};
 
 				return baidu.dom.extend(object), true;
+			case "mouseenter":
+			case "mouseleave":
+			
+				break;
 		}
 		
 		return false;

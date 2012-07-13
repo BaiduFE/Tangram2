@@ -8,6 +8,7 @@
  * date: 2010/02/04
  */
 
+///import baidu.id;
 ///import baidu.lang;
 
 /**
@@ -21,11 +22,11 @@
  * @returns {String} 当前页面的唯一标识字符串
  */
 baidu.lang.guid = function() {
-    return "TANGRAM$" + baidu.$$._counter ++;
+    return baidu.id();
 };
 
 //不直接使用window，可以提高3倍左右性能
-baidu.$$._counter = baidu.$$._counter || 1;
+//baidu.$$._counter = baidu.$$._counter || 1;
 
 
 // 20111129	meizz	去除 _counter.toString(36) 这步运算，节约计算量

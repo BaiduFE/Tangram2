@@ -8,7 +8,7 @@ test("Data", function(){
 		"Date": valueis("date", [new Date()]),
 		"Error": valueis("error", [new Error("hello")]),
 		"Function": valueis("function", [function(){}], [new Function("", "")]),
-		"Number": valueis("number", [8], [new Number(8)], [Number(8)]),
+		"Number": valueis("number", [8], [new Number(8)], [Number(8)], [NaN]),
 		"RegExp": valueis("regexp", [/ /], [new RegExp(" ")], [RegExp(" ")]),
 		"String": valueis("string", [""], [new String("")], [String("")]),
 		"Object": valueis("object", [{}], [new Object()], [Object()], [navigator]),

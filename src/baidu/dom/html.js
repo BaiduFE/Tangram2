@@ -54,10 +54,10 @@ baidu.dom.extend({
                                 item.innerHTML = value;
                             }
                         });
-					ele = 0;
+                    ele = 0;
                 }
                 if(ele){
-                	baidu.dom(ele).empty().append(value);
+                    baidu.dom(ele).empty().append(value);
                 }
             break;
 

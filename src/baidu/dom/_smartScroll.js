@@ -7,7 +7,7 @@
 ///import baidu.browser.isStrict;
 
 baidu.dom._smartScroll = function(axis){
-    var orie = {scrollLeft: 'pageXOffset', scrollTop: 'pageXOffset'}[axis],
+    var orie = {scrollLeft: 'pageXOffset', scrollTop: 'pageYOffset'}[axis],
         is = axis === 'scrollLeft',
         ret = {};
     function getWindow(ele){

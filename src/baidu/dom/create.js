@@ -1,9 +1,4 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All right reserved.
- */
 ///import baidu.dom.setAttr;
-
 /**
  * 创建 Element 对象。
  * @author berg
