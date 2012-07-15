@@ -5,13 +5,28 @@
 ///import baidu.dom.getCurrentStyle;
 
 baidu.dom._getWidthOrHeight = function(){
-    var ret = {};
+    var ret = {},
+        cssShow = {position: 'absolute', visibility: 'hidden', display: 'block'};
+    function swap(ele, options, callback){
+        var defaultVal = {},
+            result;
+        for(var i in options){
+            defaultVal[i] = ele.style[i];
+            ele.style[i] = options[i];
+        }
+        result = callback.call(ele);
+        for(var i in options){
+            ele.style[i] = defaultVal[i];
+        }
+        return result;
+    }
     baidu.each(['Width', 'Height'], function(item){
         var cssExpand = {Width: ['Right', 'Left'], Height: ['Top', 'Bottom']}[item];
         ret['get' + item] = function(ele, extra){
             var tang = baidu.dom(ele),
                 rect = ele['offset' + item],
                 delString = 'padding|border';
+            if(rect === 0){return swap(ele, cssShow, function(){return ret['get' + item](ele, extra)});}
             extra && baidu.each(extra.split('|'), function(val){
                 if(!~delString.indexOf(val)){//if val is margin
                     rect += parseFloat(tang.getCurrentStyle(val + cssExpand[0])) || 0;

@@ -12,7 +12,7 @@ baidu.dom.extend({
                     : (ele.nodeType === 9 ? 'document' : false);
             hasValue && /^\d+$/.test(val += '') && (val += 'px');
             return type ? baidu.dom._getWindowOrDocumentWidthOrHeight(ele, type, key)
-                : (hasValue ? ele.style.width = val : baidu.dom._getWidthOrHeight(ele, key));
+                : (hasValue ? ele.style.height = val : baidu.dom._getWidthOrHeight(ele, key));
         });
     }
 });
