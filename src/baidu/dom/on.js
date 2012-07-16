@@ -37,36 +37,45 @@ baidu.dom.extend({
 	on: function( events, selector, data, fn ){
     	var eb = baidu.dom._eventBase;
 
-	    if( typeof selector == "function" ){
-	        fn = selector;
+    	var specials = { mouseenter: 1, mouseleave: 1, focusin: 1, focusout: 1 };
+
+	    if( typeof selector == "object" && selector ){
+	    	fn = data;
+	        data = selector;
 	        selector = null;
 	    }else if( typeof data == "function" ){
 	    	fn = data;
 	    	data = null;
-	    }
-
-	    if( typeof selector == "object" ){
-	        data = selector;
-	        selector = null;
+	    }else if( typeof selector == "function" ){
+	    	fn = selector;
+	    	selector = data = null;
 	    }
 
 		if( typeof events == "string" ){
 		    events = events.split(/[ ,]+/);
 		    this.each(function(){
-		    	var me = this;
 		        baidu.each(events, function( event ){
-		            eb.add( me, event, fn, selector, data );
-		        });
+		        	if( specials[ event ] )
+		        	    baidu( this )[ event ]( data, fn );
+		        	else
+		            	eb.add( this, event, fn, selector, data );
+		        }, this);
 		    });
 		}else if( typeof events == "object" ){
-			var me = this;
 			if( fn )
 				fn = null;
-			baidu.each(events, function( fn, events ){
-			    me.on( events, selector, data, fn );
-			});
+			baidu.each(events, function( fn, eventName ){
+			    this.on( eventName, selector, data, fn );
+			}, this);
 		}
 
 		return this;
+	},
+
+	_on: function( name, data, fn ){
+		var eb = baidu.dom._eventBase;
+	    this.each( function(){
+	        eb.add( this, name, fn, undefined, data );
+	    } );
 	}
 });
