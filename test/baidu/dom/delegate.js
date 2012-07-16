@@ -72,19 +72,24 @@ test('test', function(){
         div = span.getElementsByTagName('div')[0],
         a = document.createElement('A');
     div.appendChild(a);
+
     a.href = '#';
+    a.onclick = function(){
+        return false;
+    };
     a.innerHTML = 'baidu';
     
-    baidu.dom(span).delegate('div', 'click', function(){
+    baidu.dom(span).delegate('a', 'click', function(){
         ok(true, 'delegate');
     });
+    
     a.click();
     c.dispose();
     span = div = a = null;
 });
 
 test('test', function(){
-    expect(5);
+    expect(1);
     var div = document.createElement('div'),
         div_0 = document.createElement('div'),
         div_1 = document.createElement('div'),

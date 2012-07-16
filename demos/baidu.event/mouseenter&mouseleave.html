@@ -4,38 +4,37 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type='text/css'>
-	#container{
+	.box{
+		margin: 30px;
 		padding: 30px;
+		width: 100px;
+		height: 100px;
 		background-color: #f1f1f1;
-		width: 220px;
 	}
-
-	input, textarea{
-		width: 190px;
+	.blue{
+		background-color: #ccf;	
 	}
-
-	#container.blue{
-		background-color: #ccf;
+	.box1{
+		width: 100px;
+		height: 100px;
+		background: #fff;
 	}
 </style>
 <script type='text/javascript' src='../../src/import.php?f=baidu.dom.on,baidu.dom.addClass,baidu.dom.removeClass'></script>
 </head>
 <body>
 
-<h3>baidu(selector).focusin(fn)</h3>
-<div id="container">
-	<div>
-		<p><input type="text" value=""></p>
-		<p><input type="text" value=""></p>
-		<p><textarea name="" id="" cols="30" rows="10"></textarea></p>
-		<p><a href="">hello</a></p>
+<h3>baidu(selector).mouseenter(fn)</h3>
+<div class="box" id="test">
+	<div class="box1">
+		move mouse here
 	</div>
 </div>
 
 <script type="text/javascript">
-	baidu("#container").focusin(function(event){
+	baidu("#test").mouseenter(function(){
 	    baidu(this).addClass("blue");
-	}).focusout(function(event){
+	}).mouseleave(function(){
 	    baidu(this).removeClass("blue");
 	});
 </script>
