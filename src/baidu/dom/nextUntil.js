@@ -1,7 +1,6 @@
 ///import baidu.dom;
 ///import baidu.each;
 ///import baidu.dom.match;
-///import baidu.array.unique;
 ///import baidu.array.indexOf;
 
 /**
@@ -19,10 +18,10 @@
  */
 baidu.dom.extend({
     nextUntil : function (selector, filter) {
-        var array = [];
+        var array = baidu.array();
 
         baidu.each(this, function(dom){
-            var a = [];
+            var a = baidu.array();
 
             while(dom = dom.nextSibling) {
                 dom && (dom.nodeType == 1) && a.push(dom);
@@ -38,8 +37,6 @@ baidu.dom.extend({
             baidu.merge(array, a);
         });
 
-        array = baidu.array(array).unique();
-
-        return baidu.dom(filter ? baidu.dom.match(array, filter) : array);
+        return baidu.dom( baidu.dom.match(array, filter) );
     }
 });

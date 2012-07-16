@@ -8,14 +8,17 @@
 
 baidu.dom.extend({
     before: function(){
-        if(this[0] && this[0].parentNode){
-            baidu.dom._smartInsert(this, arguments, function(node){
-                this.parentNode.insertBefore(node, this);
-            });
-        }else if(arguments.length){
-            var set = baidu.merge(baidu.dom._buildElements(arguments, this.getDocument() || document), this);
+        var parentNode = this[0] && this[0].parentNode,
+            array = !parentNode && [], set;
+        
+        baidu.dom._smartInsert(this, arguments, function(node){
+            parentNode ? parentNode.insertBefore(node, this)
+                : baidu.merge(array, node.childNodes);
+        });
+        if(array){
+            array = baidu.merge(array, this);
             this.length = 0;
-            baidu.merge(this, set);
+            baidu.merge(this, array);
         }
         return this;
     }

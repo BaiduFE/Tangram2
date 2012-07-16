@@ -1,8 +1,9 @@
 ///import baidu.dom;
 ///import baidu.merge;
 ///import baidu.type;
-///import baidu.array.unique;
 ///import baidu.query;
+///import baidu.array.unique;
+///import baidu.dom.createElements;
 
 /**
  * @fileoverview
@@ -38,7 +39,7 @@
  */
 baidu.dom.extend({
     add : function (object, context) {
-        var a = this.get();
+        var a = baidu.array(this.get());
 
         switch (baidu.type(object)) {
             case "HTMLElement" :
@@ -52,7 +53,7 @@ baidu.dom.extend({
 
             // HTMLString or selector
             case "string" :
-                baidu.merge(a, baidu.query(object, context));
+                baidu.merge(a, baidu.dom(object, context));
                 break;
             // [TODO] case "NodeList" :
             default :
@@ -60,7 +61,7 @@ baidu.dom.extend({
                     baidu.merge(a, object)
                 }
         }
-        return baidu.dom(baidu.array(a).unique());
+        return baidu.dom( a.unique() );
     }
 });
 
