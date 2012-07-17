@@ -13,9 +13,9 @@ var div = document.createElement("div");
 	div.style.position = "absolute";
 	div.style.top = "-1000px";
 
-document.documentElement.appendChild(div);
 
 test("after TangramDom", function(){
+	document.body.appendChild(div);
 	div.innerHTML = "<div class='A'>A</div><div class='A'>A</div><div class='B'>B</div><div class='B'>B</div>";
 	baidu.dom("div.B").after( baidu.dom("div.A") );
 	equal( formatHTML(div.innerHTML), "<div class=b>B</div><div class=a>A</div><div class=a>A</div><div class=b>B</div><div class=a>A</div><div class=a>A</div>" );

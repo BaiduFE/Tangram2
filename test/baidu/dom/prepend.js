@@ -7,11 +7,10 @@ var div = document.createElement("div");
 	div.style.position = "absolute";
 	div.style.top = "-1000px";
 
-document.documentElement.appendChild(div);
-
 var html = "<ul class='M'><li>X</li><li>Y</li><li>Z</li></ul><ul class='N'><li>A</li><li>B</li><li>C</li></ul>";
 
 test("prepend Dom", function(){
+  document.body.appendChild(div);
 	div.innerHTML = html;
 	baidu.dom("ul.M").prepend( baidu.dom("ul.N li")[1] );
 	equal( getWord(div.innerHTML), "BXYZAC", "UL prepend Dom" );

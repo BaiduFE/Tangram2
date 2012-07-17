@@ -13,9 +13,9 @@ var div = document.createElement("div");
 	div.style.position = "absolute";
 	div.style.top = "-1000px";
 
-document.documentElement.appendChild(div);
 
 test("empty div", function(){
+	document.body.appendChild(div);
     div.innerHTML = "<div class='A'>hello<div class='A'>world</div></div>";
 
     var a = baidu.dom("div.A");
