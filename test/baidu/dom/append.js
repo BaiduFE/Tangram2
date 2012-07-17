@@ -7,11 +7,11 @@ var div = document.createElement("div");
 	div.style.position = "absolute";
 	div.style.top = "-10000px";
 
-document.documentElement.appendChild(div);
 
 var html = "<ul class='M'><li>X</li><li>Y</li><li>Z</li></ul><ul class='N'><li>A</li><li>B</li><li>C</li></ul>";
 
 test("append Dom", function(){
+  document.body.appendChild(div);
 	div.innerHTML = html;
 	baidu.dom("ul.M").append( baidu.dom("ul.N li")[1] );
 	equal( getWord(div.innerHTML), "XYZBAC", "UL append Dom" );

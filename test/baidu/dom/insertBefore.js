@@ -13,9 +13,8 @@ var div = document.createElement("div");
 	div.style.position = "absolute";
 	div.style.top = "-1000px";
 
-document.documentElement.appendChild(div);
-
 test("insertBefore selector", function(){
+	document.body.appendChild(div);
 	div.innerHTML = "<div class='A'></div><div class='A'></div><div class='B'></div><div class='B'></div>";
 	baidu.dom("div.A").insertBefore("div.B");
 	equal( formatHTML(div.innerHTML), "<div class=a></div><div class=a></div><div class=b></div><div class=a></div><div class=a></div><div class=b></div>" );
