@@ -13,9 +13,8 @@ var div = document.createElement("div");
 	div.style.position = "absolute";
 	div.style.top = "-1000px";
 
-document.documentElement.appendChild(div);
-
 test("prependTo selector", function(){
+	document.body.appendChild(div);
 	div.innerHTML = "<div class='A'>A</div><div class='A'>A</div><div class='B'>B</div><div class='B'>B</div>";
 	baidu.dom("div.A").prependTo("div.B");
 	equal( formatHTML(div.innerHTML), "<div class=b><div class=a>A</div><div class=a>A</div>B</div><div class=b><div class=a>A</div><div class=a>A</div>B</div>", "div.a prependTo div.b" );
