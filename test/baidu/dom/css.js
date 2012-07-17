@@ -72,7 +72,6 @@ ua.importsrc("baidu.dom.styleFixer", function(){
 		}catch(e){
 			ok( false, "报错啦" );
 		}
-
 		css( "width", 100 );
 		equal( css("width"), "100px" );
 		equal( get("width"), "100px" );
@@ -88,11 +87,12 @@ ua.importsrc("baidu.dom.styleFixer", function(){
 		css( "height", "200px" );
 		equal( css("height"), "200px" );
 		equal( get("height"), "200px" );
-
+        
 		css( "font-weight", "bold" );
+        css("font-weight");
 		equal( css("font-weight"), 700, "font-weight" );
 		equal( css("fontWeight"), 700, "fontWeight" );
-
+        
 		css( "line-height", 20 );
 		equal( css("line-height"), "20px", "line-height" );
 		equal( css("lineHeight"), "20px", "line-height" );
@@ -102,8 +102,9 @@ ua.importsrc("baidu.dom.styleFixer", function(){
 		equal( css("lineHeight"), "30px", "line-height" );
 
 		css( "line-height", "2em" );
-		equal( css("line-height"), "2em", "line-height" );
-		equal( css("lineHeight"), "2em", "line-height" );
+		//统一输出为px
+		equal( css("line-height"), "32px", "line-height" );
+		equal( css("lineHeight"), "32px", "line-height" );
 
 		css( "float", "left" );
 		equal( css("float"), "left", "float" );
