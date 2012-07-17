@@ -43,7 +43,9 @@ baidu.dom.extend({
                     dest.text !== src.text && (dest.text = src.text);
                     break;
             }
-            delete dest['tangram_guid'];//?
+            if(dest[baidu.id.key]){
+                delete dest[baidu.id.key];//?
+            }
         }
         //
         function cloneCopyEvent(src, dest){
@@ -63,7 +65,7 @@ baidu.dom.extend({
             if((!baidu.support.noCloneEvent || !baidu.support.noCloneChecked)
                 && (ele.nodeType === 1 || ele.nodeType === 11) && !isXMLDoc(ele)){
                     cloneFixAttributes(ele, cloneNode);
-                    srcElements = getAll( elem );
+                    srcElements = getAll( ele );
                     destElements = getAll( cloneNode );
                     len = srcElements.length;
                     for(var i = 0; i < len; i++){
