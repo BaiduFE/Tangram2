@@ -1,18 +1,466 @@
 module("baidu.dom.attr",{});
 
-$(function(){
-	prepareTest();
-	console.log($('#body').html());	
+var bareObj = function(value) { return value; };
+var functionReturningObj = function(value) { return (function() { return value; }); };
+
+test('prepareTest',function(){
+	expect(1);
+	stop();
+	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
+		start();
+		prepareTest();
+		ok(true,'ok');
+	}, "baidu.dom.contents", "baidu.dom.attr");
 });
+
+test("attr(String)", function() {
+	expect(46);	
+
+	equal( baidu("#text1").attr("type"), "text", "Check for type attribute" );
+	equal( baidu("#radio1").attr("type"), "radio", "Check for type attribute" );
+	equal( baidu("#check1").attr("type"), "checkbox", "Check for type attribute" );
+	equal( baidu("#simon1").attr("rel"), "bookmark", "Check for rel attribute" );
+	equal( baidu("#google").attr("title"), "Google!", "Check for title attribute" );
+	equal( baidu("#mark").attr("hreflang"), "en", "Check for hreflang attribute" );
+	equal( baidu("#en").attr("lang"), "en", "Check for lang attribute" );
+	equal( baidu("#simon").attr("class"), "blog link", "Check for class attribute" );
+	equal( baidu("#name").attr("name"), "name", "Check for name attribute" );
+	equal( baidu("#text1").attr("name"), "action", "Check for name attribute" );
+	ok( baidu("#form").attr("action").indexOf("formaction") >= 0, "Check for action attribute" );
+	equal( baidu("#text1").attr("value", "t").attr("value"), "t", "Check setting the value attribute" );
+	equal( baidu("<div value='t'></div>").attr("value"), "t", "Check setting custom attr named 'value' on a div" );
+	equal( baidu("#form").attr("blah", "blah").attr("blah"), "blah", "Set non-existant attribute on a form" );
+	equal( baidu("#foo").attr("height"), undefined, "Non existent height attribute should return undefined" );
+
+	// [7472] & [3113] (form contains an input with name="action" or name="id")
+	var extras = baidu("<input name='id' name='name' /><input id='target' name='target' />").appendTo("#testForm");
+	equal( baidu("#form").attr("action","newformaction").attr("action"), "newformaction", "Check that action attribute was changed" );
+	equal( baidu("#testForm").attr("target"), undefined, "Retrieving target does not equal the input with name=target" );
+	equal( baidu("#testForm").attr("target", "newTarget").attr("target"), "newTarget", "Set target successfully on a form" );
+	equal( baidu("#testForm").removeAttr("id").attr("id"), undefined, "Retrieving id does not equal the input with name=id after id is removed [#7472]" );
+	// Bug #3685 (form contains input with name="name")
+	equal( baidu("#testForm").attr("name"), undefined, "Retrieving name does not retrieve input with name=name" );
+	extras.remove();
+
+	equal( baidu("#text1").attr("maxlength"), "30", "Check for maxlength attribute" );
+	equal( baidu("#text1").attr("maxLength"), "30", "Check for maxLength attribute" );
+	equal( baidu("#area1").attr("maxLength"), "30", "Check for maxLength attribute" );
+
+	// using innerHTML in IE causes href attribute to be serialized to the full path
+	baidu("<a/>").attr({ "id": "tAnchor5", "href": "#5" }).appendTo("#qunit-fixture");
+	equal( baidu("#tAnchor5").attr("href"), "#5", "Check for non-absolute href (an anchor)" );
+
+	// list attribute is readonly by default in browsers that support it
+	baidu("#list-test").attr("list", "datalist");
+	equal( baidu("#list-test").attr("list"), "datalist", "Check setting list attribute" );
+
+	// Related to [5574] and [5683]
+	var body = document.body, $body = baidu(body);
+
+	strictEqual( $body.attr("foo"), undefined, "Make sure that a non existent attribute returns undefined" );
+
+	body.setAttribute("foo", "baz");
+	equal( $body.attr("foo"), "baz", "Make sure the dom attribute is retrieved when no expando is found" );
+
+	$body.attr("foo","cool");
+	equal( $body.attr("foo"), "cool", "Make sure that setting works well when both expando and dom attribute are available" );
+
+	body.removeAttribute("foo"); // Cleanup
+
+	var select = document.createElement("select"), optgroup = document.createElement("optgroup"), option = document.createElement("option");
+	optgroup.appendChild( option );
+	select.appendChild( optgroup );
+
+	//equal( baidu( option ).attr("selected"), "selected", "Make sure that a single option is selected, even when in an optgroup." );
+	//修改
+	equal( baidu( option ).attr("selected"), undefined, "Make sure that a single option is selected, even when in an optgroup." );
+
+
+	var $img = $("<img style='display:none;' width='215' height='53' src='http://static.jquery.com/files/rocker/images/logo_jquery_215x53.gif'/>").appendTo("body");
+
+	equal( $img.attr("width"), "215", "Retrieve width attribute an an element with display:none." );
+	equal( $img.attr("height"), "53", "Retrieve height attribute an an element with display:none." );
+
+	// Check for style support
+	ok( !!~baidu("#dl").attr("style").indexOf("position"), "Check style attribute getter, also normalize css props to lowercase" );
+	ok( !!~baidu("#foo").attr("style", "position:absolute;").attr("style").indexOf("position"), "Check style setter" );
+
+	// Check value on button element (#1954)
+	var $button = baidu("<button value='foobar'>text</button>").insertAfter("#button");
+	equal( $button.attr("value"), "foobar", "Value retrieval on a button does not return innerHTML" );
+	equal( $button.attr("value", "baz").html(), "text", "Setting the value does not change innerHTML" );
+
+	// Attributes with a colon on a table element (#1591)
+	equal( baidu("#table").attr("test:attrib"), undefined, "Retrieving a non-existent attribute on a table with a colon does not throw an error." );
+	equal( baidu("#table").attr("test:attrib", "foobar").attr("test:attrib"), "foobar", "Setting an attribute on a table with a colon does not throw an error." );
+
+	var $form = baidu("<form class='something'></form>").appendTo("#qunit-fixture");
+	equal( $form.attr("class"), "something", "Retrieve the class attribute on a form." );
+
+	var $a = baidu("<a href='#' onclick='something()'>Click</a>").appendTo("#qunit-fixture");
+	equal( $a.attr("onclick"), "something()", "Retrieve ^on attribute without anonymous function wrapper." );
+
+	ok( baidu("<div/>").attr("doesntexist") === undefined, "Make sure undefined is returned when no attribute is found." );
+	ok( baidu("<div/>").attr("title") === undefined, "Make sure undefined is returned when no attribute is found." );
+	equal( baidu("<div/>").attr("title", "something").attr("title"), "something", "Set the title attribute." );
+	ok( baidu().attr("doesntexist") === undefined, "Make sure undefined is returned when no element is there." );
+	equal( baidu("<div/>").attr("value"), undefined, "An unset value on a div returns undefined." );
+	equal( baidu("<input/>").attr("value"), "", "An unset value on an input returns current value." );
+
+	$form = baidu("#form").attr("enctype", "multipart/form-data");
+	equal( $form.prop("enctype"), "multipart/form-data", "Set the enctype of a form (encoding in IE6/7 #6743)" );
+});
+
+/*
+test("attr(String) in XML Files", function() {
+	expect(3);
+	
+	var xml = createDashboardXML();
+	equal( baidu( "locations", xml ).attr("class"), "foo", "Check class attribute in XML document" );
+	equal( baidu( "location", xml ).attr("for"), "bar", "Check for attribute in XML document" );
+	equal( baidu( "location", xml ).attr("checked"), "different", "Check that hooks are not attached in XML document" );
+});
+*/
+
+test("attr(String, Function)", function() {
+	expect(2);
+	equal( baidu("#text1").attr("value", function() { return this.id; })[0].value, "text1", "Set value from id" );
+	equal( baidu("#text1").attr("title", function(i) { return i; }).attr("title"), "0", "Set value with an index");
+});
+
+test("attr(Hash)", function() {
+	expect(3);
+
+	var pass = true;
+	baidu("div").attr({foo: "baz", zoo: "ping"}).each(function(){
+		if ( this.getAttribute("foo") != "baz" && this.getAttribute("zoo") != "ping" ) pass = false;
+	});
+	ok( pass, "Set Multiple Attributes" );
+	equal( baidu("#text1").attr({value: function() { return this.id; }})[0].value, "text1", "Set attribute to computed value #1" );
+	equal( baidu("#text1").attr({title: function(i) { return i; }}).attr("title"), "0", "Set attribute to computed value #2");
+});
+
+test("attr(String, Object)", function() {
+	expect(81);
+
+	var div = baidu("div").attr("foo", "bar"),
+		fail = false;
+
+	for ( var i = 0; i < div.size(); i++ ) {
+		if ( div.get(i).getAttribute("foo") != "bar" ){
+			fail = i;
+			break;
+		}
+	}
+
+	equal( fail, false, "Set Attribute, the #" + fail + " element didn't get the attribute 'foo'" );
+
+	ok( baidu("#foo").attr({ "width": null }), "Try to set an attribute to nothing" );
+
+	baidu("#name").attr("name", "something");
+	equal( baidu("#name").attr("name"), "something", "Set name attribute" );
+	baidu("#name").attr("name", null);
+	equal( baidu("#name").attr("name"), undefined, "Remove name attribute" );
+	var $input = jQuery("<input>", { name: "something", id: "specified" })[0];
+	$input = baidu($input);
+	equal( $input.attr("name"), "something", "Check element creation gets/sets the name attribute." );
+	equal( $input.attr("id"), "specified", "Check element creation gets/sets the id attribute." );
+
+	baidu("#check2").prop("checked", true).prop("checked", false).attr("checked", true);
+	equal( document.getElementById("check2").checked, true, "Set checked attribute" );
+	equal( baidu("#check2").prop("checked"), true, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), "checked", "Set checked attribute" );
+	baidu("#check2").attr("checked", false);
+	equal( document.getElementById("check2").checked, false, "Set checked attribute" );
+	equal( baidu("#check2").prop("checked"), false, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), undefined, "Set checked attribute" );
+	baidu("#text1").attr("readonly", true);
+	equal( document.getElementById("text1").readOnly, true, "Set readonly attribute" );
+	equal( baidu("#text1").prop("readOnly"), true, "Set readonly attribute" );
+	equal( baidu("#text1").attr("readonly"), "readonly", "Set readonly attribute" );
+	baidu("#text1").attr("readonly", false);
+	equal( document.getElementById("text1").readOnly, false, "Set readonly attribute" );
+	equal( baidu("#text1").prop("readOnly"), false, "Set readonly attribute" );
+	equal( baidu("#text1").attr("readonly"), undefined, "Set readonly attribute" );
+
+	baidu("#check2").prop("checked", true);
+	equal( document.getElementById("check2").checked, true, "Set checked attribute" );
+	equal( baidu("#check2").prop("checked"), true, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), "checked", "Set checked attribute" );
+	baidu("#check2").prop("checked", false);
+	equal( document.getElementById("check2").checked, false, "Set checked attribute" );
+	equal( baidu("#check2").prop("checked"), false, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), undefined, "Set checked attribute" );
+
+	baidu("#check2").attr("checked", "checked");
+	equal( document.getElementById("check2").checked, true, "Set checked attribute with 'checked'" );
+	equal( baidu("#check2").prop("checked"), true, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), "checked", "Set checked attribute" );
+
+	QUnit.reset();
+
+	var $radios = baidu("#checkedtest").find("input[type='radio']");
+	$radios.eq(1).click();
+	equal( $radios.eq(1).prop("checked"), true, "Second radio was checked when clicked");
+	equal( $radios.attr("checked"), $radios[0].checked ? "checked" : undefined, "Known booleans do not fall back to attribute presence (#10278)");
+
+	baidu("#text1").prop("readOnly", true);
+	equal( document.getElementById("text1").readOnly, true, "Set readonly attribute" );
+	equal( baidu("#text1").prop("readOnly"), true, "Set readonly attribute" );
+	equal( baidu("#text1").attr("readonly"), "readonly", "Set readonly attribute" );
+	baidu("#text1").prop("readOnly", false);
+	equal( document.getElementById("text1").readOnly, false, "Set readonly attribute" );
+	equal( baidu("#text1").prop("readOnly"), false, "Set readonly attribute" );
+	equal( baidu("#text1").attr("readonly"), undefined, "Set readonly attribute" );
+
+	baidu("#name").attr("maxlength", "5");
+	equal( document.getElementById("name").maxLength, 5, "Set maxlength attribute" );
+	baidu("#name").attr("maxLength", "10");
+	equal( document.getElementById("name").maxLength, 10, "Set maxlength attribute" );
+
+	// HTML5 boolean attributes
+	var $text = baidu("#text1").attr({
+		"autofocus": true,
+		"required": true
+	});
+	equal( $text.attr("autofocus"), "autofocus", "Set boolean attributes to the same name" );
+	equal( $text.attr("autofocus", false).attr("autofocus"), undefined, "Setting autofocus attribute to false removes it" );
+	equal( $text.attr("required"), "required", "Set boolean attributes to the same name" );
+	equal( $text.attr("required", false).attr("required"), undefined, "Setting required attribute to false removes it" );
+
+	var $details = baidu("<details open></details>").appendTo("#qunit-fixture");
+	equal( $details.attr("open"), "open", "open attribute presense indicates true" );
+	equal( $details.attr("open", false).attr("open"), undefined, "Setting open attribute to false removes it" );
+
+	$text.attr("data-something", true);
+	equal( $text.attr("data-something"), "true", "Set data attributes");
+	equal( $text.data("something"), true, "Setting data attributes are not affected by boolean settings");
+	$text.attr("data-another", false);
+	equal( $text.attr("data-another"), "false", "Set data attributes");
+	equal( $text.data("another"), false, "Setting data attributes are not affected by boolean settings" );
+	equal( $text.attr("aria-disabled", false).attr("aria-disabled"), "false", "Setting aria attributes are not affected by boolean settings");
+	$text.removeData("something").removeData("another").removeAttr("aria-disabled");
+
+	baidu("#foo").attr("contenteditable", true);
+	equal( baidu("#foo").attr("contenteditable"), "true", "Enumerated attributes are set properly" );
+
+	var attributeNode = document.createAttribute("irrelevant"),
+		commentNode = document.createComment("some comment"),
+		textNode = document.createTextNode("some text"),
+		obj = {};
+
+	baidu.each( [commentNode, textNode, attributeNode], function( i, elem ) {
+		var $elem = baidu( elem );
+		$elem.attr( "nonexisting", "foo" );
+		strictEqual( $elem.attr("nonexisting"), undefined, "attr(name, value) works correctly on comment and text nodes (bug #7500)." );
+	});
+
+	baidu.each( [window, document, obj, "#firstp"], function( i, elem ) {
+		var $elem = baidu( elem );
+		strictEqual( $elem.attr("nonexisting"), undefined, "attr works correctly for non existing attributes (bug #7500)." );
+		equal( $elem.attr("something", "foo" ).attr("something"), "foo", "attr falls back to prop on unsupported arguments" );
+	});
+
+	var table = baidu("#table").append("<tr><td>cell</td></tr><tr><td>cell</td><td>cell</td></tr><tr><td>cell</td><td>cell</td></tr>"),
+		td = table.find("td:first");
+	td.attr("rowspan", "2");
+	equal( td[0].rowSpan, 2, "Check rowspan is correctly set" );
+	td.attr("colspan", "2");
+	equal( td[0].colSpan, 2, "Check colspan is correctly set" );
+	table.attr("cellspacing", "2");
+	equal( table[0].cellSpacing, "2", "Check cellspacing is correctly set" );
+
+	equal( baidu("#area1").attr("value"), "foobar", "Value attribute retrieves the property for backwards compatibility." );
+
+	// for #1070
+	baidu("#name").attr("someAttr", "0");
+	equal( baidu("#name").attr("someAttr"), "0", "Set attribute to a string of \"0\"" );
+	baidu("#name").attr("someAttr", 0);
+	equal( baidu("#name").attr("someAttr"), "0", "Set attribute to the number 0" );
+	baidu("#name").attr("someAttr", 1);
+	equal( baidu("#name").attr("someAttr"), "1", "Set attribute to the number 1" );
+
+	// using contents will get comments regular, text, and comment nodes
+	var j = baidu("#nonnodes").contents();
+
+	j.attr("name", "attrvalue");
+	equal( j.attr("name"), "attrvalue", "Check node,textnode,comment for attr" );
+	j.removeAttr("name");
+
+	// Type
+	var type = baidu("#check2").attr("type");
+	var thrown = false;
+	try {
+		baidu("#check2").attr("type","hidden");
+	} catch(e) {
+		thrown = true;
+	}
+	ok( thrown, "Exception thrown when trying to change type property" );
+	equal( type, baidu("#check2").attr("type"), "Verify that you can't change the type of an input element" );
+
+	var check = document.createElement("input");
+	thrown = true;
+	try {
+		baidu(check).attr("type", "checkbox");
+	} catch(e) {
+		thrown = false;
+	}
+	ok( thrown, "Exception thrown when trying to change type property" );
+	equal( "checkbox", baidu(check).attr("type"), "Verify that you can change the type of an input element that isn't in the DOM" );
+
+	check = baidu("<input />");
+	thrown = true;
+	try {
+		check.attr("type","checkbox");
+	} catch(e) {
+		thrown = false;
+	}
+	ok( thrown, "Exception thrown when trying to change type property" );
+	equal( "checkbox", check.attr("type"), "Verify that you can change the type of an input element that isn't in the DOM" );
+
+	var button = baidu("#button");
+	thrown = false;
+	try {
+		button.attr("type","submit");
+	} catch(e) {
+		thrown = true;
+	}
+	ok( thrown, "Exception thrown when trying to change type property" );
+	equal( "button", button.attr("type"), "Verify that you can't change the type of a button element" );
+
+	var $radio = baidu("<input>", { "value": "sup", "type": "radio" }).appendTo("#testForm");
+	equal( $radio.val(), "sup", "Value is not reset when type is set after value on a radio" );
+
+	// Setting attributes on svg elements (bug #3116)
+	var $svg = baidu("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' baseProfile='full' width='200' height='200'>"
+		+ "<circle cx='200' cy='200' r='150' />"
+	+ "</svg>").appendTo("body");
+	equal( $svg.attr("cx", 100).attr("cx"), "100", "Set attribute on svg element" );
+	$svg.remove();
+
+	// undefined values are chainable
+	baidu("#name").attr("maxlength", "5").removeAttr("nonexisting");
+	equal( typeof baidu("#name").attr("maxlength", undefined), "object", ".attr('attribute', undefined) is chainable (#5571)" );
+	equal( baidu("#name").attr("maxlength", undefined).attr("maxlength"), "5", ".attr('attribute', undefined) does not change value (#5571)" );
+	equal( baidu("#name").attr("nonexisting", undefined).attr("nonexisting"), undefined, ".attr('attribute', undefined) does not create attribute (#5571)" );
+});
+
+test("attr(jquery_method)", function(){
+	expect(7);
+
+	var $elem = baidu("<div />"),
+		elem = $elem[0];
+
+	// one at a time
+	$elem.attr({html: "foo"}, true);
+	equal( elem.innerHTML, "foo", "attr(html)");
+
+	$elem.attr({text: "bar"}, true);
+	equal( elem.innerHTML, "bar", "attr(text)");
+
+	$elem.attr({css: {color: "red"}}, true);
+	ok( /^(#ff0000|red)$/i.test(elem.style.color), "attr(css)");
+
+	$elem.attr({height: 10}, true);
+	equal( elem.style.height, "10px", "attr(height)");
+
+	// Multiple attributes
+
+	$elem.attr({
+		width:10,
+		css:{ paddingLeft:1, paddingRight:1 }
+	}, true);
+
+	equal( elem.style.width, "10px", "attr({...})");
+	equal( elem.style.paddingLeft, "1px", "attr({...})");
+	equal( elem.style.paddingRight, "1px", "attr({...})");
+});
+
+test("attr(String, Object) - Loaded via XML document", function() {
+	expect(2);
+	var xml = createDashboardXML();
+	var titles = [];
+	baidu( "tab", xml ).each(function() {
+		titles.push( baidu(this).attr("title") );
+	});
+	equal( titles[0], "Location", "attr() in XML context: Check first title" );
+	equal( titles[1], "Users", "attr() in XML context: Check second title" );
+});
+
+test("attr('tabindex')", function() {
+	expect(8);
+
+	// elements not natively tabbable
+	equal(baidu("#listWithTabIndex").attr("tabindex"), 5, "not natively tabbable, with tabindex set to 0");
+	equal(baidu("#divWithNoTabIndex").attr("tabindex"), undefined, "not natively tabbable, no tabindex set");
+
+	// anchor with href
+	equal(baidu("#linkWithNoTabIndex").attr("tabindex"), 0, "anchor with href, no tabindex set");
+	equal(baidu("#linkWithTabIndex").attr("tabindex"), 2, "anchor with href, tabindex set to 2");
+	equal(baidu("#linkWithNegativeTabIndex").attr("tabindex"), -1, "anchor with href, tabindex set to -1");
+
+	// anchor without href
+	equal(baidu("#linkWithNoHrefWithNoTabIndex").attr("tabindex"), undefined, "anchor without href, no tabindex set");
+	equal(baidu("#linkWithNoHrefWithTabIndex").attr("tabindex"), 1, "anchor without href, tabindex set to 2");
+	equal(baidu("#linkWithNoHrefWithNegativeTabIndex").attr("tabindex"), -1, "anchor without href, no tabindex set");
+});
+
+test("attr('tabindex', value)", function() {
+	expect(9);
+
+	var element = baidu("#divWithNoTabIndex");
+	equal(element.attr("tabindex"), undefined, "start with no tabindex");
+
+	// set a positive string
+	element.attr("tabindex", "1");
+	equal(element.attr("tabindex"), 1, "set tabindex to 1 (string)");
+
+	// set a zero string
+	element.attr("tabindex", "0");
+	equal(element.attr("tabindex"), 0, "set tabindex to 0 (string)");
+
+	// set a negative string
+	element.attr("tabindex", "-1");
+	equal(element.attr("tabindex"), -1, "set tabindex to -1 (string)");
+
+	// set a positive number
+	element.attr("tabindex", 1);
+	equal(element.attr("tabindex"), 1, "set tabindex to 1 (number)");
+
+	// set a zero number
+	element.attr("tabindex", 0);
+	equal(element.attr("tabindex"), 0, "set tabindex to 0 (number)");
+
+	// set a negative number
+	element.attr("tabindex", -1);
+	equal(element.attr("tabindex"), -1, "set tabindex to -1 (number)");
+
+	element = baidu("#linkWithTabIndex");
+	equal(element.attr("tabindex"), 2, "start with tabindex 2");
+
+	element.attr("tabindex", -1);
+	equal(element.attr("tabindex"), -1, "set negative tabindex");
+});
+
 
 //准备工序
 function prepareTest(){
-	var html = "<!-- Test HTML -->"+
+	var html = "<div id='body'>"+
+	"<!-- Test HTML -->"+
 	"<div id='nothiddendiv' style='height:1px;background:white;' class='nothiddendiv'>"+
 		"<div id='nothiddendivchild'></div>"+
 	"</div>"+
 	"<!-- this iframe is outside the #qunit-fixture so it won't reload constantly wasting time, but it means the tests must be 'safe' and clean up after themselves -->"+
-	"<iframe id='loadediframe' name='loadediframe' style='display:none;' src='data/iframe.html'></iframe>"+
+	"<iframe id='loadediframe' name='loadediframe' style='display:none;'>"+
+	"<html>"+
+	  "<head>"+
+	    "<title>iframe</title>"+
+	  "</head>"+
+	  "<body>"+
+	    "<div><span>span text</span></div>"+
+	  "</body>"+
+	"</html>"+
+	"</iframe>"+
 	"<dl id='dl' style='position:absolute;top:-32767px;left:-32767px;width:1px'>"+
 	"<div id='qunit-fixture'>"+
 		"<p id='firstp'>See <a id='simon1' href='http://simon.incutio.com/archive/2003/03/25/#getElementsBySelector' rel='bookmark'>this blog entry</a> for more information.</p>"+
@@ -233,10 +681,12 @@ function prepareTest(){
 		"</div>"+
 
 		"<div id='fx-tests'></div>"+
+	"</div>"+
 	"</div>";
 
 	var body = $('body');
-	console.log(body);
-	body.html(html);
+	temp = body.html();
+	body.html(html+temp)
 	body.prop('id','body');
+
 };
