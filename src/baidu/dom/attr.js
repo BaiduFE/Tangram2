@@ -30,7 +30,8 @@ baidu.dom.extend({
         };
 
         //返回结果
-        var result;
+        var result,
+            isSet = false;
 
         baidu.each(this, function(item,index){
 
@@ -49,24 +50,9 @@ baidu.dom.extend({
                 return;
             };
 
-            var attrFn = {
-                val: true,
-                css: true,
-                html: true,
-                text: true,
-                //data: true,
-                width: true,
-                height: true,
-                offset: true
-            };
-
-            if ( name in attrFn ) {
-                return bd( item )[ name ]( value );
-            };
-
             // Fallback to prop when attributes are not supported
             if ( typeof item.getAttribute === "undefined" ) {
-                return this.prop( name, value );
+                result = this.prop( name, value );
             };
 
             switch(typeof name){
@@ -92,18 +78,35 @@ baidu.dom.extend({
 
                             // Non-existent attributes return null, we normalize to undefined
                             //return ret === null ? undefined : ret;
-                            ret === null ? undefined : ret;
-                            result = ret;
+                            result = ret === null ? undefined : ret;
                         };
 
                     }else if( typeof value === 'function' ){
 
+                        isSet = true;
                         var ele = bd(item);
                         ele.attr(name,value.call(item, index, ele.attr(name)));
                     
                     }else{
                         
                         //set all
+                        isSet = true;
+                        var attrFn = {
+                            val: true,
+                            css: true,
+                            html: true,
+                            text: true,
+                            //data: true,
+                            width: true,
+                            height: true,
+                            offset: true
+                        };
+
+                        if ( name in attrFn ) {
+                            result = bd( item )[ name ]( value );
+                            return;
+                        };
+
                         if ( value === null ) {
                             bd(item).removeAttr( name );
                             return;
@@ -121,6 +124,7 @@ baidu.dom.extend({
                 case 'object':
 
                     //set all
+                    isSet = true;
                     var ele = bd(item);
                     for(key in name){
                         ele.attr(key,name[key]);
@@ -132,7 +136,6 @@ baidu.dom.extend({
             };
         });
     
-        return result?result:this;
-
+        return isSet?this:result;
     }
 });
