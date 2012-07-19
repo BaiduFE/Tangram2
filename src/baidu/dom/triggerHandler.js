@@ -5,14 +5,13 @@
 ///import baidu.dom._eventBase;
 
 baidu.dom.extend({
-	triggerHandler: function(){
+	triggerHandler: function(type, triggerData){
 		var eb = baidu.dom._eventBase;
-	    return function(type, triggerData){
-			baidu.each(this, function(item){
-			    eb.fireHandler(item, type, triggerData);
-			});
 
-			return this;
-		}
-	}()
+		baidu.each(this, function(item){
+		    eb.fireHandler(item, type, triggerData);
+		});
+
+		return this;
+	}
 });

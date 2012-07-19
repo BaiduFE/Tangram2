@@ -55,7 +55,7 @@ test('span event trigger once', function(){
         c = new Div();
     document.body.appendChild(span);
     span.appendChild(c.get());
-    baidu.dom(span).one('click', 'div', function(){ok(true, 'click event trigger')});
+    baidu.dom(span).one('click', function(){ok(true, 'click event trigger')});
     ua.fireMouseEvent(c.get(), 'click');
     ua.fireMouseEvent(c.get(), 'click');
     document.body.removeChild(span);
@@ -64,8 +64,8 @@ test('span event trigger once', function(){
     document.body.appendChild(span);
     c = new Div();
     span.appendChild(c.get());
-    baidu.dom(span).one('click', 'div', {tangId: 'Tangram'}, function(evt){
-        equla(evt.data.tangId, 'Tangram', 'click event trigger and data received');
+    baidu.dom(span).one('click', {tangId: 'Tangram'}, function(evt){
+        equal(evt.data.tangId, 'Tangram', 'click event trigger and data received');
     });
     ua.fireMouseEvent(c.get(), 'click');
     ua.fireMouseEvent(c.get(), 'click');
@@ -81,7 +81,7 @@ test('span event trigger once', function(){
     document.body.appendChild(span);
     c = new Div();
     span.appendChild(c.get());
-    baidu.dom(span).one(map, 'div', {tangId: 'Tangram'}, function(){ok(false, 'exception')});
+    baidu.dom(span).one(map, {tangId: 'Tangram'}, function(){ok(false, 'exception')});
     ua.fireMouseEvent(c.get(), 'mousedown');
     ua.fireMouseEvent(c.get(), 'mousemove');
     ua.fireMouseEvent(c.get(), 'mouseup');
@@ -91,24 +91,26 @@ test('span event trigger once', function(){
     document.body.removeChild(span);
 });
 
-test('fragment attach once event', function(){
-    expect(3);
-    var c = new Div(true);
-    baidu.dom(c.get()).one('mousedown', function(){
-        ok(true, 'mousedown event trigger');
-    });
-    ua.fireMouseEvent(c.get(), 'mousedown');
-    ua.fireMouseEvent(c.get(), 'mousedown');
-    //
+// fragment 不被支持
+// 
+// test('fragment attach once event', function(){
+//     expect(3);
+//     var c = new Div(true);
+//     baidu.dom(c.get()).one('mousedown', function(){
+//         ok(true, 'mousedown event trigger');
+//     });
+//     ua.fireMouseEvent(c.get(), 'mousedown');
+//     ua.fireMouseEvent(c.get(), 'mousedown');
+//     //
     
-    c = new Div(true);
-    baidu.dom(c.get()).one('click', {tangId: 'Tangram', tangNum: 100}, function(evt){
-        equal(evt.data.tangId, 'Tangram', 'tangId');
-        equal(evt.data.tangNum, 100, 'tangNum');
-    });
-    ua.fireMouseEvent(c.get(), 'click');
-    ua.fireMouseEvent(c.get(), 'click');
-});
+//     c = new Div(true);
+//     baidu.dom(c.get()).one('click', {tangId: 'Tangram', tangNum: 100}, function(evt){
+//         equal(evt.data.tangId, 'Tangram', 'tangId');
+//         equal(evt.data.tangNum, 100, 'tangNum');
+//     });
+//     ua.fireMouseEvent(c.get(), 'click');
+//     ua.fireMouseEvent(c.get(), 'click');
+// });
 
 test('off event', function(){
     expect(1);

@@ -21,7 +21,7 @@ test('remove a event', function(){
         ok(true, 'event not remove');
     }
     div.addEventListener && div.addEventListener('click', handler, false);
-    div.attachEvent && div.attachEvent('click', handler);
+    div.attachEvent && div.attachEvent('onclick', handler);
     baidu.dom(div).off('click', handler);
     ua.fireMouseEvent(div, 'click');
     div = null;
