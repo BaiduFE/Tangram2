@@ -13,10 +13,10 @@ test('prepareTest',function(){
 	}, "baidu.dom.contents", "baidu.dom.prop");
 });
 
-test("jQuery.propFix integrity test", function() {
+test("baidu.propFix integrity test", function() {
 	expect(1);
 
-	//  This must be maintained and equal jQuery.attrFix when appropriate
+	//  This must be maintained and equal baidu.attrFix when appropriate
 	//  Ensure that accidental or erroneous property
 	//  overwrites don't occur
 	//  This is simply for better code coverage and future proofing.
@@ -35,36 +35,36 @@ test("jQuery.propFix integrity test", function() {
 		"contenteditable": "contentEditable"
 	};
 
-	if ( !jQuery.support.enctype ) {
+	if ( !baidu.support.enctype ) {
 		props.enctype = "encoding";
 	}
 
-	deepEqual(props, jQuery.propFix, "jQuery.propFix passes integrity check");
+	deepEqual(props, baidu.propFix, "baidu.propFix passes integrity check");
 });
 
 test("attr(String, Function)", function() {
 	expect(2);
-	equal( jQuery("#text1").attr("value", function() { return this.id; })[0].value, "text1", "Set value from id" );
-	equal( jQuery("#text1").attr("title", function(i) { return i; }).attr("title"), "0", "Set value with an index");
+	equal( baidu("#text1").attr("value", function() { return this.id; })[0].value, "text1", "Set value from id" );
+	equal( baidu("#text1").attr("title", function(i) { return i; }).attr("title"), "0", "Set value with an index");
 });
 
 test("attr(Hash)", function() {
 	expect(3);
 	var pass = true;
-	jQuery("div").attr({"foo": "baz", "zoo": "ping"}).each(function(){
+	baidu("div").attr({"foo": "baz", "zoo": "ping"}).each(function(){
 		if ( this.getAttribute("foo") != "baz" && this.getAttribute("zoo") != "ping" ) {
 			pass = false;
 		}
 	});
 	ok( pass, "Set Multiple Attributes" );
-	equal( jQuery("#text1").attr({"value": function() { return this["id"]; }})[0].value, "text1", "Set attribute to computed value #1" );
-	equal( jQuery("#text1").attr({"title": function(i) { return i; }}).attr("title"), "0", "Set attribute to computed value #2");
+	equal( baidu("#text1").attr({"value": function() { return this["id"]; }})[0].value, "text1", "Set attribute to computed value #1" );
+	equal( baidu("#text1").attr({"title": function(i) { return i; }}).attr("title"), "0", "Set attribute to computed value #2");
 });
 
 test("attr(String, Object)", function() {
 	expect(81);
 
-	var div = jQuery("div").attr("foo", "bar"),
+	var div = baidu("div").attr("foo", "bar"),
 		fail = false;
 
 	for ( var i = 0; i < div.size(); i++ ) {
@@ -76,96 +76,96 @@ test("attr(String, Object)", function() {
 
 	equal( fail, false, "Set Attribute, the #" + fail + " element didn't get the attribute 'foo'" );
 
-	ok( jQuery("#foo").attr({ "width": null }), "Try to set an attribute to nothing" );
+	ok( baidu("#foo").attr({ "width": null }), "Try to set an attribute to nothing" );
 
-	jQuery("#name").attr("name", "something");
-	equal( jQuery("#name").attr("name"), "something", "Set name attribute" );
-	jQuery("#name").attr("name", null);
-	equal( jQuery("#name").attr("name"), undefined, "Remove name attribute" );
-	var $input = jQuery("<input>", { name: "something", id: "specified" });
+	baidu("#name").attr("name", "something");
+	equal( baidu("#name").attr("name"), "something", "Set name attribute" );
+	baidu("#name").attr("name", null);
+	equal( baidu("#name").attr("name"), undefined, "Remove name attribute" );
+	var $input = baidu("<input>", { name: "something", id: "specified" });
 	equal( $input.attr("name"), "something", "Check element creation gets/sets the name attribute." );
 	equal( $input.attr("id"), "specified", "Check element creation gets/sets the id attribute." );
 
-	jQuery("#check2").prop("checked", true).prop("checked", false).attr("checked", true);
+	baidu("#check2").prop("checked", true).prop("checked", false).attr("checked", true);
 	equal( document.getElementById("check2").checked, true, "Set checked attribute" );
-	equal( jQuery("#check2").prop("checked"), true, "Set checked attribute" );
-	equal( jQuery("#check2").attr("checked"), "checked", "Set checked attribute" );
-	jQuery("#check2").attr("checked", false);
+	equal( baidu("#check2").prop("checked"), true, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), "checked", "Set checked attribute" );
+	baidu("#check2").attr("checked", false);
 	equal( document.getElementById("check2").checked, false, "Set checked attribute" );
-	equal( jQuery("#check2").prop("checked"), false, "Set checked attribute" );
-	equal( jQuery("#check2").attr("checked"), undefined, "Set checked attribute" );
-	jQuery("#text1").attr("readonly", true);
+	equal( baidu("#check2").prop("checked"), false, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), undefined, "Set checked attribute" );
+	baidu("#text1").attr("readonly", true);
 	equal( document.getElementById("text1").readOnly, true, "Set readonly attribute" );
-	equal( jQuery("#text1").prop("readOnly"), true, "Set readonly attribute" );
-	equal( jQuery("#text1").attr("readonly"), "readonly", "Set readonly attribute" );
-	jQuery("#text1").attr("readonly", false);
+	equal( baidu("#text1").prop("readOnly"), true, "Set readonly attribute" );
+	equal( baidu("#text1").attr("readonly"), "readonly", "Set readonly attribute" );
+	baidu("#text1").attr("readonly", false);
 	equal( document.getElementById("text1").readOnly, false, "Set readonly attribute" );
-	equal( jQuery("#text1").prop("readOnly"), false, "Set readonly attribute" );
-	equal( jQuery("#text1").attr("readonly"), undefined, "Set readonly attribute" );
+	equal( baidu("#text1").prop("readOnly"), false, "Set readonly attribute" );
+	equal( baidu("#text1").attr("readonly"), undefined, "Set readonly attribute" );
 
-	jQuery("#check2").prop("checked", true);
+	baidu("#check2").prop("checked", true);
 	equal( document.getElementById("check2").checked, true, "Set checked attribute" );
-	equal( jQuery("#check2").prop("checked"), true, "Set checked attribute" );
-	equal( jQuery("#check2").attr("checked"), "checked", "Set checked attribute" );
-	jQuery("#check2").prop("checked", false);
+	equal( baidu("#check2").prop("checked"), true, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), "checked", "Set checked attribute" );
+	baidu("#check2").prop("checked", false);
 	equal( document.getElementById("check2").checked, false, "Set checked attribute" );
-	equal( jQuery("#check2").prop("checked"), false, "Set checked attribute" );
-	equal( jQuery("#check2").attr("checked"), undefined, "Set checked attribute" );
+	equal( baidu("#check2").prop("checked"), false, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), undefined, "Set checked attribute" );
 
-	jQuery("#check2").attr("checked", "checked");
+	baidu("#check2").attr("checked", "checked");
 	equal( document.getElementById("check2").checked, true, "Set checked attribute with 'checked'" );
-	equal( jQuery("#check2").prop("checked"), true, "Set checked attribute" );
-	equal( jQuery("#check2").attr("checked"), "checked", "Set checked attribute" );
+	equal( baidu("#check2").prop("checked"), true, "Set checked attribute" );
+	equal( baidu("#check2").attr("checked"), "checked", "Set checked attribute" );
 
 	QUnit.reset();
 
-	var $radios = jQuery("#checkedtest").find("input[type='radio']");
+	var $radios = baidu("#checkedtest").find("input[type='radio']");
 	$radios.eq(1).click();
 	equal( $radios.eq(1).prop("checked"), true, "Second radio was checked when clicked");
 	equal( $radios.attr("checked"), $radios[0].checked ? "checked" : undefined, "Known booleans do not fall back to attribute presence (#10278)");
 
-	jQuery("#text1").prop("readOnly", true);
+	baidu("#text1").prop("readOnly", true);
 	equal( document.getElementById("text1").readOnly, true, "Set readonly attribute" );
-	equal( jQuery("#text1").prop("readOnly"), true, "Set readonly attribute" );
-	equal( jQuery("#text1").attr("readonly"), "readonly", "Set readonly attribute" );
-	jQuery("#text1").prop("readOnly", false);
+	equal( baidu("#text1").prop("readOnly"), true, "Set readonly attribute" );
+	equal( baidu("#text1").attr("readonly"), "readonly", "Set readonly attribute" );
+	baidu("#text1").prop("readOnly", false);
 	equal( document.getElementById("text1").readOnly, false, "Set readonly attribute" );
-	equal( jQuery("#text1").prop("readOnly"), false, "Set readonly attribute" );
+	equal( baidu("#text1").prop("readOnly"), false, "Set readonly attribute" );
 });
 
 test("prop(String, Object)", function() {
 	expect(31);
 
-	equal( jQuery("#text1").prop("value"), "Test", "Check for value attribute" );
-	equal( jQuery("#text1").prop("value", "Test2").prop("defaultValue"), "Test", "Check for defaultValue attribute" );
-	equal( jQuery("#select2").prop("selectedIndex"), 3, "Check for selectedIndex attribute" );
-	equal( jQuery("#foo").prop("nodeName").toUpperCase(), "DIV", "Check for nodeName attribute" );
-	equal( jQuery("#foo").prop("tagName").toUpperCase(), "DIV", "Check for tagName attribute" );
-	equal( jQuery("<option/>").prop("selected"), false, "Check selected attribute on disconnected element." );
+	equal( baidu("#text1").prop("value"), "Test", "Check for value attribute" );
+	equal( baidu("#text1").prop("value", "Test2").prop("defaultValue"), "Test", "Check for defaultValue attribute" );
+	equal( baidu("#select2").prop("selectedIndex"), 3, "Check for selectedIndex attribute" );
+	equal( baidu("#foo").prop("nodeName").toUpperCase(), "DIV", "Check for nodeName attribute" );
+	equal( baidu("#foo").prop("tagName").toUpperCase(), "DIV", "Check for tagName attribute" );
+	equal( baidu("<option/>").prop("selected"), false, "Check selected attribute on disconnected element." );
 
-	equal( jQuery("#listWithTabIndex").prop("tabindex"), 5, "Check retrieving tabindex" );
-	jQuery("#text1").prop("readonly", true);
+	equal( baidu("#listWithTabIndex").prop("tabindex"), 5, "Check retrieving tabindex" );
+	baidu("#text1").prop("readonly", true);
 	equal( document.getElementById("text1").readOnly, true, "Check setting readOnly property with 'readonly'" );
-	equal( jQuery("#label-for").prop("for"), "action", "Check retrieving htmlFor" );
-	jQuery("#text1").prop("class", "test");
+	equal( baidu("#label-for").prop("for"), "action", "Check retrieving htmlFor" );
+	baidu("#text1").prop("class", "test");
 	equal( document.getElementById("text1").className, "test", "Check setting className with 'class'" );
-	equal( jQuery("#text1").prop("maxlength"), 30, "Check retrieving maxLength" );
-	jQuery("#table").prop("cellspacing", 1);
-	equal( jQuery("#table").prop("cellSpacing"), "1", "Check setting and retrieving cellSpacing" );
-	jQuery("#table").prop("cellpadding", 1);
-	equal( jQuery("#table").prop("cellPadding"), "1", "Check setting and retrieving cellPadding" );
-	jQuery("#table").prop("rowspan", 1);
-	equal( jQuery("#table").prop("rowSpan"), 1, "Check setting and retrieving rowSpan" );
-	jQuery("#table").prop("colspan", 1);
-	equal( jQuery("#table").prop("colSpan"), 1, "Check setting and retrieving colSpan" );
-	jQuery("#table").prop("usemap", 1);
-	equal( jQuery("#table").prop("useMap"), 1, "Check setting and retrieving useMap" );
-	jQuery("#table").prop("frameborder", 1);
-	equal( jQuery("#table").prop("frameBorder"), 1, "Check setting and retrieving frameBorder" );
+	equal( baidu("#text1").prop("maxlength"), 30, "Check retrieving maxLength" );
+	baidu("#table").prop("cellspacing", 1);
+	equal( baidu("#table").prop("cellSpacing"), "1", "Check setting and retrieving cellSpacing" );
+	baidu("#table").prop("cellpadding", 1);
+	equal( baidu("#table").prop("cellPadding"), "1", "Check setting and retrieving cellPadding" );
+	baidu("#table").prop("rowspan", 1);
+	equal( baidu("#table").prop("rowSpan"), 1, "Check setting and retrieving rowSpan" );
+	baidu("#table").prop("colspan", 1);
+	equal( baidu("#table").prop("colSpan"), 1, "Check setting and retrieving colSpan" );
+	baidu("#table").prop("usemap", 1);
+	equal( baidu("#table").prop("useMap"), 1, "Check setting and retrieving useMap" );
+	baidu("#table").prop("frameborder", 1);
+	equal( baidu("#table").prop("frameBorder"), 1, "Check setting and retrieving frameBorder" );
 	QUnit.reset();
 
 	var body = document.body,
-		$body = jQuery( body );
+		$body = baidu( body );
 
 	ok( $body.prop("nextSibling") === null, "Make sure a null expando returns null" );
 	body["foo"] = "bar";
@@ -177,26 +177,26 @@ test("prop(String, Object)", function() {
 	optgroup.appendChild( option );
 	select.appendChild( optgroup );
 
-	equal( jQuery(option).prop("selected"), true, "Make sure that a single option is selected, even when in an optgroup." );
-	equal( jQuery(document).prop("nodeName"), "#document", "prop works correctly on document nodes (bug #7451)." );
+	equal( baidu(option).prop("selected"), true, "Make sure that a single option is selected, even when in an optgroup." );
+	equal( baidu(document).prop("nodeName"), "#document", "prop works correctly on document nodes (bug #7451)." );
 
 	var attributeNode = document.createAttribute("irrelevant"),
 		commentNode = document.createComment("some comment"),
 		textNode = document.createTextNode("some text"),
 		obj = {};
-	jQuery.each( [document, attributeNode, commentNode, textNode, obj, "#firstp"], function( i, ele ) {
-		strictEqual( jQuery(ele).prop("nonexisting"), undefined, "prop works correctly for non existing attributes (bug #7500)." );
+	baidu.each( [document, attributeNode, commentNode, textNode, obj, "#firstp"], function( i, ele ) {
+		strictEqual( baidu(ele).prop("nonexisting"), undefined, "prop works correctly for non existing attributes (bug #7500)." );
 	});
 
 	obj = {};
-	jQuery.each( [document, obj], function( i, ele ) {
-		var $ele = jQuery( ele );
+	baidu.each( [document, obj], function( i, ele ) {
+		var $ele = baidu( ele );
 		$ele.prop( "nonexisting", "foo" );
 		equal( $ele.prop("nonexisting"), "foo", "prop(name, value) works correctly for non existing attributes (bug #7500)." );
 	});
-	jQuery( document ).removeProp("nonexisting");
+	baidu( document ).removeProp("nonexisting");
 
-	var $form = jQuery("#form").prop("enctype", "multipart/form-data");
+	var $form = baidu("#form").prop("enctype", "multipart/form-data");
 	equal( $form.prop("enctype"), "multipart/form-data", "Set the enctype of a form (encoding in IE6/7 #6743)" );
 });
 
@@ -204,24 +204,24 @@ test("prop('tabindex')", function() {
 	expect(8);
 
 	// elements not natively tabbable
-	equal(jQuery("#listWithTabIndex").prop("tabindex"), 5, "not natively tabbable, with tabindex set to 0");
-	equal(jQuery("#divWithNoTabIndex").prop("tabindex"), undefined, "not natively tabbable, no tabindex set");
+	equal(baidu("#listWithTabIndex").prop("tabindex"), 5, "not natively tabbable, with tabindex set to 0");
+	equal(baidu("#divWithNoTabIndex").prop("tabindex"), undefined, "not natively tabbable, no tabindex set");
 
 	// anchor with href
-	equal(jQuery("#linkWithNoTabIndex").prop("tabindex"), 0, "anchor with href, no tabindex set");
-	equal(jQuery("#linkWithTabIndex").prop("tabindex"), 2, "anchor with href, tabindex set to 2");
-	equal(jQuery("#linkWithNegativeTabIndex").prop("tabindex"), -1, "anchor with href, tabindex set to -1");
+	equal(baidu("#linkWithNoTabIndex").prop("tabindex"), 0, "anchor with href, no tabindex set");
+	equal(baidu("#linkWithTabIndex").prop("tabindex"), 2, "anchor with href, tabindex set to 2");
+	equal(baidu("#linkWithNegativeTabIndex").prop("tabindex"), -1, "anchor with href, tabindex set to -1");
 
 	// anchor without href
-	equal(jQuery("#linkWithNoHrefWithNoTabIndex").prop("tabindex"), undefined, "anchor without href, no tabindex set");
-	equal(jQuery("#linkWithNoHrefWithTabIndex").prop("tabindex"), 1, "anchor without href, tabindex set to 2");
-	equal(jQuery("#linkWithNoHrefWithNegativeTabIndex").prop("tabindex"), -1, "anchor without href, no tabindex set");
+	equal(baidu("#linkWithNoHrefWithNoTabIndex").prop("tabindex"), undefined, "anchor without href, no tabindex set");
+	equal(baidu("#linkWithNoHrefWithTabIndex").prop("tabindex"), 1, "anchor without href, tabindex set to 2");
+	equal(baidu("#linkWithNoHrefWithNegativeTabIndex").prop("tabindex"), -1, "anchor without href, no tabindex set");
 });
 
 test("prop('tabindex', value)", function() {
 	expect(9);
 
-	var element = jQuery("#divWithNoTabIndex");
+	var element = baidu("#divWithNoTabIndex");
 	equal(element.prop("tabindex"), undefined, "start with no tabindex");
 
 	// set a positive string
@@ -248,7 +248,7 @@ test("prop('tabindex', value)", function() {
 	element.prop("tabindex", -1);
 	equal(element.prop("tabindex"), -1, "set tabindex to -1 (number)");
 
-	element = jQuery("#linkWithTabIndex");
+	element = baidu("#linkWithTabIndex");
 	equal(element.prop("tabindex"), 2, "start with tabindex 2");
 
 	element.prop("tabindex", -1);

@@ -14,51 +14,51 @@ test('prepareTest',function(){
 });
 
 test("val()", function() {
-	expect( 20 + ( jQuery.fn.serialize ? 6 : 0 ) );
+	expect( 20 + ( baidu.fn.serialize ? 6 : 0 ) );
 
 	document.getElementById("text1").value = "bla";
-	equal( jQuery("#text1").val(), "bla", "Check for modified value of input element" );
+	equal( baidu("#text1").val(), "bla", "Check for modified value of input element" );
 
 	QUnit.reset();
 
-	equal( jQuery("#text1").val(), "Test", "Check for value of input element" );
+	equal( baidu("#text1").val(), "Test", "Check for value of input element" );
 	// ticket #1714 this caused a JS error in IE
-	equal( jQuery("#first").val(), "", "Check a paragraph element to see if it has a value" );
-	ok( jQuery([]).val() === undefined, "Check an empty jQuery object will return undefined from val" );
+	equal( baidu("#first").val(), "", "Check a paragraph element to see if it has a value" );
+	ok( baidu([]).val() === undefined, "Check an empty baidu object will return undefined from val" );
 
-	equal( jQuery("#select2").val(), "3", "Call val() on a single=\"single\" select" );
+	equal( baidu("#select2").val(), "3", "Call val() on a single=\"single\" select" );
 
-	deepEqual( jQuery("#select3").val(), ["1", "2"], "Call val() on a multiple=\"multiple\" select" );
+	deepEqual( baidu("#select3").val(), ["1", "2"], "Call val() on a multiple=\"multiple\" select" );
 
-	equal( jQuery("#option3c").val(), "2", "Call val() on a option element with value" );
+	equal( baidu("#option3c").val(), "2", "Call val() on a option element with value" );
 
-	equal( jQuery("#option3a").val(), "", "Call val() on a option element with empty value" );
+	equal( baidu("#option3a").val(), "", "Call val() on a option element with empty value" );
 
-	equal( jQuery("#option3e").val(), "no value", "Call val() on a option element with no value attribute" );
+	equal( baidu("#option3e").val(), "no value", "Call val() on a option element with no value attribute" );
 
-	equal( jQuery("#option3a").val(), "", "Call val() on a option element with no value attribute" );
+	equal( baidu("#option3a").val(), "", "Call val() on a option element with no value attribute" );
 
-	jQuery("#select3").val("");
-	deepEqual( jQuery("#select3").val(), [""], "Call val() on a multiple=\"multiple\" select" );
+	baidu("#select3").val("");
+	deepEqual( baidu("#select3").val(), [""], "Call val() on a multiple=\"multiple\" select" );
 
-	deepEqual( jQuery("#select4").val(), [], "Call val() on multiple=\"multiple\" select with all disabled options" );
+	deepEqual( baidu("#select4").val(), [], "Call val() on multiple=\"multiple\" select with all disabled options" );
 
-	jQuery("#select4 optgroup").add("#select4 > [disabled]").attr("disabled", false);
-	deepEqual( jQuery("#select4").val(), ["2", "3"], "Call val() on multiple=\"multiple\" select with some disabled options" );
+	baidu("#select4 optgroup").add("#select4 > [disabled]").attr("disabled", false);
+	deepEqual( baidu("#select4").val(), ["2", "3"], "Call val() on multiple=\"multiple\" select with some disabled options" );
 
-	jQuery("#select4").attr("disabled", true);
-	deepEqual( jQuery("#select4").val(), ["2", "3"], "Call val() on disabled multiple=\"multiple\" select" );
+	baidu("#select4").attr("disabled", true);
+	deepEqual( baidu("#select4").val(), ["2", "3"], "Call val() on disabled multiple=\"multiple\" select" );
 
-	equal( jQuery("#select5").val(), "3", "Check value on ambiguous select." );
+	equal( baidu("#select5").val(), "3", "Check value on ambiguous select." );
 
-	jQuery("#select5").val(1);
-	equal( jQuery("#select5").val(), "1", "Check value on ambiguous select." );
+	baidu("#select5").val(1);
+	equal( baidu("#select5").val(), "1", "Check value on ambiguous select." );
 
-	jQuery("#select5").val(3);
-	equal( jQuery("#select5").val(), "3", "Check value on ambiguous select." );
+	baidu("#select5").val(3);
+	equal( baidu("#select5").val(), "3", "Check value on ambiguous select." );
 
-	if ( jQuery.fn.serialize ) {
-		var checks = jQuery("<input type='checkbox' name='test' value='1'/><input type='checkbox' name='test' value='2'/><input type='checkbox' name='test' value=''/><input type='checkbox' name='test'/>").appendTo("#form");
+	if ( baidu.fn.serialize ) {
+		var checks = baidu("<input type='checkbox' name='test' value='1'/><input type='checkbox' name='test' value='2'/><input type='checkbox' name='test' value=''/><input type='checkbox' name='test'/>").appendTo("#form");
 
 		deepEqual( checks.serialize(), "", "Get unchecked values." );
 
@@ -79,11 +79,11 @@ test("val()", function() {
 		checks.remove();
 	}
 
-	var $button = jQuery("<button value='foobar'>text</button>").insertAfter("#button");
+	var $button = baidu("<button value='foobar'>text</button>").insertAfter("#button");
 	equal( $button.val(), "foobar", "Value retrieval on a button does not return innerHTML" );
 	equal( $button.val("baz").html(), "text", "Setting the value does not change innerHTML" );
 
-	equal( jQuery("<option/>").val("test").attr("value"), "test", "Setting value sets the value attribute" );
+	equal( baidu("<option/>").val("test").attr("value"), "test", "Setting value sets the value attribute" );
 });
 
 if ( "value" in document.createElement("meter") &&
@@ -93,8 +93,8 @@ if ( "value" in document.createElement("meter") &&
 
 		expect(4);
 
-		var $meter = jQuery("<meter min='0' max='10' value='5.6'></meter>"),
-			$progress = jQuery("<progress max='10' value='1.5'></progress>");
+		var $meter = baidu("<meter min='0' max='10' value='5.6'></meter>"),
+			$progress = baidu("<progress max='10' value='1.5'></progress>");
 
 		try {
 			equal( typeof $meter.val(), "number", "meter, returns a number and does not throw exception" );
@@ -114,19 +114,19 @@ var testVal = function(valueObj) {
 	expect(8);
 
 	QUnit.reset();
-	jQuery("#text1").val(valueObj( "test" ));
+	baidu("#text1").val(valueObj( "test" ));
 	equal( document.getElementById("text1").value, "test", "Check for modified (via val(String)) value of input element" );
 
-	jQuery("#text1").val(valueObj( undefined ));
+	baidu("#text1").val(valueObj( undefined ));
 	equal( document.getElementById("text1").value, "", "Check for modified (via val(undefined)) value of input element" );
 
-	jQuery("#text1").val(valueObj( 67 ));
+	baidu("#text1").val(valueObj( 67 ));
 	equal( document.getElementById("text1").value, "67", "Check for modified (via val(Number)) value of input element" );
 
-	jQuery("#text1").val(valueObj( null ));
+	baidu("#text1").val(valueObj( null ));
 	equal( document.getElementById("text1").value, "", "Check for modified (via val(null)) value of input element" );
 
-	var $select1 = jQuery("#select1");
+	var $select1 = baidu("#select1");
 	$select1.val(valueObj( "3" ));
 	equal( $select1.val(), "3", "Check for modified (via val(String)) value of select element" );
 
@@ -138,7 +138,7 @@ var testVal = function(valueObj) {
 	equal( $select1.val(), "4", "Should be possible to set the val() to a newly created option" );
 
 	// using contents will get comments regular, text, and comment nodes
-	var j = jQuery("#nonnodes").contents();
+	var j = baidu("#nonnodes").contents();
 	j.val(valueObj( "asdf" ));
 	equal( j.val(), "asdf", "Check node,textnode,comment with val()" );
 	j.removeAttr("value");
@@ -154,8 +154,8 @@ test("val(Function)", function() {
 
 test( "val(Array of Numbers) (Bug #7123)", function() {
 	expect(4);
-	jQuery("#form").append("<input type='checkbox' name='arrayTest' value='1' /><input type='checkbox' name='arrayTest' value='2' /><input type='checkbox' name='arrayTest' value='3' checked='checked' /><input type='checkbox' name='arrayTest' value='4' />");
-	var elements = jQuery("input[name=arrayTest]").val([ 1, 2 ]);
+	baidu("#form").append("<input type='checkbox' name='arrayTest' value='1' /><input type='checkbox' name='arrayTest' value='2' /><input type='checkbox' name='arrayTest' value='3' checked='checked' /><input type='checkbox' name='arrayTest' value='4' />");
+	var elements = baidu("input[name=arrayTest]").val([ 1, 2 ]);
 	ok( elements[0].checked, "First element was checked" );
 	ok( elements[1].checked, "Second element was checked" );
 	ok( !elements[2].checked, "Third element was unchecked" );
@@ -168,71 +168,71 @@ test("val(Function) with incoming value", function() {
 	expect(10);
 
 	QUnit.reset();
-	var oldVal = jQuery("#text1").val();
+	var oldVal = baidu("#text1").val();
 
-	jQuery("#text1").val(function(i, val) {
+	baidu("#text1").val(function(i, val) {
 		equal( val, oldVal, "Make sure the incoming value is correct." );
 		return "test";
 	});
 
 	equal( document.getElementById("text1").value, "test", "Check for modified (via val(String)) value of input element" );
 
-	oldVal = jQuery("#text1").val();
+	oldVal = baidu("#text1").val();
 
-	jQuery("#text1").val(function(i, val) {
+	baidu("#text1").val(function(i, val) {
 		equal( val, oldVal, "Make sure the incoming value is correct." );
 		return 67;
 	});
 
 	equal( document.getElementById("text1").value, "67", "Check for modified (via val(Number)) value of input element" );
 
-	oldVal = jQuery("#select1").val();
+	oldVal = baidu("#select1").val();
 
-	jQuery("#select1").val(function(i, val) {
+	baidu("#select1").val(function(i, val) {
 		equal( val, oldVal, "Make sure the incoming value is correct." );
 		return "3";
 	});
 
-	equal( jQuery("#select1").val(), "3", "Check for modified (via val(String)) value of select element" );
+	equal( baidu("#select1").val(), "3", "Check for modified (via val(String)) value of select element" );
 
-	oldVal = jQuery("#select1").val();
+	oldVal = baidu("#select1").val();
 
-	jQuery("#select1").val(function(i, val) {
+	baidu("#select1").val(function(i, val) {
 		equal( val, oldVal, "Make sure the incoming value is correct." );
 		return 2;
 	});
 
-	equal( jQuery("#select1").val(), "2", "Check for modified (via val(Number)) value of select element" );
+	equal( baidu("#select1").val(), "2", "Check for modified (via val(Number)) value of select element" );
 
-	jQuery("#select1").append("<option value='4'>four</option>");
+	baidu("#select1").append("<option value='4'>four</option>");
 
-	oldVal = jQuery("#select1").val();
+	oldVal = baidu("#select1").val();
 
-	jQuery("#select1").val(function(i, val) {
+	baidu("#select1").val(function(i, val) {
 		equal( val, oldVal, "Make sure the incoming value is correct." );
 		return 4;
 	});
 
-	equal( jQuery("#select1").val(), "4", "Should be possible to set the val() to a newly created option" );
+	equal( baidu("#select1").val(), "4", "Should be possible to set the val() to a newly created option" );
 });
 
 // testing if a form.reset() breaks a subsequent call to a select element's .val() (in IE only)
 test("val(select) after form.reset() (Bug #2551)", function() {
 	expect(3);
 
-	jQuery("<form id='kk' name='kk'><select id='kkk'><option value='cf'>cf</option><option value='gf'>gf</option></select></form>").appendTo("#qunit-fixture");
+	baidu("<form id='kk' name='kk'><select id='kkk'><option value='cf'>cf</option><option value='gf'>gf</option></select></form>").appendTo("#qunit-fixture");
 
-	jQuery("#kkk").val( "gf" );
+	baidu("#kkk").val( "gf" );
 
 	document["kk"].reset();
 
-	equal( jQuery("#kkk")[0].value, "cf", "Check value of select after form reset." );
-	equal( jQuery("#kkk").val(), "cf", "Check value of select after form reset." );
+	equal( baidu("#kkk")[0].value, "cf", "Check value of select after form reset." );
+	equal( baidu("#kkk").val(), "cf", "Check value of select after form reset." );
 
 	// re-verify the multi-select is not broken (after form.reset) by our fix for single-select
-	deepEqual( jQuery("#select3").val(), ["1", "2"], "Call val() on a multiple=\"multiple\" select" );
+	deepEqual( baidu("#select3").val(), ["1", "2"], "Call val() on a multiple=\"multiple\" select" );
 
-	jQuery("#kk").remove();
+	baidu("#kk").remove();
 });
 
 

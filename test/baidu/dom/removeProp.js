@@ -20,15 +20,15 @@ test("removeProp(String)", function() {
 		textNode = document.createTextNode("some text"),
 		obj = {};
 
-	strictEqual( jQuery( "#firstp" ).prop( "nonexisting", "foo" ).removeProp( "nonexisting" )[0]["nonexisting"], undefined, "removeprop works correctly on DOM element nodes" );
+	strictEqual( baidu( "#firstp" ).prop( "nonexisting", "foo" ).removeProp( "nonexisting" )[0]["nonexisting"], undefined, "removeprop works correctly on DOM element nodes" );
 
-	jQuery.each( [document, obj], function( i, ele ) {
-		var $ele = jQuery( ele );
+	baidu.each( [document, obj], function( i, ele ) {
+		var $ele = baidu( ele );
 		$ele.prop( "nonexisting", "foo" ).removeProp( "nonexisting" );
 		strictEqual( ele["nonexisting"], undefined, "removeProp works correctly on non DOM element nodes (bug #7500)." );
 	});
-	jQuery.each( [commentNode, textNode, attributeNode], function( i, ele ) {
-		var $ele = jQuery( ele );
+	baidu.each( [commentNode, textNode, attributeNode], function( i, ele ) {
+		var $ele = baidu( ele );
 		$ele.prop( "nonexisting", "foo" ).removeProp( "nonexisting" );
 		strictEqual( ele["nonexisting"], undefined, "removeProp works correctly on non DOM element nodes (bug #7500)." );
 	});

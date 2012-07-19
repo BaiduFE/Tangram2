@@ -3,57 +3,57 @@
  * @email  1988wangxiao@gmail.com
  */
 
-///import baidu
+///import baidu;
+///import baidu.each;
+///import baidu.extend;
+///import baidu.array.indexOf;
 
-(function( baidu ) {
+baidu.createChain("callbacks",
 
-// String to Object options format cache
-var optionsCache = {};
+// 执行方法
+function(options){
 
-// Convert String-formatted options into Object-formatted ones and store in cache
-function createOptions( options ) {
-	var object = optionsCache[ options ] = {};
-	baidu.each( options.split( /\s+/ ), function( _, flag ) {
-		object[ flag ] = true;
-	});
-	return object;
-}
+	// String to Object options format cache
+	var optionsCache = {};
 
-/*
- * Create a callback list using the following parameters:
- *
- *	options: an optional list of space-separated options that will change how
- *			the callback list behaves or a more traditional option object
- *
- * By default a callback list will act like an event callback list and can be
- * "fired" multiple times.
- *
- * Possible options:
- *
- *	once:			will ensure the callback list can only be fired once (like a Deferred)
- *
- *	memory:			will keep track of previous values and will call any callback added
- *					after the list has been fired right away with the latest "memorized"
- *					values (like a Deferred)
- *
- *	unique:			will ensure a callback can only be added once (no duplicate in the list)
- *
- *	stopOnFalse:	interrupt callings when a callback returns false
- *
- */
-baidu.Callbacks = function( options ) {
+	// Convert String-formatted options into Object-formatted ones and store in cache
+	function createOptions( options ) {
+		var object = optionsCache[ options ] = {};
+		baidu.each( options.split(/\s+/), function( flag, _ ) {
+			object[ flag ] = true;
+		});
+		return object;
+	};
 
+	/*
+	 * Create a callback list using the following parameters:
+	 *
+	 *	options: an optional list of space-separated options that will change how
+	 *			the callback list behaves or a more traditional option object
+	 *
+	 * By default a callback list will act like an event callback list and can be
+	 * "fired" multiple times.
+	 *
+	 * Possible options:
+	 *
+	 *	once:			will ensure the callback list can only be fired once (like a Deferred)
+	 *
+	 *	memory:			will keep track of previous values and will call any callback added
+	 *					after the list has been fired right away with the latest "memorized"
+	 *					values (like a Deferred)
+	 *
+	 *	unique:			will ensure a callback can only be added once (no duplicate in the list)
+	 *
+	 *	stopOnFalse:	interrupt callings when a callback returns false
+	 *
+	 */
 	// Convert options from String-formatted to Object-formatted if needed
 	// (we check in cache first)
 	options = typeof options === "string" ?
 		( optionsCache[ options ] || createOptions( options ) ) :
 		baidu.extend( {}, options );
 
-	var // Actual callback list
-		list = [],
-		// Stack of fire calls for repeatable lists
-		stack = !options.once && [],
-		// Last fire value (for non-forgettable lists)
+	var // Last fire value (for non-forgettable lists)
 		memory,
 		// Flag to know if list was already fired
 		fired,
@@ -65,6 +65,10 @@ baidu.Callbacks = function( options ) {
 		firingLength,
 		// Index of currently firing callback (modified by remove if needed)
 		firingIndex,
+		// Actual callback list
+		list = [],
+		// Stack of fire calls for repeatable lists
+		stack = !options.once && [],
 		// Fire callbacks
 		fire = function( data ) {
 			memory = options.memory && data;
@@ -100,8 +104,8 @@ baidu.Callbacks = function( options ) {
 					// First, we save the current length
 					var start = list.length;
 					(function add( args ) {
-						jQuery.each( args, function( _, arg ) {
-							if ( jQuery.isFunction( arg ) && ( !options.unique || !self.has( arg ) ) ) {
+						baidu.each( args, function( arg, _) {
+							if ( (typeof arg === 'function') && ( !options.unique || !self.has( arg ) ) ) {
 								list.push( arg );
 							} else if ( arg && arg.length ) {
 								// Inspect recursively
@@ -125,9 +129,9 @@ baidu.Callbacks = function( options ) {
 			// Remove a callback from the list
 			remove: function() {
 				if ( list ) {
-					jQuery.each( arguments, function( _, arg ) {
+					baidu.each( arguments, function( arg, _ ) {
 						var index;
-						while( ( index = jQuery.inArray( arg, list, index ) ) > -1 ) {
+						while( ( index = baidu.array(list).indexOf(arg,index) ) > -1 ) {
 							list.splice( index, 1 );
 							// Handle firing indexes
 							if ( firing ) {
@@ -145,7 +149,7 @@ baidu.Callbacks = function( options ) {
 			},
 			// Control if a given callback is in the list
 			has: function( fn ) {
-				return jQuery.inArray( fn, list ) > -1;
+				return baidu.array(list).indexOf(fn) > -1;
 			},
 			// Remove all callbacks from the list
 			empty: function() {
@@ -198,6 +202,6 @@ baidu.Callbacks = function( options ) {
 		};
 
 	return self;
-};
-
-})( baidu );
+},
+// constructor
+function(){});

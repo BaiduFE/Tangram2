@@ -10,12 +10,11 @@ test('prepareTest',function(){
 	}, "baidu.dom.contents", "baidu.dom.val");
 });
 
-// Ensure that an extended Array prototype doesn't break jQuery
+// Ensure that an extended Array prototype doesn't break baidu
 Array.prototype.arrayProtoFn = function(arg) { throw("arrayProtoFn should not be called"); };
 
 var manipulationBareObj = function(value) { return value; };
 var manipulationFunctionReturningObj = function(value) { return (function() { return value; }); };
-
 
 /*
 	======== local reference =======
@@ -32,19 +31,19 @@ var manipulationFunctionReturningObj = function(value) { return (function() { re
 test("text()", function() {
 	expect(5);
 	var expected = "This link has class=\"blog\": Simon Willison's Weblog";
-	equal( jQuery("#sap").text(), expected, "Check for merged text of more then one element." );
+	equal( baidu("#sap").text(), expected, "Check for merged text of more then one element." );
 
 	// Check serialization of text values
-	equal( jQuery(document.createTextNode("foo")).text(), "foo", "Text node was retreived from .text()." );
-	notEqual( jQuery(document).text(), "", "Retrieving text for the document retrieves all text (#10724).");
+	equal( baidu(document.createTextNode("foo")).text(), "foo", "Text node was retreived from .text()." );
+	notEqual( baidu(document).text(), "", "Retrieving text for the document retrieves all text (#10724).");
 
 	// Retrieve from document fragments #10864
 	var frag = document.createDocumentFragment();
 		frag.appendChild( document.createTextNode("foo") );
 
-	equal( jQuery( frag ).text(), "foo", "Document Fragment Text node was retreived from .text().");
+	equal( baidu( frag ).text(), "foo", "Document Fragment Text node was retreived from .text().");
 
-	var $newLineTest = jQuery("<div>test<br/>testy</div>").appendTo("#moretests");
+	var $newLineTest = baidu("<div>test<br/>testy</div>").appendTo("#moretests");
 	$newLineTest.find("br").replaceWith("\n");
 	equal( $newLineTest.text(), "test\ntesty", "text() does not remove new lines (#11153)" );
 
@@ -53,22 +52,22 @@ test("text()", function() {
 
 test("text(undefined)", function() {
 	expect(1);
-	equal( jQuery("#foo").text("<div").text(undefined)[0].innerHTML, "&lt;div", ".text(undefined) is chainable (#5571)" );
+	equal( baidu("#foo").text("<div").text(undefined)[0].innerHTML, "&lt;div", ".text(undefined) is chainable (#5571)" );
 });
 
 var testText = function(valueObj) {
 	expect(4);
 	var val = valueObj("<div><b>Hello</b> cruel world!</div>");
-	equal( jQuery("#foo").text(val)[0].innerHTML.replace(/>/g, "&gt;"), "&lt;div&gt;&lt;b&gt;Hello&lt;/b&gt; cruel world!&lt;/div&gt;", "Check escaped text" );
+	equal( baidu("#foo").text(val)[0].innerHTML.replace(/>/g, "&gt;"), "&lt;div&gt;&lt;b&gt;Hello&lt;/b&gt; cruel world!&lt;/div&gt;", "Check escaped text" );
 
 	// using contents will get comments regular, text, and comment nodes
-	var j = jQuery("#nonnodes").contents();
+	var j = baidu("#nonnodes").contents();
 	j.text(valueObj("hi!"));
-	equal( jQuery(j[0]).text(), "hi!", "Check node,textnode,comment with text()" );
+	equal( baidu(j[0]).text(), "hi!", "Check node,textnode,comment with text()" );
 	equal( j[1].nodeValue, " there ", "Check node,textnode,comment with text()" );
 
 	// Blackberry 4.6 doesn't maintain comments in the DOM
-	equal( jQuery("#nonnodes")[0].childNodes.length < 3 ? 8 : j[2].nodeType, 8, "Check node,textnode,comment with text()" );
+	equal( baidu("#nonnodes")[0].childNodes.length < 3 ? 8 : j[2].nodeType, 8, "Check node,textnode,comment with text()" );
 };
 
 test("text(String)", function() {
@@ -84,12 +83,12 @@ test("text(Function) with incoming value", function() {
 
 	var old = "This link has class=\"blog\": Simon Willison's Weblog";
 
-	jQuery("#sap").text(function(i, val) {
+	baidu("#sap").text(function(i, val) {
 		equal( val, old, "Make sure the incoming value is correct." );
 		return "foobar";
 	});
 
-	equal( jQuery("#sap").text(), "foobar", "Check for merged text of more then one element." );
+	equal( baidu("#sap").text(), "foobar", "Check for merged text of more then one element." );
 
 	QUnit.reset();
 });
