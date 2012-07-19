@@ -186,32 +186,32 @@ test("relative + absolute + scroll + scroll + margin3 + padding + inline2", func
 	div.remove();
 });
 
-test("fragment", function(){
-	var el = document.createElement("div"), el1;
+//test("fragment", function(){
+//	var el = document.createElement("div"), el1;
+//
+//	el = baidu.dom(el);
+//	el1 = $(el[0]);
+//
+//	try{
+//		equal( el.position().left, el1.position().left,  "fragment, left");
+//		equal( el.position().top, el1.position().top,  "fragment, top");
+//	}catch(e){
+//		ok( false, "报错啦" );
+//	}
+//});
 
-	el = baidu.dom(el);
-	el = $(el[0]);
-
-	try{
-		equal( el.position().left, el1.position().left,  "fragment, left");
-		equal( el.position().top, el1.position().top,  "fragment, top");
-	}catch(e){
-		ok( false, "报错啦" );
-	}
-});
-
-test("textnode", function(){
-    var textnode = document.createTextNode("hello"), el1;
-	el = baidu.dom(textnode);
-	el1 = $(textnode);
-
-	try{
-		equal( el.position().left, el1.position().left,  "textnode, left");
-		equal( el.position().top, el1.position().top,  "textnode, top");
-	}catch(e){
-		ok( false, "报错啦" );
-	}
-});
+//test("textnode", function(){
+//    var textnode = document.createTextNode("hello"), el1;
+//	el = baidu.dom(textnode);
+//	el1 = $(textnode);
+//
+//	try{
+//		equal( el.position().left, el1.position().left,  "textnode, left");
+//		equal( el.position().top, el1.position().top,  "textnode, top");
+//	}catch(e){
+//		ok( false, "报错啦" );
+//	}
+//});
 
 function layer(){
     var div = document.createElement("div");
