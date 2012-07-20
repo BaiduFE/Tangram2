@@ -8,6 +8,30 @@
 ///import baidu.dom.getDocument;
 ///import baidu.dom.getCurrentStyle;
 
+/**
+ * @description 取得第一个匹配元素或是设置多个匹配元素相对于文档的偏移量
+ * @function 
+ * @name baidu.dom().offset()
+ * @grammar baidu.dom(args).offset()
+ * @return {Object} 返回一个包含left和top键名的json来标示元素的偏移量
+ */
+/**
+ * @description 取得第一个匹配元素或是设置多个匹配元素相对于文档的偏移量
+ * @function 
+ * @name baidu.dom().offset()
+ * @grammar baidu.dom(args).offset([coordinates])
+ * @param {Object} coordinates 参数格式形式是{left: val, top: val}，(val可以是一个整型或是字符串型的数值)通过一个json来设置第一个匹配元素相对于文档的偏移量，同时该匹配元素的position属性将被更改为relative
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description 取得第一个匹配元素或是设置多个匹配元素相对于文档的偏移量
+ * @function 
+ * @name baidu.dom().offset()
+ * @grammar baidu.dom(args).offset([function(index, coordinates)])
+ * @param {function} fn 接收两个参数，index参数表示匹配元素在集合中的索引，coordinates表示匹配元素的坐标，fn最终需要返回一个格式为{left: val, top: val}的json
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+
 baidu.dom.extend({
     offset: function(){
         var offset = {
@@ -57,9 +81,9 @@ baidu.dom.extend({
                     currTop = tang.getCurrentStyle('top');
                 type === 'function' && (options = options.call(ele, index, currOffset));
                 // TODO see jquery
-                if(options.left === undefined
+                if(!options || options.left === undefined
                     && options.top === undefined){
-                    return;
+                        return;
                 }
                 currLeft = parseFloat(currLeft) || 0;
                 currTop = parseFloat(currTop) || 0;
@@ -100,9 +124,9 @@ baidu.dom.extend({
                     doc = baidu.dom(ele).getDocument();
                 return offset[ele === doc.body ? 'bodyOffset' : 'getOffset'](ele, doc);
             }else{
-                var len = this.length;
-                for(var i = 0; i < len; i++){
-                    offset.setOffset(this[i], options, i);
+                baidu.paramCheck('^(?:object|function)$', 'baidu.dom.offset');
+                for(var i = 0, item; item = this[i]; i++){
+                    offset.setOffset(item, options, i);
                 }
                 return this;
            }
