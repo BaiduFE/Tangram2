@@ -114,17 +114,15 @@ test('span event trigger once', function(){
 
 test('off event', function(){
     expect(1);
-    stop();
-    ua.importsrc('baidu.dom.off', function(){
-        var c = new Div();
-        function handler(){
-            ok(true, 'click event');
-        }
-        ok(!!baidu.dom(c.get()).off, 'baidu.dom.off imported');
-        baidu.dom(c.get()).one('click', handler);
-        baidu.dom(c.get()).off('click', handler);
-        ua.fireMouseEvent(c.get(), 'click');
-        ua.fireMouseEvent(c.get(), 'click');
-        start();
-    }, 'baidu.dom.off', 'baidu.dom.one');
+    var c = new Div(),
+        flag = true;
+    function handler(){
+        flag = false;
+        ok(false, 'click event');
+    }
+    baidu.dom(c.get()).one('click', handler);
+    baidu.dom(c.get()).off('click', handler);
+    ua.fireMouseEvent(c.get(), 'click');
+    ua.fireMouseEvent(c.get(), 'click');
+    ok(flag, 'event unbind: ' + flag);
 });
