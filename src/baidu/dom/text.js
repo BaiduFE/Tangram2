@@ -6,6 +6,7 @@
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.each;
+///import baidu.support;
 
 baidu.dom.extend({
     text: function(value){

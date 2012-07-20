@@ -4,6 +4,7 @@
  */
 
 ///import baidu;
+///import baidu.support;
 ///import baidu.dom;
 ///import baidu.each;
 

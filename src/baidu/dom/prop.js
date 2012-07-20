@@ -5,6 +5,7 @@
 
 ///import baidu;
 ///import baidu.dom;
+///import baidu.support;
 ///import baidu.dom._isXML;
 ///import baidu.dom._propHooks;
 

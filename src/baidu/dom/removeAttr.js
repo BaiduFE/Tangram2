@@ -6,6 +6,7 @@
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.each;
+///import baidu.support;
 ///import baidu.dom._propHooks;
 ///import baidu.dom.attr;
 
