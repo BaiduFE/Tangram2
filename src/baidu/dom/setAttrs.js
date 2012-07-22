@@ -3,23 +3,27 @@
  * @email  1988wangxiao@gmail.com
  */
 
+/**
+ * @description 批量设置目标元素的attribute值
+ * @function 
+ * @name baidu.dom().setAttrs()
+ * @grammar baidu.dom(args).setAttrs(object)
+ * @param {Object} object 要设置的attribute属性的键值对
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description 批量设置目标元素的attribute值
+ * @function 
+ * @name baidu.dom.setAttrs()
+ * @grammar baidu.dom.setAttrs(element,object)
+ * @param {DOMElement|string} element DOM元素或元素的id
+ * @param {Object} object 要设置的attribute属性的键值对
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.dom.setAttr;
-
-/**
- * 批量设置目标元素的attribute值
- * @name baidu.dom.setAttrs
- * @function
- * @grammar baidu.dom.setAttrs(element, attributes)
- * @param {HTMLElement|string} element 目标元素或目标元素的id
- * @param {Object} attributes 要设置的attribute集合
- * @shortcut setAttrs
- * @meta standard
- * @see baidu.dom.setAttr,baidu.dom.getAttr
- *             
- * @returns {HTMLElement} 目标元素
- */
 
 baidu.dom.extend({
 setAttrs : function (attributes) {

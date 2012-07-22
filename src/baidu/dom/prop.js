@@ -2,7 +2,40 @@
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
-
+/**
+ * @description 取得第一个匹配元素对应的属性值。
+ * @function 
+ * @name baidu.dom().prop()
+ * @grammar baidu.dom(args).prop(Property)
+ * @param {String} Property 要获取的值的对应属性名
+ * @return {String|undefined} 只获取第一个匹配元素的属性值，当属性没有被设置时候，.prop()方法将返回undefined。
+ */
+/**
+ * @description 为指定元素设置一个或多个属性。
+ * @function 
+ * @name baidu.dom().prop()
+ * @grammar baidu.dom(args).prop(property,value)
+ * @param {String} property 要设置值的属性名;
+ * @param {String} value 这个属性设置的值;
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description 为指定元素设置一个或多个属性。
+ * @function 
+ * @name baidu.dom().prop();
+ * @grammar baidu.dom(args).prop(object);
+ * @param {Object} object 一个配对的属性值的object对象
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+ /**
+ * @description 为指定元素设置一个或多个属性。
+ * @function 
+ * @name baidu.dom().prop();
+ * @grammar baidu.dom(args).prop(Property,function(index,prop));
+ * @param {String} Property 要设置值的属性名.
+ * @param {Function} function(index, prop) 这个函数返回用来设置的值，this 是当前的元素，接收元素的索引位置index和元素旧的样属性值prop为参数。
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.support;
