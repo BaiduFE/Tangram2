@@ -71,7 +71,7 @@ baidu.dom.extend({
 });
 
  baidu.event.un = function(ele,onEvent,fun){
- 	onEvent = replace(/^\s*on/,'');
+ 	onEvent = onEvent.replace(/^\s*on/,'');
  	var element = baidu.dom.g(ele);
 	baidu.dom(element).off(onEvent,fun);
 	return element;
