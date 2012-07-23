@@ -21,7 +21,7 @@
  * @param {String} value 要设置的attribute值
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
-///import baidu
+///import baidu;
 ///import baidu.dom._NAME_ATTRS;
 
  
