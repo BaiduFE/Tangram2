@@ -5,8 +5,7 @@
 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.dom.extend;
-///import baidu.dom.showHide;
+///import baidu.dom._showHide;
 
 baidu.dom.extend({
     show:function ( speed, easing, callback ) {
@@ -15,8 +14,7 @@ baidu.dom.extend({
                 ( (typeof speed === 'function') && (typeof easing === 'function') ) ?
                 cssFn.apply( this, arguments ) :
                 this.animate( genFx( name, true ), speed, easing, callback );
-        };
-    }
+    };
 });
 
     var cssFn = baidu.dom.show;

@@ -7,7 +7,6 @@
 ///import baidu.extend;
 ///import baidu.createChain;
 ///import baidu.callbacks;
-///
 
 /**
  * deferred功能链头

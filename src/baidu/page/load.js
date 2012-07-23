@@ -12,8 +12,8 @@
 ///import baidu.page;
 ///import baidu.array.each;
 ///import baidu.ajax.get;
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.lang.isFunction;
 ///import baidu.lang.isString;
 

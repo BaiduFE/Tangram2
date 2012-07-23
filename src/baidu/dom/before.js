@@ -2,7 +2,6 @@
  * @author linlingyu
  */
 ///import baidu.dom._smartInsert;
-///import baidu.dom._buildElements;
 ///import baidu.dom.getDocument;
 ///import baidu.merge;
 /**
