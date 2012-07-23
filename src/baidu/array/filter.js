@@ -1,5 +1,5 @@
 ///import baidu.array;
-///import baidu.isArray;
+///import baidu.type;
 
 Array.prototype.filter = function(iterator, context) {
     var result = baidu.array([]),
