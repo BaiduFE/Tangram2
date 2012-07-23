@@ -14,7 +14,7 @@ baidu.dom.extend({
                 ( (typeof speed === 'function') && (typeof easing === 'function') ) ?
                 cssFn.apply( this, arguments ) :
                 this.animate( genFx( name, true ), speed, easing, callback );
-    };
+    }
 });
 
     var cssFn = baidu.dom.show;
