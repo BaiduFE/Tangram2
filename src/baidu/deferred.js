@@ -3,10 +3,10 @@
  * @email  1988wangxiao@gmail.com
  */
 
-///import baidu
-///import baidu.extend
-///import baidu.createChain
-///import baidu.callbacks
+///import baidu;
+///import baidu.extend;
+///import baidu.createChain;
+///import baidu.callbacks;
 ///
 
 /**
