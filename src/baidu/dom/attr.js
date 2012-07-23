@@ -66,6 +66,7 @@ baidu.dom.extend({
 
         //返回结果
         var result,
+            me = this,
             isSet = false;
 
         baidu.each(this, function(item,index){
@@ -167,6 +168,7 @@ baidu.dom.extend({
 
                 break;
                 default:
+                    result = me;
                 break;
             };
         });

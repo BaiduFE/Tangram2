@@ -51,7 +51,9 @@ baidu.dom.extend({
         };
 
         //返回结果
-        var result;
+        var result,
+        me = this,
+        isSet = false;
 
         baidu.each(this, function(item,index){
 
@@ -94,12 +96,14 @@ baidu.dom.extend({
 
                     }else if( typeof value === 'function' ){
                         
+                        isSet = true;
                         var ele = bd(item);
                         ele.prop( name, value.call(item, index, ele.prop(name)));
 
                     }else{
                         
                         //set all
+                        isSet = true;
                         if ( hooks && "set" in hooks && (ret = hooks.set( item, value, name )) !== undefined ) {
                             return ret;
 
@@ -112,6 +116,7 @@ baidu.dom.extend({
                 case 'object':
 
                     //set all
+                    isSet = true;
                     var ele = bd(item);
                     for(key in name){
                         ele.prop(key,name[key]);
@@ -119,10 +124,11 @@ baidu.dom.extend({
 
                 break;
                 default:
+                    result = me;
                 break;
             };
         });
 
-        return result?result:this;
+        return isSet?this:result;
     }
 });
