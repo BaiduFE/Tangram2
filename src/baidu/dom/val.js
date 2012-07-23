@@ -2,10 +2,34 @@
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
-
+ /**
+ * @description 获取匹配的元素集合中第一个元素的当前值。
+ * @function 
+ * @name baidu.dom().val()
+ * @grammar baidu.dom(args).val()
+ * @param {Null} null 不传入任何函数
+ * @return {String|Number|Undefined} 获取匹配的元素集合中第一个元素的当前值。
+ */
+/**
+ * @description 设置匹配的元素集合中每个元素的value值。
+ * @function 
+ * @name baidu.dom().val()
+ * @grammar baidu.dom(args).val(value)
+ * @param {String} value 一个文本字符串来设定每个匹配元素的值。
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description 设置匹配的元素集合中每个元素的value值。
+ * @function 
+ * @name baidu.dom().val()
+ * @grammar baidu.dom(args).val(function(index, text))
+ * @param {Function} function(index, text) 一个用来返回设置value值的函数。接收元素的索引位置和元素旧的value值作为参数。
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */ 
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.each;
+///import baidu.support;
 
 baidu.dom.extend({
     val: function(value){
