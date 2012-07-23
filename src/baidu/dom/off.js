@@ -8,6 +8,7 @@
 ///import baidu.event;
 ///import baidu.each;
 ///import baidu.dom._eventBase;
+///improt baidu.dom.g;
 
 /**
  * @description 对当前 TangramDom 集合解除事件监听
@@ -68,3 +69,10 @@ baidu.dom.extend({
 		return this;
 	}
 });
+
+ baidu.event.un = function(ele,onEvent,fun){
+ 	onEvent = replace(/^\s*on/,'');
+ 	var element = baidu.dom.g(ele);
+	baidu.dom(element).off(onEvent,fun);
+	return element;
+ };

@@ -1,14 +1,9 @@
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/dom/setStyle.js
- * author: allstar
- * version: 1.1.0
- * date: 2009/11/18
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
 
-///import baidu.dom.g;
+///import baidu.dom;
 ///import baidu.dom._styleFixer;
 ///import baidu.dom._styleFilter.filter;
 ///import baidu.string.toCamelCase;
@@ -33,11 +28,14 @@ baidu.dom._styleFixer和baidu.dom._styleFilter可以为本模块提供支持。<
  *             
  * @returns {HTMLElement} 目标元素
  */
-baidu.dom.setStyle = function (element, key, value) {
-    var dom = baidu.dom, fixer;
+
+baidu.dom.extend({
+setStyle : function ( key, value) {
+    var dom = baidu.dom, 
+        fixer;
     
     // 放弃了对firefox 0.9的opacity的支持
-    element = dom.g(element);
+    element = this[0];
     key = baidu.string.toCamelCase(key);
 
     if (fixer = dom._styleFilter) {
@@ -48,7 +46,9 @@ baidu.dom.setStyle = function (element, key, value) {
     (fixer && fixer.set) ? fixer.set(element, value, key) : (element.style[fixer || key] = value);
 
     return element;
-};
+}
+
+});
 
 // 声明快捷方法
 baidu.setStyle = baidu.dom.setStyle;
