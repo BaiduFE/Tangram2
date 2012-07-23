@@ -8,8 +8,8 @@
 ///import baidu.dom.getPosition;
 ///import baidu.dom.ready;
 ///import baidu.dom.hasClass;
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.lang.isFunction;
 
 
