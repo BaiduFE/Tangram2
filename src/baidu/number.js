@@ -3,7 +3,7 @@
  * @email  1988wangxiao@gmail.com
  */
 ///import baidu;
-///import baidu.createChain
+///import baidu.createChain;
 ///import baidu.each;
 /**
  * number对象链式语法的链头
