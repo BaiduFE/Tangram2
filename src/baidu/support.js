@@ -66,7 +66,19 @@ baidu.support = baidu.support || function(){
         // Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
         div.setAttribute("className", "t");
         support.getSetAttribute = div.className !== "t";
+        support.pixelMargin = true;
 
+        // Check box-sizing and margin behavior
+        div.innerHTML = "";
+        div.style.cssText = "box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;padding:1px;border:1px;display:block;width:4px;margin-top:1%;position:absolute;top:1%;";
+
+        // NOTE: To any future maintainer, window.getComputedStyle was used here
+        // instead of getComputedStyle because it gave a better gzip size.
+        // The difference between window.getComputedStyle and getComputedStyle is
+        // 7 bytes
+        if ( window.getComputedStyle ) {            
+            support.pixelMargin = ( window.getComputedStyle( div, null ) || {} ).marginTop !== "1%";
+        };
         // Check if a radio maintains its value
         // after being appended to the DOM
         var input = document.createElement("input");

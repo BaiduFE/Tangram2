@@ -23,6 +23,7 @@ baidu.extend(baidu,{
 });
 
 baidu.extend(baidu.dom,{
+	nodeHook:{},
 	attrHooks: {
 		type: {
 			set: function( elem, value ) {
@@ -62,6 +63,36 @@ baidu.extend(baidu.dom,{
 				// Does not return so that setAttribute is also used
 				elem.value = value;
 			}
+		}
+	},
+	// Hook for boolean attributes
+	boolHook : {
+		get: function( elem, name ) {
+			// Align boolean attributes with corresponding properties
+			// Fall back to attribute presence where some booleans are not supported
+			var attrNode,
+				property = baidu(elem).prop( name );
+			return property === true || typeof property !== "boolean" && ( attrNode = elem.getAttributeNode(name) ) && attrNode.nodeValue !== false ?
+				name.toLowerCase() :
+				undefined;
+		},
+		set: function( elem, value, name ) {
+			var propName;
+			if ( value === false ) {
+				// Remove boolean attributes when set to false
+				baidu(elem).removeAttr( name );
+			} else {
+				// value is true since we know at this point it's type boolean and not false
+				// Set boolean attributes to the same name and set the DOM property
+				propName = baidu.dom.propFix[ name ] || name;
+				if ( propName in elem ) {
+					// Only set the IDL specifically if it already exists on the element
+					elem[ propName ] = true;
+				}
+
+				elem.setAttribute( name, name.toLowerCase() );
+			}
+			return name;
 		}
 	}
 });
