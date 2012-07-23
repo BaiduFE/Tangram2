@@ -24,7 +24,6 @@
  *             
  * @returns {Object} 目标对象
  */
-baidu.extend =
 baidu.object.extend = function (target, source) {
     for (var p in source) {
         if (source.hasOwnProperty(p)) {
