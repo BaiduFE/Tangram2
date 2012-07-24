@@ -210,7 +210,8 @@ test('uiEvents', function(){
     $.each(uiEvents, function(index, item){
         var el = item == "submit" ? f.get() : input;
         baidu.dom(el)[item](function(evt){
-            ok(true, 'event is: ' + evt.type)
+            ok(true, 'event is: ' + evt.type);
+            evt.preventDefault();
         });
         baidu.dom(el)[item]();
     });
