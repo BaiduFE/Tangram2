@@ -36,6 +36,8 @@ baidu.support = baidu.support || function(){
             styleString = boundString + paddingMarginBorder + '5px solid #000; position: absolute;',
             outer,
             inner,
+            select,
+            opt,
             table;
             
         container.style.cssText = 'position: static;' + visibleString;
