@@ -2,8 +2,7 @@
  * @author linlingyu
  */
 ///import baidu.dom.filter;
-///import baidu.id;
-///import baidu.dom._eventBase;
+///import baidu.dom._cleanData;
 /**
  * @description 将匹配到的DOM元素从文档中移除，并移除对应的DOM元素的事件
  * @function 
@@ -20,32 +19,18 @@
  * @param {String|Element} element 需要移除的元素或元素的id
  * @return {Element} 被移除的DOM元素
  */
-
 baidu.dom.extend({
-    remove: function(){
-        function cleanData(array){
-            var tangId;
-            for(var i = 0, ele; ele = array[i]; i++){
-                tangId = baidu.id(ele, 'get');
-                if(!tangId){continue;}
-                baidu.dom._eventBase.removeAll(ele);
-                baidu.id(ele, 'remove');
+    remove: function(selector, keepData){
+        arguments.length > 0
+            && baidu.paramCheck('^string(?:,boolean)?$', 'baidu.dom.remove');
+        var array = selector ? this.filter(selector) : this, elements;
+        for(var i = 0, ele; ele = array[i]; i++){
+            if(!keepData){
+                baidu.dom._cleanData(ele.getElementsByTagName('*'));
+                baidu.dom._cleanData([ele]);
             }
+            ele.parentNode && ele.parentNode.removeChild(ele);
         }
-        //
-        return function(selector, keepData){
-            arguments.length > 0
-                && baidu.paramCheck('^string(?:,boolean)?$', 'baidu.dom.remove');
-            var array = selector ? this.filter(selector) : this,
-                elements;
-            for(var i = 0, ele; ele = array[i]; i++){
-                if(!keepData){
-                    cleanData(ele.getElementsByTagName('*'));
-                    cleanData([ele]);
-                }
-                ele.parentNode && ele.parentNode.removeChild(ele);
-            }
-            return this;
-        }
-    }()
+        return this;
+    }
 });
