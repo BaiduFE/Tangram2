@@ -51,13 +51,3 @@ test('多个节点的兄弟（有重复）', function () {
 		equal(target[2].className, 'item-a');
 	});
 });
-
-test('多个节点的兄弟（有重复）(JQuery)', function () {
-	useTangramDom(html, function ($dom, wrapper) {
-		var target = $('.item-a, .item-c').siblings();
-		equal(target.length, 3);
-		equal(target[0].className, 'item-b');
-		equal(target[1].className, 'item-c');
-		equal(target[2].className, 'item-a');
-	});
-});
