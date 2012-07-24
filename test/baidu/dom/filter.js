@@ -53,14 +53,14 @@ test('测试.filter( function(index) )重载', function () {
     });
 });
 
-test('测试.filter( element )重载', function () {
-    useTangramDom(html, function ($dom) {
-        ok(false, '不知道此重载怎么用');
-    });
-});
-
-test('测试.filter( Tangram object )重载', function () {
-    useTangramDom(html, function ($dom) {
-        ok(false, '不知道此重载怎么用');
-    });
-});
+//test('测试.filter( element )重载', function () {
+//    useTangramDom(html, function ($dom) {
+//        ok(false, '不知道此重载怎么用');
+//    });
+//});
+//
+//test('测试.filter( Tangram object )重载', function () {
+//    useTangramDom(html, function ($dom) {
+//        ok(false, '不知道此重载怎么用');
+//    });
+//});
