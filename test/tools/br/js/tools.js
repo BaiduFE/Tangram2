@@ -160,7 +160,13 @@ function TestDom(html) {
          * 从当前TestDom对象获取TangramDom对象
          */
 		TestDom.prototype.getTangram = function () {
-			return baidu.dom('#' + this._container.id + " > *");
+//			return baidu.dom('#' + this._container.id + " > *");
+            var array = [],
+                  nodes = this._container.childNodes;
+            for(var i = 0, item; item = nodes[i]; i++){
+                array.push(item);
+            }
+            return baidu.dom(array);
 		};
 
 		TestDom.prototype.getWrapper = function () {

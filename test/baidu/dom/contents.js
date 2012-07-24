@@ -19,20 +19,21 @@ test('逻辑特性测试', function () {
 	useTangramDom(html, function ($dom) {
 		var target = $dom.contents();
 		equal(target.length, 6, '元素长度');
-		equal(target[0].nodeType, document.TEXT_NODE);
+		equal(target[0].nodeType, 3);
 		equal(target[1].id, 'e2');
 		equal(target[2].id, 'e3');
-		equal(target[3].nodeType, document.COMMENT_NODE);
+		equal(target[3].nodeType, 8);
 		equal(target[4].id, 'e4');
 		equal(target[5].tagName, 'SCRIPT');
 	});
 });
 
-test('.contents( selector )重载测试', function () {
-	useTangramDom(html, function ($dom) {
-		var target = $dom.contents('p');
-		equal(target.length, 2);
-		equal(target[0].id, 'e2');
-		equal(target[1].id, 'e3');
-	});
-});
+//没有这种使用方式
+//test('.contents( selector )重载测试', function () {
+//	useTangramDom(html, function ($dom) {
+//		var target = $dom.contents('p');
+//		equal(target.length, 2);
+//		equal(target[0].id, 'e2');
+//		equal(target[1].id, 'e3');
+//	});
+//});
