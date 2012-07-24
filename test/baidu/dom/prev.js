@@ -14,10 +14,10 @@ var html =
 
 test('跳过文本节点测试', function () {
 	useTangramDom(html, function ($dom, wrapper) {
-		var target = baidu.dom('#e3, #e4').prev();
+		var target = baidu.dom('#e4, #e3').prev();
 		equal(target.length, 2);
-		equal(target[0].id, 'e4');
-		equal(target[1].id, 'e2');
+		equal(target[0].id, 'e2');
+		equal(target[1].id, 'e4');
 	});
 });
 
