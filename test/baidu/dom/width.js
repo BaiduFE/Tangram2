@@ -43,8 +43,9 @@ function diff( el, number ){
 	el.style.margin = el.style.padding = "10px";
 	!~'body'.indexOf(tagName) && (el[prop] = '&nbsp');
 	equal( baidu.dom( el ).width( number ).width(),
-	   el.offsetWidth - style(el, 'borderWidth') * 2 - style(el, 'padding') * 2,
+	   el.offsetWidth - style(el, 'borderLeftWidth') - style(el, 'borderRightWidth') - style(el, 'paddingLeft') - style(el, 'paddingRight'),
 	   "针对 " + el.tagName + " 节点设置(" + number + ")和取得 width");
+	
 	
 //    equal( baidu.dom( el ).width( number ).width(), isNaN( number ) ? 0 : Math.max( number, 0 ), "针对 " + el + " 节点设置(" + number + ")和取得 width");
 
