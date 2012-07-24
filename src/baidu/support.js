@@ -65,6 +65,15 @@ baidu.support = baidu.support || function(){
 
         // Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
         div.setAttribute("className", "t");
+        div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
+
+        // Make sure that link elements get serialized correctly by innerHTML
+        // This requires a wrapper element in IE
+        support.htmlSerialize = !!div.getElementsByTagName("link").length;
+
+        // IE strips leading whitespace when .innerHTML is used
+        support.leadingWhitespace = ( div.firstChild.nodeType === 3 );
+
         support.getSetAttribute = div.className !== "t";
         support.pixelMargin = true;
 
@@ -79,6 +88,7 @@ baidu.support = baidu.support || function(){
         if ( window.getComputedStyle ) {            
             support.pixelMargin = ( window.getComputedStyle( div, null ) || {} ).marginTop !== "1%";
         };
+ 
         // Check if a radio maintains its value
         // after being appended to the DOM
         var input = document.createElement("input");

@@ -5,6 +5,7 @@
 
 ///import baidu;
 ///import baidu.dom;
+///import baidu.dom.g;
 ///import baidu.event;
 ///import baidu.dom.each;
 ///import baidu.dom._eventBase;
@@ -36,7 +37,6 @@
 baidu.dom.extend({
 	on: function( events, selector, data, fn ){
     	var eb = baidu.dom._eventBase;
-
     	var specials = { mouseenter: 1, mouseleave: 1, focusin: 1, focusout: 1 };
 
 	    if( typeof selector == "object" && selector ){
@@ -81,7 +81,7 @@ baidu.dom.extend({
 });
 
  baidu.event.on = function(ele,onEvent,fun){
- 	onEvent = replace(/^\s*on/,'');
+ 	onEvent = onEvent.replace(/^\s*on/,'');
  	var element = baidu.dom.g(ele);
 	baidu.dom(element).on(onEvent,fun);
 	return element;
