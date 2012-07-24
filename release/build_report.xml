@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     2011-5-9 下午05:00:23                                                        
+
+     project    
+     description
+                   
+     yangbo                                                                
+     ====================================================================== -->
+<project name="reportAndMail" basedir="../../">
+	<description>
+		for report merge and mail
+    </description>
+
+	<property name="report.style" value="test/tools/br/reportstyle/junit-noframes.xsl" />
+	<property name="report.output" value="test/tools/br/report/html/junit-noframes.html" />
+	<property name="report.xml" value="test/tools/br/report.xml" />
+	<property name="report.mailto" value="tianlili@baidu.com" />
+	<property name="report.mailcc" value="tianlili@baidu.com" />
+	<property name="report.mailfrom" value="tianlili@baidu.com" />
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: mail                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="mail" description="send mail">
+		<xslt in="${report.xml}" out="${report.output}" style="${report.style}" />
+		<loadfile property="report.html" srcFile="${report.output}" />
+		<mail mailhost="hotswap-c.baidu.com" charset="UTF-8" messagemimetype="text/html" subject="Report from ci——${git.user}.${git.project}" cclist="${report.mailcc}" failonerror="false">
+			<to address="${report.mailto}" />
+			<from address="${report.mailfrom}" />
+			<message>${report.html}</message>
+		</mail>
+	</target>
+
+</project>
+

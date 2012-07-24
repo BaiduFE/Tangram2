@@ -39,11 +39,11 @@ test('不重叠情形', function () {
 
 test('重叠情形', function () {
 	useTangramDom(html, function ($dom, wrapper) {
-		var target = baidu.dom("#e3, #e2").nextAll();
+		var target = baidu.dom("#e2, #e3").nextAll();
 		equal(target.length, 3);
-		equal(target[0].id, 'e4');
-		equal(target[1].tagName, 'SCRIPT');
-		equal(target[2].id, 'e3');
+		equal(target[0].id, 'e3');
+		equal(target[1].id, 'e4');
+		equal(target[2].tagName, 'SCRIPT');
 	});
 });
 
