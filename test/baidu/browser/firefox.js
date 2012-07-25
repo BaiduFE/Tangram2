@@ -1,7 +1,12 @@
 module("baidu.browser.firefox");
 
 test("firefox", function() {
-	var b = 'firefox';
-	ua.browser[b] ? ok(baidu.browser[b], 'should be ' + b) : ok(
-			!baidu.browser[b], 'should not be ' + b);
+
+	if(ua.browser['firefox']){
+		ok(baidu.browser[b], 'should be firefox')
+	}else if(ua.browser['gecko']){
+		ok(baidu.browser['firefox'], 'should be firefox')
+	}else{
+		ok(!baidu.browser['firefox'], 'should not be firefox')
+	};
 });

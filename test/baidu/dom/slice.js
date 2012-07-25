@@ -105,10 +105,7 @@ test('slice(-8)', 9, function () {
 
 test('slice(-10)', 9, function () {
     useTangramDom(html, function ($dom) {
-        console.log($dom);
         var target = $dom.slice(-10);
-        console.log(target);
-        console.log(target.length);
         equal(target.length, 8, '元素长度');
         for (var i = 0; i < target.length; i++) {
             equal(target[i].id, 'e' + (i + 1), '元素');

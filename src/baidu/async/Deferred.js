@@ -37,6 +37,7 @@
 baidu.async.extend({
     Deferred:function(){
         baidu.async.Deferred.apply(this,arguments);
+        return this;
     }
 });
 

@@ -73,7 +73,7 @@ baidu.dom.extend({
             if(result){
                 return;
             };
-
+            var tangramDom = bd(elem);
             switch(typeof value){
                 case 'undefined':
         
@@ -83,6 +83,8 @@ baidu.dom.extend({
 
                 break;
 
+                case 'number':
+                    value = String(value);
                 case 'string':
 
                     //set all
@@ -101,7 +103,7 @@ baidu.dom.extend({
                             // Remove element nodes and prevent memory leaks
                             if ( elem.nodeType === 1 ) {
                                 //jQuery.cleanData( elem.getElementsByTagName( "*" ) );
-                                //Todo 清除事件
+                                tangramDom.empty();
                                 elem.innerHTML = value;
                             }
 
@@ -121,7 +123,6 @@ baidu.dom.extend({
 
                     //set all
                     isSet = true;
-                    var tangramDom = bd(elem);
                     tangramDom.html(value.call(elem, index, tangramDom.html()));
                 break;
 
