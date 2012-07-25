@@ -9,7 +9,7 @@
  */
 
 ///import baidu.lang;
-
+///import baidu.global;
 
 /**
  * 所有类的实例的容器
@@ -17,6 +17,6 @@
  * @meta standard
  */
 
-window[baidu.guid]._instances = window[baidu.guid]._instances || {};
+baidu.global("_maps_id");
 
 //	[TODO]	meizz	在2012年版本中将删除此模块

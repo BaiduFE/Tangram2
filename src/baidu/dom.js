@@ -2,12 +2,31 @@
 ///import baidu.merge;
 ///import baidu.query;
 ///import baidu.createChain;
+
 /**
- * @fileoverview
- * @param baidu.dom
+ * @fileoverview DOM操作链式语法头
  * @author meizz
  * @create 2012-05-20
  * @modify
+ */
+
+/**
+ * @description 生成DOM操作链头
+ * @function 
+ * @name baidu.dom
+ * @grammar baidu.dom(selector[, context])
+ * @param ""|null|undefined selector 非正常的对象
+ * @return $DOM 空TangramDom对象
+ * @meta standard
+ */
+
+/**
+ * @description 从文档中获取指定的DOM元素
+ * @function 
+ * @name baidu.dom.g
+ * @grammar baidu.dom.g(id)
+ * @param String|Element id 元素的ID名称或者直接传入元素本身
+ * @return Element 如果传入的ID是不存在的则返回Null
  */
 
 /**
