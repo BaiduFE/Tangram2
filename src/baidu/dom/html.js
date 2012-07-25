@@ -83,6 +83,8 @@ baidu.dom.extend({
 
                 break;
 
+                case 'number':
+                    value = String(value);
                 case 'string':
 
                     //set all
