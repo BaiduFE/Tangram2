@@ -44,7 +44,7 @@ test('support obj with items', function(){
 	var divList = document.getElementsByTagName('div');//dom
 	var divList_toArray = baidu.lang.toArray(divList);
 	ok(baidu.lang.isArray(divList_toArray),"convert obj with items to array success");
-	for(var i in divList_toArray){
+	for(var i = 0; i < divList_toArray.length; i++){
 		if(divList_toArray[i]!=divList[i]){
 			ok(false,"fail to convert obj with items to array");
 			break;

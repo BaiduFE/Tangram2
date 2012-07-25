@@ -41,15 +41,6 @@ test('多个元素', function () {
 	});
 });
 
-test('多个元素（JQuery）', function () {
-	useTangramDom(html, function ($dom) {
-		var target = $('.item-1, .item-c').closest('ul');
-		equal(target.length, 2, '(JQuery)');
-		equal(target[0].className, 'level-3', '(JQuery)');
-		equal(target[1].className, 'level-2', '(JQuery)');
-	});
-});
-
 test('.closest( context )重载', function () {
 	useTangramDom(html, function ($dom, wrapper) {
 		var target = baidu.dom('.item-1').closest('body', document);

@@ -762,6 +762,8 @@ var UserAction = {
 			}
 		});
 		url='?f='+f.substr(1)+'&e='+e;
+		if(pw.location.href.indexOf("release=true") > -1)
+			url += '&release=true';
 		var srcpath = '';
 		if(location.href.indexOf("/run.do") > 0) {
 			srcpath = location.href.replace("run.do","frame.do");

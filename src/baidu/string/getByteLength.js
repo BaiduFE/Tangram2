@@ -19,9 +19,7 @@
  * @returns {number} 字节长度
  */
 baidu.string.extend({
-getByteLength : function () {
-
-    return this.replace(/[^\x00-\xff]/g, "ci").length;
-}
-
+    getByteLength : function () {
+        return this.replace(/[^\x00-\xff]/g, 'ci').length;
+    }
 });
