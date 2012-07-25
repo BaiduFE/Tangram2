@@ -1,5 +1,6 @@
 ///import baidu;
 ///import baidu.type;
+///import baidu.global;
 /**
  * @fileoverview
  * @name baidu.paramCheck
@@ -15,8 +16,7 @@
  * @param   {String}    moduleName    被分析的模块名
  */
 baidu.paramCheck = function() {
-    var global = window[baidu.guid],
-        maps = global._mapsReg = global._mapsReg || {};
+    var maps = baidu.global("_maps_RegExp");
 
     return function(regString, namespace){
         var caller, arg, i, n,

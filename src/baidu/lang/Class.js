@@ -9,6 +9,7 @@
  */
 
 ///import baidu.id;
+///import baidu.lang;
 
 /**
  * Tangram继承机制提供的一个基类，用户可以通过继承baidu.lang.Class来获取它的属性及方法。

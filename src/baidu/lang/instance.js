@@ -8,7 +8,8 @@
  * date: 2009/12/1
  */
 
-///import baidu.lang._instances;
+///import baidu.lang;
+///import baidu.global;
 
 /**
  * 根据参数(guid)的指定，返回对应的实例对象引用
@@ -20,6 +21,11 @@
  *             
  * @returns {Object|null} 如果存在的话，返回;否则返回null。
  */
-baidu.lang.instance = function (guid) {
-    return window[baidu.guid]._instances[guid] || null;
-};
+baidu.lang.instance = function(){
+    var maps = baidu.global("_maps_id");
+
+    return function (guid) {
+        return maps[ guid ] || null;
+    };
+}();
+
