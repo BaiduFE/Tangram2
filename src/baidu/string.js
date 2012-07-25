@@ -5,6 +5,7 @@
 ///import baidu;
 ///import baidu.createChain;
 ///import baidu.each;
+///import baidu.type;
 /**
  * string对象链式语法的链头,操作字符串的方法
  *
@@ -14,17 +15,14 @@
  */
 
 baidu.createChain("string",
-
     // 执行方法
     function(string){
-        var str = typeof string == "string" ? new String(string) : string,
+        var type = baidu.type(string),
+            str = new String(~'string|number'.indexOf(type) ? string : type),
             pro = String.prototype;
-
         baidu.each(baidu.$String.prototype, function(fn, key) {
             pro[key] || (str[key] = fn);
         });
-
         return str;
     }
-
 );
