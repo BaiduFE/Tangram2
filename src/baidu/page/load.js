@@ -1,13 +1,8 @@
-
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- *
- * path: baidu/page/load.js
- * author: rocy
- * version: 1.0.0
- * date: 2010/11/29
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
  */
+
 
 ///import baidu.page;
 ///import baidu.array.each;
@@ -91,7 +86,7 @@ baidu.page.load = /**@function*/function(resources, options, ignoreAllLoaded) {
     };
 
     function loadByDom(res, callback) {
-        var node, loaded, onready;
+        var node, loaded, onready;      
         switch (res.type.toLowerCase()) {
             case 'css' :
                 node = document.createElement('link');
@@ -111,6 +106,8 @@ baidu.page.load = /**@function*/function(resources, options, ignoreAllLoaded) {
                 return;
         }
 
+        var elem = baidu.dom(node);
+
         // HTML,JS works on all browsers, CSS works only on IE.
         onready = function() {
             if (!loaded && (!this.readyState ||
@@ -118,14 +115,14 @@ baidu.page.load = /**@function*/function(resources, options, ignoreAllLoaded) {
                     this.readyState === 'complete')) {
                 loaded = true;
                 // 防止内存泄露
-                baidu.un(node, 'load', onready);
-                baidu.un(node, 'readystatechange', onready);
+                elem.off('load', onready);
+                elem.off('readystatechange', onready);
                 //node.onload = node.onreadystatechange = null;
                 callback.call(window, node);
             }
         };
-        baidu.on(node, 'load', onready);
-        baidu.on(node, 'readystatechange', onready);
+        elem.on('load', onready);
+        elem.on('readystatechange', onready);
         //CSS has no onload event on firefox and webkit platform, so hack it.
         if (res.type == 'css') {
             (function() {
