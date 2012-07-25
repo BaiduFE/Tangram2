@@ -10,12 +10,14 @@ test("第一个参数为 String ", function () {
 
         var guid = baidu.id.key
             , $dom = baidu.dom(document.body)
-            , maps = window[ baidu.guid ]._HTMLElementDataMaps;
+            , maps = baidu.global("_maps_HTMLElementData");
 
         $dom.data("key", "value");
         equal($dom.data("key"), maps[document.body[guid]].key, "赋值");
-        $dom.removeData("key", "value");
+
+        $dom.removeData("key");
         equal($dom.data("key"), undefined, "removeData");
+
         equal(maps[document.body[guid]].key, undefined, "removeData");
 
     start();

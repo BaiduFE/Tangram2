@@ -1,5 +1,6 @@
 ///import baidu;
 ///import baidu.type;
+///import baidu.global;
 /**
  * @fileoverview
  * @name baidu.id
@@ -22,11 +23,10 @@
  * @return  {Object}        String or Object
  */
 baidu.id = function() {
-    var key = "tangram_guid",
-        global = window[baidu.guid],
-        maps = global._maps = global._maps || {};
-        
-    global._counter = global._counter || 1;
+    var maps = baidu.global("_maps_id")
+        ,key = "tangram_guid";
+
+    baidu.global("_counter", 1, true);
 
     return function( object, command ) {
         var e
@@ -73,7 +73,7 @@ baidu.id = function() {
             return maps[ object ];
         }
 
-        return "TANGRAM__" + global._counter ++;
+        return "TANGRAM__" + baidu.$global._counter ++;
     };
 }();
 
