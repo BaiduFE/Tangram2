@@ -35,7 +35,7 @@ baidu.browser = baidu.browser || function(){
         case /(\d+\.\d)?(?:\.\d)?\s+safari\/?(\d+\.\d+)?/i.test(ua) && !/chrome/i.test(ua) :
             result.safari = + (RegExp['\x241'] || RegExp['\x242']);
             break;
-        case /firefox\/(\d+\.\d+)/i.test(ua) :
+        case /firefox\/(\d+\.\d+)/i.test(ua) : 
             result.firefox = + RegExp['\x241'];
             break;
         case /opera(\/| )(\d+(\.\d+)?)(.+?(version\/(\d+(\.\d+)?)))?/i.test(ua) :

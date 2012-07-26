@@ -25,7 +25,7 @@ p{
 var dtd = baidu.deferred(); // 新建一个deferred对象
 var wait = function(dtd){
 	var tasks = function(){
-		console.log("执行完毕！");
+		alert("执行完毕！");
 		dtd.resolve(); // 改变deferred对象的执行状态
 	};
 	setTimeout(tasks,5000);

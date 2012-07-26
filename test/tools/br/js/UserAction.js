@@ -894,13 +894,11 @@ var UserAction = {
 			for ( var i = 0; i < mm.length; i++) {
 				if(i == mm.length - 1 && mm[i].indexOf("$") > -1){ //如果要加载的是插件
 					if (p._addons.length == 1) {
-						// console.log(mm[i]);
 						return;
 					}		
 				}
 				else{
 					if (typeof (p[mm[i]]) == 'undefined') {
-						// console.log(mm[i]);
 						return;
 					}
 				}
