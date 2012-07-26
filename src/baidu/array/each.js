@@ -1,21 +1,22 @@
 ///import baidu.type;
 ///import baidu.array;
 ///import baidu.each;
-
 /**
  * @fileoverview
- * @name baidu.array.each
  * @author meizz
- * @create 2012-06-18
+ * @create 2012-07-30
  * @modify
  */
 
 /**
- * 枚举数组的每一项，作为指定函数执行的参数
- * 
+ * @description 遍历数组里的每一项进行指定操作
+ *
+ * @name baidu.array.each
+ * @function
+ * @grammar array.each(iterator[, context])
  * @param   {Function}      iterator(item, index, array)    枚举器，函数
  * @param   {Object}        context                         方法作用域
- * @return  {TangramArray}
+ * @return  {Array}         数组
  */
 void function () {
     var fn = function(iterator, context) {

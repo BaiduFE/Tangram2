@@ -1,4 +1,3 @@
-///import baidu;
 ///import baidu.extend;
 
 /**
@@ -10,8 +9,17 @@
  */
 
 /**
- * 判断浏览器类型和特性的属性
- * @namespace baidu.browser
+ * @description 判断浏览器类型和特性的属性
+ * @object
+ * @name baidu.browser
+ * @grammar baidu.browser.ie
+ * @grammar baidu.browser.chrome
+ * @grammar baidu.browser.firefox
+ * @grammar baidu.browser.opera
+ * @grammar baidu.browser.safari
+ * @grammar baidu.browser.isGecko
+ * @grammar baidu.browser.isStrict
+ * @grammar baidu.browser.isWebkit
  */
 baidu.browser = baidu.browser || function(){
     var ua = navigator.userAgent;

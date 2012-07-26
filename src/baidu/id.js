@@ -3,21 +3,17 @@
 ///import baidu.global;
 /**
  * @fileoverview
- * @name baidu.id
  * @author dron,meizz
  * @create 2012-06-13
  * @modify
  */
 
 /**
- * 页面级唯一标识的方法
+ * @description页面级唯一标识的方法
  *
- * @grammer baidu.id( )
- * @grammer baidu.id( id )
- * @grammer baidu.id( id[, command] )
- * @grammer baidu.id( object )
- * @grammer baidu.id( object[, command] )
- *
+ * @function
+ * @name baidu.id
+ * @grammer baidu.id( [id[, command]] )
  * @param   {Object}        object      Object or id
  * @param   {String}        command     [可选] 操作名，若该字符不是指定操作符时将认为是指定 id
  * @return  {Object}        String or Object

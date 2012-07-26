@@ -4,16 +4,19 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.siblings
  * @author meizz
  * @create 2012-05-28
  * @modify
  */
 
 /**
- * 取得一个包含匹配的元素集合中每一个元素的所有唯一同辈元素的元素集合。可以用可选的表达式进行筛选
- * @param
- * @return
+ * @description 取得一个包含匹配的元素集合中每一个元素的所有唯一同辈元素的元素集合。可以用可选的表达式进行筛选
+ *
+ * @function
+ * @name baidu.dom.siblings
+ * @grammar $DOM.siblings(filter)
+ * @param   {Function}      fn(a, b)    [可选]
+ * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
     siblings : function (filter) {
