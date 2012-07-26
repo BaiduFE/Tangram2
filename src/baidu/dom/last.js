@@ -2,16 +2,18 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.last
  * @author meizz
  * @create 2012-05-28
  * @modify
  */
 
 /**
+ * @description 当前集合最后一个对象
  *
- * @param
- * @return
+ * @function
+ * @name baidu.dom.last
+ * @grammar $DOM.last()
+ * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
     last : function () {
