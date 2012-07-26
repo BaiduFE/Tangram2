@@ -10,23 +10,25 @@
 
 ///import baidu.string;
 
+
 /**
- * 对目标字符串进行格式化,支持过滤
+ * @description 对目标字符串进行格式化，支持过滤
+ * @function 
  * @name baidu.string.filterFormat
- * @function
- * @grammar baidu.string.filterFormat(source, opts)
- * @param {string} source 目标字符串
- * @param {Object|string...} opts 提供相应数据的对象
- * @version 1.2
- * @remark
- * 
+ * @grammar baidu.string.filterFormat(str, options)
+ * @param {String} str 目标字符串
+ * @param {Object|String} options 提供相应数据的对象
+ * @return {String} 格式化后的字符串
+ */
+ 
+/*
 在 baidu.string.format的基础上,增加了过滤功能. 目标字符串中的#{url|escapeUrl},<br/>
 会替换成baidu.string.filterFormat["escapeUrl"](opts.url);<br/>
 过滤函数需要之前挂载在baidu.string.filterFormat属性中.
-		
- * @see baidu.string.format,baidu.string.filterFormat.escapeJs,baidu.string.filterFormat.escapeString,baidu.string.filterFormat.toInt
- * @returns {string} 格式化后的字符串
- */
+*/
+
+
+
 baidu.string.filterFormat = function (source, opts) {
     var data = Array.prototype.slice.call(arguments,1), toString = Object.prototype.toString;
     if(data.length){
