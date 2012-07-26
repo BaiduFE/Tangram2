@@ -4,19 +4,22 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.next
  * @author meizz
- * @create 2012-05-28
+ * @create 2012-06-11
  * @modify
  */
 
 /**
+ * @description 取得一个包含匹配的元素集合中每一个元素紧邻的后面同辈元素的元素集合
  *
- * @param
- * @return
+ * @function
+ * @name baidu.dom.next
+ * @grammar $DOM.next([filter])
+ * @param   {String|Function}   filter      [可选]过滤函数
+ * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
-    next : function (selector) {
+    next : function (filter) {
         var td = baidu.dom();
 
         baidu.each(this, function(dom){
@@ -24,6 +27,6 @@ baidu.dom.extend({
             dom && (td[td.length ++] = dom);
         });
 
-        return selector ? td.filter(selector) : td;
+        return filter ? td.filter(filter) : td;
     }
 });

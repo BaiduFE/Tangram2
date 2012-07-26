@@ -4,16 +4,19 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.nextAll
- * @create 2012-06-21
  * @author meizz
+ * @create 2012-06-11
  * @modify
  */
 
 /**
+ * @description 查找当前元素之后所有的同辈元素
  *
- * @param
- * @return
+ * @function
+ * @name baidu.dom.nextAll
+ * @grammar $DOM.nextAll([filter])
+ * @param   {String|Function}   filter      [可选]过滤函数
+ * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
     nextAll : function (selector) {
