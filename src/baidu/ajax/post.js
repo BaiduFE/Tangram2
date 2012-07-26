@@ -7,32 +7,35 @@
 ///import baidu.ajax.request;
 
 /**
- * 发送一个post请求
+ * @description 发送一个post请求
+ * @function 
+ * @name baidu.ajax().post()
+ * @grammar baidu.ajax(url).post(data, function(xhr, responseText))
+ * @param {String} data 需要发送的数据，格式如：user=admin&pwd=admin
+ * @param {function} onsuccess 请求成功之后的回调函数，函数接收两个参数xhr是一个XMLHttpRequest对象，responseText是请求的返回内容
+ * @return {XMLHttpRequest} XMLHttpRequest对象
+ */
+
+/**
+ * @description 发送一个post请求
+ * @function 
  * @name baidu.ajax.post
- * @function
- * @grammar baidu.ajax.post(url, data[, onsuccess])
- * @param {string} 	url 		发送请求的url地址
- * @param {string} 	data 		发送的数据
- * @param {Function} [onsuccess] 请求成功之后的回调函数，function(XMLHttpRequest xhr, string responseText)
- * @meta standard
- * @see baidu.ajax.get,baidu.ajax.request
- *             
- * @returns {XMLHttpRequest} 	发送请求的XMLHttpRequest对象
+ * @grammar baidu.ajax.post(url, data[, function(xhr, responseText)])
+ * @param {String} url 发送请求的url地址
+ * @param {String} data 需要发送的数据，格式如：user=admin&pwd=admin
+ * @param {function} onsuccess 请求成功之后的回调函数，函数接收两个参数xhr是一个XMLHttpRequest对象，responseText是请求的返回内容
+ * @return {XMLHttpRequest} XMLHttpRequest对象
  */
 
 
 baidu.ajax.extend({
-	
 	post : function ( data, onsuccess) {
-		var url = this.url ;
 	    return baidu.ajax.request(
-	        url, 
-	        {
+	        this.url,  {
 	            'onsuccess': onsuccess,
 	            'method': 'POST',
 	            'data': data
 	        }
 	    );
 	}
-
 });
