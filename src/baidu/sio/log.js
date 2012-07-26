@@ -6,13 +6,20 @@
 ///import baidu.sio;
 
 /**
- * 通过请求一个图片的方式令服务器存储一条日志
- * @function
- * @grammar baidu.sio.log(url)
- * @param {string} url 要发送的地址.
- * @author: int08h,leeight
+ * @description 通过请求一个图片的方式令服务器存储一条日志
+ * @function 
+ * @name baidu.sio().log()
+ * @grammar baidu.sio(url).log()
  */
 
+/**
+ * @description 通过请求一个图片的方式令服务器存储一条日志
+ * @function 
+ * @name baidu.sio.log
+ * @grammar baidu.sio.log(url)
+ * @param {String} url 要发送的地址
+ * @author: int08h,leeight
+ */
  
 baidu.sio.extend({
   log : function() {

@@ -5,14 +5,25 @@
 
 
 ///import baidu.string;
+
 /**
- * 将目标字符串中常见全角字符转换成半角字符
+ * @description 将目标字符串中常见全角字符转换成半角字符
+ * @function 
+ * @name baidu.string().toHalfWidth()
+ * @grammar baidu.string(str).toHalfWidth()
+ * @return {String} 转换后的字符串
+ */
+
+/**
+ * @description 将目标字符串中常见全角字符转换成半角字符
+ * @function 
  * @name baidu.string.toHalfWidth
- * @function
- * @grammar baidu.string.toHalfWidth(source)
- * @param {string} source 目标字符串
- * @remark
- * 
+ * @grammar baidu.string.toHalfWidth(str)
+ * @param {String} str 目标字符串
+ * @return {String} 转换后的字符串
+ */
+
+/*
 将全角的字符转成半角, 将“&amp;#xFF01;”至“&amp;#xFF5E;”范围的全角转成“&amp;#33;”至“&amp;#126;”, 还包括全角空格包括常见的全角数字/空格/字母, 用于需要同时支持全半角的转换, 具体转换列表如下("空格"未列出)：<br><br>
 
 ！ => !<br>
@@ -109,15 +120,12 @@
 ｜ => |<br>
 ｝ => }<br>
 ～ => ~<br>
-		
- *             
- * @returns {string} 转换后的字符串
  */
 baidu.string.extend({
-toHalfWidth : function () {
-    return this.replace(/[\uFF01-\uFF5E]/g, 
-        function(c){
-            return String.fromCharCode(c.charCodeAt(0) - 65248);
-        }).replace(/\u3000/g," ");
-}
+    toHalfWidth : function () {
+        return this.replace(/[\uFF01-\uFF5E]/g,
+            function(c){
+                return String.fromCharCode(c.charCodeAt(0) - 65248);
+            }).replace(/\u3000/g," ");
+    }
 });

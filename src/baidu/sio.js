@@ -7,11 +7,12 @@
 ///import baidu.createChain;
 
 /**
- * sio功能链头
- *
- * @grammer baidu.sio([url])
- * @param   {Url}
- * @return  {tangramSio}          返回 new TangramSio 对象
+ * @description sio对象链式语法的链头，动态加载javascript
+ * @function 
+ * @name baidu.sio()
+ * @grammar baidu.sio(url)
+ * @param {String} url 一个能够访问javascript的字符串路径地址
+ * @return {TangramSio} 返回一个TangramSio对象
  */
 
 baidu.createChain("sio",
