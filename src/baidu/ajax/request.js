@@ -6,10 +6,6 @@
 ///import baidu.ajax;
 ///import baidu.fn.blank;
 
-
-
-
-
 /**
  * @description 发送一个ajax请求
  * @function 
@@ -51,7 +47,6 @@
  * @param {function} options.on{STATUS_CODE} 当请求为相应状态码时触发的事件，如on302、on404、on500，function(XMLHttpRequest xhr)。3XX的状态码浏览器无法获取，4xx的，可能因为未知问题导致获取失败
  * @param {Boolean} options.noCache 是否需要缓存，默认为false（缓存）
  * @return {XMLHttpRequest} 返回发送请求的XMLHttpRequest对象
-
  */
  
 baidu.ajax.extend({

@@ -10,13 +10,6 @@
 
 /**
  * @description 页面级唯一标识的方法
- *
- * @grammer baidu.id( )
- * @grammer baidu.id( id )
- * @grammer baidu.id( id[, command] )
- * @grammer baidu.id( object )
- * @grammer baidu.id( object[, command] )
- *
  * @function
  * @name baidu.id
  * @grammer baidu.id( [id[, command]] )

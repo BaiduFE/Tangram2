@@ -120,7 +120,6 @@
 ｜ => |<br>
 ｝ => }<br>
 ～ => ~<br>
-
  */
 baidu.string.extend({
     toHalfWidth : function () {

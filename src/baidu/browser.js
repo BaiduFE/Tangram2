@@ -11,7 +11,6 @@
 /**
  * @description 判断浏览器类型和特性的属性
  * @namespace
- * @object
  * @name baidu.browser
  * @grammar baidu.browser.ie
  * @grammar baidu.browser.chrome

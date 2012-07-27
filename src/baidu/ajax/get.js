@@ -15,7 +15,7 @@
  * @return {XMLHttpRequest} XMLHttpRequest对象
  */
 
- /**
+/**
  * @description 发送一个get请求
  * @function 
  * @name baidu.ajax.get

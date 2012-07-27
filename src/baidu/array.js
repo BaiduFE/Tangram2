@@ -1,7 +1,7 @@
 ///import baidu;
 ///import baidu.type;
 ///import baidu.createChain;
-/**
+/*
  * @fileoverview
  * @author meizz
  * @create 2012-05-20
