@@ -11,7 +11,7 @@ test("获得最后一个元素（集合包含元素）", function () {
     useTangramDom(html, function ($dom) {
         var actual = $dom.last();
         equal(actual.length, 1, '结果长度');
-        equal(actual[0].outerHTML, '<div id="e3"></div>', '最后一个元素');
+        equal(actual[0].id, "e3", '最后一个元素');
     });
 });
 
