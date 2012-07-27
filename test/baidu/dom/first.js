@@ -11,7 +11,7 @@ test("获得第1个元素（集合包含元素）", function () {
     useTangramDom(html, function ($dom) {
         var actual = $dom.first();
         equal(actual.length, 1, '结果长度');
-        equal(actual[0].outerHTML, '<div id="e1"></div>', '第一个元素');
+        equal(actual[0].id, "e1", '第一个元素');
     });
 });
 
