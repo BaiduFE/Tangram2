@@ -34,27 +34,6 @@
 /**
  * @description 发送一个ajax请求
  * @function 
- * @name baidu.ajax().request()
- * @grammar baidu.ajax(url).request([options])
- * @param {Object} options 发送请求的选项参数
- * @param {String} options.method 请求发送的类型。默认为GET
- * @param {Boolean} options.async 是否异步请求。默认为true（异步）
- * @param {String} options.data 需要发送的数据。如果是GET请求的话，不需要这个属性
- * @param {Object} options.headers 要设置的http request header
- * @param {Number} options.timeout 超时时间，单位ms
- * @param {String} options.username 用户名
- * @param {String} options.password 密码
- * @param {function} options.onsuccess 请求成功时触发，格式：function(XMLHttpRequest xhr, String responseText)
- * @param {function} options.onfailure 请求失败时触发，格式：function(XMLHttpRequest xhr)
- * @param {function} options.onbeforerequest 发送请求之前触发，格式：function(XMLHttpRequest xhr)
- * @param {function} options.on{STATUS_CODE} 当请求为相应状态码时触发的事件，如on302、on404、on500，function(XMLHttpRequest xhr)。3XX的状态码浏览器无法获取，4xx的，可能因为未知问题导致获取失败
- * @param {Boolean} options.noCache 是否需要缓存，默认为false（缓存）
- * @return {XMLHttpRequest} 返回发送请求的XMLHttpRequest对象
- */
-
-/**
- * @description 发送一个ajax请求
- * @function 
  * @name baidu.ajax.request
  * @grammar baidu.ajax.request(url[, options])
  * @param {Object} url 发送请求的url地址
