@@ -4,7 +4,7 @@
  * @fileoverview
  * @author meizz
  * @create 2012-06-01
- * @modify
+ * @modify 2012-07-27 meizz end为undefined时在IE浏览器里出错
  */
 
 /**
@@ -18,8 +18,15 @@
  * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
-    slice : function (start, end) {
-        baidu.paramCheck("number(,number)?","baidu.dom.slice");
-        return baidu.dom( this.toArray().slice(start, end) );
-    }
+    slice : function(){
+        var slice = Array.prototype.slice;
+
+        return function (start, end) {
+            baidu.paramCheck("number(,number)?","baidu.dom.slice");
+
+            // ie bug
+            // return baidu.dom( this.toArray().slice(start, end) );
+            return baidu.dom( slice.apply(this, arguments) );
+        }
+    }()
 });

@@ -28,7 +28,7 @@ test("类型覆盖校验",function(){
 		// undefine
 		ok(!baidu.lang.isFunction(void(0)),"undefined is not function");
 		// 快捷方式
-       ok(!baidu.lang.isFunction(baidu),"short cut is not function");
+       ok(baidu.lang.isFunction(baidu),"short cut is function");
 })
 
 // describe('baidu.lang.isFunction测试', {
