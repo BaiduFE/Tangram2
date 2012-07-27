@@ -42,7 +42,7 @@ baidu.e = baidu.element;
  * @name baidu.element.Element
  * @grammar baidu.element.Element(node)
  * @param {DOMElement|NodeList} node   目标元素，可以是数组或者单个node节点
- * @returns {ElementObj} 包装后的DOM对象
+ * @return {ElementObj} 包装后的DOM对象
  * @version 1.3
  */
 baidu.element.Element = function(node){
@@ -148,7 +148,7 @@ baidu.element._makeChain = function(){ //将dom/event包下的东西挂到protot
      * @param {Function} fn 事件触发时要调用的方法
      * @version 1.3
      * @remark 包装event的快捷方式具体包括blur、focus、focusin、focusout、load 、resize 、scroll 、unload 、click、 dblclick、mousedown 、mouseup 、mousemove、 mouseover 、mouseout 、mouseenter、 mouseleave、change 、select 、submit 、keydown、 keypress 、keyup、 error。
-     * @returns {baidu.element} Element对象
+     * @return {baidu.element} Element对象
      */
     //包装event的快捷方式
     baidu.each(("blur focus focusin focusout load resize scroll unload click dblclick " +

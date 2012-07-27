@@ -10,7 +10,7 @@
  * @grammar baidu.page.getMousePosition()
  * @version 1.2
  *             
- * @returns {object} 鼠标坐标值{x:[Number], y:[Number]}
+ * @return {object} 鼠标坐标值{x:[Number], y:[Number]}
  */
 
 

@@ -28,7 +28,7 @@
  * @param {HTMLElement|string} element 目标元素或目标元素的id
  * @meta standard
  *             
- * @returns {Object} 目标元素的位置，键值为top和left的Object。
+ * @return {Object} 目标元素的位置，键值为top和left的Object。
  */
 baidu.dom.getPosition = function (element) {
     element = baidu.dom.g(element);

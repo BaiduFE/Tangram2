@@ -22,7 +22,7 @@
  * @shortcut extend
  * @meta standard
  *             
- * @returns {Object} 目标对象
+ * @return {Object} 目标对象
  */
 baidu.object.extend = function (target, source) {
     for (var p in source) {

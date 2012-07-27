@@ -18,7 +18,7 @@
  * @name baidu.browser.maxthon
  * @grammar baidu.browser.maxthon
  * @see baidu.browser.ie
- * @returns {Number} maxthon版本号
+ * @return {Number} maxthon版本号
  */
 //        baidu.browser.maxthon = + RegExp['\x241'];
 //    }

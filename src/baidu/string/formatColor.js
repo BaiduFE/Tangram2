@@ -14,7 +14,7 @@
  * @param {string} color 颜色值字符串
  * @version 1.3
  *             
- * @returns {string} #RRGGBB格式的字符串或空
+ * @return {string} #RRGGBB格式的字符串或空
  */
 (function(){
     // 将正则表达式预创建，可提高效率

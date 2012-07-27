@@ -17,7 +17,7 @@
  * @meta standard
  * @see baidu.string.decodeHTML
  *             
- * @returns {string} html编码后的字符串
+ * @return {string} html编码后的字符串
  */
 baidu.string.extend({
 encodeHTML : function () {

@@ -23,7 +23,7 @@
  * @shortcut insertHTML
  * @meta standard
  *             
- * @returns {HTMLElement} 目标元素
+ * @return {HTMLElement} 目标元素
  */
 baidu.dom.extend({
 insertHTML : function ( position, html) {

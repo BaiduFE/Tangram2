@@ -19,7 +19,7 @@
  * @param {Function} iterator 对每个Object元素进行调用的函数，function (item, key)
  * @version 1.1.1
  *             
- * @returns {Object} 遍历的Object
+ * @return {Object} 遍历的Object
  */
 baidu.object.each = function (source, iterator) {
     var returnValue, key, item; 

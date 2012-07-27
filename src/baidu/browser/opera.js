@@ -18,7 +18,7 @@
  * @grammar baidu.browser.opera
  * @meta standard
  * @see baidu.browser.ie,baidu.browser.firefox,baidu.browser.safari,baidu.browser.chrome
- * @returns {Number} opera版本号
+ * @return {Number} opera版本号
  */
 
 /*

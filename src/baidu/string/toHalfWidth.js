@@ -111,7 +111,7 @@
 ～ => ~<br>
 		
  *             
- * @returns {string} 转换后的字符串
+ * @return {string} 转换后的字符串
  */
 baidu.string.extend({
 toHalfWidth : function () {

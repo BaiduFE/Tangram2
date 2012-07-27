@@ -16,7 +16,7 @@
  * @param {args* 0..n} args 函数执行时附加到执行时函数前面的参数
  * @version 1.3
  *
- * @returns {Function} 封装后的函数
+ * @return {Function} 封装后的函数
  */
 
 baidu.fn.extend({

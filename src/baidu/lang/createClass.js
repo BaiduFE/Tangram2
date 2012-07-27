@@ -29,7 +29,7 @@
         
  * @see baidu.lang.Class,baidu.lang.inherits
  *             
- * @returns {Object} 一个类对象
+ * @return {Object} 一个类对象
  */
 
 baidu.lang.createClass = /**@function*/function(constructor, options) {

@@ -21,7 +21,7 @@
  * @version 1.3
  * @see baidu.lang.isString,baidu.lang.isObject,baidu.lang.isNumber,baidu.lang.isArray,baidu.lang.isBoolean,baidu.lang.isElement
  *             
- * @returns {boolean} 类型判断结果
+ * @return {boolean} 类型判断结果
  */
 //baidu.lang.isDate = function(o) {
 //    // return o instanceof Date;

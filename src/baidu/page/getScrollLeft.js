@@ -5,7 +5,7 @@
  * @grammar baidu.page.getScrollLeft()
  * @see baidu.page.getScrollTop
  *             
- * @returns {number} 横向滚动量
+ * @return {number} 横向滚动量
  */
 /*
  * Tangram

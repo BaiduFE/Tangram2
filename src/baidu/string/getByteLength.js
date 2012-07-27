@@ -16,7 +16,7 @@
  * @meta standard
  * @see baidu.string.subByte
  *             
- * @returns {number} 字节长度
+ * @return {number} 字节长度
  */
 baidu.string.extend({
     getByteLength : function () {

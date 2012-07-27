@@ -14,7 +14,7 @@
  * @param {HTMLFormElement} form        需要提交的表单元素
  * @param {Function} replacer           对参数值特殊处理的函数,replacer(string value, string key)
 	           
- * @returns {data} 表单数据js对象
+ * @return {data} 表单数据js对象
  */
 
 baidu.form.extend({

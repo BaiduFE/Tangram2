@@ -21,7 +21,7 @@
  * @version 1.3
  * @see baidu.lang.isString,baidu.lang.isObject,baidu.lang.isNumber,baidu.lang.isElement,baidu.lang.isArray,baidu.lang.isDate
  *             
- * @returns {boolean} 类型判断结果
+ * @return {boolean} 类型判断结果
  */
 //baidu.lang.isBoolean = function(o) {
 //    return typeof o === 'boolean';

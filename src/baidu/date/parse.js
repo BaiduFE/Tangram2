@@ -33,7 +33,7 @@
 </ol>
 		
  *             
- * @returns {Date} 转换后的日期对象
+ * @return {Date} 转换后的日期对象
  */
 
 baidu.date.parse = function (source) {

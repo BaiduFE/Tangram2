@@ -19,6 +19,6 @@
  * @meta out
  * @see baidu.json.decode,baidu.json.stringify
  *             
- * @returns {string} 序列化后的字符串
+ * @return {string} 序列化后的字符串
  */
 baidu.json.encode = baidu.json.stringify;

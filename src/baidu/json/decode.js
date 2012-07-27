@@ -19,6 +19,6 @@
  * @meta out
  * @see baidu.json.encode,baidu.json.parse
  *             
- * @returns {JSON} 解析结果json对象
+ * @return {JSON} 解析结果json对象
  */
 baidu.json.decode = baidu.json.parse;

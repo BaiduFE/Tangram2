@@ -26,7 +26,7 @@ baidu.dom._styleFixer和baidu.dom._styleFilter可以为本模块提供支持。<
  * @meta standard
  * @see baidu.dom.getStyle,baidu.dom.setStyles
  *             
- * @returns {HTMLElement} 目标元素
+ * @return {HTMLElement} 目标元素
  */
 
 baidu.dom.extend({

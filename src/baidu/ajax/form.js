@@ -31,7 +31,7 @@
 	
  * @see baidu.ajax.request
  *             
- * @returns {XMLHttpRequest} 发送请求的XMLHttpRequest对象
+ * @return {XMLHttpRequest} 发送请求的XMLHttpRequest对象
  */
 baidu.ajax.form = function (form, options) {
     options = options || {};

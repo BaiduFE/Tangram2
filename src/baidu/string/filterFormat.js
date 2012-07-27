@@ -25,7 +25,7 @@
 过滤函数需要之前挂载在baidu.string.filterFormat属性中.
 		
  * @see baidu.string.format,baidu.string.filterFormat.escapeJs,baidu.string.filterFormat.escapeString,baidu.string.filterFormat.toInt
- * @returns {string} 格式化后的字符串
+ * @return {string} 格式化后的字符串
  */
 baidu.string.filterFormat = function (source, opts) {
     var data = Array.prototype.slice.call(arguments,1), toString = Object.prototype.toString;

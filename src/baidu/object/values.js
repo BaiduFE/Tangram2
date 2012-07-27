@@ -18,7 +18,7 @@
  * @param {Object} source 目标对象
  * @see baidu.object.keys
  *             
- * @returns {Array} 值列表
+ * @return {Array} 值列表
  */
 baidu.object.values = function (source) {
     var result = [], resultLen = 0, k;

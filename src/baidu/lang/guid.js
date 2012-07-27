@@ -19,7 +19,7 @@
  * @version 1.1.1
  * @meta standard
  *             
- * @returns {String} 当前页面的唯一标识字符串
+ * @return {String} 当前页面的唯一标识字符串
  */
 baidu.lang.guid = function() {
     return baidu.id();

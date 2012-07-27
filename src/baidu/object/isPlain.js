@@ -16,7 +16,7 @@
  * @remark
  * 事实上来说，在Javascript语言中，任何判断都一定会有漏洞，因此本方法只针对一些最常用的情况进行了判断
  *             
- * @returns {Boolean} 检查结果
+ * @return {Boolean} 检查结果
  */
 baidu.object.isPlain  = function(obj){
     var hasOwnProperty = Object.prototype.hasOwnProperty,

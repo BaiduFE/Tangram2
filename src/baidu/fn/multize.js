@@ -20,7 +20,7 @@
  * @param {Boolean}		[joinArray] 将操作的结果展平后返回（如果返回的结果是数组，则将多个数组合成一个），可选
  * @version 1.3
  *
- * @returns {Function} 已集化的函数
+ * @return {Function} 已集化的函数
  */
 
 baidu.fn.extend({

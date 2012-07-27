@@ -17,7 +17,7 @@
  * 截取过程中，遇到半个汉字时，向下取整。
  * @see baidu.string.getByteLength
  *             
- * @returns {string} 字符串截取结果
+ * @return {string} 字符串截取结果
  */
 baidu.string.extend({
     subByte : function (len, tail) {

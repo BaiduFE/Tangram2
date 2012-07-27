@@ -15,7 +15,7 @@
  * 给以下字符前加上“\”进行转义：.*+?^=!:${}()|[]/\
  * @meta standard
  *             
- * @returns {string} 转义后的字符串
+ * @return {string} 转义后的字符串
  */
 baidu.string.extend({
 escapeReg : function () {

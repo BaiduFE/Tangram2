@@ -21,7 +21,7 @@ opts为“string...”时，替换目标字符串中的#{0}、#{1}...部分。
 		
  * @shortcut format
  * @meta standard    
- * @returns {string} 格式化后的字符串
+ * @return {string} 格式化后的字符串
  */
 //format(a,a,d,f,c,d,g,c);
 baidu.string.extend({

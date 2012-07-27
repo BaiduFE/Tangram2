@@ -16,7 +16,7 @@
  * @shortcut trim
  * @meta standard
  *             
- * @returns {string} 删除两端空白字符后的字符串
+ * @return {string} 删除两端空白字符后的字符串
  */
 
 (function () {

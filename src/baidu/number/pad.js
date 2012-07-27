@@ -13,7 +13,7 @@
  * @param {number} source 需要处理的数字
  * @param {number} length 需要输出的长度
  *             
- * @returns {string} 对目标数字进行0补齐处理后的结果
+ * @return {string} 对目标数字进行0补齐处理后的结果
  */
 
 baidu.number.extend({

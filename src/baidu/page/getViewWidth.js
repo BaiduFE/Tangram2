@@ -17,7 +17,7 @@
  * @grammar baidu.page.getViewWidth()
  * @see baidu.page.getViewHeight
  *             
- * @returns {number} 页面视觉区域宽度
+ * @return {number} 页面视觉区域宽度
  */
 baidu.page.getViewWidth = function () {
     var doc = document,

@@ -17,7 +17,7 @@
  * @grammar baidu.page.getHeight()
  * @see baidu.page.getWidth
  *             
- * @returns {number} 页面高度
+ * @return {number} 页面高度
  */
 baidu.page.getHeight = function () {
     var doc = document,

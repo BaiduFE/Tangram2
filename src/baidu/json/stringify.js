@@ -21,7 +21,7 @@
  * @meta standard
  * @see baidu.json.parse,baidu.json.encode
  *             
- * @returns {string} 序列化后的字符串
+ * @return {string} 序列化后的字符串
  */
 baidu.json.stringify = (function () {
     /*

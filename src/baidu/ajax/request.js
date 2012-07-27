@@ -30,7 +30,7 @@
  * @meta standard
  * @see baidu.ajax.get,baidu.ajax.post,baidu.ajax.form
  *             
- * @returns {XMLHttpRequest} 发送请求的XMLHttpRequest对象
+ * @return {XMLHttpRequest} 发送请求的XMLHttpRequest对象
  */
  
 baidu.ajax.extend({
