@@ -1,6 +1,7 @@
 ///import baidu;
 ///import baidu.type;
 ///import baidu.createChain;
+
 /*
  * @fileoverview
  * @author meizz

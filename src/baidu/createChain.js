@@ -1,7 +1,7 @@
 ///import baidu;
 ///import baidu.type;
 ///import baidu.extend;
-/**
+/*
  * @fileoverview
  * @author meizz
  * @create 2012-05-20

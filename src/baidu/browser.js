@@ -1,6 +1,6 @@
 ///import baidu.extend;
 
-/**
+/*
  * @fileoverview
  * @name baidu.browser
  * @author meizz
