@@ -10,7 +10,8 @@
  */
 
 /**
- * 判断浏览器类型和特性的属性
+ * @description 判断浏览器类型和特性的属性
+ * @namespace
  * @namespace baidu.browser
  */
 baidu.browser = baidu.browser || function(){

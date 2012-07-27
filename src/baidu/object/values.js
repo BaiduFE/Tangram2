@@ -11,7 +11,7 @@
 ///import baidu.object;
 
 /**
- * 获取目标对象的值列表
+ * @description 获取目标对象的值列表
  * @name baidu.object.values
  * @function
  * @grammar baidu.object.values(source)

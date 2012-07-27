@@ -12,7 +12,7 @@
 ///import baidu.global;
 
 /**
- * 解除instance中对指定类实例的引用关系。
+ * @description 解除instance中对指定类实例的引用关系。
  * @name baidu.lang.decontrol
  * @function
  * @grammar baidu.lang.decontrol(guid)

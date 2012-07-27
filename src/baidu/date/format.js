@@ -12,7 +12,7 @@
 ///import baidu.number.pad;
 
 /**
- * 对目标日期对象进行格式化
+ * @description 对目标日期对象进行格式化
  * @name baidu.date.format
  * @function
  * @grammar baidu.date.format(source, pattern)

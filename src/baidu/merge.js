@@ -9,8 +9,9 @@
  */
 
 /**
- * 将第二个 ArrayLike对象合并到第一个 ArrayLike 中去
- * 
+ * @description 将第二个 ArrayLike对象合并到第一个 ArrayLike 中去
+ * @namespace
+ * @name baidu.merge
  * @param   {Object}    first
  * @param   {Object}    second
  * @return              first

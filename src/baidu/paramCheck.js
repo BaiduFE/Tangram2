@@ -1,7 +1,7 @@
 ///import baidu;
 ///import baidu.type;
 ///import baidu.global;
-/**
+/*
  * @fileoverview
  * @name baidu.paramCheck
  * @author meizz
@@ -10,8 +10,9 @@
  */
 
 /**
- * 分析形参对象的类型
- *
+ * @description 分析形参对象的类型
+ * @name baidu.paramCheck
+ * @grammer baidu.paramCheck()
  * @param   {String}    regString     被分析的形参匹配字符串
  * @param   {String}    moduleName    被分析的模块名
  */

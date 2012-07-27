@@ -12,7 +12,7 @@
 ///import baidu.lang;
 
 /**
- * 返回一个当前页面的唯一标识字符串。
+ * @description 返回一个当前页面的唯一标识字符串。
  * @name baidu.lang.guid
  * @function
  * @grammar baidu.lang.guid()

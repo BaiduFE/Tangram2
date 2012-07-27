@@ -1,4 +1,4 @@
-/**
+/*
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
@@ -7,8 +7,9 @@
 ///import baidu.createChain;
 
 /**
- * sio功能链头
- *
+ * @description sio功能链头
+ * @name baidu.sio([url])
+ * @function
  * @grammer baidu.sio([url])
  * @param   {Url}
  * @return  {tangramSio}          返回 new TangramSio 对象

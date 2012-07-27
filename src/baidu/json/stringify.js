@@ -11,7 +11,7 @@
 ///import baidu.json;
 
 /**
- * 将json对象序列化
+ * @description 将json对象序列化
  * @name baidu.json.stringify
  * @function
  * @grammar baidu.json.stringify(value)
@@ -24,7 +24,7 @@
  * @returns {string} 序列化后的字符串
  */
 baidu.json.stringify = (function () {
-    /**
+    /*
      * 字符串处理时需要转义的字符表
      * @private
      */
@@ -38,7 +38,7 @@ baidu.json.stringify = (function () {
         "\\": '\\\\'
     };
     
-    /**
+    /*
      * 字符串序列化
      * @private
      */
@@ -60,7 +60,7 @@ baidu.json.stringify = (function () {
         return '"' + source + '"';
     }
     
-    /**
+    /*
      * 数组序列化
      * @private
      */
@@ -89,7 +89,7 @@ baidu.json.stringify = (function () {
         return result.join("");
     }
     
-    /**
+    /*
      * 处理日期序列化时的补零
      * @private
      */
@@ -97,7 +97,7 @@ baidu.json.stringify = (function () {
         return source < 10 ? '0' + source : source;
     }
     
-    /**
+    /*
      * 日期序列化
      * @private
      */

@@ -11,7 +11,7 @@
 ///import baidu.date;
 
 /**
- * 将目标字符串转换成日期对象
+ * @description 将目标字符串转换成日期对象
  * @name baidu.date.parse
  * @function
  * @grammar baidu.date.parse(source)

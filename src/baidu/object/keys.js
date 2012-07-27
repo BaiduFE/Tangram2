@@ -11,7 +11,7 @@
 ///import baidu.object;
 
 /**
- * 获取目标对象的键名列表
+ * @description 获取目标对象的键名列表
  * @name baidu.object.keys
  * @function
  * @grammar baidu.object.keys(source)

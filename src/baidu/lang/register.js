@@ -11,7 +11,7 @@
 ///import baidu.lang;
 
 /**
- * 向某个类注册插件
+ * @description 向某个类注册插件
  * @name baidu.lang.register
  * @function
  * @grammar baidu.lang.register(Class, constructorHook, methods)

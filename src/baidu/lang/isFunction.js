@@ -13,7 +13,7 @@
 ///import baidu.type;
 
 /**
- * 判断目标参数是否为function或Function实例
+ * @description 判断目标参数是否为function或Function实例
  * @name baidu.lang.isFunction
  * @function
  * @grammar baidu.lang.isFunction(source)

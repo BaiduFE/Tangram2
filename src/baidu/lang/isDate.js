@@ -13,7 +13,7 @@
 ///import baidu.type;
 
 /**
- * 判断目标参数是否为Date对象
+ * @description 判断目标参数是否为Date对象
  * @name baidu.lang.isDate
  * @function
  * @grammar baidu.lang.isDate(source)

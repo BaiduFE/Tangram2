@@ -8,8 +8,7 @@
 ///import baidu.object.isPlain;
 
 /**
- * 对一个object进行深度拷贝
- * 
+ * @description 对一个object进行深度拷贝
  * @author berg
  * @name baidu.object.clone
  * @function

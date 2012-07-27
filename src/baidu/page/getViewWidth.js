@@ -11,7 +11,7 @@
 ///import baidu.page;
 
 /**
- * 获取页面视觉区域宽度
+ * @description 获取页面视觉区域宽度
  * @name baidu.page.getViewWidth
  * @function
  * @grammar baidu.page.getViewWidth()

@@ -7,8 +7,9 @@
 ///import baidu.createChain;
 
 /**
- * 对异步调用的封装
- *
+ * @description 对异步调用的封装
+ * @name baidu.async
+ * @namespace
  * @grammer baidu.async(url)
  * @param   {Url}
  * @return  {tangramAsync}          返回 new TangramAsync对象

@@ -1,4 +1,4 @@
-/**
+/*
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
@@ -7,8 +7,9 @@
 ///import baidu.createChain;
 
 /**
- * 对方法的操作，解决内存泄露问题
- *
+ * @description 对方法的操作，解决内存泄露问题
+ * @name baidu.fn
+ * @function
  * @grammer baidu.fn(fn)
  * @param   {fn}
  * @return  {tangramFn}          返回 new TangramFn 对象

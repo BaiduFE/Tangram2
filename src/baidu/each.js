@@ -8,8 +8,9 @@
  */
 
 /**
- * 枚举目标对象中的每一个元素，进行指定函数操作
- *
+ * @description 枚举目标对象中的每一个元素，进行指定函数操作
+ * @name baidu.each
+ * @function
  * @grammer baidu.each( enumerable, iterator[, context] )
  *
  * @param   {Object}        enumerable      被枚举的对象（Array|ArrayLike|NodeList|String|Number）

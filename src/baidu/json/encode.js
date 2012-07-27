@@ -11,7 +11,7 @@
 ///import baidu.json.stringify;
 
 /**
- * 将json对象序列化，为过时接口，今后会被baidu.json.stringify代替
+ * @description 将json对象序列化，为过时接口，今后会被baidu.json.stringify代替
  * @name baidu.json.encode
  * @function
  * @grammar baidu.json.encode(value)

@@ -11,7 +11,7 @@
 ///import baidu.page;
 
 /**
- * 获取页面视觉区域高度
+ * @description 获取页面视觉区域高度
  * @name baidu.page.getViewHeight
  * @function
  * @grammar baidu.page.getViewHeight()

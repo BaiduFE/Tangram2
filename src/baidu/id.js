@@ -1,7 +1,7 @@
 ///import baidu;
 ///import baidu.type;
 ///import baidu.global;
-/**
+/*
  * @fileoverview
  * @name baidu.id
  * @author dron,meizz
@@ -10,7 +10,7 @@
  */
 
 /**
- * 页面级唯一标识的方法
+ * @description 页面级唯一标识的方法
  *
  * @grammer baidu.id( )
  * @grammer baidu.id( id )

@@ -6,7 +6,7 @@
 ///import baidu.lang;
 
 /**
- * 增加自定义模块扩展,默认创建在当前作用域
+ * @description 增加自定义模块扩展,默认创建在当前作用域
  * @author erik, berg
  * @name baidu.lang.module
  * @function

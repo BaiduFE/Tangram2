@@ -14,7 +14,7 @@
 ///import baidu.lang.Event;
 
 /**
- * 创建一个baidu.lang.Class的单例实例
+ * @description 创建一个baidu.lang.Class的单例实例
  * @name baidu.lang.createSingle
  * @function
  * @grammar baidu.lang.createSingle(json)

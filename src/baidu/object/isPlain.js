@@ -8,8 +8,7 @@
 ///import baidu.lang.isObject;
 
 /**
- * 判断一个对象是不是字面量对象，即判断这个对象是不是由{}或者new Object类似方式创建
- * 
+ * @description 判断一个对象是不是字面量对象，即判断这个对象是不是由{}或者new Object类似方式创建
  * @name baidu.object.isPlain
  * @function
  * @grammar baidu.object.isPlain(source)

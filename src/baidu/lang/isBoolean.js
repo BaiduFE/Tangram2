@@ -13,7 +13,7 @@
 ///import baidu.type;
 
 /**
- * 判断目标参数是否Boolean对象
+ * @description 判断目标参数是否Boolean对象
  * @name baidu.lang.isBoolean
  * @function
  * @grammar baidu.lang.isBoolean(source)

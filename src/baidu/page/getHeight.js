@@ -11,7 +11,7 @@
 ///import baidu.page;
 
 /**
- * 获取页面高度
+ * @description 获取页面高度
  * @name baidu.page.getHeight
  * @function
  * @grammar baidu.page.getHeight()

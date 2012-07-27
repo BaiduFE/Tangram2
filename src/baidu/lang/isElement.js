@@ -13,7 +13,7 @@
 ///import baidu.type;
 
 /**
- * 判断目标参数是否为Element对象
+ * @description 判断目标参数是否为Element对象
  * @name baidu.lang.isElement
  * @function
  * @grammar baidu.lang.isElement(source)

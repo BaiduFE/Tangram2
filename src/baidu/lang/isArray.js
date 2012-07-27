@@ -13,7 +13,7 @@
 ///import baidu.type;
 
 /**
- * 判断目标参数是否Array对象
+ * @description 判断目标参数是否Array对象
  * @name baidu.lang.isArray
  * @function
  * @grammar baidu.lang.isArray(source)

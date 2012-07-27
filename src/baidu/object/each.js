@@ -11,7 +11,7 @@
 ///import baidu.object;
 
 /**
- * 遍历Object中所有元素，1.1.1增加
+ * @description 遍历Object中所有元素，1.1.1增加
  * @name baidu.object.each
  * @function
  * @grammar baidu.object.each(source, iterator)

@@ -7,8 +7,9 @@
 ///import baidu.createChain;
 
 /**
- * Ajax链头，对XMLHttpRequest请求的封装
- *
+ * @description Ajax链头，对XMLHttpRequest请求的封装
+ * @function
+ * @name baidu.ajax
  * @grammer baidu.ajax([url])
  * @param   {Url}
  * @return  {tangramAjax}          返回 new TangramAjax 对象

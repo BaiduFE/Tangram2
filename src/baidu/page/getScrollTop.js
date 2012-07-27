@@ -11,7 +11,7 @@
 ///import baidu.page;
 
 /**
- * 获取纵向滚动量
+ * @description 获取纵向滚动量
  * @name baidu.page.getScrollTop
  * @function
  * @grammar baidu.page.getScrollTop()

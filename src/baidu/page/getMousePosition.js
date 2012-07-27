@@ -4,7 +4,7 @@
  */
 
 /**
- * 获得页面里的目前鼠标所在的坐标
+ * @description 获得页面里的目前鼠标所在的坐标
  * @name baidu.page.getMousePosition
  * @function
  * @grammar baidu.page.getMousePosition()
@@ -17,9 +17,8 @@
 ///import baidu.dom.on;
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getScrollLeft;
-/**
+/*
  * 取得当前页面里的目前鼠标所在的坐标（x y）
- *
  * @return  {JSON}  当前鼠标的坐标值({x, y})
  */
 (function(){

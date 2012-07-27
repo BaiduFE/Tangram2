@@ -1,5 +1,5 @@
 /**
- * 获取横向滚动量
+ * @description 获取横向滚动量
  * @name baidu.page.getScrollLeft
  * @function
  * @grammar baidu.page.getScrollLeft()
@@ -19,8 +19,8 @@
 
 ///import baidu.page;
 
-/**
- * 获取横向滚动量
+/*
+ * @description 获取横向滚动量
  * 
  * @return {number} 横向滚动量
  */

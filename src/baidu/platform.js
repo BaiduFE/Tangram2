@@ -7,8 +7,9 @@
 ///import baidu.each;
 
 /**
- * 判断平台类型和特性的属性
- * @namespace baidu.platform
+ * @description 判断平台类型和特性的属性
+ * @name baidu.platform
+ * @namespace
  * @author jz, meizz
  * @modify 2012.6.29 mz 将原 baidu.platform.* 接口全部集成到 baidu.platform.js 中
  */

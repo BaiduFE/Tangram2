@@ -11,15 +11,17 @@
 ///import baidu.browser;
 
 /**
- * 判断是否为opera浏览器
+ * @description 判断是否为opera浏览器
  * @property opera opera版本号
+ * @function
+ * @name baidu.browser.opera
  * @grammar baidu.browser.opera
  * @meta standard
  * @see baidu.browser.ie,baidu.browser.firefox,baidu.browser.safari,baidu.browser.chrome
  * @returns {Number} opera版本号
  */
 
-/**
+/*
  * opera 从10开始不是用opera后面的字符串进行版本的判断
  * 在Browser identification最后添加Version + 数字进行版本标识
  * opera后面的数字保持在9.80不变
