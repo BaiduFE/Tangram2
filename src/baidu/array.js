@@ -3,7 +3,6 @@
 ///import baidu.createChain;
 /**
  * @fileoverview
- * @name baidu.array
  * @author meizz
  * @create 2012-05-20
  * @modify

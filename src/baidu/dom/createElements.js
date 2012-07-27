@@ -4,17 +4,19 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.createElements
  * @author meizz
  * @create 2012-07-05
  * @modify
  */
 
 /**
- * 通过 HTMLString 创建 DOM 对象
+ * @description 通过 HTMLString 创建 DOM 对象
  *
- * @param   {HTMLString}    htmlstring
- * @return  {HTMLElement}
+ * @function
+ * @name baidu.dom.createElements
+ * @grammar baidu.dom.createElements(HTMLString)
+ * @param   {HTMLString}    htmlstring HTMLString
+ * @return  {$DOM}          new TangramDom
  */
 baidu.dom.createElements = function() {
     var tagReg  = /^<(\w+)/i,

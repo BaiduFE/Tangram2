@@ -3,14 +3,17 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.unique
  * @author meizz
  * @create 2012-05-28
  * @modify
  */
 
 /**
- * 去重
+ * @description 去重
+ *
+ * @function
+ * @name baidu.unique
+ * @grammar $DOM.unique([fn])
  * @param   {Function}      fn(a, b)    [可选]
  * @return  {TangramDom}    new TangramDom
  */

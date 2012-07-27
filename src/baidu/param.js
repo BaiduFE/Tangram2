@@ -2,7 +2,6 @@
 ///import baidu.type;
 /*
  * @fileoverview
- * @name baidu.param
  * @author meizz
  * @create 2012-05-30
  * @modify

@@ -51,8 +51,8 @@ baidu.dom.extend({
                     dest.text !== src.text && (dest.text = src.text);
                     break;
             }
-            if(dest[baidu.id.key]){
-                delete dest[baidu.id.key];//?
+            if(dest[baidu.key]){
+                delete dest[baidu.key];//?
             }
         }
         //

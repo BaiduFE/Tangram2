@@ -2,7 +2,6 @@
 
 /*
  * @fileoverview
- * @name baidu.extend
  * @author meizz
  * @create 2010-01-23
  * @modify 2012-05-20

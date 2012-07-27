@@ -13,26 +13,24 @@
 ///import baidu.url.escapeSymbol;
 
 /**
- * 将一个表单用ajax方式提交
+ * @description 将一个表单用ajax方式提交
+ * @function 
  * @name baidu.ajax.form
- * @function
  * @grammar baidu.ajax.form(form[, options])
- * @param {HTMLFormElement} form             需要提交的表单元素
- * @param {Object} 	[options] 					发送请求的选项参数
- * @config {Boolean} [async] 			是否异步请求。默认为true（异步）
- * @config {String} 	[username] 			用户名
- * @config {String} 	[password] 			密码
- * @config {Object} 	[headers] 			要设置的http request header
- * @config {Function} [replacer] 			对参数值特殊处理的函数,replacer(string value, string key)
- * @config {Function} [onbeforerequest] 	发送请求之前触发，function(XMLHttpRequest xhr)。
- * @config {Function} [onsuccess] 		请求成功时触发，function(XMLHttpRequest xhr, string responseText)。
- * @config {Function} [onfailure] 		请求失败时触发，function(XMLHttpRequest xhr)。
- * @config {Function} [on{STATUS_CODE}] 	当请求为相应状态码时触发的事件，如on302、on404、on500，function(XMLHttpRequest xhr)。3XX的状态码浏览器无法获取，4xx的，可能因为未知问题导致获取失败。
-	
- * @see baidu.ajax.request
- *             
- * @return {XMLHttpRequest} 发送请求的XMLHttpRequest对象
+ * @param {Object} options 发送请求的选项参数
+ * @param {Element} form 需要提交的表单元素
+ * @param {Boolean} options.async 是否异步请求。默认为true（异步）
+ * @param {String} options.username 用户名
+ * @param {String} options.password 密码
+ * @param {Object} options.headers 要设置的http request header
+ * @param {function} options.replacer 对参数值特殊处理的函数,replacer(string value, string key)
+ * @param {function} options.onsuccess 请求成功时触发，格式：function(XMLHttpRequest xhr, String responseText)
+ * @param {function} options.onfailure 请求失败时触发，格式：function(XMLHttpRequest xhr)
+ * @param {function} options.onbeforerequest 发送请求之前触发，格式：function(XMLHttpRequest xhr)
+ * @param {function} options.on{STATUS_CODE} 当请求为相应状态码时触发的事件，如on302、on404、on500，function(XMLHttpRequest xhr)。3XX的状态码浏览器无法获取，4xx的，可能因为未知问题导致获取失败
+ * @return {XMLHttpRequest} 返回发送请求的XMLHttpRequest对象
  */
+
 baidu.ajax.form = function (form, options) {
     options = options || {};
     var elements    = form.elements,

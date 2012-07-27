@@ -5,16 +5,19 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.children
  * @author meizz
- * @create 2012-05-28
+ * @create 2012-06-12
  * @modify
  */
 
 /**
+ * @description 所有了元素的集合
  *
- * @param
- * @return
+ * @function
+ * @name baidu.dom.children
+ * @grammar $DOM.children(selector)
+ * @param   {Object}            selector    选择器
+ * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
     children : function (selector) {

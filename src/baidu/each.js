@@ -1,7 +1,6 @@
 ///import baidu;
 /**
  * @fileoverview
- * @name baidu.each
  * @author meizz
  * @create 2012-05-20
  * @modify 2012.6.29 扩展对 String Number 的支持
