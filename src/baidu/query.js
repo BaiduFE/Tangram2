@@ -11,10 +11,12 @@
  */
 
 /**
- * 通过指定的CSS选择器取指定的DOM元素
+ * @description 通过指定的CSS选择器取指定的DOM元素
  * 在用户选择使用 Sizzle 时会被覆盖成 Sizzle 方法
  * 目前这个简版的 selector 函数支持四种选择器 * #id .class tagName
  *
+ * @function
+ * @name baidu.query
  * @grammer baidu.query(selector[, context[, results]])
  * @param   {String}    selector    CSS选择器字符串
  * @param   {Document}  context     选择的范围

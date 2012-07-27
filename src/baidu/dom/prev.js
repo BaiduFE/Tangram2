@@ -4,16 +4,19 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.prev
  * @author meizz
  * @create 2012-05-28
  * @modify
  */
 
 /**
+ * @description 包含匹配的元素集合中每一个元素紧邻的前一个同辈元素的元素集合
  *
- * @param
- * @return
+ * @function
+ * @name baidu.dom.prev
+ * @grammar $DOM.prev(filter)
+ * @param   {Object}        filter      [可选]过滤函数
+ * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
     prev : function (filter) {

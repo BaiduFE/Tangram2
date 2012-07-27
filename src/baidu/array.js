@@ -3,7 +3,6 @@
 ///import baidu.createChain;
 /**
  * @fileoverview
- * @name baidu.array
  * @author meizz
  * @create 2012-05-20
  * @modify
@@ -12,6 +11,8 @@
 /**
  * array对象链式语法的链头
  *
+ * @function
+ * @name baidu.array
  * @grammer baidu.array(array)
  * @param   {Array}         array   Array对象
  * @return  {TangramArray}          返回 array 对象，该对象被注入链式方法。
