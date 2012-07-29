@@ -7,25 +7,26 @@
 ///import baidu.async.Deferred;
 
 /**
- * 支持异步的ajax.get封装.
- * @grammar baidu.async.Deferred(url)
+ * @description 支持异步的ajax.get封装
+ * @function
+ * @grammar baidu.async.get(url)
  * @param {String} url 请求地址.
  * @version 1.3.9 
  * @return {baidu.async.Deferred} Deferred对象,支持链式调用.
  */
 
 baidu.async.extend({
-get : function(){
-    var url = this.url;
-    var deferred = new baidu.async.Deferred();
-    baidu.ajax.request(url, {
-        onsuccess: function(xhr, responseText) {
-            deferred.resolve({xhr: xhr, responseText: responseText}); 
-        },
-        onfailure: function(xhr) {
-            deferred.reject({xhr: xhr});
-        }
-    });
-    return deferred;
-}
+    get : function(){
+        var url = this.url;
+        var deferred = new baidu.async.Deferred();
+        baidu.ajax.request(url, {
+            onsuccess: function(xhr, responseText) {
+                deferred.resolve({xhr: xhr, responseText: responseText}); 
+            },
+            onfailure: function(xhr) {
+                deferred.reject({xhr: xhr});
+            }
+        });
+        return deferred;
+    }
 });
