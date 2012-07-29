@@ -51,7 +51,7 @@ test('逻辑特性测试 - 无offsetParent情况', function () {
 
 test('逻辑特性测试 - 有offsetParent情况', function () {
 	useTangramDom(html, function ($dom, wrapper) {
-	    //这个地方选择器执行结果ie6会和其它浏览器有差异会导致用例在ie6过不了
+	    //ie6下取得offsetParent和其它浏览器存在差异，jq也是同样的结果
 		var target = baidu.dom('li.item-1, li.item-a', wrapper).offsetParent();
 		equal(target.length, 3);
 		equal(count(target, 'ul.level-2'), 1);

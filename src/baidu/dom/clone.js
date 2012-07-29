@@ -20,8 +20,8 @@ baidu.dom.extend({
         var event = baidu.dom._eventBase;
         //
         function getAll(ele){
-            var query = ele.getElementsByTagName || ele.querySelectorAll;
-            return query ? query('*') : [];
+            return ele.getElementsByTagName ? ele.getElementsByTagName('*')
+                : (ele.querySelectorAll ? ele.querySelectorAll('*') : []);
         }
         //
         function isXMLDoc(ele){
@@ -51,9 +51,7 @@ baidu.dom.extend({
                     dest.text !== src.text && (dest.text = src.text);
                     break;
             }
-            if(dest[baidu.key]){
-                delete dest[baidu.key];//?
-            }
+            dest[baidu.key] && dest.removeAttribute(baidu.key);
         }
         //
         function cloneCopyEvent(src, dest){
@@ -83,8 +81,8 @@ baidu.dom.extend({
             if(dataAndEvents){
                 cloneCopyEvent(ele, cloneNode);
                 if(deepDataAndEvents){
-                	srcElements = getAll( elem );
-                    destElements = getAll( clone );
+                    srcElements = getAll( ele );
+                    destElements = getAll( cloneNode );
                     len = srcElements.length;
                     for(var i = 0; i < len; i++){
                     	cloneCopyEvent(srcElements[i], destElements[i]);
