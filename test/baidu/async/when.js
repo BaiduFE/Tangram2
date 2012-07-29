@@ -8,7 +8,7 @@ module("baidu.async.when");
 			/**
 			 * 对测试初始化
 			 * 
-			 * @returns
+			 * @return
 			 */
 			init : function() {
 				QUnit.stop();
@@ -16,7 +16,7 @@ module("baidu.async.when");
 			},
 			/**
 			 * @param expIdx 期望Index
-			 * @returns 返回一个Function对象
+			 * @return 返回一个Function对象
 			 */
 			getFn : function(expIdx) {
 				return expIdx || expIdx === 0 ? function() {
@@ -27,7 +27,7 @@ module("baidu.async.when");
 			/**
 			 * @param expIdx 期望的Index
 			 * @param isFail 是否调用OnFail链
-			 * @returns 返回Deferred对象
+			 * @return 返回Deferred对象
 			 */
 			getDef : function(expIdx, isFail) {
 				equals(_index++, expIdx, expIdx + 'st call');
@@ -38,7 +38,7 @@ module("baidu.async.when");
 			/**
 			 * 对测试调用结束
 			 * 
-			 * @returns
+			 * @return
 			 */
 			teardown : function(time) {
 				delete _index;

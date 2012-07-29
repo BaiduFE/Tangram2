@@ -26,9 +26,6 @@
 会替换成baidu.string.filterFormat["escapeUrl"](opts.url);<br/>
 过滤函数需要之前挂载在baidu.string.filterFormat属性中.
 */
-
-
-
 baidu.string.filterFormat = function (source, opts) {
     var data = Array.prototype.slice.call(arguments,1), toString = Object.prototype.toString;
     if(data.length){

@@ -11,11 +11,12 @@
 ///import baidu.browser;
 
 /**
- * 判断是否为webkit内核
+ * @description 判断是否为webkit内核
+ * @name baidu.browser.isWebkit
  * @property isWebkit 
  * @grammar baidu.browser.isWebkit
  * @meta standard
  * @see baidu.browser.isGecko
- * @returns {Boolean} 布尔值
+ * @return {Boolean} 布尔值
  */
 //baidu.browser.isWebkit = /webkit/i.test(navigator.userAgent);

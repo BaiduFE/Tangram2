@@ -9,8 +9,8 @@
 ///import baidu.callbacks;
 
 /**
- * deferred功能链头
- *
+ * @description deferred功能链头
+ * @name baidu.deferred
  * @grammer baidu.deferred()
  * @param   {}
  * @return  

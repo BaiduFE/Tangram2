@@ -1,7 +1,7 @@
 ///import baidu;
 ///import baidu.type;
 ///import baidu.global;
-/**
+/*
  * @fileoverview
  * @author dron,meizz
  * @create 2012-06-13
@@ -9,8 +9,7 @@
  */
 
 /**
- * @description页面级唯一标识的方法
- *
+ * @description 页面级唯一标识的方法
  * @function
  * @name baidu.id
  * @grammer baidu.id( [id[, command]] )

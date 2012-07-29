@@ -2,7 +2,7 @@
 ///import baidu.each;
 ///import baidu.merge;
 ///import baidu.array.unique;
-/**
+/*
  * @fileoverview
  * @name baidu.query
  * @author meizz
