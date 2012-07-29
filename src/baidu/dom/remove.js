@@ -23,11 +23,11 @@ baidu.dom.extend({
     remove: function(selector, keepData){
         arguments.length > 0
             && baidu.paramCheck('^string(?:,boolean)?$', 'baidu.dom.remove');
-        var array = selector ? this.filter(selector) : this, elements;
+        var array = selector ? this.filter(selector) : this;
         for(var i = 0, ele; ele = array[i]; i++){
-            if(!keepData){
-                baidu.dom._cleanData(ele.getElementsByTagName('*'));
-                baidu.dom._cleanData([ele]);
+           if(!keepData){
+               baidu.dom._cleanData(ele.getElementsByTagName('*'));
+               baidu.dom._cleanData([ele]);
             }
             ele.parentNode && ele.parentNode.removeChild(ele);
         }
