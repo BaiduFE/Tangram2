@@ -1,5 +1,5 @@
 ///import baidu;
-/**
+/*
  * @fileoverview 在当前页面开辟一个全局的信息存放地
  * @name baidu.global
  * @author meizz

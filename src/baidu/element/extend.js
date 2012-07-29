@@ -22,7 +22,7 @@
  * @param {Object} json 要扩展的方法名以及方法
  * @version 1.3
  * @shortcut e
- * @returns {baidu.element.Element} Element对象
+ * @return {baidu.element.Element} Element对象
  *
  */
 baidu.element.extend = function(json){

@@ -14,7 +14,7 @@
 ///import baidu.lang.Event;
 
 /**
- * 创建一个baidu.lang.Class的单例实例
+ * @description 创建一个baidu.lang.Class的单例实例
  * @name baidu.lang.createSingle
  * @function
  * @grammar baidu.lang.createSingle(json)
@@ -22,7 +22,7 @@
  * @version 1.2
  * @see baidu.lang.Class
  *             
- * @returns {Object} 一个实例
+ * @return {Object} 一个实例
  */
 baidu.lang.createSingle = function (json) {
     var c = new baidu.lang.Class();

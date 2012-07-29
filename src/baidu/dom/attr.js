@@ -58,7 +58,7 @@
 
 baidu.dom.extend({
     attr:function(name,value){
-    	
+
         //异常处理
         if(arguments.length <= 0 || typeof name === 'function'){
             return this;

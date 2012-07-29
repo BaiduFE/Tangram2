@@ -6,7 +6,9 @@
 ///import baidu.platform;
 
 /**
- * 判断是否为macintosh平台
+ * @description 判断是否为macintosh平台
+ * @function
+ * @name baidu.platform.macintosh
  * @property macintosh 是否为macintosh平台
  * @grammar baidu.platform.macintosh
  * @meta standard

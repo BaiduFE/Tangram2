@@ -6,7 +6,9 @@
 ///import baidu.platform;
 
 /**
- * 判断是否为iphone平台
+ * @description 判断是否为iphone平台
+ * @function
+ * @name baidu.platform.iphone
  * @property iphone 是否为iphone平台
  * @grammar baidu.platform.iphone
  * @meta standard

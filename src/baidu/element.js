@@ -22,8 +22,9 @@
 
 
 /**
- * 通过该方法封装的对象可使用dom、event方法集合以及each方法进行链式调用
- * @namespace baidu.element
+ * @description 通过该方法封装的对象可使用dom、event方法集合以及each方法进行链式调用
+ * @namespace
+ * @name baidu.element
  */
 baidu.element = function(node){
     var gNode = baidu.dom._g(node);
@@ -36,11 +37,12 @@ baidu.element = function(node){
 baidu.e = baidu.element;
 
 /**
- * Element类，所有扩展到链条上的方法都会被放在这里面
+ * @description Element类，所有扩展到链条上的方法都会被放在这里面
+ * @function
  * @name baidu.element.Element
  * @grammar baidu.element.Element(node)
  * @param {DOMElement|NodeList} node   目标元素，可以是数组或者单个node节点
- * @returns {ElementObj} 包装后的DOM对象
+ * @return {ElementObj} 包装后的DOM对象
  * @version 1.3
  */
 baidu.element.Element = function(node){
@@ -49,7 +51,7 @@ baidu.element.Element = function(node){
         baidu.element._makeChain();
         baidu.element._init = true;
     }
-    /**
+    /*
      * @private
      * @type {Array.<Node>}
      */
@@ -58,7 +60,7 @@ baidu.element.Element = function(node){
 };
 
 /**
- * 以每一个匹配的元素作为上下文执行传递进来的函数，方便用户自行遍历dom。
+ * @description 以每一个匹配的元素作为上下文执行传递进来的函数，方便用户自行遍历dom。
  * @name baidu.element.each
  * @function
  * @grammar baidu.element(node).each(iterator)
@@ -72,8 +74,8 @@ baidu.element.Element.prototype.each = function(iterator) {
     });
 };
 
-/*
- * 包装静态方法，使其变成一个链条方法。
+/**
+ * @description 包装静态方法，使其变成一个链条方法。
  * 先把静态方法multize化，让其支持接受数组参数，
  * 然后包装返回值，返回值是一个包装类
  * 最后把静态方法methodize化，让其变成一个对象方法。
@@ -89,7 +91,7 @@ baidu.element._toChainFunction = function(func, index, joinArray){
 };
 
 /**
- * element对象包装了dom包下的除了drag和ready,create,ddManager之外的大部分方法。这样做的目的是提供更为方便的链式调用操作。其中doms代指dom包下的方法名。
+ * @description element对象包装了dom包下的除了drag和ready,create,ddManager之外的大部分方法。这样做的目的是提供更为方便的链式调用操作。其中doms代指dom包下的方法名。
  * @name baidu.element.doms
  * @function
  * @grammar baidu.element(node).doms
@@ -139,14 +141,14 @@ baidu.element._makeChain = function(){ //将dom/event包下的东西挂到protot
     });
   
     /** 
-     * 方法提供了事件绑定的快捷方式，事件发生时会触发传递进来的函数。events代指事件方法的总和。
+     * @description 方法提供了事件绑定的快捷方式，事件发生时会触发传递进来的函数。events代指事件方法的总和。
      * @name baidu.element.events 
      * @function
      * @grammar baidu.element(node).events(fn)
      * @param {Function} fn 事件触发时要调用的方法
      * @version 1.3
      * @remark 包装event的快捷方式具体包括blur、focus、focusin、focusout、load 、resize 、scroll 、unload 、click、 dblclick、mousedown 、mouseup 、mousemove、 mouseover 、mouseout 、mouseenter、 mouseleave、change 、select 、submit 、keydown、 keypress 、keyup、 error。
-     * @returns {baidu.element} Element对象
+     * @return {baidu.element} Element对象
      */
     //包装event的快捷方式
     baidu.each(("blur focus focusin focusout load resize scroll unload click dblclick " +
@@ -158,7 +160,7 @@ baidu.element._makeChain = function(){ //将dom/event包下的东西挂到protot
     });
 
 
-    /**
+    /*
      * 把get去掉
      * 链里面的方法可以不以get开头调用
      * 如 baidu.element("myDiv").parent() == baidu.element("myDiv").getParent();

@@ -61,6 +61,12 @@ baidu.support = baidu.support || function(){
 
         select = document.createElement( "select" );
         opt = select.appendChild( document.createElement("option") );
+
+        // Make sure that the options inside disabled selects aren't marked as disabled
+        // (WebKit marks them as disabled)
+        select.disabled = true;
+        support.optDisabled = !opt.disabled;
+
         // Make sure that a selected-by-default option has a working selected property.
         // (WebKit defaults to false instead of true, IE too, if it's in an optgroup)
         support.optSelected = opt.selected;
@@ -68,6 +74,12 @@ baidu.support = baidu.support || function(){
         // Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
         div.setAttribute("className", "t");
         div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
+        var input = div.getElementsByTagName("input")[ 0 ];
+
+        // Make sure that if no value is specified for a checkbox
+        // that it defaults to "on".
+        // (WebKit defaults to "" instead)
+        support.checkOn = ( input.value === "on" );
 
         // Make sure that link elements get serialized correctly by innerHTML
         // This requires a wrapper element in IE

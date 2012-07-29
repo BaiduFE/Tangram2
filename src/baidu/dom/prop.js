@@ -38,13 +38,14 @@
  */
 ///import baidu;
 ///import baidu.dom;
+///import baidu.each;
 ///import baidu.support;
 ///import baidu.dom._isXML;
 ///import baidu.dom._propHooks;
 
 baidu.dom.extend({
     prop:function(name,value){
-    	
+
         //异常处理
         if(arguments.length <= 0 || typeof name === 'function'){
             return this;
@@ -54,8 +55,7 @@ baidu.dom.extend({
         var result,
         me = this,
         isSet = false;
-
-        baidu.each(this, function(item,index){
+        baidu.each(this,function(item,index){
 
             if(result){
                 return;
@@ -79,11 +79,9 @@ baidu.dom.extend({
                 name = bd.propFix[ name ] || name;
                 hooks = bd.propHooks[ name ];
             };
-
             switch(typeof name){
                 case 'string':
                     if( typeof value === 'undefined' ){
-                        
                         //get first
                         if ( hooks && "get" in hooks && (ret = hooks.get( item, name )) !== null ) {
                             //return ret;

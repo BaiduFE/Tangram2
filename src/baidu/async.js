@@ -7,6 +7,8 @@
 
 /**
  * @description 对异步调用的封装
+ * @name baidu.async
+ * @namespace
  * @grammer baidu.async(url)
  * @param   {String} 一个目标的url字符串
  * @return  {tangramAsync} 返回一个TangramAsync对象

@@ -7,9 +7,11 @@
 
 /**
  * @description 对form的操作，解决表单数据问题
- * @grammer baidu.form(ele)
- * @param   {Element} ele 一个目标的form元素
- * @return  {tangramForm} 返回一个tangramForm对象
+ * @function
+ * @name baidu.fn(fn)
+ * @grammer baidu.fn(fn)
+ * @param   {fn}
+ * @return  {tangramFn}          返回 new TangramFn 对象
  */
 
 baidu.createChain("form",
