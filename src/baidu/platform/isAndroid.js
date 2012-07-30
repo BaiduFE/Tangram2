@@ -6,8 +6,10 @@
 ///import baidu.platform;
 
 /**
- * 判断是否为android平台
+ * @description 判断是否为android平台
  * @property android 是否为android平台
+ * @function
+ * @name baidu.platform.android
  * @grammar baidu.platform.android
  * @meta standard
  * @see baidu.platform.x11,baidu.platform.windows,baidu.platform.macintosh,baidu.platform.iphone,baidu.platform.ipad

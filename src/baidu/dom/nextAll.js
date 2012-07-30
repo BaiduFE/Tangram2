@@ -1,20 +1,22 @@
 ///import baidu.dom;
 ///import baidu.each;
 ///import baidu.dom.match;
-///import baidu.array.unique;
 
 /**
  * @fileoverview
- * @name baidu.dom.nextAll
- * @create 2012-06-21
  * @author meizz
+ * @create 2012-06-11
  * @modify
  */
 
 /**
+ * @description 查找当前元素之后所有的同辈元素
  *
- * @param
- * @return
+ * @function
+ * @name baidu.dom.nextAll
+ * @grammar $DOM.nextAll([filter])
+ * @param   {String|Function}   filter      [可选]过滤函数
+ * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
     nextAll : function (selector) {
@@ -26,8 +28,6 @@ baidu.dom.extend({
             };
         });
 
-        array = baidu.array(array).unique();
-
-        return baidu.dom(selector ? baidu.dom.match(array, selector) : array);
+        return baidu.dom( baidu.dom.match(array, selector) );
     }
 });

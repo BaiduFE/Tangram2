@@ -13,9 +13,9 @@ var div = document.createElement("div");
 	div.style.position = "absolute";
 	div.style.top = "-10000px";
 
-document.documentElement.appendChild(div);
 
 test("appendTo selector", function(){
+	document.body.appendChild(div);
 	div.innerHTML = "<div class='A'>A</div><div class='A'>A</div><div class='B'>B</div><div class='B'>B</div>";
 	baidu.dom("div.A").appendTo("div.B");
 	equal( formatHTML(div.innerHTML), "<div class=b>B<div class=a>A</div><div class=a>A</div></div><div class=b>B<div class=a>A</div><div class=a>A</div></div>", "div.a appendTo div.b" );

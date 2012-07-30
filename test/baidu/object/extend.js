@@ -10,7 +10,7 @@ test("拷贝属性", function(){
 	oTarget = {a:1, b:2};
 	oSrc = {b:3, c:4};	
 	//快捷方式
-	var result = baidu.extend(oTarget, oSrc); //将oSrc中的属性都extend扩展到oTarget内（oTarget原有属性仍保留）	
+	var result = baidu.object.extend(oTarget, oSrc); //将oSrc中的属性都extend扩展到oTarget内（oTarget原有属性仍保留）	
 	same(oTarget, {a:1, b:3, c:4}, "oTarget = {a:1, b:3, c:4}");	
 	equals(result, oTarget, "result = oTarget"); // result = return oTarget
 });

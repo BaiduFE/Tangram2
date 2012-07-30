@@ -18,7 +18,7 @@
 		background-color: #ccf;
 	}
 </style>
-<script type='text/javascript' src='../../src/import.php?f=baidu.dom._eventBase,baidu.dom.addClass,baidu.dom.removeClass'></script>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.on,baidu.dom.addClass,baidu.dom.removeClass'></script>
 </head>
 <body>
 
@@ -35,8 +35,7 @@
 <script type="text/javascript">
 	baidu("#container").focusin(function(event){
 	    baidu(this).addClass("blue");
-	});
-	baidu("#container").focusout(function(event){
+	}).focusout(function(event){
 	    baidu(this).removeClass("blue");
 	});
 </script>

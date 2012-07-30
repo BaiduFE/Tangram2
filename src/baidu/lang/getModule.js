@@ -11,8 +11,9 @@
 ///import baidu.lang;
 
 /**
- * 根据变量名或者命名空间来查找对象
+ * @description 根据变量名或者命名空间来查找对象
  * @function
+ * @name baidu.lang.getModule
  * @grammar baidu.lang.getModule(name, opt_obj)
  * @param {string} name 变量或者命名空间的名字.
  * @param {Object=} opt_obj 从这个对象开始查找，默认是window;

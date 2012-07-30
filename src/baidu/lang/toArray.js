@@ -13,14 +13,14 @@
 ///import baidu.lang.isFunction;
 
 /**
- * 将一个变量转换成array
+ * @description 将一个变量转换成array
  * @name baidu.lang.toArray
  * @function
  * @grammar baidu.lang.toArray(source)
  * @param {mix} source 需要转换成array的变量
  * @version 1.3
  * @meta standard
- * @returns {array} 转换后的array
+ * @return {array} 转换后的array
  */
 baidu.lang.toArray = function (source) {
     if (source === null || source === undefined)

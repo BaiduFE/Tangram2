@@ -1,3 +1,4 @@
+///import baidu.dom;
 ///import baidu.type;
 ///import baidu.query;
 ///import baidu.each;
@@ -6,18 +7,20 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.match
  * @author meizz
  * @create 2012-06-18
  * @modify
  */
 
 /**
- * 对 TangramDom 里的所有元素进行筛选匹配，返回匹配上的DOM元素数组
- * @grammer TangramDom.match(selector)
- * @grammer TangramDom.match(tangramDom)
- * @grammer TangramDom.match(HTMLElement)
- * @grammer TangramDom.match(fn(index))
+ * @description 对 TangramDom 里的所有元素进行筛选匹配，返回匹配上的DOM元素数组
+ * @name baidu.dom.match
+ * @grammer baidu.dom.match(selector)
+ * @grammer baidu.dom.match(tangramDom)
+ * @grammer baidu.dom.match(HTMLElement)
+ * @grammer baidu.dom.match(fn(index))
+ *
+ * @param   {ArrayLike}     array       被筛选的集合
  * @param   {String}        selector    CSS选择器
  * @return  {Array}         Array
  */
@@ -28,10 +31,10 @@ baidu.dom.match = function(){
         div = document.createElement("DIV");
         div.id = "__tangram__";
 
-    return function(array, selector){
-        var root, results = [];
+    return function( array, selector, context ){
+        var root, results = baidu.array();
 
-        switch (baidu.type(selector)) {
+        switch ( baidu.type(selector) ) {
             // 取两个 TangramDom 的交集
             case "$DOM" :
                 for (var x=array.length-1; x>-1; x--) {
@@ -56,22 +59,27 @@ baidu.dom.match = function(){
 
             // CSS 选择器
             case "string" :
-                var da = baidu.query(selector, document);
+                var da = baidu.query(selector, context || document);
                 baidu.each(array, function(item){
+                    if ( root = getRoot(item) ) {
+                        var t = root.nodeType == 1
+                            // in DocumentFragment
+                            ? baidu.query(selector, root)
+                            : da;
 
-                    var t = (root = getRoot(item)).nodeType == 1
-                        // in DocumentFragment
-                        ? baidu.query(selector, root)
-                        : da;
-
-                    for (var i=0, n=t.length; i<n; i++) {
-                        if (t[i] === item) {
-                            results.push(item);
-                            break;
+                        for (var i=0, n=t.length; i<n; i++) {
+                            if (t[i] === item) {
+                                results.push(item);
+                                break;
+                            }
                         }
                     }
                 });
-                results = baidu.array(results).unique();
+                results = results.unique();
+                break;
+
+            default :
+                results = baidu.array( array ).unique();
                 break;
         }
         return results;
@@ -82,7 +90,7 @@ baidu.dom.match = function(){
         var result = [], i;
 
         while(dom = dom.parentNode) {
-            result.push(dom);
+            dom.nodeType && result.push(dom);
         }
 
         for (var i=result.length - 1; i>-1; i--) {

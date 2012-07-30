@@ -8,8 +8,7 @@
 ///import baidu.object.isPlain;
 
 /**
- * 对一个object进行深度拷贝
- * 
+ * @description 对一个object进行深度拷贝
  * @author berg
  * @name baidu.object.clone
  * @function
@@ -19,7 +18,7 @@
  * 对于Object来说，只拷贝自身成员，不拷贝prototype成员
  * @meta standard
  *             
- * @returns {Object} 拷贝后的新对象
+ * @return {Object} 拷贝后的新对象
  */
 baidu.object.clone  = function (source) {
     var result = source, i, len;

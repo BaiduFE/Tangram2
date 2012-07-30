@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type='text/javascript' src='../../src/import.php?f=baidu.callbacks'></script>
+<style>
+p{
+	margin:8px;
+	font-size:16px;
+}
+.selected{
+	color:blue;
+}
+.highlight{
+	background:yellow;
+}
+</style>
+</head>
+<body>
+<p class='selected'>baidu</p>
+<p>google</p>
+<p>facebook</p>
+<script>
+function test1(val){
+	alert('test1:'+val);
+};
+function test2(val){
+	alert('test2:'+val);
+};
+
+var callbacks = baidu.callbacks();
+callbacks.add(test1);
+callbacks.fire('wangxiao');
+
+callbacks.add(test2);
+callbacks.fire('wangxiao2');
+
+callbacks.remove(test1);
+callbacks.fire('wangxiao3');
+
+</script>
+</body>
+</html>

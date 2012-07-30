@@ -1,21 +1,22 @@
-///import baidu.dom.setAttr;
 ///import baidu.dom;
-///import baidu.type;
+///import baidu.each;
 ///import baidu.merge;
 
 /**
  * @fileoverview
- * @name baidu.dom.createElements
  * @author meizz
  * @create 2012-07-05
  * @modify
  */
 
 /**
- * 通过 HTMLString 创建 DOM 对象
+ * @description 通过 HTMLString 创建 DOM 对象
  *
- * @param   {HTMLString}    htmlstring
- * @return  {HTMLElement}
+ * @function
+ * @name baidu.dom.createElements
+ * @grammar baidu.dom.createElements(HTMLString)
+ * @param   {HTMLString}    htmlstring HTMLString
+ * @return  {$DOM}          new TangramDom
  */
 baidu.dom.createElements = function() {
     var tagReg  = /^<(\w+)/i,
@@ -61,6 +62,7 @@ baidu.dom.createElements = function() {
             hs  = htmlstring,
             n   = hs.length,
             div = doc.createElement("div"),
+            df  = doc.createDocumentFragment(),
             result = [];
 
         if ( baidu.isString( hs ) ) {
@@ -80,6 +82,11 @@ baidu.dom.createElements = function() {
 
                 baidu.merge( result, box.childNodes );
 
+                // 去除 item.parentNode
+                baidu.each( result, function (dom) {
+                    df.appendChild( dom );
+                } );
+
                 div = box = null;
             
             // TextNode
@@ -93,4 +100,3 @@ baidu.dom.createElements = function() {
         return result;
     };
 }();
-

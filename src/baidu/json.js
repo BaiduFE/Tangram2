@@ -10,7 +10,8 @@
 
 ///import baidu;
 /**
- * 操作json对象的方法
- * @namespace baidu.json
+ * @description 操作json对象的方法
+ * @name baidu.json
+ * @namespace
  */
 baidu.json = baidu.json || {};

@@ -364,10 +364,10 @@ var UserAction = {
 		if (!this.isb(metaKey)) {
 			metaKey = false;
 		}
+		
 		if (!this.isn(button)) {
 			button = 0;
 		}
-
 		// try to create a mouse event
 		var customEvent /* :MouseEvent */= null;
 
@@ -448,6 +448,7 @@ var UserAction = {
 				break;
 			case 2:
 				// leave as is
+				customEvent.button = 2;
 				break;
 			default:
 				customEvent.button = 0;
@@ -761,6 +762,8 @@ var UserAction = {
 			}
 		});
 		url='?f='+f.substr(1)+'&e='+e;
+		if(pw.location.href.indexOf("release=true") > -1)
+			url += '&release=true';
 		var srcpath = '';
 		if(location.href.indexOf("/run.do") > 0) {
 			srcpath = location.href.replace("run.do","frame.do");
@@ -891,13 +894,11 @@ var UserAction = {
 			for ( var i = 0; i < mm.length; i++) {
 				if(i == mm.length - 1 && mm[i].indexOf("$") > -1){ //如果要加载的是插件
 					if (p._addons.length == 1) {
-						// console.log(mm[i]);
 						return;
 					}		
 				}
 				else{
 					if (typeof (p[mm[i]]) == 'undefined') {
-						// console.log(mm[i]);
 						return;
 					}
 				}

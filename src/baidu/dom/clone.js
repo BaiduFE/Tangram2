@@ -6,14 +6,22 @@
 ///import baidu.support;
 ///import baidu.id;
 ///import baidu.dom._eventBase;
-
+/**
+ * @description 对匹配元素进行深度克隆
+ * @function 
+ * @name baidu.dom().clone()
+ * @grammar baidu.dom(args).clone([withDataAndEvents][,deepWithDataAndEvents])
+ * @param {Boolean} withDataAndEvents 一个可选的布尔值参数，当参数为true时，表示当次克隆需要将该匹配元素的数据和事件也做克隆
+ * @param {Boolean} deepWithDataAndEvents 一个可选的布尔值参数，当参数为true时，表示当次克隆需要将该匹配元素的所有子元素的数据和事件也做克隆
+ * @return {TangramDom} 接口最终返回一个TangramDom对象，该对象包装了克隆的节点
+ */
 baidu.dom.extend({
     clone: function(){
         var event = baidu.dom._eventBase;
         //
         function getAll(ele){
-            var query = ele.getElementsByTagName || ele.querySelectorAll;
-            return query ? query('*') : [];
+            return ele.getElementsByTagName ? ele.getElementsByTagName('*')
+                : (ele.querySelectorAll ? ele.querySelectorAll('*') : []);
         }
         //
         function isXMLDoc(ele){
@@ -43,7 +51,7 @@ baidu.dom.extend({
                     dest.text !== src.text && (dest.text = src.text);
                     break;
             }
-            delete dest['tangram_guid'];//?
+            dest[baidu.key] && dest.removeAttribute(baidu.key);
         }
         //
         function cloneCopyEvent(src, dest){
@@ -63,7 +71,7 @@ baidu.dom.extend({
             if((!baidu.support.noCloneEvent || !baidu.support.noCloneChecked)
                 && (ele.nodeType === 1 || ele.nodeType === 11) && !isXMLDoc(ele)){
                     cloneFixAttributes(ele, cloneNode);
-                    srcElements = getAll( elem );
+                    srcElements = getAll( ele );
                     destElements = getAll( cloneNode );
                     len = srcElements.length;
                     for(var i = 0; i < len; i++){
@@ -73,8 +81,8 @@ baidu.dom.extend({
             if(dataAndEvents){
                 cloneCopyEvent(ele, cloneNode);
                 if(deepDataAndEvents){
-                	srcElements = getAll( elem );
-                    destElements = getAll( clone );
+                    srcElements = getAll( ele );
+                    destElements = getAll( cloneNode );
                     len = srcElements.length;
                     for(var i = 0; i < len; i++){
                     	cloneCopyEvent(srcElements[i], destElements[i]);

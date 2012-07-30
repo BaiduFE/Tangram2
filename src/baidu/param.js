@@ -1,16 +1,17 @@
 ///import baidu;
 ///import baidu.type;
-/**
+/*
  * @fileoverview
- * @name baidu.param
  * @author meizz
  * @create 2012-05-30
  * @modify
  */
 
 /**
- * 分析形参对象的类型，返回以逗号分隔的对象类型字符串
- *
+ * @description 分析形参对象的类型，返回以逗号分隔的对象类型字符串
+ * @function
+ * @name baidu.param
+ * @grammar baidu.param(arg)
  * @param   {Object}    arg     被分析的形参对象
  * @return  {String}            对象类型字符串，以逗号分隔
  */

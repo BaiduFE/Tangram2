@@ -1,8 +1,9 @@
 ///import baidu.dom;
 ///import baidu.merge;
 ///import baidu.type;
-///import baidu.array.unique;
 ///import baidu.query;
+///import baidu.array.unique;
+///import baidu.dom.createElements;
 
 /**
  * @fileoverview
@@ -13,32 +14,36 @@
  */
 
 /**
- * 给当前TangramDom对象添加新的DOM元素
- * @grammer TangramDom.add(selector)
+ * @description 给当前TangramDom对象添加新的DOM元素
+ * @function
+ * @grammer $DOM.add(selector)
  * @param   {String}    selector    CSS选择器
  * @return  {TangramDom}    new TangramDom
  */
 /**
- * 给当前TangramDom对象添加新的DOM元素
- * @grammer TangramDom.add(HTMLElement)
+ * @description 给当前TangramDom对象添加新的DOM元素
+ * @function
+ * @grammer $DOM.add(HTMLElement)
  * @param   {HTMLElement}    HTMLElement    DOM对象
  * @return  {TangramDom}    new TangramDom
  */
 /**
- * 给当前TangramDom对象添加新的DOM元素
- * @grammer TangramDom.add(HTMLString)
+ * @description 给当前TangramDom对象添加新的DOM元素
+ * @function
+ * @grammer $DOM.add(HTMLString)
  * @param   {String}    HTMLString    HTML文本
  * @return  {TangramDom}    new TangramDom
  */
 /**
- * 给当前TangramDom对象添加新的DOM元素
- * @grammer TangramDom.add(TangramDom)
+ * @description 给当前TangramDom对象添加新的DOM元素
+ * @function
+ * @grammer $DOM.add(TangramDom)
  * @param   {TangramDom}    TangramDom
  * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
     add : function (object, context) {
-        var a = this.get();
+        var a = baidu.array(this.get());
 
         switch (baidu.type(object)) {
             case "HTMLElement" :
@@ -52,7 +57,7 @@ baidu.dom.extend({
 
             // HTMLString or selector
             case "string" :
-                baidu.merge(a, baidu.query(object, context));
+                baidu.merge(a, baidu.dom(object, context));
                 break;
             // [TODO] case "NodeList" :
             default :
@@ -60,7 +65,7 @@ baidu.dom.extend({
                     baidu.merge(a, object)
                 }
         }
-        return baidu.dom(baidu.array(a).unique());
+        return baidu.dom( a.unique() );
     }
 });
 

@@ -11,7 +11,7 @@
 ///import baidu.fn;
 
 /**
- * 定义一个抽象方法
+ * @description 定义一个抽象方法
  * @type {!Function}
  * @throws {Error} when invoked to indicate the method should be
  *   overridden.

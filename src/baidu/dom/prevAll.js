@@ -2,23 +2,27 @@
 ///import baidu.each;
 ///import baidu.merge;
 ///import baidu.dom.match;
+///import baidu.array.unique;
 
 /**
  * @fileoverview
- * @name baidu.dom.prevAll
  * @author meizz
  * @create 2012-05-28
  * @modify
  */
 
 /**
+ * @description 查找当前元素之前所有的同辈元素
  *
- * @param
- * @return
+ * @function
+ * @name baidu.dom.prevAll
+ * @grammar $DOM.prevAll(filter)
+ * @param   {Object}        filter      [可选]过滤函数
+ * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
     prevAll : function (filter) {
-        var array = [];
+        var array = baidu.array();
 
         baidu.each(this, function(dom) {
             var a = [];
@@ -27,6 +31,6 @@ baidu.dom.extend({
             baidu.merge(array, a.reverse());
         });
 
-        return baidu.dom(typeof filter == "string" ? baidu.dom.match(array, filter) : array);
+        return baidu.dom(typeof filter == "string" ? baidu.dom.match(array, filter) : array.unique());
     }
 });

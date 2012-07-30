@@ -2,20 +2,22 @@
 ///import baidu.each;
 ///import baidu.merge;
 ///import baidu.dom.match;
-///import baidu.array.unique;
 
 /**
  * @fileoverview
- * @name baidu.dom.parents
  * @author meizz
  * @create 2012-05-28
  * @modify
  */
 
 /**
+ * @description 取得一个包含着所有匹配元素的祖先元素的元素集合（不包含根元素）。可以通过一个可选的表达式进行筛选。
  *
- * @param
- * @return
+ * @function
+ * @name baidu.dom.parents
+ * @grammar $DOM.parents([filter])
+ * @param   {String|Function}   filter      [可选]过滤函数
+ * @return  {TangramDom}    new TangramDom
  */
 baidu.dom.extend({
     parents : function (filter) {
@@ -29,8 +31,6 @@ baidu.dom.extend({
             baidu.merge(array, a);
         });
 
-        array = baidu.array(array).unique();
-
-        return baidu.dom(typeof filter == "string" ? baidu.dom.match(array, filter) : array);
+        return baidu.dom( baidu.dom.match(array, filter) );
     }
 });

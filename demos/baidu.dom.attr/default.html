@@ -20,17 +20,29 @@ p{
 
 </head>
 <body>
-<p class='selected'>baidu</p>
-<p>google</p>
-<p>facebook</p>
-<script>
-//baidu("p").addClass();
 
-baidu("p").addClass(function(index){
+<input type='text' value='wangxiao'>
+<input type='text' value='wangxiao'>
+<input type='text' value='wangxiao'>
+<input type='text' value='wangxiao'>
+
+<button>test</button>
+
+<script>
+
+baidu("input").attr('value',function(index,attr){
 	alert(index);
-	//alert(className);
-	return 'selected';
+	alert(attr);
+	return 'test';
 });
+
+baidu("input").attr('value');
+
+//baidu("input").attr({'value':'test','disabled':'disabled'});
+
+//baidu("button").attr('disabled','disabled');
+
+//alert(baidu("input").attr('abc'));
 
 </script>
 </body>

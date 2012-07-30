@@ -2,7 +2,7 @@
 ///import baidu.type;
 ///import baidu.each;
 ///import baidu.createChain;
-/**
+/*
  * @fileoverview
  * @name baidu.event
  * @author meizz
@@ -11,8 +11,9 @@
  */
 
 /**
- * 对系统 event 对象进行封装，主要是解决浏览器兼容问题，并且做了功能增强
- *
+ * @description 对系统 event 对象进行封装，主要是解决浏览器兼容问题，并且做了功能增强
+ * @function
+ * @name baidu.event
  * @grammer baidu.event([event])
  * @param   {Event}         event   系统 event 对象
  * @return  {TangramEvebt}          返回 new TangramEvent 对象
@@ -49,7 +50,7 @@ function(event){
 
     if (typeof event == "object" && event.type) {
         me.originalEvent = e = event;
-        baidu.each( "altKey bubbles button buttons cancelable clientX clientY ctrlKey currentTarget fromElement metaKey screenX screenY shiftKey toElement type view which".split(" "), function(item){
+        baidu.each( "altKey bubbles button buttons cancelable clientX clientY ctrlKey currentTarget fromElement metaKey screenX screenY shiftKey toElement type view which triggerData".split(" "), function(item){
             me[ item ] = e[ item ];
         });
 

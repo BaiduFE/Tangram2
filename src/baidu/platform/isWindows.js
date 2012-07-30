@@ -6,7 +6,9 @@
 ///import baidu.platform;
 
 /**
- * 判断是否为windows平台
+ * @description 判断是否为windows平台
+ * @function
+ * @name baidu.platform.windows
  * @property windows 是否为windows平台
  * @grammar baidu.platform.windows
  * @meta standard

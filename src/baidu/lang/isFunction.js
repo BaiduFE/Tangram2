@@ -13,7 +13,7 @@
 ///import baidu.type;
 
 /**
- * 判断目标参数是否为function或Function实例
+ * @description 判断目标参数是否为function或Function实例
  * @name baidu.lang.isFunction
  * @function
  * @grammar baidu.lang.isFunction(source)
@@ -21,7 +21,7 @@
  * @version 1.2
  * @see baidu.lang.isString,baidu.lang.isObject,baidu.lang.isNumber,baidu.lang.isArray,baidu.lang.isElement,baidu.lang.isBoolean,baidu.lang.isDate
  * @meta standard
- * @returns {boolean} 类型判断结果
+ * @return {boolean} 类型判断结果
  */
 //baidu.lang.isFunction = function (source) {
     // chrome下,'function' == typeof /a/ 为true.

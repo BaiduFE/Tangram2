@@ -9,19 +9,23 @@
  */
 
 /**
- * 枚举当前 TangramDom 对象里的所有 DOM 元素，并执行指定的函数
+ * @description 枚举当前 TangramDom 对象里的所有 DOM 元素，并执行指定的函数
  * 指定的函数参数（index[, dom]），函数里的 this 指向 DOM 元素
- * @grammer TangramDom.each(fn)
- * @param   {Function}      fn  迭代器
- * @return  {TangramDom}        tangramDom(this)
+ * @function
+ * @grammer $DOM.each(iterator)
+ * @param   {Function}      iterator    迭代器
+ * @return  {TangramDom}                tangramDom(this)
  */
 baidu.dom.extend({
-    each : function (fn) {
-        var i,
+    each : function (iterator) {
+        baidu.paramCheck("function", "baidu.dom.each");
+        var i, result,
             n = this.length;
 
         for (i=0; i<n; i++) {
-            fn.call(this[i], i, this[i]);
+            result = iterator.call( this[i], i, this[i], this );
+
+            if ( result === false || result == "break" ) { break;}
         }
 
         return this;

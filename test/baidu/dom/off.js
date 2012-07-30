@@ -21,7 +21,7 @@ test('remove a event', function(){
         ok(true, 'event not remove');
     }
     div.addEventListener && div.addEventListener('click', handler, false);
-    div.attachEvent && div.attachEvent('click', handler);
+    div.attachEvent && div.attachEvent('onclick', handler);
     baidu.dom(div).off('click', handler);
     ua.fireMouseEvent(div, 'click');
     div = null;
@@ -91,6 +91,16 @@ test('div uninstall event', function(){
         ua.fireMouseEvent(div, 'mouseout');
         div = null;
         c.dispose();
+        
+        //
+        c = new Div();
+        div = c.get();
+        function handler(){ok(true, 'double bind');}
+        baidu.dom(div).on('click', handler);
+        baidu.dom(div).on('click', handler);
+        baidu.dom(div).off('click', handler);
+        ua.fireMouseEvent(div, 'click');
+        
         
         start();
     }, 'baidu.dom.on', 'baidu.dom.off');
