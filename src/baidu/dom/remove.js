@@ -25,7 +25,7 @@ baidu.dom.extend({
             && baidu.paramCheck('^string(?:,boolean)?$', 'baidu.dom.remove');
         var array = selector ? this.filter(selector) : this;
         for(var i = 0, ele; ele = array[i]; i++){
-           if(!keepData){
+           if(!keepData && ele.nodeType === 1){
                baidu.dom._cleanData(ele.getElementsByTagName('*'));
                baidu.dom._cleanData([ele]);
             }
