@@ -92,7 +92,9 @@ baidu.async.Deferred = function() {
 
     /**
      * @description 调用onSuccess链.使用给定的value作为函数参数.
+     * @name baidu.async.Deferred.resolve
      * @function
+     * @grammar baidu.async().Deferred().resolve(value)
      * @param {*} value 成功结果.
      * @return {baidu.async.Deferred} this.
      */
@@ -105,6 +107,8 @@ baidu.async.Deferred = function() {
     /**
      * @description 调用onFail链. 使用给定的error作为函数参数.
      * @function
+     * @name baidu.async.Deferred.reject
+     * @grammar baidu.async().Deferred().reject(error)
      * @param {Error} error 失败原因.
      * @return {baidu.async.Deferred} this.
      */
@@ -118,6 +122,8 @@ baidu.async.Deferred = function() {
     /**
      * @description 添加onSuccess和onFail方法到各自的链上. 如果该deferred已触发,则立即执行.
      * @function
+     * @name baidu.async.Deferred.then
+     * @grammar baidu.async().Deferred().then(onSuccess, onFail)
      * @param {Function} onSuccess 该deferred成功时的回调函数.第一个形参为成功时结果.
      * @param {Function} onFail 该deferred失败时的回调函数.第一个形参为失败时结果.
      * @return {baidu.async.Deferred} this.
@@ -134,6 +140,8 @@ baidu.async.Deferred = function() {
     /**
      * @description 添加方法到onSuccess链上. 如果该deferred已触发,则立即执行.
      * @function
+     * @name baidu.async.Deferred.success
+     * @grammar baidu.async().Deferred().success(onSuccess)
      * @param {Function} onSuccess 该deferred成功时的回调函数.第一个形参为成功时结果.
      * @return {baidu.async.Deferred} this.
      */
@@ -144,6 +152,8 @@ baidu.async.Deferred = function() {
     /**
      * @description 添加方法到onFail链上. 如果该deferred已触发,则立即执行.
      * @function
+     * @name baidu.async.Deferred.fail
+     * @grammar baidu.async().Deferred().fail(onFail)
      * @param {Function} onFail 该deferred失败时的回调函数.第一个形参为失败时结果.
      * @return {baidu.async.Deferred} this.
      */
@@ -154,6 +164,8 @@ baidu.async.Deferred = function() {
     /**
      * @description 中断该deferred, 使其失效.
      * @function
+     * @name baidu.async.Deferred.cancel
+     * @grammar baidu.async().Deferred().cancel()
      */
     me.cancel = function() {
         me._cancelled = 1;

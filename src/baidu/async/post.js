@@ -7,8 +7,10 @@
 ///import baidu.async.Deferred;
 
 /**
- * 支持异步的ajax.post封装.
- * @grammar baidu.async.post(url, data)
+ * @description 支持异步的ajax.post封装.
+ * @function
+ * @name baidu.async.post
+ * @grammar baidu.async(url).post(data)
  * @param {String} url 请求地址.
  * @param {String} data 请求数据.
  * @version 1.3.9 
