@@ -9,10 +9,11 @@
 ///import baidu.fn.blank;
 
 /**
- * 用于支持异步处理, 使同步异步的调用风格统一.
+ * @description 用于支持异步处理, 使同步异步的调用风格统一.
  * @class
  * @private
- * @grammar new baidu.async.Deferred()
+ * @name baidu.async.Deferred
+ * @grammar baidu.async().Deferred()
  * @remark
  * 示例:
     function someAsync(){
@@ -90,7 +91,8 @@ baidu.async.Deferred = function() {
 
 
     /**
-     * 调用onSuccess链.使用给定的value作为函数参数.
+     * @description 调用onSuccess链.使用给定的value作为函数参数.
+     * @function
      * @param {*} value 成功结果.
      * @return {baidu.async.Deferred} this.
      */
@@ -101,7 +103,8 @@ baidu.async.Deferred = function() {
     };
 
     /**
-     * 调用onFail链. 使用给定的error作为函数参数.
+     * @description 调用onFail链. 使用给定的error作为函数参数.
+     * @function
      * @param {Error} error 失败原因.
      * @return {baidu.async.Deferred} this.
      */
@@ -113,7 +116,8 @@ baidu.async.Deferred = function() {
     };
 
     /**
-     * 添加onSuccess和onFail方法到各自的链上. 如果该deferred已触发,则立即执行.
+     * @description 添加onSuccess和onFail方法到各自的链上. 如果该deferred已触发,则立即执行.
+     * @function
      * @param {Function} onSuccess 该deferred成功时的回调函数.第一个形参为成功时结果.
      * @param {Function} onFail 该deferred失败时的回调函数.第一个形参为失败时结果.
      * @return {baidu.async.Deferred} this.
@@ -128,7 +132,8 @@ baidu.async.Deferred = function() {
     };
     
     /**
-     * 添加方法到onSuccess链上. 如果该deferred已触发,则立即执行.
+     * @description 添加方法到onSuccess链上. 如果该deferred已触发,则立即执行.
+     * @function
      * @param {Function} onSuccess 该deferred成功时的回调函数.第一个形参为成功时结果.
      * @return {baidu.async.Deferred} this.
      */
@@ -137,7 +142,8 @@ baidu.async.Deferred = function() {
     };
 
     /**
-     * 添加方法到onFail链上. 如果该deferred已触发,则立即执行.
+     * @description 添加方法到onFail链上. 如果该deferred已触发,则立即执行.
+     * @function
      * @param {Function} onFail 该deferred失败时的回调函数.第一个形参为失败时结果.
      * @return {baidu.async.Deferred} this.
      */
@@ -146,7 +152,8 @@ baidu.async.Deferred = function() {
     };
      
     /**
-     * 中断该deferred, 使其失效.
+     * @description 中断该deferred, 使其失效.
+     * @function
      */
     me.cancel = function() {
         me._cancelled = 1;
