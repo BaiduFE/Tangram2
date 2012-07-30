@@ -12,14 +12,14 @@
 ///import baidu.lang.isArray;
 
 /**
- * 解析目标URL中的参数成json对象
+ * @description 解析目标URL中的参数成json对象
  * @name baidu.url.queryToJson
  * @function
  * @grammar baidu.url.queryToJson(url)
  * @param {string} url 目标URL
  * @see baidu.url.jsonToQuery
  *             
- * @return {Object} - 解析为结果对象，其中URI编码后的字符不会被解码，'a=%20' ==> {a:'%20'}。
+ * @return {Object} 解析为结果对象，其中URI编码后的字符不会被解码，'a=%20' ==> {a:'%20'}。
  */
 baidu.url.queryToJson = function (url) {
     var query   = url.substr(url.lastIndexOf('?') + 1),
