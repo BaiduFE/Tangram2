@@ -4,13 +4,13 @@ test('isEmpty', function(){
   expect(7);
 
   ok(baidu.object.isEmpty({}));
-  ok(!baidu.object.isEmpty([]));
+  ok(baidu.object.isEmpty([]));
   ok(!baidu.object.isEmpty([10]));
   ok(!baidu.object.isEmpty({'a':10}));
   
   var array = [10];
   array.pop();
-  ok(!baidu.object.isEmpty(array));
+  ok(baidu.object.isEmpty(array));
   
   function MyClass(){};
   

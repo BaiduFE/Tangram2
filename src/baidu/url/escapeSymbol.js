@@ -6,7 +6,7 @@
 ///import baidu.url;
 
 /**
- * 对字符串进行%#&+=以及和\s匹配的所有字符进行url转义
+ * @description 对字符串进行%#&+=以及和\s匹配的所有字符进行url转义
  * @name baidu.url.escapeSymbol
  * @function
  * @grammar baidu.url.escapeSymbol(source)
