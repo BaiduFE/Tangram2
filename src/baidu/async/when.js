@@ -7,7 +7,9 @@
 ///import baidu.async._isDeferred;
 ///import baidu.async.Deferred;
 /**
- * 保证onResolve或onReject可以按序执行. 若第一个参数为deferred,则deferred完成后执行.否则立即执行onResolve,并传入第一个参数.
+ * @description 保证onResolve或onReject可以按序执行. 若第一个参数为deferred,则deferred完成后执行.否则立即执行onResolve,并传入第一个参数.
+ * @name baidu.async.when
+ * @function
  * @grammar baidu.async.when(deferredOrValue, onResolve, onReject)
  * @param {baidu.async.Deferred|*} deferredOrValue deferred实例或任意值.
  * @param {Function} onResolve 成功时的回调函数.若第一个参数不是Deferred实例,则立即执行此方法.
