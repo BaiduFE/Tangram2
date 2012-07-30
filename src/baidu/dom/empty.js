@@ -21,7 +21,7 @@
 baidu.dom.extend({
     empty: function(){
         for(var i = 0, item; item = this[i]; i++){
-            baidu.dom._cleanData(item.getElementsByTagName('*'));
+            item.nodeType === 1 && baidu.dom._cleanData(item.getElementsByTagName('*'));
             while(item.firstChild){
                 item.removeChild(item.firstChild);
             }
