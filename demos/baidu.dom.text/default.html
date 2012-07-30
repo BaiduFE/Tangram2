@@ -14,17 +14,12 @@
 <div>
 	<a href='http://www.baidu.com'>baidu</a>
 </div>
-<div>
-	<a href='http://www.baidu.com'>baidu</a>
-</div>
-<div>
-	<a href='http://www.baidu.com'>baidu</a>
-</div>
 
 <script>
-baidu.dom('div').text(function(index,text){
+baidu.dom('a').text(function(index,text){
 	alert(index);
 	alert(text);
+	return 'wangxiao';
 });
 </script>
 </body>
