@@ -12,7 +12,7 @@
 ///import baidu.number.pad;
 
 /**
- * 对目标日期对象进行格式化
+ * @description 对目标日期对象进行格式化
  * @name baidu.date.format
  * @function
  * @grammar baidu.date.format(source, pattern)
@@ -37,7 +37,7 @@ dd: 带 0 补齐的两位日表示<br>
 d: 不带 0 补齐的日表示
 		
  *             
- * @returns {string} 格式化后的字符串
+ * @return {string} 格式化后的字符串
  */
 
 baidu.date.format = function (source, pattern) {

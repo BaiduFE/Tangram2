@@ -1,4 +1,4 @@
-/**
+/*
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
@@ -14,6 +14,7 @@
  * @param {String} url 一个能够访问javascript的字符串路径地址
  * @return {TangramSio} 返回一个TangramSio对象
  */
+
 
 baidu.createChain("sio",
 

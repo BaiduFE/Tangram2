@@ -20,7 +20,7 @@
  * @param {string} name flash对象的名称
  * @see baidu.swf.create
  * @meta standard
- * @returns {HTMLElement} flash对象的实例
+ * @return {HTMLElement} flash对象的实例
  */
 baidu.swf.getMovie = function (name) {
 	//ie9下, Object标签和embed标签嵌套的方式生成flash时,

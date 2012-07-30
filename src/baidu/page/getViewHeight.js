@@ -11,13 +11,13 @@
 ///import baidu.page;
 
 /**
- * 获取页面视觉区域高度
+ * @description 获取页面视觉区域高度
  * @name baidu.page.getViewHeight
  * @function
  * @grammar baidu.page.getViewHeight()
  * @see baidu.page.getViewWidth
  * @meta standard
- * @returns {number} 页面视觉区域高度
+ * @return {number} 页面视觉区域高度
  */
 baidu.page.getViewHeight = function () {
     var doc = document,

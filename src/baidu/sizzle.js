@@ -1,7 +1,7 @@
 ///import baidu;
 ///import baidu.merge;
 
-/**
+/*
  * @fileoverview
  * @name baidu.sizzle
  * @author meizz
@@ -19,8 +19,7 @@
 
 /**
  * @description 通过指定的CSS选择器取指定的DOM元素
- *  在用户选择使用 Sizzle 时会被覆盖原有简化版本的baidu.query方法
- *
+ * @name baidu.query
  * @function
  * @grammer baidu.query(selector[, context[, results]])
  * @param   {String}    selector    CSS选择器字符串
@@ -28,6 +27,9 @@
  * @param   {Array}     results     返回的结果对象（数组）
  * @return  {Array}                 筛选后的对象组
  */
+
+ //在用户选择使用 Sizzle 时会被覆盖原有简化版本的baidu.query方法
+
     baidu.query = function(selector, context, results) {
         return baidu.merge(results || [], baidu.sizzle(selector, context));
     };

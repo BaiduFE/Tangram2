@@ -12,7 +12,7 @@
 ///import baidu.object;
 
 /**
- * 遍历object中所有元素，将每一个元素应用方法进行转换，返回转换后的新object。
+ * @description 遍历object中所有元素，将每一个元素应用方法进行转换，返回转换后的新object。
  * @name baidu.object.map
  * @function
  * @grammar baidu.object.map(source, iterator)

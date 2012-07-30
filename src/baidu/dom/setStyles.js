@@ -17,7 +17,7 @@
  * @meta standard
  * @see baidu.dom.setStyle,baidu.dom.getStyle
  *             
- * @returns {HTMLElement} 目标元素
+ * @return {HTMLElement} 目标元素
  */
 baidu.dom.extend({
 setStyles : function ( styles) {

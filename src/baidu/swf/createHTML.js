@@ -44,7 +44,7 @@
  * 
  * @see baidu.swf.create
  * @meta standard
- * @returns {string} flash对象的html字符串
+ * @return {string} flash对象的html字符串
  */
 baidu.swf.createHTML = function (options) {
     options = options || {};

@@ -14,7 +14,7 @@
 baidu.lang.eventCenter = baidu.lang.eventCenter || baidu.lang.createSingle();
 
 /**
- * 注册全局事件监听器。
+ * @description 注册全局事件监听器。
  * @name baidu.lang.eventCenter.addEventListener
  * @function
  * @grammar baidu.lang.eventCenter.addEventListener(type, handler[, key])
@@ -25,7 +25,7 @@ baidu.lang.eventCenter = baidu.lang.eventCenter || baidu.lang.createSingle();
  */
 
 /**
- * 移除全局事件监听器。
+ * @description 移除全局事件监听器。
  * @name baidu.lang.eventCenter.removeEventListener
  * @grammar baidu.lang.eventCenter.removeEventListener(type, handler)
  * @function
@@ -35,7 +35,7 @@ baidu.lang.eventCenter = baidu.lang.eventCenter || baidu.lang.createSingle();
  */
 
 /**
- * 派发全局自定义事件，使得绑定到全局自定义事件上面的函数都会被执行。
+ * @description 派发全局自定义事件，使得绑定到全局自定义事件上面的函数都会被执行。
  * @name baidu.lang.eventCenter.dispatchEvent
  * @grammar baidu.lang.eventCenter.dispatchEvent(event, options)
  * @function

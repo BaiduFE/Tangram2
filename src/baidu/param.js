@@ -1,6 +1,6 @@
 ///import baidu;
 ///import baidu.type;
-/**
+/*
  * @fileoverview
  * @author meizz
  * @create 2012-05-30
@@ -9,7 +9,6 @@
 
 /**
  * @description 分析形参对象的类型，返回以逗号分隔的对象类型字符串
- *
  * @function
  * @name baidu.param
  * @grammar baidu.param(arg)

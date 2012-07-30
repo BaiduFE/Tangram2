@@ -11,17 +11,17 @@
 ///import baidu.cookie._isValidKey;
 
 /**
- * 设置cookie的值，不对值进行编码
+ * @description 设置cookie的值，不对值进行编码
  * @name baidu.cookie.setRaw
  * @function
  * @grammar baidu.cookie.setRaw(key, value[, options])
  * @param {string} key 需要设置Cookie的键名
  * @param {string} value 需要设置Cookie的值
  * @param {Object} [options] 设置Cookie的其他可选参数
- * @config {string} [path] cookie路径
- * @config {Date|number} [expires] cookie过期时间,如果类型是数字的话, 单位是毫秒
- * @config {string} [domain] cookie域名
- * @config {string} [secure] cookie是否安全传输
+ * @param {string} [path] cookie路径
+ * @param {Date|number} [expires] cookie过期时间,如果类型是数字的话, 单位是毫秒
+ * @param {string} [domain] cookie域名
+ * @param {string} [secure] cookie是否安全传输
  * @remark
  * 
 <b>options参数包括：</b><br>

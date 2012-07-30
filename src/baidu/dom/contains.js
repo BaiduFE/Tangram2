@@ -20,7 +20,7 @@
  * @meta standard
  * @see baidu.dom.intersect
  *             
- * @returns {boolean} contained元素是否被包含于container元素的DOM节点上
+ * @return {boolean} contained元素是否被包含于container元素的DOM节点上
  */
 baidu.dom.contains = function (container, contained) {
 
