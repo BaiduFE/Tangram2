@@ -17,16 +17,13 @@ p{
 </style>
 </head>
 <body>
-<p class='selected'>baidu</p>
-<p>google</p>
-<p>facebook</p>
+<div style='display:none;'>
+	<p class='selected'>baidu</p>
+	<p>google</p>
+	<p>facebook</p>
+</div>
 <script>
-baidu("p").addClass(function(index,className){
-	alert(index);
-	alert(className);
-	return 'selected';
-});
-
+baidu.dom('div').show();
 </script>
 </body>
 </html>
