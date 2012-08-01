@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom.hasClass 示例" />
+		<title>baidu.dom.hasClass 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../src/import.php?f=baidu.dom.hasClass,baidu.dom.html,baidu.dom.one"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+		<style>
+			a.redText{
+				color:red;
+			}
+			.italicText{
+				font-style:italic;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom.hasClass</strong> 示例</h1>
+			<p class="ac-des">
+				检查匹配的元素是否含有某个特定的类
+			</p>
+
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).hasClass(className)</li>
+				<li>参数: {string} className 要查询的className名，多个用空格分隔。</li>
+				<li>返回: {Boolean} 同时存在返回true，不存在返回false。</li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>检查匹配的元素是否含有某个特定的类 --- 检测一个类</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击此处，检查下列两个元素是否存在名为 redText 的类</a>
+					</div>
+					<div class="pannel-content-part">
+						<a href="http://tangram.baidu.com" class="redText" id="demo_element_1">元素一</a><br />
+						<a href="http://tangram.baidu.com" id="demo_element_2">元素二</a>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewStart-->
+				</div>
+			</div>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>检查匹配的元素是否含有某个特定的类 --- 同时检测多个类</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_2">点击此处，检查下列两个元素是否<b>同时</b>存在名为 redText 和 italicText 的类</a>
+					</div>
+					<div class="pannel-content-part">
+						<a href="http://tangram.baidu.com" class="redText" id="demo_element_3">元素一</a><br />
+						<a href="http://tangram.baidu.com" class="redText italicText" id="demo_element_4">元素二</a>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_2"></span>
+					</div>
+					<!--DemoViewStart-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		baidu('#demo_btn_1').on('click',function(e){
+			var className = 'redText',
+				Y = "TRUE",
+				N = "FALSE";
+			var hasClassA = baidu('#demo_element_1').hasClass(className) ? Y : N ;
+			var hasClassB = baidu('#demo_element_2').hasClass(className) ? Y : N ;
+			baidu('#demo_execute_result_1').html("元素一:"+hasClassA + " ; 元素二:"+hasClassB);
+		});
+		
+		baidu('#demo_btn_2').on('click',function(e){
+			var className = 'redText italicText',
+				Y = "TRUE",
+				N = "FALSE";
+			var hasClassA = baidu('#demo_element_3').hasClass(className) ? Y : N ;
+			var hasClassB = baidu('#demo_element_4').hasClass(className) ? Y : N ;
+			baidu('#demo_execute_result_2').html("元素一:"+hasClassA + " ; 元素二:"+hasClassB);
+		});
+	</script>
+</html>
