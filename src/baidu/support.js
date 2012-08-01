@@ -58,7 +58,16 @@ baidu.support = baidu.support || function(){
         support.fixedPosition = inner.offsetTop === 20 || inner.offsetTop === 15;
 
 //author wangxiao start
+        support.deleteExpando = true;
 
+        // Test to see if it's possible to delete an expando from an element
+        // Fails in Internet Explorer
+        try {
+            delete div.test;
+        } catch( e ) {
+            support.deleteExpando = false;
+        }
+    
         select = document.createElement( "select" );
         opt = select.appendChild( document.createElement("option") );
 
