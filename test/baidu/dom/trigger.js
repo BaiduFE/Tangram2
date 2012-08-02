@@ -71,7 +71,7 @@ test('custom event', function(){
         c.dispose();
         
         start();
-    });
+    }, "baidu.dom.fn.bind");
 });
 
 test('all support event', function(){
@@ -80,10 +80,19 @@ test('all support event', function(){
         htmlEvents = ['load', 'resize'],
         formsEvents = ['change', 'focus', 'blur', 'submit', 'reset'],
         etcEvents = ['DOMAttrModified'];
-    expect(keysEvents.concat(mousesEvents).concat(htmlEvents).concat(formsEvents).concat(isFireFox ? etcEvents : []).length);
+
+    expect(keysEvents.concat(mousesEvents).concat(htmlEvents).concat(formsEvents).concat(etcEvents).length);
+    
     var input = document.createElement('input');
         input.type = 'text';
+
+    var div = document.createElement("div");
+        div.innerHTML = "<form action=''><input name='a' value='a' type='hidden' /></form>";
+
     document.body.appendChild(input);
+    document.body.appendChild(div);
+    var form = div.firstChild;
+
     $.each(keysEvents, function(index, item){
         addEvent(input, item, function(){
             ok(true, 'key event trigger');
@@ -102,14 +111,15 @@ test('all support event', function(){
         baidu.dom(input).trigger(item);
     });
     
+
     $.each(formsEvents, function(index, item){
-        addEvent(input, item, function(){
+        addEvent( item == "submit" || item == "reset" ? form : input, item, function(){
             ok(true, 'form event trigger');
         });
     });
     
     $.each(formsEvents, function(index, item){
-        baidu.dom(input).trigger(item);
+        baidu.dom( item == "submit" || item == "reset" ? form : input ).trigger( item );
     });
     
     $.each(htmlEvents, function(index, item){
@@ -122,18 +132,18 @@ test('all support event', function(){
         baidu.dom(window).trigger(item);
     });
     
-    // 下面这个？
-    // $.each(etcEvents, function(index, item){
-    //     addEvent(input, item, function(){
-    //         ok(true, 'etc event trigger');
-    //     });
-    // });
+    $.each(etcEvents, function(index, item){
+        addEvent(input, item, function(){
+            ok(true, 'etc event trigger');
+        });
+    });
     
-    // $.each(etcEvents, function(index, item){
-    //     baidu.dom(input).trigger(item);
-    // });
+    $.each(etcEvents, function(index, item){
+        baidu.dom(input).trigger(item);
+    });
     
     document.body.removeChild(input);
+    document.body.removeChild(div);
 });
 
 // TODO baidu.dom(div).trigger(baidu.event());
