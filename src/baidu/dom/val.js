@@ -7,7 +7,6 @@
  * @function 
  * @name baidu.dom().val()
  * @grammar baidu.dom(args).val()
- * @param {Null} null 不传入任何函数
  * @return {String|Number|Undefined} 获取匹配的元素集合中第一个元素的当前值。
  */
 /**

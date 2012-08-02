@@ -7,12 +7,17 @@
 ///import baidu.dom;
 ///import baidu.dom._showHide;
 
+/**
+ * @description 显示匹配的元素
+ * @function 
+ * @name baidu.dom.show
+ * @grammar baidu.dom().show()
+ * @return {TangramDom} 返回之前匹配的TangramDom对象
+ */
+
 baidu.dom.extend({
-    show : function( speed, easing, callback ) {
-        if(speed == null || typeof speed === 'boolean'){
-            baidu.dom._showHide( this, true );
-        }else{
-            this.animate( genFx( name, true ), speed, easing, callback );
-        };
+    show : function() {
+        baidu.dom._showHide( this, true );
+        return this;
     }
 });

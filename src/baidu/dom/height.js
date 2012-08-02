@@ -23,9 +23,10 @@
  * @description 取得第一个匹配元素或是设置多个匹配元素的高度，该高度忽略margin, border, padding的计算
  * @function 
  * @name baidu.dom().height()
- * @grammar baidu.dom(args).height(function(index, height))
- * @param {function} fn 接收两个参数，index参数表示匹配元素在集合中的索引，height表示匹配元素的高度，fn最终需要返回合法的数值来设置高度
+ * @grammar baidu.dom(args).height(fun)
+ * @param {function} fun 接收两个参数，index参数表示匹配元素在集合中的索引，height表示匹配元素的高度，fn最终需要返回合法的数值来设置高度
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example baidu.dom(args).height(function(index, height))
  */
 baidu.dom.extend({
     height: function(value){
