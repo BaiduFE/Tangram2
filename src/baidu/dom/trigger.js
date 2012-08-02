@@ -99,31 +99,31 @@ baidu.dom.extend({
 			return evnt;
 		};
 
-		var keyEvents = function(type, options){
-			options = parse(parameters["KeyEvents"], options);
+		var keyEvents = function( type, options ){
+			options = parse( parameters["KeyEvents"], options );
 			var evnt;
-			if(document.createEvent){
+			if( document.createEvent ){
 				try{
-					evnt = eventsHelper(type, "KeyEvents", options);
+					evnt = eventsHelper( type, "KeyEvents", options );
 				}catch(e){
 					try{
-						evnt = eventsHelper(type, "Events", options);
+						evnt = eventsHelper( type, "Events", options );
 					}catch(e){
-						evnt = eventsHelper(type, "UIEvents", options);
+						evnt = eventsHelper( type, "UIEvents", options );
 					}
 				}
 			}else{
 				options.keyCode = options.charCode > 0 ? options.charCode : options.keyCode;
-				evnt = eventObject(options);
+				evnt = eventObject( options );
 			}
 			return evnt;
 		};
 
-		var mouseEvents = function(type, options){
-			options = parse(parameters["MouseEvents"], options);
+		var mouseEvents = function( type, options ){
+			options = parse( parameters["MouseEvents"], options );
 			var evnt;
-			if(document.createEvent){
-				evnt = eventsHelper(type, "MouseEvents", options);
+			if( document.createEvent ){
+				evnt = eventsHelper( type, "MouseEvents", options );
 				if( options.relatedTarget && !evnt.relatedTarget ){
 					if("mouseout" == type.toLowerCase()){
 						evnt.toElement = options.relatedTarget;
@@ -139,26 +139,28 @@ baidu.dom.extend({
 		};
 
 		var htmlEvents = function(type, options){
-			options.bubbles = bubblesEvents.hasOwnProperty(type);
-			options = parse(parameters["HTMLEvents"], options);
+			options.bubbles = bubblesEvents.hasOwnProperty( type );
+			options = parse( parameters["HTMLEvents"], options );
+			
 			var evnt;
 			if(document.createEvent){
 				try{
-					evnt = eventsHelper(type, "HTMLEvents", options);
+					evnt = eventsHelper( type, "HTMLEvents", options );
 				}catch(e){
 					try{
-						evnt = eventsHelper(type, "UIEvents", options);
+						evnt = eventsHelper( type, "UIEvents", options );
 					}catch(e){
-						evnt = eventsHelper(type, "Events", options);
+						evnt = eventsHelper( type, "Events", options );
 					}
 				}
 			}else{
 				evnt = eventObject(options);
 			}
+
 			return evnt;
 		};
 
-		var fire = function(element, type, triggerData){
+		var fire = function( element, type, triggerData ){
 			var evnt;
 
 			var evnt = {
@@ -180,17 +182,16 @@ baidu.dom.extend({
 			else if( htmls[type] )
 				evnt = htmlEvents( type, evnt );
 			else
-			    baidu( element ).triggerHandler( type, triggerData );
+			    return baidu( element ).triggerHandler( type, triggerData );
 
-			if(triggerData)
-			    evnt.triggerData = triggerData;
+			if( evnt ){
+				if( triggerData )
+				    evnt.triggerData = triggerData;
 
-			if(evnt){
-				if(element.dispatchEvent){
-					element.dispatchEvent(evnt);
-				}else if(element.fireEvent){
-					element.fireEvent("on" + type, evnt);
-				}
+				if( element.dispatchEvent )
+					element.dispatchEvent( evnt );
+				else if( element.fireEvent )
+					element.fireEvent( "on" + type, evnt );
 			}
 		};
 
