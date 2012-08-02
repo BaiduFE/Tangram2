@@ -13,7 +13,7 @@
  * @name baidu.form().json()
  * @grammar baidu.form(ele).json([replacer])
  * @param {function} replacer 对参数值特殊处理的函数，格式：replacer(string value, string key)
- * @returns {Object} 表单数据js对象
+ * @return {Object} 表单数据js对象
  */
 
 /**
@@ -23,7 +23,7 @@
  * @grammar baidu.form.json(form[, replacer])
  * @param {Element} form 需要提交的表单元素
  * @param {function} replacer 对参数值特殊处理的函数，格式：replacer(string value, string key)
- * @returns {Object} 表单数据js对象
+ * @return {Object} 表单数据js对象
  */
 
 baidu.form.extend({

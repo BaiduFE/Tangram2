@@ -17,9 +17,10 @@
  * @description 在匹配的每个DOM元素前面插入新的内容
  * @function 
  * @name baidu.dom().before()
- * @grammar baidu.dom(args).before(function(index,html))
- * @param {function} fn 支持一个函数作为参数，函数最终需要返回一个HTMLString|Element|TangramDom
+ * @grammar baidu.dom(args).before(fun)
+ * @param {function} fun 支持一个函数作为参数，函数最终需要返回一个HTMLString|Element|TangramDom
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example baidu.dom(args).before(function(index,html))
  */
 baidu.dom.extend({
     before: function(){
