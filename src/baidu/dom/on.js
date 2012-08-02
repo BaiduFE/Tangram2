@@ -74,15 +74,16 @@ baidu.dom.extend({
 
 	_on: function( name, data, fn ){
 		var eb = baidu.dom._eventBase;
-	    this.each( function(){
+	    this.each(function(){
 	        eb.add( this, name, fn, undefined, data );
-	    } );
+	    });
+	    return this;
 	}
 });
 
- baidu.event.on = function(ele,onEvent,fun){
- 	onEvent = onEvent.replace(/^\s*on/,'');
- 	var element = baidu.dom.g(ele);
-	baidu.dom(element).on(onEvent,fun);
+baidu.event.on = function( el, onEvent, fn ){
+	onEvent = onEvent.replace( /^\s*on/, "" );
+	var element = baidu.dom.g( el );
+	baidu.dom( element ).on( onEvent, fn );
 	return element;
- };
+};

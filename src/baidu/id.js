@@ -61,7 +61,6 @@ baidu.id = function() {
         }
 
         if ( o_1 ) {
-
             !id && (maps[ object[ key ] = id = baidu.id() ] = object);
             return id;
         } else if ( s_1 ) {
