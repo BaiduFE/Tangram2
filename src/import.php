@@ -65,7 +65,7 @@ function importTangram($files, $returnFile = true){
                 $matches = array();
                 //去掉注释
                 $content = trim(preg_replace("/\/\*(.*?)\*\//ies", "", $content));
-                $output .= preg_replace("/\/\/\/import\s+([\w\-\$]+(\.[\w\-\$]+)*);?/ies", "importTangram('\\1')", $content);
+                $output .= preg_replace("/\/\/\/+\s*import\s+([\w\-\$]+(\.[\w\-\$]+)*);?/ies", "importTangram('\\1')", $content);
             }
         }
     }
@@ -84,7 +84,7 @@ function getFileContents($filename){
         }
     }
     //为编译更新路径by bell 2011-2-15
-    return file_get_contents("../../Tangram-base/src/". $filename);
+    return file_get_contents("../../Tangram2/src/". $filename);
 }
 
 function getPackage($packagePath){
@@ -98,3 +98,4 @@ function getPackage($packagePath){
     }
     return $files;
 }
+?>

@@ -1,8 +1,16 @@
-/// include baidu.array;
+///import baidu.array;
+///import baidu.type;
 
+Array.prototype.map = function (iterator, context) {
+    var i, n,
+        array = baidu.array([]);
 
-baidu.array.extend({
-    map : function () {
-        return this;
+    for (i=0, n=this.length; i < n; i++) {
+        array[i] = iterator.call(context || this, this[i], i, this);
     }
-});
+    return array;
+};
+
+baidu.array.map = function(array, iterator, context){
+    return baidu.isArray(array) ? array.map(iterator, context) : array;
+};

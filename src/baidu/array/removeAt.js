@@ -1,8 +1,8 @@
-/// include baidu.array;
+///import baidu.array;
 
 
 baidu.array.extend({
-    removeAt : function () {
-        return this;
+    removeAt : function (index) {
+        return this.splice(index, 1)[0];
     }
 });

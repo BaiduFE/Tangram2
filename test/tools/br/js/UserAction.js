@@ -364,10 +364,10 @@ var UserAction = {
 		if (!this.isb(metaKey)) {
 			metaKey = false;
 		}
+		
 		if (!this.isn(button)) {
 			button = 0;
 		}
-
 		// try to create a mouse event
 		var customEvent /* :MouseEvent */= null;
 
@@ -448,6 +448,7 @@ var UserAction = {
 				break;
 			case 2:
 				// leave as is
+				customEvent.button = 2;
 				break;
 			default:
 				customEvent.button = 0;
@@ -792,7 +793,7 @@ var UserAction = {
 		else if (array1.length != array2.length)
 			return false;
 		else {
-			for ( var i in array1) {
+			for ( var i=0,n=array1.length; i<n; i++) {
 				if (array1[i] != array2[i])
 					return false;
 			}

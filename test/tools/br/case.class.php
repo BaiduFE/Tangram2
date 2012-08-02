@@ -42,7 +42,7 @@ class Kiss{
 	 * @param string $projroot root of project
 	 * @param string $name namespace of case
 	 */
-	function __construct($projroot = '../../../', $name = 'baidu.ui.dialog.Dialog', $ext=''){
+	function __construct($projroot = '../../../', $name = 'baidu.dom.g', $ext=''){
 		$this->projroot = $projroot;
 		$this->name = $name;
 		$this->ext = $ext;
@@ -91,10 +91,9 @@ class Kiss{
 		print '<script type="text/javascript" src="js/jquery-1.3.2.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/testrunner.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/ext_qunit.js"></script>'."\n";
-		print '<script type="text/javascript" src="js/commonTest.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/UserAction.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/tools.js"></script>'."\n";
-
+		
 		print '<link media="screen" href="css/qunit.css" type="text/css" rel="stylesheet" />'."\n";
 
 		if($release == 0){
