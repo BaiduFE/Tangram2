@@ -28,13 +28,14 @@ baidu.query = baidu.query || (function(){
         rId0= /^#([\w\-\$]+)$/
         rTag = /^\w+$/,
         rClass = /^(\w*)\.([\w\-\$]+)$/,
+        rComboClass = /^(\.[\w\-\$]+)+$/;
         rDivider = /\s*,\s*/,
         rSpace = /\s+/g,
         slice = Array.prototype.slice;
 
     // selector: #id, .className, tagName, *
     function query(selector, context) {
-        var t, id, dom, tagName, className, arr, array = [];
+        var t, x, id, dom, tagName, className, arr, list, array = [];
 
         // tag#id
         if (rId.test(selector)) {
@@ -56,6 +57,7 @@ baidu.query = baidu.query || (function(){
             tagName = RegExp.$1;
             className = RegExp.$2;
             t = " " + className + " ";
+            // bug: className: .a.b
 
             if (context.getElementsByClassName) {
                 arr = context.getElementsByClassName(className);
@@ -72,6 +74,23 @@ baidu.query = baidu.query || (function(){
             } else {
                 baidu.merge(array, arr);
             }
+        
+        // IE 6 7 8 里组合样式名(.a.b)
+        } else if (rComboClass.test(selector)) {
+            list = selector.substr(1).split(".");
+
+            baidu.each(context.getElementsByTagName("*"), function(dom) {
+                if (dom.className) {
+                    t = " " + dom.className + " ";
+                    x = true;
+
+                    baidu.each(list, function(item){
+                        t.indexOf(" "+ item +" ") == -1 && (x = false);
+                    });
+
+                    x && array.push(dom);
+                }
+            });
         }
 
         return array;
