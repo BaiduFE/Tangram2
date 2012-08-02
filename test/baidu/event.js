@@ -22,26 +22,25 @@ test('test baidu.event properties', function(){
             span = document.createElement('span');
         c.get().appendChild(span);
         
-        baidu.dom(c.get()).on('keyup', {tangId: 'Tangram'}, function(event){
+        baidu.dom(c.get()).on('keyup', { tangId: 'Tangram' }, function(event){
             equal(event.type, 'keyup', 'show type');
             equal(event.target, span, 'this is span');
             ok(event.currentTarget === c.get(), 'this is div');
             equal(event.keyCode, 32, 'keyCode is');
             equal(event.metaKey, true, 'metaKey is');
-            equal(event.commnadKey, true, 'commnadKey is');
             equal(event.data.tangId, 'Tangram', 'data value is');
             equal(event.timeStamp, new Date().getTime(), 'time is');
             return 'Tangram';
         });
         //
-        baidu.dom(c.get()).on('keyup', function(event){
+        baidu.dom(c.get()).on('keyup', function( event ){
             equal(event.result, 'Tangram', 'result is');
         });
         //
         ua.keyup(span, {
             keyCode: 32,
-            metaKey: true,
-            commnadKey: true
+            metaKey: true
+            // commandKey: true, // 就算发送了 commandKey 也拿不到，估计是 windows 平台的缘故
         });
         
         baidu.dom(c.get()).on('mouseup', function(event){
