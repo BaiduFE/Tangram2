@@ -5,10 +5,10 @@
 /**
  * @description 为匹配的元素删除设置的属性。
  * @function 
- * @name baidu.dom().removeProp();
- * @grammar baidu.dom(args).removeProp(property,value);
- * @param {String} property 要设置属性的名称;
- * @param {String} value 要设置属性的值;
+ * @name baidu.dom().removeProp()
+ * @grammar baidu.dom(args).removeProp(property,value)
+ * @param {String} property 要设置属性的名称
+ * @param {String} value 要设置属性的值
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 ///import baidu;

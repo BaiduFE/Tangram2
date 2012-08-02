@@ -14,7 +14,7 @@
  * @name baidu.form().serialize()
  * @grammar baidu.form(ele).serialize([replacer])
  * @param {function} replacer 对参数值特殊处理的函数，格式：replacer(string value, string key)
- * @returns {Object} 表单数据数组
+ * @return {Object} 表单数据数组
  */
 
 /**
@@ -24,7 +24,7 @@
  * @grammar baidu.form.serialize(form[, replacer])
  * @param {Element} form 需要提交的表单元素
  * @param {function} replacer 对参数值特殊处理的函数，格式：replacer(string value, string key)
- * @returns {Object} 表单数据数组
+ * @return {Object} 表单数据数组
  */
 
 baidu.form.extend({
