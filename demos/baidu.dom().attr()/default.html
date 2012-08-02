@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.dom.attr 示例" />
-		<title>baidu.dom.attr 示例</title>
+		<meta name="description" content="baidu.dom().attr() 示例" />
+		<title>baidu.dom().attr() 示例</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
-		<script type="text/javascript" src="../../src/import.php?f=baidu.dom.attr,baidu.dom.html,baidu.dom.bind"></script>
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
 	</head>
 	<body>
 		<div class="demo" id="demo">
-			<h1 class="ac-h1"><strong>baidu.dom.attr</strong> 示例</h1>
+			<h1 class="ac-h1"><strong>baidu.dom().attr()</strong> 示例</h1>
 			<p class="ac-des">
 				获取、设置元素属性值
 			</p>
@@ -38,7 +38,7 @@
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
-					<!--DemoViewStart-->
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 
@@ -54,6 +54,7 @@
 					<span>点击获取自定义属性值(空值)</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
 						<a class="button" id="demo_btn_2">将下面链接的 target 属性设置为 _blank</a>
 					</div>
@@ -65,6 +66,7 @@
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_2"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 		</div>
@@ -72,7 +74,6 @@
 	<script>
 		baidu('#demo_btn_1').on('click',function(e){
 			var attr = baidu('#demo_link_1').attr('target');
-			console.log(attr)
 			baidu('#demo_execute_result_1').html(attr);
 		});
 		
