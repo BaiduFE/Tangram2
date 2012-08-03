@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().offset() 示例" />
+		<title>获取偏移量</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+		<style>
+			#demo_element_1{
+				width:100px;
+				height:30px;
+				background:#ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().offset()</strong> 示例</h1>
+			<p class="ac-des">
+				取得第一个匹配元素或是设置多个匹配元素相对于文档的偏移量
+			</p>
+
+			<h2 class="ac-h2">取得元素相对于文档的偏移量</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).offset()</li>
+				<li>返回: {Object} 返回一个包含left和top键名的json来标示元素的偏移量</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>取得元素相对于文档的偏移量</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">点击获取我相对于文档的偏移量</a>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		baidu('#demo_btn').on('click',function(e){
+			var offset = baidu(this).offset();
+			baidu('#demo_execute_result').html(offset.left + ' , ' + offset.top);
+		});
+	</script>
+</html>
