@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="description" content="baidu.dom().append() 示例" />
-		<title>插入html</title>
+		<title>使用callback</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
@@ -32,12 +32,12 @@
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>在匹配的每个DOM元素内部的末端插入内容 --- 使用 HTML 字符串方式</span>
+					<span>在匹配的每个DOM元素内部的末端插入内容 --- 回调函数方式</span>
 				</div>
 				<div class="pannel-content">
 					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn">向下面的容器追加内容： &lt;a href="http://tangram.baidu.com" target="_blank"&gt;Tangram&lt;/a&gt;&lt;br /&gt;</a>
+						<a class="button" id="demo_btn">将下面的链接元素插入到容器中：传入一个返回HTMLString|Element|TangramDom的函数</a>
 					</div>
 					<div class="pannel-content-part">
 						<div class="test_block" id="test_block">
@@ -52,10 +52,13 @@
 			</div>
 		</div>
 	</body>
-	<script>
+	<script>		
 		baidu('#demo_btn').on('click',function(e){
-			baidu.dom('#test_block').append('<a href="http://tangram.baidu.com" target="_blank">Tangram</a><br />');
+			baidu.dom('#test_block').append(function(){
+				return '<a href="http://tangram.baidu.com" target="_blank">Tangram</a><br />';
+			});
 			baidu('#demo_execute_result').html('插入到目标容器成功');
 		});
+
 	</script>
 </html>

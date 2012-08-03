@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="description" content="baidu.dom().remove() 示例" />
-		<title>普通移除</title>
+		<title>使用过滤</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
@@ -34,29 +34,40 @@
 			</p>
 			<ul class="ac-ul">
 				<li>语法: baidu.dom().remove()</li>
+				<li>参数: {String} selector 一个字符串的选择器，对前面匹配到的DOM元素再做进一步的过滤</li>
 				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象</li>
 			</ul>
+			
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>移除元素</span>
+					<span>移除元素 --- 过滤</span>
 				</div>
 				<div class="pannel-content">
 					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<p class="tip" id="demo_tip">警告：您有 <b>3</b> 个安全漏洞 <a href="#" id="demo_btn">知道了</a></p>
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个未处理事件将到期</p>
+						<p class="tip tip_success"><b>完成</b>： <b>XXX</b> 的申请已被受理</p>
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个安全漏洞</p>
+						<p class="tip tip_success"><b>完成</b>：<b>XXX</b> 的申请已被受理</p>
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个安全漏洞</p>
 					</div>
+					
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">清除所有已完成的提醒</a>
+					</div>
+					
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result"></span>
 					</div>
 					<!--DemoViewEnd-->
 				</div>
-			</div>		
+			</div>			
 		</div>
 	</body>
 	<script>
 		baidu('#demo_btn').on('click',function(e){
-			baidu.dom('#demo_tip').remove();
-			baidu('#demo_execute_result').html('提示信息已经移除');
+			baidu.dom('.tip').remove('.tip_success');
+			baidu('#demo_execute_result').html('已完成的提醒清除成功');
 			e.preventDefault();
 		});
 	</script>
