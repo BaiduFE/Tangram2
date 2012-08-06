@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().removeProp() 示例" />
+		<title>删除属性值</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().removeProp()</strong> 示例</h1>
+			<p class="ac-des">
+				为匹配的元素删除设置的属性
+			</p>
+
+			<h2 class="ac-h2">删除元素的属性值</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).removeProp(property)</li>
+				<li>参数: {String} Property 要删除的属性名</li>
+				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>删除元素的属性值</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">删除下面输入框的 disabled 属性</a>
+					</div>
+					<div class="pannel-content-part">
+						<p>
+							<input type="text" id="demo_input" disabled value="disabled text input" autocomplete="off" />
+						</p>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		baidu('#demo_btn').on('click',function(e){
+			baidu('#demo_input').removeProp('disabled');
+			baidu('#demo_execute_result').html('操作成功，input 可用');
+		});
+	</script>
+</html>
