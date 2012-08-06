@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().toHalfWidth() 示例" />
+		<title>将常见全角字符转换为半角</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().toHalfWidth()</strong> 示例</h1>
+			<p class="ac-des">
+				将全角的字符转成半角，可以用于清洗由于用户输入法切换到全角而提交的数据 <br />
+				将“&amp;#xFF01;”至“&amp;#xFF5E;”范围的全角转成“&amp;#33;”至“&amp;#126;”, 还包括全角空格包括常见的全角数字/空格/字母, 用于需要同时支持全半角的转换
+			</p>
+			<h2 class="ac-h2">1. 将字符转换为半角</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.string().toHalfWidth()</li>
+				<li>返回: 半角字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>将字符转换为半角</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<button id="btn-half-width" class="button">转换</button>	
+					<p>
+						<!--The quick brown fox jumps over the lazy dog-->
+						<textarea id="content-full-width" rows="3" cols="80">ｔｈｅ　ｑｕｉｃｋ　ｂｒｏｗｎ　ｆｏｘ　ｊｕｍｐｓ　ｏｖｅｒ　ｔｈｅ　ｌａｚｙ　ｄｏｇ．　１２３４５６７８９０</textarea>
+
+					</p>
+					<p id="demo-show-area">
+						
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">		
+		T('#btn-half-width').on('click', function(e){
+			var fullWidth = baidu.string(T('#content-full-width').val());
+			var halfWidth = fullWidth.toHalfWidth();
+			T('#demo-show-area').html(halfWidth);
+		});
+	</script>
+</html>
