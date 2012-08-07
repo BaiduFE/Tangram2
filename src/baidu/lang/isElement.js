@@ -13,7 +13,7 @@
 ///import baidu.type;
 
 /**
- * 判断目标参数是否为Element对象
+ * @description 判断目标参数是否为Element对象
  * @name baidu.lang.isElement
  * @function
  * @grammar baidu.lang.isElement(source)
@@ -21,7 +21,7 @@
  * @meta standard
  * @see baidu.lang.isString,baidu.lang.isObject,baidu.lang.isNumber,baidu.lang.isArray,baidu.lang.isBoolean,baidu.lang.isDate
  *             
- * @returns {boolean} 类型判断结果
+ * @return {boolean} 类型判断结果
  */
 //baidu.lang.isElement = function (source) {
 //    return !!(source && source.nodeName && source.nodeType == 1);

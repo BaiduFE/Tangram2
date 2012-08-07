@@ -2,6 +2,7 @@
  * @author linlingyu
  */
 ///import baidu.dom;
+///import baidu.dom._cleanData;
 /**
  * @description 将匹配到的DOM元素的内部内容全部清空
  * @function 
@@ -19,11 +20,8 @@
  */
 baidu.dom.extend({
     empty: function(){
-        var len = this.length,
-            item;
-        for(var i = 0; i < len; i++){
-            //TODO clean data
-            item = this[i];
+        for(var i = 0, item; item = this[i]; i++){
+            item.nodeType === 1 && baidu.dom._cleanData(item.getElementsByTagName('*'));
             while(item.firstChild){
                 item.removeChild(item.firstChild);
             }

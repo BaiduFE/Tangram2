@@ -11,7 +11,7 @@
 ///import baidu.object;
 
 /**
- * 遍历Object中所有元素，1.1.1增加
+ * @description 遍历Object中所有元素，1.1.1增加
  * @name baidu.object.each
  * @function
  * @grammar baidu.object.each(source, iterator)
@@ -19,7 +19,7 @@
  * @param {Function} iterator 对每个Object元素进行调用的函数，function (item, key)
  * @version 1.1.1
  *             
- * @returns {Object} 遍历的Object
+ * @return {Object} 遍历的Object
  */
 baidu.object.each = function (source, iterator) {
     var returnValue, key, item; 

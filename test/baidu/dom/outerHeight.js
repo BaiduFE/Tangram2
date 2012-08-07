@@ -11,7 +11,7 @@ test("baidu.dom(el).outerHeight()", function(){
 function testGet( tag ){
 	var el = create( tag );
 	equal( baidu.dom( el ).outerHeight(), el.offsetHeight, "check " + tag + " outerHeight()" );
-	equal( baidu.dom( el ).outerHeight( true ), el.offsetHeight + style(el, 'margin') * 2, "check " + tag + " outerHeight( true )" );
+	equal( baidu.dom( el ).outerHeight( true ), el.offsetHeight + style(el, 'marginTop') + style(el, 'marginBottom'), "check " + tag + " outerHeight( true )" );
 	
 	
 	

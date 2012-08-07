@@ -2,7 +2,6 @@
  * @author linlingyu
  */
 ///import baidu.dom._smartInsert;
-///import baidu.dom._buildElements;
 ///import baidu.dom.getDocument;
 ///import baidu.merge;
 /**
@@ -18,9 +17,10 @@
  * @description 在匹配的每个DOM元素前面插入新的内容
  * @function 
  * @name baidu.dom().before()
- * @grammar baidu.dom(args).before(function(index,html))
+ * @grammar baidu.dom(args).before(fn)
  * @param {function} fn 支持一个函数作为参数，函数最终需要返回一个HTMLString|Element|TangramDom
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example baidu.dom("<div>").before(function(index,html));
  */
 baidu.dom.extend({
     before: function(){

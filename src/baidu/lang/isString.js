@@ -13,7 +13,7 @@
 ///import baidu.type;
 
 /**
- * 判断目标参数是否string类型或String对象
+ * @description 判断目标参数是否string类型或String对象
  * @name baidu.lang.isString
  * @function
  * @grammar baidu.lang.isString(source)
@@ -22,7 +22,7 @@
  * @meta standard
  * @see baidu.lang.isObject,baidu.lang.isNumber,baidu.lang.isArray,baidu.lang.isElement,baidu.lang.isBoolean,baidu.lang.isDate
  *             
- * @returns {boolean} 类型判断结果
+ * @return {boolean} 类型判断结果
  */
 //baidu.lang.isString = function (source) {
 //    return '[object String]' == Object.prototype.toString.call(source);

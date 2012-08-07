@@ -6,7 +6,9 @@
 ///import baidu.platform;
 
 /**
- * 判断是否为x11平台
+ * @description 判断是否为x11平台
+ * @function
+ * @name baidu.platform.x11
  * @property x11 是否为x11平台
  * @grammar baidu.platform.x11
  * @meta standard

@@ -6,8 +6,9 @@
 ///import baidu.browser;
 
 /**
- * 判断是否为firefox浏览器
+ * @description 判断是否为firefox浏览器
  * @property firefox firefox版本号
+ * @name baidu.browser.firefox
  * @grammar baidu.browser.firefox
  * @meta standard
  * @see baidu.browser.ie,baidu.browser.safari,baidu.browser.opera,baidu.browser.chrome

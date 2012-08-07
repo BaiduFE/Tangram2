@@ -86,8 +86,6 @@ test("Object元素为包含toString和valueOf的遍历", function(){
 	};
 	var count = 0, rArray = [], rIndex = [];
 	var fnHandle1 = function(iVal, iIndex){
-//		console.log(iVal);
-//		console.log(iIndex);
 		if(iVal == 10){
 			return false;
 		}
@@ -177,8 +175,6 @@ test("Object元素为包含toString和valueOf的遍历", function(){
 //        };
 //        var count=0, rArray = [], rIndex = [];
 //        var fnHandle1 = function(iVal, iIndex) {
-//            console.log(iVal);
-//            console.log(iIndex);
 //        };
 //        baidu.object.each(aObject, fnHandle1);
 //        /*

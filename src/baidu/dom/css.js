@@ -26,10 +26,11 @@
  * @description 取得第一个匹配元素或是设置多个匹配元素的css属性
  * @function 
  * @name baidu.dom().css()
- * @grammar baidu.dom(args).css(key, function(index, value))
+ * @grammar baidu.dom(args).css(key, fn)
  * @param {String} key 一个css的属性名称
  * @param {function} fn 接收两个参数，index参数表示匹配元素在集合中的索引，value表示当前key的css属性对应的值，fn最终需要返回一个对应key的css属性值
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example baidu.dom("<div>").css(key, function(index, value))
  */
 /**
  * @description 取得第一个匹配元素或是设置多个匹配元素的css属性

@@ -5,6 +5,7 @@
 
 ///import baidu;
 ///import baidu.dom;
+///import baidu.dom.g;
 ///import baidu.event;
 ///import baidu.dom.each;
 ///import baidu.dom._eventBase;
@@ -36,7 +37,6 @@
 baidu.dom.extend({
 	on: function( events, selector, data, fn ){
     	var eb = baidu.dom._eventBase;
-
     	var specials = { mouseenter: 1, mouseleave: 1, focusin: 1, focusout: 1 };
 
 	    if( typeof selector == "object" && selector ){
@@ -74,8 +74,16 @@ baidu.dom.extend({
 
 	_on: function( name, data, fn ){
 		var eb = baidu.dom._eventBase;
-	    this.each( function(){
+	    this.each(function(){
 	        eb.add( this, name, fn, undefined, data );
-	    } );
+	    });
+	    return this;
 	}
 });
+
+baidu.event.on = function( el, onEvent, fn ){
+	onEvent = onEvent.replace( /^\s*on/, "" );
+	var element = baidu.dom.g( el );
+	baidu.dom( element ).on( onEvent, fn );
+	return element;
+};

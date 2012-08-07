@@ -10,7 +10,8 @@
 
 ///import baidu;
 /**
- * 操作cookie的方法
- * @namespace baidu.cookie
+ * @description 操作cookie的方法
+ * @namespace
+ * @name baidu.cookie
  */
 baidu.cookie = baidu.cookie || {};

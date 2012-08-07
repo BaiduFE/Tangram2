@@ -36,6 +36,8 @@ baidu.support = baidu.support || function(){
             styleString = boundString + paddingMarginBorder + '5px solid #000; position: absolute;',
             outer,
             inner,
+            select,
+            opt,
             table;
             
         container.style.cssText = 'position: static;' + visibleString;
@@ -56,15 +58,45 @@ baidu.support = baidu.support || function(){
         support.fixedPosition = inner.offsetTop === 20 || inner.offsetTop === 15;
 
 //author wangxiao start
+        support.deleteExpando = true;
 
+        // Test to see if it's possible to delete an expando from an element
+        // Fails in Internet Explorer
+        try {
+            delete div.test;
+        } catch( e ) {
+            support.deleteExpando = false;
+        }
+    
         select = document.createElement( "select" );
         opt = select.appendChild( document.createElement("option") );
+
+        // Make sure that the options inside disabled selects aren't marked as disabled
+        // (WebKit marks them as disabled)
+        select.disabled = true;
+        support.optDisabled = !opt.disabled;
+
         // Make sure that a selected-by-default option has a working selected property.
         // (WebKit defaults to false instead of true, IE too, if it's in an optgroup)
         support.optSelected = opt.selected;
 
         // Test setAttribute on camelCase class. If it works, we need attrFixes when doing get/setAttribute (ie6/7)
         div.setAttribute("className", "t");
+        div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
+        var input = div.getElementsByTagName("input")[ 0 ];
+
+        // Make sure that if no value is specified for a checkbox
+        // that it defaults to "on".
+        // (WebKit defaults to "" instead)
+        support.checkOn = ( input.value === "on" );
+
+        // Make sure that link elements get serialized correctly by innerHTML
+        // This requires a wrapper element in IE
+        support.htmlSerialize = !!div.getElementsByTagName("link").length;
+
+        // IE strips leading whitespace when .innerHTML is used
+        support.leadingWhitespace = ( div.firstChild.nodeType === 3 );
+
         support.getSetAttribute = div.className !== "t";
         support.pixelMargin = true;
 
@@ -79,6 +111,7 @@ baidu.support = baidu.support || function(){
         if ( window.getComputedStyle ) {            
             support.pixelMargin = ( window.getComputedStyle( div, null ) || {} ).marginTop !== "1%";
         };
+ 
         // Check if a radio maintains its value
         // after being appended to the DOM
         var input = document.createElement("input");

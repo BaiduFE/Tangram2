@@ -9,9 +9,10 @@
  */
 
 ///import baidu.lang;
+///import baidu.global;
 
 /**
- * 解除instance中对指定类实例的引用关系。
+ * @description 解除instance中对指定类实例的引用关系。
  * @name baidu.lang.decontrol
  * @function
  * @grammar baidu.lang.decontrol(guid)
@@ -20,8 +21,7 @@
  * @see baidu.lang.instance
  */
 baidu.lang.decontrol = function(){
-    var global = window[baidu.guid],
-        maps = global._maps = global._maps || {};
+    var maps = baidu.global("_maps_id");
 
     return function(guid) {
         delete maps[guid];

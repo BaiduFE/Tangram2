@@ -13,7 +13,7 @@
  * @param {Function}	func	要方法化的函数
  * @param {string}		[attr]	属性
  * @version 1.3
- * @returns {Function} 已方法化的函数
+ * @return {Function} 已方法化的函数
  */
 
 baidu.fn.extend({

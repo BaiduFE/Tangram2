@@ -3,15 +3,14 @@
  * @email  1988wangxiao@gmail.com
  */
 
-///import baidu
-///import baidu.extend
-///import baidu.createChain
-///import baidu.callbacks
-///
+///import baidu;
+///import baidu.extend;
+///import baidu.createChain;
+///import baidu.callbacks;
 
 /**
- * deferred功能链头
- *
+ * @description deferred功能链头
+ * @name baidu.deferred
  * @grammer baidu.deferred()
  * @param   {}
  * @return  

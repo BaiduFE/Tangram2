@@ -12,12 +12,11 @@
 ///import baidu.page;
 
 /**
- * 在页面中创建样式表对象
+ * @description 在页面中创建样式表对象
  * @name baidu.page.createStyleSheet
  * @function
  * @grammar baidu.page.createStyleSheet(options)
- * @param {Object} options 配置信息
-                
+ * @param {Object} options 配置信息           
  * @param {Document} options.document 指定在哪个document下创建，默认是当前文档
  * @param {String} options.url css文件的URL
  * @param {Number} options.index 在文档里的排序索引（注意，仅IE下有效）
@@ -27,7 +26,7 @@
  * 
  * @see baidu.page.createStyleSheet.StyleSheet
  *             
- * @returns {baidu.page.createStyleSheet.StyleSheet} styleSheet对象(注意: 仅IE下,其他浏览器均返回null)
+ * @return {baidu.page.createStyleSheet.StyleSheet} styleSheet对象(注意: 仅IE下,其他浏览器均返回null)
  */
 baidu.page.createStyleSheet = function(options){
     var op = options || {},

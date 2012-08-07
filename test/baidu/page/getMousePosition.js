@@ -8,6 +8,7 @@ test("get mouse position", function() {
 		clientX : 20,
 		clientY : 20
 	});
+
 	equals(p().x, 20);
 	equals(p().y, 20);
 });

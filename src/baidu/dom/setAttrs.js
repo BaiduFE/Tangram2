@@ -6,7 +6,7 @@
 /**
  * @description 批量设置目标元素的attribute值
  * @function 
- * @name baidu.dom().setAttrs()
+ * @name baidu.dom.setAttrs
  * @grammar baidu.dom(args).setAttrs(object)
  * @param {Object} object 要设置的attribute属性的键值对
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
@@ -14,7 +14,7 @@
 /**
  * @description 批量设置目标元素的attribute值
  * @function 
- * @name baidu.dom.setAttrs()
+ * @name baidu.dom.setAttrs
  * @grammar baidu.dom.setAttrs(element,object)
  * @param {DOMElement|string} element DOM元素或元素的id
  * @param {Object} object 要设置的attribute属性的键值对

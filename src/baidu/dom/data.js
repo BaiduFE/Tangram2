@@ -2,6 +2,7 @@
 ///import baidu.dom;
 ///import baidu.each;
 ///import baidu.type;
+///import baidu.global;
 
 /**
  * @fileoverview
@@ -19,16 +20,15 @@
  */
 baidu.dom.extend({
     data : function () {
-        var global = window[ baidu.guid ]
-            , guid = baidu.id.key
-            , maps = global._HTMLElementDataMaps = global._HTMLElementDataMaps || {};
+        var   guid = baidu.key
+            , maps = baidu.global("_maps_HTMLElementData");
 
         return function( key, value ) {
             baidu.each( this, function( dom ) {
                 !dom[ guid ] && ( dom[ guid ] = baidu.id() );
             });
 
-            if ( baidu.type(key) == "string" ) {
+            if ( baidu.isString(key) ) {
 
                 // get first
                 if ( typeof value == "undefined" ) {

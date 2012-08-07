@@ -11,13 +11,13 @@
 ///import baidu.page;
 
 /**
- * 获取页面宽度
+ * @description 获取页面宽度
  * @name baidu.page.getWidth
  * @function
  * @grammar baidu.page.getWidth()
  * @see baidu.page.getHeight
  * @meta standard
- * @returns {number} 页面宽度
+ * @return {number} 页面宽度
  */
 baidu.page.getWidth = function () {
     var doc = document,

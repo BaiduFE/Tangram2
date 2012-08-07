@@ -12,7 +12,7 @@
 ///import baidu.string.escapeReg;
 
 /**
- * 根据参数名从目标URL中获取参数值
+ * @description 根据参数名从目标URL中获取参数值
  * @name baidu.url.getQueryValue
  * @function
  * @grammar baidu.url.getQueryValue(url, key)
@@ -21,7 +21,7 @@
  * @meta standard
  * @see baidu.url.jsonToQuery
  *             
- * @returns {string|null} - 获取的参数值，其中URI编码后的字符不会被解码，获取不到时返回null
+ * @return {string|null} 获取的参数值，其中URI编码后的字符不会被解码，获取不到时返回null
  */
 baidu.url.getQueryValue = function (url, key) {
     var reg = new RegExp(

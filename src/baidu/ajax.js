@@ -1,4 +1,4 @@
-/**
+/*
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
@@ -7,11 +7,12 @@
 ///import baidu.createChain;
 
 /**
- * Ajax链头，对XMLHttpRequest请求的封装
- *
- * @grammer baidu.ajax([url])
- * @param   {Url}
- * @return  {tangramAjax}          返回 new TangramAjax 对象
+ * @description AJAX链式语法的链头
+ * @function 
+ * @name baidu.ajax()
+ * @grammar baidu.ajax(url)
+ * @param {String} url 发送请求的url地址
+ * @return {TangramAjax} 返回一个TangramAjax对象
  */
 
 baidu.createChain("ajax",
