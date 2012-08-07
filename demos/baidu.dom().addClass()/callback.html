@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
 		<style>
 			a.redText{
 				color:red;
@@ -15,8 +17,6 @@
 				font-style:italic;
 			}
 		</style>
-	</head>
-	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1"><strong>baidu.dom().addClass()</strong> 示例</h1>
 			<p class="ac-des">
@@ -49,17 +49,17 @@
 				</div>
 			</div>
 		</div>
-	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			var hasClassA = baidu('.demo_element').addClass(function(index, className){
-				if(index == 0){
-					return 'redText';
-				}else{
-					return 'italicText';
-				}
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var hasClassA = baidu('.demo_element').addClass(function(index, className){
+					if(index == 0){
+						return 'redText';
+					}else{
+						return 'italicText';
+					}
+				});
+				baidu('#demo_execute_result').html('操作成功');
 			});
-			baidu('#demo_execute_result').html('操作成功');
-		});
-	</script>
+		</script>
+	</body>
 </html>

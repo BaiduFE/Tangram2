@@ -42,11 +42,11 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				baidu('#demo_input').removeProp('disabled');
+				baidu('#demo_execute_result').html('操作成功，input 可用');
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			baidu('#demo_input').removeProp('disabled');
-			baidu('#demo_execute_result').html('操作成功，input 可用');
-		});
-	</script>
 </html>

@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
 		<style>
 			.tip{
 				background:gold;
@@ -25,8 +27,6 @@
 				margin-left:5px;
 			}
 		</style>
-	</head>
-	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1"><strong>baidu.dom().remove()</strong> 示例</h1>
 			<p class="ac-des">
@@ -52,12 +52,12 @@
 				</div>
 			</div>		
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				baidu.dom('#demo_tip').remove();
+				baidu('#demo_execute_result').html('提示信息已经移除');
+				e.preventDefault();
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			baidu.dom('#demo_tip').remove();
-			baidu('#demo_execute_result').html('提示信息已经移除');
-			e.preventDefault();
-		});
-	</script>
 </html>

@@ -41,11 +41,11 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var css = baidu('#demo_element_1').css('fontSize');
+				baidu('#demo_execute_result').html(css);
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			var css = baidu('#demo_element_1').css('fontSize');
-			baidu('#demo_execute_result').html(css);
-		});
-	</script>
 </html>

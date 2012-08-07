@@ -42,11 +42,11 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				baidu('#demo_link').removeAttr('href style');
+				baidu('#demo_execute_result').html('href 和 style 属性移除成功');
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			baidu('#demo_link').removeAttr('href style');
-			baidu('#demo_execute_result').html('href 和 style 属性移除成功');
-		});
-	</script>
 </html>

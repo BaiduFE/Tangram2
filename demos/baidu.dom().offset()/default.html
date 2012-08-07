@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
 		<style>
 			#demo_element_1{
 				width:100px;
@@ -14,8 +16,6 @@
 				background:#ccc;
 			}
 		</style>
-	</head>
-	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1"><strong>baidu.dom().offset()</strong> 示例</h1>
 			<p class="ac-des">
@@ -43,11 +43,11 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var offset = baidu(this).offset();
+				baidu('#demo_execute_result').html(offset.left + ' , ' + offset.top);
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			var offset = baidu(this).offset();
-			baidu('#demo_execute_result').html(offset.left + ' , ' + offset.top);
-		});
-	</script>
 </html>

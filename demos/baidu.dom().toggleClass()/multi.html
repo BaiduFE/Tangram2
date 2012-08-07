@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
 		<style>
 			#text_block{
 				border:1px solid gold;
@@ -21,8 +23,6 @@
 				font-style: italic;
 			}
 		</style>
-	</head>
-	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1"><strong>baidu.dom().toggleClass()</strong> 示例</h1>
 			<p class="ac-des">
@@ -53,17 +53,17 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				baidu('#text_block').toggleClass('striking italic');
+				if(baidu('#text_block').hasClass('striking italic')){
+					baidu('#demo_btn').html('为下面的元素移除 class: striking 和 italic');
+					baidu('#demo_execute_result').html('class striking 已经添加');
+				}else{
+					baidu('#demo_btn').html('为下面的元素添加 class: striking 和 italic');
+					baidu('#demo_execute_result').html('class striking 已经移除');
+				}
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			baidu('#text_block').toggleClass('striking italic');
-			if(baidu('#text_block').hasClass('striking italic')){
-				baidu('#demo_btn').html('为下面的元素移除 class: striking 和 italic');
-				baidu('#demo_execute_result').html('class striking 已经添加');
-			}else{
-				baidu('#demo_btn').html('为下面的元素添加 class: striking 和 italic');
-				baidu('#demo_execute_result').html('class striking 已经移除');
-			}
-		});
-	</script>
 </html>
