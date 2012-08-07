@@ -23,9 +23,10 @@
  * @description 取得第一个匹配元素或是设置多个匹配元素的宽度，该宽度忽略margin, border, padding的计算
  * @function 
  * @name baidu.dom().width()
- * @grammar baidu.dom(args).width(function(index, width))
+ * @grammar baidu.dom(args).width(fn)
  * @param {function} fn 接收两个参数，index参数表示匹配元素在集合中的索引，width表示匹配元素的宽度，fn最终需要返回合法的数值来设置宽度
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example baidu.dom("<div>").width(function(index, width){});
  */
 baidu.dom.extend({
     width: function(value){

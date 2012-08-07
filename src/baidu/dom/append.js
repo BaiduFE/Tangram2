@@ -17,8 +17,8 @@
  * @description 在匹配的每个DOM元素内部的末端插入内容
  * @function 
  * @name baidu.dom().append()
- * @grammar baidu.dom(args).append(fun)
- * @param {Function} fun 支持一个函数作为参数，函数最终需要返回一个HTMLString|Element|TangramDom
+ * @grammar baidu.dom(args).append(fn)
+ * @param {Function} fn 支持一个函数作为参数，函数最终需要返回一个HTMLString|Element|TangramDom
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  * @example baidu.dom(args).append(function(index,html){})
  */

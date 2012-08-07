@@ -20,8 +20,8 @@
  * @description 在匹配的每个DOM元素后面插入新的内容
  * @function 
  * @name baidu.dom().after()
- * @grammar baidu.dom(args).after(fun)
- * @param {Function} fun 支持一个函数作为参数，函数最终需要返回一个HTMLString|Element|TangramDom
+ * @grammar baidu.dom(args).after(fn)
+ * @param {Function} fn 支持一个函数作为参数，函数最终需要返回一个HTMLString|Element|TangramDom
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  * @example baidu.dom(args).after(function(index,html))
  */

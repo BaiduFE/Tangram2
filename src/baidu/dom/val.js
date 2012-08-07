@@ -21,9 +21,10 @@
  * @description 设置匹配的元素集合中每个元素的value值。
  * @function 
  * @name baidu.dom().val()
- * @grammar baidu.dom(args).val(function(index, value))
- * @param {Function} function(index, value) 一个用来返回设置value值的函数。接收元素的索引位置和元素旧的value值作为参数。
+ * @grammar baidu.dom(args).val(fn)
+ * @param {Function} fn 一个用来返回设置value值的函数。接收元素的索引位置和元素旧的value值作为参数。
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example baidu.dom("<div>").val(function(index, value){});
  */ 
 ///import baidu;
 ///import baidu.dom;

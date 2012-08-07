@@ -13,7 +13,6 @@
 ///import baidu.data;
 ///import baidu.dom.appendTo;
 ///import baidu.dom.css;
-///import baidu.dom.style;
 
 (function(){
 
@@ -89,7 +88,7 @@ if ( window.getComputedStyle ) {
 
             ret = computed[ name ];
             if ( ret === "" && !baidu.dom.contains( elem.ownerDocument.documentElement, elem ) ) {
-                ret = baidu.dom.style( elem, name );
+                ret = baidu.dom(elem).css( name );
             }
 
             // A tribute to the "awesome hack by Dean Edwards"

@@ -63,7 +63,7 @@ baidu.query = baidu.query || (function(){
                 arr = context.getElementsByClassName(className);
             } else {
                 baidu.each(context.getElementsByTagName("*"), function(dom) {
-                    dom.className && (" " + dom.className + " ").indexOf(t) > -1 && arr.push(dom);
+                    dom.className && (" " + dom.className + " ").indexOf(t) > -1 && (arr.push(dom));
                 });
             }
 

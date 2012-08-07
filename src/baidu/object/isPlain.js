@@ -32,7 +32,7 @@ baidu.object.isPlain  = function(obj){
         return false;
     }
 
-    //判断new fun()自定义对象的情况
+    //判断new fn()自定义对象的情况
     //constructor不是继承自原型链的
     //并且原型中有isPrototypeOf方法才是Object
     if ( obj.constructor &&
