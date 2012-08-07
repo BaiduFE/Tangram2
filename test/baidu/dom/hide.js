@@ -3,7 +3,7 @@ module("baidu.dom.hide",{});
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.dom.hide,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.append,baidu.dom.show,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');
@@ -19,21 +19,23 @@ test("hide()", function() {
 
 	equal( hiddendiv.css("display"), "block", "Make sure a pre-hidden div is visible." );
 
-	var div = baidu("<div>").hide().appendTo("#qunit-fixture").show();
+	var div = baidu("<div>").hide().appendTo("#qunit-fixture");
+
+	div = div.show();
 
 	equal( div.css("display"), "block", "Make sure pre-hidden divs show" );
 
 	prepareTest();
 
-	hiddendiv = baidu("div.hidden");
+	hiddendiv = baidu("div.hidden").hide();
 
-	equal(baidu.css( hiddendiv[0], "display"), "none", "hiddendiv is display: none");
-
-	hiddendiv.css("display", "block");
-	equal(baidu.css( hiddendiv[0], "display"), "block", "hiddendiv is display: block");
+	equal(baidu(hiddendiv[0]).css("display"), "none", "hiddendiv is display: none");
 
 	hiddendiv.show();
-	equal(baidu.css( hiddendiv[0], "display"), "block", "hiddendiv is display: block");
+	equal(baidu(hiddendiv[0]).css( "display"), "block", "hiddendiv is display: block");
+
+	hiddendiv.show();
+	equal(baidu(hiddendiv[0]).css( "display"), "block", "hiddendiv is display: block");
 
 	hiddendiv.css("display","");
 
@@ -94,7 +96,7 @@ test("hide()", function() {
 	};
 
 	baidu.each(test, function(expected,selector) {
-		var elem = baidu(selector, "#show-tests").show();
+		var elem = baidu("#show-tests "+selector).show();
 		equal( elem.css("display"), expected, "Show using correct display type for " + selector );
 	});
 

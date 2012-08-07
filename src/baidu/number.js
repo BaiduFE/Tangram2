@@ -7,7 +7,7 @@
 ///import baidu.each;
 /**
  * @description number对象链式语法的链头
- * @name baidu.number
+ * @name baidu.number()
  * @function
  * @grammer baidu.number(number)
  * @param   {Number} Number对象

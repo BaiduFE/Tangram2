@@ -70,9 +70,9 @@ baidu.dom.extend({
 	}
 });
 
- baidu.event.un = function(ele,onEvent,fun){
+ baidu.event.un = function(ele,onEvent,fn){
  	onEvent = onEvent.replace(/^\s*on/,'');
  	var element = baidu.dom.g(ele);
-	baidu.dom(element).off(onEvent,fun);
+	baidu.dom(element).off(onEvent,fn);
 	return element;
  };

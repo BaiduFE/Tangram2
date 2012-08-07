@@ -21,8 +21,8 @@
  * @description 设置每一个匹配元素的html内容。
  * @function 
  * @name baidu.dom.html
- * @grammar baidu.dom(args).html(fun)
- * @param {Function} fun 用来返回设置HTML内容的一个函数。接收元素的索引位置和元素旧的HTML作为参数。
+ * @grammar baidu.dom(args).html(fn)
+ * @param {Function} fn 用来返回设置HTML内容的一个函数。接收元素的索引位置和元素旧的HTML作为参数。
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  * @example baidu.dom(args).html(function(index, html))
  */

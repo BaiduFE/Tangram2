@@ -16,8 +16,8 @@
  * @description 为每个匹配的元素添加指定的类名
  * @function 
  * @name baidu.dom().addClass()
- * @grammar baidu.dom(args).addClass(fun)
- * @param {Function} fun 这个函数返回一个或更多用空格隔开的要增加的样式名。接收元素的索引index和元素旧的样式名className作为参数。
+ * @grammar baidu.dom(args).addClass(fn)
+ * @param {Function} fn 这个函数返回一个或更多用空格隔开的要增加的样式名。接收元素的索引index和元素旧的样式名className作为参数。
  * @return {TangramDom} 接口最终返回之前匹配元素的TangramDom对象
  * @example baidu.dom(args).addClass(function(index,className){});
  */

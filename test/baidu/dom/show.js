@@ -12,30 +12,29 @@ test('prepareTest',function(){
 
 test("show()", function() {
 	//expect(26);
-
-	var hiddendiv = baidu("div.hidden");
+	var hiddendiv = baidu.dom(".hidden");
 
 	hiddendiv.hide().show();
 
 	equal( hiddendiv.css("display"), "block", "Make sure a pre-hidden div is visible." );
 
-	baidu("<div>").hide().appendTo("#qunit-fixture"));
+	var div = baidu("<div>").hide().appendTo("#qunit-fixture");
 
-	var div = baidu("<div>").hide().appendTo("#qunit-fixture").show();
+	div = div.show();
 
 	equal( div.css("display"), "block", "Make sure pre-hidden divs show" );
 
 	prepareTest();
 
-	hiddendiv = baidu("div.hidden");
+	hiddendiv = baidu("div.hidden").hide();
 
-	equal(baidu.css( hiddendiv[0], "display"), "none", "hiddendiv is display: none");
-
-	hiddendiv.css("display", "block");
-	equal(baidu.css( hiddendiv[0], "display"), "block", "hiddendiv is display: block");
+	equal(baidu(hiddendiv[0]).css("display"), "none", "hiddendiv is display: none");
 
 	hiddendiv.show();
-	equal(baidu.css( hiddendiv[0], "display"), "block", "hiddendiv is display: block");
+	equal(baidu(hiddendiv[0]).css( "display"), "block", "hiddendiv is display: block");
+
+	hiddendiv.show();
+	equal(baidu(hiddendiv[0]).css( "display"), "block", "hiddendiv is display: block");
 
 	hiddendiv.css("display","");
 
@@ -96,7 +95,7 @@ test("show()", function() {
 	};
 
 	baidu.each(test, function(expected,selector) {
-		var elem = baidu(selector, "#show-tests").show();
+		var elem = baidu("#show-tests "+selector).show();
 		equal( elem.css("display"), expected, "Show using correct display type for " + selector );
 	});
 
@@ -105,12 +104,13 @@ test("show()", function() {
 	// Make sure that showing or hiding a text node doesn't cause an error
 	baidu("<div>test</div> text <span>test</span>").show().remove();
 	baidu("<div>test</div> text <span>test</span>").hide().remove();
+
 });
 
 
 //准备工序
 function prepareTest(){
-	var html = "<div id='body'>"+
+	var html = "<div id='body' class='wangxiao'>"+
 	"<!-- Test HTML -->"+
 	"<div id='nothiddendiv' style='height:1px;background:white;' class='nothiddendiv'>"+
 		"<div id='nothiddendivchild'></div>"+
@@ -217,7 +217,7 @@ function prepareTest(){
 		"<b id='floatTest'>Float test.</b>"+
 		"<iframe id='iframe' name='iframe'></iframe>"+
 		"<form id='lengthtest'>"+
-			"<input type='text' id='length' name='test'/>"+
+			"<input type='text' id='length_sb' name='test'/>"+
 			"<input type='text' id='idTest' name='id'/>"+
 		"</form>"+
 		"<table id='table'></table>"+
@@ -351,7 +351,7 @@ function prepareTest(){
 
 	var body = $('body');
 	temp = body.html();
-	body.html(html+temp)
+	body.html(html+temp);
 	body.prop('id','body');
 
 };
