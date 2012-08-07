@@ -12,7 +12,7 @@
  * @description 查找当前集合匹配条件的元素
  *
  * @function
- * @name baidu.dom.has
+ * @name baidu.dom().has()
  * @grammar $DOM.has(selector)
  * @param   {Object}            selector    选择器
  * @return  {TangramDom}    new TangramDom

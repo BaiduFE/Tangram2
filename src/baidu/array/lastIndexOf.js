@@ -16,6 +16,18 @@
  * @param   {Number}      fromIndex 起始位置
  * @return  {Number}      被匹配项的下标
  */
+
+/**
+ * @description 从后往前，查询数组中指定元素的索引位置
+ *
+ * @name baidu.array().lastIndexOf()
+ * @function
+ * @grammar $Aarray.lastIndexOf(match[, fromIndex])
+ * @param   {Object}      match     匹配项
+ * @param   {Number}      fromIndex 起始位置
+ * @return  {Number}      被匹配项的下标
+ */
+
 baidu.array.extend({
     lastIndexOf : function (match, fromIndex) {
         baidu.paramCheck(".+(,number)?", "baidu.array.lastIndexOf");

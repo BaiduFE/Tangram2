@@ -12,9 +12,9 @@
  */
 
 /**
- * @description 对系统 event 对象进行封装，主要是解决浏览器兼容问题，并且做了功能增强
+ * @description 对系统event对象进行封装，主要是解决浏览器兼容问题，并且做了功能增强
  * @function
- * @name baidu.event
+ * @name baidu.event()
  * @grammer baidu.event([event])
  * @param   {Event}         event   系统 event 对象
  * @return  {TangramEvebt}          返回 new TangramEvent 对象

@@ -13,7 +13,7 @@
  * @description 取得一个包含着所有匹配元素的唯一父元素的元素集合
  *
  * @function
- * @name baidu.dom.parent
+ * @name baidu.dom().parent()
  * @grammar $DOM.parent([filter])
  * @param   {String|Function}   filter      [可选]过滤函数
  * @return  {TangramDom}    new TangramDom

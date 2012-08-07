@@ -20,7 +20,14 @@
  * @param {Object|String} options 提供相应数据的对象
  * @return {String} 格式化后的字符串
  */
- 
+/**
+ * @description 对目标字符串进行格式化，支持过滤
+ * @function 
+ * @name baidu.string().filterFormat()
+ * @grammar baidu.string(str).filterFormat(options)
+ * @param {Object|String} options 提供相应数据的对象
+ * @return {String} 格式化后的字符串
+ */ 
 /*
 在 baidu.string.format的基础上,增加了过滤功能. 目标字符串中的#{url|escapeUrl},<br/>
 会替换成baidu.string.filterFormat["escapeUrl"](opts.url);<br/>

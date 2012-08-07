@@ -12,9 +12,8 @@
 
 /**
  * @description 所有了元素的集合
- *
  * @function
- * @name baidu.dom.children
+ * @name baidu.dom().children()
  * @grammar $DOM.children(selector)
  * @param   {Object}            selector    选择器
  * @return  {TangramDom}    new TangramDom

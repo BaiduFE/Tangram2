@@ -11,7 +11,7 @@
  * @description 当前集合第一个元素
  *
  * @function
- * @name baidu.dom.first
+ * @name baidu.dom().first()
  * @grammar $DOM.first()
  * @return  {TangramDom}    new TangramDom
  */

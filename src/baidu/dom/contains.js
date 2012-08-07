@@ -11,7 +11,7 @@
 ///import baidu.dom._g;
 
 /**
- * 判断一个元素是否包含另一个元素
+ * @description 判断一个元素是否包含另一个元素
  * @name baidu.dom.contains
  * @function
  * @grammar baidu.dom.contains(container, contained)

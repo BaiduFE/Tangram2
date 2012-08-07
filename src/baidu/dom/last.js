@@ -11,7 +11,7 @@
  * @description 当前集合最后一个对象
  *
  * @function
- * @name baidu.dom.last
+ * @name baidu.dom().last()
  * @grammar $DOM.last()
  * @return  {TangramDom}    new TangramDom
  */
