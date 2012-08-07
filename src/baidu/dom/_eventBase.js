@@ -291,7 +291,7 @@ baidu.dom._eventBase = function(){
 baidu.dom._eventBase.method(
 
 /**
- * @description �?TangramDom 集合触发 blur 事件
+ * @description TangramDom集合触发 blur 事件
  * @function
  * @name baidu.dom().blur()
  * @grammar baidu.dom(args).blur()
@@ -299,11 +299,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 blur 事件监听
+ * @description TangramDom集合添加 blur 事件监听
  * @function
  * @name baidu.dom().blur()
  * @grammar baidu.dom(args).blur([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -311,7 +311,7 @@ baidu.dom._eventBase.method(
 "blur",
 
 /**
- * @description �?TangramDom 集合触发 change 事件
+ * @description TangramDom集合触发 change 事件
  * @function
  * @name baidu.dom().change()
  * @grammar baidu.dom(args).change()
@@ -319,11 +319,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 change 事件监听
+ * @description TangramDom集合添加 change 事件监听
  * @function
  * @name baidu.dom().change()
  * @grammar baidu.dom(args).change([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -331,7 +331,7 @@ baidu.dom._eventBase.method(
 "change",
 
 /**
- * @description �?TangramDom 集合触发 click 事件
+ * @description TangramDom集合触发 click 事件
  * @function
  * @name baidu.dom().click()
  * @grammar baidu.dom(args).click()
@@ -339,11 +339,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 click 事件监听
+ * @description TangramDom集合添加 click 事件监听
  * @function
  * @name baidu.dom().click()
  * @grammar baidu.dom(args).click([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -351,7 +351,7 @@ baidu.dom._eventBase.method(
  "click",
 
 /**
- * @description �?TangramDom 集合触发 dblclick 事件
+ * @description TangramDom集合触发 dblclick 事件
  * @function
  * @name baidu.dom().dblclick()
  * @grammar baidu.dom(args).dblclick()
@@ -359,11 +359,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 dblclick 事件监听
+ * @description TangramDom集合添加 dblclick 事件监听
  * @function
  * @name baidu.dom().dblclick()
  * @grammar baidu.dom(args).dblclick([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -371,7 +371,7 @@ baidu.dom._eventBase.method(
 "dblclick",
 
 /**
- * @description �?TangramDom 集合触发 error 事件
+ * @description TangramDom集合触发 error 事件
  * @function
  * @name baidu.dom().error()
  * @grammar baidu.dom(args).error()
@@ -379,11 +379,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 error 事件监听
+ * @description TangramDom集合添加 error 事件监听
  * @function
  * @name baidu.dom().error()
  * @grammar baidu.dom(args).error([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -391,7 +391,7 @@ baidu.dom._eventBase.method(
 "error",
 
 /**
- * @description �?TangramDom 集合触发 focus 事件
+ * @description TangramDom集合触发 focus 事件
  * @function
  * @name baidu.dom().focus()
  * @grammar baidu.dom(args).focus()
@@ -399,11 +399,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 focus 事件监听
+ * @description TangramDom集合添加 focus 事件监听
  * @function
  * @name baidu.dom().focus()
  * @grammar baidu.dom(args).focus([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -411,7 +411,7 @@ baidu.dom._eventBase.method(
 "focus", 
 
 /**
- * @description �?TangramDom 集合触发 focusin 事件
+ * @description TangramDom集合触发focusin 事件
  * @function
  * @name baidu.dom().focusin()
  * @grammar baidu.dom(args).focusin()
@@ -419,11 +419,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 focusin 事件监听
+ * @description TangramDom集合添加 focusin 事件监听
  * @function
  * @name baidu.dom().focusin()
  * @grammar baidu.dom(args).focusin([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -431,7 +431,7 @@ baidu.dom._eventBase.method(
 "focusin",
 
 /**
- * @description �?TangramDom 集合触发 focusout 事件
+ * @description TangramDom集合触发focusout事件
  * @function
  * @name baidu.dom().focusout()
  * @grammar baidu.dom(args).focusout()
@@ -439,11 +439,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 focusout 事件监听
+ * @description TangramDom集合添加 focusout 事件监听
  * @function
  * @name baidu.dom().focusout()
  * @grammar baidu.dom(args).focusout([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -451,7 +451,7 @@ baidu.dom._eventBase.method(
 "focusout",
 
 /**
- * @description �?TangramDom 集合触发 keydown 事件
+ * @description TangramDom集合触发 keydown 事件
  * @function
  * @name baidu.dom().keydown()
  * @grammar baidu.dom(args).keydown()
@@ -459,11 +459,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 keydown 事件监听
+ * @description TangramDom集合添加 keydown 事件监听
  * @function
  * @name baidu.dom().keydown()
  * @grammar baidu.dom(args).keydown([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -471,7 +471,7 @@ baidu.dom._eventBase.method(
 "keydown", 
 
 /**
- * @description �?TangramDom 集合触发 keypress 事件
+ * @description TangramDom集合触发keypress事件
  * @function
  * @name baidu.dom().keypress()
  * @grammar baidu.dom(args).keypress()
@@ -479,11 +479,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 keypress 事件监听
+ * @description TangramDom集合添加 keypress 事件监听
  * @function
  * @name baidu.dom().keypress()
  * @grammar baidu.dom(args).keypress([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -491,7 +491,7 @@ baidu.dom._eventBase.method(
 "keypress", 
 
 /**
- * @description �?TangramDom 集合触发 keyup 事件
+ * @description TangramDom集合触发 keyup 事件
  * @function
  * @name baidu.dom().keyup()
  * @grammar baidu.dom(args).keyup()
@@ -499,11 +499,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 keyup 事件监听
+ * @description TangramDom集合添加 keyup 事件监听
  * @function
  * @name baidu.dom().keyup()
  * @grammar baidu.dom(args).keyup([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -511,7 +511,7 @@ baidu.dom._eventBase.method(
 "keyup",
 
 /**
- * @description �?TangramDom 集合触发 mousedown 事件
+ * @description TangramDom集合触发 mousedown 事件
  * @function
  * @name baidu.dom().mousedown()
  * @grammar baidu.dom(args).mousedown()
@@ -519,11 +519,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 mousedown 事件监听
+ * @description TangramDom集合添加 mousedown 事件监听
  * @function
  * @name baidu.dom().mousedown()
  * @grammar baidu.dom(args).mousedown([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -531,7 +531,7 @@ baidu.dom._eventBase.method(
  "mousedown",
 
 /**
- * @description �?TangramDom 集合触发 mouseenter 事件
+ * @description TangramDom集合触发 mouseenter 事件
  * @function
  * @name baidu.dom().mouseenter()
  * @grammar baidu.dom(args).mouseenter()
@@ -539,11 +539,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseenter 事件监听
+ * @description TangramDom集合添加 mouseenter 事件监听
  * @function
  * @name baidu.dom().mouseenter()
  * @grammar baidu.dom(args).mouseenter([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -551,7 +551,7 @@ baidu.dom._eventBase.method(
 "mouseenter", 
 
 /**
- * @description �?TangramDom 集合触发 mouseleave 事件
+ * @description TangramDom集合触发 mouseleave 事件
  * @function
  * @name baidu.dom().mouseleave()
  * @grammar baidu.dom(args).mouseleave()
@@ -559,11 +559,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseleave 事件监听
+ * @description TangramDom集合添加 mouseleave 事件监听
  * @function
  * @name baidu.dom().mouseleave()
  * @grammar baidu.dom(args).mouseleave([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -571,7 +571,7 @@ baidu.dom._eventBase.method(
 "mouseleave", 
 
 /**
- * @description �?TangramDom 集合触发 mousemove 事件
+ * @description TangramDom集合触发 mousemove 事件
  * @function
  * @name baidu.dom().mousemove()
  * @grammar baidu.dom(args).mousemove()
@@ -579,11 +579,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 mousemove 事件监听
+ * @description TangramDom集合添加 mousemove 事件监听
  * @function
  * @name baidu.dom().mousemove()
  * @grammar baidu.dom(args).mousemove([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -591,7 +591,7 @@ baidu.dom._eventBase.method(
 "mousemove", 
 
 /**
- * @description �?TangramDom 集合触发 mouseout 事件
+ * @description TangramDom集合触发 mouseout 事件
  * @function
  * @name baidu.dom().mouseout()
  * @grammar baidu.dom(args).mouseout()
@@ -599,11 +599,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseout 事件监听
+ * @description TangramDom集合添加 mouseout 事件监听
  * @function
  * @name baidu.dom().mouseout()
  * @grammar baidu.dom(args).mouseout([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -611,7 +611,7 @@ baidu.dom._eventBase.method(
 "mouseout",
 
 /**
- * @description �?TangramDom 集合触发 mouseover 事件
+ * @description TangramDom集合触发 mouseover 事件
  * @function
  * @name baidu.dom().mouseover()
  * @grammar baidu.dom(args).mouseover()
@@ -619,11 +619,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseover 事件监听
+ * @description TangramDom集合添加 mouseover 事件监听
  * @function
  * @name baidu.dom().mouseover()
  * @grammar baidu.dom(args).mouseover([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -631,7 +631,7 @@ baidu.dom._eventBase.method(
 "mouseover",
 
 /**
- * @description �?TangramDom 集合触发 mouseup 事件
+ * @description TangramDom集合触发 mouseup 事件
  * @function
  * @name baidu.dom().mouseup()
  * @grammar baidu.dom(args).mouseup()
@@ -639,11 +639,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseup 事件监听
+ * @description TangramDom集合添加 mouseup 事件监听
  * @function
  * @name baidu.dom().mouseup()
  * @grammar baidu.dom(args).mouseup([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -651,7 +651,7 @@ baidu.dom._eventBase.method(
 "mouseup", 
 
 /**
- * @description �?TangramDom 集合触发 resize 事件
+ * @description TangramDom集合触发 resize 事件
  * @function
  * @name baidu.dom().resize()
  * @grammar baidu.dom(args).resize()
@@ -659,11 +659,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 resize 事件监听
+ * @description TangramDom集合添加 resize 事件监听
  * @function
  * @name baidu.dom().resize()
  * @grammar baidu.dom(args).resize([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -671,7 +671,7 @@ baidu.dom._eventBase.method(
 "resize",
 
 /**
- * @description �?TangramDom 集合触发 scroll 事件
+ * @description TangramDom集合触发 scroll 事件
  * @function
  * @name baidu.dom().scroll()
  * @grammar baidu.dom(args).scroll()
@@ -679,11 +679,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 scroll 事件监听
+ * @description TangramDom集合添加 scroll 事件监听
  * @function
  * @name baidu.dom().scroll()
  * @grammar baidu.dom(args).scroll([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -691,7 +691,7 @@ baidu.dom._eventBase.method(
  "scroll", 
 
 /**
- * @description �?TangramDom 集合触发 select 事件
+ * @description TangramDom集合触发 select 事件
  * @function
  * @name baidu.dom().select()
  * @grammar baidu.dom(args).select()
@@ -699,11 +699,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 select 事件监听
+ * @description TangramDom集合添加 select 事件监听
  * @function
  * @name baidu.dom().select()
  * @grammar baidu.dom(args).select([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -711,7 +711,7 @@ baidu.dom._eventBase.method(
 "select", 
 
 /**
- * @description �?TangramDom 集合触发 submit 事件
+ * @description TangramDom集合触发 submit 事件
  * @function
  * @name baidu.dom().submit()
  * @grammar baidu.dom(args).submit()
@@ -719,11 +719,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 submit 事件监听
+ * @description TangramDom集合添加 submit 事件监听
  * @function
  * @name baidu.dom().submit()
  * @grammar baidu.dom(args).submit([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -731,7 +731,7 @@ baidu.dom._eventBase.method(
 "submit", 
 
 /**
- * @description �?TangramDom 集合触发 load 事件
+ * @description TangramDom集合触发 load 事件
  * @function
  * @name baidu.dom().load()
  * @grammar baidu.dom(args).load()
@@ -739,11 +739,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 load 事件监听
+ * @description TangramDom集合添加 load 事件监听
  * @function
  * @name baidu.dom().load()
  * @grammar baidu.dom(args).load([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -751,7 +751,7 @@ baidu.dom._eventBase.method(
 "load",
 
 /**
- * @description �?TangramDom 集合触发 unload 事件
+ * @description TangramDom集合触发 unload 事件
  * @function
  * @name baidu.dom().unload()
  * @grammar baidu.dom(args).unload()
@@ -759,11 +759,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 unload 事件监听
+ * @description TangramDom集合添加 unload 事件监听
  * @function
  * @name baidu.dom().unload()
  * @grammar baidu.dom(args).unload([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */
@@ -771,7 +771,7 @@ baidu.dom._eventBase.method(
 "unload",
 
 /**
- * @description �?TangramDom 集合触发 contextmenu 事件
+ * @description TangramDom集合触发 contextmenu 事件
  * @function
  * @name baidu.dom().contextmenu()
  * @grammar baidu.dom(args).contextmenu()
@@ -779,11 +779,11 @@ baidu.dom._eventBase.method(
  */
 
 /**
- * @description �?TangramDom 集合添加 contextmenu 事件监听
+ * @description TangramDom集合添加 contextmenu 事件监听
  * @function
  * @name baidu.dom().contextmenu()
  * @grammar baidu.dom(args).contextmenu([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
  * @return TangramDom
  */

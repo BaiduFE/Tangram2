@@ -11,9 +11,8 @@
 
 /**
  * @description 查找当前元素之后所有的同辈元素
- *
  * @function
- * @name baidu.dom.nextAll
+ * @name baidu.dom().nextAll()
  * @grammar $DOM.nextAll([filter])
  * @param   {String|Function}   filter      [可选]过滤函数
  * @return  {TangramDom}    new TangramDom

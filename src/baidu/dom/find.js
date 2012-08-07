@@ -14,9 +14,8 @@
 
 /**
  * @description 按条件搜索目标元素集的所有子孙元素
- *
  * @function
- * @name baidu.dom.find
+ * @name baidu.dom().find()
  * @grammar $DOM.find(selector)
  * @param   {Object}            selector    选择器
  * @return  {TangramDom}    new TangramDom

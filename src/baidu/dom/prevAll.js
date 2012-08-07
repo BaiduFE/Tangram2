@@ -15,7 +15,7 @@
  * @description 查找当前元素之前所有的同辈元素
  *
  * @function
- * @name baidu.dom.prevAll
+ * @name baidu.dom().prevAll()
  * @grammar $DOM.prevAll(filter)
  * @param   {Object}        filter      [可选]过滤函数
  * @return  {TangramDom}    new TangramDom
