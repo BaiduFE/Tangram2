@@ -48,16 +48,16 @@
 				</div>
 			</div>
 		</div>
-	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			var result = '';
-			baidu('#demo_form input').each(function(index, item){
-				var name = item.name;
-				var value = item.value;
-				result += name + '=' + value + '&';
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var result = '';
+				baidu('#demo_form input').each(function(index, item){
+					var name = item.name;
+					var value = item.value;
+					result += name + '=' + value + '&';
+				});
+				baidu('#demo_execute_result').html(result.slice(0,-1));
 			});
-			baidu('#demo_execute_result').html(result.slice(0,-1));
-		});
-	</script>
+		</script>
+	</body>
 </html>

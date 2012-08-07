@@ -2,44 +2,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.dom().addClass() 示例" />
-		<title>添加类</title>
+		<meta name="description" content="baidu.dom().getComputedStyle() 示例" />
+		<title>获取computedStyle值</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
 	</head>
 	<body>
 		<style>
-			a.redText{
+			#demo_element_1{
 				color:red;
-			}
-			.italicText{
-				font-style:italic;
+				font-weight:bold;
 			}
 		</style>
 		<div class="demo" id="demo">
-			<h1 class="ac-h1"><strong>baidu.dom().addClass()</strong> 示例</h1>
+			<h1 class="ac-h1"><strong>baidu.dom().getComputedStyle()</strong> 示例</h1>
 			<p class="ac-des">
-				为每个匹配的元素添加指定的类名
+				取得第一个匹配元素的computed style值。如果元素的样式值不能被浏览器计算，则会返回空字符串（IE）
 			</p>
-
+			
 			<ul class="ac-ul">
-				<li>语法: baidu.dom(args).addClass(className)</li>
-				<li>参数: {String}  className 为每个匹配元素所要增加的一个或多个class属性名(多个用空格分隔)。</li>
-				<li>返回: {TangramDom} 接口最终返回之前匹配元素的TangramDom对象</li>
+				<li>语法: baidu.dom(args).getComputedStyle(key)</li>
+				<li>参数: {String} key 一个css的属性名称</li>
+				<li>返回: {String} 返回一个字符串的computed style值</li>
 			</ul>
 			
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>为每个匹配的元素添加指定的类名</span>
+					<span>取得第一个匹配元素的computed style值</span>
 				</div>
 				<div class="pannel-content">
 					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn">为下面的链接添加名为 redText 和 italicText 的类</a>
+						<a class="button" id="demo_btn">获取下面文字的字体颜色</a>
 					</div>
 					<div class="pannel-content-part">
-						<a href="http://tangram.baidu.com" id="demo_element_1">元素一</a><br />
+						<p id="demo_element_1">我是一段文字</p>
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result"></span>
@@ -50,8 +48,8 @@
 		</div>
 		<script>
 			baidu('#demo_btn').on('click',function(e){
-				var hasClassA = baidu('#demo_element_1').addClass('redText italicText');
-				baidu('#demo_execute_result').html('操作成功');
+				var style = baidu('#demo_element_1').getComputedStyle('color');
+				baidu('#demo_execute_result').html(style);
 			});
 		</script>
 	</body>

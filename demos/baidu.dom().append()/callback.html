@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
 		<style>
 			.test_block{
 				border:1px solid #5088AE;
@@ -18,8 +20,6 @@
 				font-weight:bold;
 			}
 		</style>
-	</head>
-	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1"><strong>baidu.dom().append()</strong> 示例</h1>
 			<p class="ac-des">
@@ -51,14 +51,13 @@
 				</div>
 			</div>
 		</div>
-	</body>
-	<script>		
-		baidu('#demo_btn').on('click',function(e){
-			baidu.dom('#test_block').append(function(){
-				return '<a href="http://tangram.baidu.com" target="_blank">Tangram</a><br />';
+		<script>		
+			baidu('#demo_btn').on('click',function(e){
+				baidu.dom('#test_block').append(function(){
+					return '<a href="http://tangram.baidu.com" target="_blank">Tangram</a><br />';
+				});
+				baidu('#demo_execute_result').html('插入到目标容器成功');
 			});
-			baidu('#demo_execute_result').html('插入到目标容器成功');
-		});
-
-	</script>
+		</script>
+	</body>
 </html>

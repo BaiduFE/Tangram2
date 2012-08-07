@@ -43,15 +43,15 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				if(baidu('#demo_input').prop('disabled')){
+					baidu('#demo_input').prop('disabled', false);
+				}else{
+					baidu('#demo_input').prop('disabled', true);
+				}
+				baidu('#demo_execute_result').html('设置成功，当前 input 的 disabled 值为：'+ baidu('#demo_input').prop('disabled'));
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			if(baidu('#demo_input').prop('disabled')){
-				baidu('#demo_input').prop('disabled', false);
-			}else{
-				baidu('#demo_input').prop('disabled', true);
-			}
-			baidu('#demo_execute_result').html('设置成功，当前 input 的 disabled 值为：'+ baidu('#demo_input').prop('disabled'));
-		});
-	</script>
 </html>

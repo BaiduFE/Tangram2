@@ -2,43 +2,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.dom().text() 示例" />
-		<title>获取文本内容</title>
+		<meta name="description" content="baidu.dom().get() 示例" />
+		<title>取得 TangramDom 对象里的 length</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
 	</head>
 	<body>
 		<style>
-			#demo_element_1{
-				border:1px solid #ccc;
-				padding:10px;
-				background:#efefef;
+			#demo_paragraph p{
+				border:1px dotted red;
 			}
 		</style>
 		<div class="demo" id="demo">
-			<h1 class="ac-h1"><strong>baidu.dom().text()</strong> 示例</h1>
+			<h1 class="ac-h1"><strong>baidu.dom().size()</strong> 示例</h1>
 			<p class="ac-des">
-				得到匹配元素集合中每个元素的文本内容结合,包括他们的后代
+				取得 TangramDom 对象里的 length
 			</p>
-			
-			<h2 class="ac-h2">取得匹配元素的文本内容</h2>
+
 			<ul class="ac-ul">
-				<li>语法: baidu.dom(args).text()</li>
-				<li>返回: {String|Undefined} 文本内容</li>
+				<li>语法: TangramDom.size()</li>
+				<li>返回: {Number} TangramDom对象里DOM元素的个数</li>
 			</ul>
-			
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>取得匹配元素的文本内容</span>
+					<span>取得 TangramDom 对象里的 length</span>
 				</div>
 				<div class="pannel-content">
 					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn">获取下面元素的文本内容</a>
+						<span id="demo_btn" class="button">点击获取下面段落的数量</span>
 					</div>
-					<div class="pannel-content-part">
-						<p id="demo_element_1"><a href="http://tangram.baidu.com" target="_blank">tangram.baidu.com</a></p>
+					<div class="pannel-content-part" id="demo_paragraph">
+						<p class="demo_paragrapha">
+							文本一
+						</p>
+						<p>
+							文本二
+						</p>
+						<p>
+							文本三
+						</p>
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result"></span>
@@ -49,8 +53,8 @@
 		</div>
 		<script>
 			baidu('#demo_btn').on('click',function(e){
-				var text = baidu('#demo_element_1').text();
-				baidu('#demo_execute_result').html(text);
+				var size = baidu('#demo_paragraph p').size();
+				baidu('#demo_execute_result').html('操作成功，段落数量为:  ' + size);
 			});
 		</script>
 	</body>
