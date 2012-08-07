@@ -27,7 +27,7 @@
 				</div>
 				<div class="pannel-content">
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>过滤数组 ['a',function(){console.log(1)},'身边','新知',1,'','d'],筛选符合指定条件的项
+						<a class="button" id="demo_btn_1">点击运行</a>过滤数组 ['a',function(){console.log(1)},'身边','新知',1,'d'],筛选符合指定条件的项
 						<select id="param0">
 							<option value="isNaN(item)">不是数字</option>
 							<option value="item.length &gt; 1">长度大于1</option>
@@ -42,7 +42,7 @@
 	<script>
 		baidu('#demo_btn_1').on('click',function(e){
 			var value=baidu('#param0').val(),
-				arr = ['a',function(){console.log(1)},'身边','新知',1,'','d'],
+				arr = ['a',function(){console.log(1)},'身边','新知',1,'d'],				
 				result = baidu.array(arr).filter(function (item, index) {return eval(value);});
 			baidu('#demo_execute_result_1').html( '条件：' + value + ';结果：' + result);
    		})
