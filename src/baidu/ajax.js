@@ -9,7 +9,7 @@
 /**
  * @description AJAX链式语法的链头
  * @function 
- * @name baidu.ajax
+ * @name baidu.ajax()
  * @grammar baidu.ajax(url)
  * @param {String} url 发送请求的url地址
  * @return {TangramAjax} 返回一个TangramAjax对象
