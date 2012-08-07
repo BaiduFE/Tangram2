@@ -22,10 +22,10 @@
  * @description 设置匹配元素集合中每个元素的文本内容为指定的文本内容。
  * @function 
  * @name baidu.dom().text()
- * @grammar baidu.dom(args).text(fun)
- * @param {Function} fun 用来返回设置文本内容的一个函数。接收元素的索引位置和元素旧的文本值作为参数。
+ * @grammar baidu.dom(args).text(fn)
+ * @param {Function} fn 用来返回设置文本内容的一个函数。接收元素的索引位置和元素旧的文本值作为参数。
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
- * @example baidu.dom(args).text(function(index, text))
+ * @example baidu.dom("<div>").text(function(index, text))
  */
 
 ///import baidu;
