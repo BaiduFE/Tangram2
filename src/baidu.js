@@ -31,8 +31,8 @@
  * @function 
  * @name baidu()
  * @grammar baidu(selector[, context])
- * @param ""|null|undefined selector 非正常的对象
- * @return $DOM 空TangramDom对象
+ * @param {String|null|Undefined} selector 非正常的对象
+ * @return {$DOM} 空TangramDom对象
  * @meta standard
  */
 
@@ -41,73 +41,81 @@
  * @function 
  * @name baidu.g
  * @grammar baidu.g(id)
- * @param String|Element id 元素的ID名称或者直接传入元素本身
- * @return Element 如果传入的ID是不存在的则返回Null
+ * @param {String|Element} id 元素的ID名称或者直接传入元素本身
+ * @return {Element} 如果传入的ID是不存在的则返回Null
  */
 
 /**
- * 创建一个空的TangramDom对象
+ * @description 创建一个空的TangramDom对象
  * @name baidu()
+ * @function 
  * @grammer baidu("")
  * @param   {String}    selector    空字符串
- * @return  {TangramDom}
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
- * 创建一个空的TangramDom对象
+ * @description 创建一个空的TangramDom对象
  * @name baidu()
  * @grammer baidu(null)
  * @param   {Null}      selector    null对象
- * @return  {TangramDom}
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
- * 创建一个空的TangramDom对象
+ * @description 创建一个空的TangramDom对象
  * @name baidu()
+ * @function 
  * @grammer baidu()
  * @param   {undefined} selector    undefined未定义
- * @return  {TangramDom}
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
- * 创建TangramDom对象
+ * @description 创建TangramDom对象
+ * @function 
  * @name baidu()
  * @grammer baidu(selector[, context])
  * @param   {String}        selector    CSS选择器字符串
  * @param   {Document}      context     [可选]指选择器的范围
- * @return  {TangramDom}
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
- * 创建TangramDom对象
+ * @description 创建TangramDom对象
+ * @function 
  * @name baidu()
  * @grammer baidu(HTMLElement)
  * @param   {HTMLElement}   HTMLElement DOM对象（包括Document）
- * @return  {TangramDom}
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
- * 创建TangramDom对象
+ * @description 创建TangramDom对象
+ * @function 
  * @name baidu()
  * @grammer baidu(Array)
  * @param   {Array}         Array       一组DOM对象（包括Document）
- * @return  {TangramDom}
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
- * 创建TangramDom对象
+ * @description 创建TangramDom对象
+ * @function 
  * @name baidu()
  * @grammer baidu(TangramDom)
  * @param   {TangramDom}    selector    TangramDom对象
- * @return  {TangramDom}
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
- * 通过传入 HTMLString 创建TangramDom对象
+ * @description 通过传入 HTMLString 创建TangramDom对象
+ * @function 
  * @name baidu()
  * @grammer baidu(HTMLString)
- * @param   {String}        selector    HTMLString
- * @return  {TangramDom}
+ * @param   {String}   HTMLString
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
- * 在dom.onready时运行指定函数
+ * @description 在dom.onready时运行指定函数
+ * @function 
  * @name baidu()
  * @grammer baidu(fn)
- * @param   {Function}      selector    Function函数
- * @return  {TangramDom}
+ * @param   {Function}  fn   Function函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 var T,

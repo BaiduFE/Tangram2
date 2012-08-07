@@ -18,7 +18,7 @@
  * @name baidu.dom().find()
  * @grammar $DOM.find(selector)
  * @param   {Object}            selector    选择器
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     find : function (selector) {

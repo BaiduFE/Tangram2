@@ -17,7 +17,7 @@
  * @name baidu.dom().parents()
  * @grammar $DOM.parents([filter])
  * @param   {String|Function}   filter      [可选]过滤函数
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     parents : function (filter) {

@@ -13,7 +13,7 @@
  * @function
  * @name baidu.dom().last()
  * @grammar $DOM.last()
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     last : function () {

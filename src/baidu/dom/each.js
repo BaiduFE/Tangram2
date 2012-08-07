@@ -15,7 +15,7 @@
  * @name baidu.dom().each()
  * @grammer $DOM.each(iterator)
  * @param   {Function}      iterator    迭代器
- * @return  {TangramDom}                tangramDom(this)
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象                tangramDom(this)
  */
 baidu.dom.extend({
     each : function (iterator) {
