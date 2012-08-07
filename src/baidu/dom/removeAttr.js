@@ -5,7 +5,7 @@
 /**
  * @description 为匹配的元素删除设置的属性。
  * @function 
- * @name baidu.dom().removeAttr();
+ * @name baidu.dom().removeAttr()
  * @grammar baidu.dom(args).removeAttr(attributeName,value);
  * @param {String} attributeName 要设置属性的名称;
  * @param {String} value 要设置属性的值;

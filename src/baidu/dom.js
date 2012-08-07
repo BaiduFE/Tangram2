@@ -80,17 +80,17 @@
  * @return  {TangramDom}
  */
 /**
- * 通过传入 HTMLString 创建TangramDom对象
+ * @description 通过传入 HTMLString 创建TangramDom对象
  * @name baidu.dom()
  * @grammer baidu.dom(HTMLString)
  * @param   {String}        selector    HTMLString
  * @return  {TangramDom}
  */
 /**
- * 在dom.onready时运行指定函数
+ * @description 在dom.onready时运行指定函数
  * @name baidu.dom()
  * @grammer baidu.dom(fn)
- * @param   {Function}      selector    Function函数
+ * @param   {Function} fn Function函数
  * @return  {TangramDom}
  */
 baidu.createChain("dom",
@@ -151,7 +151,8 @@ function(context) {
 ).extend({
 
     /**
-     * 取得 TangramDom 对象里的 length
+     * @description 取得 TangramDom 对象里的 length
+     * @name baidu.dom().size()
      * @grammer TangramDom.size()
      * @return  {Number}    TangramDom对象里DOM元素的个数
      */
@@ -162,7 +163,8 @@ function(context) {
     ,splice : function(){}
 
     /**
-     * 按指定序号返回TangramDom对象里的DOM元素，如果不传序号则返回所有的DOM对象
+     * @description 按指定序号返回TangramDom对象里的DOM元素，如果不传序号则返回所有的DOM对象
+     * @name baidu.dom().get()
      * @grammer TangramDom.get([index])
      * @param   {Number}    index   序号
      * @return  {Array}     TangramDom对象里DOM元素
