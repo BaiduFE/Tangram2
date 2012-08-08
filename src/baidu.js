@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
+/*
  * @fileoverview Tangram
  * Copyright 2012 Baidu Inc. All rights reserved.
  *
@@ -21,7 +21,7 @@
  */
 
 
-/**
+/*
  * 声明 baidu 包
  *
  */
