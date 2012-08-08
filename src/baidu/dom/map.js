@@ -13,7 +13,7 @@
  *
  * @function
  * @name baidu.dom().map()
- * @grammar $DOM.map(iterator)
+ * @grammar baidu.dom(args).map(iterator)
  * @param   {Function}            iterator    遍历函数
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象        old TangramDom
  */

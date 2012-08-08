@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
+/*
  * @fileoverview Tangram
  * Copyright 2012 Baidu Inc. All rights reserved.
  *
@@ -21,18 +21,17 @@
  */
 
 
-/**
+/*
  * 声明 baidu 包
  *
  */
-
 /**
  * @description 生成DOM操作链头
  * @function 
  * @name baidu()
  * @grammar baidu(selector[, context])
- * @param {String|null|Undefined} selector 非正常的对象
- * @return {$DOM} 空TangramDom对象
+ * @param {Null|Undefined} selector 非正常的对象
+ * @return {TangramDom} 空TangramDom对象
  * @meta standard
  */
 
@@ -47,14 +46,15 @@
 
 /**
  * @description 创建一个空的TangramDom对象
- * @name baidu()
  * @function 
+ * @name baidu()
  * @grammar baidu("")
  * @param   {String}    selector    空字符串
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
  * @description 创建一个空的TangramDom对象
+ * @function 
  * @name baidu()
  * @grammar baidu(null)
  * @param   {Null}      selector    null对象
@@ -62,8 +62,8 @@
  */
 /**
  * @description 创建一个空的TangramDom对象
- * @name baidu()
  * @function 
+ * @name baidu()
  * @grammar baidu()
  * @param   {undefined} selector    undefined未定义
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
@@ -79,8 +79,8 @@
  */
 /**
  * @description 创建TangramDom对象
- * @function 
  * @name baidu()
+ * @function 
  * @grammar baidu(HTMLElement)
  * @param   {HTMLElement}   HTMLElement DOM对象（包括Document）
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
@@ -106,7 +106,7 @@
  * @function 
  * @name baidu()
  * @grammar baidu(HTMLString)
- * @param   {String}   HTMLString
+ * @param   {String}        selector    HTMLString
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
@@ -114,7 +114,7 @@
  * @function 
  * @name baidu()
  * @grammar baidu(fn)
- * @param   {Function}  fn   Function函数
+ * @param   {Function} fn Function函数
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 

@@ -14,7 +14,7 @@
  *
  * @function
  * @name baidu.dom().prev()
- * @grammar $DOM.prev(filter)
+ * @grammar baidu.dom(args).prev(filter)
  * @param   {Object}        filter      [可选]过滤函数
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
