@@ -153,9 +153,11 @@ function(context) {
     /**
      * @description 取得 TangramDom 对象里的 length
      * @name baidu.dom().size()
+     * @function 
      * @grammar TangramDom.size()
      * @return  {Number}    TangramDom对象里DOM元素的个数
      */
+    
     size: function() {
         return this.length;
     }
