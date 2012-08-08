@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
 		<style>
 			#demo_element_1{
 				border:1px solid #ccc;
@@ -14,8 +16,6 @@
 				background:#efefef;
 			}
 		</style>
-	</head>
-	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1"><strong>baidu.dom().html()</strong> 示例</h1>
 			<p class="ac-des">
@@ -48,11 +48,11 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var html = baidu('#demo_element_1').html('我不是链接');
+				baidu('#demo_execute_result').html('操作成功');
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			var html = baidu('#demo_element_1').html('我不是链接');
-			baidu('#demo_execute_result').html('操作成功');
-		});
-	</script>
 </html>

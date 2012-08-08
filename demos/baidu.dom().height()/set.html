@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
 		<style>
 			#demo_block_1{
 				background: gold;
@@ -18,8 +20,6 @@
 				background:#EAC200;
 			}
 		</style>
-	</head>
-	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1"><strong>baidu.dom().height()</strong> 示例</h1>
 			<p class="ac-des">
@@ -50,12 +50,12 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_block_1').on('click',function(e){
+				var height = baidu('#demo_block_1').height() + 10;
+				baidu('#demo_block_1').height(height)
+				baidu('#demo_execute_result').html('操作成功，当前的高度值为： '+ height);
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_block_1').on('click',function(e){
-			var height = baidu('#demo_block_1').height() + 10;
-			baidu('#demo_block_1').height(height)
-			baidu('#demo_execute_result').html('操作成功，当前的高度值为： '+ height);
-		});
-	</script>
 </html>

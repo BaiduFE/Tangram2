@@ -42,11 +42,11 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				baidu('#demo_link').attr('target','_blank');
+				baidu('#demo_execute_result').html('设置成功！链接的 target 已经修改为 _blank');
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			baidu('#demo_link').attr('target','_blank');
-			baidu('#demo_execute_result').html('设置成功！链接的 target 已经修改为 _blank');
-		});
-	</script>
 </html>

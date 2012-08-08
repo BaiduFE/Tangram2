@@ -35,7 +35,6 @@
 				</div>
 			</div>
 		</div>
-	</body>
 	<script>
 		baidu('#demo_btn_1').on('click',function(e){
 			var value=eval(baidu('#param0').val()),
@@ -43,5 +42,7 @@
 				result = baidu.array(arr).map(function (item, index) {return item+10;});
 			baidu('#demo_execute_result_1').html(result.join(','));		
    		})
-	</script>
+	</script>		
+	</body>
+	
 </html>
