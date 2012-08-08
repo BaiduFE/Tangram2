@@ -11,7 +11,7 @@
  *
  * @function
  * @name baidu.dom().is()
- * @grammar $DOM.is(selector)
+ * @grammar baidu.dom(args).is(selector)
  * @param   {Object}            selector    选择器
  * @return  {Boolean}       是否符合条件
  */

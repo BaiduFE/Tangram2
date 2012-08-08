@@ -13,7 +13,7 @@
  *
  * @function
  * @name baidu.unique
- * @grammar $DOM.unique([fn])
+ * @grammar baidu.dom(args).unique([fn])
  * @param   {Function}      fn(a, b)    [可选]
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */

@@ -13,8 +13,8 @@
  * @param {String} type 事件名称，如果是多个事件名称，可用半角逗号或空格隔开
  * @param {Object} data 事件函数触发时，附带在 event.data 上的数据
  * @param {Function} fn 事件函数
- * @return {TangramDom} 
-} */
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
 
 baidu.dom.extend({
 	delegate: function(selector, type, data, fn){

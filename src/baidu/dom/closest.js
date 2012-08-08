@@ -14,7 +14,7 @@
  *
  * @function
  * @name baidu.dom().closest()
- * @grammar $DOM.closest(selector)
+ * @grammar baidu.dom(args).closest(selector)
  * @param   {Object}            selector    选择器
  * @param   {HTMLElement}       context     选择器适用范围
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
