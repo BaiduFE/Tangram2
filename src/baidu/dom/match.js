@@ -15,10 +15,10 @@
 /**
  * @description 对 TangramDom 里的所有元素进行筛选匹配，返回匹配上的DOM元素数组
  * @name baidu.dom.match
- * @grammer baidu.dom.match(selector)
- * @grammer baidu.dom.match(tangramDom)
- * @grammer baidu.dom.match(HTMLElement)
- * @grammer baidu.dom.match(fn(index))
+ * @grammar baidu.dom.match(selector)
+ * @grammar baidu.dom.match(tangramDom)
+ * @grammar baidu.dom.match(HTMLElement)
+ * @grammar baidu.dom.match(fn(index))
  *
  * @param   {ArrayLike}     array       被筛选的集合
  * @param   {String}        selector    CSS选择器

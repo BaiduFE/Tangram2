@@ -15,7 +15,7 @@
  * @grammar $DOM.slice(start[, end])
  * @param   {Number}        start   起始位置
  * @param   {Number}        end     [可选]结束位置
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     slice : function(){

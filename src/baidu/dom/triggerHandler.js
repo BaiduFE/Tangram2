@@ -11,7 +11,7 @@
  * @grammar baidu.dom(args).triggerHandler(type[,data])
  * @param {String} type 事件类型
  * @param {Array} data 触发事件函数时携带的参数
- * @return TangramDom 
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
  */
 
 baidu.dom.extend({

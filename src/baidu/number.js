@@ -9,7 +9,7 @@
  * @description number对象链式语法的链头
  * @name baidu.number()
  * @function
- * @grammer baidu.number(number)
+ * @grammar baidu.number(number)
  * @param   {Number} Number对象
  * @return  {TangramNumber}   返回Number对象，该对象被注入链式方法。
  */

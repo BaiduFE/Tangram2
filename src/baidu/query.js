@@ -17,7 +17,7 @@
  *
  * @function
  * @name baidu.query
- * @grammer baidu.query(selector[, context[, results]])
+ * @grammar baidu.query(selector[, context[, results]])
  * @param   {String}    selector    CSS选择器字符串
  * @param   {Document}  context     选择的范围
  * @param   {Array}     results     返回的结果对象（数组）

@@ -19,7 +19,7 @@
  * @param {String} selector 选择器表达式，用限制事件源对象范围，当符合表达式，才触发事件，此参数可选。
  * @param {Object} data 事件触发时携带的数据，JSON 格式，此参数可选。
  * @param {Function} fn 事件触发函数，fn 接受一个参数 e，为 baidu.event() 事件对象实例
- * @return TangramDom 
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
  */
 
 /**
@@ -30,7 +30,7 @@
  * @param {Object} eventsMap 一个用 eventName: eventFn 键值对表示的 JSON 格式对象
  * @param {String} selector 选择器表达式，用限制事件源对象范围，当符合表达式，才触发事件，此参数可选。
  * @param {Object} data 事件触发时携带的数据，JSON 格式，此参数可选。
- * @return TangramDom 
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
  */
 
 
