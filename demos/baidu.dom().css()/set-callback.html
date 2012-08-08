@@ -42,18 +42,18 @@
 				</div>
 			</div>
 		</div>
-	</body>
-	<script>
-		var fontSize = baidu('#demo_element_1').css('fontSize');
-		baidu('#demo_btn').on('click',function(e){
-			baidu('#demo_element_1').css('fontSize', function(index, value){
-				var newFontSize = fontSize;
-				if(value == fontSize){
-					newFontSize = 28 + 'px';
-				}
-				baidu('#demo_execute_result').html('设置成功，当前字体为：' + newFontSize);
-				return newFontSize;
+		<script>
+			var fontSize = baidu('#demo_element_1').css('fontSize');
+			baidu('#demo_btn').on('click',function(e){
+				baidu('#demo_element_1').css('fontSize', function(index, value){
+					var newFontSize = fontSize;
+					if(value == fontSize){
+						newFontSize = 28 + 'px';
+					}
+					baidu('#demo_execute_result').html('设置成功，当前字体为：' + newFontSize);
+					return newFontSize;
+				});
 			});
-		});
-	</script>
+		</script>
+	</body>
 </html>

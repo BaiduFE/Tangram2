@@ -43,16 +43,16 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			var initFontSize = baidu('#demo_element_1').css('fontSize');
+			baidu('#demo_btn').on('click',function(e){
+				baidu('#demo_element_1').css('fontSize', 28);
+				baidu('#demo_execute_result').html('设置成功，当前字体为：' + 28 + 'px');
+			});
+			baidu('#demo_btn_recover').on('click',function(e){
+				baidu('#demo_element_1').css('fontSize', initFontSize);
+				baidu('#demo_execute_result').html('设置成功，当前字体为：' + initFontSize);
+			});
+		</script>
 	</body>
-	<script>
-		var initFontSize = baidu('#demo_element_1').css('fontSize');
-		baidu('#demo_btn').on('click',function(e){
-			baidu('#demo_element_1').css('fontSize', 28);
-			baidu('#demo_execute_result').html('设置成功，当前字体为：' + 28 + 'px');
-		});
-		baidu('#demo_btn_recover').on('click',function(e){
-			baidu('#demo_element_1').css('fontSize', initFontSize);
-			baidu('#demo_execute_result').html('设置成功，当前字体为：' + initFontSize);
-		});
-	</script>
 </html>

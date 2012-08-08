@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
 		<style>
 			a.redText{
 				color:red;
@@ -15,8 +17,6 @@
 				font-style:italic;
 			}
 		</style>
-	</head>
-	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1"><strong>baidu.dom().hasClass()</strong> 示例</h1>
 			<p class="ac-des">
@@ -47,15 +47,15 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var className = 'redText italicText',
+					Y = "TRUE",
+					N = "FALSE";
+				var hasClassA = baidu('#demo_element_1').hasClass(className) ? Y : N ;
+				var hasClassB = baidu('#demo_element_2').hasClass(className) ? Y : N ;
+				baidu('#demo_execute_result').html("元素一:"+hasClassA + " ; 元素二:"+hasClassB);
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			var className = 'redText italicText',
-				Y = "TRUE",
-				N = "FALSE";
-			var hasClassA = baidu('#demo_element_1').hasClass(className) ? Y : N ;
-			var hasClassB = baidu('#demo_element_2').hasClass(className) ? Y : N ;
-			baidu('#demo_execute_result').html("元素一:"+hasClassA + " ; 元素二:"+hasClassB);
-		});
-	</script>
 </html>

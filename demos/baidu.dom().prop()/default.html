@@ -42,11 +42,11 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var prop = baidu('#demo_input').prop('disabled');
+				baidu('#demo_execute_result').html(prop+"");
+			});
+		</script>
 	</body>
-	<script>
-		baidu('#demo_btn').on('click',function(e){
-			var prop = baidu('#demo_input').prop('disabled');
-			baidu('#demo_execute_result').html(prop+"");
-		});
-	</script>
 </html>
