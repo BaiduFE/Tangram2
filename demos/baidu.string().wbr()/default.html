@@ -2,29 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.array().empty() 示例" />
-		<title>baidu.array().empty() 示例</title>
+		<meta name="description" content="baidu.string().wbr() 示例" />
+		<title>baidu.string().wbr() 示例</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
 	</head>
 	<body>
 		<div class="demo" id="demo">
-			<h1 class="ac-h1"><strong>baidu.array().empty()</strong> 示例</h1>
+			<h1 class="ac-h1"><strong>baidu.string().wbr()</strong> 示例</h1>
 			<p class="ac-des">
-				清空数组
+				为目标字符串添加wbr软换行
 			</p>
+
 			<ul class="ac-ul">
-				<li>语法: baidu.array().empty()</li>
-				<li>返回: {Array} 空数组</li>
+				<li>语法: baidu.string(str).wbr()</li>
+				<li>返回: {String} 字符串截取结果</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>清空数组</span>
+					<span>为目标字符串添加wbr软换行</span>
 				</div>
 				<div class="pannel-content">
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>清空数组['a',function(){console.log(1)},'身边','新知',1,'','d'];
+						<a class="button" id="demo_btn_1">点击运行</a>目标字符串'JavaScript脚本语言'添加wbr软换行
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
@@ -32,12 +33,13 @@
 				</div>
 			</div>
 		</div>
-	<script>    
-		baidu('#demo_btn_1').on('click',function(e){	
-			var arr = ['a',function(){console.log(1)},'身边','新知',1,'','d'];	
-			baidu.array(arr).empty();	
-			baidu('#demo_execute_result_1').html('数组清空后长度为：' + arr.length + ',内容为' + arr.join(','));
-		});
+	<script>
+		baidu('#demo_btn_1').on('click',function(e){
+			var str='JavaScript脚本语言',
+				textarea = document.createElement('textarea'),
+				result = textarea.innerHTML = baidu.string(str).wbr();
+			baidu('#demo_execute_result_1').innerHTML=textarea;
+   		})
 	</script>
 	</body>
 </html>

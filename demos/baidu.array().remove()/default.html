@@ -2,50 +2,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.array().contains() 示例" />
-		<title>baidu.array().contains() 示例</title>
+		<meta name="description" content="baidu.array().remove() 示例" />
+		<title>baidu.array().remove() 示例</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
 	</head>
 	<body>
 		<div class="demo" id="demo">
-			<h1 class="ac-h1"><strong>baidu.array().contains()</strong> 示例</h1>
+			<h1 class="ac-h1"><strong>baidu.array().remove()</strong> 示例</h1>
 			<p class="ac-des">
-				判断一个数组中是否包含某一项
+				删除数组项
 			</p>
 
 			<ul class="ac-ul">
-				<li>语法: baidu.array().contains(item)</li>
-				<li>参数1: {Any} item 被包含项</li>
-				<li>返回: {Boolean} 是否包含</li>
+				<li>语法: baidu.array().remove(item)</li>
+				<li>参数1: {Object} match 	数组匹配项</li>
+				<li>返回: {Array} 操作后的数组</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>判断一个数组中是否包含某一项</span>
+					<span>删除数组项</span>
 				</div>
 				<div class="pannel-content">
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>判断数组：['a',function(){console.log(1)},'身边','新知','1','','d'], 是否包含指定的项
+						<a class="button" id="demo_btn_1">点击运行</a>从数组['a','身边','新知',1,'','d','1'],移除项
 						<select id="param0">
-							<option value="1">1</option>
 							<option value="a">a</option>
-							<option value="c">c</option>
-						</select>
+							<option value="">''</option>
+							<option value="1">1</option>
+							<option value="身边">身边</option>
+						</select>					
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	<script>
 		baidu('#demo_btn_1').on('click',function(e){
-			var arr = ['a',function(){console.log(1)},'身边','新知','1','','d'],
-				value=baidu('#param0').val();
-			baidu('#demo_execute_result_1').html(value + '：' + baidu.array(arr).contains(value));
-		});
+			var value=baidu('#param0').val(),
+				arr = ['a','身边','新知',1,'','d','1'],
+				result = baidu.array(arr).remove(value);
+			baidu('#demo_execute_result_1').html( '移除：' + value + ';结果：' + result);
+   		})
 	</script>
 	</body>
 </html>
