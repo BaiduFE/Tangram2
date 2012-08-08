@@ -17,7 +17,7 @@
  * @grammar $DOM.prevUntil(selector[, filter])
  * @param   {Object}            selector    选择器
  * @param   {String|Function}   filter      [可选]过滤函数
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     prevUntil : function (selector, filter) {

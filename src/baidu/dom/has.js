@@ -15,7 +15,7 @@
  * @name baidu.dom().has()
  * @grammar $DOM.has(selector)
  * @param   {Object}            selector    选择器
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     has : function (selector) {

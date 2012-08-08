@@ -11,7 +11,7 @@
  * @name baidu.dom().ready()
  * @grammar baidu.dom(args).ready(fn)
  * @param {Function} fn 事件回调函数
- * @return TangramDom 
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
  */
 
 /**
@@ -20,7 +20,7 @@
  * @name baidu.dom.ready
  * @grammar baidu.dom.ready(fn)
  * @param {Function} fn 事件回调函数
- * @return TangramDom 
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
  */
 
 baidu.dom.extend({

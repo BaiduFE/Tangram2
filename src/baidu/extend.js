@@ -11,7 +11,7 @@
  * @description 拷贝某对象的所有属性/方法
  * @name baidu.extend
  * @function
- * @grammer baidu.extend(first,second)
+ * @grammar baidu.extend(first,second)
  * @param   {Object}    first       对象
  * @param   {JSON}      second      被合并的JSON对象
  * @return  {Object}                合并后的JS对象

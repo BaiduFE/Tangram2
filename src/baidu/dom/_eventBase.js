@@ -295,7 +295,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().blur()
  * @grammar baidu.dom(args).blur()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -305,7 +305,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).blur([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "blur",
@@ -315,7 +315,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().change()
  * @grammar baidu.dom(args).change()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -325,7 +325,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).change([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "change",
@@ -335,7 +335,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().click()
  * @grammar baidu.dom(args).click()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -345,7 +345,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).click([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
  "click",
@@ -355,7 +355,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().dblclick()
  * @grammar baidu.dom(args).dblclick()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -365,7 +365,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).dblclick([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "dblclick",
@@ -375,7 +375,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().error()
  * @grammar baidu.dom(args).error()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -385,7 +385,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).error([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "error",
@@ -395,7 +395,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().focus()
  * @grammar baidu.dom(args).focus()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -405,7 +405,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).focus([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "focus", 
@@ -415,7 +415,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().focusin()
  * @grammar baidu.dom(args).focusin()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -425,7 +425,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).focusin([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "focusin",
@@ -435,7 +435,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().focusout()
  * @grammar baidu.dom(args).focusout()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -445,7 +445,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).focusout([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "focusout",
@@ -455,7 +455,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().keydown()
  * @grammar baidu.dom(args).keydown()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -465,7 +465,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).keydown([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "keydown", 
@@ -475,7 +475,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().keypress()
  * @grammar baidu.dom(args).keypress()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -485,7 +485,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).keypress([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "keypress", 
@@ -495,7 +495,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().keyup()
  * @grammar baidu.dom(args).keyup()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -505,7 +505,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).keyup([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "keyup",
@@ -515,7 +515,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().mousedown()
  * @grammar baidu.dom(args).mousedown()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -525,7 +525,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).mousedown([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
  "mousedown",
@@ -535,7 +535,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().mouseenter()
  * @grammar baidu.dom(args).mouseenter()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -545,7 +545,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).mouseenter([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseenter", 
@@ -555,7 +555,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().mouseleave()
  * @grammar baidu.dom(args).mouseleave()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -565,7 +565,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).mouseleave([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseleave", 
@@ -575,7 +575,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().mousemove()
  * @grammar baidu.dom(args).mousemove()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -585,7 +585,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).mousemove([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mousemove", 
@@ -595,7 +595,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().mouseout()
  * @grammar baidu.dom(args).mouseout()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -605,7 +605,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).mouseout([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseout",
@@ -615,7 +615,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().mouseover()
  * @grammar baidu.dom(args).mouseover()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -625,7 +625,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).mouseover([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseover",
@@ -635,7 +635,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().mouseup()
  * @grammar baidu.dom(args).mouseup()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -645,7 +645,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).mouseup([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseup", 
@@ -655,7 +655,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().resize()
  * @grammar baidu.dom(args).resize()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -665,7 +665,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).resize([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "resize",
@@ -675,7 +675,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().scroll()
  * @grammar baidu.dom(args).scroll()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -685,7 +685,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).scroll([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
  "scroll", 
@@ -695,7 +695,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().select()
  * @grammar baidu.dom(args).select()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -705,7 +705,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).select([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "select", 
@@ -715,7 +715,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().submit()
  * @grammar baidu.dom(args).submit()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -725,7 +725,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).submit([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "submit", 
@@ -735,7 +735,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().load()
  * @grammar baidu.dom(args).load()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -745,7 +745,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).load([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "load",
@@ -755,7 +755,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().unload()
  * @grammar baidu.dom(args).unload()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -765,7 +765,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).unload([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "unload",
@@ -775,7 +775,7 @@ baidu.dom._eventBase.method(
  * @function
  * @name baidu.dom().contextmenu()
  * @grammar baidu.dom(args).contextmenu()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
@@ -785,7 +785,7 @@ baidu.dom._eventBase.method(
  * @grammar baidu.dom(args).contextmenu([data,]fn)
  * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "contextmenu" );

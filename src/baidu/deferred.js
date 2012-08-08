@@ -11,7 +11,7 @@
 /**
  * @description deferred功能链头
  * @name baidu.deferred
- * @grammer baidu.deferred()
+ * @grammar baidu.deferred()
  * @param   {}
  * @return  
  */

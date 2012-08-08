@@ -12,7 +12,7 @@
  * @description 页面级唯一标识的方法
  * @function
  * @name baidu.id
- * @grammer baidu.id( [id[, command]] )
+ * @grammar baidu.id( [id[, command]] )
  * @param   {Object}        object      Object or id
  * @param   {String}        command     [可选] 操作名，若该字符不是指定操作符时将认为是指定 id
  * @return  {Object}        String or Object

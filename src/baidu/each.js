@@ -10,7 +10,7 @@
  * @description 枚举目标对象中的每一个元素，进行指定函数操作
  * @function
  * @name baidu.each
- * @grammer baidu.each( enumerable, iterator[, context] )
+ * @grammar baidu.each( enumerable, iterator[, context] )
  * @param   {Object}        enumerable      被枚举的对象（Array|ArrayLike|NodeList|String|Number）
  * @param   {Function}      iterator        遍历操作的函数
  * @param   {Object}        context         [可选]作用域
