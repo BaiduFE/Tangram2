@@ -16,6 +16,7 @@
  * @param   {Object}        context         [可选]作用域
  * @return  {ArrayLike}     arrayLike
  */
+ 
 baidu.each = function( enumerable, iterator, context ) {
     var i, n, t, result;
 

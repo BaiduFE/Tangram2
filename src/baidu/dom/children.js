@@ -14,7 +14,7 @@
  * @description 所有了元素的集合
  * @function
  * @name baidu.dom().children()
- * @grammar $DOM.children(selector)
+ * @grammar baidu.dom(args).children(selector)
  * @param   {Object}            selector    选择器
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
