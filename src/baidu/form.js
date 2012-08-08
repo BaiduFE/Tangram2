@@ -9,7 +9,7 @@
  * @description 对form的操作，解决表单数据问题
  * @function
  * @name baidu.fn(fn)
- * @grammer baidu.fn(fn)
+ * @grammar baidu.fn(fn)
  * @param   {fn}
  * @return  {tangramFn}          返回 new TangramFn 对象
  */

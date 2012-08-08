@@ -49,14 +49,14 @@
  * @description 创建一个空的TangramDom对象
  * @name baidu()
  * @function 
- * @grammer baidu("")
+ * @grammar baidu("")
  * @param   {String}    selector    空字符串
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
  * @description 创建一个空的TangramDom对象
  * @name baidu()
- * @grammer baidu(null)
+ * @grammar baidu(null)
  * @param   {Null}      selector    null对象
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
@@ -64,7 +64,7 @@
  * @description 创建一个空的TangramDom对象
  * @name baidu()
  * @function 
- * @grammer baidu()
+ * @grammar baidu()
  * @param   {undefined} selector    undefined未定义
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
@@ -72,7 +72,7 @@
  * @description 创建TangramDom对象
  * @function 
  * @name baidu()
- * @grammer baidu(selector[, context])
+ * @grammar baidu(selector[, context])
  * @param   {String}        selector    CSS选择器字符串
  * @param   {Document}      context     [可选]指选择器的范围
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
@@ -81,7 +81,7 @@
  * @description 创建TangramDom对象
  * @function 
  * @name baidu()
- * @grammer baidu(HTMLElement)
+ * @grammar baidu(HTMLElement)
  * @param   {HTMLElement}   HTMLElement DOM对象（包括Document）
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
@@ -89,7 +89,7 @@
  * @description 创建TangramDom对象
  * @function 
  * @name baidu()
- * @grammer baidu(Array)
+ * @grammar baidu(Array)
  * @param   {Array}         Array       一组DOM对象（包括Document）
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
@@ -97,7 +97,7 @@
  * @description 创建TangramDom对象
  * @function 
  * @name baidu()
- * @grammer baidu(TangramDom)
+ * @grammar baidu(TangramDom)
  * @param   {TangramDom}    selector    TangramDom对象
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
@@ -105,7 +105,7 @@
  * @description 通过传入 HTMLString 创建TangramDom对象
  * @function 
  * @name baidu()
- * @grammer baidu(HTMLString)
+ * @grammar baidu(HTMLString)
  * @param   {String}   HTMLString
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
@@ -113,7 +113,7 @@
  * @description 在dom.onready时运行指定函数
  * @function 
  * @name baidu()
- * @grammer baidu(fn)
+ * @grammar baidu(fn)
  * @param   {Function}  fn   Function函数
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */

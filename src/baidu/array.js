@@ -13,7 +13,7 @@
  * @description array对象链式语法的链头
  * @name baidu.array
  * @function
- * @grammer baidu.array(array)
+ * @grammar baidu.array(array)
  * @param   {Array}         array   Array对象
  * @return  {TangramArray}          返回TangramArray对象，该对象被注入链式方法。
  */

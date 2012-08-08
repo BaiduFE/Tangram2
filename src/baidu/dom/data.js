@@ -14,7 +14,7 @@
 
 /**
  * 在 DOM 对象上存储数据
- * @grammer TangramDom.data([key[, value]])
+ * @grammar TangramDom.data([key[, value]])
  * @param
  * @return
  */

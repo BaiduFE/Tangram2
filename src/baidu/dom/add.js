@@ -17,7 +17,7 @@
  * @description 给当前TangramDom对象添加新的DOM元素
  * @function
  * @name baidu.dom().add()
- * @grammer $DOM.add(selector)
+ * @grammar $DOM.add(selector)
  * @param   {String}    selector    CSS选择器
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
@@ -25,7 +25,7 @@
  * @description 给当前TangramDom对象添加新的DOM元素
  * @function
  * @name baidu.dom().add()
- * @grammer $DOM.add(HTMLElement)
+ * @grammar $DOM.add(HTMLElement)
  * @param   {HTMLElement}    HTMLElement    DOM对象
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
@@ -33,7 +33,7 @@
  * @description 给当前TangramDom对象添加新的DOM元素
  * @function
  * @name baidu.dom().add()
- * @grammer $DOM.add(HTMLString)
+ * @grammar $DOM.add(HTMLString)
  * @param   {String}    HTMLString    HTML文本
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
@@ -41,7 +41,7 @@
  * @description 给当前TangramDom对象添加新的DOM元素
  * @function
  * @name baidu.dom().add()
- * @grammer $DOM.add(TangramDom)
+ * @grammar $DOM.add(TangramDom)
  * @param   {TangramDom}    TangramDom
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
