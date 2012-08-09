@@ -6,11 +6,13 @@
 ///import baidu.lang.createSingle;
 
 /**
- * 事件中心
+ * @description 事件中心
  * @class
  * @name baidu.lang.eventCenter
+ * @grammar baidu.lang.eventCenter
  * @author rocy
  */
+
 baidu.lang.eventCenter = baidu.lang.eventCenter || baidu.lang.createSingle();
 
 /**
