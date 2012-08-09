@@ -23,6 +23,17 @@
  * @param   {Number}      fromIndex 起始位置
  * @return  {Number}      被匹配项的下标
  */
+/**
+ * @description 查询数组中指定元素的索引位置
+ *
+ * @name baidu.array().indexOf()
+ * @function
+ * @grammar $Aarray.indexOf(match[, fromIndex])
+ * @param   {Object}      match     匹配项
+ * @param   {Number}      fromIndex 起始位置
+ * @return  {Number}      被匹配项的下标
+ */
+
 baidu.array.extend({
     indexOf : function (match, fromIndex) {
         baidu.paramCheck(".+(,number)?","baidu.array.indexOf");

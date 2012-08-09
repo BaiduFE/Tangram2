@@ -13,10 +13,10 @@
  * @description 去除当前集合中符合选择器的项
  *
  * @function
- * @name baidu.dom.not
- * @grammar $DOM.not(selector[, filter])
+ * @name baidu.dom().not()
+ * @grammar baidu.dom(args).not(selector[, filter])
  * @param   {Object}            selector    选择器
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     not : function (selector) {

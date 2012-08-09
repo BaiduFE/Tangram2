@@ -16,30 +16,34 @@
 /**
  * @description 给当前TangramDom对象添加新的DOM元素
  * @function
- * @grammer $DOM.add(selector)
+ * @name baidu.dom().add()
+ * @grammar baidu.dom(args).add(selector)
  * @param   {String}    selector    CSS选择器
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 /**
  * @description 给当前TangramDom对象添加新的DOM元素
  * @function
- * @grammer $DOM.add(HTMLElement)
+ * @name baidu.dom().add()
+ * @grammar baidu.dom(args).add(HTMLElement)
  * @param   {HTMLElement}    HTMLElement    DOM对象
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 /**
  * @description 给当前TangramDom对象添加新的DOM元素
  * @function
- * @grammer $DOM.add(HTMLString)
+ * @name baidu.dom().add()
+ * @grammar baidu.dom(args).add(HTMLString)
  * @param   {String}    HTMLString    HTML文本
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 /**
  * @description 给当前TangramDom对象添加新的DOM元素
  * @function
- * @grammer $DOM.add(TangramDom)
+ * @name baidu.dom().add()
+ * @grammar baidu.dom(args).add(TangramDom)
  * @param   {TangramDom}    TangramDom
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     add : function (object, context) {

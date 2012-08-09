@@ -8,6 +8,7 @@
 /**
  * @description 判断是否为firefox浏览器
  * @property firefox firefox版本号
+ * @function
  * @name baidu.browser.firefox
  * @grammar baidu.browser.firefox
  * @meta standard

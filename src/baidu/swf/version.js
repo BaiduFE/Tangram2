@@ -11,7 +11,8 @@
 ///import baidu.swf;
 
 /**
- * 浏览器支持的flash插件版本
+ * @description 浏览器支持的flash插件版本
+ * @function
  * @property version 浏览器支持的flash插件版本
  * @grammar baidu.swf.version
  * @return {String} 版本号

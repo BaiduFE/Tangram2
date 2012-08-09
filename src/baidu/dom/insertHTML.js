@@ -7,12 +7,23 @@
 ///import baidu.browser.opera;
 
 /**
- * 在目标元素的指定位置插入HTML代码
+ * @description 在目标元素的指定位置插入HTML代码
+ * @name baidu.dom().insertHTML()
+ * @function
+ * @grammar baidu.dom(args).insertHTML( position, html)
+ * @param {string} position  插入html的位置信息，取值为beforeBegin,afterBegin,beforeEnd,afterEnd
+ * @param {string} html 要插入的html
+ * @return {HTMLElement} 目标元素
+ */
+
+
+/**
+ * @description 在目标元素的指定位置插入HTML代码
  * @name baidu.dom.insertHTML
  * @function
  * @grammar baidu.dom.insertHTML(element, position, html)
  * @param {HTMLElement|string} element 目标元素或目标元素的id
- * @param {string} position 插入html的位置信息，取值为beforeBegin,afterBegin,beforeEnd,afterEnd
+ * @param {string} position  插入html的位置信息，取值为beforeBegin,afterBegin,beforeEnd,afterEnd
  * @param {string} html 要插入的html
  * @remark
  * 
@@ -25,6 +36,7 @@
  *             
  * @return {HTMLElement} 目标元素
  */
+
 baidu.dom.extend({
 insertHTML : function ( position, html) {
     element = this[0];

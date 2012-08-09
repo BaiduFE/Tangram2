@@ -12,10 +12,10 @@
  * @description 查找当前元素之前所有的同辈元素，直到遇到匹配的那个元素为止
  *
  * @function
- * @name baidu.dom.map
- * @grammar $DOM.map(iterator)
+ * @name baidu.dom().map()
+ * @grammar baidu.dom(args).map(iterator)
  * @param   {Function}            iterator    遍历函数
- * @return  {TangramDom}        old TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象        old TangramDom
  */
 baidu.dom.extend({
     map : function (iterator) {

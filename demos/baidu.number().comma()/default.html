@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.number().comma() 示例" />
+		<title>baidu.number().comma() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.number().comma()</strong> 示例</h1>
+			<p class="ac-des">
+				为目标数字添加逗号分隔
+			</p>
+
+			<ul class="ac-ul">
+				<li>语法: baidu.number(num).comma([len])</li>
+				<li>参数1: {Number} len 两次逗号之间的数字位数，默认为3位</li>
+				<li>返回: {String} 添加逗号分隔后的字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>为目标数字添加逗号分隔</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>为目标数字25634589765添加逗号分隔,两次逗号之间的数字位数，默认为3位
+						<select id="param0">
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>								
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script>
+		baidu('#demo_btn_1').on('click',function(e){
+			var value=baidu('#param0').val(),
+				num = 25634589765,
+				result = baidu.number(num).comma(value);
+			baidu('#demo_execute_result_1').html( '结果：' + result);
+   		})
+	</script>
+	</body>
+</html>

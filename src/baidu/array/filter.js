@@ -17,6 +17,16 @@
  * @param   {context}       context  方法作用域
  * @return  {Array}             已经过滤后的数组
  */
+/**
+ * @description 过滤数组
+ *
+ * @name baidu.array().filter()
+ * @function
+ * @grammar array.filter(iterator[, context])
+ * @param   {Function}      iterator 用于做过滤的函数
+ * @param   {context}       context  方法作用域
+ * @return  {Array}             已经过滤后的数组
+ */
 Array.prototype.filter = function(iterator, context) {
     var result = baidu.array([]),
         i, n, item, index=0;

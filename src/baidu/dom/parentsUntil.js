@@ -14,11 +14,11 @@
  * @description 查找当前元素的所有的父辈元素，直到遇到匹配的那个元素为止
  *
  * @function
- * @name baidu.dom.parentsUntil
- * @grammar $DOM.parentsUntil(selector[, filter])
+ * @name baidu.dom().parentsUntil()
+ * @grammar baidu.dom(args).parentsUntil(selector[, filter])
  * @param   {Object}            selector    选择器
  * @param   {String|Function}   filter      [可选]过滤函数
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     parentsUntil : function (selector, filter) {

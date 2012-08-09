@@ -12,7 +12,7 @@
 
 /**
  * @description 判断是否为gecko内核
- * @property isGecko 
+ * @function
  * @name baidu.browser.isGecko
  * @grammar baidu.browser.isGecko
  * @meta standard
