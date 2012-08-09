@@ -14,6 +14,7 @@
 //    if (/(\d+\.\d+)/.test(external.max_version)) {
 /**
  * @description 判断是否为maxthon浏览器
+ * @function
  * @property maxthon maxthon版本号
  * @name baidu.browser.maxthon
  * @grammar baidu.browser.maxthon
