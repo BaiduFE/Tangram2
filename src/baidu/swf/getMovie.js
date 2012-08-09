@@ -13,7 +13,7 @@
 ///import baidu.array.remove;
 ///import baidu.lang.toArray;
 /**
- * 获得flash对象的实例
+ * @description 获得flash对象的实例
  * @name baidu.swf.getMovie
  * @function
  * @grammar baidu.swf.getMovie(name)
