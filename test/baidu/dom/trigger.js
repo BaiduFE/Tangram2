@@ -87,15 +87,15 @@ test('all support event', function(){
         input.type = 'text';
 
     var div = document.createElement("div");
-        div.innerHTML = "<form action=''><input name='a' value='a' type='hidden' /></form>";
+        div.innerHTML = "<form action='' onsubmit='return false;'><input name='a' value='a' type='hidden' /></form>";
 
     document.body.appendChild(input);
     document.body.appendChild(div);
     var form = div.firstChild;
 
     $.each(keysEvents, function(index, item){
-        addEvent(input, item, function(){
-            ok(true, 'key event trigger');
+        addEvent(input, item, function(evt){
+            ok(true, evt.type + ' event trigger');
         });
     });
     $.each(keysEvents, function(index, item){
@@ -103,8 +103,8 @@ test('all support event', function(){
     });
     
     $.each(mousesEvents, function(index, item){
-        addEvent(input, item, function(){
-            ok(true, 'mouse event trigger');
+        addEvent(input, item, function(evt){
+            ok(true, evt.type + ' event trigger');
         });
     });
     $.each(mousesEvents, function(index, item){
@@ -123,13 +123,13 @@ test('all support event', function(){
     });
     
     $.each(htmlEvents, function(index, item){
-        addEvent(window, item, function(){
+        addEvent(document.body, item, function(){
             ok(true, 'html event trigger');
         });
     });
     
     $.each(htmlEvents, function(index, item){
-        baidu.dom(window).trigger(item);
+        baidu.dom(document.body).trigger(item);
     });
     
     $.each(etcEvents, function(index, item){
