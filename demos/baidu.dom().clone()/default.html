@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().clone() 示例" />
+		<title>元素克隆</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.ins{
+				line-height:20px;
+			}
+			.tip{
+				background:gold;
+				padding:10px;
+				width:340px;
+				border-radius:5px;
+				font-size:12px;
+				box-shadow:0px 0px 2px #A0A0A0;
+				margin-bottom:10px;
+				font-size:14px;
+				cursor:pointer;
+			}
+			.tip_success{
+				background:#B2EF60;
+			}
+			.red{
+				color:red;
+				cursor: default;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().clone()</strong> 示例</h1>
+			<p class="ac-des">
+				对匹配元素进行克隆
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).clone([withDataAndEvents[,deepWithDataAndEvents]])</li>
+				<li>参数：{Boolean} withDataAndEvents 一个可选的布尔值参数，当参数为true时，表示当次克隆需要将该匹配元素的数据和事件也做克隆</li>
+				<li>参数：{Boolean} deepWithDataAndEvents 一个可选的布尔值参数，当参数为true时，表示当次克隆需要将该匹配元素的所有子元素的数据和事件也做克隆</li>
+				<li>返回: {TangramDom} 接口最终返回一个TangramDom对象，该对象包装了克隆的节点</li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>对匹配元素进行克隆</span>
+				</div>
+				<div class="pannel-content">
+					<p class="pannel-content-tool ins">
+						<b>说明：</b><br />
+						1) 下面的 tip 是<b>被克隆的对象</b>，tip 监听了一个 click 事件，触发时会切换 class (背景色改变)<br />
+						2) 红色的文字部分被 <b>b 标签</b>包裹，是 tip 的<b>子元素</b><br />
+						3) 子元素也监听了 click 事件，触发时会切换 class (文字颜色改变)<br />
+						4) 克隆出来的元素将 append 到 tip 队列末端
+					</p>
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool" id="tip-wrapper">
+						<p class="tip">tip: Hello Clone! <b class="red">我是子元素，点击可切换颜色</b></p>
+					</div>
+					<div class="pannel-content-tool">
+						<p>
+							<b>参数配置：</b>
+							<label>withDataAndEvents: </label>
+							<select id="param-withDataAndEvents">
+								<option value="0" selected>FALSE</option>
+								<option value="1">TRUE</option>
+							</select>
+							<label>deepWithDataAndEvents: </label>
+							<select id="param-deepWithDataAndEvents">
+								<option value="0" selected>FALSE</option>
+								<option value="1">TRUE</option>
+							</select>
+						</p>
+					</div>
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">复制一条 tip !</span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>			
+		</div>
+		<script>
+			baidu('.tip').on('click',function(){
+				baidu(this).toggleClass('tip_success');
+			});
+			baidu('.tip b').on('click',function(e){
+				baidu(this).toggleClass('red');
+				e.stopPropagation();
+			});
+			
+			var wrapper = baidu('#tip-wrapper');
+			var tip = baidu('#tip-wrapper p').first();
+			baidu('#demo_btn').on('click',function(e){
+				var withDataAndEvents = baidu('#param-withDataAndEvents').val() == "0" ? false : true;
+				var deepWithDataAndEvents = baidu('#param-deepWithDataAndEvents').val() == "0" ? false : true;
+				var cloneElem = tip.clone(withDataAndEvents, deepWithDataAndEvents);
+				cloneElem.appendTo(wrapper);
+			});
+		</script>
+	</body>
+</html>
