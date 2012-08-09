@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.merge() 示例" />
+		<title>baidu.merge()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo-target ul{
+				margin-left:20px;
+				line-height:20px;
+				margin-bottom:10px;
+			}
+			#demo-target li:nth-child(2n){
+				color:red;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.merge()</strong> 示例</h1>
+			<p class="ac-des">
+				将第二个 ArrayLike对象合并到第一个 ArrayLike 中去
+			</p>
+
+			<ul class="ac-ul">
+				<li>语法: baidu.merge(arrayLike, arrayLike)</li>
+				<li>参数: {Object} first 第一个 ArrayLike</li>
+				<li>参数: {Object} second 第二个 ArrayLike</li>
+				<li>返回: first 第一个对象</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>枚举对象，生成列表</span>
+				</div>
+				<!--DemoViewStart-->
+				<div class="pannel-content" id="demo-target">
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">枚举合并后的对象，生成列表</span>
+					</div>
+				</div>
+				<!--DemoViewStart-->
+			</div>
+		</div>
+	<script>
+		var data = [{
+			id : 34623,
+			title : '标题一',
+			date : '2012-03-23'
+		},{
+			id : 34624,
+			title : '标题二',
+			date : '2012-03-24'
+		},{
+			id : 34625,
+			title : '标题三',
+			date : '2012-03-25'
+		}];
+		var dataExtra = [{
+			id : 34626,
+			title : '标题四',
+			date : '2012-03-26'
+		},{
+			id : 34627,
+			title : '标题五',
+			date : '2012-03-27'
+		},{
+			id : 34628,
+			title : '标题六',
+			date : '2012-03-28'
+		}];
+		var ul = baidu('<ul></ul>');
+		baidu('#demo-target').prepend(ul);
+
+		baidu.merge(data, dataExtra);
+		baidu('#demo_btn').on('click',function(e){
+			ul.empty();
+			baidu.each(data, function(value, index){
+				var timeStamp = new Date().getTime();
+				var list = baidu('<li>'+value.id+' : '+value.title+' '+value.date+' '+timeStamp+'</li>');
+				ul.append(list);
+			});
+		});
+		
+	</script>
+	</body>
+</html>
