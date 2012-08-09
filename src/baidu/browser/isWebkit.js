@@ -13,7 +13,7 @@
 /**
  * @description 判断是否为webkit内核
  * @name baidu.browser.isWebkit
- * @property isWebkit 
+ * @function
  * @grammar baidu.browser.isWebkit
  * @meta standard
  * @see baidu.browser.isGecko
