@@ -18,6 +18,10 @@
  * @grammar baidu.date.format(source, pattern)
  * @param {Date} source 目标日期对象
  * @param {string} pattern 日期格式化规则
+ * @return {string} 格式化后的字符串
+ */
+
+/*
  * @remark
  * 
 <b>格式表达式，变量含义：</b><br><br>
@@ -34,12 +38,9 @@ yy: 带 0 补齐的两位年表示<br>
 MM: 带 0 补齐的两位月表示<br>
 M: 不带 0 补齐的月表示<br>
 dd: 带 0 补齐的两位日表示<br>
-d: 不带 0 补齐的日表示
-		
- *             
- * @return {string} 格式化后的字符串
- */
-
+d: 不带 0 补齐的日表示     
+ *          
+*/
 baidu.date.format = function (source, pattern) {
     if ('string' != typeof pattern) {
         return source.toString();
