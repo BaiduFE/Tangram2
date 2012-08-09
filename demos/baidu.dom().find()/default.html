@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().find() 后代元素中查找" />
+		<title>后代元素中查找</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().find()</strong> 后代元素中查找
+			</h1>
+			<p class="ac-des">
+				在元素的后代元素中查找符合指定选择器的元素
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).find(selector)</li>
+				<li>参数: selector用于匹配要查找的目标 </li>
+				<li>返回: TangramDom，包含后代中满足选择器的元素 </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>高亮所有超链接</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<button id="execute" class="button">高亮所有超链接</button>			
+					<div class="container">
+						<p>容器</p>
+						<div class="header">
+							<h2>这是常用的三段布局</h2>
+							<h3><a href="#">包含一个超链接</a></h3>
+						</div>
+						<div class="body">
+							<p>这是正文部分</p>
+							<p>请注意和<a href="#">baidu</a>.<a href="#">dom</a>(args).<a href="#">children</a>(selector)的区别，children只会搜索子元素，而find会往深度遍历</p>
+							<p>内层的元素也会被遍历</p>
+						</div>
+						<div class="footer">
+							&copy;2012, Baidu JS. <a href="#">使用须知</a>
+						</div>
+					</div>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			div.container, div.container div{
+				border: 1px solid gray;
+				margin: 10px;
+				padding: 10px;
+				font-family: Arial, Microsoft Yahei;
+				font-size: 12px;
+			}
+			a.hl{
+				background-color: yellow;
+				color: red;
+			}
+		</style>
+		<script type="text/javascript">
+			baidu.dom('#execute').on('click', function(){
+				baidu.dom('div.container').find('a').toggleClass('hl');
+			});
+		</script>
+	</body>
+</html>

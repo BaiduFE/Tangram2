@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().slice() 截取元素" />
+		<title>截取元素</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().slice()</strong> 截取元素
+			</h1>
+			<p class="ac-des">
+				截取当前TangramDom对象中的元素
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).slice(start [,end]) </li>
+				<li>参数: start指示截取的起始位置（含），end（可选）指示结束位置（不含）。如果为负数，则以最后一个为-1开始 </li>
+				<li>返回: TangramDom，包含从start到end的元素 </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>头尾截取</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<div class="control">
+					baidu.dom("ul.slice-piece li").removeClass('hl').slice(<input id="start" type="number" value="2" /> [, <input id="has_end" type="checkbox" /> <input id="end" type="number" value="7" disabled="disabled" />]).addClass('hl');
+					<div>
+
+					<ul class="slice-piece">
+						<li>0 (-9)</li>
+						<li>1 (-8)</li>
+						<li>2 (-7)</li>
+						<li>3 (-6)</li>
+						<li>4 (-5)</li>
+						<li>5 (-4)</li>
+						<li>6 (-3)</li>
+						<li>7 (-2)</li>
+						<li>8 (-1)</li>
+					</ul>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			ul.slice-piece{
+				list-style: none;
+				margin: 10px 0;
+			}
+			ul.slice-piece li{
+				display: inline-block;
+				width: 60px;
+				height: 40px;
+				line-height: 40px;
+				vertical-align: middle;
+				text-align: center;
+				border: 1px solid #89A;
+				margin: 5px;
+			}
+			ul.slice-piece li.hl{
+				background-color: yellow;
+				color: red;
+			}
+		</style>
+		<script type="text/javascript">
+			function update(){
+				var start, end, has_end;
+				start = Number(baidu.dom('#start').val());
+				end =  Number(baidu.dom('#end').val());
+				has_end = baidu.dom('#has_end').attr('checked');
+
+				baidu.dom('#end').attr('disabled', has_end ? null : 'disabled');
+				var all = baidu.dom('ul.slice-piece li');
+				var sliced = has_end ? all.slice(start, end) : all.slice(start);
+				all.removeClass('hl')
+				sliced.addClass('hl');
+			}
+			update();
+			baidu.dom('div.control input').on('change', update);
+		</script>
+	</body>
+</html>
