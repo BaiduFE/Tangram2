@@ -2,6 +2,7 @@
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
+ 
 /**
  * @description 为匹配的元素删除设置的属性。
  * @function 
@@ -11,6 +12,7 @@
  * @param {String} value 要设置属性的值;
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
+
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.each;
