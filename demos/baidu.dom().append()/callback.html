@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="description" content="baidu.dom().append() 示例" />
-		<title>使用callback</title>
+		<title>使用函数</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
@@ -11,13 +11,16 @@
 	<body>
 		<style>
 			.test_block{
-				border:1px solid #5088AE;
-				background:#ccc;
-				padding:10px;
+				margin-left:20px;
 			}
-			.striking{
-				color:red;
-				font-weight:bold;
+			.test_block li{
+				padding:3px 0;
+			}
+			.dynamic{
+				color:#FF3300;
+			}
+			.even{
+				background:#efefef;
 			}
 		</style>
 		<div class="demo" id="demo">
@@ -26,23 +29,23 @@
 				在匹配的每个DOM元素内部的末端插入内容。
 			</p>
 			<ul class="ac-ul">
-				<li>语法: baidu.dom().append()</li>
-				<li>参数: {HTMLString|Element|TangramDom} content 支持一个DOM元素或是一段HTMLString或是一个TangramDom对象</li>
+				<li>语法: baidu.dom(args).append(fn)</li>
+				<li>参数: {function} fn 支持一个函数作为参数，函数最终需要返回一个HTMLString|Element|TangramDom</li>
 				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>在匹配的每个DOM元素内部的末端插入内容 --- 回调函数方式</span>
+					<span>在匹配的每个DOM元素内部的末端插入内容  --- 传递函数参数</span>
 				</div>
 				<div class="pannel-content">
 					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn">将下面的链接元素插入到容器中：传入一个返回HTMLString|Element|TangramDom的函数</a>
+						<span class="button" id="demo_btn">向下面列表的末端追加内容</span>
 					</div>
 					<div class="pannel-content-part">
-						<div class="test_block" id="test_block">
-							<p>我是一个测试元素</p>
-						</div>
+						<ul class="test_block" id="test_block">
+							<li>我是列表的第一项</li>
+						</ul>
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result"></span>
@@ -51,10 +54,13 @@
 				</div>
 			</div>
 		</div>
-		<script>		
+		<script>
+			var counter = 1;
 			baidu('#demo_btn').on('click',function(e){
 				baidu.dom('#test_block').append(function(){
-					return '<a href="http://tangram.baidu.com" target="_blank">Tangram</a><br />';
+					var extraClass = (counter++)%2 ? 'even' : '';
+					var list = '<li class="dynamic '+extraClass+'">我是由 append 添加的</li>';
+					return list;
 				});
 				baidu('#demo_execute_result').html('插入到目标容器成功');
 			});

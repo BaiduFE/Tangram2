@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="description" content="baidu.dom().append() 示例" />
-		<title>插入html</title>
+		<title>普通方式</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
@@ -11,13 +11,13 @@
 	<body>
 		<style>
 			.test_block{
-				border:1px solid #5088AE;
-				background:#ccc;
-				padding:10px;
+				margin-left:20px;
 			}
-			.striking{
-				color:red;
-				font-weight:bold;
+			.test_block li{
+				padding:3px 0;
+			}
+			.dynamic{
+				color:#FF3300;
 			}
 		</style>
 		<div class="demo" id="demo">
@@ -26,23 +26,23 @@
 				在匹配的每个DOM元素内部的末端插入内容。
 			</p>
 			<ul class="ac-ul">
-				<li>语法: baidu.dom().append()</li>
-				<li>参数: {HTMLString|Element|TangramDom} content 支持一个DOM元素或是一段HTMLString或是一个TangramDom对象</li>
+				<li>语法: baidu.dom(args).append(content1[, content2])</li>
+				<li>参数: {HTMLString|Element|TangramDom} content1 支持一个DOM元素或是一段HTMLString或是一个TangramDom对象</li>
 				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>在匹配的每个DOM元素内部的末端插入内容 --- 使用 HTML 字符串方式</span>
+					<span>在匹配的每个DOM元素内部的末端插入内容 </span>
 				</div>
 				<div class="pannel-content">
 					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn">向下面的容器追加内容： &lt;a href="http://tangram.baidu.com" target="_blank"&gt;Tangram&lt;/a&gt;&lt;br /&gt;</a>
+						<span class="button" id="demo_btn">向下面列表的末端追加内容</span>
 					</div>
 					<div class="pannel-content-part">
-						<div class="test_block" id="test_block">
-							<p>我是一个测试元素</p>
-						</div>
+						<ul class="test_block" id="test_block">
+							<li>我是列表的第一项</li>
+						</ul>
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result"></span>
@@ -53,7 +53,8 @@
 		</div>
 		<script>
 			baidu('#demo_btn').on('click',function(e){
-				baidu.dom('#test_block').append('<a href="http://tangram.baidu.com" target="_blank">Tangram</a><br />');
+				var list = '<li class="dynamic">我是由 append 添加的</li>';
+				baidu.dom('#test_block').append(list);
 				baidu('#demo_execute_result').html('插入到目标容器成功');
 			});
 		</script>
