@@ -16,7 +16,9 @@
  * @function
  * @grammar baidu.date.parse(source)
  * @param {string} source 目标字符串
- * @remark
+ * @return {Date} 转换后的日期对象
+ */
+/*
  * 
 对于目标字符串，下面这些规则决定了 parse 方法能够成功地解析： <br>
 <ol>
@@ -31,11 +33,9 @@
 <li>如果使用 24 小时计时的时钟，那么为中午 12 点之后的时间指定 "PM" 是错误的。例如 "23:15 PM" 就是错误的。</li> 
 <li>包含无效日期的字符串是错误的。例如，一个包含有两个年份或两个月份的字符串就是错误的。</li>
 </ol>
-		
- *             
- * @return {Date} 转换后的日期对象
- */
-
+        
+ *         
+*/
 baidu.date.parse = function (source) {
     var reg = new RegExp("^\\d+(\\-|\\/)\\d+(\\-|\\/)\\d+\x24");
     if ('string' == typeof source) {

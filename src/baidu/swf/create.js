@@ -12,7 +12,7 @@
 ///import baidu.swf.createHTML;
 
 /**
- * 在页面中创建一个flash对象
+ * @description 在页面中创建一个flash对象
  * @name baidu.swf.create
  * @function
  * @grammar baidu.swf.create(options[, container])

@@ -17,11 +17,13 @@
  * @grammar baidu.cookie.set(key, value[, options])
  * @param {string} key 需要设置Cookie的键名
  * @param {string} value 需要设置Cookie的值
- * @param {Object} [options] 设置Cookie的其他可选参数
- * @param {string} [path] cookie路径
- * @param {Date|number} [expires] cookie过期时间,如果类型是数字的话, 单位是毫秒
- * @param {string} [domain] cookie域名
- * @param {string} [secure] cookie是否安全传输
+ * @param {Object} options 设置Cookie的其他可选参数
+ * @param {string} path cookie路径
+ * @param {Date|number} expires cookie过期时间,如果类型是数字的话, 单位是毫秒
+ * @param {string} domain cookie域名
+ * @param {string} secure cookie是否安全传输
+ */
+/*
  * @remark
  * 
 1. <b>注意：</b>该方法会对cookie值进行encodeURIComponent编码。如果想设置cookie源字符串，请使用setRaw方法。<br><br>
@@ -33,7 +35,8 @@ secure:cookie是否安全传输
 		
  * @meta standard
  * @see baidu.cookie.setRaw,baidu.cookie.get
- */
+*/
+
 baidu.cookie.set = function (key, value, options) {
     baidu.cookie.setRaw(key, encodeURIComponent(value), options);
 };
