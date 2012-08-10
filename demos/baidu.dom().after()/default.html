@@ -12,9 +12,14 @@
 		<style>
 			.test_block{
 				margin-left:20px;
+				margin-bottom:5px;
+				border:1px dotted red;
+				background:#FFF1F1;
+				padding:5px 10px;
 			}
 			.test_block li{
 				padding:3px 0;
+				margin-left:20px;
 			}
 			.dynamic{
 				color:#FF3300;
@@ -37,11 +42,11 @@
 				<div class="pannel-content">
 					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<span class="button" id="demo_btn">向下面列表的末端追加内容</span>
+						<span class="button" id="demo_btn">向目标列表的末端添加新列表</span>
 					</div>
 					<div class="pannel-content-part">
-						<ul class="test_block">
-							<li id="first-item">我是列表的第一项</li>
+						<ul class="test_block" id="test_block">
+							<li id="first-item">我是目标列表</li>
 						</ul>
 					</div>
 					<div class="pannel-show">
@@ -53,8 +58,8 @@
 		</div>
 		<script>
 			baidu('#demo_btn').on('click',function(e){
-				var list = '<li class="dynamic">我是由 after 添加的</li>';
-				baidu.dom('#first-item').after(list);
+				var list = '<ul class="test_block"><li class="dynamic">我是由 after 添加的</li></ul>';
+				baidu.dom('#test_block').after(list);
 				baidu('#demo_execute_result').html('操作成功');
 			});
 		</script>

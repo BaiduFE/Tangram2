@@ -46,6 +46,7 @@
 			</div>
 		</div>
 	<script>
+		//数据源
 		var data = {
 			'34623' : {
 				title : '标题一',
@@ -67,6 +68,7 @@
 		var ul = baidu('<ul></ul>');
 		baidu('#demo-target').prepend(ul);
 		
+		// 迭代数据，生成列表
 		baidu('#demo_btn_1').on('click',function(e){
 			ul.empty();
 			baidu.each(data, function(value, key){

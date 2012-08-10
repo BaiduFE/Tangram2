@@ -83,9 +83,12 @@
 			</div>			
 		</div>
 		<script>
+			// tip 的click 事件
 			baidu('.tip').on('click',function(){
 				baidu(this).toggleClass('tip_success');
 			});
+			
+			// tip 中粗体字的click 事件
 			baidu('.tip b').on('click',function(e){
 				baidu(this).toggleClass('red');
 				e.stopPropagation();
@@ -93,6 +96,8 @@
 			
 			var wrapper = baidu('#tip-wrapper');
 			var tip = baidu('#tip-wrapper p').first();
+			
+			// 获取克隆的选项，并对 tip 进行克隆
 			baidu('#demo_btn').on('click',function(e){
 				var withDataAndEvents = baidu('#param-withDataAndEvents').val() == "0" ? false : true;
 				var deepWithDataAndEvents = baidu('#param-deepWithDataAndEvents').val() == "0" ? false : true;

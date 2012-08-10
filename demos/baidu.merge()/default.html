@@ -45,6 +45,7 @@
 			</div>
 		</div>
 	<script>
+		//数据源
 		var data = [{
 			id : 34623,
 			title : '标题一',
@@ -73,8 +74,11 @@
 		}];
 		var ul = baidu('<ul></ul>');
 		baidu('#demo-target').prepend(ul);
-
+		
+		// merge 数据
 		baidu.merge(data, dataExtra);
+		
+		// 迭代数据，生成列表
 		baidu('#demo_btn').on('click',function(e){
 			ul.empty();
 			baidu.each(data, function(value, index){
