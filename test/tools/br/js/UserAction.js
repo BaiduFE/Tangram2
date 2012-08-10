@@ -1,5 +1,12 @@
-var UserAction = {
-
+var UserAction = 
+/**
+ * 用例中常用方法的集合
+ * 
+ * @author bellcliff
+ * @type UserAction
+ */
+{
+	beforedispatch : null,
 	isf /* is function ? */: function(value) {
 		return value && (typeof value == 'function');
 	},
@@ -187,6 +194,11 @@ var UserAction = {
 				}
 
 			}
+			
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
 
 			// fire the event
 			target.dispatchEvent(customEvent);
@@ -211,6 +223,11 @@ var UserAction = {
 			 */
 			customEvent.keyCode = (charCode > 0) ? charCode : keyCode;
 
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
+			
 			// fire the event
 			target.fireEvent("on" + type, customEvent);
 
@@ -218,6 +235,8 @@ var UserAction = {
 			throw new Error(
 					"simulateKeyEvent(): No event simulation framework present.");
 		}
+		
+		this.beforedispatch = null;
 	},
 
 	/**
@@ -415,6 +434,11 @@ var UserAction = {
 					customEvent.fromElement = relatedTarget;
 				}
 			}
+			
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
 
 			// fire the event
 			target.dispatchEvent(customEvent);
@@ -461,6 +485,10 @@ var UserAction = {
 			 */
 			customEvent.relatedTarget = relatedTarget;
 
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
 			// fire the event
 			target.fireEvent("on" + type, customEvent);
 
@@ -511,9 +539,6 @@ var UserAction = {
 	 * @static
 	 */
 	click : function(target /* :HTMLElement */, options /* :Object */) /* :Void */{
-		this.mouseover(target, options);
-		this.mousedown(target, options);
-		this.mouseup(target, options);
 		this.fireMouseEvent(target, "click", options);
 	},
 
