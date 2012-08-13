@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.swf.getMovie() 示例" />
+		<title>baidu.swf.getMovie()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo-swfForm {
+				padding-top:10px;
+			}
+			#demo-swfForm p {
+				padding: 3px 10px;
+			}
+			.label {
+				width: 100px;
+				display: inline-block;
+				text-align: right;
+				padding-right: 10px;
+			}
+			#demo_btn {
+				margin-left: 120px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.swf.getMovie()</strong> 示例</h1>
+			<p class="ac-des">
+				获得flash对象的实例
+			</p>
+
+			<ul class="ac-ul">
+				<li>语法: baidu.swf.getMovie(name)</li>
+				<li>参数: {string} name flash对象的名称</li>
+				<li>返回: {HTMLElement} flash对象的实例</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>获得flash对象的实例</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div id="flash"></div>
+					<form class="pannel-content-tool" autocomplete="off" id="demo-swfForm">
+						<p><b>从获取的实例设置上面flash的尺寸:</b></p>
+						<p><label for="width" class="label">width: </label><input type="text" value="360" name="width" id="width" /></p>
+						<p><label for="height" class="label">height: </label><input type="text" value="200" name="height" id="height" /></p>
+					</form>
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn">设置flash尺寸 </span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			// 创建swf
+			baidu.swf.create({
+				id: 'flashTest',
+				url: 'http://tangram.baidu.com/demo/baidu_swf_create/test.swf',
+				width: 200,
+				height: 200
+			}, 'flash');
+
+			baidu('#demo_btn').on('click',function(){
+				// 获取flash实例
+				var flash = baidu.swf.getMovie('flashTest');
+				flash.width = baidu('#width').val();
+				flash.height = baidu('#height').val();
+			});
+			
+		</script>
+	</body>
+</html>
