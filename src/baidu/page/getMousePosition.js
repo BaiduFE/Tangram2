@@ -14,7 +14,7 @@
  */
 
 
-///import baidu.dom.on;
+///import baidu.event.on;
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getScrollLeft;
 /*
