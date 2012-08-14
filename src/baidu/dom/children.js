@@ -1,5 +1,6 @@
 ///import baidu.dom;
 ///import baidu.each;
+///import baidu.type;
 ///import baidu.dom.each;
 ///import baidu.dom.match;
 
@@ -31,3 +32,9 @@ baidu.dom.extend({
         return baidu.dom( baidu.dom.match(a, selector) );
     }
 });
+
+// TODO: delete it in feature
+baidu.dom.children = function(dom) {
+    baidu.paramCheck("string|HTMLElement","baidu.dom.children");
+    return baidu.dom( baidu.isString(dom) ? "#"+ dom : dom ).children().toArray();
+};
