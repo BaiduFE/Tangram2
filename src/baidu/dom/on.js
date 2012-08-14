@@ -5,7 +5,6 @@
 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.dom.g;
 ///import baidu.event;
 ///import baidu.dom.each;
 ///import baidu.dom._eventBase;
@@ -80,10 +79,3 @@ baidu.dom.extend({
 	    return this;
 	}
 });
-
-baidu.event.on = function( el, onEvent, fn ){
-	onEvent = onEvent.replace( /^\s*on/, "" );
-	var element = baidu.dom.g( el );
-	baidu.dom( element ).on( onEvent, fn );
-	return element;
-};
