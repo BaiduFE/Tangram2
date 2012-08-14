@@ -46,7 +46,10 @@ baidu.type = (function() {
     };
 
     baidu.isEnumerable = function( unknow ){
-        return unknow && (baidu.isArray(unknow) || typeof unknow.length == "number" || typeof unknow[0] != "undefined");
+        return unknow != null
+            && typeof unknow == "object"
+            &&(typeof unknow.length == "number"
+            || typeof unknow[0] != "undefined");
     };
 
     // 方法主体
