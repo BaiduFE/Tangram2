@@ -23,11 +23,11 @@ void function () {
         return baidu.each(this, iterator, context || this);
     };
 
-    Array.prototype.each = fn
-    Array.prototype.forEach = fn
+    Array.prototype.each =
+    Array.prototype.forEach = fn;
 
     // TODO: delete in tangram 3.0
     baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
-        return baidu.isArray(array) ? array.each(iterator, context) : array;
+        return baidu.isEnumerable(array) ? baidu.each(array, iterator, context) : array;
     };
 }();
