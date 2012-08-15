@@ -81,7 +81,7 @@ baidu.dom.extend({
 	}
 });
 
-baidu.event.on = function( el, onEvent, fn ){
+baidu.event.on = baidu.on = function( el, onEvent, fn ){
 	onEvent = onEvent.replace( /^\s*on/, "" );
 	var element = baidu.dom.g( el );
 	baidu.dom( element ).on( onEvent, fn );

@@ -13,11 +13,11 @@
 /**
  * @description 浏览器支持的flash插件版本
  * @function
- * @property version 浏览器支持的flash插件版本
+ * @name baidu.swf.version
  * @grammar baidu.swf.version
  * @return {String} 版本号
- * @meta standard
  */
+
 baidu.swf.version = (function () {
     var n = navigator;
     if (n.plugins && n.mimeTypes.length) {
