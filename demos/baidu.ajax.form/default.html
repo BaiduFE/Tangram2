@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="异步提交表单" />
+		<title>异步表单</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.ajax.form</strong>
+				异步提交表单
+			</h1>
+			<p class="ac-des">
+				快速将HTML表单的数据提交到服务器
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.ajax.form(form, [options]) </li>
+				<li>参数: form是一一个HTMLForm表单，表示要提交的表单。options是可选的配置，具体请参考API </li>
+				<li>返回: 提交请求的XMLHttpRequest对象 </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>简易留言板</span>
+				</div>
+				<div class="pannel-content">
+					下面利用baidu.ajax.form实现简易留言板
+					<!--html view start-->					
+					<form id="message" method="post" action="message.php">
+						<label>名字：
+							<input name="author" type="text" value="Baidu Demo"/></label>
+						<label>性别：
+							<select name="gender">
+								<option value="male">男</option>
+								<option value="female">女</option>
+							</select></label>
+						<label>信息：
+							<textarea name="message">使用baidu.ajax.form可以快速提交本表单，并获得从服务器返回的数据</textarea></label>
+					</form>
+					<button id="btn-send-message" class="button">发送</button>
+					<div id="message-display"></div>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			#message{
+				border: 1px solid gray;
+				padding: 10px;
+				border-radius: 10px;
+				margin: 10px 0;
+			}
+			#message input, #message textarea{
+				width: 300px;
+			}
+			#message textarea{
+				height: 80px;
+			}
+			#message label{
+				vertical-align: top;
+				display: block;
+				margin-top: 10px;
+			}
+			#message-display h2{
+				margin-top: 15px;
+				margin-bottom: 5px;
+				font-family: Arial;
+				font-size: 16px;
+				color: #68A;
+			}
+			#message-display p{
+				margin-left: 2em;
+				font-family: Arial, Microsoft Yahei;
+			}
+		</style>
+		<script type="text/javascript">
+		function sendMessage(){
+			baidu.ajax.form(baidu.dom('#message')[0], {
+				onsuccess: function(xhr, responseText){
+					var displayer = baidu.dom('#message-display');
+					displayer.html(responseText + displayer.html());
+				}
+			});
+		}
+		baidu.dom('#btn-send-message').on('click', sendMessage);
+		</script>
+	</body>
+</html>
