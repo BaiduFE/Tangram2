@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().not() 去除满足条件的元素" />
+		<title>选择器排除</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().not()</strong> 选择器排除
+			</h1>
+			<p class="ac-des">
+				去除TangramDom中元素集合中，满足选择器指定的元素
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).not(selector) </li>
+				<li>参数: selector用于匹配指定的元素 </li>
+				<li>返回: 排除指定元素后的TangramDom对象 </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>选择器的时代</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->					
+					<ul class="not-filter">
+						<li index="0" class="f1">index=0, class="f1"</li>
+						<li index="1" class="f2">index=1, class="f2"</li>
+						<li index="2" class="f3">index=2, class="f3"</li>
+						<li index="3" class="f1 f2">index=3, class="f1 f2"</li>
+						<li index="4" class="f2 f3">index=4, class="f2 f3"</li>
+						<li index="5" class="f1 f3">index=5, class="f1 f3"</li>
+						<li index="6" class="f1 f2 f3">index=6, class="f1 f2 f3"</li>
+					</ul>
+					<p>baidu.dom('ul.not-filter li').removeClass('hl').not('<input id="selector" type="text" value=".f2, *[index=2]" />').addClass('hl');</p>
+					<p><button id="btn-execute" class="button">点击按照排除选择器指定的元素</button></p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			.hl{color:red; background-color: yellow;}
+		</style>
+		<script type="text/javascript">
+			function execute(){
+				var selector = baidu.dom('#selector').val();
+				baidu.dom('ul.not-filter li').removeClass('hl').not(selector).addClass('hl');
+			}
+			baidu.dom('#btn-execute').on('click', execute);
+		</script>
+	</body>
+</html>

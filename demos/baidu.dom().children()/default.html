@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().children() 获得元素的子节点" />
+		<title>获得子节点</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().children()</strong> 获得子节点
+			</h1>
+			<p class="ac-des">
+				获得元素的子节点
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).children([selector]) </li>
+				<li>参数: 如果指定了selector参数，则按照参数指定的选择器对结果进行筛选 </li>
+				<li>返回: 元素的子节点 </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>高亮我的子节点</span>
+				</div>
+				<div class="pannel-content">
+					<p>鼠标移过ul，其子节点li将高亮</p>
+					<!--html view start-->					
+					<ul class="parent">
+						<li>child1</li>
+						<li>child2</li>
+						<li>child3</li>
+						<li>child4</li>
+						<li>child5</li>
+						<li class="volume">child6</li>
+						<li class="volume">child7</li>
+						<li class="volume">child8</li>
+					</ul>
+					<ul class="parent">
+						<li>child1</li>
+						<li>child2</li>
+						<li>child3</li>
+						<li>child4</li>
+						<li class="volume">child5</li>
+						<li class="volume">child6</li>
+						<li class="volume">child7</li>
+						<li class="volume">child8</li>
+					</ul>
+					<ul class="parent">
+						<li>child1</li>
+						<li>child2</li>
+						<li>child3</li>
+						<li class="volume">child4</li>
+						<li class="volume">child5</li>
+						<li class="volume">child6</li>
+						<li class="volume">child7</li>
+						<li class="volume">child8</li>
+					</ul>
+					<ul class="parent">
+						<li>child1</li>
+						<li class="volume">child2</li>
+						<li class="volume">child3</li>
+						<li class="volume">child4</li>
+						<li class="volume">child5</li>
+						<li class="volume">child6</li>
+						<li class="volume">child7</li>
+						<li class="volume">child8</li>
+					</ul>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			ul.parent{
+				border: 1px solid #89A;
+				margin: 5px 5px 5px 0;
+				display: inline-block;
+			}
+			ul.parent li{
+				margin: 5px;
+			}
+			ul.parent li.hl{
+				color: red;
+				background-color: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			baidu.dom('ul.parent')
+				.on('mouseenter', function(){
+					baidu.dom(this).children('li.volume').addClass('hl');
+				})
+				.on('mouseleave', function(){
+					baidu.dom(this).children().removeClass('hl');
+				});
+		</script>
+	</body>
+</html>
