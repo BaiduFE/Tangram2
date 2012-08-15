@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().blur() 示例" />
+		<title>触发</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().blur()</strong> 示例</h1>
+			<p class="ac-des">
+				TangramDom集合触发 blur 事件
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).blur()</li>
+				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象 </li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>focus/blur 事件触发</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<p>下面的 input 监听了 focus/blur 事件。</p>
+					</div>
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<input type="text" value="hello Tangram !" id="input" />
+					</div>
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn_focus">focus</span>
+						<span class="button" id="demo_btn_blur">blur</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			// focusin
+			baidu('#input').focus(function(e){
+				baidu(this).css({
+					color: 'red'
+				});
+				baidu('#demo_execute_result').html('focus 触发');
+			});
+			
+			// focusout
+			baidu('#input').blur(function(e){
+				baidu(this).css({
+					color: 'green'
+				});
+				baidu('#demo_execute_result').html('blur 触发');
+			});
+			
+			// trigger
+			baidu('#demo_btn_focus').click(function(){
+				baidu('#input').focus();
+			});
+			baidu('#demo_btn_blur').click(function(){
+				baidu('#input').blur();
+			});
+			
+		</script>
+	</body>
+</html>
