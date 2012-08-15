@@ -16,31 +16,43 @@
 			</p>
 
 			<ul class="ac-ul">
-				<li>语法: baidu.array().reduce(iterator[, initializer])</li>
-				<li>参数1: {Function} iterator 指定项的索引位置</li>
-				<li>参数2: {Function} initializer 指定项的索引位置</li>
-				<li>返回: {Object} iterator计算后的结果</li>
+				<li>
+					语法: baidu.array().reduce(iterator[, initializer])
+				</li>
+				<li>
+					参数1: {Function} iterator 指定项的索引位置
+				</li>
+				<li>
+					参数2: {Function} initializer 指定项的索引位置
+				</li>
+				<li>
+					返回: {Object} iterator计算后的结果
+				</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
 					<span>遍历数组中所有元素，将每一个元素应用方法进行合并，并返回合并后的结果。</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>将数组 ['a','b','c','d','e']应用累加方法进行合并			
+						<a class="button" id="demo_btn_1">点击运行</a>将数组 ['a','b','c','d','e']应用累加方法进行合并
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 		</div>
-		<script>
-			baidu('#demo_btn_1').on('click',function(e){
-				var arr = ['a','b','c','d','e'],
-					result = baidu.array(arr).reduce(function (end, item) {return end+item;});
-				baidu('#demo_execute_result_1').html(result);		
-	   		})
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var arr = ['a', 'b', 'c', 'd', 'e'], 
+					result = baidu.array(arr).reduce(function(end, item) {
+						return end + item;
+					});
+				baidu('#demo_execute_result_1').html(result);
+			})
 		</script>
 	</body>
 </html>

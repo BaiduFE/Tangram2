@@ -16,30 +16,37 @@
 			</p>
 
 			<ul class="ac-ul">
-				<li>语法: baidu.string(str).getByteLength()</li>
-				<li>参数1: {String} str 目标字符串</li>
-				<li>返回: {Number} 字节长度</li>
+				<li>
+					语法: baidu.string(str).getByteLength()
+				</li>
+				<li>
+					参数1: {String} str 目标字符串
+				</li>
+				<li>
+					返回: {Number} 字节长度
+				</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
 					<span>获取目标字符串在gbk编码下的字节长度</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
 						<a class="button" id="demo_btn_1">点击运行</a>字符串'JavaScript脚本语言'在gbk编码下的字节长度
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 		</div>
-	<script>
-		baidu('#demo_btn_1').on('click',function(e){
-			var str='JavaScript脚本语言',
-				result = baidu.string(str).getByteLength();
-			baidu('#demo_execute_result_1').html( '结果：' + result);
-   		})
-	</script>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var str = 'JavaScript脚本语言', result = baidu.string(str).getByteLength();
+				baidu('#demo_execute_result_1').html('结果：' + result);
+			})
+		</script>
 	</body>
 </html>

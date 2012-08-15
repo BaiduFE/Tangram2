@@ -25,18 +25,20 @@
 					<span>去除数组中的重复项</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>将数组['a',function(){console.log(1)},'身边','新知',1,'','d','新知',1,'']去重								
+						<a class="button" id="demo_btn_1">点击运行</a>将数组['a','b','c','d','b','c','e']去重								
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 		</div>
-	<script>
+	<script type="text/javascript">
 		baidu('#demo_btn_1').on('click',function(e){
-			var arr = ['a',function(){console.log(1)},'身边','新知',1,'','d','新知',1,''];
+			var arr = ['a','b','c','d','b','c','e'];
 				result = baidu.array(arr).unique();
 			baidu('#demo_execute_result_1').html( '结果：' + result);
    		})
