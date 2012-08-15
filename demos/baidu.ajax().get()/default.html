@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.ajax().get() GET异步请求" />
+		<title>常规用法</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.ajax().get()</strong> GET异步请求
+			</h1>
+			<p class="ac-des">
+				baidu.ajax().request() 的一个快捷方式
+			</p>
+			<h2 class="ac-h2">同步和异步</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.ajax(url).get(onsuccess) </li>
+				<li>参数: url {string} 指定要请求的地址 </li>
+				<li>参数: onsuccess {function} 请求成功时，回调的函数
+				<li>返回: 开启异步请求的XmlHttpRequest对象 </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>异步获取源代码</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<button id="request-source">请求baidu.ajax.get的源代码</button>
+					<pre id="source-code"></pre>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>		
+		<script type="text/javascript">
+			baidu.dom('#request-source').on('click', function(){
+				baidu.ajax('get.js').get(function(xhr, responseText){
+					baidu.dom('#source-code').html(responseText);
+				});
+			});
+		</script>
+	</body>
+</html>

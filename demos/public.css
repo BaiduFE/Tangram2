@@ -94,5 +94,12 @@
 .demo .button {
 	font-size: 14px; height: 25px; line-height: 25px; text-decoration: none; background-color: #E6F1F6; border: 1px solid #D8D8D8; border-radius: 5px 5px 5px 5px; color: #666666; cursor: pointer; padding: 3px 10px; text-align: center; margin:0 5px;
 }
+<<<<<<< HEAD
 .demo-clear:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
 .demo-clear{zoom:1;}
+=======
+remark{
+	color: red;
+	background-color: yellow;
+}
+>>>>>>> c6255ca33895ad779fb7083dfd7d33a74a4f5736

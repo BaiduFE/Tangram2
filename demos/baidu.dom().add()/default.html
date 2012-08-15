@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().add() 添加元素" />
+		<title>添加元素</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().add()</strong> 添加元素到当前TangramDom对象
+			</h1>
+			<p class="ac-des">
+				将元素添加到当前TangramDom对象，元素可以是选择器、HTMLElement、HTMLString或者是其它的TangramDom对象
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).add(selector|HTMLElement|HTMLString|TangramDom) </li>
+				<li>参数: 要添加的元素 </li>
+				<li>返回: 添加了指定元素的TangramDom对象 </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>添加元素</span>
+				</div>
+				<div class="pannel-content">
+					收集元素，然后附加到容器上。
+					<!--html view start-->					
+					<fieldset>
+						<legend>原本元素</legend>
+						<p id="add-by-selector">我将通过"#add-by-selector"选择器被添加</p>
+						<p id="add-by-element">我将作为一个HTMLElement被添加</p>
+						<p id="add-by-html">以下字符串作为HTMLString被添加： &lt;a href="http://www.baidu.com"&gt;百度&lt;/a&gt;</p>
+						<p id="add-by-tangramdom">我将作为一个TangramDom被添加</p>
+					</fieldset>
+					<fieldset>
+						<legend>操作</legend>
+						<p>baidu.dom()<br />
+							<button id="btn-add-by-selector" class="button">.add('#add-by-selector')</button><br />
+							<button id="btn-add-by-element" class="button">.add(document.getELementById('add-by-element'))</button><br />
+							<button id="btn-add-by-html" class="button">.add('&lt;a href="http://www.baidu.com"&gt;百度&lt;/a&gt;')</button><br />
+							<button id="btn-add-by-tangramdom" class="button">.add(baidu.dom('#add-by-tangram-dom'))</button><br />
+							<button id="btn-append-to" class="button">.appentTo('#container')</button>;</p>
+					</fieldset>
+					<fieldset>
+						<legend>容器</legend>
+						<p>当前Dom对象有<span id="collect-count">0</span>个元素<p>
+						<div id="container"></div>
+					</fieldset>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>		
+		<script type="text/javascript">
+			var td = baidu.dom();
+			function updateLength(){
+				baidu.dom('#collect-count').html(td.length.toString());
+			}
+			baidu.dom('#btn-add-by-selector').on('click', function() {
+				td = td.add('#add-by-selector');
+				updateLength();
+			});
+			baidu.dom('#btn-add-by-element').on('click', function(){
+				td = td.add(document.getElementById('add-by-element'));
+				updateLength();
+			});
+			baidu.dom('#btn-add-by-html').on('click', function(){
+				td = td.add('<a href="http://www.baidu.com">百度</a>');
+				updateLength();
+			});
+			baidu.dom('#btn-add-by-tangramdom').on('click', function(){
+				td = td.add(baidu.dom('#add-by-tangramdom'));
+				updateLength();
+			});
+			baidu.dom('#btn-append-to').on('click', function(){
+				td.appendTo('#container');
+			});
+		</script>
+	</body>
+</html>
