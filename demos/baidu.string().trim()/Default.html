@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -41,4 +42,49 @@
 			T('#content').val(str.trim());
 		});
 	</script>
+=======
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().trim() 示例" />
+		<title>删除字符串前后空白字符串</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().trim()</strong> 示例</h1>
+			<p class="ac-des">
+				删除字符串前后的空白字符
+			</p>
+			<h2 class="ac-h2">1. 删除字符串前后的空白字符</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.string().trim()</li>
+				<li>返回: 保证前后不是空白字符的字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>删除字符串前后的空白字符</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<button id="btn-trim" class="button">删除</button>	
+					<p>
+						<!--The quick brown fox jumps over the lazy dog-->
+						<textarea id="content" rows="3" cols="80">		  前面有tab和space，后面也有   		</textarea>
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">		
+		T('#btn-trim').on('click', function(e){
+			var str = baidu.string(T('#content').val());
+			T('#content').val(str.trim());
+		});
+	</script>
+>>>>>>> c6255ca33895ad779fb7083dfd7d33a74a4f5736
 </html>
