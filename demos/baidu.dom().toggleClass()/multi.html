@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().toggleClass() 示例" />
+		<title>添加或删除多个类</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+		<style>
+			#text_block{
+				border:1px solid gold;
+				background:#ccc;
+				padding:10px;
+			}
+			.striking{
+				color:red;
+				font-weight:bold;
+			}
+			.italic{
+				font-style: italic;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().toggleClass()</strong> 示例</h1>
+			<p class="ac-des">
+				在匹配的元素集合中的每个元素上添加或删除一个或多个className，如果存在就删除一个className，不存在就添加。
+			</p>
+
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).toggleClass(className)</li>
+				<li>参数: {String} className 要添加或者删除的className名（多个用空格间隔）</li>
+				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>在匹配的元素集合中的每个元素上添加或删除多个className</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">为下面的元素添加 class: striking 和 italic</a>
+					</div>
+					<div class="pannel-content-part">
+						<p id="text_block">我是一段测试文字。</p>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		baidu('#demo_btn').on('click',function(e){
+			baidu('#text_block').toggleClass('striking italic');
+			if(baidu('#text_block').hasClass('striking italic')){
+				baidu('#demo_btn').html('为下面的元素移除 class: striking 和 italic');
+				baidu('#demo_execute_result').html('class striking 已经添加');
+			}else{
+				baidu('#demo_btn').html('为下面的元素添加 class: striking 和 italic');
+				baidu('#demo_execute_result').html('class striking 已经移除');
+			}
+		});
+	</script>
+</html>

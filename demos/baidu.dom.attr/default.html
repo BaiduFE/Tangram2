@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.attr'></script>
+
+<style>
+
+p{
+	margin:8px;
+	font-size:16px;
+}
+.selected{
+	color:blue;
+}
+.highlight{
+	background:yellow;
+}
+</style>
+
+</head>
+<body>
+
+<input type='text' value='wangxiao'>
+<input type='text' value='wangxiao'>
+<input type='text' value='wangxiao'>
+<input type='text' value='wangxiao'>
+
+<button>test</button>
+
+<script>
+
+baidu("input").attr('value',function(index,attr){
+	alert(index);
+	alert(attr);
+	return 'test';
+});
+
+baidu("input").attr('value');
+
+//baidu("input").attr({'value':'test','disabled':'disabled'});
+
+//baidu("button").attr('disabled','disabled');
+
+//alert(baidu("input").attr('abc'));
+
+</script>
+</body>
+</html>

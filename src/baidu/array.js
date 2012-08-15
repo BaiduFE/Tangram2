@@ -1,21 +1,39 @@
-/// include baidu;
-/// include baidu.overwrite;
-/// include baidu.createChain;
+///import baidu;
+///import baidu.type;
+///import baidu.createChain;
+
+/*
+ * @fileoverview
+ * @author meizz
+ * @create 2012-05-20
+ * @modify
+ */
 
 /**
- * amz.array 所有与 Array 相关的操作方法都在此命名空间之下
- * 
- * @author: meizz
- * @namespace: baidu.array
- * @version: 2012-04-20
+ * @description array对象链式语法的链头
+ * @name baidu.array
+ * @function
+ * @grammer baidu.array(array)
+ * @param   {Array}         array   Array对象
+ * @return  {TangramArray}          返回TangramArray对象，该对象被注入链式方法。
  */
-baidu.createChain("array");
+baidu.createChain("array", function(array){
+    var pro = baidu.$Array.prototype
+        ,ap = Array.prototype
+        ,key;
 
-//*
-// 对系统方法新产生的array对象注入自定义方法，支持完美的链式语法
-baidu.overwrite(baidu.array.$Chain, "concat reverse slice".split(" "), function(key){
-    return function(){
-        return baidu.array(Array.prototype[key].apply(this, arguments));
+    baidu.type( array ) != "array" && ( array = [] );
+
+    for ( key in pro ) {
+        ap[key] || (array[key] = pro[key]);
     }
+
+    return array;
 });
-//*/
+
+// 对系统方法新产生的 array 对象注入自定义方法，支持完美的链式语法
+baidu.overwrite(baidu.$Array, "concat slice".split(" "), function(key) {
+	return function() {
+		return baidu.array( Array.prototype[key].apply(this, arguments) );
+	}
+});

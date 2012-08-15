@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().mouseenter() 示例" />
+		<title>集合添加 mouseenter 事件监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			#test {
+				border: 1px solid gray;
+				width: 300px;
+				height: 300px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().mouseenter()</strong> 示例</h1>
+			<p class="ac-des">
+				集合添加 mouseenter 事件监听
+			</p>
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.dom(args).mouseenter([data,]fn)
+				</li>
+				<li>
+					参数1: {Object} data 触发事件函数时，携带event.data 上的数据
+				</li>
+				<li>
+					参数2: {Function} fn 事件函数
+				</li>
+				<li>
+					返回: {TangramDom}
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>集合添加 mouseenter 事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+					</div>
+					<div class="pannel-content-part">
+						<div id="test">
+							当发生 mouseenter 和 mouseleave 事件时，测试区域背景会改变颜色。请试着鼠标指针穿过测试区域
+						</div>
+					</div>
+					<div class="pannel-show">
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var arr = ['mouseenter', 'mouseleave'];
+			baidu.array(arr).each(function(item, index) {
+				baidu('#test')[item](function(e) {
+					({
+					'mouseenter':function(){
+						baidu.dom(e.target).css('background-color', 'blue')
+					},
+					'mouseleave':function(){
+						baidu.dom(e.target).css('background-color', '#E9E9E4')
+					}
+					})[e.type]()
+				});
+			})
+		</script>
+	</body>
+</html>

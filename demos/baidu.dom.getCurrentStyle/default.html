@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type='text/css'>
+.div-css {
+    border: pink solid 2px;
+    width: 500px;
+}
+</style>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.getCurrentStyle'></script>
+</head>
+<body>
+<h3>取得div的computedStyle中的border</h3>
+<div id='div-one' class='div-css'>hello world div</div>
+<br/>
+<input type='button' value='getCurrentStyle()' onclick='main();'/>
+
+</body>
+<script type='text/javascript'>
+function main(){
+    var val = baidu.dom('#div-one').getCurrentStyle('width');
+    alert(val);
+}
+//
+</script>
+</html>
