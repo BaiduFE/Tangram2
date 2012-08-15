@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.ajax().request() 异步请求" />
+		<title>常规用法</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.ajax().request()</strong> 异步请求
+			</h1>
+			<p class="ac-des">
+				异步请求一个服务器资源
+			</p>
+			<h2 class="ac-h2">同步和异步</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.ajax(url).request(options) </li>
+				<li>参数: url {string} 指定要请求的地址 </li>
+				<li>参数: options.method {string} GET或POST，默认为GET</li>
+				<li>参数: options.onsuccess {function} 成功之后回调的函数，接受两个参数：xhr和responseText
+				<li>返回: 开启异步请求的XmlHttpRequest对象 </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>请求服务器时间</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<button id="request-time">请求服务器时间</button>
+					<p id="server-time"></p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>		
+		<script type="text/javascript">
+			baidu.dom('#request-time').on('click', function(){
+				baidu.ajax('servertime.php').request({
+					onsuccess: function(xhr, responseText){
+						baidu.dom('#server-time').html(responseText);
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().toCamelCase() 示例" />
+		<title>转换为骆驼命名法</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().toCamelCase()</strong> 示例</h1>
+			<p class="ac-des">
+				将'-'或'_'分割的单词转换为骆驼命名法，有时候这个函数能帮有良好命名习惯的您节省很多功夫
+			</p>
+			<h2 class="ac-h2">1. 将'-'或'_'分割的单词转换为骆驼命名法</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.string().toCamelCase()</li>
+				<li>返回: 转换为骆驼命名法的变量</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>根据Id调用函数</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->					
+					<p>下面有6个按钮，按钮上显示的是它们的id，绑定到同一个事件，但是根据id触发不同的函数</p>
+					<p>
+						<button id='get-year' class='command button'>get-year</button>
+						<button id='get-month' class='command button'>get-month</button>
+						<button id='get-day' class='command button'>get-day</button>
+						<button id='get_hours' class='command button'>get_hours</button>
+						<button id='get_minutes' class='command button'>get_minutes</button>
+						<button id='get_seconds' class='command button'>get_seconds</button>
+					</p>
+					<p id="demo-show-area">
+						
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">		
+		T('.command').on('click', function(e){
+			var func = baidu.string(e.target.id).toCamelCase();
+			var date = new Date();
+			T('#demo-show-area').html(baidu.string('#{0}: #{1}').format(func, date[func]()));  // @see baidu.string().format()
+		});
+	</script>
+</html>

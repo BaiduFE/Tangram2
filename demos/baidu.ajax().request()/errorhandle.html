@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.ajax().request() 异步请求" />
+		<title>出错处理</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.ajax().request()</strong> 异步请求
+			</h1>
+			<p class="ac-des">				
+				options中的处理错误最直接的参数是onfailure，请求失败时触发该函数，函数接受一个xhr参数
+				options中还可以直接处理onxxx的错误，比如on404，会在404响应发生时，调用该函数，函数接受一个xhr参数
+			</p>
+			<h2 class="ac-h2">错误处理</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.ajax(url).request(options) </li>
+				<li>参数: url {string} 指定要请求的地址 </li>
+				<li>参数: onbeforerequest {function} 请求前执行的操作
+				<li>参数: onfailure {function} 请求失败时回调的函数</li>
+				<li>参数: onxxx {function} xxx是http状态码；表示当服务器返回xxx状态时回调的函数</li>
+				<li>返回: 发出异步请求的XHR </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>错误处理</span>
+				</div>
+				<div class="pannel-content">
+					<p>本例请求的error.php，可以在指定服务器响应何种状态码</p>
+					<!--html view start-->
+					<p><label>让服务器响应：
+						<select id="status-code">
+							<option value="200" selected="selected">200 - OK</option>
+							<option value="400">400 - Bad Request</option>
+							<option value="401">401 - Unauthorized</option>
+							<option value="403">403 - Forbidden</option>
+							<option value="404">404 - Not Found</option>
+							<option value="500">500 - Internal Server Error</option>
+							<option value="503">503 - Service Unavailable</option>
+						</select>
+					</label></p>
+					<p><button id="request">请求，并等待响应</button>
+					<p id="status"></p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>		
+		<script type="text/javascript">
+			function request(){
+				function writeStatus(status){
+					baidu.dom('#status')[0].innerHTML += status + '<br />';
+				}
+				var cfg = {
+					method: 'POST',
+					data: 'code=' + baidu.dom('#status-code').val(),
+					onbeforerequest: function(){
+						baidu.dom('#status').empty();
+					},
+					onsuccess: function(xhr, responseText){
+						writeStatus('success.');
+					},
+					onfailure: function(xhr){
+						writeStatus('fail.')
+					}
+				}
+				baidu.array([200, 400, 401, 403, 404, 500, 503]).each(function(code){
+					cfg['on' + code] = function(xhr){
+						writeStatus(xhr.status + " - " + xhr.statusText);
+					}
+				});
+				baidu.ajax('error.php').request(cfg);
+			}
+			baidu.dom('#request').on('click', request);
+		</script>
+	</body>
+</html>
