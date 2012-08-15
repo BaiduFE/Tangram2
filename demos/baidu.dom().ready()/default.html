@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().ready() 示例" />
+		<title>baidu.dom().ready()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().ready()</strong> 示例</h1>
+			<p class="ac-des">
+				监听 documentDomReady 事件
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).ready(fn)</li>
+				<li>参数: {Function} fn 事件回调函数</li>
+				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象 </li>
+			</ul>
+			<script>
+				baidu.dom(document).ready(function(){
+					baidu('#demo_execute_result').html('我在 dom ready 后被写入');
+				});
+			</script>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>监听 documentDomReady 事件</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
