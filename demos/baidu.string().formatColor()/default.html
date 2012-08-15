@@ -1,0 +1,148 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().formatColor() 示例" />
+		<title>格式化颜色字符串</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().formatColor()</strong> 示例</h1>
+			<p class="ac-des">
+				将
+			</p>
+			<h2 class="ac-h2">1. 格式化颜色字符串为 #rrggbb 的形式</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.string().formatColor()</li>
+				<li>返回: '#rrggbb' 形式表示的颜色字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>格式化颜色字符串</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->					
+					<p class="pannel-content-tool">
+						<label for="color">颜色字符串</label>
+						<select id="color-select" name="color">
+							<option value="#f14Ac5">#f14Ac5</option>
+							<option value="black" selected>black</option>
+							<option value="rgb(11, 120, 153)">rgb(11, 120, 153)</option>
+							<option value="#69f">#69f</option>
+						</select>
+						or						
+						<input id="color-input" />
+						<button id="btn_format" class="button">格式化</button>
+					</p>
+					<p id="format-result">
+						
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+
+		function isColorInput(){
+			var val = baidu.dom('#color-input').val();
+			return val && val.trim().length > 0;
+		}
+
+		function getColor(){
+			return isColorInput() ? baidu.dom('#color-input').val() : baidu.dom('#color-select').val();
+		}
+
+		function getFormatedColor(){
+			return baidu.string(getColor()).formatColor();			
+		}
+
+		T('#btn_format').on('click', function(e){
+			var resultPattern = baidu.string('<span style="background-color: #{0}; width: 20px; height: 20px; display: inline-block;"></span> #{0}');
+			baidu.dom('#format-result')[0].innerHTML = resultPattern.format(getFormatedColor());
+		});
+
+		T('#color-input').on('change', function(e){
+			T('#color-select').attr('disabled', isColorInput() ? 'disabled' : null);
+		});
+		
+	</script>
+=======
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().formatColor() 示例" />
+		<title>格式化颜色字符串</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().formatColor()</strong> 示例</h1>
+			<p class="ac-des">
+				将
+			</p>
+			<h2 class="ac-h2">1. 格式化颜色字符串为 #rrggbb 的形式</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.string().formatColor()</li>
+				<li>返回: '#rrggbb' 形式表示的颜色字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>格式化颜色字符串</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->					
+					<p class="pannel-content-tool">
+						<label for="color">颜色字符串</label>
+						<select id="color-select" name="color">
+							<option value="#f14Ac5">#f14Ac5</option>
+							<option value="black" selected>black</option>
+							<option value="rgb(11, 120, 153)">rgb(11, 120, 153)</option>
+							<option value="#69f">#69f</option>
+						</select>
+						or						
+						<input id="color-input" />
+						<button id="btn_format" class="button">格式化</button>
+					</p>
+					<p id="format-result">
+						
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+
+		function isColorInput(){
+			var val = baidu.dom('#color-input').val();
+			return val && val.trim().length > 0;
+		}
+
+		function getColor(){
+			return isColorInput() ? baidu.dom('#color-input').val() : baidu.dom('#color-select').val();
+		}
+
+		function getFormatedColor(){
+			return baidu.string(getColor()).formatColor();			
+		}
+
+		T('#btn_format').on('click', function(e){
+			var resultPattern = baidu.string('<span style="background-color: #{0}; width: 20px; height: 20px; display: inline-block;"></span> #{0}');
+			baidu.dom('#format-result')[0].innerHTML = resultPattern.format(getFormatedColor());
+		});
+
+		T('#color-input').on('change', function(e){
+			T('#color-select').attr('disabled', isColorInput() ? 'disabled' : null);
+		});
+		
+	</script>
+>>>>>>> c6255ca33895ad779fb7083dfd7d33a74a4f5736
+</html>
