@@ -17,11 +17,10 @@
  */
 
 baidu.dom.extend({
-	delegate: function(selector, type, data, fn){
-        if(typeof data == "function"){
-            fn = data;
+	delegate: function( selector, type, data, fn ){
+        if( typeof data == "function" )
+            fn = data,
             data = null;
-        }
-    	return this.on(type, selector, data, fn);
+    	return this.on( type, selector, data, fn );
 	}
 });

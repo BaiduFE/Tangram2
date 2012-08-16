@@ -10,6 +10,7 @@
 ///import baidu.extend;
 ///import baidu.dom.triggerHandler;
 ///import baidu.dom.contains;
+///import baidu.dom.closest;
 
 baidu.dom._eventBase = function(){
 	var eventsCache = {
@@ -81,7 +82,7 @@ baidu.dom._eventBase = function(){
 			if( !selector )
 				return e.result = fn.apply( target, arguments );
 			if( t.is( selector ) || t.is( selector + " *" ) )
-				return e.result = fn.apply( target, arguments );
+				return e.result = fn.apply( baidu.dom( e.target ).closest( selector )[0], arguments );
 		};
 
 		var tangId = baidu.id( target );
