@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="根据索引获得指定元素" />
+		<title>baidu.dom().eq()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().eq()</strong>				
+			</h1>
+			<p class="ac-des">
+				根据索引获得Tangram Dom集合总指定的元素
+			</p>
+			<h2 class="ac-h2">调用说明</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).eq(index) </li>
+				<li>参数: index指定索引，如果为负数，则以最后一个元素为-1开始索引 </li>
+				<li>返回: 仅包含指定元素的TangramDom对象 </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>高亮指定索引的li</span>
+				</div>
+				<div class="pannel-content">					
+					<!--html view start-->					
+					<ul class="list">
+						<li>baidu.dom().eq()</li>
+						<li>可以选择集合中具有指定索引值的元素</li>
+						<li>如果索引为非负，则第一个元素为 0 开始索引</li>
+						<li>如果索引为负数，则以最后一个元素为 -1 开始索引</li>
+						<li>由于使用数字索引</li>
+						<li>此方法可以用来做一些轮询效果</li>
+						<li>比如本Demo</li>
+					</ul>
+					<p>baidu.dom("ul.list li").removeClass("hl").eq(<input id="index" type="text" value="0" />).addClass("hl"); <button id="btn-execute" class="button">执行</button><button id="btn-auto" class="button">自动执行</button><p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			#index{
+				width: 20px;
+			}
+			.hl{
+				color: red;
+				background-color: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			var auto_execute_id;
+			var list = baidu.dom('ul.list li'),
+				len = list.length;
+
+			function currentIndex(){
+				var el = baidu.dom('#index');
+				var index = el.val() * 1;				
+				if(index < 0){
+					if(--index < -len) index = 0;
+				}else{
+					if(++index >= len) index = -1;
+				}
+				el.val(index);
+				return index;
+			}
+
+			function execute(){
+				list.removeClass('hl').eq(currentIndex()).addClass('hl');
+			}
+			
+			function autoExecute(){
+				if(!auto_execute_id){
+					auto_execute_id = setInterval(execute, 80);
+					baidu.dom("#btn-auto").html('停止');
+				}else{
+					clearInterval(auto_execute_id);
+					auto_execute_id = 0;
+					baidu.dom("#btn-auto").html('自动执行')
+				}
+			}
+			baidu.dom('#btn-execute').on('click', execute);
+			baidu.dom('#btn-auto').on('click', autoExecute);
+		</script>
+	</body>
+</html>

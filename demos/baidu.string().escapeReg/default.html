@@ -1,0 +1,100 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().escapeReg() 示例" />
+		<title>baidu.string().escapeReg 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().escapeReg</strong> 示例</h1>
+			<p class="ac-des">
+				转义字符串中会影响正则表达式中的字符
+			</p>
+			<h2 class="ac-h2">1. 使用转义好的字符串进行搜索</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.string().escapeReg()</li>
+				<li>返回: 被转义的字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>在目标字符串中搜索'(男)'</span>
+				</div>
+				<div class="pannel-content">
+					<p>在下面的段落中搜索'(男)'</p>
+					<!--html view start-->
+					<a id="btn_search" class="button">搜索</a>
+					<p id="text-to-search">
+						王经理(女) 38岁 北京人<br/>
+						刘律师(男) 25岁 山东人<br/>
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script>
+		T('#btn_search').on('click', function(e){
+			var reg = baidu.string('(男)').escapeReg();
+			reg = new RegExp(reg);
+			var text = baidu.dom('#text-to-search').text();
+			var result = reg.exec(text);
+			alert(result);
+		});
+	</script>
+=======
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().escapeReg() 示例" />
+		<title>baidu.string().escapeReg 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().escapeReg</strong> 示例</h1>
+			<p class="ac-des">
+				转义字符串中会影响正则表达式中的字符
+			</p>
+			<h2 class="ac-h2">1. 使用转义好的字符串进行搜索</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.string().escapeReg()</li>
+				<li>返回: 被转义的字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>在目标字符串中搜索'(男)'</span>
+				</div>
+				<div class="pannel-content">
+					<p>在下面的段落中搜索'(男)'</p>
+					<!--html view start-->
+					<a id="btn_search" class="button">搜索</a>
+					<p id="text-to-search">
+						王经理(女) 38岁 北京人<br/>
+						刘律师(男) 25岁 山东人<br/>
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script>
+		T('#btn_search').on('click', function(e){
+			var reg = baidu.string('(男)').escapeReg();
+			reg = new RegExp(reg);
+			var text = baidu.dom('#text-to-search').text();
+			var result = reg.exec(text);
+			alert(result);
+		});
+	</script>
+>>>>>>> c6255ca33895ad779fb7083dfd7d33a74a4f5736
+</html>

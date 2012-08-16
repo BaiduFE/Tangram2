@@ -1,8 +1,8 @@
 ///import baidu.dom;
 ///import baidu.each;
+///import baidu.type;
 ///import baidu.dom.each;
 ///import baidu.dom.match;
-///import baidu.dom.g;
 
 /**
  * @fileoverview
@@ -33,14 +33,8 @@ baidu.dom.extend({
     }
 });
 
-baidu.dom.children = function (element) {
-    element = baidu.dom.g(element);
-
-    for (var children = [], tmpEl = element.firstChild; tmpEl; tmpEl = tmpEl.nextSibling) {
-        if (tmpEl.nodeType == 1) {
-            children.push(tmpEl);
-        }
-    }
-    
-    return children;    
+// TODO: delete it in feature
+baidu.dom.children = function(dom) {
+    baidu.paramCheck("string|HTMLElement","baidu.dom.children");
+    return baidu.dom( baidu.isString(dom) ? "#"+ dom : dom ).children().toArray();
 };
