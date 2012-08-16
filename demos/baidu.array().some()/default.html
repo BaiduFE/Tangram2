@@ -16,39 +16,51 @@
 			</p>
 
 			<ul class="ac-ul">
-				<li>语法: baidu.array().some(iterator[, context])</li>
-				<li>参数1: {Function} fn 用于做判断的函数</li>
-				<li>参数1: {Object} context 指定方法作用域</li>
-				<li>返回: {Boolean} 是否含有指定条件</li>
+				<li>
+					语法: baidu.array().some(iterator[, context])
+				</li>
+				<li>
+					参数1: {Function} fn 用于做判断的函数
+				</li>
+				<li>
+					参数1: {Object} context 指定方法作用域
+				</li>
+				<li>
+					返回: {Boolean} 是否含有指定条件
+				</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
 					<span>遍历当前数组是否拥有指定的条件</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>遍历数组['a',function(){console.log(1)},'身边','新知',1,'','d'],是否拥有指定的条件
+						<a class="button" id="demo_btn_1">点击运行</a>遍历数组['a','身边','新知',1,'d'],是否拥有指定的条件
 						<select id="param0">
 							<option value="isNaN(item)">不是数字</option>
 							<option value="item.length &gt; 1">长度大于1</option>
 							<option value="typeof(item)=='number'">是数字</option>
 							<option value="item.length &gt; 3">长度大于3</option>
 							<option value="item.length &lt; 1">长度小于1</option>
-						</select>					
+						</select>
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 		</div>
-	<script>
-		baidu('#demo_btn_1').on('click',function(e){
-			var value=baidu('#param0').val(),
-				arr = ['a',function(){console.log(1)},'身边','新知',1,'','d'],
-				result = baidu.array(arr).some(function (item, index) {return eval(value);});
-			baidu('#demo_execute_result_1').html( '结果：' + result);
-   		})
-	</script>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var value = baidu('#param0').val(), 
+					arr = ['a', '身边', '新知', 1, 'd'], 
+					result = baidu.array(arr).some(function(item, index) {
+						return eval(value);
+					});
+				baidu('#demo_execute_result_1').html('结果：' + result);
+			})
+		</script>
 	</body>
 </html>

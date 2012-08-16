@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.lang.guid() 示例" />
+		<title>baidu.lang.guid() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.lang.guid()</strong> 示例</h1>
+			<p class="ac-des">
+				返回一个当前页面的唯一标识字符串
+			</p>
+
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.lang.guid()
+				</li>
+				<li>
+					返回: {String} 当前页面的唯一标识字符串
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>返回一个当前页面的唯一标识字符串</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>返回一个当前页面的唯一标识字符串
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				baidu('#demo_execute_result_1').html('返回：' + baidu.lang.guid());
+			})
+		</script>
+	</body>
+</html>

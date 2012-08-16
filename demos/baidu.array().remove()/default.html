@@ -16,37 +16,43 @@
 			</p>
 
 			<ul class="ac-ul">
-				<li>语法: baidu.array().remove(item)</li>
-				<li>参数1: {Object} match 	数组匹配项</li>
-				<li>返回: {Array} 操作后的数组</li>
+				<li>
+					语法: baidu.array().remove(item)
+				</li>
+				<li>
+					参数1: {Object} match 	数组匹配项
+				</li>
+				<li>
+					返回: {Array} 操作后的数组
+				</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
 					<span>删除数组项</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>从数组['a','身边','新知',1,'','d','1'],移除项
+						<a class="button" id="demo_btn_1">点击运行</a>从数组['百科','身边','新知'],移除项
 						<select id="param0">
-							<option value="a">a</option>
-							<option value="">''</option>
-							<option value="1">1</option>
+							<option value="百科">百科</option>
 							<option value="身边">身边</option>
-						</select>					
+						</select>
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 		</div>
-	<script>
-		baidu('#demo_btn_1').on('click',function(e){
-			var value=baidu('#param0').val(),
-				arr = ['a','身边','新知',1,'','d','1'],
-				result = baidu.array(arr).remove(value);
-			baidu('#demo_execute_result_1').html( '移除：' + value + ';结果：' + result);
-   		})
-	</script>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var value = baidu('#param0').val(), 
+					arr = ['百科', '身边', '新知'], 
+					result = baidu.array(arr).remove(value);
+				baidu('#demo_execute_result_1').html('移除：' + value + '------结果：' + result);
+			})
+		</script>
 	</body>
 </html>
