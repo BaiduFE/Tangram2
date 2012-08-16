@@ -16,38 +16,48 @@
 			</p>
 
 			<ul class="ac-ul">
-				<li>语法: baidu.array().find([fn])</li>
-				<li>参数1: {Function} iterator 用于做对比的函数</li>
-				<li>返回: {Object} 匹配的项</li>
+				<li>
+					语法: baidu.array().find([fn])
+				</li>
+				<li>
+					参数1: {Function} iterator 用于做对比的函数
+				</li>
+				<li>
+					返回: {Object} 匹配的项
+				</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
 					<span>从数组中寻找符合条件的第一个元素</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>从数组['a',function(){console.log(1)},'身边','新知',1,'','d'],寻找符合条件的第一个元素
+						<a class="button" id="demo_btn_1">点击运行</a>从数组['a','身边','新知',1,'d'],寻找符合条件的第一个元素
 						<select id="param0">
 							<option value="isNaN(item)">不是数字</option>
 							<option value="item.length &gt; 1">长度大于1</option>
 							<option value="typeof(item)=='number'">是数字</option>
 							<option value="item.length &gt; 3">长度大于3</option>
 							<option value="item.length &lt; 1">长度小于1</option>
-						</select>					
+						</select>
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 		</div>
-	<script>
-		baidu('#demo_btn_1').on('click',function(e){
-			var value=baidu('#param0').val(),
-				arr = ['a',function(){console.log(1)},'身边','新知',1,'','d'],
-				result = baidu.array(arr).find(function (item, index) {return eval(value);});
-			baidu('#demo_execute_result_1').html( '条件：' + value + ';结果：' + result);
-   		})
-	</script>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var value = baidu('#param0').val(), 
+					arr = ['a', '身边', '新知', 1, 'd'], 
+					result = baidu.array(arr).find(function(item, index) {
+						return eval(value);
+					});
+				baidu('#demo_execute_result_1').html('符合条件的第一个元素为：' + result);
+			})
+		</script>
 	</body>
 </html>

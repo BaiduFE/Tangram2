@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.object.extend() 示例" />
+		<title>baidu.object.extend() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.object.extend()</strong> 示例</h1>
+			<p class="ac-des">
+				将源对象的所有属性拷贝到目标对象中，目标对象中与源对象key相同的成员将会被覆盖
+			</p>
+
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.object.extend(target, source)
+				</li>
+				<li>
+					参数1: {Object} target 目标对象
+				</li>
+				<li>
+					参数2: {Object} source 源对象
+				</li>
+				<li>
+					返回: {Object} 目标对象
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>将源对象的所有属性拷贝到目标对象中</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>将源对象
+						{'a':'one,two,three','b':'four,five,six', c: {a: 'a'}}
+						的所有属性拷贝到目标对象
+						{'f':'un,deux,thois','b':'hao123', c: {b: 'b'}}中
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var sou = {
+					'a' : 'one,two,three',
+					'b' : 'four,five,six',
+					c : {
+						a : 'a'
+					}
+				}, tar = {
+					'f' : 'un,deux,thois',
+					'b' : 'hao123',
+					c : {
+						b : 'b'
+					}
+				}, result = baidu.object.extend(tar, sou);
+				baidu('#demo_execute_result_1').html(baidu.json.stringify(result));
+			})
+		</script>
+	</body>
+</html>
