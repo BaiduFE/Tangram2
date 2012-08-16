@@ -16,17 +16,24 @@
 			</p>
 
 			<ul class="ac-ul">
-				<li>语法: baidu.array().contains(item)</li>
-				<li>参数1: {Any} item 被包含项</li>
-				<li>返回: {Boolean} 是否包含</li>
+				<li>
+					语法: baidu.array().contains(item)
+				</li>
+				<li>
+					参数1: {Any} item 被包含项
+				</li>
+				<li>
+					返回: {Boolean} 是否包含
+				</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
 					<span>判断一个数组中是否包含某一项</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>判断数组：['a',function(){console.log(1)},'身边','新知','1','','d'], 是否包含指定的项
+						<a class="button" id="demo_btn_1">点击运行</a>判断数组：['a','b','c','d'], 是否包含指定的项
 						<select id="param0">
 							<option value="1">1</option>
 							<option value="a">a</option>
@@ -36,16 +43,17 @@
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 
 		</div>
-	<script>
-		baidu('#demo_btn_1').on('click',function(e){
-			var arr = ['a',function(){console.log(1)},'身边','新知','1','','d'],
-				value=baidu('#param0').val();
-			baidu('#demo_execute_result_1').html(value + '：' + baidu.array(arr).contains(value));
-		});
-	</script>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var arr = ['a','b','c','d'], 
+					value = baidu('#param0').val();
+				baidu('#demo_execute_result_1').html(value + '：' + baidu.array(arr).contains(value));
+			});
+		</script>
 	</body>
 </html>

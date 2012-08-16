@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.lang.register() 示例" />
+		<title>baidu.lang.register() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.lang.register()</strong> 示例</h1>
+			<p class="ac-des">
+				向某个类注册插件
+			</p>
+
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.lang.register(Class, constructorHook, methods)
+				</li>
+				<li>
+					参数1: {Class} Class 接受注册的载体
+				</li>
+				<li>
+					参数2: {Function} constructorHook 运行在载体类构造器里钩子函数
+				</li>
+				<li>
+					参数3: {JSON} methods 挂载到载体类原型链上的方法集，可选
+				</li>
+				<li>
+					返回: {void}
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>向某个类注册插件</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>向类clazz添加插件函数，并在结果区域显示参数
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn_1').on('click', function(e) {
+				function People() {
+					this.name = 'jock';
+				}
+				var clazz = baidu.lang.createClass(People, baidu.lang.Class);			
+				baidu.lang.register(clazz, function(options) {
+					baidu('#demo_execute_result_1').html(options);
+				});
+				new clazz('a');
+			})
+		</script>
+	</body>
+</html>

@@ -16,33 +16,43 @@
 			</p>
 
 			<ul class="ac-ul">
-				<li>语法: baidu.array().each(iterator, context)</li>
-				<li>参数1: {Function} iterator(item, index, array) 枚举器，函数</li>
-				<li>参数2: {Object} context 方法作用域</li>
-				<li>返回: {TangramArray} 数组</li>
+				<li>
+					语法: baidu.array().each(iterator, context)
+				</li>
+				<li>
+					参数1: {Function} iterator(item, index, array) 枚举器，函数
+				</li>
+				<li>
+					参数2: {Object} context 方法作用域
+				</li>
+				<li>
+					返回: {TangramArray} 数组
+				</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
 					<span>枚举数组的每一项，作为指定函数执行的参数</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>枚举数组：['a',function(){console.log(1)},'身边','新知',1,'','d'], 并给出索引值
+						<a class="button" id="demo_btn_1">点击运行</a>枚举数组：['a','b','c','d'], 并给出索引值
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 		</div>
-	<script>
-		baidu('#demo_btn_1').on('click',function(e){
-			var arr = ['a',function(){console.log(1)},'身边','新知',1,'','d'];
-			baidu('#demo_execute_result_1').html('');
-			baidu.array(arr).each(function(item, index){
-				baidu('#demo_execute_result_1').html(baidu('#demo_execute_result_1').html() + index + ':' + item + ';');
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var arr = ['a', 'b', 'c', 'd'];
+				baidu('#demo_execute_result_1').html('');
+				baidu.array(arr).each(function(item, index) {
+					baidu('#demo_execute_result_1').html(baidu('#demo_execute_result_1').html() + index + ':' + item + ';');
+				});
 			});
-		});
-	</script>
+		</script>
 	</body>
 </html>

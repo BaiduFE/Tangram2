@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().mouseout() 示例" />
+		<title>集合添加 mouseout 事件监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().mouseout()</strong> 示例</h1>
+			<p class="ac-des">
+				集合添加 mouseout 事件监听
+			</p>
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.dom(args).mouseout([data,]fn)
+				</li>
+				<li>
+					参数1: {Object} data 触发事件函数时，携带event.data 上的数据
+				</li>
+				<li>
+					参数2: {Function} fn 事件函数
+				</li>
+				<li>
+					返回: {TangramDom}
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>集合添加 mouseout 事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						鼠标事件演示
+					</div>
+					<div class="pannel-content-part">
+						<input type="button" value="测试按钮" id="sendArea" />
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var arr = ['mouseover', 'mouseenter', 'mousemove', 'mousedown','mouseup', 'mouseout','mouseleave'];
+			baidu.array(arr).each(function(item, index) {
+				baidu('#sendArea')[item](function(e) {
+					baidu('#demo_execute_result_1')[0].innerHTML += '<p>鼠标事件：' + item + '</p>';
+				})
+			})			
+		</script>
+	</body>
+</html>

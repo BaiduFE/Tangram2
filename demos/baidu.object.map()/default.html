@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.object.map() 示例" />
+		<title>baidu.object.map() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.object.map()</strong> 示例</h1>
+			<p class="ac-des">
+				遍历object中所有元素，将每一个元素应用方法进行转换，返回转换后的新object
+			</p>
+
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.object.map(source, iterator)
+				</li>
+				<li>
+					参数1: {Array} target 需要遍历的object
+				</li>
+				<li>
+					参数2: {Function} iterator 对每个object元素进行处理的函数
+				</li>
+				<li>
+					返回: {Array} map后的object
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>遍历object中所有元素，将每一个元素应用方法进行转换，返回转换后的新object</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>应用方法（key+ item）转换对象{'a':1,'b':2,'c':3,'d':5}
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var obj = {
+					'a' : 1,
+					'b' : 2,
+					'c' : 3,
+					'd' : 5
+				}, result = baidu.object.map(obj, function(item, key) {
+					return key + item
+				});
+				baidu('#demo_execute_result_1').html(baidu.json.stringify(result));
+			})
+		</script>
+	</body>
+</html>

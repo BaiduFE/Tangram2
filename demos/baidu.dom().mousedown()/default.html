@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().mousedown() 示例" />
+		<title>集合添加 mousedown 事件监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().mousedown()</strong> 示例</h1>
+			<p class="ac-des">
+				集合添加 mousedown 事件监听
+			</p>
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.dom(args).mousedown([data,]fn)
+				</li>
+				<li>
+					参数1: {Object} data 触发事件函数时，携带event.data 上的数据
+				</li>
+				<li>
+					参数2: {Function} fn 事件函数
+				</li>
+				<li>
+					返回: {TangramDom}
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>集合添加 mousedown 事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<p>
+							当发生 mousedown 和 mouseup 事件时，测试按钮边框会改变颜色。请试着点击测试按钮
+						</p>
+					</div>
+					<div class="pannel-content-part">
+						<button>
+							测试按钮
+						</button>
+					</div>
+					<div class="pannel-show">
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('.pannel-content-part button').mousedown(function() {
+				baidu.dom(this).css('border', '1px solid red')
+			});
+			baidu('.pannel-content-part button').mouseup(function() {
+				baidu.dom(this).css('border', '1px solid yellow')
+			});
+		</script>
+	</body>
+</html>
