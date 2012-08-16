@@ -355,3 +355,44 @@ function prepareTest(){
 	body.prop('id','body');
 
 };
+
+//老接口
+test('Element',function(){
+	expect(4);
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	div.id = 'div_id';
+	equal(div.style.display,"","div display is show");
+	baidu.dom.hide(div);
+	equal(div.style.display,"none",'after hide');
+	div.style.display = "";
+	equal(div.style.display,"",'change display of div');
+	baidu.dom.hide(div);
+	equal(div.style.display,'none','hide again');
+	document.body.removeChild(div);
+})
+
+test('id',function(){
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	div.id = 'div_id';
+	equal(div.style.display,"","div display is show");
+	baidu.dom.hide('div_id');
+	equal(div.style.display,"none",'after hide');
+	document.body.removeChild(div);
+})
+
+test('shortcut',function(){
+	expect(3);
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	div.id = 'div_id';
+	baidu.hide('div_id');
+	
+	equal(div.style.display,"none",'after hide');
+	div.style.display = "";
+	equal(div.style.display,"",'back to show');
+	baidu.hide(div);
+	equal(div.style.display,"none",'hide again');
+	document.body.removeChild(div);
+})
