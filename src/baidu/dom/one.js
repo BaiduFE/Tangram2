@@ -20,10 +20,9 @@ baidu.dom.extend({
 	one: function( type, data, fn ){
 		var me = this;
 
-		if( typeof data == "function" ){
-			fn = data;
+		if( typeof data == "function" )
+			fn = data,
 			data = undefined;
-		}
 
 		if( typeof type == "object" && type ){
 		    baidu.each( type, function( fn, type ){
@@ -33,7 +32,7 @@ baidu.dom.extend({
 		}
 
 		var newfn = function(){
-			me.off( type, newfn );
+			baidu.dom( this ).off( type, newfn );
 		    return fn.apply( me, arguments );
 		};
 

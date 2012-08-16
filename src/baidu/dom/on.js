@@ -39,17 +39,16 @@ baidu.dom.extend({
     	var eb = baidu.dom._eventBase;
     	var specials = { mouseenter: 1, mouseleave: 1, focusin: 1, focusout: 1 };
 
-	    if( typeof selector == "object" && selector ){
-	    	fn = data;
-	        data = selector;
+	    if( typeof selector == "object" && selector )
+	    	fn = data,
+	        data = selector,
 	        selector = null;
-	    }else if( typeof data == "function" ){
-	    	fn = data;
+	    else if( typeof data == "function" )
+	    	fn = data,
 	    	data = null;
-	    }else if( typeof selector == "function" ){
-	    	fn = selector;
+	    else if( typeof selector == "function" )
+	    	fn = selector,
 	    	selector = data = null;
-	    }
 
 		if( typeof events == "string" ){
 		    events = events.split(/[ ,]+/);
