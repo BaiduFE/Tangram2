@@ -38,4 +38,3 @@ baidu.dom.children = function(dom) {
     baidu.paramCheck("string|HTMLElement","baidu.dom.children");
     return baidu.dom( baidu.isString(dom) ? "#"+ dom : dom ).children().toArray();
 };
-
