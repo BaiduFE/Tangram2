@@ -20,7 +20,7 @@
 			<ul class="ac-ul">
 				<li>语法: baidu.ajax(url).get(onsuccess) </li>
 				<li>参数: url {string} 指定要请求的地址 </li>
-				<li>参数: onsuccess {function} 请求成功时，回调的函数
+				<li>参数: onsuccess {function} 请求成功时，回调的函数</li>
 				<li>返回: 开启异步请求的XmlHttpRequest对象 </li>
 			</ul>
 			<div class="pannel">
@@ -29,8 +29,12 @@
 				</div>
 				<div class="pannel-content">
 					<!--html view start-->
-					<button id="request-source">请求baidu.ajax.get的源代码</button>
-					<pre id="source-code"></pre>
+					<div class="pannel-content-tool">
+						<span id="request-source" class="button">读取联系人信息</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
 					<!--html view end-->
 				</div>
 			</div>
@@ -38,7 +42,8 @@
 		<script type="text/javascript">
 			baidu.dom('#request-source').on('click', function(){
 				baidu.ajax('get.js').get(function(xhr, responseText){
-					baidu.dom('#source-code').html(responseText);
+					var data = eval(responseText);
+					baidu.dom('#demo_execute_result').html('name:'+data.name+', age:'+data.age+', city:'+data.city+', email:'+data.email);
 				});
 			});
 		</script>

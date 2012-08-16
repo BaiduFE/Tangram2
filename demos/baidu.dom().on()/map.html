@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().on() 示例" />
+		<title>map方式</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.d1{
+				color:red;
+			}
+			.d2{
+				color:green;
+			}
+			.d3{
+				color:blue;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().on()</strong> 示例</h1>
+			<p class="ac-des">
+				对当前 TangramDom 集合添加事件监听
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).on(eventsMap[,selector][,data])</li>
+				<li>参数: {Object} eventsMap 一个用 eventName: eventFn 键值对表示的 JSON 格式对象</li>
+				<li>参数: {String} selector 选择器表达式，用限制事件源对象范围，当符合表达式，才触发事件，此参数可选</li>
+				<li>参数: {Object} data 事件触发时携带的数据，JSON 格式，此参数可选。</li>
+				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象 </li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<p>下面的按钮同时监听了 click、mouseover、mouseout 事件，操作按钮查看运行结果</p>
+						<span class="button" id="demo_btn">按钮</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			
+			var eventsMap = {
+				click: function(){
+					baidu('#demo_execute_result').get(0).innerHTML += '<em class="d1">click</em>, ';
+				},
+				mouseover: function(){
+					baidu('#demo_execute_result').get(0).innerHTML += '<em class="d2">mouseover</em>, ';
+				},
+				mouseout: function(){
+					baidu('#demo_execute_result').get(0).innerHTML += '<em class="d3">mouseout</em>, ';
+				}
+			}
+			
+			baidu('#demo_btn').on(eventsMap);
+		</script>
+	</body>
+</html>

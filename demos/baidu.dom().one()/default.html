@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().one() 示例" />
+		<title>baidu.dom().one()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.demo_text{
+				padding:5px 10px;
+				border:1px dotted #ccc;
+				cursor:pointer;
+			}
+			.hightlight{
+				color:red;
+				background:yellow;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().one()</strong> 示例</h1>
+			<p class="ac-des">
+				对当前 TangramDom 集合添加一次性事件监听
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).one(type[,data][,fn])</li>
+				<li>参数: {String} type 事件名称，如果是多个事件，以空格或半角逗号隔开</li>
+				<li>参数: {Object} data 事件触发时携带的数据，JSON 格式，此参数可选。</li>
+				<li>参数: {Function} fn 事件触发函数，fn 接受一个参数 e，为 baidu.event() 事件对象实例</li>
+				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象 </li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>为元素添加一次性事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<p>下面两个文本框，使用了同一个 handler 监听了 click 事件用以设置高亮</p>
+						<p class="demo_text" id="demo_text_on">我使用 <b>on</b> 监听</p>
+						<p class="demo_text" id="demo_text_one">我使用 <b>one</b> 监听，事件只能被触发一次</p>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			function handler(){
+				baidu(this).toggleClass('hightlight');
+			}
+			
+			baidu('#demo_text_on').on('click', handler);
+			baidu('#demo_text_one').one('click', handler);
+		</script>
+	</body>
+</html>
