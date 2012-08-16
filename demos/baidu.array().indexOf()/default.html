@@ -16,39 +16,48 @@
 			</p>
 
 			<ul class="ac-ul">
-				<li>语法: baidu.array().indexOf(match[, fromIndex])</li>
-				<li>参数1: {Object} match 匹配项</li>
-				<li>参数2: {Number} fromIndex 起始位置</li>
-				<li>返回: {Number} 指定元素的索引位置，查询不到时返回-1</li>
+				<li>
+					语法: baidu.array().indexOf(match[, fromIndex])
+				</li>
+				<li>
+					参数1: {Object} match 匹配项
+				</li>
+				<li>
+					参数2: {Number} fromIndex 起始位置
+				</li>
+				<li>
+					返回: {Number} 指定元素的索引位置，查询不到时返回-1
+				</li>
 			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
 					<span>查询数组中指定元素的索引位置</span>
 				</div>
 				<div class="pannel-content">
+					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-						<a class="button" id="demo_btn_1">点击运行</a>查询数组 ['a',function(){console.log(1)},'身边','新知',1,'d']中
+						<a class="button" id="demo_btn_1">点击运行</a>查询数组  ['a', '身边', '新知', 1, 'd']中
 						<select id="param0">
 							<option value="'a'">'a'</option>
 							<option value="'身边'">'身边'</option>
 							<option value="'百科'">'百科'</option>
 						</select>
-					位置					
+						位置
 					</div>
 					<div class="pannel-show">
 						运行结果：<span id="demo_execute_result_1"></span>
 					</div>
+					<!--DemoViewEnd-->
 				</div>
 			</div>
 		</div>
-	<script>
-		baidu('#demo_btn_1').on('click',function(e){
-			var value=eval(baidu('#param0').val()),
-				arr = ['a',function(){console.log(1)},'身边','新知',1,'d'],
-				result = baidu.array(arr).indexOf(value);
-			baidu('#demo_execute_result_1').html(result);
-			
-   		})
-	</script>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var value = baidu('#param0').val(), 
+					arr = ['a', '身边', '新知', 1, 'd'], 
+					result = baidu.array(arr).indexOf(eval(value));
+				baidu('#demo_execute_result_1').html(result);
+			})
+		</script>
 	</body>
 </html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.object.keys() 示例" />
+		<title>baidu.object.keys() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.object.keys()</strong> 示例</h1>
+			<p class="ac-des">
+				获取目标对象的键名列表
+			</p>
+
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.object.keys(source)
+				</li>
+				<li>
+					参数1: {Object} source 目标对象
+				</li>
+				<li>
+					返回: {Array} 键名列表
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>获取目标对象的键名列表</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>
+						获取目标对象{a:1,b:2,c:3,d:4,e:5}的键名列表
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var obj = {
+					a : 1,
+					b : 2,
+					c : 3,
+					d : 4,
+					e : 5
+				}, target = baidu.object.keys(obj);
+				baidu('#demo_execute_result_1').html(target.join(','));
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().submit() 示例" />
+		<title>集合触发 submit 事件</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style type="text/css">
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().submit()</strong> 示例</h1>
+			<p class="ac-des">
+				集合触发 submit 事件
+			</p>
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.dom(args).submit()
+				</li>
+				<li>
+					返回: {TangramDom}
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>集合触发 submit 事件</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool"></div>
+					<div class="pannel-content-part">
+						<button>
+							触发表单域的 submit 事件
+						</button>
+						<br/><br/>
+						<form name="input" action="" method="get">
+							First name:
+							<input type="text" name="FirstName" value="Mickey" size="20">
+							<br /><br />
+							Last name:
+							<input type="text" name="LastName" value="Mouse" size="20">
+							<br /><br />
+							<input type="submit" value="Submit">
+						</form>
+					</div>
+					<div class="pannel-show"></div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('.pannel-content-part form').submit(function(e) {
+				alert('表单已提交 ');
+			});
+			// trigger
+			baidu('.pannel-content-part button').click(function() {
+				baidu('.pannel-content-part form').submit();
+			});
+		</script>
+	</body>
+</html>
