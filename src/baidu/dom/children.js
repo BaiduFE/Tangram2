@@ -2,6 +2,7 @@
 ///import baidu.each;
 ///import baidu.dom.each;
 ///import baidu.dom.match;
+///import baidu.dom.g;
 
 /**
  * @fileoverview
@@ -31,3 +32,15 @@ baidu.dom.extend({
         return baidu.dom( baidu.dom.match(a, selector) );
     }
 });
+
+baidu.dom.children = function (element) {
+    element = baidu.dom.g(element);
+
+    for (var children = [], tmpEl = element.firstChild; tmpEl; tmpEl = tmpEl.nextSibling) {
+        if (tmpEl.nodeType == 1) {
+            children.push(tmpEl);
+        }
+    }
+    
+    return children;    
+};
