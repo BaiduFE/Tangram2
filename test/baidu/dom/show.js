@@ -355,3 +355,49 @@ function prepareTest(){
 	body.prop('id','body');
 
 };
+
+
+//老接口
+test('Element',function(){
+	expect(4);
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	div.id = 'div_id';
+	equal(div.style.display,"","div display is show");
+	baidu.dom.show(div);
+	equal(div.style.display,"",'after show');
+	div.style.display = "none";
+	equal(div.style.display,"none",'change display of div');
+	baidu.dom.show(div);
+	equal(div.style.display,"",'show again');
+	document.body.removeChild(div);
+})
+
+test('id',function(){
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	div.id = 'div_id';
+	equal(div.style.display,"","div display is show");
+	baidu.dom.show('div_id');
+	equal(div.style.display,"","div display after show");
+	div.style.display ='none';
+	baidu.dom.show('div_id');
+	equal(div.style.display,"",'after show');
+	document.body.removeChild(div);
+})
+
+test('shortcut',function(){
+	expect(3);
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	div.id = 'div_id';
+	baidu.show('div_id');
+	
+	equal(div.style.display,"",'after hide');
+	div.style.display = "none";
+	equal(div.style.display,"none",'back to hide');
+	baidu.show(div);
+	equal(div.style.display,"",'show again');
+	document.body.removeChild(div);
+})
+

@@ -22,8 +22,9 @@
  *             
  * @return {boolean} contained元素是否被包含于container元素的DOM节点上
  */
-baidu.dom.contains = function (container, contained) {
-
+baidu.dom.extend({
+contains : function ( contained) {
+	container = this[0];
     var g = baidu.dom._g;
     container = g(container);
     contained = g(contained);
@@ -32,4 +33,5 @@ baidu.dom.contains = function (container, contained) {
     return container.contains
         ? container != contained && container.contains(contained)
         : !!(container.compareDocumentPosition(contained) & 16);
-};
+}	
+});
