@@ -75,9 +75,10 @@
 </script>
 
 <h3>baidu(selector).one(event, data, fn)</h3>
-<input id="button-three" type="button" value="click me, and then click me once. (first, event.data.foo, then invalid)" />
+<input class="button-three" type="button" value="click me, and then click me once. (first, event.data.foo, then invalid)" />
+<input class="button-three" type="button" value="click me, and then click me once. (first, event.data.foo, then invalid)" />
 <script type="text/javascript">
-	baidu("#button-three").one("click", { foo: "bar" }, function(event){
+	baidu(".button-three").one("click", { foo: "bar" }, function(event){
 	    alert("event.data.foo = " + event.data.foo);
 	});
 </script>
