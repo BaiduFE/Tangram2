@@ -8,6 +8,7 @@
 /**
  * @description 判断是否为chrome浏览器
  * @name baidu.browser.chrome
+ * @function
  * @grammar baidu.browser.chrome
  * @see baidu.browser.ie,baidu.browser.firefox,baidu.browser.safari,baidu.browser.opera   
  * @property chrome chrome版本号

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().prepend() 示例" />
+		<title>使用函数</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.test_block{
+				margin-left:20px;
+				border:1px dotted red;
+				background:#FFF1F1;
+				padding:10px;
+			}
+			.test_block li{
+				padding:3px 0;
+				margin-left:20px;
+			}
+			.dynamic{
+				color:#FF3300;
+			}
+			.even{
+				background:yellow;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().prepend()</strong> 示例</h1>
+			<p class="ac-des">
+				在匹配的每个DOM元素内部的前端插入内容。
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).prepend(fn)</li>
+				<li>参数: {function} fn 支持一个函数作为参数，函数最终需要返回一个HTMLString|Element|TangramDom</li>
+				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>在匹配的每个DOM元素内部的前端插入内容  --- 传递函数参数</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">向下面列表的前端追加内容</span>
+					</div>
+					<div class="pannel-content-part">
+						<ul class="test_block" id="test_block">
+							<li>我是列表的第一项</li>
+						</ul>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			var counter = 1;
+			baidu('#demo_btn').on('click',function(e){
+				baidu.dom('#test_block').prepend(function(){
+					var extraClass = (counter++)%2 ? 'even' : '';
+					var list = '<li class="dynamic '+extraClass+'">我是由 prepend 添加的</li>';
+					return list;
+				});
+				baidu('#demo_execute_result').html('插入到目标容器成功');
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().mouseover() 示例" />
+		<title>集合添加 mouseover 事件监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			#test {
+				background:#fff;
+				width: 200px;
+				height: 200px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().mouseover()</strong> 示例</h1>
+			<p class="ac-des">
+				集合添加 mouseover 事件监听
+			</p>
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.dom(args).mouseover([data,]fn)
+				</li>
+				<li>
+					参数1: {Object} data 触发事件函数时，携带event.data 上的数据
+				</li>
+				<li>
+					参数2: {Function} fn 事件函数
+				</li>
+				<li>
+					返回: {TangramDom}
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>集合添加 mouseover 事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						鼠标事件演示
+					</div>
+					<div class="pannel-content-part">
+						<div id="test">
+							当发生 mouseover 和 mouseout 事件时，测试区域边框会改变颜色。请试着鼠标指针穿过测试区域<br/>不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件<br/>只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。
+						</div>
+					</div>
+					<div class="pannel-show">
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var arr = ['mouseover', 'mouseout'];
+			baidu.array(arr).each(function(item, index) {
+				baidu('#test')[item](function(e) {
+					({
+					'mouseover':function(){
+						baidu.dom(e.target).css('border', '1px solid red')
+					},
+					'mouseout':function(){
+						baidu.dom(e.target).css('border', '1px solid blue')
+					}
+					})[e.type]()
+				});
+			})
+		</script>
+	</body>
+</html>

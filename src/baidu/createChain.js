@@ -12,7 +12,7 @@
  * @description 创建链头对象，用于链式语法
  * @function
  * @name baidu.createChain
- * @grammer baidu.createChain(chainName[, fn[, constructor]])
+ * @grammar baidu.createChain(chainName[, fn[, constructor]])
  * @param   {String}    chainName   链头方法名，一般小写
  * @param   {Function}  fn          链头方法函数体
  * @param   {Function}  constructor 内部类的构造器

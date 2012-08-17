@@ -11,9 +11,9 @@
  * @description 当前集合第一个元素
  *
  * @function
- * @name baidu.dom.first
- * @grammar $DOM.first()
- * @return  {TangramDom}    new TangramDom
+ * @name baidu.dom().first()
+ * @grammar baidu.dom(args).first()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     first : function () {

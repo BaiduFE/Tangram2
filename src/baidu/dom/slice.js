@@ -9,14 +9,14 @@
 
 /**
  * @description 截取一段DOM对象
- *
  * @function
- * @name baidu.unique
- * @grammar $DOM.unique(start[, end])
+ * @name baidu.dom().slice()
+ * @grammar baidu.dom(args).slice(start[, end])
  * @param   {Number}        start   起始位置
  * @param   {Number}        end     [可选]结束位置
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
+
 baidu.dom.extend({
     slice : function(){
         var slice = Array.prototype.slice;

@@ -1,0 +1,130 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().format() 示例" />
+		<title>匿名参数</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().format</strong> 示例</h1>
+			<p class="ac-des">
+				格式化字符串
+			</p>
+			<h2 class="ac-h2">1. 按照参数顺序格式化字符串（匿名参数）</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.string().format(arg0, arg1, arg2 ...)</li>
+				<li>参数: 依次传入的用于替换字符串中的#{0}、#{1}、#{2}，注意，如果传入的arg0是一个object，将调用baidu.string().format(obj)重载</li>
+				<li>返回: 格式化好的字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>简单字符串拼凑</span>
+				</div>
+				<div class="pannel-content">
+					<p>简单日志示例</p>
+					<!--html view start-->					
+					<p class="pannel-content-tool">
+						<label for="module">日志模块：</label>
+						<select id="module" name="module">
+							<option value="UI">表现层</option>
+							<option value="Business" selected>业务层</option>
+							<option value="Storage">数据层</option>
+						</select>
+						<label for="content">日志内容：</label>
+						<input id="content" name="content" type="text" value="工作正常" />
+						<button id="btn_log" class="button">写一条日志</button>
+						<button id="btn_clear" class="button">清除</button>
+					</p>
+					<p id="log-content">
+						
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		T('#btn_log').on('click', function(e){
+			var logPattern = new baidu.string("[#{0}] [#{1}] #{2}<br/>");
+			var log = logPattern.format(
+				(new Date()).toLocaleTimeString(), 	//#{0}
+				baidu.dom("#module").val(), 		//#{1}
+				baidu.dom("#content").val());		//#{2}
+			baidu.dom("#log-content")[0].innerHTML += log;
+		});
+		T('#btn_clear').on('click', function(){
+			baidu.dom('#log-content').html('');
+		});
+		
+	</script>
+=======
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().format() 示例" />
+		<title>匿名参数</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().format</strong> 示例</h1>
+			<p class="ac-des">
+				格式化字符串
+			</p>
+			<h2 class="ac-h2">1. 按照参数顺序格式化字符串（匿名参数）</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.string().format(arg0, arg1, arg2 ...)</li>
+				<li>参数: 依次传入的用于替换字符串中的#{0}、#{1}、#{2}，注意，如果传入的arg0是一个object，将调用baidu.string().format(obj)重载</li>
+				<li>返回: 格式化好的字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>简单字符串拼凑</span>
+				</div>
+				<div class="pannel-content">
+					<p>简单日志示例</p>
+					<!--html view start-->					
+					<p class="pannel-content-tool">
+						<label for="module">日志模块：</label>
+						<select id="module" name="module">
+							<option value="UI">表现层</option>
+							<option value="Business" selected>业务层</option>
+							<option value="Storage">数据层</option>
+						</select>
+						<label for="content">日志内容：</label>
+						<input id="content" name="content" type="text" value="工作正常" />
+						<button id="btn_log" class="button">写一条日志</button>
+						<button id="btn_clear" class="button">清除</button>
+					</p>
+					<p id="log-content">
+						
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		T('#btn_log').on('click', function(e){
+			var logPattern = new baidu.string("[#{0}] [#{1}] #{2}<br/>");
+			var log = logPattern.format(
+				(new Date()).toLocaleTimeString(), 	//#{0}
+				baidu.dom("#module").val(), 		//#{1}
+				baidu.dom("#content").val());		//#{2}
+			baidu.dom("#log-content")[0].innerHTML += log;
+		});
+		T('#btn_clear').on('click', function(){
+			baidu.dom('#log-content').html('');
+		});
+		
+	</script>
+>>>>>>> c6255ca33895ad779fb7083dfd7d33a74a4f5736
+</html>

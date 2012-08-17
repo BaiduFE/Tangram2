@@ -36,7 +36,6 @@
  * @function 
  * @name baidu.ajax.request
  * @grammar baidu.ajax.request(url[, options])
- * @param {Object} url 发送请求的url地址
  * @param {Object} options 发送请求的选项参数
  * @param {String} options.method 请求发送的类型。默认为GET
  * @param {Boolean} options.async 是否异步请求。默认为true（异步）

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().val() 示例" />
+		<title>获取</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().val()</strong> 示例</h1>
+			<p class="ac-des">
+				获取匹配的元素集合中第一个元素或设置匹配的元素集合中每个元素的当前值
+			</p>
+			<h2 class="ac-h2">获取匹配的元素集合中第一个元素的当前值</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).val()</li>
+				<li>返回: {String|Number|Undefined} 获取匹配的元素集合中第一个元素的当前值。</li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>获取匹配的元素集合中第一个元素的当前值</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">获取下面input的值</a>
+					</div>
+					<div class="pannel-content-part">
+						<p >
+							<label for="demo_element_1">Project: </label>
+							<input type="text" value="Tangram" id="demo_element_1" />
+						</p>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var value = baidu('#demo_element_1').val();
+				baidu('#demo_execute_result').html(value);
+			});
+		</script>
+	</body>
+</html>

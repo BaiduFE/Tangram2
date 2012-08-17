@@ -5,7 +5,7 @@
 /**
  * @description 获得元素中的文本内容
  * @function 
- * @name baidu.dom().getText()
+ * @name baidu.dom.getText
  * @grammar baidu.dom(args).getText()
  * @param {Null} null 不传入任何函数
  * @return {String} 元素中文本的内容。
@@ -13,7 +13,7 @@
 /**
  * @description 获得元素中的文本内容
  * @function 
- * @name baidu.dom.getText()
+ * @name baidu.dom.getText
  * @grammar baidu.dom.getText(element)
  * @param {HTMLElement|string} element 目标元素或目标元素的id
  * @param {Null} null 不传入任何函数

@@ -10,6 +10,7 @@
 ///import baidu.extend;
 ///import baidu.dom.triggerHandler;
 ///import baidu.dom.contains;
+///import baidu.dom.closest;
 
 baidu.dom._eventBase = function(){
 	var eventsCache = {
@@ -73,14 +74,15 @@ baidu.dom._eventBase = function(){
 
 	var addEvent = function( target, name, fn, selector, data ){
 		var call = function( e ){
+		    var t = baidu.dom( e.target );
 			if( data && !e.data ) 
 				e.data = data;
 			if( e.triggerData ) 
 				[].push.apply( arguments, e.triggerData );
 			if( !selector )
 				return e.result = fn.apply( target, arguments );
-			if( baidu( e.target ).is( selector ) )
-				return e.result = fn.apply( target, arguments );
+			if( t.is( selector ) || t.is( selector + " *" ) )
+				return e.result = fn.apply( baidu.dom( e.target ).closest( selector )[0], arguments );
 		};
 
 		var tangId = baidu.id( target );
@@ -290,501 +292,501 @@ baidu.dom._eventBase = function(){
 baidu.dom._eventBase.method(
 
 /**
- * @description �?TangramDom 集合触发 blur 事件
+ * @description TangramDom集合触发 blur 事件
  * @function
  * @name baidu.dom().blur()
  * @grammar baidu.dom(args).blur()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 blur 事件监听
+ * @description TangramDom集合添加 blur 事件监听
  * @function
  * @name baidu.dom().blur()
  * @grammar baidu.dom(args).blur([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "blur",
 
 /**
- * @description �?TangramDom 集合触发 change 事件
+ * @description TangramDom集合触发 change 事件
  * @function
  * @name baidu.dom().change()
  * @grammar baidu.dom(args).change()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 change 事件监听
+ * @description TangramDom集合添加 change 事件监听
  * @function
  * @name baidu.dom().change()
  * @grammar baidu.dom(args).change([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "change",
 
 /**
- * @description �?TangramDom 集合触发 click 事件
+ * @description TangramDom集合触发 click 事件
  * @function
  * @name baidu.dom().click()
  * @grammar baidu.dom(args).click()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 click 事件监听
+ * @description TangramDom集合添加 click 事件监听
  * @function
  * @name baidu.dom().click()
  * @grammar baidu.dom(args).click([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
  "click",
 
 /**
- * @description �?TangramDom 集合触发 dblclick 事件
+ * @description TangramDom集合触发 dblclick 事件
  * @function
  * @name baidu.dom().dblclick()
  * @grammar baidu.dom(args).dblclick()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 dblclick 事件监听
+ * @description TangramDom集合添加 dblclick 事件监听
  * @function
  * @name baidu.dom().dblclick()
  * @grammar baidu.dom(args).dblclick([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "dblclick",
 
 /**
- * @description �?TangramDom 集合触发 error 事件
+ * @description TangramDom集合触发 error 事件
  * @function
  * @name baidu.dom().error()
  * @grammar baidu.dom(args).error()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 error 事件监听
+ * @description TangramDom集合添加 error 事件监听
  * @function
  * @name baidu.dom().error()
  * @grammar baidu.dom(args).error([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "error",
 
 /**
- * @description �?TangramDom 集合触发 focus 事件
+ * @description TangramDom集合触发 focus 事件
  * @function
  * @name baidu.dom().focus()
  * @grammar baidu.dom(args).focus()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 focus 事件监听
+ * @description TangramDom集合添加 focus 事件监听
  * @function
  * @name baidu.dom().focus()
  * @grammar baidu.dom(args).focus([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "focus", 
 
 /**
- * @description �?TangramDom 集合触发 focusin 事件
+ * @description TangramDom集合触发focusin 事件
  * @function
  * @name baidu.dom().focusin()
  * @grammar baidu.dom(args).focusin()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 focusin 事件监听
+ * @description TangramDom集合添加 focusin 事件监听
  * @function
  * @name baidu.dom().focusin()
  * @grammar baidu.dom(args).focusin([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "focusin",
 
 /**
- * @description �?TangramDom 集合触发 focusout 事件
+ * @description TangramDom集合触发focusout事件
  * @function
  * @name baidu.dom().focusout()
  * @grammar baidu.dom(args).focusout()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 focusout 事件监听
+ * @description TangramDom集合添加 focusout 事件监听
  * @function
  * @name baidu.dom().focusout()
  * @grammar baidu.dom(args).focusout([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "focusout",
 
 /**
- * @description �?TangramDom 集合触发 keydown 事件
+ * @description TangramDom集合触发 keydown 事件
  * @function
  * @name baidu.dom().keydown()
  * @grammar baidu.dom(args).keydown()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 keydown 事件监听
+ * @description TangramDom集合添加 keydown 事件监听
  * @function
  * @name baidu.dom().keydown()
  * @grammar baidu.dom(args).keydown([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "keydown", 
 
 /**
- * @description �?TangramDom 集合触发 keypress 事件
+ * @description TangramDom集合触发keypress事件
  * @function
  * @name baidu.dom().keypress()
  * @grammar baidu.dom(args).keypress()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 keypress 事件监听
+ * @description TangramDom集合添加 keypress 事件监听
  * @function
  * @name baidu.dom().keypress()
  * @grammar baidu.dom(args).keypress([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "keypress", 
 
 /**
- * @description �?TangramDom 集合触发 keyup 事件
+ * @description TangramDom集合触发 keyup 事件
  * @function
  * @name baidu.dom().keyup()
  * @grammar baidu.dom(args).keyup()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 keyup 事件监听
+ * @description TangramDom集合添加 keyup 事件监听
  * @function
  * @name baidu.dom().keyup()
  * @grammar baidu.dom(args).keyup([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "keyup",
 
 /**
- * @description �?TangramDom 集合触发 mousedown 事件
+ * @description TangramDom集合触发 mousedown 事件
  * @function
  * @name baidu.dom().mousedown()
  * @grammar baidu.dom(args).mousedown()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 mousedown 事件监听
+ * @description TangramDom集合添加 mousedown 事件监听
  * @function
  * @name baidu.dom().mousedown()
  * @grammar baidu.dom(args).mousedown([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
  "mousedown",
 
 /**
- * @description �?TangramDom 集合触发 mouseenter 事件
+ * @description TangramDom集合触发 mouseenter 事件
  * @function
  * @name baidu.dom().mouseenter()
  * @grammar baidu.dom(args).mouseenter()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseenter 事件监听
+ * @description TangramDom集合添加 mouseenter 事件监听
  * @function
  * @name baidu.dom().mouseenter()
  * @grammar baidu.dom(args).mouseenter([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseenter", 
 
 /**
- * @description �?TangramDom 集合触发 mouseleave 事件
+ * @description TangramDom集合触发 mouseleave 事件
  * @function
  * @name baidu.dom().mouseleave()
  * @grammar baidu.dom(args).mouseleave()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseleave 事件监听
+ * @description TangramDom集合添加 mouseleave 事件监听
  * @function
  * @name baidu.dom().mouseleave()
  * @grammar baidu.dom(args).mouseleave([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseleave", 
 
 /**
- * @description �?TangramDom 集合触发 mousemove 事件
+ * @description TangramDom集合触发 mousemove 事件
  * @function
  * @name baidu.dom().mousemove()
  * @grammar baidu.dom(args).mousemove()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 mousemove 事件监听
+ * @description TangramDom集合添加 mousemove 事件监听
  * @function
  * @name baidu.dom().mousemove()
  * @grammar baidu.dom(args).mousemove([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mousemove", 
 
 /**
- * @description �?TangramDom 集合触发 mouseout 事件
+ * @description TangramDom集合触发 mouseout 事件
  * @function
  * @name baidu.dom().mouseout()
  * @grammar baidu.dom(args).mouseout()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseout 事件监听
+ * @description TangramDom集合添加 mouseout 事件监听
  * @function
  * @name baidu.dom().mouseout()
  * @grammar baidu.dom(args).mouseout([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseout",
 
 /**
- * @description �?TangramDom 集合触发 mouseover 事件
+ * @description TangramDom集合触发 mouseover 事件
  * @function
  * @name baidu.dom().mouseover()
  * @grammar baidu.dom(args).mouseover()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseover 事件监听
+ * @description TangramDom集合添加 mouseover 事件监听
  * @function
  * @name baidu.dom().mouseover()
  * @grammar baidu.dom(args).mouseover([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseover",
 
 /**
- * @description �?TangramDom 集合触发 mouseup 事件
+ * @description TangramDom集合触发 mouseup 事件
  * @function
  * @name baidu.dom().mouseup()
  * @grammar baidu.dom(args).mouseup()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 mouseup 事件监听
+ * @description TangramDom集合添加 mouseup 事件监听
  * @function
  * @name baidu.dom().mouseup()
  * @grammar baidu.dom(args).mouseup([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "mouseup", 
 
 /**
- * @description �?TangramDom 集合触发 resize 事件
+ * @description TangramDom集合触发 resize 事件
  * @function
  * @name baidu.dom().resize()
  * @grammar baidu.dom(args).resize()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 resize 事件监听
+ * @description TangramDom集合添加 resize 事件监听
  * @function
  * @name baidu.dom().resize()
  * @grammar baidu.dom(args).resize([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "resize",
 
 /**
- * @description �?TangramDom 集合触发 scroll 事件
+ * @description TangramDom集合触发 scroll 事件
  * @function
  * @name baidu.dom().scroll()
  * @grammar baidu.dom(args).scroll()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 scroll 事件监听
+ * @description TangramDom集合添加 scroll 事件监听
  * @function
  * @name baidu.dom().scroll()
  * @grammar baidu.dom(args).scroll([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
  "scroll", 
 
 /**
- * @description �?TangramDom 集合触发 select 事件
+ * @description TangramDom集合触发 select 事件
  * @function
  * @name baidu.dom().select()
  * @grammar baidu.dom(args).select()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 select 事件监听
+ * @description TangramDom集合添加 select 事件监听
  * @function
  * @name baidu.dom().select()
  * @grammar baidu.dom(args).select([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "select", 
 
 /**
- * @description �?TangramDom 集合触发 submit 事件
+ * @description TangramDom集合触发 submit 事件
  * @function
  * @name baidu.dom().submit()
  * @grammar baidu.dom(args).submit()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 submit 事件监听
+ * @description TangramDom集合添加 submit 事件监听
  * @function
  * @name baidu.dom().submit()
  * @grammar baidu.dom(args).submit([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "submit", 
 
 /**
- * @description �?TangramDom 集合触发 load 事件
+ * @description TangramDom集合触发 load 事件
  * @function
  * @name baidu.dom().load()
  * @grammar baidu.dom(args).load()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 load 事件监听
+ * @description TangramDom集合添加 load 事件监听
  * @function
  * @name baidu.dom().load()
  * @grammar baidu.dom(args).load([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "load",
 
 /**
- * @description �?TangramDom 集合触发 unload 事件
+ * @description TangramDom集合触发 unload 事件
  * @function
  * @name baidu.dom().unload()
  * @grammar baidu.dom(args).unload()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 unload 事件监听
+ * @description TangramDom集合添加 unload 事件监听
  * @function
  * @name baidu.dom().unload()
  * @grammar baidu.dom(args).unload([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "unload",
 
 /**
- * @description �?TangramDom 集合触发 contextmenu 事件
+ * @description TangramDom集合触发 contextmenu 事件
  * @function
  * @name baidu.dom().contextmenu()
  * @grammar baidu.dom(args).contextmenu()
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 /**
- * @description �?TangramDom 集合添加 contextmenu 事件监听
+ * @description TangramDom集合添加 contextmenu 事件监听
  * @function
  * @name baidu.dom().contextmenu()
  * @grammar baidu.dom(args).contextmenu([data,]fn)
- * @param {Object} data 触发事件函数时，携带�?event.data 上的数据
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
  * @param {Function} fn 事件函数
- * @return TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 "contextmenu" );

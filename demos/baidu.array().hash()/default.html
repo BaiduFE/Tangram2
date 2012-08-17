@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.array().hash() 示例" />
+		<title>baidu.array().hash() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.array().hash()</strong> 示例</h1>
+			<p class="ac-des">
+				将两个数组参数合并成一个类似hashMap结构的对象，这个对象使用第一个数组做为key，使用第二个数组做为值，如果第二个参数未指定，则把对象的所有值置为true
+			</p>
+
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.array().hash(values)
+				</li>
+				<li>
+					参数1: {Object} values 匹配项
+				</li>
+				<li>
+					返回: {Array} 映射后的HASH对象
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>将两个数组参数合并成一个类似hashMap结构的对象</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>KEY数组 (共7项)['a','b','c','d','e','f','g'] 与VALUE数组(共5项) [1,2,3,4,5] 合并
+
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var valArr = [1, 2, 3, 4, 5], 
+					keyArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+				baidu('#demo_execute_result_1').html(baidu.json.stringify(baidu.array(keyArr).hash(valArr)));
+			})
+		</script>
+	</body>
+</html>

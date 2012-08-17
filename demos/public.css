@@ -1,0 +1,105 @@
+.demo * {
+	padding: 0; margin: 0;
+}
+.demo{
+	padding: 32px 20px 20px 20px; font-family: "宋体"; font-size: 14px;  
+}			
+.demo .ac-h1 {
+	font-size:24px; margin-bottom: 20px; color:#3C70A5; font-weight: 700; 
+}
+.demo .ac-h1 strong {
+	color:blue;
+}
+.demo .ac-des {
+	margin-bottom: 15px; line-height:22px;
+}
+.demo .ac-h2 {
+	font-size:18px; color:#3C70A5; margin:10px 0;
+}
+.demo .ac-h3 {
+	font-size:14px; color:#3C70A5; margin:10px 0;
+}
+.demo .ac-ul {
+	margin:10px 20px;
+}
+.demo .ac-ul li {
+	list-style-type:disc; line-height:24px;
+}
+.demo .ac-ol {
+	margin:10px 20px;
+}
+.demo .ac-ol li {
+	list-style-type:disc; line-height:24px;
+}
+.demo .ac_link, .ac-ul a, .ac-ol a {
+	color:#064581
+}
+.demo .ac_link:hover, .ac-ul a:hover, .ac-ol a:hover {
+	color:#990000;
+}
+.demo .ac-table {
+	width:100%; margin: 15px 0;
+}
+.demo .ac-table thead {
+	background: #cacaca;
+}
+.demo .ac-table thead td {
+	padding:10px; text-align:center;
+}		
+.demo .ac-table tbody td {
+	padding:5px;
+}	
+.demo .ac-table tbody em {
+	color: red; font-style:normal;
+}
+.demo .ac-table tbody a {
+	color: blue;
+}
+.demo .pannel {
+	border:1px solid #DFE9F6; border-radius:4px; background: #DFE9F6;
+}
+.demo .pannel-title {
+	padding: 10px; margin-bottom: 20px; background: #5088AE; box-shadow: 0 1px 0 0 #F4F8FD inset, -1px 0 0 0 #F4F8FD inset, 1px 0 0 0 #F4F8FD inset; 
+}
+.demo .pannel-content {
+	padding: 0 20px 20px 20px; 
+}
+.demo .codeview.pannel {
+	background: #cacaca;
+}
+.demo .fitsetArea {
+	width: 330px;
+}
+.demo .fitsetHead {
+	padding: 0 5px; font-size: 16px; font-weight:bold;
+}
+.demo .fitsetBody {
+	padding: 15px;
+}
+.demo .pannel{
+	margin-bottom:20px;
+}		
+.demo .pannel-content-part {
+	margin-bottom: 20px; padding-bottom: 20px;
+}
+.demo .pannel-content-part p {
+	margin-bottom: 8px;
+}
+.demo .pannel-content-tool {
+	margin-bottom:10px;
+}
+.demo .pannel-show {
+	background: #CBDDF3; padding: 10px;
+}
+.demo .button {
+	font-size: 14px; height: 25px; line-height: 25px; text-decoration: none; background-color: #E6F1F6; border: 1px solid #D8D8D8; border-radius: 5px 5px 5px 5px; color: #666666; cursor: pointer; padding: 3px 10px; text-align: center; margin:0 5px;
+}
+<<<<<<< HEAD
+.demo-clear:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.demo-clear{zoom:1;}
+=======
+remark{
+	color: red;
+	background-color: yellow;
+}
+>>>>>>> c6255ca33895ad779fb7083dfd7d33a74a4f5736

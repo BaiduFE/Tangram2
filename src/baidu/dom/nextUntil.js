@@ -12,13 +12,12 @@
 
 /**
  * @description 查找当前元素之后所有的同辈元素，直到遇到匹配的那个元素为止
- *
  * @function
- * @name baidu.dom.nextUntil
- * @grammar $DOM.nextUntil(selector[, filter])
+ * @name baidu.dom().nextUntil()
+ * @grammar baidu.dom(args).nextUntil(selector[, filter])
  * @param   {Object}            selector    选择器
  * @param   {String|Function}   filter      [可选]过滤函数
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     nextUntil : function (selector, filter) {

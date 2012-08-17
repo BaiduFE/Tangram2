@@ -13,11 +13,11 @@
  * @description 从元素本身开始，逐级向上级元素匹配，并返回最先匹配的元素
  *
  * @function
- * @name baidu.dom.closest
- * @grammar $DOM.closest(selector)
+ * @name baidu.dom().closest()
+ * @grammar baidu.dom(args).closest(selector)
  * @param   {Object}            selector    选择器
  * @param   {HTMLElement}       context     选择器适用范围
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     closest : function (selector, context) {

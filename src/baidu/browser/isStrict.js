@@ -2,7 +2,7 @@
 
 /**
  * @description 判断是否严格标准的渲染模式
- * @property isStrict 
+ * @function
  * @name baidu.browser.isStrict
  * @grammar baidu.browser.isStrict
  * @meta standard

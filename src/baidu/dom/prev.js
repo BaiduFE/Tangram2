@@ -13,10 +13,10 @@
  * @description 包含匹配的元素集合中每一个元素紧邻的前一个同辈元素的元素集合
  *
  * @function
- * @name baidu.dom.prev
- * @grammar $DOM.prev(filter)
+ * @name baidu.dom().prev()
+ * @grammar baidu.dom(args).prev(filter)
  * @param   {Object}        filter      [可选]过滤函数
- * @return  {TangramDom}    new TangramDom
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     prev : function (filter) {
