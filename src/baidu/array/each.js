@@ -33,8 +33,7 @@ void function () {
         return baidu.each(this, iterator, context || this);
     };
 
-    Array.prototype.each = fn;
-    Array.prototype.forEach = fn;
+    Array.prototype.each = Array.prototype.forEach = fn;
 
     // TODO: delete in tangram 3.0
     baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
