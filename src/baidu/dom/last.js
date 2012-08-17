@@ -1,4 +1,5 @@
 ///import baidu.dom;
+///import baidu.dom.g;
 
 /**
  * @fileoverview
@@ -20,3 +21,15 @@ baidu.dom.extend({
         return baidu.dom(this.get(-1));
     }
 });
+
+baidu.dom.last = function(element) {
+    element = baidu.dom.g(element);
+
+    for (var node = element.lastChild; node; node = node.previousSibling) {
+        if (node.nodeType == 1) {
+            return node;
+        }
+    }
+
+    return null;
+};

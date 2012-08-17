@@ -1,4 +1,6 @@
 ///import baidu.dom;
+///import baidu.dom.children;
+///import baidu.type;
 
 /**
  * @fileoverview
@@ -20,3 +22,9 @@ baidu.dom.extend({
         return baidu.dom(this[0]);
     }
 });
+
+baidu.dom.first = function(e) {
+    baidu.isString(e) && (e = "#"+ e);
+
+    return baidu.dom(e).children()[0];
+};
