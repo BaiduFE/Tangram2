@@ -28,6 +28,6 @@ void function () {
 
     // TODO: delete in tangram 3.0
     baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
-        return baidu.isEnumerable(array) ? baidu.each(array, iterator, context) : array;
+        return baidu.isEnumerable(array) ? baidu.each(array, iterator, context || array) : array;
     };
 }();
