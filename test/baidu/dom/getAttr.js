@@ -42,7 +42,7 @@ test('遍历所有元素类型', function() {
 			+ ',acronym,code,samp,kbd,var,img,object,hr'
 			+ ',input,button,label,select,iframe').split(',');
 	expect(eleNames.length);
-	for(var i in eleNames){
+	for(var i = 0; i < eleNames.length; i ++){
 		var ele = document.createElement(eleNames[i]);
 		ele.setAttribute('id',ele.tagName+"_ele");
 		equal(baidu.dom(ele).getAttr('id'),ele.tagName+"_ele",ele.tagName+" gets id attribute");
@@ -159,7 +159,7 @@ test('遍历所有元素类型', function() {
 			+ ',acronym,code,samp,kbd,var,img,object,hr'
 			+ ',input,button,label,select,iframe').split(',');
 	expect(eleNames.length);
-	for(var i in eleNames){
+	for(var i = 0; i < eleNames.length; i ++){
 		var ele = document.createElement(eleNames[i]);
 		ele.setAttribute('id',ele.tagName+"_ele");
 		equal(baidu.dom.getAttr(ele,'id'),ele.tagName+"_ele",ele.tagName+" gets id attribute");

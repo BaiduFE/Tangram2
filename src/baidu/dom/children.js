@@ -1,20 +1,23 @@
 ///import baidu.dom;
 ///import baidu.each;
+///import baidu.type;
 ///import baidu.dom.each;
 ///import baidu.dom.match;
 
 /**
  * @fileoverview
- * @name baidu.dom.children
  * @author meizz
- * @create 2012-05-28
+ * @create 2012-06-12
  * @modify
  */
 
 /**
- *
- * @param
- * @return
+ * @description 所有了元素的集合
+ * @function
+ * @name baidu.dom().children()
+ * @grammar baidu.dom(args).children(selector)
+ * @param   {Object}            selector    选择器
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     children : function (selector) {
@@ -29,3 +32,9 @@ baidu.dom.extend({
         return baidu.dom( baidu.dom.match(a, selector) );
     }
 });
+
+// TODO: delete it in feature
+baidu.dom.children = function(dom) {
+    baidu.paramCheck("string|HTMLElement","baidu.dom.children");
+    return baidu.dom( baidu.isString(dom) ? "#"+ dom : dom ).children().toArray();
+};

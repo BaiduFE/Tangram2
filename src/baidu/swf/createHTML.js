@@ -12,7 +12,7 @@
 ///import baidu.string.encodeHTML;
 
 /**
- * 创建flash对象的html字符串
+ * @description 创建flash对象的html字符串
  * @name baidu.swf.createHTML
  * @function
  * @grammar baidu.swf.createHTML(options)
@@ -44,7 +44,7 @@
  * 
  * @see baidu.swf.create
  * @meta standard
- * @returns {string} flash对象的html字符串
+ * @return {string} flash对象的html字符串
  */
 baidu.swf.createHTML = function (options) {
     options = options || {};

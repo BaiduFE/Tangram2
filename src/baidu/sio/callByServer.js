@@ -9,24 +9,33 @@
 ///import baidu.sio._createScriptTag;
 ///import baidu.sio._removeScriptTag;
 
+
 /**
- * 通过script标签加载数据，加载完成由服务器端触发回调
- * @name baidu.sio.callByServer
- * @function
- * @grammar baidu.sio.callByServer(url, callback[, opt_options])
- * @param {string} url 加载数据的url.
- * @param {Function|string} callback 服务器端调用的函数或函数名。如果没有指定本参数，将在URL中寻找options['queryField']做为callback的方法名.
- * @param {Object} opt_options 加载数据时的选项.
- * @config {string} [charset] script的字符集
- * @config {string} [queryField] 服务器端callback请求字段名，默认为callback
- * @config {Integer} [timeOut] 超时时间(单位：ms)，超过这个时间将不再响应本请求，并触发onfailure函数
- * @config {Function} [onfailure] timeOut设定后才生效，到达超时时间时触发本函数
- * @remark
- * 如果url中已经包含key为“options['queryField']”的query项，将会被替换成callback中参数传递或自动生成的函数名。
- * @meta standard
- * @see baidu.sio.callByBrowser
+ * @description 通过script标签加载数据，加载完成由服务器端触发回调
+ * @function 
+ * @name baidu.sio().callByServer()
+ * @grammar baidu.sio(url).callByServer(callback[, options])
+ * @param {function} callback 服务器端调用的函数或函数名。如果没有指定本参数，将在URL中寻找options['queryField']做为callback的方法名
+ * @param {Object} options [可选]加载数据时的选项
+ * @param {String} options.charset [可选]script的字符集
+ * @param {String} options.queryField [可选]服务器端callback请求字段名，默认为callback
+ * @param {Number} options.timeOut [可选]超时时间(单位：ms)，超过这个时间将不再响应本请求，并触发onfailure函数
+ * @param {function} options.onfailure [可选]timeOut设定后才生效，到达超时时间时触发本函数
  */
 
+/**
+ * @description 通过script标签加载数据，加载完成由服务器端触发回调
+ * @function 
+ * @name baidu.sio.callByServer
+ * @grammar baidu.sio.callByServer(url, callback[, options])
+ * @param {String} url 一个能够访问javascript的字符串路径地址
+ * @param {function} callback 服务器端调用的函数或函数名。如果没有指定本参数，将在URL中寻找options['queryField']做为callback的方法名
+ * @param {Object} options [可选]加载数据时的选项
+ * @param {String} options.charset [可选]script的字符集
+ * @param {String} options.queryField [可选]服务器端callback请求字段名，默认为callback
+ * @param {Number} options.timeOut [可选]超时时间(单位：ms)，超过这个时间将不再响应本请求，并触发onfailure函数
+ * @param {function} options.onfailure [可选]timeOut设定后才生效，到达超时时间时触发本函数
+ */
  
 baidu.sio.extend({
     callByServer : function( callback, opt_options) {

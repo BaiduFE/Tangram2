@@ -7,16 +7,18 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.find
  * @author meizz
  * @create 2012-06-12
  * @modify
  */
 
 /**
- * 按条件搜索目标元素集的所有子孙元素
- * @param   {selector|HTMLElement|$DOM}     selector
- * @return  {TangramDom}    new TangramDOM
+ * @description 按条件搜索目标元素集的所有子孙元素
+ * @function
+ * @name baidu.dom().find()
+ * @grammar baidu.dom(args).find(selector)
+ * @param   {Object}            selector    选择器
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     find : function (selector) {

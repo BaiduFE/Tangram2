@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type='text/javascript' src='../../src/import.php?f=baidu.deferred'></script>
+<style>
+p{
+	margin:8px;
+	font-size:16px;
+}
+.selected{
+	color:blue;
+}
+.highlight{
+	background:yellow;
+}
+</style>
+</head>
+<body>
+<p class='selected'>baidu</p>
+<p>google</p>
+<p>facebook</p>
+<script>
+
+var dtd = baidu.deferred(); // 新建一个deferred对象
+var wait = function(dtd){
+	var tasks = function(){
+		alert("执行完毕！");
+		dtd.resolve(); // 改变deferred对象的执行状态
+	};
+	setTimeout(tasks,5000);
+	return dtd;
+};
+
+baidu.when(wait(dtd))
+	.done(function(){ alert("哈哈，成功了！"); })
+	.fail(function(){ alert("出错啦！"); });
+</script>
+</body>
+</html>

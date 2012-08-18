@@ -8,13 +8,13 @@
 ///import baidu.dom.getPosition;
 ///import baidu.dom.ready;
 ///import baidu.dom.hasClass;
-///import baidu.event.on;
-///import baidu.event.un;
+///import baidu.dom.on;
+///import baidu.dom.off;
 ///import baidu.lang.isFunction;
 
 
 /**
- * 延迟加载图片. 默认只加载可见高度以上的图片, 随着窗口滚动加载剩余图片.注意: 仅支持垂直方向.
+ * @description 延迟加载图片. 默认只加载可见高度以上的图片, 随着窗口滚动加载剩余图片.注意: 仅支持垂直方向.
  * @name baidu.page.lazyLoadImage
  * @function
  * @grammar baidu.page.lazyLoadImage([options])

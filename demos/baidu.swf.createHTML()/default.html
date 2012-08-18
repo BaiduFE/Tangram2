@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.swf.createHTML() 示例" />
+		<title>baidu.swf.createHTML()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo-swfForm p {
+				padding: 3px 10px;
+			}
+			.label {
+				width: 100px;
+				display: inline-block;
+				text-align: right;
+				padding-right: 10px;
+			}
+			#demo_btn {
+				margin-left: 120px;
+			}
+			#code-area{
+				padding:10px;
+				border:1px dotted red;
+				background:#FFF1F1;
+				margin-bottom:10px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.swf.createHTML()</strong> 示例</h1>
+			<p class="ac-des">
+				创建flash对象的html字符串
+			</p>
+
+			<ul class="ac-ul">
+				<li>语法: baidu.swf.createHTML(options)</li>
+				<li>参数: {Object} options 创建flash的选项参数</li>
+				<li>返回: {string} flash对象的html字符串</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>在页面中创建一个flash对象</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<form class="pannel-content-tool" autocomplete="off" id="demo-swfForm">
+						<p><b>配置创建flash选项：</b></p>
+						<p><label for="id" class="label">id: </label><input type="text" value="flash" name="id" /></p>
+						<p><label for="url" class="label">value: </label><input type="text" value="http://tangram.baidu.com/demo/baidu_swf_create/test.swf" name="url" /></p>
+						<p><label for="width" class="label">width: </label><input type="text" value="360" name="width" /></p>
+						<p><label for="height" class="label">height: </label><input type="text" value="200" name="height" /></p>
+						<p><label class="label">loop: </label>
+							<label for="loop-Y">是</label><input checked type="radio" value="true" id="loop-Y" name="loop" />
+							<label for="loop-N">否</label><input type="radio" value="false" id="loop-N" name="loop" />
+						</p>
+						<p><label class="label">play: </label>
+							<label for="play-Y">是</label><input checked type="radio" value="true" id="play-Y" name="play" />
+							<label for="play-N">否</label><input type="radio" value="false" id="play-N" name="play" />
+						</p>
+					</form>
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn">生成html字符串 !</span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(){
+				//获取配置
+				var option = baidu.form(baidu('#demo-swfForm').get(0)).json(function(v, k){
+					if(k == 'url'){
+						return decodeURIComponent(v);
+					}else{
+						return v;
+					}
+				});
+				
+				//生成创建swf的HTML
+				var html = baidu.swf.createHTML(option);
+				html = baidu.string.encodeHTML(html);
+				
+				//向页面写入结果
+				var wrapper = baidu('#code-area');
+				if(!wrapper.length){
+					wrapper = baidu('<div id="code-area" />');
+				}
+				wrapper.html(html); 
+				baidu('#demo-swfForm').prepend(wrapper);
+			});
+			
+		</script>
+	</body>
+</html>

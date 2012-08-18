@@ -8,8 +8,7 @@
 ///import baidu.lang.isObject;
 
 /**
- * 判断一个对象是不是字面量对象，即判断这个对象是不是由{}或者new Object类似方式创建
- * 
+ * @description 判断一个对象是不是字面量对象，即判断这个对象是不是由{}或者new Object类似方式创建
  * @name baidu.object.isPlain
  * @function
  * @grammar baidu.object.isPlain(source)
@@ -17,7 +16,7 @@
  * @remark
  * 事实上来说，在Javascript语言中，任何判断都一定会有漏洞，因此本方法只针对一些最常用的情况进行了判断
  *             
- * @returns {Boolean} 检查结果
+ * @return {Boolean} 检查结果
  */
 baidu.object.isPlain  = function(obj){
     var hasOwnProperty = Object.prototype.hasOwnProperty,
@@ -33,7 +32,7 @@ baidu.object.isPlain  = function(obj){
         return false;
     }
 
-    //判断new fun()自定义对象的情况
+    //判断new fn()自定义对象的情况
     //constructor不是继承自原型链的
     //并且原型中有isPrototypeOf方法才是Object
     if ( obj.constructor &&

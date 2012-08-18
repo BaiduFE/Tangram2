@@ -2,9 +2,20 @@
  * @author dron
  */
 
-///import baidu.dom._eventBase;
+///import baidu.dom.on;
 ///import baidu.dom.each;
 ///import baidu.extend;
+///import baidu.dom.triggerHandler;
+
+/**
+ * @description 对指定的 TangramDom 集合派发指定的事件，并触发事件默认行为
+ * @function 
+ * @name baidu.dom().trigger()
+ * @grammar baidu.dom(args).trigger(type[,data])
+ * @param {String} type 事件类型
+ * @param {Array} data 触发事件函数时携带的参数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
+ */
 
 baidu.dom.extend({
 	trigger: function(){
@@ -14,8 +25,8 @@ baidu.dom.extend({
 		var ie = /msie/i.test(navigator.userAgent);
 
 		var keys = { keydown: 1, keyup: 1, keypress: 1 };
-		var mouses = { click: 1, dblclick: 1, mousedown: 1, mousemove: 1, mouseup: 1, mouseover: 1, mouseout: 1 };
-		var htmls = { abort: 1, blur: 1, change: 1, error: 1, focus: 1, load: ie ? 0 : 1, reset: 1, resize: 1, scroll: 1, select: 1, submit: 1, unload : ie ? 0 : 1 };
+		var mouses = { click: 1, dblclick: 1, mousedown: 1, mousemove: 1, mouseup: 1, mouseover: 1, mouseout: 1, mouseenter: 1, mouseleave: 1, contextmenu: 1 };
+		var htmls = { abort: 1, blur: 1, change: 1, error: 1, focus: 1, focusin: 1, focusout: 1, load: 1, unload: 1, reset: 1, resize: 1, scroll: 1, select: 1, submit: 1 };
 		
 		var bubblesEvents = { scroll : 1, resize : 1, reset : 1, submit : 1, change : 1, select : 1, error : 1, abort : 1 };
 
@@ -88,31 +99,31 @@ baidu.dom.extend({
 			return evnt;
 		};
 
-		var keyEvents = function(type, options){
-			options = parse(parameters["KeyEvents"], options);
+		var keyEvents = function( type, options ){
+			options = parse( parameters["KeyEvents"], options );
 			var evnt;
-			if(document.createEvent){
+			if( document.createEvent ){
 				try{
-					evnt = eventsHelper(type, "KeyEvents", options);
+					evnt = eventsHelper( type, "KeyEvents", options );
 				}catch(e){
 					try{
-						evnt = eventsHelper(type, "Events", options);
+						evnt = eventsHelper( type, "Events", options );
 					}catch(e){
-						evnt = eventsHelper(type, "UIEvents", options);
+						evnt = eventsHelper( type, "UIEvents", options );
 					}
 				}
 			}else{
 				options.keyCode = options.charCode > 0 ? options.charCode : options.keyCode;
-				evnt = eventObject(options);
+				evnt = eventObject( options );
 			}
 			return evnt;
 		};
 
-		var mouseEvents = function(type, options){
-			options = parse(parameters["MouseEvents"], options);
+		var mouseEvents = function( type, options ){
+			options = parse( parameters["MouseEvents"], options );
 			var evnt;
-			if(document.createEvent){
-				evnt = eventsHelper(type, "MouseEvents", options);
+			if( document.createEvent ){
+				evnt = eventsHelper( type, "MouseEvents", options );
 				if( options.relatedTarget && !evnt.relatedTarget ){
 					if("mouseout" == type.toLowerCase()){
 						evnt.toElement = options.relatedTarget;
@@ -128,26 +139,28 @@ baidu.dom.extend({
 		};
 
 		var htmlEvents = function(type, options){
-			options.bubbles = bubblesEvents.hasOwnProperty(type);
-			options = parse(parameters["HTMLEvents"], options);
+			options.bubbles = bubblesEvents.hasOwnProperty( type );
+			options = parse( parameters["HTMLEvents"], options );
+			
 			var evnt;
 			if(document.createEvent){
 				try{
-					evnt = eventsHelper(type, "HTMLEvents", options);
+					evnt = eventsHelper( type, "HTMLEvents", options );
 				}catch(e){
 					try{
-						evnt = eventsHelper(type, "UIEvents", options);
+						evnt = eventsHelper( type, "UIEvents", options );
 					}catch(e){
-						evnt = eventsHelper(type, "Events", options);
+						evnt = eventsHelper( type, "Events", options );
 					}
 				}
 			}else{
 				evnt = eventObject(options);
 			}
+
 			return evnt;
 		};
 
-		var fire = function(element, type, triggerData){
+		var fire = function( element, type, triggerData ){
 			var evnt;
 
 			var evnt = {
@@ -163,30 +176,30 @@ baidu.dom.extend({
 			};
 
 			if( keys[type] )
-				evnt = keyEvents(type, evnt);
+				evnt = keyEvents( type, evnt );
 			else if( mouses[type] )
-				evnt = mouseEvents(type, evnt);
+				evnt = mouseEvents( type, evnt );
 			else if( htmls[type] )
-				evnt = htmlEvents(type, evnt);
+				evnt = htmlEvents( type, evnt );
 			else
-			    throw(new Error(type + " is not support!"));
+			    return baidu( element ).triggerHandler( type, triggerData );
 
-			if(triggerData)
-			    evnt.triggerData = triggerData;
+			if( evnt ){
+				if( triggerData )
+				    evnt.triggerData = triggerData;
 
-			if(evnt){
-				if(element.dispatchEvent){
-					element.dispatchEvent(evnt);
-				}else if(element.fireEvent){
-					element.fireEvent("on" + type, evnt);
-				}
+				if( element.dispatchEvent )
+					element.dispatchEvent( evnt );
+				else if( element.fireEvent )
+					element.fireEvent( "on" + type, evnt );
 			}
 		};
 
-	    return function(type, triggerData){
+	    return function( type, triggerData ){
 			this.each(function(){
-				fire(this, type, triggerData);
+				fire( this, type, triggerData );
 			});
+			return this;
 		}
 	}()
 });

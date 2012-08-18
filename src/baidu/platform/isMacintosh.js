@@ -6,9 +6,11 @@
 ///import baidu.platform;
 
 /**
- * 判断是否为macintosh平台
+ * @description 判断是否为macintosh平台
+ * @function
+ * @name baidu.platform.isMacintosh
  * @property macintosh 是否为macintosh平台
- * @grammar baidu.platform.macintosh
+ * @grammar baidu.platform.isMacintosh
  * @meta standard
  * @see baidu.platform.x11,baidu.platform.windows,baidu.platform.iphone,baidu.platform.ipad,baidu.platform.android
  * @return {Boolean} 布尔值 

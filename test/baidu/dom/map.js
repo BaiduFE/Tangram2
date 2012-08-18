@@ -40,7 +40,7 @@ test('嵌套调用测试', 43, function () {
 			['-', '-', '-', 'div3', 'div4', 'div5'],
 			['-', '-', '-', '-', 'div4', 'div5'],
 			['-', '-', '-', '-', '-', 'div5'],
-			['-', '-', '-', '-', '-', '-'],
+			['-', '-', '-', '-', '-', '-']
 		];
 		equal(actual.length, expected.length, "length : ");
 		for (var i = 0; i < expected.length; i++) {

@@ -2,7 +2,25 @@
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
+/**
+ * @description 移除每个匹配元素的一个，多个或全部样式。
+ * @function 
+ * @name baidu.dom().removeClass()
+ * @grammar baidu.dom(args).removeClass(className)
+ * @param {String}  className 所要移除的一个或多个class属性名(多个用空格分隔)。
+ * @return {TangramDom} 接口最终返回之前匹配元素的TangramDom对象
+ */
 
+/**
+ * @description 移除每个匹配元素的一个，多个或全部样式。
+ * @function 
+ * @name baidu.dom().removeClass()
+ * @grammar baidu.dom(args).removeClass(fn)
+ * @param {Function}  fn(index, className) 这个函数返回一个或更多用空格隔开的要增加的样式名。接收元素的索引index和元素旧的样式名className作为参数。
+ * @return {TangramDom} 接口最终返回之前匹配元素的TangramDom对象
+ * @example baidu.dom("<div>").removeClass(function(index,className))
+ */
+ 
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.each;

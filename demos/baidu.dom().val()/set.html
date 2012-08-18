@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().val() 示例" />
+		<title>设置</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().val()</strong> 示例</h1>
+			<p class="ac-des">
+				获取匹配的元素集合中第一个元素或设置匹配的元素集合中每个元素的当前值
+			</p>
+			<h2 class="ac-h2">设置匹配的元素集合中每个元素的当前值</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).val(value)</li>
+				<li>参数：{String} value 一个文本字符串来设定每个匹配元素的值</li>
+				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象</li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>设置匹配的元素集合中每个元素的当前值</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">为下面的表单设置初始值</a>
+					</div>
+					<div class="pannel-content-part">
+						<form autocomplete="off">
+							<p>
+								<label for="demo_input_name">Name: </label>
+								<input type="text" id="demo_input_name" name="name" class="demo_input"/>
+							</p>
+							<p>
+								<label for="demo_input_name">Age: </label>
+								<input type="text" id="demo_input_age" name="age" class="demo_input" />
+							</p>
+							<p>
+								<label for="demo_input_city">City: </label>
+								<input type="text" id="demo_input_city" name="city" class="demo_input" />
+							</p>
+						</form>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				baidu('.demo_input').each(function(index, item){
+					switch (item.name){
+						case 'name':
+							baidu(item).val('Samuel');
+							break;
+						case 'age':
+							baidu(item).val('34');
+							break;
+						case 'city':
+							baidu(item).val('BeiJing');
+							break;
+					}
+				});
+				baidu('#demo_execute_result').html('操作成功');
+			});
+		</script>
+	</body>
+</html>

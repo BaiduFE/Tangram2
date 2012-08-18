@@ -1,19 +1,18 @@
 ///import baidu;
 ///import baidu.type;
 ///import baidu.extend;
-/**
+/*
  * @fileoverview
- * @name baidu.createChain
  * @author meizz
  * @create 2012-05-20
  * @modify
  */
 
 /**
- * 创建链头对象，用于链式语法
- *
- * @grammer baidu.createChain(chainName[, fn[, constructor]])
- *
+ * @description 创建链头对象，用于链式语法
+ * @function
+ * @name baidu.createChain
+ * @grammar baidu.createChain(chainName[, fn[, constructor]])
  * @param   {String}    chainName   链头方法名，一般小写
  * @param   {Function}  fn          链头方法函数体
  * @param   {Function}  constructor 内部类的构造器
@@ -61,12 +60,14 @@ baidu.createChain = function(chainName, fn, constructor) {
 };
 
 /**
- * 将系统对象上的方法重写到 自定义对象上去（为链式语法准备）
+ * @description 将系统对象上的方法重写到 自定义对象上去（为链式语法准备）
  *
- * @param   {Function}  Class   自定义的类
- * @param   {Object}    System  系统对象原型
- * @param   {Array|String}  methods 需要重写的方法名列表
- * @return  {Function}          自定义的类
+ * @function
+ * @grammar baidu.overwrite(Class, list, fn)
+ * @param   {Object}        Class   系统对象原型
+ * @param   {Array}         list    需要重写的方法名列表
+ * @param   {Function}      fn      被覆盖的函数
+ * @return  {Function}              自定义的类
  */
 baidu.overwrite = function(Class, list, fn) {
 	for (var i = list.length - 1; i > -1; i--) {

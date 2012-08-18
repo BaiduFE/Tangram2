@@ -8,6 +8,9 @@ var keyEvents = ['keydown', 'keypress', 'keyup'],
     uiEvents = ['blur', 'focus', 'focusin', 'focusout', 'change', 'select', 'submit'],
     htmlEvents = ['load', 'resize', 'unload'],
     etcEvents = ['error', 'scroll', 'contextmenu'];
+
+var ie = /msie/i.test( navigator.userAgent );
+
 function Elements(tagName, noInsert){
     var ele = this._ele = document.createElement(tagName || 'div');
     !noInsert && document.body.appendChild(ele);
@@ -50,6 +53,7 @@ test('bind event to div', function(){
     c.dispose();
 
     c = new Elements();
+
     baidu.dom(c.get()).on({
         'click': function(evt){
             equal(evt.data.tangId, 'Tangram', 'div click trigger');
@@ -60,7 +64,7 @@ test('bind event to div', function(){
             array.push('D');
         }
     }, {tangId: 'Tangram'}, function(){ ok(false, 'exception');});
-    
+
     ua.fireMouseEvent(c.get(), 'mouseout');//5
     ua.fireMouseEvent(c.get(), 'click');//6
     
@@ -118,7 +122,7 @@ test('div insert to span', function(){
 test('mouseenter, mouseleave', function(){
     stop();
     ua.importsrc('baidu.dom.trigger', function(){
-        expect(2);
+        // expect(2);
         var div = new Elements('div'),
             span = new Elements('span', true),
             innerDiv = new Elements('div', true);
@@ -166,16 +170,26 @@ test('focusin, focusout', function(){
     }, 'baidu.dom.trigger', 'baidu.dom.on');
 });
 
-test('Events', function(){
-    expect(keyEvents.length + mouseEvents.length + uiEvents.length + htmlEvents.length);
+test('keyEvents', function(){
+    expect( keyEvents.length );
     var c = new Elements('input'),
         input = c.get();
+
     $.each(keyEvents, function(index, item){
         baidu.dom(input)[item](function(evt){
             ok(true, 'event is: ' + evt.type)
         });
         baidu.dom(input)[item]();
     });
+    
+    c.dispose();
+});
+
+test('mouseEvents', function(){
+    expect( mouseEvents.length );
+    var c = new Elements('input'),
+        input = c.get();
+
     $.each(mouseEvents, function(index, item){
         baidu.dom(input)[item](function(evt){
             ok(true, 'event is: ' + evt.type)
@@ -183,18 +197,33 @@ test('Events', function(){
         baidu.dom(input)[item]();
     });
     
+    c.dispose();
+});
+
+test('uiEvents', function(){
+    expect( uiEvents.length );
+    var c = new Elements('input'),
+        input = c.get();
+
+    var f = new Elements('form'); // submit 事件要对应 form 标签
+
     $.each(uiEvents, function(index, item){
-        baidu.dom(input)[item](function(evt){
-            ok(true, 'event is: ' + evt.type)
+        var el = item == "submit" ? f.get() : input;
+        baidu.dom(el)[item](function(evt){
+            ok(true, 'event is: ' + evt.type);
+            evt.preventDefault();
         });
-        baidu.dom(input)[item]();
+        baidu.dom(el)[item]();
     });
-    $.each(htmlEvents, function(index, item){
-        baidu.dom(window)[item](function(evt){
-            ok(true, 'event is: ' + evt.type)
-        });
-        baidu.dom(input)[item]();
-    });
+    
+    c.dispose();
+});
+
+test('etcEvents', function(){
+    expect( etcEvents.length - ( ie ? 2 : 0 ) ); // ie 下 error 和 scroll 事件不知如何触发
+    var c = new Elements('input'),
+        input = c.get();
+
     $.each(etcEvents, function(index, item){
         baidu.dom(document)[item](function(evt){
             ok(true, 'event is: ' + evt.type);

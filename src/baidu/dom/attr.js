@@ -1,6 +1,45 @@
-/**
+/*
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
+ */
+
+/**
+ * @description 取得第一个匹配元素对应的属性值。
+ * @function 
+ * @name baidu.dom().attr()
+ * @grammar baidu.dom(args).attr(attributeName)
+ * @param {String} attributeName 要获取的值的对应属性名
+ * @return {String|undefined} 只获取第一个匹配元素的属性值，当属性没有被设置时候，.attr()方法将返回undefined。
+ */
+
+/**
+ * @description 为指定元素设置一个或多个属性。
+ * @function 
+ * @name baidu.dom().attr()
+ * @grammar baidu.dom(args).attr(attributeName,value)
+ * @param {String} attributeName 要设置值的属性名;
+ * @param {String} value 这个属性设置的值;
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+
+/**
+ * @description 为指定元素设置一个或多个属性。
+ * @function 
+ * @name baidu.dom().attr();
+ * @grammar baidu.dom(args).attr(object);
+ * @param {Object} object 一个配对的属性值的object对象
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+
+ /**
+ * @description 为指定元素设置一个或多个属性。
+ * @function 
+ * @name baidu.dom().attr();
+ * @grammar baidu.dom(args).attr(attributeName,fn);
+ * @param {String} attributeName 要设置值的属性名.
+ * @param {Function} fn 这个函数返回用来设置的值，this 是当前的元素，接收元素的索引位置index和元素旧的样属性值attr为参数。
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example baidu.dom(args).attr(attributeName,function(index,attr){});
  */
 
 ///import baidu;
@@ -23,14 +62,16 @@
 
 baidu.dom.extend({
     attr:function(name,value){
-    	
+
         //异常处理
         if(arguments.length <= 0 || typeof name === 'function'){
             return this;
         };
 
         //返回结果
-        var result;
+        var result,
+            me = this,
+            isSet = false;
 
         baidu.each(this, function(item,index){
 
@@ -49,24 +90,9 @@ baidu.dom.extend({
                 return;
             };
 
-            var attrFn = {
-                val: true,
-                css: true,
-                html: true,
-                text: true,
-                //data: true,
-                width: true,
-                height: true,
-                offset: true
-            };
-
-            if ( name in attrFn ) {
-                return bd( item )[ name ]( value );
-            };
-
             // Fallback to prop when attributes are not supported
             if ( typeof item.getAttribute === "undefined" ) {
-                return this.prop( name, value );
+                result = this.prop( name, value );
             };
 
             switch(typeof name){
@@ -92,18 +118,35 @@ baidu.dom.extend({
 
                             // Non-existent attributes return null, we normalize to undefined
                             //return ret === null ? undefined : ret;
-                            ret === null ? undefined : ret;
-                            result = ret;
+                            result = ret === null ? undefined : ret;
                         };
 
                     }else if( typeof value === 'function' ){
 
+                        isSet = true;
                         var ele = bd(item);
                         ele.attr(name,value.call(item, index, ele.attr(name)));
                     
                     }else{
                         
                         //set all
+                        isSet = true;
+                        var attrFn = {
+                            val: true,
+                            css: true,
+                            html: true,
+                            text: true,
+                            //data: true,
+                            width: true,
+                            height: true,
+                            offset: true
+                        };
+
+                        if ( name in attrFn ) {
+                            result = bd( item )[ name ]( value );
+                            return;
+                        };
+
                         if ( value === null ) {
                             bd(item).removeAttr( name );
                             return;
@@ -121,6 +164,7 @@ baidu.dom.extend({
                 case 'object':
 
                     //set all
+                    isSet = true;
                     var ele = bd(item);
                     for(key in name){
                         ele.attr(key,name[key]);
@@ -128,11 +172,11 @@ baidu.dom.extend({
 
                 break;
                 default:
+                    result = me;
                 break;
             };
         });
     
-        return result?result:this;
-
+        return isSet?this:result;
     }
 });

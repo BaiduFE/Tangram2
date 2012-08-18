@@ -4,20 +4,23 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.createElements
  * @author meizz
  * @create 2012-07-05
  * @modify
  */
 
 /**
- * 通过 HTMLString 创建 DOM 对象
+ * @description 通过 HTMLString 创建 DOM 对象
  *
- * @param   {HTMLString}    htmlstring
- * @return  {HTMLElement}
+ * @function
+ * @name baidu.dom.createElements
+ * @grammar baidu.dom.createElements(HTMLString)
+ * @param   {HTMLString}    htmlstring HTMLString
+ * @return  {$DOM}          new TangramDom
  */
 baidu.dom.createElements = function() {
-    var tagReg  = /^<(\w+)/i,
+    var tagReg  = /<(\w+)/i,
+        rhtml = /<|&#?\w+;/,
         tagMap  = {
             area    : [1, "<map>", "</map>"],
             col     : [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
@@ -64,10 +67,9 @@ baidu.dom.createElements = function() {
             result = [];
 
         if ( baidu.isString( hs ) ) {
-
-            // HTMLString to HTMLElement
-            if ( hs.charAt(0) == "<" &&  hs.charAt( n - 1 ) == ">" && n > 2) {
-            
+            if(!rhtml.test(hs)){// TextNode
+                result.push( doc.createTextNode( hs ) );
+            }else {//htmlString
                 wrap = tagMap[ hs.match( tagReg )[1].toLowerCase() ] || tagMap._default;
 
                 div.innerHTML = "<i>mz</i>" + wrap[1] + hs + wrap[2];
@@ -86,10 +88,6 @@ baidu.dom.createElements = function() {
                 } );
 
                 div = box = null;
-            
-            // TextNode
-            } else {
-                result.push( doc.createTextNode( hs ) );
             }
         }
 

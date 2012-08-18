@@ -3,26 +3,39 @@
  * @email  1988wangxiao@gmail.com
  */
 
-///import baidu.sio;
 ///import baidu.sio._createScriptTag;
 ///import baidu.sio._removeScriptTag;
 
+
 /**
- * 通过script标签加载数据，加载完成由浏览器端触发回调
+ * @description 通过script标签加载数据，加载完成由浏览器端触发回调
+ * @function 
+ * @name baidu.sio().callByBrowser()
+ * @grammar baidu.sio(url).callByBrowser(callback[, options])
+ * @param {function} callback 数据加载结束时调用的函数或函数名
+ * @param {Object} options 其他可选项
+ * @param {String} options.charset [可选]script的字符集
+ * @param {Number} options.timeOut [可选]超时时间，超过这个时间将不再响应本请求，并触发onfailure函数
+ * @param {function} options.onfailure [可选]timeOut设定后才生效，到达超时时间时触发本函数
+ */
+
+/**
+ * @description 通过script标签加载数据，加载完成由浏览器端触发回调
+ * @function 
  * @name baidu.sio.callByBrowser
- * @function
- * @grammar baidu.sio.callByBrowser(url, opt_callback, opt_options)
- * @param {string} url 加载数据的url
- * @param {Function|string} opt_callback 数据加载结束时调用的函数或函数名
- * @param {Object} opt_options 其他可选项
- * @config {String} [charset] script的字符集
- * @config {Integer} [timeOut] 超时时间，超过这个时间将不再响应本请求，并触发onfailure函数
- * @config {Function} [onfailure] timeOut设定后才生效，到达超时时间时触发本函数
- * @remark
+ * @grammar baidu.sio.callByBrowser(url, callback[, options])
+ * @param {function} callback 元素的ID名称或者直接传入元素本身
+ * @param {String} url 一个能够访问javascript的字符串路径地址
+ * @param {Object} options 元素的ID名称或者直接传入元素本身
+ * @param {String} options.charset [可选]script的字符集
+ * @param {Number} options.timeOut [可选]超时时间，超过这个时间将不再响应本请求，并触发onfailure函数
+ * @param {function} options.onfailure [可选]timeOut设定后才生效，到达超时时间时触发本函数
+ */
+
+
+/*
  * 1、与callByServer不同，callback参数只支持Function类型，不支持string。
  * 2、如果请求了一个不存在的页面，callback函数在IE/opera下也会被调用，因此使用者需要在onsuccess函数中判断数据是否正确加载。
- * @meta standard
- * @see baidu.sio.callByServer
  */
  
 baidu.sio.extend({

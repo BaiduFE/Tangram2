@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.array().remove() 示例" />
+		<title>baidu.array().removeAt() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.array().removeAt()</strong> 示例</h1>
+			<p class="ac-des">
+				删除数组指定的
+			</p>
+
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.array().removeAt(index)
+				</li>
+				<li>
+					参数1: {Number} index 	指定项的索引位置
+				</li>
+				<li>
+					返回: {Object} 被删除的项
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>删除数组指定的项</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>从数组['a','b','c','d','e','f','g'],移除索引为
+						<select id="param0">
+							<option value="1">1</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+						</select>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var value = baidu('#param0').val(), 
+					arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g'], 
+					result = baidu.array(arr).removeAt(eval(value));
+				baidu('#demo_execute_result_1').html('删除索引为：' + value + ' 的项;结果：' + result);
+			})
+		</script>
+	</body>
+</html>

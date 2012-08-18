@@ -6,9 +6,11 @@
 ///import baidu.platform;
 
 /**
- * 判断是否为android平台
+ * @description 判断是否为android平台
  * @property android 是否为android平台
- * @grammar baidu.platform.android
+ * @function
+ * @name baidu.platform.isAndroid
+ * @grammar baidu.platform.isAndroid
  * @meta standard
  * @see baidu.platform.x11,baidu.platform.windows,baidu.platform.macintosh,baidu.platform.iphone,baidu.platform.ipad
  * @return {Boolean} 布尔值

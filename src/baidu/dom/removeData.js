@@ -2,6 +2,7 @@
 ///import baidu.dom;
 ///import baidu.each;
 ///import baidu.type;
+///import baidu.global;
 
 /**
  * @fileoverview
@@ -13,17 +14,16 @@
 
 /**
  * 在 DOM 对象上存储数据
- * @grammer TangramDom.data([key[, value]])
+ * @grammar TangramDom.data([key[, value]])
  * @param
  * @return
  */
 baidu.dom.extend({
     removeData : function () {
-        var global = window[ baidu.guid ]
-            , guid = baidu.id.key
-            , maps = global._HTMLElementDataMaps = global._HTMLElementDataMaps || {};
+        var   guid = baidu.key
+            , maps = baidu.global("_maps_HTMLElementData");
 
-        return function( key, value ) {
+        return function( key ) {
             baidu.each( this, function( dom ) {
                 !dom[ guid ] && ( dom[ guid ] = baidu.id() );
             });

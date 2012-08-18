@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().outerWidth() 示例" />
+		<title>获取outerWidth</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo_block_1{
+				background: gold;
+				padding:20px;
+				cursor:pointer;
+				font-weight:bold;
+				border:10px solid #ccc;
+				margin:15px;
+			}
+			#demo_block_1:hover{
+				background:#EAC200;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().outerWidth()</strong> 示例</h1>
+			<p class="ac-des">
+				取得第一个匹配元素的宽度，该宽度包含border, padding的计算并通过参数来加入对margin的计算
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom(args).outerWidth([margin])</li>
+				<li>参数：{Boolean} margin 获取的宽度值是否包含对margin的计算</li>
+				<li>返回: {Number} 返回一个整型的宽度值</li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>取得第一个匹配元素的宽度</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<div id="demo_block_1">
+							点击查看我的 outerWidth
+						</div>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_block_1').on('click',function(e){
+				var target = baidu('#demo_block_1');
+				var outerWidth = target.outerWidth();
+				var outerWidthMargin = target.outerWidth(true);
+				var height = target.height();
+				baidu('#demo_execute_result').html('outerWidth(<b>false</b>): '+outerWidth + '，outerWidth(<b>true</b>): '+outerWidthMargin);
+			});
+		</script>
+	</body>
+</html>

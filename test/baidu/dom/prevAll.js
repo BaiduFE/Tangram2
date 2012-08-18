@@ -45,15 +45,6 @@ test('重叠情形', function () {
 	});
 });
 
-test('重叠情形(JQuery)', function () {
-	useTangramDom(html, function ($dom, wrapper) {
-		var target = $("#e3, #e4").prevAll();
-		equal(target.length, 2);
-		equal(target[0].id, 'e2');
-		equal(target[1].id, 'e3');
-	});
-});
-
 test('.prevAll( selector )重载', function () {
 	useTangramDom(html, function ($dom, wrapper) {
 		var target = baidu.dom('#e4, #e6').prevAll('p');

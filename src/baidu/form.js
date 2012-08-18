@@ -3,13 +3,13 @@
  * @email  1988wangxiao@gmail.com
  */
 
-///import baidu;
 ///import baidu.createChain;
 
 /**
- * 对form的操作，解决表单数据问题
- *
- * @grammer baidu.fn(fn)
+ * @description 对form的操作，解决表单数据问题
+ * @function
+ * @name baidu.fn(fn)
+ * @grammar baidu.fn(fn)
  * @param   {fn}
  * @return  {tangramFn}          返回 new TangramFn 对象
  */

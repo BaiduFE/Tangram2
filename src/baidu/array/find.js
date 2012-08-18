@@ -3,18 +3,30 @@
 
 /**
  * @fileoverview
- * @name baidu.array.find
  * @author meizz
- * @create 2012-06-21
+ * @create 2012-07-30
  * @modify
  */
 
 /**
- * 从数组中寻找符合条件的第一个元素
- * 
- * @param   {Object}        item    被包含项
- * @return  {Any}
+ * @description 从数组中寻找符合条件的第一个元素
+ *
+ * @name baidu.array.find
+ * @function
+ * @grammar $Array.find([fn])
+ * @param   {Function}      iterator    用于做对比的函数
+ * @return  {Object}                    匹配的项
  */
+/**
+ * @description 从数组中寻找符合条件的第一个元素
+ *
+ * @name baidu.array().find()
+ * @function
+ * @grammar $Array.find([fn])
+ * @param   {Function}      iterator    用于做对比的函数
+ * @return  {Object}                    匹配的项
+ */
+
 baidu.array.extend({
     find : function (iterator) {
         var i, item, n=this.length;

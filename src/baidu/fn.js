@@ -1,24 +1,25 @@
-/**
+/*
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
 
-///import baidu;
 ///import baidu.createChain;
+///import baidu.type;
 
 /**
- * 对方法的操作，解决内存泄露问题
- *
- * @grammer baidu.fn(fn)
- * @param   {fn}
- * @return  {tangramFn}          返回 new TangramFn 对象
+ * @description 对function的操作，解决内存泄露问题
+ * @function 
+ * @name baidu.fn
+ * @grammar baidu.fn(func)
+ * @param {String|functioin} func 要绑定的函数，或者一个在作用域下可用的函数名
+ * @return {TangramFn} 返回一个TangramFn对象
  */
 
 baidu.createChain("fn",
 
 // 执行方法
 function(fn){
-	return typeof fn === 'function'? new baidu.$Fn(fn):new baidu.$Fn();
+    return new baidu.$Fn(baidu.type(fn, 'function|string') ? fn : function(){});
 },
 
 // constructor

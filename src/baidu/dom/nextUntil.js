@@ -5,16 +5,19 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.nextUntil
- * @create 2012-06-21
  * @author meizz
+ * @create 2012-05-28
  * @modify
  */
 
 /**
- * 查找当前元素之后所有的同辈元素，直到遇到匹配的那个元素为止
- * @param
- * @return
+ * @description 查找当前元素之后所有的同辈元素，直到遇到匹配的那个元素为止
+ * @function
+ * @name baidu.dom().nextUntil()
+ * @grammar baidu.dom(args).nextUntil(selector[, filter])
+ * @param   {Object}            selector    选择器
+ * @param   {String|Function}   filter      [可选]过滤函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
     nextUntil : function (selector, filter) {

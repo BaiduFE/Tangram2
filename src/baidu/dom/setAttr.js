@@ -2,28 +2,28 @@
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
-
-///import baidu
+/**
+ * @description 设置目标元素的attribute值
+ * @function 
+ * @name baidu.dom.setAttr
+ * @grammar baidu.dom(args).setAttr(attributeName,value)
+ * @param {String} attributeName  要设置的attribute键名
+ * @param {String} value 要设置的attribute值
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+ /**
+ * @description 设置目标元素的attribute值
+ * @function 
+ * @name baidu.dom.setAttr
+ * @grammar baidu.dom.setAttr(element,attributeName,value)
+ * @param {HTMLElement|string} element 目标元素或目标元素的id
+ * @param {String} attributeName  要设置的attribute键名
+ * @param {String} value 要设置的attribute值
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+///import baidu;
 ///import baidu.dom._NAME_ATTRS;
 
-/**
- * 设置目标元素的attribute值
- * @name baidu.dom.setAttr
- * @function
- * @grammar baidu.dom.setAttr(element, key, value)
- * @param {HTMLElement|string} element 目标元素或目标元素的id
- * @param {string} key 要设置的attribute键名
- * @param {string} value 要设置的attribute值
- * @remark
- * 
-            设置object的自定义属性时，由于浏览器限制，无法设置。
-        
- * @shortcut setAttr
- * @meta standard
- * @see baidu.dom.getAttr,baidu.dom.setAttrs
- *             
- * @returns {HTMLElement} 目标元素
- */
  
 baidu.dom.extend({
 setAttr : function (key, value) {

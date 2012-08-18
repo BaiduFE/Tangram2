@@ -5,6 +5,24 @@
 ///import baidu;
 ///import baidu.dom;
 
+/**
+ * @description 监听 documentDomReady 事件
+ * @function 
+ * @name baidu.dom().ready()
+ * @grammar baidu.dom(args).ready(fn)
+ * @param {Function} fn 事件回调函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
+ */
+
+/**
+ * @description 监听 documentDomReady 事件
+ * @function 
+ * @name baidu.dom.ready
+ * @grammar baidu.dom.ready(fn)
+ * @param {Function} fn 事件回调函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
+ */
+
 baidu.dom.extend({
     ready: function(){
 

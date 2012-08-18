@@ -7,18 +7,20 @@
 
 /**
  * @fileoverview
- * @name baidu.dom.match
  * @author meizz
  * @create 2012-06-18
  * @modify
  */
 
 /**
- * 对 TangramDom 里的所有元素进行筛选匹配，返回匹配上的DOM元素数组
- * @grammer TangramDom.match(selector)
- * @grammer TangramDom.match(tangramDom)
- * @grammer TangramDom.match(HTMLElement)
- * @grammer TangramDom.match(fn(index))
+ * @description 对 TangramDom 里的所有元素进行筛选匹配，返回匹配上的DOM元素数组
+ * @name baidu.dom.match
+ * @grammar baidu.dom.match(selector)
+ * @grammar baidu.dom.match(tangramDom)
+ * @grammar baidu.dom.match(HTMLElement)
+ * @grammar baidu.dom.match(fn(index))
+ *
+ * @param   {ArrayLike}     array       被筛选的集合
  * @param   {String}        selector    CSS选择器
  * @return  {Array}         Array
  */

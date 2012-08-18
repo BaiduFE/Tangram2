@@ -11,13 +11,13 @@
 ///import baidu.page;
 
 /**
- * 获取页面高度
+ * @description 获取页面高度
  * @name baidu.page.getHeight
  * @function
  * @grammar baidu.page.getHeight()
  * @see baidu.page.getWidth
  *             
- * @returns {number} 页面高度
+ * @return {number} 页面高度
  */
 baidu.page.getHeight = function () {
     var doc = document,

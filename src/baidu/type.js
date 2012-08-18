@@ -1,7 +1,7 @@
 ///import baidu;
 ///import baidu.each;
 ///import baidu.lang;
-/**
+/*
  * @fileoverview
  * @name baidu.type
  * @author meizz
@@ -10,8 +10,10 @@
  */
 
 /**
- * 判断对象类型，返回值为全小写对象名
- *
+ * @description 判断对象类型，返回值为全小写对象名
+ * @function
+ * @name baidu.type()
+ * @grammar baidu.type( unknow )
  * @param   {Any}       unknow  任意类型的对象
  * @param   {String}    match   [可选]与对象类型作比较的字符串，这个参数如果赋值则.type()方法的返回值为布尔值，使用此种判断的效率只有 is* 系列的 1/7
  * @return  {String}            对应对象类型的字符串
@@ -31,33 +33,40 @@ baidu.type = (function() {
         }
     });
 
-    baidu.isElement = baidu.lang.isElement = function( unknow ) {
-        return baidu.type(unknow) == "HTMLElement";
-    };
-
-    baidu.isNumber = baidu.lang.isNumber = function( unknow ) {
-        return baidu.type(unknow) == "number" && isFinite( unknow );
-    };
-
-    baidu.isObject = baidu.lang.isObject = function( unknow ) {
-        return typeof unknow === "function" || ( typeof unknow === "object" && unknow != null );
-    };
-
     // 方法主体
-    return function ( unknow, match ) {
+    return function ( unknow ) {
         var s = typeof unknow;
 
-        s = s != "object" ? s
+        return s != "object" ? s
             : unknow == null ? "null"
             : unknow._type_
                 || objectType[ toString.call( unknow ) ]
                 || nodeType[ unknow.nodeType ]
                 || ( unknow == unknow.window ? "Window" : "" )
                 || "object";
-
-        return match ? match.toLowerCase().indexOf(s.toLowerCase()) > -1 : s;
     };
 })();
+
+// extend
+baidu.isElement = baidu.lang.isElement = function( unknow ) {
+    return baidu.type(unknow) == "HTMLElement";
+};
+
+baidu.isEnumerable = function( unknow ){
+    return unknow != null
+        && typeof unknow == "object"
+        &&(typeof unknow.length == "number"
+        || typeof unknow[0] != "undefined");
+};
+
+baidu.isNumber = baidu.lang.isNumber = function( unknow ) {
+    return baidu.type(unknow) == "number" && isFinite( unknow );
+};
+
+baidu.isObject = baidu.lang.isObject = function( unknow ) {
+    return typeof unknow === "function" || ( typeof unknow === "object" && unknow != null );
+};
+
 
 /*
  1-ELEMENT

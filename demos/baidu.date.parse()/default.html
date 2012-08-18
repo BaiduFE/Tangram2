@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.date.parse() 示例" />
+		<title>baidu.date.parse()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo-dateForm p{
+				padding:3px 10px;
+			}
+			#demo-dateForm input{
+				width:250px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.date.parse()</strong> 示例</h1>
+			<p class="ac-des">
+				将目标字符串转换成日期对象
+			</p>
+
+			<ul class="ac-ul">
+				<li>语法: baidu.date.parse(source)</li>
+				<li>参数: {string} source 目标字符串</li>
+				<li>返回: {Date} 转换后的日期对象</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>将目标字符串转换成日期对象</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<form id="demo-dateForm" autocomplete="off">
+							<p>
+								<input type="text" value="2010/5/10" />
+								<span class="button">parse</span>
+							</p>
+							<p>
+								<input type="text" value="July,2010,3,23" />
+								<span class="button">parse</span>
+							</p>
+							<p>
+								<input type="text" value="Tuesday November 9 1996 7:30 PM" />
+								<span class="button">parse</span>
+							</p>
+							<p>
+								<input type="text" value="2010-01-01 12:23:39" />
+								<span class="button">parse</span>
+							</p>
+						</form>
+					</div>
+					
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			var parseResult = baidu('#demo_execute_result');
+			baidu('.button').on('click',function(){
+				var value = baidu(this).prev().val();
+				var parsed = baidu.date.parse(value);
+				parseResult.html(parsed.toString());
+			});
+		</script>
+	</body>
+</html>

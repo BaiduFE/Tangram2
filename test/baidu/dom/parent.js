@@ -32,11 +32,11 @@ test('获得单个元素的父亲', function () {
 
 test('获得多个元素不重复的父亲', function () {
 	useTangramDom(html, function ($dom, wrapper) {
-		var target = baidu.dom('.item-i, .item-1, .item-a').parent();
+		var target = baidu.dom('.item-i, .item-a, .item-1').parent();
 		equal(target.length, 3);
 		equal(target[0].className, 'level-1');
-		equal(target[1].className, 'level-3');
-		equal(target[2].className, 'level-2');
+		equal(target[1].className, 'level-2');
+		equal(target[2].className, 'level-3');
 	});
 });
 
@@ -60,7 +60,7 @@ test('获得多个元素重复的父亲', function () {
 
 test('.parent( selector )重载', function () {
 	useTangramDom(html, function ($dom, wrapper) {
-		var target = baidu.dom('.item-i, .item-1, .item-a').parent('.level-1, .level-2');
+		var target = baidu.dom('.item-i, .item-a, .item-1').parent('.level-1, .level-2');
 		equal(target.length, 2);
 		equal(target[0].className, 'level-1');
 		equal(target[1].className, 'level-2');

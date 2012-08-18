@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.fn().bind() 示例" />
+		<title>baidu.fn().bind()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.fn().bind()</strong> 示例</h1>
+			<p class="ac-des">
+				为对象绑定方法和作用域
+			</p>
+
+			<ul class="ac-ul">
+				<li>
+					语法: baidu.fn(func).bind([scope[, args]])
+				</li>
+				<li>
+					参数: {Object} scope 执行运行时this，如果不传入则运行时this为函数本身
+				</li>
+				<li>
+					参数: {Any} args 函数执行时附加到执行时函数前面的参数（支持一个或多个参数）
+				</li>
+				<li>
+					返回: {function} 封装后的函数
+				</li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>为对象绑定方法和作用域</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<p>
+							对函数 function doit() { alert(this.type); } 重新绑定作用域并执行
+						</p>
+						<span class="button" id="demo_btn">执行重新绑定作用域(Event对象)的函数！</span>
+						<span class="button" id="demo_btn_2">执行原函数！</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			// 目标函数
+			function doit() {
+				alert(this.type);
+			}
+			
+			// 重新绑定作用域并执行
+			baidu('#demo_btn').on('click', function(e) {
+				var fn = baidu.fn(doit).bind(e);
+				fn();
+			});
+			
+			//执行原函数
+			baidu('#demo_btn_2').on('click', function() {
+				doit();
+			});
+		</script>
+	</body>
+</html>

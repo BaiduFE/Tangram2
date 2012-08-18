@@ -2,10 +2,21 @@
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
+ 
+/**
+ * @description 为匹配的元素删除设置的属性。
+ * @function 
+ * @name baidu.dom().removeAttr()
+ * @grammar baidu.dom(args).removeAttr(attributeName,value);
+ * @param {String} attributeName 要设置属性的名称;
+ * @param {String} value 要设置属性的值;
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
 
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.each;
+///import baidu.support;
 ///import baidu.dom._propHooks;
 ///import baidu.dom.attr;
 

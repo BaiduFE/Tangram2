@@ -6,12 +6,11 @@
 ///import baidu.platform;
 
 /**
- * 判断是否为windows平台
- * @property windows 是否为windows平台
- * @grammar baidu.platform.windows
- * @meta standard
- * @see baidu.platform.x11,baidu.platform.macintosh,baidu.platform.iphone,baidu.platform.ipad,baidu.platform.android
+ * @description 判断是否为windows平台
+ * @function
+ * @name baidu.platform.isWindows
+ * @grammar baidu.platform.isWindows
  * @return {Boolean} 布尔值 
- * @author jz
  */
+ 
 //baidu.platform.isWindows = /windows/i.test(navigator.userAgent);

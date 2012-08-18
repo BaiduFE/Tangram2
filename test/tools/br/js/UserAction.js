@@ -1,5 +1,12 @@
-var UserAction = {
-
+var UserAction = 
+/**
+ * 用例中常用方法的集合
+ * 
+ * @author bellcliff
+ * @type UserAction
+ */
+{
+	beforedispatch : null,
 	isf /* is function ? */: function(value) {
 		return value && (typeof value == 'function');
 	},
@@ -187,6 +194,11 @@ var UserAction = {
 				}
 
 			}
+			
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
 
 			// fire the event
 			target.dispatchEvent(customEvent);
@@ -211,6 +223,11 @@ var UserAction = {
 			 */
 			customEvent.keyCode = (charCode > 0) ? charCode : keyCode;
 
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
+			
 			// fire the event
 			target.fireEvent("on" + type, customEvent);
 
@@ -218,6 +235,8 @@ var UserAction = {
 			throw new Error(
 					"simulateKeyEvent(): No event simulation framework present.");
 		}
+		
+		this.beforedispatch = null;
 	},
 
 	/**
@@ -415,6 +434,11 @@ var UserAction = {
 					customEvent.fromElement = relatedTarget;
 				}
 			}
+			
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
 
 			// fire the event
 			target.dispatchEvent(customEvent);
@@ -461,6 +485,10 @@ var UserAction = {
 			 */
 			customEvent.relatedTarget = relatedTarget;
 
+			// before dispatch
+			if (this.beforedispatch && typeof this.beforedispatch == 'function')
+				this.beforedispatch(customEvent);
+			this.beforedispatch = null;
 			// fire the event
 			target.fireEvent("on" + type, customEvent);
 
@@ -511,9 +539,6 @@ var UserAction = {
 	 * @static
 	 */
 	click : function(target /* :HTMLElement */, options /* :Object */) /* :Void */{
-		this.mouseover(target, options);
-		this.mousedown(target, options);
-		this.mouseup(target, options);
 		this.fireMouseEvent(target, "click", options);
 	},
 
@@ -762,6 +787,8 @@ var UserAction = {
 			}
 		});
 		url='?f='+f.substr(1)+'&e='+e;
+		if(pw.location.href.indexOf("release=true") > -1)
+			url += '&release=true';
 		var srcpath = '';
 		if(location.href.indexOf("/run.do") > 0) {
 			srcpath = location.href.replace("run.do","frame.do");
@@ -892,13 +919,11 @@ var UserAction = {
 			for ( var i = 0; i < mm.length; i++) {
 				if(i == mm.length - 1 && mm[i].indexOf("$") > -1){ //如果要加载的是插件
 					if (p._addons.length == 1) {
-						// console.log(mm[i]);
 						return;
 					}		
 				}
 				else{
 					if (typeof (p[mm[i]]) == 'undefined') {
-						// console.log(mm[i]);
 						return;
 					}
 				}
@@ -1230,6 +1255,40 @@ var UserAction = {
 					}, delay);
 				} else
 					$(this).trigger('next');
+			}
+		};
+		return check;
+	},
+	fnQueue : function() {
+		var check = {
+			fnlist : [],
+			/**
+			 * 该方法会在fn上注册一个delay属性
+			 * 
+			 * @param fn
+			 * @param delay
+			 */
+			add : function(fn, delay) {
+				delay && (fn.delay = delay);
+				check.fnlist.push(fn);
+				return check;
+			},
+			/**
+			 * 自动下一个
+			 */
+			next : function() {
+				if(check.fnlist.length == 0)
+					return;
+				var fn = check.fnlist[0];		
+				if (fn.delay) {
+					setTimeout(check.next, fn.delay);
+					delete fn.delay;
+				} else {
+					check.fnlist.shift()();
+					// 切断堆栈
+					// setTimeout(fnQueue.next, 0);
+					check.next();
+				}
 			}
 		};
 		return check;

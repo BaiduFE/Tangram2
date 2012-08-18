@@ -1,6 +1,31 @@
 ///import baidu.array;
 
+/**
+ * @fileoverview
+ * @author meizz
+ * @create 2012-07-30
+ * @modify
+ */
 
+/**
+ * @description 去除数组中的重复项
+ *
+ * @name baidu.array.unique
+ * @function
+ * @grammar $Array.unique([fn])
+ * @param   {Function}      fn  用于做除重对比的函数
+ * @return  {Array}             已经除重后的数组
+ */
+
+/**
+ * @description 去除数组中的重复项
+ *
+ * @name baidu.array().unique()
+ * @function
+ * @grammar $Array.unique([fn])
+ * @param   {Function}      fn  用于做除重对比的函数
+ * @return  {Array}             已经除重后的数组
+ */
 baidu.array.extend({
     unique : function (fn) {
         var len = this.length,

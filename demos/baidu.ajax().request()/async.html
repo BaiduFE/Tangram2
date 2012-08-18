@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.ajax().request() 异步请求" />
+		<title>同步调用</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.ajax().request()</strong> 异步请求
+			</h1>
+			<p class="ac-des">				
+				options中的async置为false，可以阻塞浏览器进程，直到服务器响应。
+			</p>
+			<h2 class="ac-h2">同步调用</h2>
+			<ul class="ac-ul">
+				<li>语法: baidu.ajax(url).request(options) </li>
+				<li>参数: url {string} 指定要请求的地址 </li>
+				<li>参数：async {boolean} 是否异步调用，默认为true</li>
+				<li>返回: 发出异步请求的XHR </li>
+			</ul>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>同步和异步</span>
+				</div>
+				<div class="pannel-content">
+					<p>本例请求的sleep.php，可以在指定时间后响应请求</p>
+					<!--html view start-->
+					<p><label>异步请求<input id="chk-async" type="checkbox" checked="checked" /></label></p>
+					<p><label>阻塞时间：<input id="sleep-time" type="number" value="3" />（最多10秒）</label></p>
+					<p><button id="request">请求，并等待响应</button>
+					<p id="status"></p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>		
+		<script type="text/javascript">
+			function request(){
+				baidu.dom('#status').html('请求时间：'+new Date());
+				baidu.ajax('sleep.php').request({
+					method: 'POST',
+					data: 'time=' + baidu.dom('#sleep-time').val(),
+
+					// 此参数决定请求是否异步进行
+					async: baidu.dom('#chk-async').attr('checked') === 'checked',
+
+					onsuccess: function(xhr, responseText){
+						baidu.dom('#status').html(responseText);
+					}
+				});
+			}
+			baidu.dom('#request').on('click', request);
+		</script>
+	</body>
+</html>

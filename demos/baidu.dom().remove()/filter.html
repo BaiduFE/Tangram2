@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().remove() 示例" />
+		<title>使用过滤</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.tip{
+				background:gold;
+				padding:10px;
+				width:230px;
+				border-radius:5px;
+				font-size:12px;
+				box-shadow:0px 0px 2px #A0A0A0;
+				margin-bottom:10px;
+			}
+			.tip_success{
+				background:#B2EF60;
+			}
+			.tip_warn a{
+				color:green;
+				margin-left:5px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().remove()</strong> 示例</h1>
+			<p class="ac-des">
+				将匹配到的DOM元素从文档中移除，并移除对应的DOM元素的事件。
+			</p>
+			<ul class="ac-ul">
+				<li>语法: baidu.dom().remove()</li>
+				<li>参数: {String} selector 一个字符串的选择器，对前面匹配到的DOM元素再做进一步的过滤</li>
+				<li>返回: {TangramDom} 返回之前匹配元素的TangramDom对象</li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>移除元素 --- 过滤</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个未处理事件将到期</p>
+						<p class="tip tip_success"><b>完成</b>： <b>XXX</b> 的申请已被受理</p>
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个安全漏洞</p>
+						<p class="tip tip_success"><b>完成</b>：<b>XXX</b> 的申请已被受理</p>
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个安全漏洞</p>
+					</div>
+					
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">清除所有已完成的提醒</a>
+					</div>
+					
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>			
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				baidu.dom('.tip').remove('.tip_success');
+				baidu('#demo_execute_result').html('已完成的提醒清除成功');
+				e.preventDefault();
+			});
+		</script>
+	</body>
+</html>

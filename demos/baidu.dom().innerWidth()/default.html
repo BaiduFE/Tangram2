@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().innerWidth() 示例" />
+		<title>获取innerWidth</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo_block_1{
+				background: gold;
+				padding:20px;
+				cursor:pointer;
+				font-weight:bold;
+				border:10px solid #ccc;
+			}
+			#demo_block_1:hover{
+				background:#EAC200;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().innerWidth()</strong> 示例</h1>
+			<p class="ac-des">
+				取得第一个匹配元素的宽度，该宽度忽略margin, border的计算，但包含padding的计算
+			</p>
+			<ul class="ac-ul">
+				<li>语法: grammar baidu.dom(args).innerWidth()</li>
+				<li>返回: {Number} 返回一个整型的宽度值</li>
+			</ul>
+			
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>取得第一个匹配元素的宽度</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<div id="demo_block_1">
+							点击查看我的 innerWidth
+						</div>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_block_1').on('click',function(e){
+				var target = baidu('#demo_block_1');
+				var innerWidth = target.innerWidth();
+				var width = target.width();
+				baidu('#demo_execute_result').html('<b>innerWidth: '+innerWidth + '</b>， width: '+ width );
+			});
+		</script>
+	</body>
+</html>

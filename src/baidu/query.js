@@ -2,7 +2,7 @@
 ///import baidu.each;
 ///import baidu.merge;
 ///import baidu.array.unique;
-/**
+/*
  * @fileoverview
  * @name baidu.query
  * @author meizz
@@ -11,11 +11,13 @@
  */
 
 /**
- * 通过指定的CSS选择器取指定的DOM元素
+ * @description 通过指定的CSS选择器取指定的DOM元素
  * 在用户选择使用 Sizzle 时会被覆盖成 Sizzle 方法
  * 目前这个简版的 selector 函数支持四种选择器 * #id .class tagName
  *
- * @grammer baidu.query(selector[, context[, results]])
+ * @function
+ * @name baidu.query
+ * @grammar baidu.query(selector[, context[, results]])
  * @param   {String}    selector    CSS选择器字符串
  * @param   {Document}  context     选择的范围
  * @param   {Array}     results     返回的结果对象（数组）
@@ -26,13 +28,14 @@ baidu.query = baidu.query || (function(){
         rId0= /^#([\w\-\$]+)$/
         rTag = /^\w+$/,
         rClass = /^(\w*)\.([\w\-\$]+)$/,
+        rComboClass = /^(\.[\w\-\$]+)+$/;
         rDivider = /\s*,\s*/,
         rSpace = /\s+/g,
         slice = Array.prototype.slice;
 
     // selector: #id, .className, tagName, *
     function query(selector, context) {
-        var t, id, dom, tagName, className, arr, array = [];
+        var t, x, id, dom, tagName, className, arr, list, array = [];
 
         // tag#id
         if (rId.test(selector)) {
@@ -54,12 +57,13 @@ baidu.query = baidu.query || (function(){
             tagName = RegExp.$1;
             className = RegExp.$2;
             t = " " + className + " ";
+            // bug: className: .a.b
 
             if (context.getElementsByClassName) {
                 arr = context.getElementsByClassName(className);
             } else {
                 baidu.each(context.getElementsByTagName("*"), function(dom) {
-                    dom.className && (" " + dom.className + " ").indexOf(t) > -1 && arr.push(dom);
+                    dom.className && (" " + dom.className + " ").indexOf(t) > -1 && (arr.push(dom));
                 });
             }
 
@@ -70,6 +74,23 @@ baidu.query = baidu.query || (function(){
             } else {
                 baidu.merge(array, arr);
             }
+        
+        // IE 6 7 8 里组合样式名(.a.b)
+        } else if (rComboClass.test(selector)) {
+            list = selector.substr(1).split(".");
+
+            baidu.each(context.getElementsByTagName("*"), function(dom) {
+                if (dom.className) {
+                    t = " " + dom.className + " ";
+                    x = true;
+
+                    baidu.each(list, function(item){
+                        t.indexOf(" "+ item +" ") == -1 && (x = false);
+                    });
+
+                    x && array.push(dom);
+                }
+            });
         }
 
         return array;
