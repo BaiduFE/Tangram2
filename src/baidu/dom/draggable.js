@@ -7,11 +7,13 @@
 ///import baidu.dom.drag;
 ///import baidu.dom.getStyle;
 ///import baidu.dom.setStyle;
-///import baidu.dom.on;
-///import baidu.dom.off;
+///import baidu.event.on;
+///import baidu.event.un;
 ///import baidu.event.preventDefault;
 ///import baidu.object.extend;
-///import baidu.type;
+
+///import baidu.lang.isFunction;
+///import baidu.lang.Class;
 
 
 /**
@@ -19,18 +21,18 @@
  * @name baidu.dom.draggable
  * @function
  * @grammar baidu.dom.draggable(element[, options])
- * @param  {string|HTMLElement}   element 		        元素或者元素的ID.
- * @param  {Object} 		      [options] 			选项.
- * @config {Array} 		          [range] 		        限制drag的拖拽范围，数组中必须包含四个值，分别是上、右、下、左边缘相对上方或左方的像素距离。默认无限制.
- * @config {Number} 	          [interval] 	        拖曳行为的触发频度（时间：毫秒）.
- * @config {Boolean} 	          [capture] 	        鼠标拖曳粘滞.
- * @config {Object} 	          [mouseEvent] 	        键名为clientX和clientY的object，若不设置此项，默认会获取当前鼠标位置.
- * @config {Function} 	          [onbeforedragstart]   drag开始前触发（即鼠标按下时）.
- * @config {Function} 	          [ondragstart]         drag开始时触发.
- * @config {Function} 	          [ondrag] 		        drag进行中触发.
- * @config {Function} 	          [ondragend] 	        drag结束时触发.
- * @config {HTMLElement}          [handler] 	        用于拖拽的手柄，比如dialog的title.
- * @config {Function} 	          [toggle] 		        在每次ondrag的时候，会调用这个方法判断是否应该停止拖拽。如果此函数返回值为false，则停止拖拽.
+ * @param  {string|HTMLElement}   element               元素或者元素的ID.
+ * @param  {Object}               [options]             选项.
+ * @config {Array}                [range]               限制drag的拖拽范围，数组中必须包含四个值，分别是上、右、下、左边缘相对上方或左方的像素距离。默认无限制.
+ * @config {Number}               [interval]            拖曳行为的触发频度（时间：毫秒）.
+ * @config {Boolean}              [capture]             鼠标拖曳粘滞.
+ * @config {Object}               [mouseEvent]          键名为clientX和clientY的object，若不设置此项，默认会获取当前鼠标位置.
+ * @config {Function}             [onbeforedragstart]   drag开始前触发（即鼠标按下时）.
+ * @config {Function}             [ondragstart]         drag开始时触发.
+ * @config {Function}             [ondrag]              drag进行中触发.
+ * @config {Function}             [ondragend]           drag结束时触发.
+ * @config {HTMLElement}          [handler]             用于拖拽的手柄，比如dialog的title.
+ * @config {Function}             [toggle]              在每次ondrag的时候，会调用这个方法判断是否应该停止拖拽。如果此函数返回值为false，则停止拖拽.
  * @version 1.2
  * @remark    要拖拽的元素必须事先设定样式的postion值，如果postion为absloute，并且没有设定top和left，拖拽开始时，无法取得元素的top和left值，这时会从[0,0]点开始拖拽.
  * @see baidu.dom.drag
@@ -50,7 +52,7 @@ baidu.dom.draggable = function(element, options) {
         draggableSingle = {
             dispose: function() {
                 dragSingle && dragSingle.stop();
-                baidu.dom(options.handler).off('onmousedown', handlerMouseDown);
+                baidu.event.un(options.handler, 'onmousedown', handlerMouseDown);
                 baidu.lang.Class.prototype.dispose.call(draggableSingle);
             }
         },
@@ -62,7 +64,7 @@ baidu.dom.draggable = function(element, options) {
             options[eventName] = (function(eventName) {
                 var fn = options[eventName];
                 return function() {
-                    baidu.isFunction(fn) && fn.apply(me, arguments);
+                    baidu.lang.isFunction(fn) && fn.apply(me, arguments);
                     manager.dispatchEvent(eventName, {DOM: element});
                 }
             })(eventName);
@@ -77,13 +79,13 @@ baidu.dom.draggable = function(element, options) {
             options.mouseEvent = {clientX: event.clientX, clientY: event.clientY};
             if (event.button > 1 //只支持鼠标左键拖拽; 左键代码: IE为1,W3C为0
                 // 可以通过配置项里的这个开关函数暂停或启用拖曳功能
-                || (baidu.isFunction(options.toggle) && !options.toggle())) {
+                || (baidu.lang.isFunction(options.toggle) && !options.toggle())) {
                 return;
             }
 //            if (baidu.dom.getStyle(element, 'position') == 'static') {
 //                baidu.dom.setStyle(element, 'position', 'relative');
 //            }
-            if (baidu.isFunction(options.onbeforedragstart)) {
+            if (baidu.lang.isFunction(options.onbeforedragstart)) {
                 options.onbeforedragstart(element);
             }
             dragSingle = baidu.dom.drag(element, options);
@@ -94,7 +96,7 @@ baidu.dom.draggable = function(element, options) {
         }
 
         // 对拖曳的扳机元素监听 onmousedown 事件，以便进行拖曳行为
-        baidu.dom(options.handler).on('onmousedown', handlerMouseDown);
+        baidu.event.on(options.handler, 'onmousedown', handlerMouseDown);
     }
     return {
         cancel: function() {

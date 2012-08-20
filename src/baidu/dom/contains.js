@@ -8,6 +8,7 @@
  * date: 2009/11/17
  */
 
+///import baidu.dom;
 ///import baidu.dom._g;
 
 /**
@@ -22,6 +23,7 @@
  *             
  * @return {boolean} contained元素是否被包含于container元素的DOM节点上
  */
+ 
 baidu.dom.extend({
 contains : function ( contained) {
 	container = this[0];
