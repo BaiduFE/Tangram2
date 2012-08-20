@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -31,3 +32,5 @@ baidu.element.extend = function(json){
         e.Element.prototype[key] = baidu.element._toChainFunction(item, -1);
     });
 };
+
+/// Tangram 1.x Code End

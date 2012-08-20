@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -82,3 +83,4 @@ baidu.page.lazyLoadImage = function(options) {
         baidu.on(window, 'scroll', loadNeeded);
     });
 };
+/// Tangram 1.x Code End

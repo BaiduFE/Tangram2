@@ -1,3 +1,5 @@
+/// Tangram 1.x Code Start
+//为兼容Tangram1.x的magic增加的接口
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -31,3 +33,4 @@ baidu.dom._matchNode = function (element, direction, start) {
 
     return null;
 };
+/// Tangram 1.x Code End

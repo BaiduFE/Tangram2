@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -26,3 +27,4 @@ baidu.url.escapeSymbol = function(source) {
         return '%' + (0x100 + all.charCodeAt()).toString(16).substring(1).toUpperCase();
     });
 };
+/// Tangram 1.x Code End

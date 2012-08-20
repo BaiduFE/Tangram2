@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -51,3 +52,4 @@ baidu.lang.module = function(name, module, owner) {
         owner[packages[len]] = module;
     }
 };
+/// Tangram 1.x Code End

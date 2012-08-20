@@ -17,25 +17,25 @@
  */
 
 baidu.dom.extend({
-	one: function( type, data, fn ){
-		var me = this;
+    one: function( type, data, fn ){
+        var me = this;
 
-		if( typeof data == "function" )
-			fn = data,
-			data = undefined;
+        if( typeof data == "function" )
+            fn = data,
+            data = undefined;
 
-		if( typeof type == "object" && type ){
-		    baidu.each( type, function( fn, type ){
-		        this.one( type, data, fn );
-		    }, this );
-		    return this;
-		}
+        if( typeof type == "object" && type ){
+            baidu.each( type, function( fn, type ){
+                this.one( type, data, fn );
+            }, this );
+            return this;
+        }
 
-		var newfn = function(){
-			baidu.dom( this ).off( type, newfn );
-		    return fn.apply( me, arguments );
-		};
+        var newfn = function(){
+            baidu.dom( this ).off( type, newfn );
+            return fn.apply( me, arguments );
+        };
 
-		return this.on( type, data, newfn );
-	}
+        return this.on( type, data, newfn );
+    }
 });

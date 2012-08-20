@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -80,3 +81,4 @@ baidu.dom.q = function (className, element, tagName) {
 
 // 声明快捷方法
 baidu.q = baidu.Q = baidu.dom.q;
+/// Tangram 1.x Code End

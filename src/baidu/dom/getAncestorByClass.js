@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -35,3 +36,4 @@ baidu.dom.getAncestorByClass = function (element, className) {
 
     return null;
 };
+/// Tangram 1.x Code End

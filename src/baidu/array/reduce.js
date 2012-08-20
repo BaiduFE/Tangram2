@@ -48,8 +48,9 @@ Array.prototype.reduce = function (iterator, initializer) {
     }
     return initializer;
 };
-
+/// Tangram 1.x Code Start
 // TODO: delete in tangram 3.0
 baidu.array.reduce = function(array, iterator, initializer) {
     return baidu.isArray(array) ? array.reduce(iterator, initializer) : array;
 };
+/// Tangram 1.x Code End

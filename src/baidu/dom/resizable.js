@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -330,3 +331,4 @@ baidu.dom.resizable = /**@function*/function(element,options) {
     
     return {cancel:cancel,update:update,enable:render};
 };
+/// Tangram 1.x Code End
