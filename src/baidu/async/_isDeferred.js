@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -17,3 +18,4 @@ baidu.async._isDeferred = function(obj) {
     return obj && isFn(obj.success) && isFn(obj.then)
         && isFn(obj.fail) && isFn(obj.cancel);
 };
+/// Tangram 1.x Code End

@@ -27,19 +27,15 @@
 
 baidu.dom.extend({
     removeClass: function(value){
-    	
         if(arguments.length <= 0 ){
             baidu.each(this,function(item){
                 item.className = '';
             });
         };
-
         switch(typeof value){
             case 'string':
-
                 //对输入进行处理
                 value = String(value).replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
-            
                 var arr = value.split(' ');
                 baidu.each(this, function(item){
                     var str = item.className ;
@@ -63,6 +59,7 @@ baidu.dom.extend({
         return this;
     }
 });
-
+/// Tangram 1.x Code Start
 //兼容以前的快捷方式
 baidu.removeClass = baidu.dom.removeClass ;
+/// Tangram 1.x Code End

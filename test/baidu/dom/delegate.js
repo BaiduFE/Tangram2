@@ -107,3 +107,26 @@ test('test', function(){
     ua.fireMouseEvent(dispach, 'click');
     document.body.removeChild(div);
 });
+
+test('handler', function(){
+    expect(2);
+    var div = document.createElement('div'),
+        span0 = new Span(true),
+        span1 = new Span(true),
+        index = 0;
+    document.body.appendChild(div);
+    div.appendChild(span0.get());
+    div.appendChild(span1.get());        
+    
+    baidu.dom(div).delegate('span', 'click', function(evt){
+        var span = index === 0 ? span0 : span1;
+        ok(this === span.get(), 'it is span');
+    });
+    index = 0;
+    ua.fireMouseEvent(span0.get(), 'click');
+    index = 1;
+    ua.fireMouseEvent(span1.get(), 'click');
+    span0.dispose();
+    span1.dispose();
+    document.body.removeChild(div);
+});

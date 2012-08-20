@@ -18,7 +18,7 @@
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
-    has : function (selector) {
+    has: function (selector) {
         var a = []
             ,td = baidu.dom(document.body);
 

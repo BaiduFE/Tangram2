@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -46,3 +47,4 @@ baidu.dom.removeStyle = function (){
     ele = null;
     return fn;
 }();
+/// Tangram 1.x Code End

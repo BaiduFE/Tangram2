@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -13,8 +14,6 @@
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
-///import baidu;
-///import baidu.dom;
 ///import baidu.each;
 ///import baidu.support;
 ///import baidu.dom._propHooks;
@@ -62,3 +61,4 @@ baidu.dom.extend({
         return this;
     }
 });
+/// Tangram 1.x Code End

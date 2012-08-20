@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All right reserved.
@@ -170,3 +171,5 @@ baidu.element._makeChain = function(){ //将dom/event包下的东西挂到protot
         return match.charAt(3).toLowerCase();
     }
 };
+
+/// Tangram 1.x Code End
