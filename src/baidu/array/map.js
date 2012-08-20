@@ -39,7 +39,8 @@ Array.prototype.map = function (iterator, context) {
     }
     return array;
 };
-
+/// Tangram 1.x Code Start
 baidu.array.map = function(array, iterator, context){
     return baidu.isArray(array) ? array.map(iterator, context) : array;
 };
+/// Tangram 1.x Code End

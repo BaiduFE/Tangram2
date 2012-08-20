@@ -38,8 +38,9 @@ Array.prototype.some = function(iterator, context){
     }
     return false;
 };
-
+/// Tangram 1.x Code Start
 // TODO: delete in tangram 3.0
 baidu.array.some = function(array, iterator, context) {
     return array.some(iterator, context);
 };
+/// Tangram 1.x Code End

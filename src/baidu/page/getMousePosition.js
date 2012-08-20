@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -40,3 +41,4 @@
  });
 
 })();
+/// Tangram 1.x Code End

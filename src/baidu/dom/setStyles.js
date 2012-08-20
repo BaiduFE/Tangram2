@@ -1,9 +1,9 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
 
-///import baidu.dom;
 ///import baidu.dom.setStyle;
 
 /**
@@ -34,3 +34,4 @@ setStyles : function ( styles) {
 
 // 声明快捷方法
 baidu.setStyles = baidu.dom.setStyles;
+/// Tangram 1.x Code End

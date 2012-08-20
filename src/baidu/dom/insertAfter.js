@@ -22,6 +22,7 @@ baidu.dom.extend({
     }
 });
 
+
 /**
  * @description 将目标元素添加到基准元素之后
  * @function 

@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -26,4 +27,4 @@
 //baidu.lang.isElement = function (source) {
 //    return !!(source && source.nodeName && source.nodeType == 1);
 //};
-
+/// Tangram 1.x Code End

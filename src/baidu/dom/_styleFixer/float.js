@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All right reserved.
@@ -15,3 +16,4 @@
  * @meta standard
  */
 baidu.dom._styleFixer["float"] = baidu.browser.ie ? "styleFloat" : "cssFloat";
+/// Tangram 1.x Code End

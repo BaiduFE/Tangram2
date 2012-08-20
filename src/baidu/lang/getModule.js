@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * tangram
  * copyright 2011 baidu inc. all rights reserved.
@@ -54,3 +55,5 @@ baidu.lang.getModule = function(name, opt_obj) {
 
 
 /* vim: set ts=4 sw=4 sts=4 tw=100 noet: */
+
+/// Tangram 1.x Code End

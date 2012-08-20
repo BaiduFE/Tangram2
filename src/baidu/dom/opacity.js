@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 ///import baidu.dom.g;
 ///import baidu.browser.ie;
 
@@ -22,3 +23,4 @@ baidu.dom.opacity = function(element, opacity){
             Math.floor(opacity * 100) +")";
     }
 };
+/// Tangram 1.x Code End

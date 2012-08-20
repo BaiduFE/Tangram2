@@ -16,7 +16,7 @@
  */
 
 baidu.dom.extend({
-    hide : function() {
+    hide: function() {
         baidu.dom._showHide( this );
         return this;
     }
