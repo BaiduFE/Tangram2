@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -27,3 +28,4 @@ baidu.page.loadJsFile = function (path) {
 
     document.getElementsByTagName("head")[0].appendChild(element);    
 };
+/// Tangram 1.x Code End

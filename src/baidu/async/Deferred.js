@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -171,3 +172,4 @@ baidu.async.Deferred = function() {
         me._cancelled = 1;
     };
 };
+/// Tangram 1.x Code End

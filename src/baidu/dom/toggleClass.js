@@ -34,10 +34,6 @@
 ///import baidu.dom;
 ///import baidu.each;
 
-///import baidu.dom.addClass;
-///import baidu.dom.removeClass;
-///import baidu.dom.hasClass;
-
 baidu.dom.extend({
     toggleClass: function(value,status){
     	var type = typeof value;
@@ -92,6 +88,7 @@ baidu.dom.extend({
     }
 });
 
+/// Tangram 1.x Code Start
 //兼容老接口
 
 /*
@@ -117,6 +114,10 @@ baidu.dom.extend({
  * 传入多个class时，只要其中有一个class不在当前元素中，则添加所有class，否则删除所有class。
  */
 
+
+///import baidu.dom.addClass;
+///import baidu.dom.removeClass;
+///import baidu.dom.hasClass;
 baidu.dom.toggleClass = function (element, className) {
     if(baidu.dom.hasClass(element, className)){
         baidu.dom.removeClass(element, className);
@@ -124,3 +125,4 @@ baidu.dom.toggleClass = function (element, className) {
         baidu.dom.addClass(element, className);
     }
 };
+/// Tangram 1.x Code End

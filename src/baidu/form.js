@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 ﻿/**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -25,3 +26,4 @@ function(form){
 function(form){
 	this.form = form;
 });
+/// Tangram 1.x Code End

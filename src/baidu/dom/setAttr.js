@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -26,18 +27,19 @@
 
  
 baidu.dom.extend({
-setAttr : function (key, value) {
-	var element = this[0];
-    if ('style' == key){
-        element.style.cssText = value;
-    } else {
-        key = baidu.dom._NAME_ATTRS[key] || key;
-        element.setAttribute(key, value);
+    setAttr : function (key, value) {
+        var element = this[0];
+        if ('style' == key){
+            element.style.cssText = value;
+        } else {
+            key = baidu.dom._NAME_ATTRS[key] || key;
+            element.setAttribute(key, value);
+        }
+    
+        return element;
     }
-
-    return element;
-}	
 });
 
 // 声明快捷方法
 baidu.setAttr = baidu.dom.setAttr;
+/// Tangram 1.x Code End

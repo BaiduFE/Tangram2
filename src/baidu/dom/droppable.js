@@ -1,3 +1,5 @@
+/// Tangram 1.x Code Start
+//为兼容Tangram1.x的magic增加的接口
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -82,3 +84,4 @@ baidu.dom.droppable = function(element, options){
 		}
 	};
 };
+/// Tangram 1.x Code End
