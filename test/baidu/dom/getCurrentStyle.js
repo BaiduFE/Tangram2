@@ -7,7 +7,7 @@ test("get style from style", function() {
 	document.body.appendChild(div);
 	div.appendChild(img);
 	div.id = 'div_id';
-	div.style.cssFloat = div.style.float = 'left';// opera下cssFloat生效
+	div.style['cssFloat'] = div.style['float'] = 'left';// opera下cssFloat生效
 	div.style.width = '100px';
 	div.style.height = '150px';
 	div.style.background = "#FFCC80";
@@ -22,8 +22,8 @@ test("get style from style", function() {
 	ok(color == '#ff0000' || color == 'red'
 			|| (/rgb\(255,\s?0,\s?0\)/.test(color)), 'color red');
 	equal(baidu.dom.getCurrentStyle(img, 'display'), 'block');
-	equal(baidu.dom.getCurrentStyle(img, 'width'), '10%');
-	equal(baidu.dom.getCurrentStyle(img, 'height'), '10%');
+	equal(baidu.dom.getCurrentStyle(img, 'width'), '10px');
+	equal(baidu.dom.getCurrentStyle(img, 'height'), '15px');
 
 	document.body.removeChild(div);
 });
@@ -42,10 +42,10 @@ test("get style from css file", function() {
 
 	div.appendChild(p);
 	div.appendChild(img);
-	$(div).attr('className', "content");
-	$(div1).attr('className', 'content');
-	$(img).attr('className', 'content');
-	$(p).attr('className', 'pid');
+	$(div).prop('className', "content");
+	$(div1).prop('className', 'content');
+	$(img).prop('className', 'content');
+	$(p).prop('className', 'pid');
 
 	ua.loadcss(upath + 'style.css', function() {
 		/** IE的float属性叫styleFloat，firefox则是cssFloat * */

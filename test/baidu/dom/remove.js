@@ -103,15 +103,16 @@ test('text node', function() {
     baidu.dom.remove(div);
 });
 
-test('异常用例', function() {
-    expect(1);
-    var div = document.createElement('div');
-    div.id = 'remove_test_div';
-    // alert(div && div.nodeName && (div.nodeType == 1 || id.nodeType == 9))
-        try {
-            baidu.dom.remove("remove_test_div");
-
-        } catch (e) {
-            ok(true, 'exception catched');
-        }
-    })
+//2.0已经加入了容错
+//test('异常用例', function() {
+//    expect(1);
+//    var div = document.createElement('div');
+//    div.id = 'remove_test_div';
+//    // alert(div && div.nodeName && (div.nodeType == 1 || id.nodeType == 9))
+//        try {
+//            baidu.dom.remove("remove_test_div");
+//
+//        } catch (e) {
+//            ok(true, 'exception catched');
+//        }
+//    })

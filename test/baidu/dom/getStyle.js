@@ -109,10 +109,10 @@ test("get style from css file", function() {
 	var head = document.getElementsByTagName("head").item(0);
 	div.appendChild(p);
 	div.appendChild(img);
-	$(div).attr('className', "content");
-	$(div1).attr('className', 'content');
-	$(img).attr('className', 'content');
-	$(p).attr('className', 'pid');
+	$(div).prop('className', "content");
+	$(div1).prop('className', 'content');
+	$(img).prop('className', 'content');
+	$(p).prop('className', 'pid');
 
 	var handle = function() {
 		/** IE的float属性叫styleFloat，firefox则是cssFloat * */
