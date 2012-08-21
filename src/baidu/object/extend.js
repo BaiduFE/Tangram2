@@ -4,6 +4,7 @@
  */
 
 ///import baidu.object;
+///import baidu.extend;
 
 /**
  * @description 将源对象的所有属性拷贝到目标对象中
@@ -24,4 +25,14 @@
  *             
  * @return {Object} 目标对象
  */
+
+//baidu.object.extend = function (target, source) {
+//    for (var p in source) {
+//        if (source.hasOwnProperty(p)) {
+//            target[p] = source[p];
+//        }
+//    }
+//    
+//    return target;
+//};
 baidu.object.extend = baidu.extend;
