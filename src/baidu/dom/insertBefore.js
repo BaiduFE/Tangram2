@@ -2,7 +2,7 @@
  * @author linlingyu
  */
 ///import baidu.dom._smartInsertTo;
-///import baidu.dom._g;
+
 
 /**
  * @description 将匹配到的DOM元素插入到参数指定的DOM元素的前面
@@ -21,6 +21,9 @@ baidu.dom.extend({
         return this;
     }
 });
+
+/// Tangram 1.x Code Start
+///import baidu.dom._g;
 /**
  * @description 将目标元素添加到基准元素之前
  * @function 
@@ -34,3 +37,4 @@ baidu.dom.insertBefore = function(newElement, existElement){
     var get = baidu.dom._g;
     return baidu.dom(get(newElement)).insertBefore(get(existElement))[0];
 };
+/// Tangram 1.x Code End

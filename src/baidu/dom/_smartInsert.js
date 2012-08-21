@@ -28,7 +28,7 @@ baidu.dom._smartInsert = function(tang, args, callback){
         if(item.nodeType){
             fragment.appendChild(item);
         }else{
-            baidu.each(baidu.type(item, 'string|number') ?
+            baidu.each(~'string|number'.indexOf(baidu.type(item)) ?
                 baidu.dom.createElements(item, doc)
                     : item, function(ele){
                         fragment.appendChild(ele);

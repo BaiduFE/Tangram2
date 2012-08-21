@@ -88,7 +88,7 @@ baidu.dom.styleFixer = function(){
             method = val === undefined ? 'get' : 'set',
             origVal, hooks;
         origKey = cssProps[origKey] || origKey;
-        origVal = baidu.type(val, 'number') && !~cssNumber.indexOf(origKey) ? val + 'px' : val;
+        origVal = baidu.type(val) === 'number' && !~cssNumber.indexOf(origKey) ? val + 'px' : val;
         hooks = cssHooks.hasOwnProperty(origKey) && cssHooks[origKey][method] || style[method];
         return hooks(ele, origKey, origVal);
     };
