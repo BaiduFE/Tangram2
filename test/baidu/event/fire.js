@@ -86,18 +86,18 @@ module('baidu.event.fire');
 				 'scroll', 'submit' ];
 		var wList = [ 'scroll', 'resize', 'reset', 'submit', 'change',
 				'select', 'error', 'abort', 'unload' ];//opera下，只有scroll、resize、error、unload能派发
-		for ( var e in eList) {
+		for ( var e = 0; e < eList.length; e ++ ) {
 			check(eList[e]);
 		}
 
 		if (ua.browser.ie == 0) {
-			for ( var e in hList) {
+			for ( var e = 0; e < hList.length; e ++ ) {
 				check( {
 					eName : hList[e],
 					obj : document
 				});
 			}
-			for ( var e in wList) {
+			for ( var e = 0; e < wList.length; e ++ ) {
 				check( {
 					eName : wList[e],
 					obj : window
@@ -105,14 +105,14 @@ module('baidu.event.fire');
 			}
 			expect(eList.length + hList.length + wList.length + ((ua.browser.opera && ua.browser.opera < 9) ? -5 : 0));
 		} else{
-			for ( var e in hList) {
+			for ( var e = 0; e < hList.length; e ++ ) {
 				if(hList[e]!='load'&&hList[e]!='unload'){
 					checkIE( {
 						eName : hList[e]
 					});
 				}
 			}
-			for ( var e in wList) {
+			for ( var e = 0; e < wList.length; e ++ ) {
 				if(wList[e]!='load'&&wList[e]!='unload'){
 					checkIE( {
 						eName : wList[e]
