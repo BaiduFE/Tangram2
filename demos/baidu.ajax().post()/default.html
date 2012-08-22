@@ -46,7 +46,7 @@
 				btn.attr('disabled', 'disabled');
 
 				var data = 'num=' + baidu.dom('#num').val();
-				baidu.ajax('factorial.php').post(data ,function(xhr, responseText){
+				baidu.ajax('../../demos/baidu.ajax().post()/factorial.php').post(data ,function(xhr, responseText){
 					baidu.dom('#calc-result').html(responseText);
 					btn.attr('disabled', false);
 				});
