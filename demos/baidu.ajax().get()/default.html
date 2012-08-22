@@ -41,7 +41,7 @@
 		</div>		
 		<script type="text/javascript">
 			baidu.dom('#request-source').on('click', function(){
-				baidu.ajax('get.js').get(function(xhr, responseText){
+				baidu.ajax('../../demos/baidu.ajax().get()/get.js').get(function(xhr, responseText){
 					var data = eval(responseText);
 					baidu.dom('#demo_execute_result').html('name:'+data.name+', age:'+data.age+', city:'+data.city+', email:'+data.email);
 				});
