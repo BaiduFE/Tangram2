@@ -41,7 +41,7 @@
 		<script type="text/javascript">
 			function request(){
 				baidu.dom('#status').html('请求时间：'+new Date());
-				baidu.ajax('sleep.php').request({
+				baidu.ajax('../../demos/baidu.ajax().request()/sleep.php').request({
 					method: 'POST',
 					data: 'time=' + baidu.dom('#sleep-time').val(),
 
