@@ -38,7 +38,7 @@
 		</div>		
 		<script type="text/javascript">
 			baidu.dom('#request-time').on('click', function(){
-				baidu.ajax('servertime.php').request({
+				baidu.ajax('../../demos/baidu.ajax().request()/servertime.php').request({
 					onsuccess: function(xhr, responseText){
 						baidu.dom('#server-time').html(responseText);
 					}
