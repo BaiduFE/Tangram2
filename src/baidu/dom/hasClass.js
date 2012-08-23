@@ -2,8 +2,9 @@
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
+ 
 /**
- * @description 检查匹配的元素是否含有某个特定的类
+ * @description  检查匹配的元素是否含有某个特定的className，支持传入多个className，并且可以打乱顺序。<br />   如果是多个，同时存在返回true，有一个不存在就返回false。<br />   使用举例：<br />   <br />   //HTML片段<br />   <div id='test-div' class='class1 class2'></div><br />   <br />   //单个className<br />   baidu('#test-div').hasClass('class1');  //true<br />   <br />   //多个className<br />   baidu('#test-div').hasClass('class1 class2');  //true<br />   <br />   //多个className，顺序可以打乱<br />   baidu('#test-div').hasClass('class2 class1');  //true <br /><br />   //多个className，有一个不存在则返回false<br />   baidu('#test-div').hasClass('class1 class2 class4');  //false<br />   
  * @function 
  * @name baidu.dom().hasClass()
  * @grammar baidu.dom(args).hasClass(className)
