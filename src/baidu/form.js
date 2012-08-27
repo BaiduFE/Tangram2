@@ -19,7 +19,7 @@ baidu.createChain("form",
 
 // 执行方法
 function(form){
-	return typeof form === 'undefined'? new baidu.$Form():new baidu.$Form(form);
+	return typeof form === 'undefined'? new baidu._private_.$Form():new baidu._private_.$Form(form);
 },
 
 // constructor
