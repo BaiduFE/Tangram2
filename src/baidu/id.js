@@ -67,7 +67,7 @@ baidu.id = function() {
             return maps[ object ];
         }
 
-        return "TANGRAM__" + baidu.$global._counter ++;
+        return "TANGRAM__" + baidu._private_.$global._counter ++;
     };
 }();
 

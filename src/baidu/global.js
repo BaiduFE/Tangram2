@@ -17,7 +17,7 @@
  * @return  {Object}                该key对象的对象
  */
 baidu.global = (function() {
-    var global = baidu.$global = window[ baidu._private_.guid ];
+    var global = baidu._private_.$global = window[ baidu._private_.guid ];
 
     return function( key, value, overwrite ) {
         if ( typeof value != "undefined" ) {
