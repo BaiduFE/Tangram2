@@ -123,14 +123,14 @@ var T,
         return baidu.dom ? baidu.dom(q, c) : null;
     };
 
-// 版本号
-baidu.version = "2.0.0";
-
-// baidu 对象的唯一标识（身份证号）
-baidu.guid = "$BAIDU$";
-
-// 对象唯一标识属性名
-baidu.key = "tangram_guid";
+baidu._private_ = {
+    // 版本号
+    guid: "$BAIDU$"
+	// baidu 对象的唯一标识（身份证号）
+    ,version: "2.0.0"
+	// 对象唯一标识属性名
+    ,key: "tangram_guid"
+}
 
 // Tangram可能被放在闭包中
 // 一些页面级别唯一的属性，需要挂载在window[baidu.guid]上
