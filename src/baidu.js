@@ -132,6 +132,9 @@ baidu._private_ = {
     ,key: "tangram_guid"
 }
 
+//TODO: delete it in feature
+baidu.guid = "$BAIDU$";
+
 // Tangram可能被放在闭包中
 // 一些页面级别唯一的属性，需要挂载在window[baidu.guid]上
 window[baidu._private_.guid] = window[baidu._private_.guid] || {};
