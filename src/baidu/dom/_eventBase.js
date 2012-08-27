@@ -289,7 +289,7 @@ baidu.dom._eventBase = function(){
         
         _getEventsLength: function(tang, evtName){
             var len = 0,
-                key = baidu.id(tang[0] || tang, 'get'),
+                key = tang && baidu.id(tang[0] || tang, 'get'),
                 item;
             if(tang){
                 item = eventsCache[key];
