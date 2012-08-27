@@ -170,12 +170,12 @@ module("baidu.lang.Class");
 // value_of(SObject.salary).should_be(10000);
 // value_of(SObject.owner).should_be('baidu');
 //        
-// value_of(window[baidu.guid]._instances[SObject.guid].givenName).should_be('Jim');
-// value_of(window[baidu.guid]._instances[SObject.guid].salary).should_be(10000);
+// value_of(window[baidu._private_.guid]._instances[SObject.guid].givenName).should_be('Jim');
+// value_of(window[baidu._private_.guid]._instances[SObject.guid].salary).should_be(10000);
 //        
 // i = SObject.guid;
 // SObject.dispose();
-// value_of(window[baidu.guid]._instances[i]).should_be(undefined);
+// value_of(window[baidu._private_.guid]._instances[i]).should_be(undefined);
 // },
 // // Skip this case, since create does not support json which contains guid
 // attribute
@@ -318,33 +318,33 @@ module("baidu.lang.Class");
 // c = new Computer('Dell', 'Sony Monitor', 'Dell China');
 // value_of(c.guid.length > 0).should_be_true();
 // value_of(arrayContain(guidArray, c.guid)).should_be_false();
-// value_of(window[baidu.guid]._instances[c.guid]).should_be(c);
+// value_of(window[baidu._private_.guid]._instances[c.guid]).should_be(c);
 //        
 // k = c.guid;
 // c.dispose();
-// value_of(window[baidu.guid]._instances[k]).should_be(undefined);
+// value_of(window[baidu._private_.guid]._instances[k]).should_be(undefined);
 // //check all the Objects we have~~
 // var i = 0;
 // var tmpArray = [];
 // while (i < guidArray.length) {
 // k = guidArray[i];
-// tmpArray.push(window[baidu.guid]._instances[k].guid);
+// tmpArray.push(window[baidu._private_.guid]._instances[k].guid);
 // i = i + 1;
 // }
 // value_of(tmpArray).should_be(guidArray);
 // },
 // 'call an existing object\'s dispose function': function(){
 // k = guidArray.pop();
-// i = window[baidu.guid]._instances[k];
+// i = window[baidu._private_.guid]._instances[k];
 // i.dispose();
-// value_of(window[baidu.guid]._instances[k]).should_be(undefined);
+// value_of(window[baidu._private_.guid]._instances[k]).should_be(undefined);
 //        
 // //check all the Objects we have~~
 // var i = 0;
 // var tmpArray = [];
 // while (i < guidArray.length) {
 // k = guidArray[i];
-// tmpArray.push(window[baidu.guid]._instances[k].guid);
+// tmpArray.push(window[baidu._private_.guid]._instances[k].guid);
 // i = i + 1;
 // }
 // value_of(tmpArray).should_be(guidArray);
