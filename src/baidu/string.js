@@ -22,7 +22,7 @@ baidu.createChain('string',
         var type = baidu.type(string),
             str = new String(~'string|number'.indexOf(type) ? string : type),
             pro = String.prototype;
-        baidu.each(baidu.$String.prototype, function(fn, key) {
+        baidu.each(baidu._private_.$String.prototype, function(fn, key) {
             pro[key] || (str[key] = fn);
         });
         return str;

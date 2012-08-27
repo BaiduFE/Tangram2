@@ -51,10 +51,10 @@ baidu.createChain = function(chainName, fn, constructor) {
     };
 
     // 创建 链头对象 构造器
-    baidu[className] = baidu[className] || constructor || function() {};
+    baidu._private_[className] = baidu._private_[className] || constructor || function() {};
 
     // 给 链头对象 原型链做一个短名映射
-    chain.fn = baidu[className].prototype;
+    chain.fn = baidu._private_[className].prototype;
 
     return chain;
 };
