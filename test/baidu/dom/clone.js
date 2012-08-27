@@ -51,9 +51,9 @@ test('event', function(){
         tang = baidu.dom(div.get()).clone(true);
         equal(tang.get(0).firstChild.tagName.toUpperCase(), 'SPAN', 'DIV first child is SPAN');
         equal(tang.get(0).firstChild.firstChild.tagName.toUpperCase(), 'SPAN', 'SPAN first child is SPAN');
-        ok(tang.get(0)[baidu.key] !== div.get()[baidu.key], 'it is not same baidu.key');
-        ok(tang.get(0).firstChild[baidu.key] === undefined, 'div first child has not baidu.key');
-        ok(tang.get(0).firstChild.firstChild[baidu.key] === undefined, 'span first child has not baidu.key');
+        ok(tang.get(0)[baidu._private_.key] !== div.get()[baidu._private_.key], 'it is not same baidu._private_.key');
+        ok(tang.get(0).firstChild[baidu._private_.key] === undefined, 'div first child has not baidu._private_.key');
+        ok(tang.get(0).firstChild.firstChild[baidu._private_.key] === undefined, 'span first child has not baidu._private_.key');
         ua.fireMouseEvent(tang.get(0), 'click');
         ua.fireMouseEvent(tang.get(0).firstChild, 'mouseover');
         ua.fireMouseEvent(tang.get(0).firstChild.firstChild, 'mouseout');
@@ -82,9 +82,9 @@ test('clone all', function(){
         ok(true, 'span child mouseout event trigger');
     });
     tang = baidu.dom(div.get()).clone(true, true);
-    ok(tang.get(0)[baidu.key] !== div.get()[baidu.key], 'it is not same baidu.key');
-    ok(tang.get(0).firstChild[baidu.key] !== span.get()[baidu.key], 'it is not same baidu.key');
-    ok(tang.get(0).firstChild.firstChild[baidu.key] !== span_child.get()[baidu.key], 'it is not smae baidu.key');
+    ok(tang.get(0)[baidu._private_.key] !== div.get()[baidu._private_.key], 'it is not same baidu._private_.key');
+    ok(tang.get(0).firstChild[baidu._private_.key] !== span.get()[baidu._private_.key], 'it is not same baidu._private_.key');
+    ok(tang.get(0).firstChild.firstChild[baidu._private_.key] !== span_child.get()[baidu._private_.key], 'it is not smae baidu._private_.key');
     ua.fireMouseEvent(tang.get(0), 'click');
     ua.fireMouseEvent(tang.get(0).firstChild, 'mouseover');
     ua.fireMouseEvent(tang.get(0).firstChild.firstChild, 'mouseout');
