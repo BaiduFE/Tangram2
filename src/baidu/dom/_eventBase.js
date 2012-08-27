@@ -13,280 +13,304 @@
 ///import baidu.dom.closest;
 
 baidu.dom._eventBase = function(){
-	var eventsCache = {
-		/*
-			tangram-id: {
-				eventName: [fn, fn...],
-				eventName: [fn, fn...],
-				...
-			},
-			tangram-id: {
-				eventName: [fn, fn...],
-				eventName: [fn, fn...],
-				...
-			},
-			...
-		*/
-	};
+    var eventsCache = {
+        /*
+            tangram-id: {
+                eventName: [fn, fn...],
+                eventName: [fn, fn...],
+                ...
+            },
+            tangram-id: {
+                eventName: [fn, fn...],
+                eventName: [fn, fn...],
+                ...
+            },
+            ...
+        */
+    };
 
-	var proxyCache = {
-		/*
-			tangram-id: { eventName: 1, eventName: 1, ... },
-			tangram-id: { eventName: 1, eventName: 1, ... },
-			...
-		 */
-	};
+    var proxyCache = {
+        /*
+            tangram-id: { eventName: 1, eventName: 1, ... },
+            tangram-id: { eventName: 1, eventName: 1, ... },
+            ...
+         */
+    };
 
-	var ae = 
+    var ae = 
 
-	window.addEventListener ? 
-	function( target, name, fn ){
-	    target.addEventListener( name, fn, false );
-	} : 
+    window.addEventListener ? 
+    function( target, name, fn ){
+        target.addEventListener( name, fn, false );
+    } : 
 
-	window.attachEvent ?
-	function( target, name, fn ){
-	    target.attachEvent( "on" + name, fn );
-	} :
+    window.attachEvent ?
+    function( target, name, fn ){
+        target.attachEvent( "on" + name, fn );
+    } :
 
-	function(){};
+    function(){};
 
-	var proxy = function( target, name, fnAry ){
-	    var id = baidu.id( target );
-	    var c = proxyCache[ id ] = proxyCache[ id ] || {};
-	    if( c[ name ] )
-	    	return;
-	    c[ name ] = 1;
+    var proxy = function( target, name, fnAry ){
+        var id = baidu.id( target );
+        var c = proxyCache[ id ] = proxyCache[ id ] || {};
+        if( c[ name ] )
+            return;
+        c[ name ] = 1;
 
-	    var call = function( e ){
-			var args = Array.prototype.slice.call( arguments, 1 );
-				args.unshift( e = baidu.event( e )  );	    	
-	    	
-	    	if( !e.currentTarget )
-	    	    e.currentTarget = target;
+        var call = function( e ){
+            var args = Array.prototype.slice.call( arguments, 1 );
+                args.unshift( e = baidu.event( e )  );            
+            
+            if( !e.currentTarget )
+                e.currentTarget = target;
 
-	    	for(var i = 0, l = fnAry.length; i < l; i += 2)
-	    		fnAry[i].apply( this, args );
-	    };
+            for(var i = 0, l = fnAry.length; i < l; i += 2)
+                fnAry[i].apply( this, args );
+        };
 
-	    ae( target, name, call );
-	};
+        ae( target, name, call );
+    };
 
-	var addEvent = function( target, name, fn, selector, data ){
-		var call = function( e ){
-		    var t = baidu.dom( e.target );
-			if( data && !e.data ) 
-				e.data = data;
-			if( e.triggerData ) 
-				[].push.apply( arguments, e.triggerData );
-			if( !selector )
-				return e.result = fn.apply( target, arguments );
-			if( t.is( selector ) || t.is( selector + " *" ) )
-				return e.result = fn.apply( baidu.dom( e.target ).closest( selector )[0], arguments );
-		};
+    var addEvent = function( target, name, fn, selector, data ){
+        var call = function( e ){
+            var t = baidu.dom( e.target );
+            if( data && !e.data ) 
+                e.data = data;
+            if( e.triggerData ) 
+                [].push.apply( arguments, e.triggerData );
+            if( !selector )
+                return e.result = fn.apply( target, arguments );
+            if( t.is( selector ) || t.is( selector + " *" ) )
+                return e.result = fn.apply( baidu.dom( e.target ).closest( selector )[0], arguments );
+        };
 
-		var tangId = baidu.id( target );
-		var c = eventsCache[ tangId ] || ( eventsCache[ tangId ] = {});
-		var eventArray = c[ name ] || ( c[ name ] = [] );
+        var tangId = baidu.id( target );
+        var c = eventsCache[ tangId ] || ( eventsCache[ tangId ] = {});
+        var eventArray = c[ name ] || ( c[ name ] = [] );
 
-		eventArray.push( call, fn );
-		proxy( target, name, eventArray );
+        eventArray.push( call, fn );
+        proxy( target, name, eventArray );
 
-		return call;
-	};
+        return call;
+    };
 
-	var removeEvent = function( target, name, fn, selector ){
-		var tangId;
-		if( !( tangId = baidu.id( target, "get" ) ) ) 
-		    return ;
-		
-		var c = eventsCache[ tangId ] || ( eventsCache[tangId] = {});
-		var eventArray = c[ name ] || ( c[ name ] = [] );
+    var removeEvent = function( target, name, fn, selector ){
+        var tangId;
+        if( !( tangId = baidu.id( target, "get" ) ) ) 
+            return ;
+        
+        var c = eventsCache[ tangId ] || ( eventsCache[tangId] = {});
+        var eventArray = c[ name ] || ( c[ name ] = [] );
 
-		for( var i = eventArray.length - 1, f; i >= 0; i-- )
-			if( f = eventArray[i], f === fn )
-				eventArray.splice( i - 1, 2 );
-	};
+        for( var i = eventArray.length - 1, f; i >= 0; i-- )
+            if( f = eventArray[i], f === fn )
+                eventArray.splice( i - 1, 2 );
+    };
 
-	var removeAllEvent = function( target, name ){
-		var tangId;
-		if( !( tangId = baidu.id( target, "get" ) ) )
-		    return ;
+    var removeAllEvent = function( target, name ){
+        var tangId;
+        if( !( tangId = baidu.id( target, "get" ) ) )
+            return ;
 
-		var c = eventsCache[tangId] || ( eventsCache[tangId] = {});
+        var c = eventsCache[tangId] || ( eventsCache[tangId] = {});
 
-		var remove = function( name ){
-			var eventArray = c[ name ] || ( c[ name ] = [] );
-			for ( var i = eventArray.length - 1, fn; i >= 0; i -= 2 ) 
-				fn = eventArray[i],
-				removeEvent( target, name, fn );
-		};
+        var remove = function( name ){
+            var eventArray = c[ name ] || ( c[ name ] = [] );
+            for ( var i = eventArray.length - 1, fn; i >= 0; i -= 2 ) 
+                fn = eventArray[i],
+                removeEvent( target, name, fn );
+        };
 
-		if( name )
-			remove( name );
-		else for( var name in c ) 
-			remove( name );
-	};
+        if( name )
+            remove( name );
+        else for( var name in c ) 
+            remove( name );
+    };
 
-	var fireHandler = function( target, name, triggerData ){
-		var tangId;
-		if( !( tangId = baidu.id( target, "get" ) ) )
-		    return ;
+    var fireHandler = function( target, name, triggerData ){
+        var tangId;
+        if( !( tangId = baidu.id( target, "get" ) ) )
+            return ;
 
-		var c = eventsCache[tangId] || ( eventsCache[tangId] = {} );
-		var eventArray = c[name] || ( c[name] = [] );
-		var event = baidu.event({ type: name });
-		var args = [ event ];
+        var c = eventsCache[tangId] || ( eventsCache[tangId] = {} );
+        var eventArray = c[name] || ( c[name] = [] );
+        var event = baidu.event({ type: name });
+        var args = [ event ];
 
-		if( triggerData )
-			event.triggerData = triggerData,
-			args.push.apply( args, triggerData );
+        if( triggerData )
+            event.triggerData = triggerData,
+            args.push.apply( args, triggerData );
 
-		for( var i = 0, l = eventArray.length; i < l; i += 2 ) 
-			eventArray[i].apply( this, args );
-	};
+        for( var i = 0, l = eventArray.length; i < l; i += 2 ) 
+            eventArray[i].apply( this, args );
+    };
 
-	var getHandler = function( target ){
-		var tangId;
-		if( !( tangId = baidu.id( target, "get" ) ) ) 
-		    return ;
-		
-	    var c = eventsCache[tangId] || ( eventsCache[tangId] = {} );
-	    var ret = {}, arr;
+    var getHandler = function( target ){
+        var tangId;
+        if( !( tangId = baidu.id( target, "get" ) ) ) 
+            return ;
+        
+        var c = eventsCache[tangId] || ( eventsCache[tangId] = {} );
+        var ret = {}, arr;
 
-	    for( var event in c ){
-	        arr = ret[ event ] = [];
-	        ce = c[ event ];
-	        for( var i = 1, l = ce.length; i < l; i += 2 ) 
-	        	arr.push( ce[i] );
-	    }
+        for( var event in c ){
+            arr = ret[ event ] = [];
+            ce = c[ event ];
+            for( var i = 1, l = ce.length; i < l; i += 2 ) 
+                arr.push( ce[i] );
+        }
 
-	    return ret;
-	};
+        return ret;
+    };
 
-	var special = function( name )  {
-		switch ( name )  {
-			case "focusin":
-			case "focusout":
-				if ( !/firefox/i.test( navigator.userAgent ) ) 
-					return false;
+    var special = function( name )  {
+        switch ( name )  {
+            case "focusin":
+            case "focusout":
+                if ( !/firefox/i.test( navigator.userAgent ) ) 
+                    return false;
 
-				var object = {},
-					fixName = name == "focusin" ? "focus" : "blur";
+                var object = {},
+                    fixName = name == "focusin" ? "focus" : "blur";
 
-				object[name] = function( data, fn ){
-					if( typeof data == "function" )
-						fn = data, 
-						data = null;
+                object[name] = function( data, fn ){
+                    if( typeof data == "function" )
+                        fn = data, 
+                        data = null;
 
-					var me = this;
+                    var me = this;
 
-					if( !fn ){
-					    return this.triggerHandler( name, data );
-					}else{
-						var call = function(){
-							me.triggerHandler( name );
-						};
+                    if( !fn ){
+                        return this.triggerHandler( name, data );
+                    }else{
+                        var call = function(){
+                            me.triggerHandler( name );
+                        };
 
-						baidu.each( this, function( item ){
-							baidu( "textarea,select,input,button,a", item ).on( fixName, call );
-						});
+                        baidu.each( this, function( item ){
+                            baidu( "textarea,select,input,button,a", item ).on( fixName, call );
+                        });
 
-						return this._on( name, data, fn ), this;
-					}
-				};
+                        return this._on( name, data, fn ), this;
+                    }
+                };
 
-				return baidu.dom.extend( object ), true;
+                return baidu.dom.extend( object ), true;
 
-			case "mouseenter":
-			case "mouseleave":
-				if( /msie/i.test( navigator.userAgent ) )
-					return false;
+            case "mouseenter":
+            case "mouseleave":
+                if( /msie/i.test( navigator.userAgent ) )
+                    return false;
 
-				var object = {},
-					fixName = name == "mouseenter" ? "mouseover" : "mouseout";
+                var object = {},
+                    fixName = name == "mouseenter" ? "mouseover" : "mouseout";
 
-				var contains = baidu.dom.contains;
+                var contains = baidu.dom.contains;
 
-				object[name] = function( data, fn ){
+                object[name] = function( data, fn ){
 
-					if( arguments.length == 0 )
-						return this.trigger( name );
+                    if( arguments.length == 0 )
+                        return this.trigger( name );
 
-					if( typeof data == "function" )
-						fn = data,
-						data = null;
+                    if( typeof data == "function" )
+                        fn = data,
+                        data = null;
 
-					var me = this;
-					var call = function( event ){
-						related = event.relatedTarget;
-						if( !related || (related !== this && !contains( this, related )) )
-						    me.triggerHandler( name );
-					};
+                    var me = this;
+                    var call = function( event ){
+                        related = event.relatedTarget;
+                        if( !related || (related !== this && !contains( this, related )) )
+                            me.triggerHandler( name );
+                    };
 
-					baidu.each( this, function( item ){
-					    this.on( fixName, call );
-					}, this );
+                    baidu.each( this, function( item ){
+                        this.on( fixName, call );
+                    }, this );
 
-					return this._on( name, data, fn ), this;
-				};
+                    return this._on( name, data, fn ), this;
+                };
 
-				return baidu.dom.extend( object ), true;
-		}
-		
-		return false;
-	};
+                return baidu.dom.extend( object ), true;
+        }
+        
+        return false;
+    };
 
-	return {
-		add: function( dom, event, fn, selector, data ){
-			return addEvent( dom, event, fn, selector, data );
-		},
+    return {
+        add: function( dom, event, fn, selector, data ){
+            return addEvent( dom, event, fn, selector, data );
+        },
 
-		get: function( dom ){
-			return getHandler( dom );
-		},
+        get: function( dom ){
+            return getHandler( dom );
+        },
 
-		remove: function( dom, event, fn, selector ){
-			if( typeof fn == "function" )
-				return removeAllEvent( dom, event, fn, selector );
-			else
-				return removeAllEvent( dom, event, selector );
-		},
+        remove: function( dom, event, fn, selector ){
+            if( typeof fn == "function" )
+                return removeAllEvent( dom, event, fn, selector );
+            else
+                return removeAllEvent( dom, event, selector );
+        },
 
-		removeAll: function( dom ){
-			return removeAllEvent( dom );
-		},
+        removeAll: function( dom ){
+            return removeAllEvent( dom );
+        },
 
-		fireHandler: function( dom, event, triggerData ){
-			return fireHandler( dom, event, triggerData );
-		},
+        fireHandler: function( dom, event, triggerData ){
+            return fireHandler( dom, event, triggerData );
+        },
 
-		method: function( name ){
-			if( arguments.length > 1 ){
-				for( var i = 0, l = arguments.length; i < l; i ++ ) 
-					this.method( arguments[i] );
-				return this;
-			}
+        method: function( name ){
+            if( arguments.length > 1 ){
+                for( var i = 0, l = arguments.length; i < l; i ++ ) 
+                    this.method( arguments[i] );
+                return this;
+            }
 
-			if( !special( name ) ){
-				var object = {};
+            if( !special( name ) ){
+                var object = {};
 
-				object[ name ] = function( data, fn ){
+                object[ name ] = function( data, fn ){
 
-					if( arguments.length == 0 )
-						return this.trigger( name );
-					else{
-						if( typeof data == "function" )
-							fn = data,
-							data = null;
-						return this._on( name, data, fn );
-					}
-				};
+                    if( arguments.length == 0 )
+                        return this.trigger( name );
+                    else{
+                        if( typeof data == "function" )
+                            fn = data,
+                            data = null;
+                        return this._on( name, data, fn );
+                    }
+                };
 
-				baidu.dom.extend( object );
-			}
-		}
-	}
+                baidu.dom.extend( object );
+            }
+        },
+        
+        _getEventsLength: function(tang, evtName){
+            var len = 0,
+                key = baidu.id(tang[0] || tang, 'get'),
+                item;
+            if(tang){
+                item = eventsCache[key];
+                if(evtName){
+                    item[evtName] && (len = item[evtName].length);
+                }else{
+                    for(var i in item){
+                        len += item[i].length;
+                    }
+                }
+            }else{
+                for(var i in eventsCache){
+                    item = eventsCache[i];
+                    for(var j in item){
+                        len += item[j].length;
+                    }
+                }
+            }
+            return len / 2;
+        }
+    }
 }();
 
 baidu.dom._eventBase.method(
