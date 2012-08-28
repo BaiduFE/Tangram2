@@ -1,6 +1,6 @@
 /// Tangram 1.x Code Start
 /**
- *
+ * @author linlingyu
  */
 
 ///import baidu.type;
