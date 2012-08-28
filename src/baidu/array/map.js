@@ -30,7 +30,7 @@
  * @return  {Array}                     映射操作后的数组
  */
 Array.prototype.map = function (iterator, context) {
-    baidu.paramCheck("function(,.+)?","baidu.array.map");
+    baidu.check("function(,.+)?","baidu.array.map");
     var i, n,
         array = baidu.array([]);
 

@@ -42,7 +42,7 @@
  */
 baidu.dom.extend({
     css: function(key, value){
-        baidu.paramCheck('^(?:(?:string(?:,(?:number|string|function))?)|object)$', 'baidu.dom.css');
+        baidu.check('^(?:(?:string(?:,(?:number|string|function))?)|object)$', 'baidu.dom.css');
         return baidu.dom._access.call(this, key, value, function(ele, key, val){
             var styleFixer = baidu.dom.styleFixer;
             return styleFixer ? styleFixer(ele, key, val)

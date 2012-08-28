@@ -12,7 +12,7 @@
  */
 baidu.dom.extend({
     detach: function(selector){
-        selector && baidu.paramCheck('^string$', 'baidu.dom.detach');
+        selector && baidu.check('^string$', 'baidu.dom.detach');
         return this.remove(selector, true);
     }
 });

@@ -18,7 +18,7 @@
 
 	<target name="release" depends="importSrc">
 		<!--YUI -->
-		<taskImport exclude='baidu.paramCheck'/>
+		<taskImport exclude='baidu.check'/>
 		
 		<exec executable="java">
 			<arg value="-jar" />
@@ -45,7 +45,7 @@
 
 	<target name="release-all" depends="importSrc">
 		<!--YUI -->
-		<taskImport exclude='baidu.paramCheck'/>
+		<taskImport exclude='baidu.check'/>
 		
 		<exec executable="java">
 			<arg value="-jar" />

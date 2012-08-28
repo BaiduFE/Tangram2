@@ -24,7 +24,7 @@
  */
 baidu.dom.extend({
     before: function(){
-        baidu.paramCheck('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.before');
+        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.before');
         var parentNode = this[0] && this[0].parentNode,
             array = !parentNode && [], set;
         

@@ -28,7 +28,7 @@
  * @return  {Boolean}           是否全部满足条件
  */
 Array.prototype.every = function(iterator, context) {
-    baidu.paramCheck("function(,.+)?", "baidu.array.every");
+    baidu.check("function(,.+)?", "baidu.array.every");
     var i, n;
 
     for (i=0, n=this.length; i<n; i++) {
