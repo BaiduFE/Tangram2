@@ -113,7 +113,7 @@ baidu.dom._eventBase = function(){
         if( !( tangId = baidu.id( target, "get" ) ) )
             return ;
 
-        var c = eventsCache[tangId] || ( eventsCache[tangId] = {});
+        var c = eventsCache[tangId] || ( eventsCache[tangId] = {} );
 
         var remove = function( name ){
             var eventArray = c[ name ] || ( c[ name ] = [] );
@@ -248,7 +248,7 @@ baidu.dom._eventBase = function(){
 
         remove: function( dom, event, fn, selector ){
             if( typeof fn == "function" )
-                return removeAllEvent( dom, event, fn, selector );
+                return removeEvent( dom, event, fn, selector );
             else
                 return removeAllEvent( dom, event, selector );
         },
@@ -287,27 +287,21 @@ baidu.dom._eventBase = function(){
             }
         },
         
-        _getEventsLength: function(tang, evtName){
-            var len = 0,
-                key = tang && baidu.id(tang[0] || tang, 'get'),
-                item;
-            if(tang){
-                item = eventsCache[key];
-                if(evtName){
-                    item[evtName] && (len = item[evtName].length);
-                }else{
-                    for(var i in item){
-                        len += item[i].length;
-                    }
-                }
-            }else{
-                for(var i in eventsCache){
-                    item = eventsCache[i];
-                    for(var j in item){
-                        len += item[j].length;
-                    }
-                }
+        _getEventsLength: function( tang, evtName ){
+            var len = 0, item;
+
+            if( tang ){
+                item = eventsCache[ baidu.id( tang[0] || tang, "get" ) ];
+                if( evtName )
+                    item[ evtName ] && ( len = item[ evtName ].length );
+                else for( var i in item )
+                    len += item[ i ].length;
+            }else for( var i in eventsCache ){
+                item = eventsCache[ i ];
+                for( var j in item )
+                    len += item[ j ].length;
             }
+
             return len / 2;
         }
     }
