@@ -124,7 +124,7 @@ baidu.dom.extend({
                     doc = baidu.dom(ele).getDocument();
                 return offset[ele === doc.body ? 'bodyOffset' : 'getOffset'](ele, doc);
             }else{
-                baidu.paramCheck('^(?:object|function)$', 'baidu.dom.offset');
+                baidu.check('^(?:object|function)$', 'baidu.dom.offset');
                 for(var i = 0, item; item = this[i]; i++){
                     offset.setOffset(item, options, i);
                 }

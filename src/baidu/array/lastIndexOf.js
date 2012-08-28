@@ -30,7 +30,7 @@
 
 baidu.array.extend({
     lastIndexOf : function (match, fromIndex) {
-        baidu.paramCheck(".+(,number)?", "baidu.array.lastIndexOf");
+        baidu.check(".+(,number)?", "baidu.array.lastIndexOf");
         var len = this.length;
 
         (!(fromIndex = fromIndex | 0) || fromIndex >= len) && (fromIndex = len - 1);

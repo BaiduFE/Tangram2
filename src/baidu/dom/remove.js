@@ -22,7 +22,7 @@
 baidu.dom.extend({
     remove: function(selector, keepData){
         arguments.length > 0
-            && baidu.paramCheck('^string(?:,boolean)?$', 'baidu.dom.remove');
+            && baidu.check('^string(?:,boolean)?$', 'baidu.dom.remove');
         var array = selector ? this.filter(selector) : this;
         for(var i = 0, ele; ele = array[i]; i++){
            if(!keepData && ele.nodeType === 1){

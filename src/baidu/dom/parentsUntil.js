@@ -22,7 +22,7 @@
  */
 baidu.dom.extend({
     parentsUntil : function (selector, filter) {
-        baidu.paramCheck("(string|HTMLElement)(,.+)?","baidu.dom.parentsUntil");
+        baidu.check("(string|HTMLElement)(,.+)?","baidu.dom.parentsUntil");
         var array = [];
 
         baidu.each(this, function(dom){

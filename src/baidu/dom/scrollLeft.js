@@ -21,7 +21,7 @@ baidu.dom.extend({
     scrollLeft: function(){
         var ret = baidu.dom._smartScroll('scrollLeft');
         return function(value){
-            value && baidu.paramCheck('^(?:number|string)$', 'baidu.dom.scrollLeft');
+            value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollLeft');
             return value === undefined ? ret.get(this[0])
                 : ret.set(this[0], value) || this;
         }

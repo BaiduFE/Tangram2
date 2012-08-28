@@ -14,7 +14,7 @@
  */
 baidu.dom.extend({
     insertAfter: function(target){
-        baidu.paramCheck('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertAfter');
+        baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertAfter');
         baidu.dom._smartInsertTo(this, target, function(node){
             this.parentNode.insertBefore(node, this.nextSibling);
         }, 'after');

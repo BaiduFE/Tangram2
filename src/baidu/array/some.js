@@ -28,7 +28,7 @@
  * @return  {Boolean}               是否含有指定条件
  */
 Array.prototype.some = function(iterator, context){
-    baidu.paramCheck("function(,.+)?", "baidu.array.some");
+    baidu.check("function(,.+)?", "baidu.array.some");
     var i, n;
 
     for (i=0, n=this.length; i<n; i++) {

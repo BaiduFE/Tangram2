@@ -43,7 +43,7 @@ baidu.dom.extend({
  * @return {Array} 目标元素的子元素列表，没有子元素时返回空数组
  */
 baidu.dom.children = function(dom) {
-    baidu.paramCheck("string|HTMLElement","baidu.dom.children");
+    baidu.check("string|HTMLElement","baidu.dom.children");
     return baidu.dom( baidu.isString(dom) ? "#"+ dom : dom ).children().toArray();
 };
 /// Tangram 1.x Code End
