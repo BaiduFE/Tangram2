@@ -1,5 +1,6 @@
 ///import baidu;
 ///import baidu.type;
+///import baidu._util_;
 ///import baidu.global;
 ///import baidu.browser;
 /*
@@ -20,7 +21,7 @@
  */
 baidu.id = function() {
     var maps = baidu.global("_maps_id")
-        ,key = baidu._private_.key;
+        ,key = baidu.key;
 
     baidu.global("_counter", 1, true);
 
@@ -73,7 +74,7 @@ baidu.id = function() {
             return maps[ object ];
         }
 
-        return "TANGRAM__" + baidu._private_.$global._counter ++;
+        return "TANGRAM__" + baidu._util_.$global._counter ++;
     };
 }();
 

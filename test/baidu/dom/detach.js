@@ -51,7 +51,7 @@ test('event', function(){
     ua.importsrc('baidu.dom.on', function(){
         var div = new Elements('div'),
             span = new Elements('span', true),
-            key = baidu._private_.key;
+            key = baidu.key;
         div.get().appendChild(span.get());
         
         baidu.dom(span.get()).on('click', function(){

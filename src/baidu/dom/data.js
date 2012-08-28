@@ -20,7 +20,7 @@
  */
 baidu.dom.extend({
     data : function () {
-        var   guid = baidu._private_.key
+        var   guid = baidu.key
             , maps = baidu.global("_maps_HTMLElementData");
 
         return function( key, value ) {

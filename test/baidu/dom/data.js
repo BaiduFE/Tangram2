@@ -5,7 +5,7 @@ module("baidu.dom.data");
 test("第一个参数为 String ", function () {
     var guid = baidu.id.key
         , $dom = baidu.dom(document.body)
-        , maps = window[ baidu._private_.guid ]._maps_HTMLElementData;
+        , maps = window[ baidu.guid ]._maps_HTMLElementData;
 
 
     equal( $dom[0][guid], undefined, "DOM对象未赋GUID" );
