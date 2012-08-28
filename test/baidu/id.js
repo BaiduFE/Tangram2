@@ -12,7 +12,7 @@ test("第一个参数为对象", function(){
     var obj = [1,2,3];
     var dom = document.body;
     var key = baidu.id.key;
-    var maps = window[ baidu._private_.guid ]._maps_id;
+    var maps = window[ baidu.guid ]._maps_id;
 
     var id = baidu.id(obj);
 
@@ -42,7 +42,7 @@ test("第一个参数为字符串", function(){
     var obj = [1,2,3];
     var dom = document.body;
     var key = baidu.id.key;
-    var maps = window[ baidu._private_.guid ]._maps_id;
+    var maps = window[ baidu.guid ]._maps_id;
 
     var id = baidu.id(obj);
     ok(baidu.id(id) == obj, "没有第二个参数时，通过 id 取对象");

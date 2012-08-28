@@ -19,7 +19,7 @@ baidu.createChain('number', function(number){
         clazz = typeof val === 'number' ? Number : String,
         pro = clazz.prototype;
     val = new clazz(val);
-    baidu.each(baidu._private_.$Number.prototype, function(value, key){
+    baidu.each(baidu.number.$Number.prototype, function(value, key){
         pro[key] || (val[key] = value);
     });
     return val;

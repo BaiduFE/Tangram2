@@ -19,7 +19,7 @@ baidu.createChain("async",
 
 // 执行方法
 function(url){
-	return typeof url === 'string'? new baidu._private_.$Async(url):new baidu._private_.$Async();
+	return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
 },
 
 // constructor

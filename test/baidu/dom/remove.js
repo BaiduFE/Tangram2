@@ -50,7 +50,7 @@ test('event', function(){
     ua.importsrc('baidu.dom.on', function(){
         var div = new Elements('div'),
             span = new Elements('span', true),
-            key = baidu._private_.key;
+            key = baidu.key;
         div.get().appendChild(span.get());
         
         baidu.dom(span.get()).on('click', function(){
@@ -59,13 +59,13 @@ test('event', function(){
         baidu.dom(div.get()).on('mouseover', function(){
             ok(false, 'div event trigger');
         });
-        ok(!!div.get()[key], 'div has baidu._private_.key');
-        ok(!!span.get()[key], 'span has baidu._private_.key');
+        ok(!!div.get()[key], 'div has baidu.key');
+        ok(!!span.get()[key], 'span has baidu.key');
         baidu.dom(div.get()).remove();
         ua.fireMouseEvent(span.get(), 'click');
         ua.fireMouseEvent(div.get(), 'mouseover');
-        ok(!div.get()[key], 'div has not baidu._private_.key');
-        ok(!span.get()[key], 'span has not baidu._private_.key');
+        ok(!div.get()[key], 'div has not baidu.key');
+        ok(!span.get()[key], 'span has not baidu.key');
         start();
     }, 'baidu.dom.on', 'baidu.dom.remove');
 });

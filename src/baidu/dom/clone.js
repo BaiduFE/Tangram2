@@ -51,7 +51,7 @@ baidu.dom.extend({
                     dest.text !== src.text && (dest.text = src.text);
                     break;
             }
-            dest[baidu._private_.key] && dest.removeAttribute(baidu._private_.key);
+            dest[baidu.key] && dest.removeAttribute(baidu.key);
         }
         //
         function cloneCopyEvent(src, dest){
