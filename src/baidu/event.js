@@ -29,14 +29,14 @@ function(){
         switch( baidu.type( event ) ){
             // event
             case "object":
-                return lastEvt.originalEvent === event ? lastEvt : ( lastEvt = new baidu._private_.$Event( event ) );
+                return lastEvt.originalEvent === event ? lastEvt : ( lastEvt = new baidu.event.$Event( event ) );
 
             case "$Event":
                 return event;
 
             // event type
             case "string" :
-                var e = new baidu._private_.$Event( event );
+                var e = new baidu.event.$Event( event );
                 typeof json == "object" && baidu.each( e, json );
                 return e;
         }

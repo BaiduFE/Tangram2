@@ -123,21 +123,18 @@ var T,
         return baidu.dom ? baidu.dom(q, c) : null;
     };
 
-baidu._private_ = {
-    // 版本号
-    guid: "$BAIDU$"
-	// baidu 对象的唯一标识（身份证号）
-    ,version: "2.0.0"
-	// 对象唯一标识属性名
-    ,key: "tangram_guid"
-}
+// 版本号
+baidu.version = "2.0.0";
 
-//TODO: delete it in feature
+// baidu 对象的唯一标识（身份证号）
 baidu.guid = "$BAIDU$";
+
+// 对象唯一标识属性名
+baidu.key = "tangram_guid";
 
 // Tangram可能被放在闭包中
 // 一些页面级别唯一的属性，需要挂载在window[baidu.guid]上
-window[baidu._private_.guid] = window[baidu._private_.guid] || {};
+window[baidu.guid] = window[baidu.guid] || {};
 
 // 20120709 mz 添加参数类型检查器，对参数做类型检测保护
 baidu.paramCheck = baidu.paramCheck || function(){};
