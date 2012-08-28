@@ -44,7 +44,7 @@ baidu.key = "tangram_guid";
 window[baidu.guid] = window[baidu.guid] || {};
 
 // 20120709 mz 添加参数类型检查器，对参数做类型检测保护
-baidu.paramCheck = baidu.paramCheck || function(){};
+baidu.check = baidu.check || function(){};
 
 /**
  * @fileoverview
@@ -928,7 +928,7 @@ baidu.overwrite(baidu.$Array, "concat slice".split(" "), function(key) {
  */
 baidu.array.extend({
     indexOf : function (match, fromIndex) {
-        baidu.paramCheck(".+(,number)?","baidu.array.indexOf");
+        baidu.check(".+(,number)?","baidu.array.indexOf");
         var len = this.length;
 
         // 小于 0
@@ -1041,7 +1041,7 @@ baidu.array.extend({
  * @return  {Boolean}           是否全部满足条件
  */
 Array.prototype.every = function(iterator, context) {
-    baidu.paramCheck("function(,.+)?", "baidu.array.every");
+    baidu.check("function(,.+)?", "baidu.array.every");
     var i, n;
 
     for (i=0, n=this.length; i<n; i++) {
@@ -1221,7 +1221,7 @@ baidu.array.extend({
  * @return  {Array}                     映射操作后的数组
  */
 Array.prototype.map = function (iterator, context) {
-    baidu.paramCheck("function(,.+)?","baidu.array.map");
+    baidu.check("function(,.+)?","baidu.array.map");
     var i, n,
         array = baidu.array([]);
 
@@ -1255,7 +1255,7 @@ baidu.array.map = function(array, iterator, context){
  * @return  {Object}                    iterator计算后的结果
  */
 Array.prototype.reduce = function (iterator, initializer) {
-    baidu.paramCheck("function(,.+)?","baidu.array.reduce");
+    baidu.check("function(,.+)?","baidu.array.reduce");
     var i = 0, 
         n = this.length,
         found = false;
@@ -1328,7 +1328,7 @@ baidu.array.extend({
  */
 baidu.array.extend({
     removeAt : function (index) {
-        baidu.paramCheck("number", "baidu.array.removeAt");
+        baidu.check("number", "baidu.array.removeAt");
         return this.splice(index, 1)[0];
     }
 });
@@ -1351,7 +1351,7 @@ baidu.array.extend({
  * @return  {Boolean}               是否含有指定条件
  */
 Array.prototype.some = function(iterator, context){
-    baidu.paramCheck("function(,.+)?", "baidu.array.some");
+    baidu.check("function(,.+)?", "baidu.array.some");
     var i, n;
 
     for (i=0, n=this.length; i<n; i++) {
@@ -5032,7 +5032,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     append: function(){
-        baidu.paramCheck('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.append');
+        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.append');
         baidu.dom._smartInsert(this, arguments, function(child){
             this.nodeType === 1 && this.appendChild(child);
         });
@@ -5246,7 +5246,7 @@ baidu.dom._smartInsert = function(tang, args, callback){
  */
 baidu.dom.extend({
     after: function(){
-        baidu.paramCheck('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.after');
+        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.after');
         var parentNode = this[0] && this[0].parentNode,
             array = !parentNode && [];
         baidu.dom._smartInsert(this, arguments, function(node){
@@ -5278,7 +5278,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     map : function (iterator) {
-        baidu.paramCheck("function","baidu.dom.map");
+        baidu.check("function","baidu.dom.map");
         var me = this,
             td = baidu.dom();
 
@@ -5436,7 +5436,7 @@ baidu.dom._smartInsertTo = function(tang, target, callback, orie){
  */
 baidu.dom.extend({
     appendTo: function(target){
-        baidu.paramCheck('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.appendTo');
+        baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.appendTo');
         baidu.dom._smartInsertTo(this, target, function(child){
             this.appendChild(child);
         });
@@ -6245,7 +6245,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     css: function(key, value){
-        baidu.paramCheck('^(?:(?:string(?:,(?:number|string|function))?)|object)$', 'baidu.dom.css');
+        baidu.check('^(?:(?:string(?:,(?:number|string|function))?)|object)$', 'baidu.dom.css');
         return baidu.dom._access.call(this, key, value, function(ele, key, val){
             var styleFixer = baidu.dom.styleFixer;
             return styleFixer ? styleFixer(ele, key, val)
@@ -6689,7 +6689,7 @@ baidu.dom.extend({
                     doc = baidu.dom(ele).getDocument();
                 return offset[ele === doc.body ? 'bodyOffset' : 'getOffset'](ele, doc);
             }else{
-                baidu.paramCheck('^(?:object|function)$', 'baidu.dom.offset');
+                baidu.check('^(?:object|function)$', 'baidu.dom.offset');
                 for(var i = 0, item; item = this[i]; i++){
                     offset.setOffset(item, options, i);
                 }
@@ -6963,7 +6963,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     before: function(){
-        baidu.paramCheck('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.before');
+        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.before');
         var parentNode = this[0] && this[0].parentNode,
             array = !parentNode && [], set;
         
@@ -7035,7 +7035,7 @@ baidu.g = baidu.G = baidu.dom.g;
  */
 baidu.dom.extend({
     each : function (iterator) {
-        baidu.paramCheck("function", "baidu.dom.each");
+        baidu.check("function", "baidu.dom.each");
         var i, result,
             n = this.length;
 
@@ -7512,7 +7512,7 @@ baidu.dom.extend({
 baidu.dom.extend({
     remove: function(selector, keepData){
         arguments.length > 0
-            && baidu.paramCheck('^string(?:,boolean)?$', 'baidu.dom.remove');
+            && baidu.check('^string(?:,boolean)?$', 'baidu.dom.remove');
         var array = selector ? this.filter(selector) : this;
         for(var i = 0, ele; ele = array[i]; i++){
            if(!keepData && ele.nodeType === 1){
@@ -7538,7 +7538,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     detach: function(selector){
-        selector && baidu.paramCheck('^string$', 'baidu.dom.detach');
+        selector && baidu.check('^string$', 'baidu.dom.detach');
         return this.remove(selector, true);
     }
 });
@@ -7561,7 +7561,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     eq : function (index) {
-        baidu.paramCheck("number","baidu.dom.eq");
+        baidu.check("number","baidu.dom.eq");
         return baidu.dom(this.get(index));
     }
 });
@@ -8214,7 +8214,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     insertAfter: function(target){
-        baidu.paramCheck('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertAfter');
+        baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertAfter');
         baidu.dom._smartInsertTo(this, target, function(node){
             this.parentNode.insertBefore(node, this.nextSibling);
         }, 'after');
@@ -8251,7 +8251,7 @@ baidu.dom.insertAfter = function(newElement, existElement){
  */
 baidu.dom.extend({
     insertBefore: function(target){
-        baidu.paramCheck('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertBefore');
+        baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertBefore');
         baidu.dom._smartInsertTo(this, target, function(node){
             this.parentNode.insertBefore(node, this);
         }, 'before');
@@ -8772,7 +8772,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     parentsUntil : function (selector, filter) {
-        baidu.paramCheck("(string|HTMLElement)(,.+)?","baidu.dom.parentsUntil");
+        baidu.check("(string|HTMLElement)(,.+)?","baidu.dom.parentsUntil");
         var array = [];
 
         baidu.each(this, function(dom){
@@ -8847,7 +8847,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     prepend: function(){
-        baidu.paramCheck('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.prepend');
+        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.prepend');
         baidu.dom._smartInsert(this, arguments, function(child){
             this.nodeType === 1 && this.insertBefore(child, this.firstChild);
         });
@@ -8868,7 +8868,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     prependTo: function(target){
-        baidu.paramCheck('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.prependTo');
+        baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.prependTo');
         baidu.dom._smartInsertTo(this, target, function(child){
             this.insertBefore(child, this.firstChild);
         });
@@ -8971,7 +8971,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     prevUntil : function (selector, filter) {
-        baidu.paramCheck("(string|HTMLElement)(,.+)?", "baidu.dom.prevUntil");
+        baidu.check("(string|HTMLElement)(,.+)?", "baidu.dom.prevUntil");
         var array = [];
 
         baidu.each(this, function(dom) {
@@ -9268,7 +9268,7 @@ baidu.dom.extend({
     scrollLeft: function(){
         var ret = baidu.dom._smartScroll('scrollLeft');
         return function(value){
-            value && baidu.paramCheck('^(?:number|string)$', 'baidu.dom.scrollLeft');
+            value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollLeft');
             return value === undefined ? ret.get(this[0])
                 : ret.set(this[0], value) || this;
         }
@@ -9298,7 +9298,7 @@ baidu.dom.extend({
     scrollTop: function(){
         var ret = baidu.dom._smartScroll('scrollTop');
         return function(value){
-            value && baidu.paramCheck('^(?:number|string)$', 'baidu.dom.scrollTop');
+            value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollTop');
             return value === undefined ? ret.get(this[0])
                 : ret.set(this[0], value) || this;
         }
@@ -9668,7 +9668,7 @@ baidu.dom.extend({
         var slice = Array.prototype.slice;
 
         return function (start, end) {
-            baidu.paramCheck("number(,number)?","baidu.dom.slice");
+            baidu.check("number(,number)?","baidu.dom.slice");
 
             // ie bug
             // return baidu.dom( this.toArray().slice(start, end) );
@@ -13730,12 +13730,12 @@ baidu.param = function(arg) {
  * @description 分析形参对象的类型
  *
  * @function
- * @name baidu.paramCheck
- * @grammar baidu.paramCheck(regString, moduleName)
+ * @name baidu.check
+ * @grammar baidu.check(regString, moduleName)
  * @param   {String}    regString     被分析的形参匹配字符串
  * @param   {String}    moduleName    被分析的模块名
  */
-baidu.paramCheck = function() {
+baidu.check = function() {
     var maps = baidu.global("_maps_RegExp");
 
     return function(regString, namespace){
@@ -16146,7 +16146,7 @@ baidu.string.extend({
 
 baidu.string.extend({
     subByte : function (len, tail) {
-        baidu.paramCheck('^(?:number(?:,(?:string|number))?)$', 'baidu.string.subByte');
+        baidu.check('^(?:number(?:,(?:string|number))?)$', 'baidu.string.subByte');
         var source = this.valueOf();
         tail = tail || '';
         if(len < 0 || baidu.string(source).getByteLength() <= len){

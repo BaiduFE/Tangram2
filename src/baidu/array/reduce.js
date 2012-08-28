@@ -30,7 +30,7 @@
  * @return  {Object}                    iterator计算后的结果
  */
 Array.prototype.reduce = function (iterator, initializer) {
-    baidu.paramCheck("function(,.+)?","baidu.array.reduce");
+    baidu.check("function(,.+)?","baidu.array.reduce");
     var i = 0, 
         n = this.length,
         found = false;

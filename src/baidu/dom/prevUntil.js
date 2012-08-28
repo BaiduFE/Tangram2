@@ -21,7 +21,7 @@
  */
 baidu.dom.extend({
     prevUntil : function (selector, filter) {
-        baidu.paramCheck("(string|HTMLElement)(,.+)?", "baidu.dom.prevUntil");
+        baidu.check("(string|HTMLElement)(,.+)?", "baidu.dom.prevUntil");
         var array = [];
 
         baidu.each(this, function(dom) {

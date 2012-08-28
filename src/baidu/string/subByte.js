@@ -29,7 +29,7 @@
 
 baidu.string.extend({
     subByte : function (len, tail) {
-        baidu.paramCheck('^(?:number(?:,(?:string|number))?)$', 'baidu.string.subByte');
+        baidu.check('^(?:number(?:,(?:string|number))?)$', 'baidu.string.subByte');
         var source = this.valueOf();
         tail = tail || '';
         if(len < 0 || baidu.string(source).getByteLength() <= len){

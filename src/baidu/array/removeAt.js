@@ -28,7 +28,7 @@
 
 baidu.array.extend({
     removeAt : function (index) {
-        baidu.paramCheck("number", "baidu.array.removeAt");
+        baidu.check("number", "baidu.array.removeAt");
         return this.splice(index, 1)[0];
     }
 });

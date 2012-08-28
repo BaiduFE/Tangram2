@@ -19,7 +19,7 @@
  */
 baidu.dom.extend({
     map : function (iterator) {
-        baidu.paramCheck("function","baidu.dom.map");
+        baidu.check("function","baidu.dom.map");
         var me = this,
             td = baidu.dom();
 

@@ -22,7 +22,7 @@
  */
 baidu.dom.extend({
     prepend: function(){
-        baidu.paramCheck('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.prepend');
+        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.prepend');
         baidu.dom._smartInsert(this, arguments, function(child){
             this.nodeType === 1 && this.insertBefore(child, this.firstChild);
         });
