@@ -43,7 +43,7 @@ baidu.query = baidu.query || (function(){
             tagName = RegExp.$1 || "*";
 
             // 本段代码效率很差，不过极少流程会走到这段
-            baidu.each(context.getElementsByTagName(tagName), function(dom) {
+            baidu.each(context.getElementsByTagName(tagName), function(i, dom) {
                 dom.id == id && array.push(dom);
             });
 
@@ -62,13 +62,13 @@ baidu.query = baidu.query || (function(){
             if (context.getElementsByClassName) {
                 arr = context.getElementsByClassName(className);
             } else {
-                baidu.each(context.getElementsByTagName("*"), function(dom) {
+                baidu.each(context.getElementsByTagName("*"), function(i, dom) {
                     dom.className && (" " + dom.className + " ").indexOf(t) > -1 && (arr.push(dom));
                 });
             }
 
             if (tagName && (tagName = tagName.toUpperCase())) {
-                baidu.each(arr, function(dom) {
+                baidu.each(arr, function(i, dom) {
                     dom.tagName.toUpperCase() === tagName && array.push(dom);
                 });
             } else {
@@ -79,13 +79,13 @@ baidu.query = baidu.query || (function(){
         } else if (rComboClass.test(selector)) {
             list = selector.substr(1).split(".");
 
-            baidu.each(context.getElementsByTagName("*"), function(dom) {
+            baidu.each(context.getElementsByTagName("*"), function(i, dom) {
                 if (dom.className) {
                     t = " " + dom.className + " ";
                     x = true;
 
-                    baidu.each(list, function(item){
-                        t.indexOf(" "+ item +" ") == -1 && (x = false);
+                    baidu.each(list, function(){
+                        t.indexOf(" "+ this +" ") == -1 && (x = false);
                     });
 
                     x && array.push(dom);
@@ -124,7 +124,7 @@ baidu.query = baidu.query || (function(){
                 return query(s, context);
             }
 
-            baidu.each(query(s.substr(0, s.indexOf(" ")), context), function(dom, i, o) { // 递归
+            baidu.each(query(s.substr(0, s.indexOf(" ")), context), function(i, dom, o) { // 递归
                 baidu.merge(array, queryCombo(s.substr(s.indexOf(" ") + 1), dom));
             });
         }
@@ -141,7 +141,7 @@ baidu.query = baidu.query || (function(){
         selector = selector.replace(rSpace, " ");
         results && baidu.merge(arr, results) && (results.length = 0);
 
-        baidu.each(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(item) {
+        baidu.each(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(i, item) {
             baidu.merge(arr, queryCombo(item, context));
         });
 
