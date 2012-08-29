@@ -17,7 +17,7 @@ baidu.platform = baidu.platform || function(){
     var ua = navigator.userAgent,
         result = function(){};
 
-    baidu.each("Android iPad iPhone Linux Macintosh Windows X11".split(" "), function( item ) {
+    baidu.each("Android iPad iPhone Linux Macintosh Windows X11".split(" "), function(i, item ) {
         var key = item.charAt(0).toUpperCase() + item.toLowerCase().substr( 1 );
         baidu[ "is" + key ] = result[ "is" + key ] = ua.indexOf( item ) > -1;//) && (result = item);
     });
