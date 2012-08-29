@@ -25,7 +25,7 @@ baidu.type = (function() {
         toString = objectType.toString;
 
     // 给 objectType 集合赋值，建立映射
-    baidu.each(str.split(" "), function(name) {
+    baidu.each(str.split(" "), function(i, name) {
         objectType[ "[object " + name + "]" ] = name.toLowerCase();
 
         baidu[ "is" + name ] = baidu.lang[ "is" + name ] = function ( unknow ) {
