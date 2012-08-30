@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -76,4 +76,3 @@ baidu.dom.extend({
         return this;
     }
 });
-/// Tangram 1.x Code End
