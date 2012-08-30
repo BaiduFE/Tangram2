@@ -58,8 +58,8 @@ test('selector', function() {
 	h1.innerHTML = 'hello';
 	
 	var start_date = new Date();
-	console.log(baidu.dom.query('*').length);
-	console.log(total+9);
+	// console.log(baidu.dom.query('*').length);
+	// console.log(total+9);
 	
 	equals(baidu.dom.query('*').length, total + 9, '*')
 	equals(baidu.dom.query('input')[input_len], input, 'div');
