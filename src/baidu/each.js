@@ -34,7 +34,7 @@ baidu.each = function( enumerable, iterator, context ) {
                 result = iterator.call( context || t, i, t, enumerable );
 
                 // 被循环执行的函数的返回值若为 false 和"break"时可以影响each方法的流程
-                if ( result === false || result == "break" ) { break;}
+                if ( result === false || result == "break" ) {break;}
             }
         
         // enumerable is number
