@@ -15,6 +15,7 @@
 ///import baidu.array.each;
 ///import baidu.dom.getStyle;
 ///import baidu.lang.isNumber;
+///import biadu.forEach;
 
  
 /**
@@ -73,7 +74,7 @@ baidu.fx.expand = function(element, options) {
                 return result;
             }
             
-            baidu.each(attr.stylesValue, function(item){
+            baidu.forEach(attr.stylesValue, function(item){
                 value -= getStyleNum(e,item);
             });
             e.style.overflow = "hidden";
