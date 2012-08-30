@@ -12,6 +12,7 @@
 ///import baidu.dom.off;
 ///import baidu.lang.isFunction;
 ///import baidu.lang.isString;
+///import baidu.forEach;
 
 /**
  *
@@ -194,7 +195,7 @@ baidu.page.load = /**@function*/function(resources, options, ignoreAllLoaded) {
         return shouldContinue;
     };
 
-    baidu.each(resources, loadResources);
+    baidu.forEach(resources, loadResources);
 };
 //默认编码设置为UTF8
 baidu.page.load.charset = 'UTF8';
