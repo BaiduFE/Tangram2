@@ -7,6 +7,7 @@
 ///import baidu.extend;
 ///import baidu.createChain;
 ///import baidu.callbacks;
+///import baidu.forEach;
 
 /**
  * @description deferred功能链头
@@ -39,7 +40,7 @@ function( func ) {
 			then: function( /* fnDone, fnFail, fnProgress */ ) {
 				var fns = arguments;
 				return baidu.deferred(function( newDefer ) {
-					baidu.each( tuples, function( tuple, i ) {
+					baidu.forEach( tuples, function( tuple, i ) {
 						var action = tuple[ 0 ],
 							fn = fns[ i ];
 						// deferred[ done | fail | progress ] for forwarding actions to newDefer
@@ -73,7 +74,7 @@ function( func ) {
 	promise.pipe = promise.then;
 
 	// Add list-specific methods
-	baidu.each( tuples, function( tuple,i ) {
+	baidu.forEach( tuples, function( tuple,i ) {
 		var list = tuple[ 2 ],
 			stateString = tuple[ 3 ];
 

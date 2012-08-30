@@ -44,7 +44,7 @@
 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.support;
 ///import baidu.dom._isXML;
 ///import baidu.dom._attrHooks;
@@ -73,7 +73,7 @@ baidu.dom.extend({
             me = this,
             isSet = false;
 
-        baidu.each(this, function(item,index){
+        baidu.forEach(this, function(item, index){
 
             if(result){
                 return;

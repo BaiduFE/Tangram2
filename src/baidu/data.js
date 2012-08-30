@@ -6,7 +6,6 @@
 ///import baidu;
 ///import baidu.extend;
 ///import baidu.type;
-///import baidu.each;
 ///import baidu.dom;
 ///import baidu.object.isEmpty;
 ///import baidu.support;

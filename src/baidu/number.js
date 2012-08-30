@@ -3,7 +3,7 @@
  * @email  1988wangxiao@gmail.com
  */
 ///import baidu.createChain;
-///import baidu.each;
+///import baidu.forEach;
 /**
  * @description number对象链式语法的链头
  * @name baidu.number()
@@ -19,7 +19,7 @@ baidu.createChain('number', function(number){
         clazz = typeof val === 'number' ? Number : String,
         pro = clazz.prototype;
     val = new clazz(val);
-    baidu.each(baidu.number.$Number.prototype, function(key, value){
+    baidu.forEach(baidu.number.$Number.prototype, function(value, key){
         pro[key] || (val[key] = value);
     });
     return val;

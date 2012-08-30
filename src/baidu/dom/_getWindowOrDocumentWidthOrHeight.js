@@ -1,13 +1,13 @@
 /**
  * @author linlingyu
  */
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.dom;
 ///import baidu.browser.isStrict;
 
 baidu.dom._getWindowOrDocumentWidthOrHeight = baidu.dom._getWindowOrDocumentWidthOrHeight || (function(){
     var ret = {'window': {}, 'document': {}};
-    baidu.each(['Width', 'Height'], function(item){
+    baidu.forEach(['Width', 'Height'], function(item){
         var clientProp = 'client' + item,
             offsetProp = 'offset' + item,
             scrollProp = 'scroll' + item;

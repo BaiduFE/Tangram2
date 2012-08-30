@@ -3,7 +3,7 @@
  * @email  1988wangxiao@gmail.com
  */
 
-///import baidu;
+///import baidu.forEach;
 ///import baidu.extend;
 ///import baidu.support;
 ///import baidu.makeArray;
@@ -120,7 +120,7 @@ if ( !baidu.support.getSetAttribute ) {
 
 // Radios and checkboxes getter/setter
 if ( !baidu.support.checkOn ) {
-	baidu.each([ "radio", "checkbox" ], function() {
+	baidu.forEach([ "radio", "checkbox" ], function() {
 		baidu.dom.valHooks[ this ] = {
 			get: function( elem ) {
 				// Handle the case where in Webkit "" is returned instead of "on" if a value isn't specified
@@ -130,8 +130,8 @@ if ( !baidu.support.checkOn ) {
 	});
 }
 
-baidu.each([ "radio", "checkbox" ], function() {
-	baidu.dom.valHooks[ this ] = baidu.extend( baidu.dom.valHooks[ this ], {
+baidu.forEach([ "radio", "checkbox" ], function(item) {
+	baidu.dom.valHooks[ item ] = baidu.extend( baidu.dom.valHooks[ item ], {
 		set: function( elem, value ) {
 			if ( baidu.isArray( value ) ) {
 				return ( elem.checked = baidu.array(value).indexOf(jQuery(elem).val()) >= 0 );

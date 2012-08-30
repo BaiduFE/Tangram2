@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.dom.find;
 /**
  * @fileoverview
@@ -22,7 +22,7 @@ baidu.dom.extend({
         var a = []
             ,td = baidu.dom(document.body);
 
-        baidu.each(this, function(dom){
+        baidu.forEach(this, function(dom){
             td[0] = dom;
             td.find(selector).length && a.push(dom);
         });

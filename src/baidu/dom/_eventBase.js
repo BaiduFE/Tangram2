@@ -2,8 +2,7 @@
  * @author dron
  */
 
-///import baidu;
-///import baidu.dom;
+///import baidu.forEach;
 ///import baidu.id;
 ///import baidu.event;
 ///import baidu.dom.is;
@@ -188,7 +187,7 @@ baidu.dom._eventBase = function(){
                             me.triggerHandler( name );
                         };
 
-                        baidu.each( this, function( item ){
+                        baidu.forEach( this, function( item ){
                             baidu( "textarea,select,input,button,a", item ).on( fixName, call );
                         });
 
@@ -224,7 +223,7 @@ baidu.dom._eventBase = function(){
                             me.triggerHandler( name );
                     };
 
-                    baidu.each( this, function( item ){
+                    baidu.forEach( this, function( item ){
                         this.on( fixName, call );
                     }, this );
 

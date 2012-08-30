@@ -84,13 +84,13 @@ test("removeAttr(Multi String, variable space width)", function() {
 			rel: "d"
 		};
 
-	baidu.each( tests, function(  val ,key ) {
+	$.each( tests, function( key, val ) {
 		equal( div.attr(key), val, "Attribute `" + key + "` exists, and has a value of `" + val + "`" );
 	});
 
 	div.removeAttr( "id   alt title  rel  " );
 
-	baidu.each( tests, function( val , key ) {
+	$.each( tests, function( key, val ) {
 		equal( div.attr(key), undefined, "Attribute `" + key + "` was removed" );
 	});
 });

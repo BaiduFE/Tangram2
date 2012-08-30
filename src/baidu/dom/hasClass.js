@@ -32,7 +32,7 @@
 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 
 baidu.dom.extend({
     hasClass: function(value){
@@ -44,7 +44,7 @@ baidu.dom.extend({
         value = value.replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
         var arr = value.split(' ');
         var result;
-        baidu.each(this, function(item){
+        baidu.forEach(this, function(item){
             var str = item.className;
             for(var i = 0;i<arr.length;i++){
                 if((' '+str+' ').indexOf(' '+arr[i]+' ') == -1){

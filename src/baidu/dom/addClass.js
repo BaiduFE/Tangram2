@@ -24,7 +24,7 @@
 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 
 baidu.dom.extend({
     addClass: function(value){
@@ -41,7 +41,7 @@ baidu.dom.extend({
                 value = value.replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
                 
                 var arr = value.split(' ');
-                baidu.each(this, function(item,index){
+                baidu.forEach(this, function(item, index){
                     var str = '';
                     if(item.className){
                         str = item.className;
@@ -56,7 +56,7 @@ baidu.dom.extend({
 
             break;
             case 'function':
-                baidu.each(this, function(item,index){
+                baidu.forEach(this, function(item, index){
                     baidu.dom(item).addClass(value.call(item, index, item.className));
                 });
 

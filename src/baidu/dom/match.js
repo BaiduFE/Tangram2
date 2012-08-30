@@ -1,7 +1,7 @@
 ///import baidu.dom;
 ///import baidu.type;
 ///import baidu.query;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.merge;
 ///import baidu.array.unique;
 
@@ -46,13 +46,13 @@ baidu.dom.match = function(){
 
             // 使用过滤器函数，函数返回值是 Array
             case "function" :
-                baidu.each(array, function(item, index){
+                baidu.forEach(array, function(item, index){
                     selector.call(item, index) && results.push(item);
                 });
                 break;
             
             case "HTMLElement" :
-                baidu.each(array, function(item){
+                baidu.forEach(array, function(item){
                     item == selector && results.push(item);
                 });
                 break;
@@ -60,7 +60,7 @@ baidu.dom.match = function(){
             // CSS 选择器
             case "string" :
                 var da = baidu.query(selector, context || document);
-                baidu.each(array, function(item){
+                baidu.forEach(array, function(item){
                     if ( root = getRoot(item) ) {
                         var t = root.nodeType == 1
                             // in DocumentFragment

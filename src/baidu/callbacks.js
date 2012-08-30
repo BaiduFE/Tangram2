@@ -4,7 +4,7 @@
  */
 
 ///import baidu;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.extend;
 ///import baidu.array.indexOf;
 
@@ -19,7 +19,7 @@ function(options){
 	// Convert String-formatted options into Object-formatted ones and store in cache
 	function createOptions( options ) {
 		var object = optionsCache[ options ] = {};
-		baidu.each( options.split(/\s+/), function( flag, _ ) {
+		baidu.forEach( options.split(/\s+/), function( flag, _ ) {
 			object[ flag ] = true;
 		});
 		return object;
@@ -104,7 +104,7 @@ function(options){
 					// First, we save the current length
 					var start = list.length;
 					(function add( args ) {
-						baidu.each( args, function( arg, _) {
+						baidu.forEach( args, function( arg, _) {
 							if ( (typeof arg === 'function') && ( !options.unique || !self.has( arg ) ) ) {
 								list.push( arg );
 							} else if ( arg && arg.length ) {
@@ -129,7 +129,7 @@ function(options){
 			// Remove a callback from the list
 			remove: function() {
 				if ( list ) {
-					baidu.each( arguments, function( arg, _ ) {
+					baidu.forEach( arguments, function( arg, _ ) {
 						var index;
 						while( ( index = baidu.array(list).indexOf(arg,index) ) > -1 ) {
 							list.splice( index, 1 );
