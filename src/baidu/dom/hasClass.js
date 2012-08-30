@@ -4,10 +4,16 @@
  */
  
 /**
- * @description 
- 检查匹配的元素是否含有某个特定的className，支持传入多个className，并且可以打乱顺序。
+ * @description 检查匹配的元素是否含有某个特定的className
+ * @function 
+ * @name baidu.dom().hasClass()
+ * @grammar baidu.dom(args).hasClass(className)
+ * @param {string} className 要查询的className名，多个用空格分隔。
+ * @return {Boolean} 同时存在返回true，不存在返回false。
+ * @example
+ 该接口支持传入多个className，并且可以打乱顺序。
  如果是多个，同时存在返回true，有一个不存在就返回false。
- 使用举例：
+ 示例代码：
  //HTML片段
  <div id='test-div' class='class1 class2'></div>
 
@@ -23,11 +29,6 @@
  //多个className，有一个不存在则返回false
  baidu('#test-div').hasClass('class1 class2 class4');  //false
 
- * @function 
- * @name baidu.dom().hasClass()
- * @grammar baidu.dom(args).hasClass(className)
- * @param {string} className 要查询的className名，多个用空格分隔。
- * @return {Boolean} 同时存在返回true，不存在返回false。
  */
 
 ///import baidu;
