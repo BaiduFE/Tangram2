@@ -15,6 +15,7 @@
  可以用在普通的对象，数组，窗口（window）或文件（document）上，可以检索和更改DOM属性。
 
  attributes和properties之间的差异在特定情况下是很重要。
+ .prop方法无法取出自定义属性的值，都会返回undefined，这时要使用attr()接口。
  例如，考虑一个DOM元素的HTML标记中定义的<input type="checkbox" checked="checked" /> ，并假设它是一个JavaScript变量命名的elem ：
  elem.checked    返回 true (Boolean)
  baidu(elem).prop("checked")  返回 true (Boolean)
