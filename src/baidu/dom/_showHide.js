@@ -6,7 +6,6 @@
 ///import baidu;
 ///import baidu.support;
 ///import baidu.dom;
-///import baidu.each;
 ///import baidu.dom.contains;
 ///import baidu.dom.getCurrentStyle;
 ///import baidu.dom.css;

@@ -53,7 +53,7 @@ test("show()", function() {
 		"false speed": false
 	};
 
-	baidu.each(speeds, function( speed,name) {
+	$.each(speeds, function( name, speed) {
 		pass = true;
 		div.hide().show(speed).each(function() {
 			if ( this.style.display == "none" ) {
@@ -63,7 +63,7 @@ test("show()", function() {
 		ok( pass, "Show with " + name);
 	});
 
-	baidu.each(speeds, function(speed,name) {
+	$.each(speeds, function(name, speed) {
 	pass = true;
 	div.hide().show(speed, function() {
 			pass = false;
@@ -94,7 +94,7 @@ test("show()", function() {
 		"li"       : old ? "block" : "list-item"
 	};
 
-	baidu.each(test, function(expected,selector) {
+	$.each(test, function(selector, expected) {
 		var elem = baidu("#show-tests "+selector).show();
 		equal( elem.css("display"), expected, "Show using correct display type for " + selector );
 	});

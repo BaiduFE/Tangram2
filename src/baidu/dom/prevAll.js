@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.merge;
 ///import baidu.dom.match;
 ///import baidu.array.unique;
@@ -24,7 +24,7 @@ baidu.dom.extend({
     prevAll : function (filter) {
         var array = baidu.array();
 
-        baidu.each(this, function(dom) {
+        baidu.forEach(this, function(dom) {
             var a = [];
             while (dom = dom.previousSibling) dom.nodeType == 1 && a.push(dom);
 

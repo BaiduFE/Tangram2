@@ -4,7 +4,7 @@
  */
 
 ///import baidu.createChain;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.type;
 
 /**
@@ -22,7 +22,7 @@ baidu.createChain('string',
         var type = baidu.type(string),
             str = new String(~'string|number'.indexOf(type) ? string : type),
             pro = String.prototype;
-        baidu.each(baidu.string.$String.prototype, function(key, fn) {
+        baidu.forEach(baidu.string.$String.prototype, function(fn, key) {
             pro[key] || (str[key] = fn);
         });
         return str;

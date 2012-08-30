@@ -28,7 +28,7 @@
  */ 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.type;
 ///import baidu.dom._valHooks;
 
@@ -39,7 +39,7 @@ baidu.dom.extend({
             isSet = false,
             result;
         
-        baidu.each(me,function(elem,index){
+        baidu.forEach(me,function(elem, index){
             
             var hooks,
                 rreturn = /\r/g;
@@ -96,7 +96,7 @@ baidu.dom.extend({
                     } else if ( typeof value === "number" ) {
                         value += "";
                     } else if ( baidu.isArray( value ) ) {
-                        value = baidu.each(value,function ( value,index ) {
+                        value = baidu.forEach(value,function ( value, index ) {
                             return value == null ? "" : value + "";
                         });
                     }

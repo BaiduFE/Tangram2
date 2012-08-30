@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.merge;
 
 /**
@@ -83,7 +83,7 @@ baidu.dom.createElements = function() {
                 baidu.merge( result, box.childNodes );
 
                 // 去除 item.parentNode
-                baidu.each( result, function (dom) {
+                baidu.forEach( result, function (dom) {
                     df.appendChild( dom );
                 } );
 

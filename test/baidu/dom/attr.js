@@ -254,7 +254,7 @@ test("attr(String, Object)", function() {
 		obj = {};
 
 
-	baidu.each( [commentNode, textNode, attributeNode], function( elem ,i) {
+	$.each( [commentNode, textNode, attributeNode], function( i, elem) {
 		var $elem = baidu( elem );
 		$elem.attr( "nonexisting", "foo" );
 		strictEqual( $elem.attr("nonexisting"), undefined, "attr(name, value) works correctly on comment and text nodes (bug #7500)." );

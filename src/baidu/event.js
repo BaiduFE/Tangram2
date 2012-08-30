@@ -1,7 +1,7 @@
 ///import baidu;
 ///import baidu.type;
 ///import baidu.id;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.createChain;
 /*
  * @fileoverview
@@ -37,7 +37,7 @@ function(){
             // event type
             case "string" :
                 var e = new baidu.event.$Event( event );
-                typeof json == "object" && baidu.each( e, json );
+                typeof json == "object" && baidu.forEach( e, json );
                 return e;
         }
     }
@@ -53,7 +53,7 @@ function( event ){
     if( typeof event == "object" && event.type ){
         me.originalEvent = e = event;
 
-        baidu.each( "altKey bubbles button buttons cancelable clientX clientY ctrlKey metaKey commandKey currentTarget fromElement screenX screenY shiftKey toElement type view which triggerData".split(" "), function(i, item){
+        baidu.forEach( "altKey bubbles button buttons cancelable clientX clientY ctrlKey metaKey commandKey currentTarget fromElement screenX screenY shiftKey toElement type view which triggerData".split(" "), function(item){
             me[ item ] = e[ item ];
         });
 

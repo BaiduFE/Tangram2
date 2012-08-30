@@ -4,7 +4,7 @@
  */
 ///import baidu.dom._eventBase;
 ///import baidu.event;
-///import baidu.each;
+///import baidu.forEach;
 
 /**
  * @description 对当前 TangramDom 集合解除事件监听
@@ -31,7 +31,7 @@ baidu.dom.extend({
     off: function( events, selector, fn ){
         var eb = baidu.dom._eventBase, me = this;
         if( !events )
-            baidu.each( this, function(item){
+            baidu.forEach( this, function(item){
                 eb.removeAll(item);
             } );
         else if( typeof events == "string" ){
@@ -39,13 +39,13 @@ baidu.dom.extend({
                 fn = selector,
                 selector = null;
             events = events.split(/[ ,]/);
-            baidu.each( this, function( item ){
-                baidu.each( events, function( event ){
+            baidu.forEach( this, function( item ){
+                baidu.forEach( events, function( event ){
                     eb.remove( item, event, fn, selector );
                 });
             });
         }else if( typeof events == "object" )
-            baidu.each( events, function(fn, event){
+            baidu.forEach( events, function(fn, event){
                 me.off( event, selector, fn );
             } );
 
