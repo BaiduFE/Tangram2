@@ -4,7 +4,7 @@
 
 ///import baidu.dom.getCurrentStyle;
 ///import baidu.extend;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.support;
 ///import baidu.dom._getWidthOrHeight;
 ///import baidu.type;
@@ -52,7 +52,7 @@ baidu.dom.styleFixer = function(){
         }
     });
     //
-    baidu.each(['width', 'height'], function(item){
+    baidu.forEach(['width', 'height'], function(item){
         cssHooks[item] = {
             get: function(ele){
                 return baidu.dom._getWidthOrHeight(ele, item) + 'px';

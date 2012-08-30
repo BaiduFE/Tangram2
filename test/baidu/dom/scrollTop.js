@@ -14,7 +14,7 @@ test("baidu.dom().scrollTop()", function(){
         equal( textarea.scrollTop(), 100, "textarea scrollTop" );
     //  equal( body.scrollTop(), 100, "body scrollTop" );
     //  equal( iframe.scrollTop(), 100, "iframe scrollTop" );
-        baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+        $.each( [ div, textarea ], function( index, item ){ item.remove(); } );
 	});
 });
 
@@ -30,7 +30,7 @@ test("baidu.dom().scrollTop(value)", function(){
         equal( textarea.scrollTop( 100 ).scrollTop(), 100, "textarea scrollTop" );
 //        equal( body.scrollTop( 100 ).scrollTop(), 100, "body scrollTop" );
 //        equal( iframe.scrollTop( 100 ).scrollTop(), 100, "iframe scrollTop" );
-        baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+        $.each( [ div, textarea ], function( index, item ){ item.remove(); } );
     });
 });
 
@@ -47,7 +47,7 @@ test("baidu.dom().scrollTop( NaN )", function(){
 //	equal( body.scrollTop( NaN ).scrollTop(), 0, "body scrollTop" );
 //	equal( iframe.scrollTop( NaN ).scrollTop(), 0, "iframe scrollTop" );
 
-	baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+	$.each( [ div, textarea ], function( index, item ){ item.remove(); } );
 });
 
 test("baidu.dom().scrollTop( -n )", function(){
@@ -63,7 +63,7 @@ test("baidu.dom().scrollTop( -n )", function(){
 //	equal( body.scrollTop( 100 ).scrollTop( -100 ).scrollTop(), 100, "body scrollTop" );
 //	equal( iframe.scrollTop( -100 ).scrollTop(), 0, "iframe scrollTop" );
 
-	baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+	$.each( [ div, textarea ], function( index, item ){ item.remove(); } );
 });
 
 test("baidu.dom().scrollTop( n.n )", function(){
@@ -79,7 +79,7 @@ test("baidu.dom().scrollTop( n.n )", function(){
 //	equal( body.scrollTop( 10.5 ).scrollTop(), 11, "body scrollTop" );
 //	equal( iframe.scrollTop( 10.5 ).scrollTop(), 11, "iframe scrollTop" );
 
-	baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+	$.each( [ div, textarea ], function( index, item ){ item.remove(); } );
 });
 //
 function delay(callback){

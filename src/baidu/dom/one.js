@@ -4,6 +4,7 @@
 
 ///import baidu.dom.on;
 ///import baidu.dom.off;
+///import baidu.forEach;
 
 /**
  * @description 对当前 TangramDom 集合添加一次性事件监听
@@ -25,7 +26,7 @@ baidu.dom.extend({
             data = undefined;
 
         if( typeof type == "object" && type ){
-            baidu.each( type, function( fn, type ){
+            baidu.forEach( type, function( fn, type ){
                 this.one( type, data, fn );
             }, this );
             return this;

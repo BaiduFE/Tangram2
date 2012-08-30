@@ -1,4 +1,4 @@
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.dom.match;
 ///import baidu.array.unique;
 
@@ -23,7 +23,7 @@ baidu.dom.extend({
     closest : function (selector, context) {
         var results = baidu.array();
 
-        baidu.each ( this, function(dom) {
+        baidu.forEach ( this, function(dom) {
             var t = [dom];
             while ( dom = dom.parentNode ) {
                 dom.nodeType && t.push( dom );

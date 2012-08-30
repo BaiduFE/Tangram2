@@ -13,7 +13,7 @@ test("baidu.dom().scrollLeft()", function(){
 //	equal( body.scrollLeft(), 100, "body scrollLeft" );
 //	equal( iframe.scrollLeft(), 100, "iframe scrollLeft" );
 
-	baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+	$.each( [ div, textarea ], function( index, item ){ item.remove(); } );
 });
 
 test("baidu.dom().scrollLeft(value)", function(){
@@ -29,7 +29,7 @@ test("baidu.dom().scrollLeft(value)", function(){
 //	equal( body.scrollLeft( 100 ).scrollLeft(), 100, "body scrollLeft" );
 //	equal( iframe.scrollLeft( 100 ).scrollLeft(), 100, "iframe scrollLeft" );
 
-	baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+	$.each( [ div, textarea ], function( index, item ){ item.remove(); } );
 });
 
 test("baidu.dom().scrollLeft( NaN )", function(){
@@ -45,7 +45,7 @@ test("baidu.dom().scrollLeft( NaN )", function(){
 //	equal( body.scrollLeft( NaN ).scrollLeft(), 0, "body scrollLeft" );
 //	equal( iframe.scrollLeft( NaN ).scrollLeft(), 0, "iframe scrollLeft" );
 
-	baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+	$.each( [ div, textarea ], function( index, item ){ item.remove(); } );
 });
 
 test("baidu.dom().scrollLeft( -n )", function(){
@@ -61,7 +61,7 @@ test("baidu.dom().scrollLeft( -n )", function(){
 //	equal( body.scrollLeft( 100 ).scrollLeft( -100 ).scrollLeft(), 100, "body scrollLeft" );
 //	equal( iframe.scrollLeft( -100 ).scrollLeft(), 0, "iframe scrollLeft" );
 
-	baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+	$.each( [ div, textarea ], function( index, item ){ item.remove(); } );
 });
 
 test("baidu.dom().scrollLeft( n.n )", function(){
@@ -77,7 +77,7 @@ test("baidu.dom().scrollLeft( n.n )", function(){
 //	equal( body.scrollLeft( 10.5 ).scrollLeft(), 11, "body scrollLeft" );
 //	equal( iframe.scrollLeft( 10.5 ).scrollLeft(), 11, "iframe scrollLeft" );
 
-	baidu.each( [ div, textarea ], function( item ){ item.remove(); } );
+	$.each( [ div, textarea ], function( index, item ){ item.remove(); } );
 });
 
 function create( tag, sLeft, sTop ){

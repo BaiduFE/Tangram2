@@ -14,7 +14,7 @@
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.support;
 ///import baidu.dom._propHooks;
 ///import baidu.dom.attr;
@@ -27,7 +27,7 @@ baidu.dom.extend({
             return this;
         };
 
-        baidu.each(this, function(item){
+        baidu.forEach(this, function(item){
             var propName, attrNames, name, l, isBool, i = 0;
 
             if ( item.nodeType === 1 ) {

@@ -31,7 +31,7 @@
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.dom.empty;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.dom.append;
 ///import baidu.support;
 
@@ -80,7 +80,7 @@ baidu.dom.extend({
             isSet = false,
             result;
 
-        baidu.each(me,function(elem,index){
+        baidu.forEach(me,function(elem, index){
             
             var tangramDom = bd(elem);
             if(result){

@@ -5,6 +5,7 @@
 
 ///import baidu.event;
 ///import baidu.dom.each;
+///import baidu.forEach;
 ///import baidu.dom._eventBase;
 
 /**
@@ -50,7 +51,7 @@ baidu.dom.extend({
         if( typeof events == "string" ){
             events = events.split(/[ ,]+/);
             this.each(function(){
-                baidu.each(events, function( event ){
+                baidu.forEach(events, function( event ){
                     if( specials[ event ] )
                         baidu( this )[ event ]( data, fn );
                     else
@@ -60,7 +61,7 @@ baidu.dom.extend({
         }else if( typeof events == "object" ){
             if( fn )
                 fn = null;
-            baidu.each(events, function( fn, eventName ){
+            baidu.forEach(events, function( fn, eventName ){
                 this.on( eventName, selector, data, fn );
             }, this);
         }

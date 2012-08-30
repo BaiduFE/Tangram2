@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 
 /**
  * @fileoverview
@@ -23,8 +23,8 @@ baidu.dom.extend({
         var me = this,
             td = baidu.dom();
 
-        baidu.each(this, function( dom, index ){
-            td[td.length ++] = iterator.call( dom, index, dom, this );
+        baidu.forEach(this, function( dom, index ){
+            td[td.length ++] = iterator.call( dom, index, dom, dom );
         });
 
         return td;

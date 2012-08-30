@@ -32,7 +32,7 @@
 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 
 baidu.dom.extend({
     toggleClass: function(value,status){
@@ -40,7 +40,7 @@ baidu.dom.extend({
         var status = (typeof status === 'undefined')? status : Boolean(status);
 
         if(arguments.length <= 0 ){
-            baidu.each(this,function(item){
+            baidu.forEach(this,function(item){
                 item.className = '';
             });
         };
@@ -52,7 +52,7 @@ baidu.dom.extend({
                 value = value.replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
 
                 var arr = value.split(' ');
-                baidu.each(this, function(item){
+                baidu.forEach(this, function(item){
                     var str = item.className;
                     for(var i = 0;i<arr.length;i++){
 
@@ -75,7 +75,7 @@ baidu.dom.extend({
             break;
             case 'function':
 
-                baidu.each(this, function(item, index){
+                baidu.forEach(this, function(item, index){
                     baidu.dom(item).toggleClass(value.call(item, index, item.className),status);
                 });
 

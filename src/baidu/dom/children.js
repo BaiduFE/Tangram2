@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.type;
 ///import baidu.dom.each;
 ///import baidu.dom.match;
@@ -24,7 +24,7 @@ baidu.dom.extend({
         var result, a = [];
 
         this.each(function(index){
-            baidu.each(this.children || this.childNodes, function(dom){
+            baidu.forEach(this.children || this.childNodes, function(dom){
                 dom.nodeType == 1 && a.push(dom);
             });
         });

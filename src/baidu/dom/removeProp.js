@@ -13,7 +13,7 @@
  */
 ///import baidu;
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.support;
 ///import baidu.dom._propHooks;
 
@@ -27,7 +27,7 @@ baidu.dom.extend({
 
         var bd = baidu.dom;
         value = bd.propFix[ value ] || value;
-        baidu.each(this, function(item){
+        baidu.forEach(this, function(item){
             // try/catch handles cases where IE balks (such as removing a property on window)
             try {
                 item[ value ] = undefined;

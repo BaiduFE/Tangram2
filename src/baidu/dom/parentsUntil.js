@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.dom.match;
 ///import baidu.array.indexOf;
 
@@ -25,7 +25,7 @@ baidu.dom.extend({
         baidu.check("(string|HTMLElement)(,.+)?","baidu.dom.parentsUntil");
         var array = [];
 
-        baidu.each(this, function(dom){
+        baidu.forEach(this, function(dom){
             var a = baidu.array();
 
             while ((dom = dom.parentNode) && dom.nodeType == 1) a.push(dom);

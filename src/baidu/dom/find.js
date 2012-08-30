@@ -2,7 +2,7 @@
 ///import baidu.dom.each;
 ///import baidu.query;
 ///import baidu.merge;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.type;
 
 /**
@@ -40,7 +40,7 @@ baidu.dom.extend({
         case "$DOM" :
             a = selector.get();
             this.each(function(){
-                baidu.each(baidu.query("*", this), function(dom){
+                baidu.forEach(baidu.query("*", this), function(dom){
                     for (var i=0, n=a.length; i<n; i++) {
                         dom === a[i] && (td[td.length ++] = a[i]);
                     }
