@@ -29,14 +29,23 @@
  * @return  {Array}         数组
  */
 void function () {
-    var fn = function(iterator, context) {
-        return baidu.each(this, iterator, context || this);
-    };
 
-    Array.prototype.each = Array.prototype.forEach = fn;
+    Array.prototype.each = function(iterator, context){
+        return baidu.each(this, iterator, context);
+    };
+    
+    Array.prototype.forEach = function(iterator, context){
+        var fn = function(index, item, array){
+            return iterator.call(context || item, item, index, array);
+        };
+        return baidu.each(this, typeof iterator == "function" ? fn : "", context);
+    };
 
     // TODO: delete in tangram 3.0
     baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
-        return baidu.isEnumerable(array) ? baidu.each(array, iterator, context || array) : array;
+        var fn = function(index, item, array){
+            return iterator.call(context || item, item, index, array);
+        };
+        return baidu.isEnumerable(array) ? baidu.each(array, typeof iterator == "function" ? fn : "", context) : array;
     };
 }();
