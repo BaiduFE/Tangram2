@@ -70,7 +70,9 @@ baidu.isNumber = baidu.lang.isNumber = function( unknow ) {
 baidu.isObject = baidu.lang.isObject = function( unknow ) {
     return typeof unknow === "function" || ( typeof unknow === "object" && unknow != null );
 };
-
+baidu.isWindow = baidu.lang.isWindow = function(win){
+    return !!win && win.window;
+};
 
 /*
  1-ELEMENT
