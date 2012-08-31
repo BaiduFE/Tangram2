@@ -16,7 +16,9 @@
 
  attributes和properties之间的差异在特定情况下是很重要。
  .prop方法无法取出自定义属性的值，都会返回undefined，这时要使用attr()接口。
+ 
  例如，考虑一个DOM元素的HTML标记中定义的<input type="checkbox" checked="checked" /> ，并假设它是一个JavaScript变量命名的elem ：
+ 
  elem.checked    返回 true (Boolean)
  baidu(elem).prop("checked")  返回 true (Boolean)
  elem.getAttribute("checked")  返回 "checked" (String)

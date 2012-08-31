@@ -18,7 +18,6 @@
  .css()方法解决了浏览器差异。
 
  示例代码：
-
  //HTML代码片段
  <div style="background-color:blue;"></div>
 
@@ -38,9 +37,7 @@
  * @example 
  .css()方法使得设置元素的CSS属性快速而又简单。
  这个方法可以使用任何一个CSS属性名和用空格隔开的值，或者一个“名/值对”对象(JavaScript Object)作为参数。
- 示例代码：
-
- //HTML代码片段
+ 示例代码： //HTML代码片段
  <div style="background-color:blue;"></div>
 
  //取得背景色
@@ -58,9 +55,7 @@
  * @example 
  .css()方法使得设置元素的CSS属性快速而又简单。
  这个方法可以使用任何一个CSS属性名和用空格隔开的值，或者一个“名/值对”对象(JavaScript Object)作为参数。
- 示例代码：
-
- //HTML代码片段
+ 示例代码： //HTML代码片段
  <div style="position:absolute;left:20px;right:20px;background-color:blue;"></div>
 
  //设置css

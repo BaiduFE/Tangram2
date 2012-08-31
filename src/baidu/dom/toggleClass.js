@@ -9,6 +9,10 @@
  * @grammar baidu.dom(args).toggleClass(className)
  * @param {String} className 要添加或者删除的className名（多个用空格间隔）
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example 
+ 在匹配的元素集合中的每个元素上添加或删除一个或多个样式类，取决于这个样式类是否存在或价值切换属性。
+ 即：如果存在（不存在）就删除（添加）一个类。
+
  */
 /**
  * @description 在匹配的元素集合中的每个元素上添加或删除一个或多个className，如果存在就删除一个className，不存在就添加。
