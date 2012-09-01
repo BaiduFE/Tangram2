@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -7,15 +8,28 @@
  * @description 为匹配的元素删除设置的属性。
  * @function 
  * @name baidu.dom().removeAttr()
- * @grammar baidu.dom(args).removeAttr(attributeName,value);
- * @param {String} attributeName 要设置属性的名称;
- * @param {String} value 要设置属性的值;
+ * @grammar baidu.dom(args).removeAttr(attributeName);
+ * @param {String} attributeName 要设置属性的名称，它可以是一个空格分隔的属性列表;
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example 
+ .removeAttr() 方法使用原生的 JavaScript removeAttribute() 函数,
+ 但是它的优点是能够直接被TangramDom对象访问调用，可以链式的继续调用下去，
+ 而且具有良好的浏览器兼容性。
+
+ 示例代码：
+
+ //HTML代码片段
+ <input type='text' value='123' data1='baidu' data2='google'/>
+
+ //清除一个属性
+ baidu("input").removeAttr("value");
+
+ //清除个属性
+ baidu("input").removeAttr("value data1 google");
+
  */
 
-///import baidu;
-///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.support;
 ///import baidu.dom._propHooks;
 ///import baidu.dom.attr;
@@ -28,7 +42,7 @@ baidu.dom.extend({
             return this;
         };
 
-        baidu.each(this, function(item){
+        baidu.forEach(this, function(item){
             var propName, attrNames, name, l, isBool, i = 0;
 
             if ( item.nodeType === 1 ) {
@@ -62,3 +76,4 @@ baidu.dom.extend({
         return this;
     }
 });
+/// Tangram 1.x Code End

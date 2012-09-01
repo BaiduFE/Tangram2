@@ -26,10 +26,10 @@ test("父子关系",function(){
 	ok(baidu.dom('body').contains(div),"body contains div");//body
 	
 	ok(baidu.dom(div).contains(aGrand),"grandfather contains grandson");
-	ok(baidu.dom('father_div').contains(aGrand),"grandfather contains grandson-by id");
-	ok(baidu.dom("father_div").contains(divChild),"div contains child div--father by id");//id
+	ok(baidu.dom('#father_div').contains(aGrand),"grandfather contains grandson-by id");
+	ok(baidu.dom("#father_div").contains(divChild),"div contains child div--father by id");//id
 	ok(baidu.dom(div).contains("child_div"),"div contains child div--child by id");//id
-	ok(baidu.dom("father_div").contains("child_div"),"div contains child div--both by id");//id
+	ok(baidu.dom("#father_div").contains("child_div"),"div contains child div--both by id");//id
 	div.removeChild(divChild);
 	document.body.removeChild(div);
 });
@@ -91,9 +91,9 @@ test('异常case',function(){
 	div.id = "div_id";
 	divChild.id = "div_id";
 	ok(!baidu.dom(div).contains("div_id"),"father and child have the same id--1");
-	ok(!baidu.dom("div_id").contains(div),"father and child have the same id--2");
+	ok(!baidu.dom("#div_id").contains(div),"father and child have the same id--2");
 	ok(baidu.dom(div).contains(divChild),"father and child have the same id--3");
-	ok(!baidu.dom("div_id").contains("div_id"),"father and child have the same id--4");
+	ok(!baidu.dom("#div_id").contains("div_id"),"father and child have the same id--4");
 	document.body.removeChild(div);
 });
 

@@ -30,7 +30,7 @@
  * @return  {Object}                    iterator计算后的结果
  */
 Array.prototype.reduce = function (iterator, initializer) {
-    baidu.paramCheck("function(,.+)?","baidu.array.reduce");
+    baidu.check("function(,.+)?","baidu.array.reduce");
     var i = 0, 
         n = this.length,
         found = false;
@@ -48,8 +48,9 @@ Array.prototype.reduce = function (iterator, initializer) {
     }
     return initializer;
 };
-
+/// Tangram 1.x Code Start
 // TODO: delete in tangram 3.0
 baidu.array.reduce = function(array, iterator, initializer) {
     return baidu.isArray(array) ? array.reduce(iterator, initializer) : array;
 };
+/// Tangram 1.x Code End

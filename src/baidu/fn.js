@@ -19,7 +19,7 @@ baidu.createChain("fn",
 
 // 执行方法
 function(fn){
-    return new baidu.$Fn(baidu.type(fn, 'function|string') ? fn : function(){});
+    return new baidu.fn.$Fn(~'function|string'.indexOf(baidu.type(fn)) ? fn : function(){});
 },
 
 // constructor

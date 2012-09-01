@@ -30,7 +30,7 @@
 ///import baidu;
 ///import baidu.support;
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.dom.empty;
 ///import baidu.dom.append;
 
@@ -68,7 +68,7 @@ baidu.dom.extend({
             wrapMap._default = [ 1, "X<div>", "</div>" ];
         };
 
-        baidu.each(me,function(elem,index){
+        baidu.forEach(me,function(elem, index){
             
             if(result){
                 return;

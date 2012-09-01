@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -15,3 +16,5 @@
  * @name baidu.page
  */
 baidu.page = baidu.page || {};
+
+/// Tangram 1.x Code End

@@ -21,3 +21,6 @@ baidu.dom.extend({
         return this;
     }
 });
+
+//声明快捷方式
+baidu.show = baidu.dom.show;

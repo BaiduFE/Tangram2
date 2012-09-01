@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.type;
 ///import baidu.dom.each;
 ///import baidu.dom.match;
@@ -24,7 +24,7 @@ baidu.dom.extend({
         var result, a = [];
 
         this.each(function(index){
-            baidu.each(this.children || this.childNodes, function(dom){
+            baidu.forEach(this.children || this.childNodes, function(dom){
                 dom.nodeType == 1 && a.push(dom);
             });
         });
@@ -33,8 +33,17 @@ baidu.dom.extend({
     }
 });
 
-// TODO: delete it in feature
+/// Tangram 1.x Code Start
+/**
+ * @description 所有了元素的集合
+ * @function
+ * @name baidu.dom.children()
+ * @grammar baidu.dom.children(dom)
+ * @param {HTMLElement|String} element 目标元素或目标元素的id
+ * @return {Array} 目标元素的子元素列表，没有子元素时返回空数组
+ */
 baidu.dom.children = function(dom) {
-    baidu.paramCheck("string|HTMLElement","baidu.dom.children");
+    baidu.check("string|HTMLElement","baidu.dom.children");
     return baidu.dom( baidu.isString(dom) ? "#"+ dom : dom ).children().toArray();
 };
+/// Tangram 1.x Code End

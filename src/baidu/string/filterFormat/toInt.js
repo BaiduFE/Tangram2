@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -24,3 +25,4 @@ baidu.string.filterFormat.toInt = function(str){
 	return parseInt(str, 10) || 0;
 };
 baidu.string.filterFormat.i = baidu.string.filterFormat.toInt;
+/// Tangram 1.x Code End

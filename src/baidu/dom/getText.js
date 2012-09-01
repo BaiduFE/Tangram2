@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -23,9 +24,7 @@
 baidu.dom.extend({
     getText : function () {
         var ret = "", childs, i=0, l;
-
         element = this[0];
-
         //  text 和 CDATA 节点，取nodeValue
         if ( element.nodeType === 3 || element.nodeType === 4 ) {
             ret += element.nodeValue;
@@ -35,7 +34,7 @@ baidu.dom.extend({
                 ret += baidu.dom.getText(childs[i]);
             }
         }
-
         return ret;
     }
 }); 
+/// Tangram 1.x Code End

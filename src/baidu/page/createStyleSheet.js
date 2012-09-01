@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -79,3 +80,4 @@ baidu.page.createStyleSheet = function(options){
  * 一个集合
  *  rules
  */
+/// Tangram 1.x Code End

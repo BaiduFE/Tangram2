@@ -30,7 +30,7 @@
  * @return  {Array}                     映射操作后的数组
  */
 Array.prototype.map = function (iterator, context) {
-    baidu.paramCheck("function(,.+)?","baidu.array.map");
+    baidu.check("function(,.+)?","baidu.array.map");
     var i, n,
         array = baidu.array([]);
 
@@ -39,7 +39,8 @@ Array.prototype.map = function (iterator, context) {
     }
     return array;
 };
-
+/// Tangram 1.x Code Start
 baidu.array.map = function(array, iterator, context){
     return baidu.isArray(array) ? array.map(iterator, context) : array;
 };
+/// Tangram 1.x Code End

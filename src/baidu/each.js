@@ -3,7 +3,8 @@
  * @fileoverview
  * @author meizz
  * @create 2012-05-20
- * @modify 2012.6.29 扩展对 String Number 的支持
+ * @modify 2012.6.29 mz 扩展对 String Number 的支持
+ * @modify 2012.8.29 mz 修改iterator参数顺序iterator(index, item, object)；将iterator里的this默认指向到item
  */
 
 /**
@@ -29,18 +30,18 @@ baidu.each = function( enumerable, iterator, context ) {
 
                 t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
 
-                // 被循环执行的函数，默认会传入三个参数(array[i], i, array)
-                result = iterator.call( context || null, t, i, enumerable );
+                // 被循环执行的函数，默认会传入三个参数(i, array[i], array)
+                result = iterator.call( context || t, i, t, enumerable );
 
                 // 被循环执行的函数的返回值若为 false 和"break"时可以影响each方法的流程
-                if ( result === false || result == "break" ) { break;}
+                if ( result === false || result == "break" ) {break;}
             }
         
         // enumerable is number
         } else if (typeof enumerable == "number") {
 
             for (i=0; i<enumerable; i++) {
-                result = iterator.call( context || null, i, i, i);
+                result = iterator.call( context || i, i, i, i);
                 if ( result === false || result == "break" ) { break;}
             }
         
@@ -49,7 +50,7 @@ baidu.each = function( enumerable, iterator, context ) {
 
             for (i in enumerable) {
                 if ( enumerable.hasOwnProperty(i) ) {
-                    result = iterator.call( context || null, enumerable[ i ], i, enumerable );
+                    result = iterator.call( context || enumerable[ i ], i, enumerable[ i ], enumerable );
 
                     if ( result === false || result == "break" ) { break;}
                 }

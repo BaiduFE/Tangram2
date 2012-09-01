@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 
 /**
  * @fileoverview
@@ -19,12 +19,12 @@
  */
 baidu.dom.extend({
     map : function (iterator) {
-        baidu.paramCheck("function","baidu.dom.map");
+        baidu.check("function","baidu.dom.map");
         var me = this,
             td = baidu.dom();
 
-        baidu.each(this, function( dom, index ){
-            td[td.length ++] = iterator.call( dom, index, dom, this );
+        baidu.forEach(this, function( dom, index ){
+            td[td.length ++] = iterator.call( dom, index, dom, dom );
         });
 
         return td;

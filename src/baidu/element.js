@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All right reserved.
@@ -19,6 +20,7 @@
 ///import baidu.fn.methodize;
 ///import baidu.fn.wrapReturnValue;
 ///import baidu.fn.multize;
+///import baidu.forEach;
 
 
 /**
@@ -104,13 +106,13 @@ baidu.element._makeChain = function(){ //将dom/event包下的东西挂到protot
         fnTransformer = baidu.element._toChainFunction;
 
     //返回值是第一个参数的包装
-    baidu.each(("draggable droppable resizable fixable").split(' '),
+    baidu.forEach(("draggable droppable resizable fixable").split(' '),
               function(fn){
                   proto[fn] =  fnTransformer(baidu.dom[fn], 1);
               });
 
     //直接返回返回值
-    baidu.each(("remove getText contains getAttr getPosition getStyle hasClass intersect hasAttr getComputedStyle").split(' '),
+    baidu.forEach(("remove getText contains getAttr getPosition getStyle hasClass intersect hasAttr getComputedStyle").split(' '),
               function(fn){
                   proto[fn] = proto[fn.replace(/^get[A-Z]/g, stripGet)] = fnTransformer(baidu.dom[fn], -1);
               });
@@ -120,7 +122,7 @@ baidu.element._makeChain = function(){ //将dom/event包下的东西挂到protot
     //1. methodize
     //2. multize，结果如果是数组会被展平
     //3. getXx == xx
-    baidu.each(("addClass empty hide show insertAfter insertBefore insertHTML removeClass " + 
+    baidu.forEach(("addClass empty hide show insertAfter insertBefore insertHTML removeClass " + 
               "setAttr setAttrs setStyle setStyles show toggleClass toggle next first " + 
               "getAncestorByClass getAncestorBy getAncestorByTag getDocument getParent getWindow " +
               "last next prev g removeStyle setBorderBoxSize setOuterWidth setOuterHeight " +
@@ -136,7 +138,7 @@ baidu.element._makeChain = function(){ //将dom/event包下的东西挂到protot
     }, 0);
 
     //包装event中的on 和 un
-    baidu.each(("on un").split(' '), function(fn){
+    baidu.forEach(("on un").split(' '), function(fn){
         proto[fn] = fnTransformer(baidu.event[fn], 0);
     });
   
@@ -151,7 +153,7 @@ baidu.element._makeChain = function(){ //将dom/event包下的东西挂到protot
      * @return {baidu.element} Element对象
      */
     //包装event的快捷方式
-    baidu.each(("blur focus focusin focusout load resize scroll unload click dblclick " +
+    baidu.forEach(("blur focus focusin focusout load resize scroll unload click dblclick " +
                 "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + 
                 "change select submit keydown keypress keyup error").split(' '), function(fnName){
         proto[fnName] = function(fn){
@@ -170,3 +172,5 @@ baidu.element._makeChain = function(){ //将dom/event包下的东西挂到protot
         return match.charAt(3).toLowerCase();
     }
 };
+
+/// Tangram 1.x Code End

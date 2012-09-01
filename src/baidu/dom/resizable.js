@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -21,6 +22,7 @@
 ///import baidu.dom.setBorderBoxHeight;
 ///import baidu.dom.setBorderBoxWidth;
 ///import baidu.object.extend;
+///import baidu.forEach;
 
 /**
  * 绘制可以根据鼠标行为改变HTMLElement大小的resize handle
@@ -84,7 +86,7 @@ baidu.dom.resizable = /**@function*/function(element,options) {
     /*
      * 必要参数转换
      */
-    baidu.each(['minHeight', 'minWidth', 'maxHeight', 'maxWidth'], function(style) {
+    baidu.forEach(['minHeight', 'minWidth', 'maxHeight', 'maxWidth'], function(style) {
         op[style] && (op[style] = parseFloat(op[style]));
     });
 
@@ -119,7 +121,7 @@ baidu.dom.resizable = /**@function*/function(element,options) {
         },op.directionHandlePosition);
         
         //创建resizeHandle
-        baidu.each(op.direction, function(key) {
+        baidu.forEach(op.direction, function(key) {
             var className = op.classPrefix.split(' ');
             className[0] = className[0] + '-resizable-' + key;
 
@@ -330,3 +332,4 @@ baidu.dom.resizable = /**@function*/function(element,options) {
     
     return {cancel:cancel,update:update,enable:render};
 };
+/// Tangram 1.x Code End

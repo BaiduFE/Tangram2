@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -31,3 +32,4 @@ baidu.dom._styleFixer.display = baidu.browser.ie && baidu.browser.ie < 8 ? { // 
         element.style.display = value == 'inline-block' ? '-moz-inline-box' : value;
     }
 } : null;
+/// Tangram 1.x Code End

@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -30,3 +31,4 @@ baidu.async.when = function(deferredOrValue, onResolve, onReject) {
     deferred.then(onResolve, onReject).resolve(deferredOrValue);
     return deferred;
 };
+/// Tangram 1.x Code End

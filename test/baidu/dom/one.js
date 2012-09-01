@@ -115,14 +115,14 @@ test('span event trigger once', function(){
 test('off event', function(){
     expect(1);
     var c = new Div(),
-        flag = true;
+        d = new Div();
     function handler(){
-        flag = false;
-        ok(false, 'click event');
+        ok(true, 'click event');
     }
     baidu.dom(c.get()).one('click', handler);
+    baidu.dom(d.get()).one('click', handler);
     baidu.dom(c.get()).off('click', handler);
     ua.fireMouseEvent(c.get(), 'click');
-    ua.fireMouseEvent(c.get(), 'click');
-    ok(flag, 'event unbind: ' + flag);
+    ua.fireMouseEvent(d.get(), 'click');
+    ua.fireMouseEvent(d.get(), 'click');
 });

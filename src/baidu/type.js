@@ -1,6 +1,6 @@
 ///import baidu;
-///import baidu.each;
 ///import baidu.lang;
+///import baidu.forEach;
 /*
  * @fileoverview
  * @name baidu.type
@@ -25,7 +25,7 @@ baidu.type = (function() {
         toString = objectType.toString;
 
     // 给 objectType 集合赋值，建立映射
-    baidu.each(str.split(" "), function(name) {
+    baidu.forEach(str.split(" "), function(name) {
         objectType[ "[object " + name + "]" ] = name.toLowerCase();
 
         baidu[ "is" + name ] = baidu.lang[ "is" + name ] = function ( unknow ) {
@@ -48,6 +48,10 @@ baidu.type = (function() {
 })();
 
 // extend
+baidu.isDate = baidu.lang.isDate = function( unknow ) {
+    return baidu.type(unknow) == "date" && unknow.toString() != 'Invalid Date' && !isNaN(unknow);
+};
+
 baidu.isElement = baidu.lang.isElement = function( unknow ) {
     return baidu.type(unknow) == "HTMLElement";
 };
@@ -66,7 +70,9 @@ baidu.isNumber = baidu.lang.isNumber = function( unknow ) {
 baidu.isObject = baidu.lang.isObject = function( unknow ) {
     return typeof unknow === "function" || ( typeof unknow === "object" && unknow != null );
 };
-
+baidu.isWindow = baidu.lang.isWindow = function(win){
+    return !!win && win.window;
+};
 
 /*
  1-ELEMENT

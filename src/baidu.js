@@ -137,4 +137,4 @@ baidu.key = "tangram_guid";
 window[baidu.guid] = window[baidu.guid] || {};
 
 // 20120709 mz 添加参数类型检查器，对参数做类型检测保护
-baidu.paramCheck = baidu.paramCheck || function(){};
+baidu.check = baidu.check || function(){};

@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -34,3 +35,4 @@ baidu.dom.g = function(id) {
 
 // 声明快捷方法
 baidu.g = baidu.G = baidu.dom.g;
+/// Tangram 1.x Code End

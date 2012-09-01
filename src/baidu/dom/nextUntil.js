@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.dom.match;
 ///import baidu.array.indexOf;
 
@@ -23,7 +23,7 @@ baidu.dom.extend({
     nextUntil : function (selector, filter) {
         var array = baidu.array();
 
-        baidu.each(this, function(dom){
+        baidu.forEach(this, function(dom){
             var a = baidu.array();
 
             while(dom = dom.nextSibling) {

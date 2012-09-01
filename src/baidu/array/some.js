@@ -28,7 +28,7 @@
  * @return  {Boolean}               是否含有指定条件
  */
 Array.prototype.some = function(iterator, context){
-    baidu.paramCheck("function(,.+)?", "baidu.array.some");
+    baidu.check("function(,.+)?", "baidu.array.some");
     var i, n;
 
     for (i=0, n=this.length; i<n; i++) {
@@ -38,8 +38,9 @@ Array.prototype.some = function(iterator, context){
     }
     return false;
 };
-
+/// Tangram 1.x Code Start
 // TODO: delete in tangram 3.0
 baidu.array.some = function(array, iterator, context) {
     return array.some(iterator, context);
 };
+/// Tangram 1.x Code End

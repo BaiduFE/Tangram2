@@ -4,7 +4,7 @@
 
 ///import baidu.dom.getCurrentStyle;
 ///import baidu.extend;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.support;
 ///import baidu.dom._getWidthOrHeight;
 ///import baidu.type;
@@ -52,7 +52,7 @@ baidu.dom.styleFixer = function(){
         }
     });
     //
-    baidu.each(['width', 'height'], function(item){
+    baidu.forEach(['width', 'height'], function(item){
         cssHooks[item] = {
             get: function(ele){
                 return baidu.dom._getWidthOrHeight(ele, item) + 'px';
@@ -88,7 +88,7 @@ baidu.dom.styleFixer = function(){
             method = val === undefined ? 'get' : 'set',
             origVal, hooks;
         origKey = cssProps[origKey] || origKey;
-        origVal = baidu.type(val, 'number') && !~cssNumber.indexOf(origKey) ? val + 'px' : val;
+        origVal = baidu.type(val) === 'number' && !~cssNumber.indexOf(origKey) ? val + 'px' : val;
         hooks = cssHooks.hasOwnProperty(origKey) && cssHooks[origKey][method] || style[method];
         return hooks(ele, origKey, origVal);
     };

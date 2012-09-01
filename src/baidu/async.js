@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -18,10 +19,12 @@ baidu.createChain("async",
 
 // 执行方法
 function(url){
-	return typeof url === 'string'? new baidu.$Async(url):new baidu.$Async();
+	return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
 },
 
 // constructor
 function(url){
 	this.url = url;
 });
+
+/// Tangram 1.x Code End

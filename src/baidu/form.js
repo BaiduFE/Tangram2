@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 ﻿/**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -18,10 +19,11 @@ baidu.createChain("form",
 
 // 执行方法
 function(form){
-	return typeof form === 'undefined'? new baidu.$Form():new baidu.$Form(form);
+	return typeof form === 'undefined'? new baidu.form.$Form():new baidu.form.$Form(form);
 },
 
 // constructor
 function(form){
 	this.form = form;
 });
+/// Tangram 1.x Code End

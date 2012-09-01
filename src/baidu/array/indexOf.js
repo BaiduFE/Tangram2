@@ -36,7 +36,7 @@
 
 baidu.array.extend({
     indexOf : function (match, fromIndex) {
-        baidu.paramCheck(".+(,number)?","baidu.array.indexOf");
+        baidu.check(".+(,number)?","baidu.array.indexOf");
         var len = this.length;
 
         // 小于 0

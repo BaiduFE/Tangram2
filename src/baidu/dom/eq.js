@@ -17,7 +17,7 @@
  */
 baidu.dom.extend({
     eq : function (index) {
-        baidu.paramCheck("number","baidu.dom.eq");
+        baidu.check("number","baidu.dom.eq");
         return baidu.dom(this.get(index));
     }
 });

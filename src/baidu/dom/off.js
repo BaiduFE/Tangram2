@@ -2,13 +2,9 @@
  * @fileOverview 对当前 TangramDom 集合解除事件监听
  * @author dron
  */
-
-///import baidu;
-///import baidu.dom;
-///import baidu.event;
-///import baidu.each;
 ///import baidu.dom._eventBase;
-///improt baidu.dom.g;
+///import baidu.event;
+///import baidu.forEach;
 
 /**
  * @description 对当前 TangramDom 集合解除事件监听
@@ -32,47 +28,37 @@
  */
 
 baidu.dom.extend({
-	off: function(events, selector, fn){
-    	var eb = baidu.dom._eventBase;
-    	
-    	if(!events){
-    	 
-    		baidu.each(this, function(item){
-    		    eb.removeAll(item);
-    		});
+    off: function( events, selector, fn ){
+        var eb = baidu.dom._eventBase, me = this;
+        if( !events )
+            baidu.forEach( this, function(item){
+                eb.removeAll(item);
+            } );
+        else if( typeof events == "string" ){
+            if( typeof selector == "function" )
+                fn = selector,
+                selector = null;
+            events = events.split(/[ ,]/);
+            baidu.forEach( this, function( item ){
+                baidu.forEach( events, function( event ){
+                    eb.remove( item, event, fn, selector );
+                });
+            });
+        }else if( typeof events == "object" )
+            baidu.forEach( events, function(fn, event){
+                me.off( event, selector, fn );
+            } );
 
-    	}else if(typeof events == "string"){
-
-		    if(typeof selector == "function"){
-		        fn = selector;
-		        selector = null;
-		    }
-
-		    events = events.split(/[ ,]/);
-
-		    baidu.each(this, function(item){
-		        baidu.each(events, function(event){
-		            eb.remove(item, event, fn, selector);
-		        });
-		    });
-
-		}else if(typeof events == "object"){
-
-			var me = this;
-			
-			baidu.each(events, function(fn, event){
-			    me.off(event, selector, fn);
-			});
-
-		}
-
-		return this;
-	}
+        return this;
+    }
 });
 
- baidu.event.un = baidu.un = function(ele,onEvent,fn){
- 	onEvent = onEvent.replace(/^\s*on/,'');
- 	var element = baidu.dom.g(ele);
-	baidu.dom(element).off(onEvent,fn);
-	return element;
+/// Tangram 1.x Code Start
+///import baidu.dom.g;
+baidu.event.un = baidu.un = function(element, evtName, handler){
+    element = baidu.dom.g(element);
+    baidu.dom(element).off(evtName.replace(/^\s*on/, ''), handler);
+    return element;
  };
+ /// Tangram 1.x Code End
+ 

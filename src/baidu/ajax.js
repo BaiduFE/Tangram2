@@ -19,7 +19,7 @@ baidu.createChain("ajax",
 
 // 执行方法
 function(url){
-	return typeof url === 'string'? new baidu.$Ajax(url):new baidu.$Ajax();
+	return typeof url === 'string'? new baidu.ajax.$Ajax(url):new baidu.ajax.$Ajax();
 },
 
 // constructor

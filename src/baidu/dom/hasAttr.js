@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -25,9 +26,10 @@
 ///import baidu.dom;
 
 baidu.dom.extend({
-hasAttr : function (name){
-    element = this[0];
-    var attr = element.attributes.getNamedItem(name);
-    return !!( attr && attr.specified );
-}
+    hasAttr : function (name){
+        element = this[0];
+        var attr = element.attributes.getNamedItem(name);
+        return !!( attr && attr.specified );
+    }
 });
+/// Tangram 1.x Code End

@@ -28,7 +28,7 @@
  * @return  {Boolean}           是否全部满足条件
  */
 Array.prototype.every = function(iterator, context) {
-    baidu.paramCheck("function(,.+)?", "baidu.array.every");
+    baidu.check("function(,.+)?", "baidu.array.every");
     var i, n;
 
     for (i=0, n=this.length; i<n; i++) {
@@ -38,8 +38,9 @@ Array.prototype.every = function(iterator, context) {
     }
     return true;
 };
-
+/// Tangram 1.x Code Start
 // TODO: delete in tangram 3.0
 baidu.array.every = function(array, iterator, context) {
     return baidu.isArray(array) ? array.every(iterator, context) : array;
 };
+/// Tangram 1.x Code End

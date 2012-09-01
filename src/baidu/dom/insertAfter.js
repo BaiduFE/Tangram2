@@ -3,7 +3,7 @@
  */
 
 ///import baidu.dom._smartInsertTo;
-///import baidu.dom._g;
+
 /**
  * @description 将匹配到的DOM元素插入到参数指定的DOM元素的后面
  * @function 
@@ -14,7 +14,7 @@
  */
 baidu.dom.extend({
     insertAfter: function(target){
-        baidu.paramCheck('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertAfter');
+        baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertAfter');
         baidu.dom._smartInsertTo(this, target, function(node){
             this.parentNode.insertBefore(node, this.nextSibling);
         }, 'after');
@@ -22,6 +22,8 @@ baidu.dom.extend({
     }
 });
 
+/// Tangram 1.x Code Start
+///import baidu.dom._g;
 /**
  * @description 将目标元素添加到基准元素之后
  * @function 
@@ -35,3 +37,4 @@ baidu.dom.insertAfter = function(newElement, existElement){
     var get = baidu.dom._g;
     return baidu.dom(get(newElement)).insertAfter(get(existElement))[0];
 };
+/// Tangram 1.x Code End

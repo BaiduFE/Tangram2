@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -58,3 +59,4 @@ baidu.dom.getStyle = function (element, key) {
 
 // 声明快捷方法
 baidu.getStyle = baidu.dom.getStyle;
+/// Tangram 1.x Code End

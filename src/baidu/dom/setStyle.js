@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -30,25 +31,26 @@ baidu.dom._styleFixer和baidu.dom._styleFilter可以为本模块提供支持。<
  */
 
 baidu.dom.extend({
-setStyle : function ( key, value) {
-    var dom = baidu.dom, 
-        fixer;
+    setStyle : function ( key, value) {
+        var dom = baidu.dom, 
+            fixer;
+        
+        // 放弃了对firefox 0.9的opacity的支持
+        element = this[0];
+        key = baidu.string.toCamelCase(key);
     
-    // 放弃了对firefox 0.9的opacity的支持
-    element = this[0];
-    key = baidu.string.toCamelCase(key);
-
-    if (fixer = dom._styleFilter) {
-        value = fixer.filter(key, value, 'set');
+        if (fixer = dom._styleFilter) {
+            value = fixer.filter(key, value, 'set');
+        }
+    
+        fixer = dom._styleFixer[key];
+        (fixer && fixer.set) ? fixer.set(element, value, key) : (element.style[fixer || key] = value);
+    
+        return element;
     }
-
-    fixer = dom._styleFixer[key];
-    (fixer && fixer.set) ? fixer.set(element, value, key) : (element.style[fixer || key] = value);
-
-    return element;
-}
 
 });
 
 // 声明快捷方法
 baidu.setStyle = baidu.dom.setStyle;
+/// Tangram 1.x Code End

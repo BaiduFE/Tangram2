@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 ///import baidu.dom;
 
 /*!
@@ -1460,3 +1461,4 @@ var posProcess = function( selector, context, seed ) {
 baidu.dom.query = Sizzle;
 
 })();
+/// Tangram 1.x Code End

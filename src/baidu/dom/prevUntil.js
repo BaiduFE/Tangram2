@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.dom.match;
 ///import baidu.array.indexOf;
 
@@ -21,10 +21,10 @@
  */
 baidu.dom.extend({
     prevUntil : function (selector, filter) {
-        baidu.paramCheck("(string|HTMLElement)(,.+)?", "baidu.dom.prevUntil");
+        baidu.check("(string|HTMLElement)(,.+)?", "baidu.dom.prevUntil");
         var array = [];
 
-        baidu.each(this, function(dom) {
+        baidu.forEach(this, function(dom) {
             var a = baidu.array();
 
             while(dom = dom.previousSibling) {

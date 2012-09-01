@@ -108,7 +108,7 @@ baidu.createChain("dom",
 
 
 function(selector, context) {
-    var e, me = new baidu.$DOM(context);
+    var e, me = new baidu.dom.$DOM(context);
 
     // Handle $(""), $(null), or $(undefined)
     if (!selector) {
@@ -130,7 +130,6 @@ function(selector, context) {
         return baidu.merge(me, selector);
 
     } else if (typeof selector == "string") {
-
         // HTMLString
         if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 3) {
             if ( baidu.dom.createElements ) {

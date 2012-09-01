@@ -16,8 +16,11 @@
  */
 
 baidu.dom.extend({
-    hide : function() {
+    hide: function() {
         baidu.dom._showHide( this );
         return this;
     }
 });
+
+//声明快捷方式
+baidu.hide = baidu.dom.hide;

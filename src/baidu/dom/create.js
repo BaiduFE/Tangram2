@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 ///import baidu.dom.setAttr;
 /**
  * 创建 Element 对象。
@@ -19,3 +20,4 @@ baidu.dom.create = function(tagName, opt_attributes) {
     }
     return el;
 };
+/// Tangram 1.x Code End

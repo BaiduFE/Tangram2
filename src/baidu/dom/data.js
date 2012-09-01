@@ -1,6 +1,6 @@
 ///import baidu.id;
 ///import baidu.dom;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.type;
 ///import baidu.global;
 
@@ -24,7 +24,7 @@ baidu.dom.extend({
             , maps = baidu.global("_maps_HTMLElementData");
 
         return function( key, value ) {
-            baidu.each( this, function( dom ) {
+            baidu.forEach( this, function( dom ) {
                 !dom[ guid ] && ( dom[ guid ] = baidu.id() );
             });
 
@@ -37,7 +37,7 @@ baidu.dom.extend({
                 }
 
                 // set all
-                baidu.each(this, function(dom){
+                baidu.forEach(this, function(dom){
                     var data = maps[ dom[ guid ] ] = maps[ dom[ guid ] ] || {};
                     data[ key ] = value;
                 });
@@ -46,10 +46,10 @@ baidu.dom.extend({
             } else if ( baidu.type(key) == "object") {
 
                 // set all
-                baidu.each(this, function(dom){
+                baidu.forEach(this, function(dom){
                     var data = maps[ dom[ guid ] ] = maps[ dom[ guid ] ] || {};
 
-                    baidu.each( key , function(item) {
+                    baidu.forEach( key , function(item) {
                         data[ item ] = key[ item ];
                     });
                 });

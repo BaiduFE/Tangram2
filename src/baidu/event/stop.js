@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -24,3 +25,4 @@ baidu.event.stop = function (event) {
     baidu.event.stopPropagation(event);
     baidu.event.preventDefault(event);
 };
+/// Tangram 1.x Code End

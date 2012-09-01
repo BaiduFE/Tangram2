@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -14,4 +15,4 @@
  * 提供给setStyle与getStyle使用
  */
 baidu.dom._styleFilter = baidu.dom._styleFilter || [];
-
+/// Tangram 1.x Code End

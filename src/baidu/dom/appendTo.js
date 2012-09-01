@@ -13,7 +13,7 @@
  */
 baidu.dom.extend({
     appendTo: function(target){
-        baidu.paramCheck('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.appendTo');
+        baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.appendTo');
         baidu.dom._smartInsertTo(this, target, function(child){
             this.appendChild(child);
         });

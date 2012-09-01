@@ -112,5 +112,6 @@ baidu.dom.extend({
         }
     }()
 });
-
+/// Tangram 1.x Code Start
 baidu.dom.ready = baidu.dom.fn.ready;
+/// Tangram 1.x Code End

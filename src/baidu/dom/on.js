@@ -3,11 +3,9 @@
  * @author dron
  */
 
-///import baidu;
-///import baidu.dom;
-///import baidu.dom.g;
 ///import baidu.event;
 ///import baidu.dom.each;
+///import baidu.forEach;
 ///import baidu.dom._eventBase;
 
 /**
@@ -35,54 +33,56 @@
 
 
 baidu.dom.extend({
-	on: function( events, selector, data, fn ){
-    	var eb = baidu.dom._eventBase;
-    	var specials = { mouseenter: 1, mouseleave: 1, focusin: 1, focusout: 1 };
+    on: function( events, selector, data, fn ){
+        var eb = baidu.dom._eventBase;
+        var specials = { mouseenter: 1, mouseleave: 1, focusin: 1, focusout: 1 };
 
-	    if( typeof selector == "object" && selector )
-	    	fn = data,
-	        data = selector,
-	        selector = null;
-	    else if( typeof data == "function" )
-	    	fn = data,
-	    	data = null;
-	    else if( typeof selector == "function" )
-	    	fn = selector,
-	    	selector = data = null;
+        if( typeof selector == "object" && selector )
+            fn = data,
+            data = selector,
+            selector = null;
+        else if( typeof data == "function" )
+            fn = data,
+            data = null;
+        else if( typeof selector == "function" )
+            fn = selector,
+            selector = data = null;
 
-		if( typeof events == "string" ){
-		    events = events.split(/[ ,]+/);
-		    this.each(function(){
-		        baidu.each(events, function( event ){
-		        	if( specials[ event ] )
-		        	    baidu( this )[ event ]( data, fn );
-		        	else
-		            	eb.add( this, event, fn, selector, data );
-		        }, this);
-		    });
-		}else if( typeof events == "object" ){
-			if( fn )
-				fn = null;
-			baidu.each(events, function( fn, eventName ){
-			    this.on( eventName, selector, data, fn );
-			}, this);
-		}
+        if( typeof events == "string" ){
+            events = events.split(/[ ,]+/);
+            this.each(function(){
+                baidu.forEach(events, function( event ){
+                    if( specials[ event ] )
+                        baidu( this )[ event ]( data, fn );
+                    else
+                        eb.add( this, event, fn, selector, data );
+                }, this);
+            });
+        }else if( typeof events == "object" ){
+            if( fn )
+                fn = null;
+            baidu.forEach(events, function( fn, eventName ){
+                this.on( eventName, selector, data, fn );
+            }, this);
+        }
 
-		return this;
-	},
+        return this;
+    },
 
-	_on: function( name, data, fn ){
-		var eb = baidu.dom._eventBase;
-	    this.each(function(){
-	        eb.add( this, name, fn, undefined, data );
-	    });
-	    return this;
-	}
+    _on: function( name, data, fn ){
+        var eb = baidu.dom._eventBase;
+        this.each(function(){
+            eb.add( this, name, fn, undefined, data );
+        });
+        return this;
+    }
 });
 
-baidu.event.on = baidu.on = function( el, onEvent, fn ){
-	onEvent = onEvent.replace( /^\s*on/, "" );
-	var element = baidu.dom.g( el );
-	baidu.dom( element ).on( onEvent, fn );
-	return element;
+/// Tangram 1.x Code Start
+///import baidu.dom.g;
+baidu.event.on = baidu.on = function(element, evtName, handler){
+    element = baidu.dom.g(element);
+    baidu.dom(element).on(evtName.replace(/^\s*on/, ''), handler);
+    return element;
 };
+/// Tangram 1.x Code End

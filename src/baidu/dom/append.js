@@ -25,7 +25,7 @@
 
 baidu.dom.extend({
     append: function(){
-        baidu.paramCheck('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.append');
+        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.append');
         baidu.dom._smartInsert(this, arguments, function(child){
             this.nodeType === 1 && this.appendChild(child);
         });

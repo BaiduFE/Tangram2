@@ -27,7 +27,7 @@
  */
 baidu.dom.extend({
     after: function(){
-        baidu.paramCheck('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.after');
+        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.after');
         var parentNode = this[0] && this[0].parentNode,
             array = !parentNode && [];
         baidu.dom._smartInsert(this, arguments, function(node){

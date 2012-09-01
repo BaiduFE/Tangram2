@@ -3,10 +3,9 @@
  * @email  1988wangxiao@gmail.com
  */
 
-///import baidu;
 ///import baidu.extend;
 ///import baidu.support;
-///import baidu.dom;
+///import baidu.forEach;
 ///import baidu.dom._propHooks;
 
 baidu.dom.rfocusable = /^(?:button|input|object|select|textarea)$/i,
@@ -136,7 +135,7 @@ if ( !baidu.support.getSetAttribute ) {
 
     // Set width and height to auto instead of 0 on empty string( Bug #8150 )
     // This is for removals
-    baidu.each([ "width", "height" ], function( name,i ) {
+    baidu.forEach([ "width", "height" ], function( name ) {
         bd.attrHooks[ name ] = baidu.extend( bd.attrHooks[ name ], {
             set: function( elem, value ) {
                 if ( value === "" ) {
@@ -163,7 +162,7 @@ if ( !baidu.support.getSetAttribute ) {
 // Some attributes require a special call on IE
 if ( !baidu.support.hrefNormalized ) {
 	var bd = baidu.dom;
-    baidu.each([ "href", "src", "width", "height" ], function( name,i ) {
+    baidu.forEach([ "href", "src", "width", "height" ], function( name ) {
         bd.attrHooks[ name ] = baidu.extend( bd.attrHooks[ name ], {
             get: function( elem ) {
                 var ret = elem.getAttribute( name, 2 );

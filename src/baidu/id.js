@@ -1,6 +1,8 @@
 ///import baidu;
 ///import baidu.type;
+///import baidu._util_;
 ///import baidu.global;
+///import baidu.browser;
 /*
  * @fileoverview
  * @author dron,meizz
@@ -19,7 +21,7 @@
  */
 baidu.id = function() {
     var maps = baidu.global("_maps_id")
-        ,key = "tangram_guid";
+        ,key = baidu.key;
 
     baidu.global("_counter", 1, true);
 
@@ -38,7 +40,12 @@ baidu.id = function() {
             case "remove" :
             case "delete" :
                 if ( e = maps[id] ) {
-                    delete e[ key ];
+                    // 20120827 mz IE低版本给 element[key] 赋值时会写入DOM树，因此在移除的时候需要使用remove
+                    if (baidu.browser.ie && baidu.isElement(e)) {
+                        e.removeAttribute(key);
+                    } else {
+                        delete e[ key ];
+                    }
                     delete maps[ id ];
                 }
                 return id;
@@ -67,8 +74,10 @@ baidu.id = function() {
             return maps[ object ];
         }
 
-        return "TANGRAM__" + baidu.$global._counter ++;
+        return "TANGRAM__" + baidu._util_.$global._counter ++;
     };
 }();
 
 baidu.id.key = "tangram_guid";
+
+//TODO: mz 20120827 在低版本IE做delete操作时直接 delete e[key] 可能出错，这里需要重新评估，重写

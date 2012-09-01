@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -52,3 +53,4 @@ baidu.dom.setBorderBoxSize = /**@function*/function (element, size) {
     }
     return baidu.dom.setStyles(element, result);
 };
+/// Tangram 1.x Code End

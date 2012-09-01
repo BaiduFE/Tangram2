@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -108,3 +109,4 @@ baidu.ajax.form = function (form, options) {
     // 发送请求
     return baidu.ajax.request(url, sendOptions);
 };
+/// Tangram 1.x Code End

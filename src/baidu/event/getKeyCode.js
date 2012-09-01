@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -22,3 +23,4 @@ baidu.event.getKeyCode = function (event) {
     event.originalEvent && (event = event.originalEvent);
     return event.which || event.keyCode;
 };
+/// Tangram 1.x Code End

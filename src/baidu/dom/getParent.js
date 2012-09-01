@@ -1,4 +1,4 @@
-
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All right reserved.
@@ -24,3 +24,4 @@ baidu.dom.getParent = function (element) {
     //parentElement在IE下准确，parentNode在ie下可能不准确
     return element.parentElement || element.parentNode || null;
 };
+/// Tangram 1.x Code End

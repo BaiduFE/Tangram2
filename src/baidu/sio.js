@@ -22,7 +22,7 @@ baidu.createChain("sio",
 function(url){
     switch (typeof url) {
         case "string" :
-            return new baidu.$Sio(url);
+            return new baidu.sio.$Sio(url);
         break;
         default:
         break;

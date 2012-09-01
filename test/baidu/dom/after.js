@@ -21,6 +21,8 @@ test("after TangramDom", function(){
 	equal( formatHTML(div.innerHTML), "<div class=b>B</div><div class=a>A</div><div class=a>A</div><div class=b>B</div><div class=a>A</div><div class=a>A</div>" );
 });
 
+
+/*
 test("after HTMLString", function(){
 	div.innerHTML = "<div class='A'>A</div><div class='A'>A</div><div class='B'>B</div><div class='B'>B</div>";
 	baidu.dom("div.B").after( "<div>C</div>" );
@@ -51,3 +53,4 @@ test("after Function", function(){
 	});
 	equal( formatHTML(div.innerHTML), "<div class=a>A</div><div class=b>B</div><div class=a>A</div><div class=b>B</div><div>C</div><div>D</div>" );
 });
+*/

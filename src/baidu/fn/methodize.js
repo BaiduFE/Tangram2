@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -17,12 +18,11 @@
  */
 
 baidu.fn.extend({
-
-methodize : function (attr) {
-	var fn = this.fn ;
-    return function(){
-        return fn.apply(this, [(attr ? this[attr] : this)].concat([].slice.call(arguments)));
-    };
-}
-
+    methodize : function (attr) {
+    	var fn = this.fn ;
+        return function(){
+            return fn.apply(this, [(attr ? this[attr] : this)].concat([].slice.call(arguments)));
+        };
+    }
 });
+/// Tangram 1.x Code End

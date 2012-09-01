@@ -22,7 +22,7 @@ baidu.dom.extend({
         var slice = Array.prototype.slice;
 
         return function (start, end) {
-            baidu.paramCheck("number(,number)?","baidu.dom.slice");
+            baidu.check("number(,number)?","baidu.dom.slice");
 
             // ie bug
             // return baidu.dom( this.toArray().slice(start, end) );

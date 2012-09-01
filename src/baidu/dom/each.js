@@ -19,7 +19,7 @@
  */
 baidu.dom.extend({
     each : function (iterator) {
-        baidu.paramCheck("function", "baidu.dom.each");
+        baidu.check("function", "baidu.dom.each");
         var i, result,
             n = this.length;
 

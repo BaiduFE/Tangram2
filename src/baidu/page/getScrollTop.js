@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -23,3 +24,4 @@ baidu.page.getScrollTop = function () {
     var d = document;
     return window.pageYOffset || d.documentElement.scrollTop || d.body.scrollTop;
 };
+/// Tangram 1.x Code End

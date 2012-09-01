@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -28,3 +29,4 @@ baidu.string.filterFormat.escapeString = function(str){
 };
 
 baidu.string.filterFormat.e = baidu.string.filterFormat.escapeString;
+/// Tangram 1.x Code End

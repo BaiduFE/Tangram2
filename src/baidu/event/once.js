@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -27,3 +28,4 @@
 baidu.event.once = function(element, type, listener){
     return baidu.dom(baidu.dom._g(element)).one(type, listener)[0];
 };
+/// Tangram 1.x Code End
