@@ -22,32 +22,41 @@
  *             
  * @return {Object} 解析为结果对象，其中URI编码后的字符不会被解码，'a=%20' ==> {a:'%20'}。
  */
-baidu.url.queryToJson = function (url) {
-    var query   = url.substr(url.lastIndexOf('?') + 1),
-        params  = query.split('&'),
-        len     = params.length,
-        result  = {},
-        i       = 0,
-        key, value, item, param;
-    
-    for (; i < len; i++) {
-        if(!params[i]){
-            continue;
-        }
-        param   = params[i].split('=');
-        key     = param[0];
-        value   = param[1];
-        
-        item = result[key];
-        if ('undefined' == typeof item) {
-            result[key] = value;
-        } else if (baidu.lang.isArray(item)) {
-            item.push(value);
-        } else { // 这里只可能是string了
-            result[key] = [item, value];
+baidu.url.queryToJson = function(url){
+    var params = url.substr(url.lastIndexOf('?') + 1).split('&'),
+        len = params.length,
+        ret = null, entry, key, val;
+    for(var i = 0; i < len; i++){
+        entry = params[i].split('=');
+        if(entry.length < 2){continue;}
+        !ret && (ret = {});
+        key = entry[0];
+        val = entry[1];
+        entry = ret[key];
+        if(!entry){
+            ret[key] = val;
+        }else if(baidu.lang.isArray(entry)){
+            entry.push(val);
+        }else{// 这里只可能是string了
+            ret[key] = [entry, val];
         }
     }
-    
-    return result;
+    return ret;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /// Tangram 1.x Code End
