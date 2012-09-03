@@ -1,7 +1,7 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom._smartInsert;
+///import baidu._util_.smartInsert;
 /**
  * @description 在匹配的每个DOM元素内部的前端插入内容
  * @function 
@@ -50,7 +50,7 @@
 baidu.dom.extend({
     prepend: function(){
         baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.prepend');
-        baidu.dom._smartInsert(this, arguments, function(child){
+        baidu._util_.smartInsert(this, arguments, function(child){
             this.nodeType === 1 && this.insertBefore(child, this.firstChild);
         });
         return this;

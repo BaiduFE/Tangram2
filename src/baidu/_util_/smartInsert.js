@@ -2,14 +2,14 @@
  * @author linlingyu
  */
 
-
+///import baidu._util_;
 ///import baidu.type;
 ///import baidu.forEach;
 ///import baidu.dom.createElements;
 ///import baidu.dom.getDocument;
 ///import baidu.dom.html;
 
-baidu.dom._smartInsert = function(tang, args, callback){
+baidu._util_.smartInsert = function(tang, args, callback){
     if(args.length <= 0){return;}
     if(baidu.type(args[0]) === 'function'){
         var fn = args[0],
@@ -17,7 +17,7 @@ baidu.dom._smartInsert = function(tang, args, callback){
         return baidu.forEach(tang, function(item, index){
             tangItem = baidu.dom(item);
             args[0] = fn.call(item, index, tangItem.html());
-            baidu.dom._smartInsert(tangItem, args, callback);
+            baidu._util_.smartInsert(tangItem, args, callback);
         });
     }
     var doc = tang.getDocument() || document,

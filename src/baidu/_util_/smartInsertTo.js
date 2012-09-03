@@ -2,14 +2,15 @@
  * @author linlingyu
  */
 
+///import baidu._util_;
 ///import baidu.type;
 ///import baidu.dom.clone;
 ///import baidu.dom.getDocument;
 ///import baidu.dom.createElements;
-///import baidu.dom._smartInsert;
+///import baidu._util_.smartInsert;
 ///import baidu.dom.contains;
 
-baidu.dom._smartInsertTo = function(tang, target, callback, orie){
+baidu._util_.smartInsertTo = function(tang, target, callback, orie){
     var insert = baidu.dom(target),
         first = insert[0],
         tangDom;
@@ -23,7 +24,7 @@ baidu.dom._smartInsertTo = function(tang, target, callback, orie){
         }
     }else{
         for(var i = 0, item; item = insert[i]; i++){
-            baidu.dom._smartInsert(baidu.dom(item), i > 0 ? tang.clone(true) : tang, callback);
+            baidu._util_.smartInsert(baidu.dom(item), i > 0 ? tang.clone(true) : tang, callback);
         }
     }
 };
