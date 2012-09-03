@@ -36,7 +36,8 @@
  * @return {TangramDom} 接口最终返回之前匹配元素的TangramDom对象
  * @example
  该接口为迭代器方法，可以获取每个匹配元素的className和index（索引值），并且将函数返回值设置为对应的className；
- 通过使用一个函数来设置className，我们可以根据元素的className来计算值。举个例子，我们可以把新的值与现有的值联系在一起。
+ 通过使用一个函数来设置className，我们可以根据元素的className来计算值。
+ 举个例子，我们可以把新的值与现有的值联系在一起，允许我们通过函数来传递改变新值。
 
  示例代码：
  //HTML片段
@@ -44,7 +45,8 @@
  <div id='test-div2'></div>
 
  //迭代器方法
- //通过使用一个函数来设置className，我们可以根据元素的className来计算值。举个例子，我们可以把新的值与现有的值联系在一起。
+ //通过使用一个函数来设置className，我们可以根据元素的className来计算值。
+ //举个例子，我们可以把新的值与现有的值联系在一起，允许我们通过函数来传递改变新值。
  baidu('div').addClass(function(index,className){
     alert(index);
     alert(className);
