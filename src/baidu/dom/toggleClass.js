@@ -2,6 +2,7 @@
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
+
 /**
  * @description 在匹配的元素集合中的每个元素上添加或删除一个或多个className，如果存在就删除一个className，不存在就添加。
  * @function 

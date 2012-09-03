@@ -13,7 +13,7 @@
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  * @example
  .append()函数将特定内容插入到每个匹配元素里面的最后面，作为它的最后一个子元素（last child）, 
- 如果要作为第一个子元素 （first child）, 用.prepend()
+ 如果要作为第一个子元素 （first child），用.prepend()或.prependTo()
  
  .append() 和.appendTo()实现同样的功能，主要的不同是语法——内容和目标的位置不同。
  对于.append()，选择表达式在函数的前面，参数是将要插入的内容。
@@ -40,7 +40,7 @@
  //也可以在页面上选择一个元素然后插在另一个元素后面，
  //如果一个被选中的元素被插在另外一个地方，这是移动而不是复制。
 
- baidu('#body').after(baidu('h2'));  //结果同上
+ baidu('#body').append(baidu('h2'));  //结果同上
 
  */
 
