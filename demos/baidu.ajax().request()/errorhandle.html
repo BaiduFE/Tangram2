@@ -13,19 +13,6 @@
 			<h1 class="ac-h1">
 				<strong>baidu.ajax().request()</strong> 异步请求
 			</h1>
-			<p class="ac-des">				
-				options中的处理错误最直接的参数是onfailure，请求失败时触发该函数，函数接受一个xhr参数
-				options中还可以直接处理onxxx的错误，比如on404，会在404响应发生时，调用该函数，函数接受一个xhr参数
-			</p>
-			<h2 class="ac-h2">错误处理</h2>
-			<ul class="ac-ul">
-				<li>语法: baidu.ajax(url).request(options) </li>
-				<li>参数: url {string} 指定要请求的地址 </li>
-				<li>参数: onbeforerequest {function} 请求前执行的操作
-				<li>参数: onfailure {function} 请求失败时回调的函数</li>
-				<li>参数: onxxx {function} xxx是http状态码；表示当服务器返回xxx状态时回调的函数</li>
-				<li>返回: 发出异步请求的XHR </li>
-			</ul>
 			<div class="pannel">
 				<div class="pannel-title">
 					<span>错误处理</span>

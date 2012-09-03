@@ -18,7 +18,6 @@
  .css()方法解决了浏览器差异。
 
  示例代码：
-
  //HTML代码片段
  <div style="background-color:blue;"></div>
 
@@ -38,9 +37,7 @@
  * @example 
  .css()方法使得设置元素的CSS属性快速而又简单。
  这个方法可以使用任何一个CSS属性名和用空格隔开的值，或者一个“名/值对”对象(JavaScript Object)作为参数。
- 示例代码：
-
- //HTML代码片段
+ 示例代码： //HTML代码片段
  <div style="background-color:blue;"></div>
 
  //取得背景色
@@ -58,9 +55,7 @@
  * @example 
  .css()方法使得设置元素的CSS属性快速而又简单。
  这个方法可以使用任何一个CSS属性名和用空格隔开的值，或者一个“名/值对”对象(JavaScript Object)作为参数。
- 示例代码：
-
- //HTML代码片段
+ 示例代码： //HTML代码片段
  <div style="position:absolute;left:20px;right:20px;background-color:blue;"></div>
 
  //设置css
@@ -82,7 +77,8 @@
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  * @example
  该接口为迭代器方法，可以获取每个匹配元素的对应css属性和index（索引值），并且将函数返回值设置为对应的css属性；
- 通过使用一个函数来设置css属性，我们可以根据元素的css属性来计算值。举个例子，我们可以把新的值与现有的值联系在一起。
+ 通过使用一个函数来设置css属性，我们可以根据元素的css属性来计算值。
+ 举个例子，我们可以把新的值与现有的值联系在一起，允许我们通过函数来传递改变新值。
 
  示例代码：
  //HTML代码片段
@@ -90,7 +86,8 @@
  <div style="background-color:blue;"></div>
 
  //迭代器方法
- //通过使用一个函数来设置className，我们可以根据元素的className来计算值。举个例子，我们可以把新的值与现有的值联系在一起。
+ //通过使用一个函数来设置className，我们可以根据元素的className来计算值。
+ //举个例子，我们可以把新的值与现有的值联系在一起，允许我们通过函数来传递改变新值。
  baidu('div').css("background-color",function(index,css){
     alert(index);
     alert(css);
