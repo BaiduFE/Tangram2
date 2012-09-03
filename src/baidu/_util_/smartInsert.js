@@ -17,7 +17,7 @@ baidu._util_.smartInsert = function(tang, args, callback){
         return baidu.forEach(tang, function(item, index){
             tangItem = baidu.dom(item);
             args[0] = fn.call(item, index, tangItem.html());
-            baidu.dom._smartInsert(tangItem, args, callback);
+            baidu._util_.smartInsert(tangItem, args, callback);
         });
     }
     var doc = tang.getDocument() || document,

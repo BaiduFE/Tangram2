@@ -1,7 +1,7 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom._smartInsert;
+///import baidu._util_.smartInsert;
 ///import baidu.dom.getDocument;
 ///import baidu.merge;
 /**
@@ -59,7 +59,7 @@ baidu.dom.extend({
         var parentNode = this[0] && this[0].parentNode,
             array = !parentNode && [], set;
         
-        baidu.dom._smartInsert(this, arguments, function(node){
+        baidu._util_.smartInsert(this, arguments, function(node){
             parentNode ? parentNode.insertBefore(node, this)
                 : baidu.merge(array, node.childNodes);
         });
