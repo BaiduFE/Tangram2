@@ -21,10 +21,13 @@
    <h1>test</h1>
  </div>
 
- //移除<h1>
+ //移除<h1>，如果有绑定事件，此时事件并没有移除。
+ //如果立刻还会添加该元素，则效率较高；
+ //如果不会再次添加该元素，遗留的事件绑定可能会造成内存泄露，实现移除元素和事件使用.remove()；
  baidu('#body').detach('h1');
 
  */
+
 baidu.dom.extend({
     detach: function(selector){
         selector && baidu.check('^string$', 'baidu.dom.detach');
