@@ -16,7 +16,6 @@
  注意: Internet Explorer不会允许你改变<input>或者<button>元素的type属性。
 
  示例代码：
-
  //HTML代码片段
  <input type='text' value='123'/>
 

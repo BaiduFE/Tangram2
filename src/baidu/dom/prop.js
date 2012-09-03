@@ -16,7 +16,9 @@
 
  attributes和properties之间的差异在特定情况下是很重要。
  .prop方法无法取出自定义属性的值，都会返回undefined，这时要使用attr()接口。
+ 
  例如，考虑一个DOM元素的HTML标记中定义的<input type="checkbox" checked="checked" /> ，并假设它是一个JavaScript变量命名的elem ：
+ 
  elem.checked    返回 true (Boolean)
  baidu(elem).prop("checked")  返回 true (Boolean)
  elem.getAttribute("checked")  返回 "checked" (String)
@@ -82,7 +84,8 @@
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  * @example
  该接口为迭代器方法，可以获取每个匹配元素的属性和index（索引值），并且将函数返回值设置为对应的属性；
- 通过使用一个函数来设置属性， 我们可以根基元素的其他属性来计算值。举个例子，我们可以把新的值与现有的值联系在一起。
+ 通过使用一个函数来设置属性， 我们可以根基元素的其他属性来计算值。
+ 举个例子，我们可以把新的值与现有的值联系在一起，允许我们通过函数来传递改变新值。
 
  示例代码：
  //HTML片段
@@ -90,7 +93,8 @@
  <input type="checkbox"/>
 
  //迭代器方法
- //通过使用一个函数来设置属性， 我们可以根基元素的其他属性来计算值。举个例子，我们可以把新的值与现有的值联系在一起。
+ //通过使用一个函数来设置属性， 我们可以根基元素的其他属性来计算值。
+ //举个例子，我们可以把新的值与现有的值联系在一起，允许我们通过函数来传递改变新值。
  baidu("input").prop("checked",function(index,prop){
     alert(index);
     alert(prop);

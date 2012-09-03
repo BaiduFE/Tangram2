@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -16,8 +16,7 @@
  但是它的优点是能够直接被TangramDom对象访问调用，可以链式的继续调用下去，
  而且具有良好的浏览器兼容性。
 
- 示例代码：
-
+ 示例代码： 
  //HTML代码片段
  <input type='text' value='123' data1='baidu' data2='google'/>
 
@@ -76,4 +75,3 @@ baidu.dom.extend({
         return this;
     }
 });
-/// Tangram 1.x Code End
