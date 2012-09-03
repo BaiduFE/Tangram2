@@ -1,7 +1,9 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom._smartInsertTo;
+
+///import baidu.dom;
+///import baidu._util_.smartInsertTo;
 
 
 /**
@@ -47,7 +49,7 @@
 baidu.dom.extend({
     insertBefore: function(target){
         baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertBefore');
-        baidu.dom._smartInsertTo(this, target, function(node){
+        baidu._util_.smartInsertTo(this, target, function(node){
             this.parentNode.insertBefore(node, this);
         }, 'before');
         return this;

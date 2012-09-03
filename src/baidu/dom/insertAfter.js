@@ -2,7 +2,8 @@
  * @author linlingyu
  */
 
-///import baidu.dom._smartInsertTo;
+///import baidu.dom;
+///import baidu._util_.smartInsertTo;
 
 /**
  * @description 将匹配到的DOM元素插入到参数指定的DOM元素的后面
@@ -47,7 +48,7 @@
 baidu.dom.extend({
     insertAfter: function(target){
         baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertAfter');
-        baidu.dom._smartInsertTo(this, target, function(node){
+        baidu._util_.smartInsertTo(this, target, function(node){
             this.parentNode.insertBefore(node, this.nextSibling);
         }, 'after');
         return this;
