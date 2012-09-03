@@ -1,7 +1,8 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom._smartInsertTo;
+///import baidu.dom;
+///import baidu._util_.smartInsertTo;
 /**
  * @description 将匹配到的DOM元素插入到参数指定的DOM元素内部的开始
  * @function 
@@ -40,7 +41,7 @@
 baidu.dom.extend({
     prependTo: function(target){
         baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.prependTo');
-        baidu.dom._smartInsertTo(this, target, function(child){
+        baidu._util_.smartInsertTo(this, target, function(child){
             this.insertBefore(child, this.firstChild);
         });
         return this;
