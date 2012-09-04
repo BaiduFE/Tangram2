@@ -107,7 +107,7 @@
 ///import baidu.dom;
 ///import baidu.forEach;
 ///import baidu.support;
-///import baidu.dom._isXML;
+///import baidu._util_.isXML;
 ///import baidu.dom._propHooks;
 
 baidu.dom.extend({
@@ -139,7 +139,7 @@ baidu.dom.extend({
                 return;
             };
 
-            notxml = nType !== 1 || !bd._isXML( item );
+            notxml = nType !== 1 || !baidu._util_.isXML( item );
 
             if ( notxml ) {
                 // Fix name and attach hooks

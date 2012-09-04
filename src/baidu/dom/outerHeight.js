@@ -1,8 +1,9 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom._getWindowOrDocumentWidthOrHeight;
-///import baidu.dom._getWidthOrHeight;
+///import baidu.dom;
+///import baidu._util_.getWindowOrDocumentWidthOrHeight;
+///import baidu._util_.getWidthOrHeight;
 /**
  * @description 取得第一个匹配元素的高度，该高度包含border, padding的计算并通过参数来加入对margin的计算
  * @function 
@@ -16,7 +17,7 @@ baidu.dom.extend({
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
-        return type ? baidu.dom._getWindowOrDocumentWidthOrHeight(ele, type, 'height')
-            : baidu.dom._getWidthOrHeight(ele, 'height', 'padding|border' + (margin ? '|margin' : ''));
+        return type ? baidu._util_.getWindowOrDocumentWidthOrHeight(ele, type, 'height')
+            : baidu._util_.getWidthOrHeight(ele, 'height', 'padding|border' + (margin ? '|margin' : ''));
     }
 });

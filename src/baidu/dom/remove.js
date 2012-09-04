@@ -2,7 +2,7 @@
  * @author linlingyu
  */
 ///import baidu.dom.filter;
-///import baidu.dom._cleanData;
+///import baidu._util_.cleanData;
 /**
  * @description 将匹配到的DOM元素从文档中移除，并移除对应的DOM元素的事件
  * @function 
@@ -26,8 +26,8 @@ baidu.dom.extend({
         var array = selector ? this.filter(selector) : this;
         for(var i = 0, ele; ele = array[i]; i++){
            if(!keepData && ele.nodeType === 1){
-               baidu.dom._cleanData(ele.getElementsByTagName('*'));
-               baidu.dom._cleanData([ele]);
+               baidu._util_.cleanData(ele.getElementsByTagName('*'));
+               baidu._util_.cleanData([ele]);
             }
             ele.parentNode && ele.parentNode.removeChild(ele);
         }
