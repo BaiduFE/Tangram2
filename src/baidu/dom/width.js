@@ -1,9 +1,10 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom._access;
-///import baidu.dom._getWidthOrHeight;
-///import baidu.dom._getWindowOrDocumentWidthOrHeight;
+///import baidu.dom;
+///import baidu._util_.access;
+///import baidu._util_.getWidthOrHeight;
+///import baidu._util_.getWindowOrDocumentWidthOrHeight;
 /**
  * @description 取得第一个匹配元素或是设置多个匹配元素的宽度，该宽度忽略margin, border, padding的计算
  * @function 
@@ -69,15 +70,15 @@
  */
 baidu.dom.extend({
     width: function(value){
-        return baidu.dom._access.call(this, 'width', value, function(ele, key, val){
+        return baidu._util_.access.call(this, 'width', value, function(ele, key, val){
             var hasValue = val !== undefined,
                 parseValue = hasValue && parseFloat(val),
                 type = ele != null && ele == ele.window ? 'window'
                     : (ele.nodeType === 9 ? 'document' : false);
             if(hasValue && parseValue < 0 || isNaN(parseValue)){return;}
             hasValue && /^\d+$/.test(val += '') && (val += 'px');
-            return type ? baidu.dom._getWindowOrDocumentWidthOrHeight(ele, type, key)
-                : (hasValue ? ele.style.width = val : baidu.dom._getWidthOrHeight(ele, key));
+            return type ? baidu._util_.getWindowOrDocumentWidthOrHeight(ele, type, key)
+                : (hasValue ? ele.style.width = val : baidu._util_.getWidthOrHeight(ele, key));
         });
     }
 });

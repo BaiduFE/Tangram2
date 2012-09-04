@@ -2,7 +2,7 @@
  * @author linlingyu
  */
 ///import baidu.dom;
-///import baidu.dom._cleanData;
+///import baidu._util_.cleanData;
 
 /**
  * @description 将匹配到的DOM元素的内部内容全部清空
@@ -34,7 +34,7 @@
 baidu.dom.extend({
     empty: function(){
         for(var i = 0, item; item = this[i]; i++){
-            item.nodeType === 1 && baidu.dom._cleanData(item.getElementsByTagName('*'));
+            item.nodeType === 1 && baidu._util_.cleanData(item.getElementsByTagName('*'));
             while(item.firstChild){
                 item.removeChild(item.firstChild);
             }

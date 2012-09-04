@@ -6,6 +6,7 @@
 ///import baidu.support;
 ///import baidu.id;
 ///import baidu.dom._eventBase;
+///import baidu._util_.isXML;
 /**
  * @description 对匹配元素进行深度克隆
  * @function 
@@ -66,11 +67,6 @@ baidu.dom.extend({
                 : (ele.querySelectorAll ? ele.querySelectorAll('*') : []);
         }
         //
-        function isXMLDoc(ele){
-            var docElement = (ele ? ele.ownerDocument || ele : 0).documentElement;
-            return docElement ? docElement.nodeName !== 'HTML' : false;
-        }
-        //
         function cloneFixAttributes(src, dest){
             dest.clearAttributes && dest.clearAttributes();
             dest.mergeAttributes && dest.mergeAttributes(src);
@@ -111,7 +107,7 @@ baidu.dom.extend({
                 srcElements, destElements, len;
             //IE
             if((!baidu.support.noCloneEvent || !baidu.support.noCloneChecked)
-                && (ele.nodeType === 1 || ele.nodeType === 11) && !isXMLDoc(ele)){
+                && (ele.nodeType === 1 || ele.nodeType === 11) && !baidu._util_.isXML(ele)){
                     cloneFixAttributes(ele, cloneNode);
                     srcElements = getAll( ele );
                     destElements = getAll( cloneNode );

@@ -1,7 +1,8 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom._smartScroll;
+///import baidu.dom;
+///import baidu._util_.smartScroll;
 
 /**
  * @description 取得第一个匹配元素或是设置多个匹配元素的竖向滚动条的滚动位置
@@ -20,7 +21,7 @@
  */
 baidu.dom.extend({
     scrollTop: function(){
-        var ret = baidu.dom._smartScroll('scrollTop');
+        var ret = baidu._util_.smartScroll('scrollTop');
         return function(value){
             value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollTop');
             return value === undefined ? ret.get(this[0])
