@@ -31,7 +31,7 @@
 	</target>
 
 	<target name="execute" depends="init,coverage">
-		<get src="http://${serverip}/addTask?proj=${git.user}.${git.project}" dest="/tmp/${git.user}_${git.project}.html" />
+		<get src="http://${serverip}/addTask?proj=${git.user}.${git.project}&amp;cov=true" dest="/tmp/${git.user}_${git.project}.html" />
 	</target>
 	<target name="getreport" depends="execute">
 		<waitfor maxwait="600" maxwaitunit="second">
