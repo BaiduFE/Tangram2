@@ -2,9 +2,11 @@
 <project name="project" default="getreport" basedir="../">
 	<!-- 配置信息 10.32.34.115:8000-->
 	<property name="serverip" value="10.32.34.115:8000" />
-	<property name="report.path" value="test/tools/br/report" />
-	<property name="coverage.path" value="test/coverage" />
+	<property name="report.path" value="test/tools/br" />
+	<property name="coverage.path" value="test/coverage/report" />
 	<property name="report.file" value="test/tools/br/report.xml" />
+	<property name="coverage.report.file" value="test/tools/br/coveragereport/totalCoverage/coverage_report.xml" />
+	<property name="coverage.source.file" value="test/tools/br/coveragereport/totalCoverage/source.js" />
 	<property name="git.project" value="Tangram2" />
 	<property name="git.user" value="" />
 
@@ -18,6 +20,12 @@
 
 	<target name="init">
 		<delete file="${report.file}" />
+		<delete dir="${report.path}" />
+		<delete file="${coverage.report.file}" />
+		<delete file="${coverage.source.file}" />
+		<mkdir dir="${report.path}/html" />
+		<mkdir dir="${report.path}/coverage/html" />
+		<mkdir dir="${report.path}/coverage/history" />
 	</target>
 
 	<target name="coverage">
