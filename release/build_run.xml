@@ -17,7 +17,6 @@
 	<import file="build_report.xml" />
 
 	<target name="init">
-		<delete dir="${report.path}" />
 		<delete file="${report.file}" />
 	</target>
 
