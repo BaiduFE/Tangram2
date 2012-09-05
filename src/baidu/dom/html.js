@@ -8,6 +8,20 @@
  * @name baidu.dom().html()
  * @grammar baidu.dom(args).html()
  * @return {String|Undefined} HTML内容
+ * @example
+ 在一个HTML文档中，我们可以使用.html()方法来获取任意一个元素的内容。
+ 如果选择器匹配多于一个的元素，那么只有第一个匹配元素的 HTML 内容会被获取。
+
+ 示例代码：
+ //HTML代码片段
+ <div>
+   <h1>title</h1>
+   <p>content</p>
+ </div>
+
+ //获取HTML
+ baidu('div').html();  //得到 <h1>title</h1><p>content</p>
+
  */
  /**
  * @description 设置每一个匹配元素的html内容。
@@ -16,6 +30,25 @@
  * @grammar baidu.dom(args).html(htmlString)
  * @param {String} htmlString 用来设置每个匹配元素的一个HTML 字符串。
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example
+ 我们可以使用.html()来设置元素的内容，在这些元素的任何内容完全被新的内容取代。
+ 如果匹配多个元素，则将会改变所有的HTML，符合get first set all原则。
+
+ 示例代码：
+ //HTML代码片段
+ <div>
+   <h1>title</h1>
+   <p>content</p>
+ </div>
+
+ //重置HTML
+ baidu('div').html('<input>');
+ 
+ //生成代码
+ <div>
+   <input>
+ </div>
+ 
  */
  /**
  * @description 设置每一个匹配元素的html内容。

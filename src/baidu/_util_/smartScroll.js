@@ -1,18 +1,20 @@
 /**
  * @author linlingyu
  */
-
-///import baidu.dom._isWindow;
-///import baidu.dom._isDocument;
+///import baidu._util_;
+///import baidu.type;
 ///import baidu.browser.isStrict;
 
-baidu.dom._smartScroll = function(axis){
+baidu._util_.smartScroll = function(axis){
     var orie = {scrollLeft: 'pageXOffset', scrollTop: 'pageYOffset'}[axis],
         is = axis === 'scrollLeft',
         ret = {};
+    function isDocument(ele){
+        return ele && ele.nodeType === 9;
+    }
     function getWindow(ele){
-        return baidu.dom._isWindow(ele) ? ele
-            : baidu.dom._isDocument(ele) ? ele.defaultView || ele.parentWindow : false;
+        return baidu.isWindow(ele) ? ele
+            : isDocument(ele) ? ele.defaultView || ele.parentWindow : false;
     }
     return {
         get: function(ele){

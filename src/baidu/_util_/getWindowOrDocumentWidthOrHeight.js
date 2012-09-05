@@ -1,11 +1,13 @@
 /**
  * @author linlingyu
  */
+
+///import baidu._util_;
 ///import baidu.forEach;
 ///import baidu.dom;
 ///import baidu.browser.isStrict;
 
-baidu.dom._getWindowOrDocumentWidthOrHeight = baidu.dom._getWindowOrDocumentWidthOrHeight || (function(){
+baidu._util_.getWindowOrDocumentWidthOrHeight = baidu._util_.getWindowOrDocumentWidthOrHeight || function(){
     var ret = {'window': {}, 'document': {}};
     baidu.forEach(['Width', 'Height'], function(item){
         var clientProp = 'client' + item,
@@ -26,4 +28,4 @@ baidu.dom._getWindowOrDocumentWidthOrHeight = baidu.dom._getWindowOrDocumentWidt
     return function(ele, type, key){
         return ret[type][key === 'width' ? 'getWidth' : 'getHeight'](ele);
     }
-})();
+}();

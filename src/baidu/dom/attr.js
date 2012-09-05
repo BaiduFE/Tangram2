@@ -105,7 +105,7 @@
 ///import baidu.dom;
 ///import baidu.forEach;
 ///import baidu.support;
-///import baidu.dom._isXML;
+
 ///import baidu.dom._attrHooks;
 
 ///import baidu.dom.prop;
@@ -116,7 +116,7 @@
 ///import baidu.dom.width;
 ///import baidu.dom.height;
 ///import baidu.dom.offset;
-
+///import baidu._util_.isXML;
 ///import baidu.dom.removeAttr;
 
 baidu.dom.extend({
@@ -156,7 +156,7 @@ baidu.dom.extend({
 
             switch(typeof name){
                 case 'string':
-                    notxml = nType !== 1 || !bd._isXML( item );
+                    notxml = nType !== 1 || !baidu._util_.isXML( item );
 
                     // All attributes are lowercase
                     // Grab necessary hook if one is defined

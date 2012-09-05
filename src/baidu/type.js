@@ -71,7 +71,7 @@ baidu.isObject = baidu.lang.isObject = function( unknow ) {
     return typeof unknow === "function" || ( typeof unknow === "object" && unknow != null );
 };
 baidu.isWindow = baidu.lang.isWindow = function(win){
-    return !!win && win.window;
+    return !!win && win == win.window;
 };
 
 /*

@@ -2,7 +2,7 @@
  * @author linlingyu
  */
 
-///import baidu.dom._smartInsert;
+///import baidu._util_.smartInsert;
 ///import baidu.dom.getDocument;
 ///import baidu.merge;
 
@@ -59,7 +59,7 @@ baidu.dom.extend({
         baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.after');
         var parentNode = this[0] && this[0].parentNode,
             array = !parentNode && [];
-        baidu.dom._smartInsert(this, arguments, function(node){
+        baidu._util_.smartInsert(this, arguments, function(node){
             parentNode ? parentNode.insertBefore(node, this.nextSibling)
                 : baidu.merge(array, node.childNodes);
         });

@@ -1,10 +1,11 @@
 /**
  * @author linlingyu
  */
+///import baidu._util_;
 ///import baidu.dom;
 ///import baidu.type;
 
-baidu.dom._access = function(key, value, callback){
+baidu._util_.access = function(key, value, callback){
     switch(baidu.type(key)){
         case 'string'://高频
             if(value === undefined){
@@ -18,7 +19,7 @@ baidu.dom._access = function(key, value, callback){
             break;
         case 'object':
             for(var i in key){
-                baidu.dom._access.call(this, i, key[i], callback);
+                baidu._util_.access.call(this, i, key[i], callback);
             }
             break;
     }

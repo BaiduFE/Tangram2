@@ -1,10 +1,12 @@
 /**
  * @author linlingyu
  */
+
+///import baidu._util_;
 ///import baidu.forEach;
 ///import baidu.dom.getCurrentStyle;
 
-baidu.dom._getWidthOrHeight = function(){
+baidu._util_.getWidthOrHeight = function(){
     var ret = {},
         cssShow = {position: 'absolute', visibility: 'hidden', display: 'block'};
     function swap(ele, options){

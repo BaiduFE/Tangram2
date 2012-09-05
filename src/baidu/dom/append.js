@@ -1,7 +1,9 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom._smartInsert;
+
+///import baidu.dom;
+///import baidu._util_.smartInsert;
 
 /**
  * @description 在匹配的每个DOM元素内部的末端插入内容
@@ -59,7 +61,7 @@
 baidu.dom.extend({
     append: function(){
         baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.append');
-        baidu.dom._smartInsert(this, arguments, function(child){
+        baidu._util_.smartInsert(this, arguments, function(child){
             this.nodeType === 1 && this.appendChild(child);
         });
         return this;

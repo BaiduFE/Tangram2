@@ -1,8 +1,9 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom._getWindowOrDocumentWidthOrHeight;
-///import baidu.dom._getWidthOrHeight;
+///import baidu.dom;
+///import baidu._util_._getWindowOrDocumentWidthOrHeight;
+///import baidu._util_.getWidthOrHeight;
 /**
  * @description 取得第一个匹配元素的宽度，该宽度忽略margin, border的计算，但包含padding的计算
  * @function 
@@ -15,7 +16,7 @@ baidu.dom.extend({
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
-        return type ? baidu.dom._getWindowOrDocumentWidthOrHeight(ele, type, 'width')
-            : baidu.dom._getWidthOrHeight(ele, 'width', 'padding');
+        return type ? baidu._util_.getWindowOrDocumentWidthOrHeight(ele, type, 'width')
+            : baidu._util_.getWidthOrHeight(ele, 'width', 'padding');
     }
 });

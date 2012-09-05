@@ -2,7 +2,7 @@
  * @author linlingyu
  */
 ///import baidu.dom;
-///import baidu.dom._access;
+///import baidu._util_.access;
 ///import baidu.dom.getCurrentStyle;
 
 /**
@@ -101,7 +101,7 @@
 baidu.dom.extend({
     css: function(key, value){
         baidu.check('^(?:(?:string(?:,(?:number|string|function))?)|object)$', 'baidu.dom.css');
-        return baidu.dom._access.call(this, key, value, function(ele, key, val){
+        return baidu._util_.access.call(this, key, value, function(ele, key, val){
             var styleFixer = baidu.dom.styleFixer;
             return styleFixer ? styleFixer(ele, key, val)
                 : (val === undefined ? this.getCurrentStyle(key) : ele.style[key] = val);
