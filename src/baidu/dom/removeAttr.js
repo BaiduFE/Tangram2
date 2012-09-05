@@ -30,7 +30,7 @@
 
 ///import baidu.forEach;
 ///import baidu.support;
-///import baidu.dom._propHooks;
+///import baidu._util_.propHooks;
 ///import baidu.dom.attr;
 
 baidu.dom.extend({
@@ -45,7 +45,9 @@ baidu.dom.extend({
             var propName, attrNames, name, l, isBool, i = 0;
 
             if ( item.nodeType === 1 ) {
-                var bd = baidu.dom;
+                var bd = baidu.dom,
+                    bu = baidu._util_;
+
                 attrNames = value.toLowerCase().split(/\s+/);
                 l = attrNames.length;
 
@@ -53,8 +55,8 @@ baidu.dom.extend({
                     name = attrNames[ i ];
 
                     if ( name ) {
-                        propName = bd.propFix[ name ] || name;
-                        isBool = bd.rboolean.test( name );
+                        propName = bu.propFix[ name ] || name;
+                        isBool = bu.rboolean.test( name );
 
                         // See #9699 for explanation of this approach (setting first, then removal)
                         // Do not do this for boolean attributes (see #10870)

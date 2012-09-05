@@ -5,7 +5,7 @@
 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.dom._showHide;
+///import baidu._util_.showHide;
 
 /**
  * @description 隐藏匹配的元素
@@ -17,7 +17,7 @@
 
 baidu.dom.extend({
     hide: function() {
-        baidu.dom._showHide( this );
+        baidu._util_.showHide( this );
         return this;
     }
 });

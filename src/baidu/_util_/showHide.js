@@ -23,8 +23,8 @@ var iframeDoc,
     rposition = /^(top|right|bottom|left)$/,
     elemdisplay = {};
 
-baidu.extend(baidu.dom,{
-    _showHide:function( elements, show){
+baidu.extend(baidu._util_,{
+    showHide:function( elements, show){
         var elem, display,
             values = [],
             index = 0,
@@ -35,7 +35,7 @@ baidu.extend(baidu.dom,{
             if ( !elem.style ) {
                 continue;
             }
-            values[ index ] = baidu.dom._data( elem, "olddisplay" );
+            values[ index ] = baidu._util_._data( elem, "olddisplay" );
             if ( show ) {
                 // Reset the inline display of this element to learn if it is
                 // being hidden by cascaded rules or not
@@ -48,13 +48,13 @@ baidu.extend(baidu.dom,{
                 // for such an element
                 if ( (elem.style.display === "" && curCSS( elem, "display" ) === "none") ||
                     !baidu.dom.contains( elem.ownerDocument.documentElement, elem ) ) {
-                    values[ index ] = baidu.dom._data( elem, "olddisplay", css_defaultDisplay(elem.nodeName) );
+                    values[ index ] = baidu._util_._data( elem, "olddisplay", css_defaultDisplay(elem.nodeName) );
                 }
             } else {
                 display = curCSS( elem, "display" );
 
                 if ( !values[ index ] && display !== "none" ) {
-                    baidu.dom._data( elem, "olddisplay", display );
+                    baidu._util_._data( elem, "olddisplay", display );
                 }
             }
         }

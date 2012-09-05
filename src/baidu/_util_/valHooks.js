@@ -9,8 +9,9 @@
 ///import baidu.makeArray;
 ///import baidu.dom;
 ///import baidu.array.indexOf;
+///import baidu._util_;
 
-baidu.extend(baidu.dom,{
+baidu.extend(baidu._util_,{
 
 	nodeName: function( elem, name ) {
 		return elem.nodeName && elem.nodeName.toUpperCase() === name.toUpperCase();
@@ -46,7 +47,7 @@ baidu.extend(baidu.dom,{
 
 					// Don't return options that are disabled or in a disabled optgroup
 					if ( option.selected && (baidu.support.optDisabled ? !option.disabled : option.getAttribute("disabled") === null) &&
-							(!option.parentNode.disabled || !baidu.dom.nodeName( option.parentNode, "optgroup" )) ) {
+							(!option.parentNode.disabled || !baidu._util_.nodeName( option.parentNode, "optgroup" )) ) {
 
 						// Get the specific value for the option
 						value = baidu.dom( option ).val();
@@ -98,7 +99,7 @@ if ( !baidu.support.getSetAttribute ) {
 
 	// Use this for any attribute in IE6/7
 	// This fixes almost every IE6/7 issue
-	baidu.dom.valHooks.button = {
+	baidu._util_.valHooks.button = {
 		get: function( elem, name ) {
 			var ret;
 			ret = elem.getAttributeNode( name );
@@ -121,7 +122,7 @@ if ( !baidu.support.getSetAttribute ) {
 // Radios and checkboxes getter/setter
 if ( !baidu.support.checkOn ) {
 	baidu.forEach([ "radio", "checkbox" ], function() {
-		baidu.dom.valHooks[ this ] = {
+		baidu._util_.valHooks[ this ] = {
 			get: function( elem ) {
 				// Handle the case where in Webkit "" is returned instead of "on" if a value isn't specified
 				return elem.getAttribute("value") === null ? "on" : elem.value;
@@ -131,10 +132,10 @@ if ( !baidu.support.checkOn ) {
 }
 
 baidu.forEach([ "radio", "checkbox" ], function(item) {
-	baidu.dom.valHooks[ item ] = baidu.extend( baidu.dom.valHooks[ item ], {
+	baidu._util_.valHooks[ item ] = baidu.extend( baidu._util_.valHooks[ item ], {
 		set: function( elem, value ) {
 			if ( baidu.isArray( value ) ) {
-				return ( elem.checked = baidu.array(value).indexOf(jQuery(elem).val()) >= 0 );
+				return ( elem.checked = baidu.array(value).indexOf(baidu(elem).val()) >= 0 );
 			}
 		}
 	});

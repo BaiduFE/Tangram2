@@ -106,7 +106,7 @@
 ///import baidu.forEach;
 ///import baidu.support;
 
-///import baidu.dom._attrHooks;
+///import baidu._util_.attrHooks;
 
 ///import baidu.dom.prop;
 ///import baidu.dom.val;
@@ -142,6 +142,7 @@ baidu.dom.extend({
                 hooks, 
                 notxml,
                 bd = baidu.dom,
+                bu = baidu._util_,
                 nType = item.nodeType;
 
             // don't get/set properties on text, comment and attribute nodes
@@ -162,7 +163,7 @@ baidu.dom.extend({
                     // Grab necessary hook if one is defined
                     if ( notxml ) {
                         name = name.toLowerCase();
-                        hooks = bd.attrHooks[ name ] || ( bd.rboolean.test( name ) ? bd.boolHook : bd.nodeHook );
+                        hooks = bu.attrHooks[ name ] || ( bu.rboolean.test( name ) ? bu.boolHook : bu.nodeHook );
                     };
 
                     if( typeof value === 'undefined' ){
