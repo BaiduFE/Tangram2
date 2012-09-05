@@ -8,7 +8,7 @@
 ///import baidu.extend;
 ///import baidu.array.indexOf;
 
-baidu.createChain("callbacks",
+baidu.createChain("Callbacks",
 
 // 执行方法
 function(options){

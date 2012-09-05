@@ -10,23 +10,23 @@
 ///import baidu.forEach;
 
 /**
- * @description deferred功能链头
- * @name baidu.deferred
- * @grammar baidu.deferred()
+ * @description Deferred功能链头
+ * @name baidu.Deferred
+ * @grammar baidu.Deferred()
  * @param   {}
  * @return  
  */
 
-baidu.createChain("deferred",
+baidu.createChain("Deferred",
 
 // 执行方法
 function( func ) {
 	var core_slice = Array.prototype.slice;
 	var tuples = [
 			// action, add listener, listener list, final state
-			[ "resolve", "done", baidu.callbacks("once memory"), "resolved" ],
-			[ "reject", "fail", baidu.callbacks("once memory"), "rejected" ],
-			[ "notify", "progress", baidu.callbacks("memory") ]
+			[ "resolve", "done", baidu.Callbacks("once memory"), "resolved" ],
+			[ "reject", "fail", baidu.Callbacks("once memory"), "rejected" ],
+			[ "notify", "progress", baidu.Callbacks("memory") ]
 		],
 		state = "pending",
 		promise = {
@@ -39,7 +39,7 @@ function( func ) {
 			},
 			then: function( /* fnDone, fnFail, fnProgress */ ) {
 				var fns = arguments;
-				return baidu.deferred(function( newDefer ) {
+				return baidu.Deferred(function( newDefer ) {
 					baidu.forEach( tuples, function( tuple, i ) {
 						var action = tuple[ 0 ],
 							fn = fns[ i ];
@@ -115,7 +115,7 @@ function( func ) {
 				remaining = length !== 1 || ( subordinate && (typeof subordinate.promise === 'function') ) ? length : 0,
 
 				// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
-				deferred = remaining === 1 ? subordinate : baidu.deferred(),
+				deferred = remaining === 1 ? subordinate : baidu.Deferred(),
 
 				// Update function for both resolve and progress values
 				updateFunc = function( i, contexts, values ) {

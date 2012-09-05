@@ -31,7 +31,7 @@
 ///import baidu.dom;
 ///import baidu.forEach;
 ///import baidu.support;
-///import baidu.dom._propHooks;
+///import baidu._util_.propHooks;
 
 baidu.dom.extend({
     removeProp: function(value){
@@ -41,8 +41,10 @@ baidu.dom.extend({
             return this;
         };
 
-        var bd = baidu.dom;
-        value = bd.propFix[ value ] || value;
+        var bd = baidu.dom,
+            bu = baidu._util_;
+
+        value = bu.propFix[ value ] || value;
         baidu.forEach(this, function(item){
             // try/catch handles cases where IE balks (such as removing a property on window)
             try {

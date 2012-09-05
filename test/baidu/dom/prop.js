@@ -39,7 +39,7 @@ test("baidu.propFix integrity test", function() {
 		props.enctype = "encoding";
 	}
 	for(key in props){
-		equal(props[key], baidu.dom.propFix[key], "baidu.propFix passes integrity check");
+		equal(props[key], baidu._util_.propFix[key], "baidu.propFix passes integrity check");
 	}
 });
 
@@ -152,7 +152,6 @@ test("prop(String, Object)", function() {
 	equal( baidu("#foo").prop("nodeName").toUpperCase(), "DIV", "Check for nodeName attribute" );
 	equal( baidu("#foo").prop("tagName").toUpperCase(), "DIV", "Check for tagName attribute" );
 	equal( baidu("<option/>").prop("selected"), false, "Check selected attribute on disconnected element." );
-
 	equal( baidu("#listWithTabIndex").prop("tabindex"), 5, "Check retrieving tabindex" );
 	baidu("#text1").prop("readonly", true);
 	equal( document.getElementById("text1").readOnly, true, "Check setting readOnly property with 'readonly'" );

@@ -70,6 +70,7 @@
 baidu.dom.extend({
     html: function(value){
         var bd = baidu.dom,
+            bt = baidu._util_,
             me = this,
             isSet = false,
             result;
@@ -135,7 +136,6 @@ baidu.dom.extend({
 
                             // Remove element nodes and prevent memory leaks
                             if ( elem.nodeType === 1 ) {
-                                //jQuery.cleanData( elem.getElementsByTagName( "*" ) );
                                 tangramDom.empty();
                                 elem.innerHTML = value;
                             }

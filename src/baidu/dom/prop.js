@@ -108,7 +108,7 @@
 ///import baidu.forEach;
 ///import baidu.support;
 ///import baidu._util_.isXML;
-///import baidu.dom._propHooks;
+///import baidu._util_.propHooks;
 
 baidu.dom.extend({
     prop:function(name,value){
@@ -132,6 +132,7 @@ baidu.dom.extend({
                 hooks, 
                 notxml,
                 bd = baidu.dom,
+                bu = baidu._util_,
                 nType = item.nodeType;
 
             // don't get/set properties on text, comment and attribute nodes
@@ -143,8 +144,8 @@ baidu.dom.extend({
 
             if ( notxml ) {
                 // Fix name and attach hooks
-                name = bd.propFix[ name ] || name;
-                hooks = bd.propHooks[ name ];
+                name = bu.propFix[ name ] || name;
+                hooks = bu.propHooks[ name ];
             };
             switch(typeof name){
                 case 'string':

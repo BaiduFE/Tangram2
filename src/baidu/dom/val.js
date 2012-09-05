@@ -54,13 +54,15 @@
  */ 
 ///import baidu;
 ///import baidu.dom;
+///import baidu.dom.extend;
 ///import baidu.forEach;
 ///import baidu.type;
-///import baidu.dom._valHooks;
+///import baidu._util_.valHooks;
 
 baidu.dom.extend({
     val: function(value){
         var bd = baidu.dom,
+            bu = baidu._util_,
             me = this,
             isSet = false,
             result;
@@ -79,7 +81,7 @@ baidu.dom.extend({
         
                     //get first
                     if ( elem ) {
-                        hooks = bd.valHooks[ elem.type ] || bd.valHooks[ elem.nodeName.toLowerCase() ];
+                        hooks = bu.valHooks[ elem.type ] || bu.valHooks[ elem.nodeName.toLowerCase() ];
                         if ( hooks && "get" in hooks && (result = hooks.get( elem, "value" )) !== undefined ) {
                             return result;
                         }
@@ -127,7 +129,7 @@ baidu.dom.extend({
                         });
                     }
 
-                    hooks = bd.valHooks[ elem.type ] || bd.valHooks[ elem.nodeName.toLowerCase() ];
+                    hooks = bu.valHooks[ elem.type ] || bu.valHooks[ elem.nodeName.toLowerCase() ];
 
                     // If set returns undefined, fall back to normal setting
                     if ( !hooks || !("set" in hooks) || hooks.set( elem, value, "value" ) === undefined ) {
