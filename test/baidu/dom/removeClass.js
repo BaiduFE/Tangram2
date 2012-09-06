@@ -1,5 +1,17 @@
 module('baidu.dom.removeClss')
 
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.dom.removeClass", "baidu.dom.removeClass");
+});
+
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };
 var formatHTML = function(html){
 	html = html.toUpperCase();

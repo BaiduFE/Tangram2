@@ -30,8 +30,4 @@ setStyles : function ( styles) {
     return element;
 }	
 });
-
-
-// 声明快捷方法
-baidu.setStyles = baidu.dom.setStyles;
 /// Tangram 1.x Code End

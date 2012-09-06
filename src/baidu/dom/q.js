@@ -79,6 +79,4 @@ baidu.dom.q = function (className, element, tagName) {
     return result;
 };
 
-// 声明快捷方法
-baidu.q = baidu.Q = baidu.dom.q;
 /// Tangram 1.x Code End

@@ -67,6 +67,3 @@ baidu.dom.extend({
         return element;
     }
 });
-/// Tangram 1.x Code Start
-baidu.insertHTML = baidu.dom.insertHTML;
-/// Tangram 1.x Code End

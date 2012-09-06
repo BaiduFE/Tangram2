@@ -1,5 +1,17 @@
 module("baidu.dom.setBorderBoxSize");
 
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.dom.setBorderBoxSize", "baidu.dom.setBorderBoxSize");
+});
+
 test("base", function() {
 	var id = 0;
 	var check = function(styles, expects) {

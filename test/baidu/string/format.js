@@ -1,4 +1,15 @@
 module("baidu.string.format测试");
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.string.format", "baidu.string.format");
+});
 
 //新接口
 test("默认分隔符Json数据格式化字符串", function(){

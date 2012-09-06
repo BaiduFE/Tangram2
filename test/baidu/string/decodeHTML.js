@@ -1,4 +1,15 @@
 module("baidu.string.decodeHTML 测试");
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.string.decodeHTML", "baidu.string.decodeHTML");
+});
 
 //新接口
 test('将<>"&的实体字符转义成html字符', function(){

@@ -30,7 +30,3 @@ baidu.string.extend({
         }
     }()
 });
-
-
-// 声明快捷方法
-baidu.trim = baidu.string.trim;

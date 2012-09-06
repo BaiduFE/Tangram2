@@ -53,7 +53,4 @@ baidu.lang.inherits = function (subClass, superClass, type) {
     return subClass;
 };
 
-// 声明快捷方法
-baidu.inherits = baidu.lang.inherits;
-
 //  2011.11.22  meizz   为类添加了一个静态方法extend()，方便代码书写
