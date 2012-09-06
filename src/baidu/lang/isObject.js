@@ -30,3 +30,4 @@
 //};
 
 /// Tangram 1.x Code End
+baidu.lang.isObject = baidu.isObject;

@@ -20,6 +20,7 @@
  
 baidu.each = function( enumerable, iterator, context ) {
     var i, n, t, result;
+        alert("enumerable:"+ enumerable);
 
     if ( typeof iterator == "function" && enumerable) {
 
