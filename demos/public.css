@@ -1,4 +1,7 @@
-.demo * {
+body {
+	overflow-y: hidden;	
+}
+* {
 	padding: 0; margin: 0;
 }
 .demo{

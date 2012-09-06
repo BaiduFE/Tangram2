@@ -45,7 +45,8 @@
 
 
 (function(){
-    var target, // 被拖曳的DOM元素
+    var dragging = false,
+        target, // 被拖曳的DOM元素
         op, ox, oy, timer, left, top, lastLeft, lastTop, mozUserSelect;
     baidu.dom.drag = function(element, options){
         if(!(target = baidu.dom.g(element))){return false;}
@@ -56,6 +57,7 @@
         }, options);
         lastLeft = left = parseInt(baidu.dom.getStyle(target, 'left')) || 0;
         lastTop = top = parseInt(baidu.dom.getStyle(target, 'top')) || 0;
+        dragging = true;
         setTimeout(function(){
             var mouse = baidu.page.getMousePosition();  // 得到当前鼠标坐标值
             ox = op.mouseEvent ? (baidu.page.getScrollLeft() + op.mouseEvent.clientX) : mouse.x;
@@ -88,6 +90,7 @@
     }
     // 停止拖曳
     function stop() {
+        dragging = false;
         clearInterval(timer);
         // 解除鼠标粘滞
         if (op.capture && target.releaseCapture) {
@@ -106,6 +109,10 @@
     }
     // 对DOM元素进行top/left赋新值以实现拖曳的效果
     function render(e) {
+        if(!dragging){
+            clearInterval(timer);
+            return;
+        }
         var rg = op.range || [],
             mouse = baidu.page.getMousePosition(),
             el = left + mouse.x - ox,

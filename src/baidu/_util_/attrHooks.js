@@ -6,11 +6,7 @@
 ///import baidu.extend;
 ///import baidu.support;
 ///import baidu.forEach;
-///import baidu.dom._propHooks;
-
-baidu.dom.rfocusable = /^(?:button|input|object|select|textarea)$/i,
-baidu.dom.rtype = /^(?:button|input)$/i,
-baidu.dom.rclickable = /^a(?:rea)?$/i;
+///import baidu._util_.propHooks;
 
 baidu.extend(baidu,{
     _error : function( msg ) {
@@ -21,14 +17,17 @@ baidu.extend(baidu,{
     }    
 });
 
-baidu.extend(baidu.dom,{
+baidu.extend(baidu._util_,{
+	rfocusable : /^(?:button|input|object|select|textarea)$/i,
+	rtype : /^(?:button|input)$/i,
+	rclickable : /^a(?:rea)?$/i,
 	nodeHook:{},
 	attrHooks: {
 		type: {
 			set: function( elem, value ) {
-				var bd = baidu.dom;
+				var bu = baidu._util_;
 				// We can't allow the type property to be changed (since it causes problems in IE)
-				if ( bd.rtype.test( elem.nodeName ) && elem.parentNode ) {
+				if ( bu.rtype.test( elem.nodeName ) && elem.parentNode ) {
 					baidu._error( "type property can't be changed" );
 				} else if ( !baidu.support.radioValue && value === "radio" && baidu._nodeName(elem, "input") ) {
 					// Setting the type on a radio button after the value resets the value in IE6-9
@@ -47,17 +46,17 @@ baidu.extend(baidu.dom,{
 		// Use the nodeHook for button elements in IE6/7 (#1954)
 		value: {
 			get: function( elem, name ) {
-				var bd = baidu.dom;
-				if ( bd.nodeHook && baidu._nodeName( elem, "button" ) ) {
-					return bd.nodeHook.get( elem, name );
+				var bu = baidu._util_;
+				if ( bu.nodeHook && baidu._nodeName( elem, "button" ) ) {
+					return bu.nodeHook.get( elem, name );
 				}
 				return name in elem ?
 					elem.value :
 					null;
 			},
 			set: function( elem, value, name ) {
-				if ( bd.nodeHook && baidu._nodeName( elem, "button" ) ) {
-					return bd.nodeHook.set( elem, value, name );
+				if ( bu.nodeHook && baidu._nodeName( elem, "button" ) ) {
+					return bu.nodeHook.set( elem, value, name );
 				}
 				// Does not return so that setAttribute is also used
 				elem.value = value;
@@ -83,7 +82,7 @@ baidu.extend(baidu.dom,{
 			} else {
 				// value is true since we know at this point it's type boolean and not false
 				// Set boolean attributes to the same name and set the DOM property
-				propName = baidu.dom.propFix[ name ] || name;
+				propName = baidu._util_.propFix[ name ] || name;
 				if ( propName in elem ) {
 					// Only set the IDL specifically if it already exists on the element
 					elem[ propName ] = true;
@@ -97,12 +96,12 @@ baidu.extend(baidu.dom,{
 });
 
 // Add the tabIndex propHook to attrHooks for back-compat (different case is intentional)
-baidu.dom.attrHooks.tabindex = baidu.dom.propHooks.tabIndex;
+baidu._util_.attrHooks.tabindex = baidu._util_.propHooks.tabIndex;
 
 // IE6/7 do not support getting/setting some attributes with get/setAttribute
 if ( !baidu.support.getSetAttribute ) {
 
-	var bd = baidu.dom,
+	var bu = baidu._util_,
 		fixSpecified = {
 			name: true,
 			id: true,
@@ -111,7 +110,7 @@ if ( !baidu.support.getSetAttribute ) {
 
 	// Use this for any attribute in IE6/7
 	// This fixes almost every IE6/7 issue
-	bd.nodeHook = {
+	bu.nodeHook = {
 		get: function( elem, name ) {
 			var ret;
 			ret = elem.getAttributeNode( name );
@@ -131,12 +130,12 @@ if ( !baidu.support.getSetAttribute ) {
 	};
 
 	// Apply the nodeHook to tabindex
-	bd.attrHooks.tabindex.set = bd.nodeHook.set;
+	bu.attrHooks.tabindex.set = bu.nodeHook.set;
 
     // Set width and height to auto instead of 0 on empty string( Bug #8150 )
     // This is for removals
     baidu.forEach([ "width", "height" ], function( name ) {
-        bd.attrHooks[ name ] = baidu.extend( bd.attrHooks[ name ], {
+        bu.attrHooks[ name ] = baidu.extend( bu.attrHooks[ name ], {
             set: function( elem, value ) {
                 if ( value === "" ) {
                     elem.setAttribute( name, "auto" );
@@ -148,22 +147,22 @@ if ( !baidu.support.getSetAttribute ) {
 
 	// Set contenteditable to false on removals(#10429)
 	// Setting to empty string throws an error as an invalid value
-	bd.attrHooks.contenteditable = {
-		get: bd.nodeHook.get,
+	bu.attrHooks.contenteditable = {
+		get: bu.nodeHook.get,
 		set: function( elem, value, name ) {
 			if ( value === "" ) {
 				value = "false";
 			}
-			bd.nodeHook.set( elem, value, name );
+			bu.nodeHook.set( elem, value, name );
 		}
 	};
 };
 
 // Some attributes require a special call on IE
 if ( !baidu.support.hrefNormalized ) {
-	var bd = baidu.dom;
+	var bu = baidu._util_;
     baidu.forEach([ "href", "src", "width", "height" ], function( name ) {
-        bd.attrHooks[ name ] = baidu.extend( bd.attrHooks[ name ], {
+        bu.attrHooks[ name ] = baidu.extend( bu.attrHooks[ name ], {
             get: function( elem ) {
                 var ret = elem.getAttribute( name, 2 );
                 return ret === null ? undefined : ret;
@@ -173,8 +172,8 @@ if ( !baidu.support.hrefNormalized ) {
 };
 
 if ( !baidu.support.style ) {
-	var bd = baidu.dom;
-	bd.attrHooks.style = {
+	var bu = baidu._util_;
+	bu.attrHooks.style = {
 		get: function( elem ) {
 			// Return undefined in the case of empty string
 			// Normalize to lowercase since IE uppercases css property names
