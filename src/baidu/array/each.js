@@ -42,7 +42,7 @@ void function () {
     // TODO: delete in tangram 3.0
     baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
         var fn = function(index, item, array){
-            return iterator.call(context || item, item, index, array);
+            return iterator.call(context || array, item, index, array);
         };
         return baidu.isEnumerable(array) ? baidu.each(array, typeof iterator == "function" ? fn : "", context) : array;
     };
