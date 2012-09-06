@@ -5,5 +5,5 @@
 //    return !!win && win.window;
 //};
 baidu.lang.isWindow = function(unknow) {
-    baidu.type(unknow) == "Window";
+    return baidu.type(unknow) == "Window";
 };
