@@ -1,9 +1,13 @@
+/*
+ * @author meizz
+ * @create 2012.08.31
+ */
+
 ///import baidu;
 
 /**
- * @description 此命名空间下存放一些基础的模块，包括BaseClass BaseEvent等
- * @namespace 
+ * @description 将原baidu.lang里关于BaseClass和BaseEvent部分搬迁到此新命名空间下
+ * @Object 
  * @name baidu.base
  */
-
 baidu.base = baidu.base || {};
