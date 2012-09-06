@@ -35,8 +35,9 @@ test("测试this指针", function() {
 	}, thisObject);
 
 	var aArray = [ 1, 2, 3 ];
+    // 20120906 mz 新版的each，this默认指向 itemValue
 	baidu.array(aArray).each(function(iIndex, iVal) {
-		equal(this[0], 1, '没传this指针的情况');
+		equal(this, iVal, '没传this指针的情况');
 	});
 });
 
