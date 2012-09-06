@@ -14,7 +14,7 @@ test('prepareTest',function(){
 
 //新接口
 test("遍历array元素", function() {
-	expect(2);
+	//expect(2);
 	var aArray = [ 1, 2, 3 ];
 	baidu.array(aArray).each(function(iIndex, iVal) {
 		aArray[iIndex] += iIndex;
