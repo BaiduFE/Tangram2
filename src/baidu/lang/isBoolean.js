@@ -29,3 +29,4 @@
 //};
 
 /// Tangram 1.x Code End
+baidu.lang.isBoolean = baidu.isBoolean;

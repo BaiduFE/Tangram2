@@ -28,7 +28,7 @@ baidu.type = (function() {
     baidu.forEach(str.split(" "), function(name) {
         objectType[ "[object " + name + "]" ] = name.toLowerCase();
 
-        baidu[ "is" + name ] = baidu.lang[ "is" + name ] = function ( unknow ) {
+        baidu[ "is" + name ] = function ( unknow ) {
             return baidu.type(unknow) == name.toLowerCase();
         }
     });
@@ -48,14 +48,15 @@ baidu.type = (function() {
 })();
 
 // extend
-baidu.isDate = baidu.lang.isDate = function( unknow ) {
+baidu.isDate = function( unknow ) {
     return baidu.type(unknow) == "date" && unknow.toString() != 'Invalid Date' && !isNaN(unknow);
 };
 
-baidu.isElement = baidu.lang.isElement = function( unknow ) {
+baidu.isElement = function( unknow ) {
     return baidu.type(unknow) == "HTMLElement";
 };
 
+// 20120818 mz 检查对象是否可被枚举，对象可以是：Array NodeList HTMLCollection $DOM
 baidu.isEnumerable = function( unknow ){
     return unknow != null
         && typeof unknow == "object"
@@ -63,16 +64,38 @@ baidu.isEnumerable = function( unknow ){
         || typeof unknow[0] != "undefined");
 };
 
-baidu.isNumber = baidu.lang.isNumber = function( unknow ) {
+baidu.isNumber = function( unknow ) {
     return baidu.type(unknow) == "number" && isFinite( unknow );
 };
 
-baidu.isObject = baidu.lang.isObject = function( unknow ) {
+// 20120903 mz 检查对象是否为一个简单对象 {}
+baidu.isPlainObject = function(unknow) {
+    var key,
+        hasOwnProperty = Object.prototype.hasOwnProperty;
+
+    if ( baidu.type(unknow) != "object" ) {
+        return false;
+    }
+
+    //判断new fn()自定义对象的情况
+    //constructor不是继承自原型链的
+    //并且原型中有isPrototypeOf方法才是Object
+    if ( unknow.constructor &&
+        !hasOwnProperty.call(unknow, "constructor") &&
+        !hasOwnProperty.call(unknow.constructor.prototype, "isPrototypeOf") ) {
+        return false;
+    }
+    //判断有继承的情况
+    //如果有一项是继承过来的，那么一定不是字面量Object
+    //OwnProperty会首先被遍历，为了加速遍历过程，直接看最后一项
+    for ( key in unknow ) {}
+    return key === undefined || hasOwnProperty.call( unknow, key );
+};
+
+baidu.isObject = function( unknow ) {
     return typeof unknow === "function" || ( typeof unknow === "object" && unknow != null );
 };
-baidu.isWindow = baidu.lang.isWindow = function(win){
-    return !!win && win == win.window;
-};
+
 
 /*
  1-ELEMENT
