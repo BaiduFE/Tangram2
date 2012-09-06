@@ -1,5 +1,16 @@
 //each测试
 module("baidu.array.each");
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.array.each", "baidu.array.each");
+});
 
 //新接口
 test("遍历array元素", function() {

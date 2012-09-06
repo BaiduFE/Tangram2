@@ -1,5 +1,17 @@
 module("baidu.dom.query");
 
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.dom.query", "baidu.dom.query");
+});
+
 test('selector', function() {
 	var total = baidu.dom.query('*').length;
 	var input_len = baidu.dom.query('input').length;

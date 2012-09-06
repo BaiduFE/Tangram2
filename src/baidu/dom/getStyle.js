@@ -57,6 +57,4 @@ baidu.dom.getStyle = function (element, key) {
     return value;
 };
 
-// 声明快捷方法
-baidu.getStyle = baidu.dom.getStyle;
 /// Tangram 1.x Code End

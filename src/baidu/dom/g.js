@@ -33,6 +33,4 @@ baidu.dom.g = function(id) {
     return null;
 };
 
-// 声明快捷方法
-baidu.g = baidu.G = baidu.dom.g;
 /// Tangram 1.x Code End

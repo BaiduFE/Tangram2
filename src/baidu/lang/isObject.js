@@ -29,6 +29,4 @@
 //    return 'function' == typeof source || !!(source && 'object' == typeof source);
 //};
 
-// 声明快捷方法
-//baidu.isObject = baidu.lang.isObject;
 /// Tangram 1.x Code End

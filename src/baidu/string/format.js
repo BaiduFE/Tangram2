@@ -49,7 +49,3 @@ baidu.string.extend({
         return source;
     }
 });
-
-
-// 声明快捷方法
-baidu.format = baidu.string.format;

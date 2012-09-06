@@ -32,5 +32,3 @@ baidu.string.extend({
                     .replace(/'/g, "&#39;");
     }
 });
-
-baidu.encodeHTML = baidu.string.encodeHTML;
