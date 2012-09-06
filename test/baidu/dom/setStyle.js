@@ -1,4 +1,15 @@
 module("baidu.dom.setStyle");
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.dom.setStyle", "baidu.dom.setStyle");
+});
 test("set style",function(){
 	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
 	expect(3);

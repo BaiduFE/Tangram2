@@ -1,4 +1,15 @@
 module("baidu.trim测试");
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.string.trim", "baidu.string.trim");
+});
 
 test("删除字符串两边的空格", function(){
 	var sStr = "     半角空格tab键	 ";

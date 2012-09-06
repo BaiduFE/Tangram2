@@ -35,4 +35,3 @@ baidu.string.extend({
         });
     }
 });
-baidu.decodeHTML = baidu.string.decodeHTML;

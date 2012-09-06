@@ -1,5 +1,18 @@
 module("baidu.dom.g");
 
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.dom.g", "baidu.dom.g");
+});
+
+
 test('参数不是string',function(){
 	var test = 1;
 	expect(2);

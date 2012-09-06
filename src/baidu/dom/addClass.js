@@ -103,6 +103,3 @@ baidu.dom.extend({
         return this;
     }
 });
-
-//兼容以前的快捷方式
-baidu.addClass = baidu.dom.addClass;

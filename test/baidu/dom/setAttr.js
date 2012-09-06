@@ -1,5 +1,17 @@
 module('baidu.dom.setAttr')
 
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.dom.setAttr", "baidu.dom.setAttr");
+});
+
 //新接口
 test('基础测试',
 		function() {

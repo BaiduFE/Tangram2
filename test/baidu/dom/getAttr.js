@@ -2,6 +2,20 @@ module('baidu.dom.getAttr测试')
 /**
  * TODO:should add dom for testing
  */
+
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.dom.getAttr", "baidu.dom.getAttr");
+});
+
+
 //document没有getAttribute方法，如果调用getAttr方法来获取document的属性会抛出异常，是否有其他途径？？？
 test('document的测试',function(){
 
