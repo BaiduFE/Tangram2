@@ -17,6 +17,7 @@ test("val()", function() {
 	//expect( 20 + ( baidu.fn.serialize ? 6 : 0 ) );
 
 	document.getElementById("text1").value = "bla";
+	
 	equal( baidu("#text1").val(), "bla", "Check for modified value of input element" );
 	document.getElementById("text1").value = "Test";
 

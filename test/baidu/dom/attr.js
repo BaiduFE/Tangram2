@@ -16,7 +16,6 @@ test('prepareTest',function(){
 //start
 test("attr(String)", function() {
 	//expect(46);	
-
 	equal( baidu("#text1").attr("type"), "text", "Check for type attribute" );
 	equal( baidu("#radio1").attr("type"), "radio", "Check for type attribute" );
 	equal( baidu("#check1").attr("type"), "checkbox", "Check for type attribute" );
@@ -106,7 +105,6 @@ test("attr(String)", function() {
 	ok( baidu().attr("doesntexist") === undefined, "Make sure undefined is returned when no element is there." );
 	equal( baidu("<div/>").attr("value"), undefined, "An unset value on a div returns undefined." );
 	equal( baidu("<input/>").attr("value"), "", "An unset value on an input returns current value." );
-
 	$form = baidu("#form").attr("enctype", "multipart/form-data");
 	equal( $form.prop("enctype"), "multipart/form-data", "Set the enctype of a form (encoding in IE6/7 #6743)" );
 
