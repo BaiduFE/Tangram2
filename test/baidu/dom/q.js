@@ -1,5 +1,17 @@
 module("baidu.dom.q")
 
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.dom.q", "baidu.dom.q");
+});
+
 test('1 param--className', function() {
 	expect(4);
 	var div = document.createElement('div');

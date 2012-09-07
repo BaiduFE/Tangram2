@@ -1,6 +1,7 @@
 ///import baidu.type;
 ///import baidu.array;
 ///import baidu.each;
+///import baidu.forEach;
 /**
  * @fileoverview
  * @author meizz
@@ -35,16 +36,13 @@ void function () {
     };
     
     Array.prototype.forEach = function(iterator, context){
-        var fn = function(index, item, array){
-            return iterator.call(context || item, item, index, array);
-        };
-        return baidu.each(this, typeof iterator == "function" ? fn : "", context);
+        return baidu.forEach(this, iterator, context);
     };
 
     // TODO: delete in tangram 3.0
     baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
         var fn = function(index, item, array){
-            return iterator.call(context || item, item, index, array);
+            return iterator.call(context || array, item, index, array);
         };
         return baidu.isEnumerable(array) ? baidu.each(array, typeof iterator == "function" ? fn : "", context) : array;
     };

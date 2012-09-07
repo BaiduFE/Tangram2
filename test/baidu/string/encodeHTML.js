@@ -1,5 +1,16 @@
 module("baidu.string.encodeHTML测试");
 
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.string.encodeHTML", "baidu.string.encodeHTML");
+});
 
 //新接口
 test('将字符<>"&转成实体字符', function(){

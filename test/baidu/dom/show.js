@@ -10,6 +10,18 @@ test('prepareTest',function(){
 	}, "baidu.dom.contents", "baidu.dom.show");
 });
 
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.dom.show", "baidu.dom.show");
+});
+
 test("show()", function() {
 	//expect(26);
 	var hiddendiv = baidu.dom(".hidden");

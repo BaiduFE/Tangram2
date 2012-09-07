@@ -29,3 +29,4 @@
 //    return '[object Function]' == Object.prototype.toString.call(source);
 //};
 /// Tangram 1.x Code End
+baidu.lang.isFunction = baidu.isFunction;
