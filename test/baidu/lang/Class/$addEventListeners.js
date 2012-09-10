@@ -1,4 +1,16 @@
 module("baidu.lang.Class.$addEventListeners");
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.lang.Class.$addEventListeners", "baidu.lang.Class.$addEventListeners");
+});
+
 (function() {
 	var _inherits = function(subClass, superClass, className) {
 		var key, proto, selfProps = subClass.prototype, clazz = new Function();
