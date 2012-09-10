@@ -5,7 +5,7 @@
 ///import baidu.dom.map;
 ///import baidu.support;
 ///import baidu.id;
-///import baidu.dom._eventBase;
+///import baidu._util_.eventBase;
 ///import baidu._util_.isXML;
 /**
  * @description 对匹配元素进行深度克隆
@@ -60,7 +60,7 @@
 
 baidu.dom.extend({
     clone: function(){
-        var event = baidu.dom._eventBase;
+        var event = baidu._util_.eventBase;
         //
         function getAll(ele){
             return ele.getElementsByTagName ? ele.getElementsByTagName('*')
