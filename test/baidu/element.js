@@ -15,9 +15,11 @@ var jslist = "baidu.dom.draggable,baidu.dom.resizable,"
 		+ "baidu.dom.setStyle,baidu.dom.remove,baidu.dom.query,baidu.dom.setAttr,"
 		+ "baidu.dom.prev,baidu.dom.getAttr,baidu.dom.hasClass,baidu.dom.intersect,"
 		+ "baidu.dom.getText,baidu.dom.contains,baidu.dom.hasAttr,baidu.event.on,"
-		+ "baidu.dom.children," + "baidu.dom.q," 
+		+ "baidu.dom.children," 
+		+ "baidu.dom.q," 
 		+ "baidu.dom.getCurrentStyle,baidu.dom.opacity,baidu.dom.setPixel,"
-		+ "baidu.event.un,baidu.event.stop";
+		+ "baidu.event.un,baidu.event.stop,"
+		+ "baidu.short";
 
 test('封装基础 - 输入字符串', function() {
 	stop();
@@ -32,7 +34,9 @@ test('封装基础 - 输入字符串', function() {
 		$(div).remove();
 		start();
 	}, 'baidu.event.on', 'baidu.element');
+
 });
+
 
 test('封装基础 - 输入数组', function() {
 	var sp1, sp2;
@@ -42,9 +46,11 @@ test('封装基础 - 输入数组', function() {
 	sp2 = document.body.appendChild(document.createElement('span'));
 	sp2.className = 'span';
 	sp2.innerHTML = 'span2';
+
 	var spans = baidu.dom.query('span.span');
 	chainMe(baidu.element(spans));
 	expect(2);
+
 	baidu.array.each(spans, function(item) {
 		ok(baidu.dom.hasClass(item, 'aaa'), 'check class in array');
 	});

@@ -1,9 +1,20 @@
 //each测试
 module("baidu.array.each");
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.array.each", "baidu.array.each");
+});
 
 //新接口
 test("遍历array元素", function() {
-	expect(2);
+	//expect(2);
 	var aArray = [ 1, 2, 3 ];
 	baidu.array(aArray).each(function(iIndex, iVal) {
 		aArray[iIndex] += iIndex;
@@ -24,8 +35,9 @@ test("测试this指针", function() {
 	}, thisObject);
 
 	var aArray = [ 1, 2, 3 ];
+    // 20120906 mz 新版的each，this默认指向 itemValue
 	baidu.array(aArray).each(function(iIndex, iVal) {
-		equal(this[0], 1, '没传this指针的情况');
+		equal(this, iVal, '没传this指针的情况');
 	});
 });
 

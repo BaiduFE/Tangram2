@@ -13,7 +13,7 @@ baidu._util_.smartScroll = function(axis){
         return ele && ele.nodeType === 9;
     }
     function getWindow(ele){
-        return baidu.isWindow(ele) ? ele
+        return baidu.type(ele) == "Window" ? ele
             : isDocument(ele) ? ele.defaultView || ele.parentWindow : false;
     }
     return {

@@ -51,6 +51,4 @@ baidu.dom.extend({
 
 });
 
-// 声明快捷方法
-baidu.setStyle = baidu.dom.setStyle;
 /// Tangram 1.x Code End

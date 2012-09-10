@@ -35,8 +35,6 @@ baidu.element = function(node){
     }
     return new baidu.element.Element(gNode);
 };
-// 声明快捷方法
-baidu.e = baidu.element;
 
 /**
  * @description Element类，所有扩展到链条上的方法都会被放在这里面

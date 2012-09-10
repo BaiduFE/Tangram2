@@ -95,7 +95,3 @@ baidu.dom.extend({
         return this;
     }
 });
-/// Tangram 1.x Code Start
-//兼容以前的快捷方式
-baidu.removeClass = baidu.dom.removeClass ;
-/// Tangram 1.x Code End

@@ -40,6 +40,4 @@ baidu.dom.extend({
     }
 });
 
-// 声明快捷方法
-baidu.setAttr = baidu.dom.setAttr;
 /// Tangram 1.x Code End
