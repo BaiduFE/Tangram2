@@ -2,7 +2,7 @@
  * @author dron
  */
 
-///import baidu.dom._eventBase;
+///import baidu._util_.eventBase;
 
 /**
  * @description 对指定的 TangramDom 集合派发指定的事件函数，不触发事件默认行为
@@ -16,7 +16,7 @@
 
 baidu.dom.extend({
 	triggerHandler: function(type, triggerData){
-		var eb = baidu.dom._eventBase;
+		var eb = baidu._util_.eventBase;
 
 		baidu.forEach(this, function(item){
 		    eb.fireHandler(item, type, triggerData);

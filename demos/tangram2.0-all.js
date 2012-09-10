@@ -4146,7 +4146,7 @@ baidu.dom.extend({
 
 baidu.dom.extend({
 	triggerHandler: function(type, triggerData){
-		var eb = baidu.dom._eventBase;
+		var eb = baidu._util_.eventBase;
 
 		baidu.each(this, function(item){
 		    eb.fireHandler(item, type, triggerData);
@@ -4212,7 +4212,7 @@ baidu.dom.contains = function (container, contained) {
 
 
 
-baidu.dom._eventBase = function(){
+baidu._util_.eventBase = function(){
 	var eventsCache = {
 		/*
 			tangram-id: {
@@ -4465,7 +4465,7 @@ baidu.dom._eventBase = function(){
 	}
 }();
 
-baidu.dom._eventBase.method(
+baidu._util_.eventBase.method(
 
 /**
  * @description 对 TangramDom 集合触发 blur 事件
@@ -4974,7 +4974,7 @@ baidu.dom._cleanData = function(array){
     for(var i = 0, ele; ele = array[i]; i++){
         tangId = baidu.id(ele, 'get');
         if(!tangId){continue;}
-        baidu.dom._eventBase.removeAll(ele);
+        baidu._util_.eventBase.removeAll(ele);
         baidu.id(ele, 'remove');
     }
 }
@@ -5308,7 +5308,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     clone: function(){
-        var event = baidu.dom._eventBase;
+        var event = baidu._util_.eventBase;
         //
         function getAll(ele){
             return ele.getElementsByTagName ? ele.getElementsByTagName('*')
@@ -7086,7 +7086,7 @@ baidu.dom.extend({
 
 baidu.dom.extend({
 	on: function( events, selector, data, fn ){
-    	var eb = baidu.dom._eventBase;
+    	var eb = baidu._util_.eventBase;
     	var specials = { mouseenter: 1, mouseleave: 1, focusin: 1, focusout: 1 };
 
 	    if( typeof selector == "object" && selector ){
@@ -7123,7 +7123,7 @@ baidu.dom.extend({
 	},
 
 	_on: function( name, data, fn ){
-		var eb = baidu.dom._eventBase;
+		var eb = baidu._util_.eventBase;
 	    this.each( function(){
 	        eb.add( this, name, fn, undefined, data );
 	    } );
@@ -8534,7 +8534,7 @@ baidu.dom.extend({
 
 baidu.dom.extend({
 	off: function(events, selector, fn){
-    	var eb = baidu.dom._eventBase;
+    	var eb = baidu._util_.eventBase;
     	
     	if(!events){
     	 
@@ -9932,7 +9932,7 @@ baidu.dom.toggleClass = function (element, className) {
 baidu.dom.extend({
 	trigger: function(){
 
-		var eb = baidu.dom._eventBase;
+		var eb = baidu._util_.eventBase;
 
 		var ie = /msie/i.test(navigator.userAgent);
 
