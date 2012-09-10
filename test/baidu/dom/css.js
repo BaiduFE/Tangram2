@@ -3,28 +3,28 @@ module('baidu.dom.css');
 var ie = /msie/i.test( navigator.userAgent );
 
 var div = document.createElement("div");
-	// div.style.position = "";
-	div.style.top = "-10000px";
+  // div.style.position = "";
+  div.style.top = "-10000px";
 
 var appendStyle = function(text){
-	var style;
+  var style;
 
-	if( arguments.length > 1 )
-		text = [].join.call( arguments, "" );
+  if( arguments.length > 1 )
+    text = [].join.call( arguments, "" );
 
-	if( document.createStyleSheet )
-		style = document.createStyleSheet(),
-		style.cssText = text;
-	else
-		style = document.createElement( "style" ),
-		style.type = "text/css",
-		style.appendChild( document.createTextNode( text ) ),
-		document.documentElement.appendChild( style );
+  if( document.createStyleSheet )
+    style = document.createStyleSheet(),
+    style.cssText = text;
+  else
+    style = document.createElement( "style" ),
+    style.type = "text/css",
+    style.appendChild( document.createTextNode( text ) ),
+    document.documentElement.appendChild( style );
 };
 
 var getStyle = ie ?
-	function( dom, name ){ return dom.currentStyle[ name ]; } :
-	function( dom, name ){ return document.defaultView.getComputedStyle( dom, null ).getPropertyValue( name ); };
+  function( dom, name ){ return dom.currentStyle[ name ]; } :
+  function( dom, name ){ return document.defaultView.getComputedStyle( dom, null ).getPropertyValue( name ); };
 
 var css = function( name, value ){ return baidu.dom( div ).css( name, value ); };
 var get = function( name ){ return getStyle( div, name ); }

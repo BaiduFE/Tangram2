@@ -1,5 +1,15 @@
 module("baidu.dom.getStyle");
 
+test('prepareTest',function(){
+	expect(1);
+	stop();
+	ua.importsrc("baidu.lang.isString", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.lang.isString", "baidu.dom.getStyle");
+});
+
+
 var check = function(dom, options) {
 
 	options = options || {};
