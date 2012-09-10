@@ -107,7 +107,6 @@ test("attr(String)", function() {
 	equal( baidu("<input/>").attr("value"), "", "An unset value on an input returns current value." );
 	$form = baidu("#form").attr("enctype", "multipart/form-data");
 	equal( $form.prop("enctype"), "multipart/form-data", "Set the enctype of a form (encoding in IE6/7 #6743)" );
-
 });
 
 test("attr(String, Function)", function() {

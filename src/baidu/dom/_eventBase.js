@@ -100,7 +100,19 @@ baidu.dom._eventBase = function(){
             return ;
         
         var c = eventsCache[ tangId ] || ( eventsCache[tangId] = {});
-        var eventArray = c[ name ] || ( c[ name ] = [] );
+
+        //fix _getEventsLength bug
+        var fix_event = {
+            'mouseenter':'mouseover',
+            'mouseleave':'mouseout',
+            'focusin':'focus',
+            'focusout':'blur'
+        };
+        
+        var eventArray = c[ name ] || ( c[ name ] = [] ) ;
+        if(fix_event[ name ]) {
+            c[ fix_event[ name ] ] = [];
+        }
 
         for( var i = eventArray.length - 1, f; i >= 0; i-- )
             if( f = eventArray[i], f === fn )
@@ -288,7 +300,6 @@ baidu.dom._eventBase = function(){
         
         _getEventsLength: function( tang, evtName ){
             var len = 0, item;
-
             if( tang ){
                 item = eventsCache[ baidu.id( tang[0] || tang, "get" ) ];
                 if( evtName )

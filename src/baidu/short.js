@@ -11,9 +11,6 @@
 //链头
 baidu.array = baidu.array ||{};
 
-//遍历数组中所有元素
-//baidu.each = baidu.array.each ||{};
-
 //链头
 baidu.dom = baidu.dom ||{};
 
@@ -80,17 +77,8 @@ baidu.lang = baidu.lang ||{};
 //为类型构造器建立继承关系
 baidu.inherits = baidu.lang.inherits ||{};
 
-//判断目标参数是否为Object对象
-//baidu.isObject = baidu.lang.isObject ||{};
-
-//判断目标参数是否string类型或String对象
-//baidu.isString = baidu.lang.isString ||{};
-
 //链头
 baidu.object = baidu.object ||{};
-
-//将源对象的所有属性拷贝到目标对象中
-//baidu.extend = baidu.object.extend ||{};
 
 //链头
 baidu.string = baidu.string ||{};
