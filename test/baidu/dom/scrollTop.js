@@ -10,7 +10,7 @@ test("baidu.dom().scrollTop()", function(){
 
 	delay(function(){
 	    div[0].scrollTop = 100;
-	    equal( div.scrollTop(), 100, "div scrollTop" );
+        equal( div.scrollTop(), 100, "div scrollTop" );
         equal( textarea.scrollTop(), 100, "textarea scrollTop" );
     //  equal( body.scrollTop(), 100, "body scrollTop" );
     //  equal( iframe.scrollTop(), 100, "iframe scrollTop" );
