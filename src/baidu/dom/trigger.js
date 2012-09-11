@@ -20,7 +20,7 @@
 baidu.dom.extend({
 	trigger: function(){
 
-		var eb = baidu.dom._eventBase;
+		var eb = baidu._util_.eventBase;
 
 		var ie = /msie/i.test(navigator.userAgent);
 
@@ -40,6 +40,12 @@ baidu.dom.extend({
 
 		baidu.extend(bubblesEvents, keys);
 		baidu.extend(bubblesEvents, mouses);
+
+		var upp = function( str ){
+		    return str.replace( /^\w/, function( s ){
+		        return s.toUpperCase();
+		    } );
+		};
 
 		var values = function(source) {
 			var result = [], resultLen = 0, k;
@@ -188,10 +194,20 @@ baidu.dom.extend({
 				if( triggerData )
 				    evnt.triggerData = triggerData;
 
+				var eventReturn;
 				if( element.dispatchEvent )
-					element.dispatchEvent( evnt );
+					eventReturn = element.dispatchEvent( evnt );
 				else if( element.fireEvent )
-					element.fireEvent( "on" + type, evnt );
+					eventReturn = element.fireEvent( "on" + type, evnt );
+
+				if( eventReturn !== false )
+				    try{
+				    	if( element[type] )
+				    	    element[type]();
+				    	else if( type = upp( type ), element[type] )
+				    		element[type]();
+				    }catch(e){
+				    }
 			}
 		};
 

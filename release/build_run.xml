@@ -58,6 +58,10 @@
 		<waitfor maxwait="1000" maxwaitunit="second">
 			<available file="${report.file}" />
 		</waitfor>
+		
+		<waitfor maxwait="20" maxwaitunit="second">
+			<istrue value="false" />
+		</waitfor>
 
 		<!-- junit report and mail -->
 		<antcall target="mail" />
