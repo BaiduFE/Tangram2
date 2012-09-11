@@ -11,7 +11,7 @@
 ///import baidu.dom.contains;
 ///import baidu.dom.closest;
 
-baidu.dom._eventBase = function(){
+baidu._util_.eventBase = function(){
     var eventsCache = {
         /*
             tangram-id: {
@@ -317,7 +317,7 @@ baidu.dom._eventBase = function(){
     }
 }();
 
-baidu.dom._eventBase.method(
+baidu._util_.eventBase.method(
 
 /**
  * @description TangramDom集合触发 blur 事件
