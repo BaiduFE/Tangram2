@@ -16,47 +16,45 @@
  * @param   {Boolean}   depthClone  是否深度克隆的标识，默认为false
  * @return  {Object}                合并后的JS对象
  */
+
 baidu.extend = function(depthClone, object) {
-    var second, options, key, copy,
+    var second, options, key, src, copy,
         i = 1,
         n = arguments.length,
-        result = depthClone || {};
+        result = depthClone || {},
+        copyIsArray, clone;
     
     baidu.isBoolean( depthClone ) && (i = 2) && (result = object || {});
     !baidu.isObject( result ) && (result = {});
 
     for (; i<n; i++) {
         options = arguments[i];
-
         if( baidu.isObject(options) ) {
             for( key in options ) {
+                src = result[key];
                 copy = options[key];
-
                 // Prevent never-ending loop
-                if ( result[key] === options[key] ) {
+                if ( src === copy ) {
                     continue;
                 }
-                options.hasOwnProperty( key ) && ( result[key] = options[key] );
+                
+                if(baidu.isBoolean(depthClone) && depthClone && copy
+                    && (baidu.isPlainObject(copy) || (copyIsArray = baidu.isArray(copy)))){
+                        if(copyIsArray){
+                            copyIsArray = false;
+                            clone = src && baidu.isArray(src) ? src : [];
+                        }else{
+                            clone = src && baidu.isPlainObject(src) ? src : {};
+                        }
+                        result[key] = baidu.extend(depthClone, clone, copy);
+                }else if(copy){
+                    result[key] = copy;
+                }
             }
         }
     }
-
-    if (baidu.isBoolean( depthClone )) {
-    	second = {};
-    	for (key in result) {
-    		copy = result[key];
-    		if (typeof copy == "object" && depthClone) {
-    			baidu.isArray( copy ) && ( copy = baidu.extend(true, [], copy) );
-    			baidu.isPlainObject( copy ) && ( copy = baidu.extend(true, {}, copy) );
-    		}
-    		second[key] = copy;
-    	}
-    	result = second;
-    }
-
     return result;
 };
-
 /* extend 策略
    1、第一个参数为 bool ，则进行克隆操作，返回聚合后对象的副本
    2、第一个参数为 true  时进行深度克隆；
