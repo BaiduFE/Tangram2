@@ -47,7 +47,7 @@ baidu.extend = function(depthClone, object) {
                             clone = src && baidu.isPlainObject(src) ? src : {};
                         }
                         result[key] = baidu.extend(depthClone, clone, copy);
-                }else if(copy){
+                }else if(copy !== undefined){
                     result[key] = copy;
                 }
             }
