@@ -14,6 +14,8 @@
 <form id="formA" action="xx.html" method="get">
     <input type="hidden" name="a" value="1">
 </form>
+
+<!-- <a href="http://www.baidu.com" id="linkA">baidu</a> -->
 <input type="button" value="submit() this form" onclick="submitForm()">
 
 <script type="text/javascript">
@@ -21,6 +23,7 @@
 	// 	e.preventDefault();
 	// });
 	function submitForm(){
+		// baidu("#linkA").click();
 	    baidu("#formA").submit();
 	}
 </script>
