@@ -31,8 +31,8 @@ baidu.dom.extend({
     off: function( events, selector, fn ){
         var eb = baidu._util_.eventBase, me = this;
         if( !events )
-            baidu.forEach( this, function(item){
-                eb.removeAll(item);
+            baidu.forEach( this, function( item ){
+                eb.removeAll( item );
             } );
         else if( typeof events == "string" ){
             if( typeof selector == "function" )

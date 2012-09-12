@@ -30,6 +30,8 @@ baidu.dom.extend({
 		
 		var bubblesEvents = { scroll : 1, resize : 1, reset : 1, submit : 1, change : 1, select : 1, error : 1, abort : 1 };
 
+		var triggerEvents = { submit: 1 };
+
 		var parameters = {
 			"KeyEvents": ["bubbles", "cancelable", "view", "ctrlKey", "altKey", "shiftKey", "metaKey", "keyCode", "charCode"],
 			"MouseEvents": ["bubbles", "cancelable", "view", "detail", "screenX", "screenY", "clientX", "clientY", "ctrlKey", "altKey", "shiftKey", "metaKey", "button", "relatedTarget"],
@@ -38,8 +40,8 @@ baidu.dom.extend({
 			"Events": ["bubbles", "cancelable"]
 		};
 
-		baidu.extend(bubblesEvents, keys);
-		baidu.extend(bubblesEvents, mouses);
+		baidu.extend( bubblesEvents, keys );
+		baidu.extend( bubblesEvents, mouses );
 
 		var upp = function( str ){
 		    return str.replace( /^\w/, function( s ){
@@ -200,7 +202,7 @@ baidu.dom.extend({
 				else if( element.fireEvent )
 					eventReturn = element.fireEvent( "on" + type, evnt );
 
-				if( eventReturn !== false )
+				if( eventReturn !== false && triggerEvents[type] )
 				    try{
 				    	if( element[type] )
 				    	    element[type]();
