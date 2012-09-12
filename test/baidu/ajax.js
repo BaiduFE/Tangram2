@@ -226,7 +226,6 @@ test("jQuery.ajax() - responseText on error", function() {
 });
 
 
-
 test(".ajax() - retry with jQuery.ajax( this )", function() {
 
     expect( 2 );
@@ -244,7 +243,6 @@ test(".ajax() - retry with jQuery.ajax( this )", function() {
                 baidu.ajax( this );
             } else {
                 ok( true , "Test retrying with jQuery.ajax(this) works" );
-                debugger;
                 baidu.ajax({
                     url: upath + '/ajax/errorWithText.php',
                     data: { x: 1 },
@@ -264,4 +262,60 @@ test(".ajax() - retry with jQuery.ajax( this )", function() {
             }
         }
     });
+});
+
+test(".ajax() - headers" , function() {
+
+    expect( 4 );
+
+    stop();
+    
+    var div  = document.createElement('div');
+    document.body.appendChild(div);
+
+//    jQuery(div).ajaxSend(function( evt, xhr ) {
+//        xhr.setRequestHeader( "ajax-send", "test" );
+//    });
+
+    var requestHeaders = {
+            siMPle: "value",
+            "SometHing-elsE": "other value",
+            OthEr: "something else"
+        },
+        list = [],
+        i;
+
+    for( i in requestHeaders ) {
+        list.push( i );
+    }
+    list.push( "ajax-send" );
+    $.ajax(upath + '/ajax/headers.php?keys=' + list.join( "_" ), {
+
+        headers: requestHeaders,
+        beforeSend: function(xhr, settings){
+            xhr.setRequestHeader( "ajax-send", "test" );
+        },
+        success: function( data , _ , xhr ) {
+            var tmp = [];
+            for ( i in requestHeaders ) {
+                tmp.push( i , ": " , requestHeaders[ i ] , "\n" );
+            }
+            tmp.push(  "ajax-send: test\n" );
+            tmp = tmp.join( "" );
+
+            strictEqual( data , tmp , "Headers were sent" );
+            strictEqual( xhr.getResponseHeader( "Sample-Header" ) , "Hello World" , "Sample header received" );
+            if ( jQuery.browser.mozilla ) {
+                ok( true, "Firefox doesn't support empty headers" );
+            } else {
+                strictEqual( xhr.getResponseHeader( "Empty-Header" ) , "" , "Empty header received" );
+            }
+            strictEqual( xhr.getResponseHeader( "Sample-Header2" ) , "Hello World 2" , "Second sample header received" );
+        },
+        error: function(){ ok(false, "error"); }
+
+    }).always(function() {
+        start();
+    });
+
 });
