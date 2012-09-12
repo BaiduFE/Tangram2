@@ -17,7 +17,7 @@
  * @param   {String}    overwrite   [可选]true 覆盖原值
  * @return  {Object}                该key对象的对象
  */
-baidu.global = (function() {
+baidu.global = baidu.global || (function() {
     var global = baidu._util_.$global = window[ baidu.guid ];
 
     return function( key, value, overwrite ) {
