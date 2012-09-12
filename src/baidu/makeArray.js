@@ -2,8 +2,8 @@
  * @author linlingyu
  */
 
-///baidu.merge;
-///baidu.type;
+///import baidu.merge;
+///import baidu.type;
 
 baidu.makeArray = function(array, results){
     var ret = results || [];
