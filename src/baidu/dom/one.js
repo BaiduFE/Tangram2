@@ -5,6 +5,7 @@
 ///import baidu.dom.on;
 ///import baidu.dom.off;
 ///import baidu.forEach;
+///import baidu.id;
 
 /**
  * @description 对当前 TangramDom 集合添加一次性事件监听
@@ -36,6 +37,11 @@ baidu.dom.extend({
             baidu.dom( this ).off( type, newfn );
             return fn.apply( me, arguments );
         };
+
+        this.each( function(){
+            var id = baidu.id( this );
+            fn[ "_" + id + "_" + type ] = newfn;
+        } );
 
         return this.on( type, data, newfn );
     }
