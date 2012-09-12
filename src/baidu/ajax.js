@@ -59,22 +59,6 @@ void function(){
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     function ajaxHandleResponses(opts, tangXHR, responses){
         var ct, type, finalDataType, firstDataType,
             contents = opts.contents,
@@ -209,11 +193,6 @@ void function(){
         return selection;
     }
     
-    
-    
-    
-    
-    
     baidu.createChain('ajax', function(url, options){
         if(baidu.object.isPlain(url)){
             options = url;
@@ -253,8 +232,7 @@ void function(){
             //done
             
             //done
-            
-            tangXHR = {
+            tangXHR = baidu.extend(new baidu.ajax.$Ajax(url), {
                 readyState: 0,
                 
                 setRequestHeader: function(name, value){
@@ -293,9 +271,7 @@ void function(){
                     done(0, statusText);
                     return this;
                 }
-            };
-        
-        
+            });
         
         var timeoutTimer;
         
@@ -378,7 +354,7 @@ void function(){
         // Determine if a cross-domain request is in order
         if (opts.crossDomain == null){
             parts = rurl.exec(opts.url.toLowerCase());
-            opts.crossDomain = !!(parts && (parts[1] != ajaxLocParts[1] || parts[2] != ajxLocParts[2]
+            opts.crossDomain = !!(parts && (parts[1] != ajaxLocParts[1] || parts[2] != ajaxLocParts[2]
                 || (parts[3] || (parts[1] === 'http:' ? 80 : 443)) !=
                     (ajaxLocParts[3] || (ajaxLocParts[1] === 'http:' ? 80 : 443))));
         }
@@ -457,8 +433,8 @@ void function(){
             }
         }
         return tangXHR;
-    }, function(){
-        
+    }, function(url){
+        this.url = url;
     });
     
     
