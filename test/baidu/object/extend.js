@@ -44,7 +44,8 @@ test("拷贝类属性", function(){
 	
 	equals(oTarget.id, 1, "oTarget.id = 1"); // id of oTarget is copied from oSrc's id
 	same(oTarget.types, ["type1", "type2"], 'oTarget.types = ["type1", "type2"]');
-	equals(oTarget.showMethod(), "Error", "oTarget.showMethod() = ’Error'"); // extend: only copy attributes, but not method
+	equals(oTarget.showMethod(), "post", "oTarget.showMethod() = ’Error'"); // extend: only copy attributes, but not method
+	equals(oTarget.extend, "extend", "copy attributes"); // extend: only copy attributes, but not method
 });
 
 
