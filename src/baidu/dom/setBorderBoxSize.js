@@ -30,7 +30,7 @@ baidu.dom.setBorderBoxSize = /**@function*/function (element, size) {
     size.height && (result.height = parseFloat(size.height));
 
     function getNumericalStyle(element, name){
-        return parseFloat(baidu.getStyle(element, name)) || 0;
+        return parseFloat(baidu.dom.getStyle(element, name)) || 0;
     }
     
     if(baidu.browser.isStrict){
