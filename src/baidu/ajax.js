@@ -1,6 +1,5 @@
 ///import baidu.createChain;
 ///import baidu.object.isPlain;
-///import baidu.json.parse;
 ///import baidu.extend;
 ///import baidu.string.trim;
 ///import baidu.type;
@@ -22,6 +21,12 @@ void function(){
         rts = /([?&])_=[^&]*/,
         rheaders = /^(.*?):[ \t]*([^\r\n]*)\r?$/mg, // IE leaves an \r character at EOL
         
+        // JSON RegExp
+        rvalidchars = /^[\],:{}\s]*$/,
+        rvalidbraces = /(?:^|:|,)(?:\s*\[)+/g,
+        rvalidescape = /\\(?:["\\\/bfnrt]|u[\da-fA-F]{4})/g,
+        rvalidtokens = /"[^"\\\r\n]*"|true|false|null|-?(?:\d\d*\.|)\d+(?:[eE][\-+]?\d+|)/g,
+        
         
         
         allTypes = ['*/'] + ['*'],
@@ -36,7 +41,52 @@ void function(){
         
         ajaxLocParts = rurl.exec( ajaxLocation.toLowerCase() ) || [];
         
+    function parseXML(data){
+        var xml, tmp;
+        if (!data || baidu.type(data) !== 'string') {
+            return null;
+        }
+        try {
+            if ( window.DOMParser ) { // Standard
+                tmp = new DOMParser();
+                xml = tmp.parseFromString( data , "text/xml" );
+            } else { // IE
+                xml = new ActiveXObject( "Microsoft.XMLDOM" );
+                xml.async = "false";
+                xml.loadXML( data );
+            }
+        } catch( e ) {
+            xml = undefined;
+        }
+        if ( !xml || !xml.documentElement || xml.getElementsByTagName( "parsererror" ).length ) {
+            new Error( "Invalid XML: " + data );
+        }
+        return xml;
+    }
     
+    function parseJSON(data){
+        if(!data || baidu.type(data) !== 'string'){return null;}
+        data = baidu.string(data).trim();
+        if ( window.JSON && window.JSON.parse ) {
+            return window.JSON.parse( data );
+        }
+        if ( rvalidchars.test( data.replace( rvalidescape, "@" )
+            .replace( rvalidtokens, ']')
+            .replace( rvalidbraces, ''))) {
+
+            return ( new Function( 'return ' + data ) )();
+
+        }
+        new Error( "Invalid JSON: " + data );
+    }
+    
+    function globalEval( data ) {
+        if ( data && /\S/.test( data ) ) {
+            ( window.execScript || function( data ) {
+                window[ "eval" ].call( window, data );
+            } )( data );
+        }
+    }
     
     function toPrefiltersOrTransports(structure){
         return function(expression, func){
@@ -115,14 +165,12 @@ void function(){
             
             
         opts.dataFilter && (response = opts.dataFilter(response, opts.dataType));
-        
-        
         if(dataTypes[1]){
             for(var i in opts.converters){
                 converters[i.toLowerCase()] = opts.converters[i];
             }
         }
-        for(var i = 0, curr; curr = dataTypes[i]; i++){
+        for(var i = 0, curr; curr = dataTypes[++i];){
             if(curr !== '*'){
                 if(prev !== '*' && prev !== curr){
                     conv = converters[prev + ' ' + curr] || converters['* ' + curr];
@@ -223,7 +271,7 @@ void function(){
             //done
             
             //done
-            tangXHR = baidu.extend(new baidu.ajax.$Ajax(url), {
+            tangXHR = baidu.extend(new baidu.ajax.$Ajax(url, opts), {
                 readyState: 0,
                 setRequestHeader: function(name, value){
                     if(!state){
@@ -262,7 +310,6 @@ void function(){
                     return this;
                 }
             });
-        
         var timeoutTimer;
         
         
@@ -330,16 +377,15 @@ void function(){
                     for(var i in map){
                         statusCode[i] = [statusCode[i], map[i]];
                     }
+                }else{
+                    tangXHR.always(map[tangXHR.status]);
                 }
-            }else{
-                tangXHR.always(map[tangXHR.status]);
             }
             return this;
         };
         
-        
-        
-        opts.url = (url || opts.url).replace(rhash, '').replace(rprotocol, ajaxLocParts[1] + '//');
+        //if url is window.location must + ''
+        opts.url = ((url || opts.url) + '').replace(rhash, '').replace(rprotocol, ajaxLocParts[1] + '//');
         opts.dataTypes = baidu.string(opts.dataType || '*').trim().toLowerCase().split(/\s+/);
         // Determine if a cross-domain request is in order
         if (opts.crossDomain == null){
@@ -352,7 +398,8 @@ void function(){
             opts.data = baidu.ajax.param(opts.data, opts.traditional );
         }
         
-//        inspectPrefiltersOrTransports( prefilters, s, options, jqXHR );//运行prefilter()
+        inspectPrefiltersOrTransports(prefilters, opts, options, tangXHR);//运行prefilter()
+        
         if(state === 2){return '';/*jqXHR*/}
         fireGlobals = opts.global;
         opts.type = opts.type.toUpperCase();
@@ -400,7 +447,6 @@ void function(){
             tangXHR[i](opts[i]);
         }
         transport = inspectPrefiltersOrTransports(transports, opts, options, tangXHR);
-        
         if(!transport){
             done(-1, 'No Transport');
         }else{
@@ -423,16 +469,10 @@ void function(){
             }
         }
         return tangXHR;
-    }, function(url){
+    }, function(url, options){
         this.url = url;
+        this.options = options;
     });
-    
-    
-    
-    
-    
-    
-    
     
     baidu.ajax.settings = {
        url: ajaxLocation,
@@ -472,32 +512,20 @@ void function(){
         converters: {
             '* text': window.String,
             'text html': true,
-            'text json': baidu.json.parse,
-            //TODO
-            'text xml': ''//jQuery.parseXML
+            'text json': parseJSON,
+            'text xml': parseXML
         },
         flatOptions: {
             context: true,
             url: true
         }
     };
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     //
     function ajaxExtend(target, src){
         var flatOpt = baidu.ajax.settings.flatOptions || {},
             deep;
         for(var i in src){
-            if(src[i]){
+            if(src[i] !== undefined){
                 (flatOpt[i] ? target : (deep || (deep = {})))[i] = src[i]
             }
         }
@@ -577,9 +605,9 @@ void function(){
             replaceInData = hasCallback && !replaceInUrl && baidu.type(data) === 'string'
                 && !(opts.contentType || '').indexOf('application/x-www-form-urlencoded')
                 && rjsonp.test(data);
-        if(opt.dataTypes[0] === 'jsonp' || replaceInUrl || replaceInData){
+        if(opts.dataTypes[0] === 'jsonp' || replaceInUrl || replaceInData){
             callbackName = opts.jsonpCallback = baidu.type(opts.jsonpCallback) === 'function' ?
-                s.jsonpCallback() : s.jsonpCallback;
+                opts.jsonpCallback() : opts.jsonpCallback;
             overwritten = window[callbackName];
             
             if (replaceInUrl) {
@@ -590,7 +618,7 @@ void function(){
                 opts.url += (/\?/.test(url) ? '&' : '?') + opts.jsonp + '=' + callbackName;
             }
             
-            s.converters['script json'] = function() {
+            opts.converters['script json'] = function() {
 //                !responseContainer && jQuery.error( callbackName + " was not called" );
                 return responseContainer[0];
             }
@@ -616,7 +644,7 @@ void function(){
         accepts: {script: 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript'},
         contents: {script: /javascript|ecmascript/},
         converters: {'text script': function(txt){
-//            baidu.globalEval(txt);//TODO
+            globalEval(txt);
             return txt;
         }}
     });
@@ -761,7 +789,6 @@ void function(){
                             }catch(firefoxAccessException){
                                 !isAbort && complete(-1, firefoxAccessException);
                             }
-                            
                             responses && complete(status, statusText, responses, responseHeaders);
                         }
                         
@@ -789,24 +816,4 @@ void function(){
             }
         });
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }();
