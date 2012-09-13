@@ -201,19 +201,10 @@ void function(){
         options = options || {};
         
         var opts = baidu.ajax.setup({}, options),
-        
             callbackContext = opts.context || opts,
-            
-            
-            
             fireGlobals,
             ifModifiedKey,
             parts,
-            
-            
-            
-            
-            
             
             //tangXHR
             
@@ -234,7 +225,6 @@ void function(){
             //done
             tangXHR = baidu.extend(new baidu.ajax.$Ajax(url), {
                 readyState: 0,
-                
                 setRequestHeader: function(name, value){
                     if(!state){
                         var lname = name.toLowerCase();
@@ -257,7 +247,7 @@ void function(){
                         }
                         match = responseHeaders[key.toLowerCase()];
                     }
-                    return match || null;
+                    return match === undefined ? null : match;
                 },
                 
                 overrideMimeType: function(type){
@@ -545,7 +535,7 @@ void function(){
                 buildParams(array, key + '[' + i + ']', val[i], traditional);
             }
         }else{
-            addParam(array, key, item);
+            addParam(array, key, val);
         }
     }
     
