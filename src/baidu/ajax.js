@@ -59,7 +59,7 @@ void function(){
             xml = undefined;
         }
         if ( !xml || !xml.documentElement || xml.getElementsByTagName( "parsererror" ).length ) {
-            new Error( "Invalid XML: " + data );
+            throw new Error( "Invalid XML: " + data );
         }
         return xml;
     }
@@ -77,7 +77,7 @@ void function(){
             return ( new Function( 'return ' + data ) )();
 
         }
-        new Error( "Invalid JSON: " + data );
+        throw new Error( "Invalid JSON: " + data );
     }
     
     function globalEval( data ) {
