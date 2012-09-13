@@ -259,7 +259,7 @@ baidu._util_.eventBase = function(){
 
         remove: function( dom, event, fn, selector ){
             var id;
-            if( ( id = baidu.id( dom, "get" ) ) && fn[ "_" + id + "_" + event ] )
+            if( ( id = baidu.id( dom, "get" ) ) && fn && fn[ "_" + id + "_" + event ] )
                 fn = fn[ "_" + id + "_" + event ],
                 delete fn[ "_" + id + "_" + event ];
 
