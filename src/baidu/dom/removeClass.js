@@ -88,8 +88,6 @@ baidu.dom.extend({
                     baidu.dom(item).removeClass(value.call(item, index, item.className));
                 });
             break;
-            default:
-            break;
         };
 
         return this;

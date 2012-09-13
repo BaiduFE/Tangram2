@@ -137,8 +137,6 @@ baidu.dom.extend({
                 });
 
             break;
-            default:
-            break;
         };
 
         return this;
