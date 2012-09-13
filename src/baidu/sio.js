@@ -24,8 +24,6 @@ function(url){
         case "string" :
             return new baidu.sio.$Sio(url);
         break;
-        default:
-        break;
     };
 },
 

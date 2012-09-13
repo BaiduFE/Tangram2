@@ -26,9 +26,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 					echo $status;
 					header("HTTP/1.1 500 Internal Server Error");
 					break;
-				default:
-
-					break;
 			}
 		}
 	}

@@ -158,9 +158,6 @@ baidu.dom.extend({
                     isSet = true;
                     tangramDom.html(value.call(elem, index, tangramDom.html()));
                 break;
-
-                default:
-                break;
             };
         });
 
