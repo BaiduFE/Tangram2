@@ -918,7 +918,7 @@ var UserAction =
 			var p = win;
 			for ( var i = 0; i < mm.length; i++) {
 				if(i == mm.length - 1 && mm[i].indexOf("$") > -1){ //如果要加载的是插件
-					if (p._addons.length == 1) {
+					if (p && p._addons && p._addons.length == 1) {
 						return;
 					}		
 				}
