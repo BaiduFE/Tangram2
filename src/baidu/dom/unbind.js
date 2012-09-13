@@ -2,7 +2,7 @@
  * @author dron
  */
 
-///import baidu.dom.on;
+///import baidu.dom.off;
 
 /**
  * @description 对当前 TangramDom 集合解除自定义事件监听
