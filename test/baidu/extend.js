@@ -2,7 +2,6 @@ module('baidu.extend');
 
 test('one arg', function(){
     var c = baidu.extend({});
-    console.log(c);
     ok($.isPlainObject(c), 'is a plain ojbect');
     for(var i in c){
         ok(false, 'object key exists');

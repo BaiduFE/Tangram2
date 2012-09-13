@@ -143,9 +143,6 @@ baidu.dom.extend({
                     tangramDom.text(value.call(elem, index, tangramDom.text()));
 
                 break;
-
-                default:
-                break;
             };
         });
 
