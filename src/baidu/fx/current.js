@@ -8,6 +8,7 @@
  */
 
 ///import baidu.fx;
+///import baidu.lang.instance;
 ///import baidu.dom.g;
 
 /**
@@ -35,7 +36,8 @@ baidu.fx.current = function(element) {
         
         for (var i=0; i<a.length; i++) {
             reg.test(a[i]);
-            a[i] = window[baidu.guid]._instances[RegExp["\x241"]];
+//            a[i] = window[baidu.guid]._instances[RegExp["\x241"]];
+            a[i] = baidu.lang.instance(RegExp["\x241"]);
         }
     }
     return a;
