@@ -1,0 +1,35 @@
+解压缩后的目录结构：
+?	uiut /*框架代码*/
+?	helloworld /*helloworld测试用例*/
+?	helloworld.js /*测试用例写在这个文件中*/
+?	helloworld.html /*用例说明文件*/
+?	runTests.html /*重定向文件 测试程序入口*/
+?	effect/*effect测试用例*/
+
+使用步骤：
+1.	copy一份helloworld（整个文件夹）?mytest/；
+2.	修改helloworld.html?myTest.html，编写用例，和JSSPEC基本相同，只是接口稍微有些不同；
+a)	t.is(expect,real);
+i.	expect:预期值
+ii.	real实际值
+b)	t.f(value);判断value是否为false；
+c)	t.t(value);判断value是否为true；
+d)	t.nan(); not allow next case
+e)	t.an(); allow next case
+3.	修改 helloworld.js?myTest.js 
+uiut.al(//add link
+{
+           name:"myTest",
+           url:"../myTest/myTest.html"         
+}
+);
+4.	修改runTests.html
+         <head>
+                   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+                   <meta http-equiv="REFRESH" content="0;
+url=../uiut/uiutRunner.html?suitepath=../myTest/myTest.js&autorun=true&testspeed=100"></HEAD>
+         </head>
+         <body>
+                   Redirect to UIUT runner....
+         </body>
+5.	运行runTests.html，启动测试；

@@ -68,7 +68,7 @@ baidu.fx.expand = function(element, options) {
             value = e[attr.offset];
             
             function getStyleNum(d,style){
-                var result = parseInt(baidu.getStyle(d,style));
+                var result = parseInt(baidu.dom.getStyle(d,style));
                 result = isNaN(result) ? 0 : result;
                 result = baidu.lang.isNumber(result) ? result : 0;
                 return result;
