@@ -1,0 +1,650 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>collapse</title>
+		<!-- uiut js -->
+		<script src="../uiut/uiut.js"></script>
+		<!-- uiut js -->
+		<!-- tangram js -->
+		<script type="text/javascript" src="http://img.baidu.com/js/tangram-1.1.0.js"></script>
+		<!-- tangram js -->
+		<!-- fx.js -->
+		<script type="text/javascript" src="../../../src/fx.js"></script>
+		<script type="text/javascript" src="../../../src/fx/_Timeline.js"></script>
+		<script type="text/javascript" src="../../../src/fx/Effect.js"></script>
+        <script type="text/javascript" src="../../../src/fx/collapse.js"></script>
+        <script type="text/javascript" src="../../../src/fx/expand.js"></script>
+		<!-- fx.js -->
+        <style type="text/css">
+            address {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #FFFF00;
+                color: green;
+                font-size: 18px;
+            }
+            
+            blockquote {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #6600CC;
+                color: green;
+                font-size: 18px;
+            }
+            
+            center {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #FF9966;
+                color: green;
+                font-size: 18px;
+            }
+            
+            pre {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: Olive;
+                color: green;
+                font-size: 18px;
+                display: none;
+            }
+            
+            dir {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #339933;
+                color: green;
+                font-size: 18px;
+            }
+            
+            div {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #FFFF99;
+                color: green;
+                font-size: 18px;
+            }
+            
+            dl {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #FF6666;
+                color: green;
+                font-size: 18px;
+            }
+            
+            fieldset {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: Purple;
+                color: green;
+                font-size: 18px;
+            }
+            
+            h1 {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #FF6633;
+                color: green;
+                font-size: 18px;
+                visibility: hidden;
+            }
+            
+            form {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #66CCFF;
+                color: green;
+                font-size: 18px;
+            }
+            
+            h2#i_h2, h3, h4, h5, h6, hr, table#i_table_i, menu, ul, ol {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #33CC33;
+                color: green;
+                font-size: 18px;
+                visibility: visible;
+            }
+            
+            p#i_p {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #66CCFF;
+                color: green;
+                font-size: 18px;
+            }
+            
+            td {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <p style="color:#66CC66" align="center">
+            块级元素
+        </p>
+        <table id="table" border=1>
+            <tr>
+                <td>
+                    <address id="i_address">
+                        <a href="mailto:zhouxiuhu@baidu.com">address</a>
+                        <br/>
+                        baidu
+                        <br/>
+                        pt
+                        <br/>
+                    </address>
+                </td>
+                <td>
+                    <blockquote id="i_blockquote">
+                        blockquote
+                    </blockquote>
+                </td>
+                <td>
+                    <center id="i_center">
+                        center
+                    </center>
+                </td>
+                <td>
+                    <pre id="i_pre">pre</pre>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <dir id="i_dir">
+                        dir
+                    </dir>
+                    <p id="r_bs">
+                    </p>
+                </td>
+                <td>
+                    <div class="c_div" id="i_div">
+                        <h2>div</h2>
+                        <p>
+                            div
+                        </p>
+                    </div>
+                    <p id="r_bu">
+                    </p>
+                </td>
+                <td>
+                    <dl id="i_dl">
+                        <dt>
+                            dl
+                        </dt>
+                        <dd>
+                            dl
+                        </dd>
+                        <dt>
+                            dl
+                        </dt>
+                        <dd>
+                            dl
+                        </dd>
+                    </dl>
+                    <p id="r_au">
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <fieldset id="i_fieldset">
+                        <legend>
+                            fieldset
+                        </legend>
+                        h: <input type="text" />
+                        <br>
+                        w: <input type="text" />
+                    </fieldset>
+                    <p id="r_af">
+                    </p>
+                </td>
+                <td>
+                    <h1 id="i_h1">h1</h1>
+                </td>
+                <td>
+                    <form action="http://www.baidu.com" method="get" id="i_form">
+                        <p>
+                            Fn: <input type="text" name="fname" />
+                        </p>
+                        <p>
+                            Ln: <input type="text" name="lname" />
+                        </p><input type="submit" value="Submit" />
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 id="i_h2">h2</h2>
+                    <h3 id="i_h3">h3</h3>
+                    <h4 id="i_h4">h4</h4>
+                </td>
+                <td>
+                    <h5 id="i_h5">h5</h5>
+                    <h6 id="i_h6">h6</h6>
+                    <hr id="i_hr" size="14px"/>
+                </td>
+                <td>
+                    <div id="i_table">
+                        <table border="1" id="i_table_i">
+                            <tr>
+                                <th>
+                                    table
+                                </th>
+                                <th>
+                                    Sav
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    table
+                                </td>
+                                <td>
+                                    $100
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <menu id="i_menu">
+                        <li>
+                            menu
+                        </li>
+                        <li>
+                            menu
+                        </li>
+                    </menu>
+                </td>
+                <td>
+                    <ul id="i_ul">
+                        <li>
+                            ul
+                        </li>
+                        <li>
+                            Tea
+                        </li>
+                    </ul>
+                    <ol id="i_ol">
+                        <li>
+                            ol
+                        </li>
+                        <li>
+                            ol
+                        </li>
+                    </ol>
+                </td>
+                <td>
+                    time:
+                    <p id="i_time">
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="i_p">
+                        p
+                    </p>
+                </td>
+                <td>
+                    <p id="r_bs_a">
+                    </p>
+                </td>
+                <td>
+                    <p id="r_bu_a">
+                    </p>
+                </td>
+                <td>
+                    <p id="r_au_a">
+                    </p>
+                </td>
+                <td>
+                    <p id="r_af_a">
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            //normal options
+            options = {
+                'duration': 1000,
+                'transition': function(schedule){
+                    return schedule;
+                }
+            };
+            //before start options
+            var start = 1;
+            options_bs = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onbeforestart': function(){
+                    baidu.G("r_bs").innerHTML = "before start:" + start;
+                    ++start;
+                }
+            };
+            //before update case options
+            var update = 1;
+            options_bu = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onbeforeupdate': function(){
+                    baidu.G("r_bu").innerHTML = "before update:" + update;
+                    ++update;
+                }
+            };
+            //after update case options
+            var update_a = 1;
+            options_au = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onafterupdate': function(){
+                    baidu.G("r_au").innerHTML = "after update:" + update_a;
+                    ++update_a;
+                }
+            };
+            //after finish case options
+            var finish = 1;
+            options_af = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onafterfinish': function(){
+                    baidu.G("r_af").innerHTML = "after finish:" + finish;
+                    ++finish;
+                }
+            };
+            //duration options
+            options_du = {
+                'duration': 0,
+                'transition': function(schedule){
+                    return schedule;
+                }
+            };
+            //display options
+            options_di = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    if (schedule <= 0.5) {
+                        return 2 * schedule;
+                    }
+                    else {
+                        return 2 - 2 * schedule;
+                    }
+                }
+            };
+            function sleep(time){
+                uiut.nan();
+                setTimeout(function(){
+                    uiut.an();
+                }, time);
+            }
+            
+            uiut.at({
+                name: "element参数为Id时正常collapse，collapse后expand",
+                test_id: function(){
+                    baidu.fx.collapse('i_address', options);
+                    setTimeout(function(){
+                        baidu.fx.expand('i_address', options);
+                    }, 3000);
+                }
+            });
+            uiut.at({
+                name: "element参数为元素时正常collapse",
+                test_element: function(){
+                    baidu.fx.collapse(baidu.G('i_blockquote'), options);
+                    sleep(1000);
+                }
+            });
+            uiut.at({
+                name: "未给定options参数时正常collapse",
+                test_no_options: function(){
+                    baidu.fx.collapse('i_center');
+                    sleep(1000);
+                }
+            });
+            uiut.at({
+                name: "元素的display属性为none时，collapse正常",
+                test_display: function(){
+                    baidu.fx.collapse(baidu.G('i_pre'), options_di);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onbeforestart事件",
+                test_beforestart: function(){
+                    baidu.fx.collapse('i_dir', options_bs);
+                    t.is(baidu.G("r_bs").innerHTML, 'before start:1');
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onbeforeupdate事件",
+                test_beforeupdate: function(){
+                    baidu.fx.collapse('i_div', options_bu);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onafterupdate事件",
+                test_afterupdate: function(){
+                    baidu.fx.collapse('i_dl', options_au);
+                    //	t.is(baidu.G("r_au").innerHTML, 'before update:/\d/');
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onafterfinish事件",
+                test_afterfinish: function(){
+                    baidu.fx.collapse('i_fieldset', options_af);
+                    setTimeout(function(){
+                        t.is(baidu.G("r_af").innerHTML, 'after finish:1');
+                    }, 2200);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "元素的visibility属性为hidden时页面不会出错",
+                test_hidden: function(){
+                    baidu.fx.collapse('i_h1', options);
+                    sleep(1000);
+                }
+            });
+            uiut.at({
+                name: "options参数的duration属性的有效性",
+                test_duration: function(){
+                    baidu.fx.collapse('i_form', options_du);
+                    sleep(1000);
+                }
+            });
+            //trasition options
+            options_tr = {
+                'duration': 3000,
+                'transition': function(schedule){
+                    return schedule;
+                }
+            };
+            function timeCount(time){
+                var c = 0
+                for (i = 1; i <= time / 100; ++i) {
+                    setTimeout(function(){
+                        c = c + 1;
+                        baidu.G("i_time").innerHTML = c / 10 + "秒";
+                    }, 100 * i);
+                }
+            }
+            
+            uiut.at({
+                name: "options参数的transition属性的有效性",
+                test_transition_a: function(){
+                    //transition函数为y = 0
+                    var options_tr_a = options_tr;
+                    options_tr_a.transition = function(schedule){
+                        return 0;
+                    };
+                    
+                    baidu.fx.collapse('i_h2', options_tr_a);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_transition_b: function(){
+                    //transition函数为y = 1
+                    var options_tr_b = options_tr;
+                    options_tr_b.transition = function(schedule){
+                        return 1;
+                    };
+                    baidu.fx.collapse('i_h3', options_tr_b);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_transition_c: function(){
+                    //transition函数为y = x*x
+                    var options_tr_c = options_tr;
+                    options_tr_c.transition = function(schedule){
+                        return schedule * schedule;
+                    };
+                    baidu.fx.collapse('i_h4', options_tr_c);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_transition_d: function(){
+                    //transition函数为y = 2x-1
+                    var options_tr_d = options_tr;
+                    options_tr_d.transition = function(schedule){
+                        return 2 * schedule - 1;
+                    };
+                    baidu.fx.collapse('i_h5', options_tr_d);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_transition_e: function(){
+                    //transition函数为y = 2x
+                    var options_tr_e = options_tr;
+                    options_tr_e.transition = function(schedule){
+                        return 2 * schedule;
+                    };
+                    baidu.fx.collapse('i_h6', options_tr_e);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_transition_f: function(){
+                    //transition函数为y = x, 0 <= x <= 0.5
+                    //                y = 0, 0.5 < x <= 1
+                    var options_tr_f = options_tr;
+                    options_tr_f.transition = function(schedule){
+                        if (schedule <= 0.5) {
+                            return schedule;
+                        }
+                        else {
+                            return 0;
+                        }
+                    };
+                    baidu.fx.collapse('i_hr', options_tr_f);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_transition_g: function(){
+                    //transition函数为y = 0, 0 <= x <= 0.5
+                    //                 y = x, 0.5 < x <= 1
+                    var options_tr_g = options_tr;
+                    options_tr_g.transition = function(schedule){
+                        if (schedule <= 0.5) {
+                            return 0;
+                        }
+                        else {
+                            return schedule;
+                        }
+                    };
+                    baidu.fx.collapse('i_table', options_tr_g);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_transition_h: function(){
+                    //transition函数为y = 2x，0<= x <=0.5
+                    //                 y = 2-2x, 0.5 <= x <= 1
+                    var options_tr_h = options_tr;
+                    options_tr_h.transition = function(schedule){
+                        if (schedule <= 0.5) {
+                            return 2 * schedule;
+                        }
+                        else {
+                            return 2 - 2 * schedule;
+                        }
+                    };
+                    baidu.fx.collapse('i_menu', options_tr_h);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_transition_i: function(){
+                    //transition函数为 y = 1- x
+                    var options_tr_i = options_tr;
+                    options_tr_i.transition = function(schedule){
+                        return 1 - schedule;
+                    };
+                    baidu.fx.collapse('i_ul', options_tr_i);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_transition_j: function(){
+                    //transition函数为 y*y = x
+                    var options_tr_j = options_tr;
+                    options_tr_j.transition = function(schedule){
+                        return Math.sqrt(schedule);
+                    };
+                    baidu.fx.collapse('i_ol', options_tr_j);
+                    timeCount(3000);
+                    sleep(3000);
+                }
+            });
+            //event case options
+            var all_start = 1, all_update = 1, all_update_a = 1, all_finish = 1;
+            options_all = {
+                'duration': 3000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onbeforestart': function(){
+                    baidu.G("r_bs_a").innerHTML = "before start:" + all_start;
+                    ++all_start;
+                },
+                'onbeforeupdate': function(){
+                    baidu.G("r_bu_a").innerHTML = "before update:" + all_update;
+                    ++all_update;
+                },
+                'onafterupdate': function(){
+                    baidu.G("r_au_a").innerHTML = "after update:" + all_update_a;
+                    ++all_update_a;
+                },
+                'onafterfinish': function(){
+                    baidu.G("r_af_a").innerHTML = "after finish:" + all_finish;
+                    ++all_finish;
+                }
+            };
+            uiut.at({
+                name: "options参数含有所有属性",
+                test_all: function(){
+                    baidu.fx.collapse('i_p', options_all);
+                    sleep(3000);
+                }
+            });
+        </script>
+    </body>
+</html>

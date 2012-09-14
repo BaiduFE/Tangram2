@@ -32,7 +32,7 @@ test('display', function() {
 // 'display' : function() {
 // var testitem = baidu.g("div_stylefixer");
 // baidu.setStyle(testitem, "display", "inline-block");
-// var value = baidu.getStyle(testitem, "display");
+// var value = baidu.dom.getStyle(testitem, "display");
 // if (baidu.ie && baidu.ie < 8)
 // value_of(value).should_be("inline");
 // else

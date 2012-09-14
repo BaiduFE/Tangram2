@@ -1,0 +1,169 @@
+#header {
+	height:65px;
+	margin:0px;
+}
+#header #logo_img {
+	float: left;
+	display: block;
+}
+#header h1{
+	margin:8px 20px 0px 20px;
+	float: left;
+	display: block;
+}
+#header h3{
+	margin:10px 10px 0px 0px;
+	float: right;
+	display: block;
+}
+#wrapper .bar{
+	width:100%;
+	background-color:#D9E1F7;
+	height:20px;
+	float:right;
+}
+
+#TestList .notRun {
+	
+}
+#TestList .success {
+	background-color: #7CDEA7;
+}
+#TestList .fail {
+	background-color: #DE827B;
+}
+#TestList .unRunnable {
+	font-style:italic;
+	background-color: #ccc;
+}
+#TestList .disable {
+	
+}
+#TestList .testPage{
+	border-bottom: 1px solid #DEDEDE;
+	border-right: 1px solid #DEDEDE;
+	border-left: 1px solid #DEDEDE;
+	cursor:pointer;
+}
+#TestList .pageName{
+	height: 20px;
+}
+#TestList .test {
+	border-bottom: 1px solid #DEDEDE;
+	border-right: 1px solid #DEDEDE;
+	border-left: 1px solid #DEDEDE;
+	padding-left: 50px;
+	height: 35px;
+}
+#TestList img {
+	float:left;
+	padding: 5px;
+}
+#TestList .hideTests {
+	display:none;
+}
+#TestList .showTests {
+	display:block;
+}
+
+#LogList .assert_error{
+	color: red;
+}
+#LogList .assert_error .stackInfo{
+	padding-left: 15px;
+	color: #DE827B;
+}
+.hideDiv{
+	display: none;
+}
+#LogList {
+	height: 95%;
+	width: 100%;
+	float:left;
+	clear: left;
+	overflow-y:scroll;
+}
+
+#uiFrame {
+	height:95%;
+	width: 100%;
+	float:left;
+	clear:left;
+	overflow-y:scroll;
+}
+#aside #showBar {
+	background-color:#D9E1F7;
+	height: 42px;
+}
+#aside .switcher {
+	float:left;
+	width:50px;
+	text-align:center;
+	cursor:pointer;
+	margin-left: 10px;
+}
+#aside .inactive {
+	background-color: #999999;
+	border-top: 1px solid #FFFFFF;
+	border-left: 1px solid #FFFFFF;
+	border-right: 1px solid #FFFFFF;
+	height: 19px;
+	color:#FFFFFF;
+	margin-top:22px;
+}
+#aside .active {
+	height: 20px;
+	background-color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+	color: #999999;
+	font-weight: bolder;
+	margin-top:22px;
+	
+}
+#content #TestList {
+	overflow-y:scroll;
+	height: 95%;
+}
+#content #uiControl{
+	height:42px;
+	background-color: #CCCCCC;
+}
+#content #uiControl #testurl{
+	height:20px;
+	background-color:#D9E1F7;
+}
+#content #uiControl #testControl{
+}
+#testControl input {
+	background-color: white;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: 1px solid black;
+	height: 20px;
+	cursor: pointer;
+}
+#testControl .runAll{
+	width: 32px;
+	background-image: url("../img/all.png");
+}
+#testControl .stop {
+	width: 32px;
+	background-image: url("../img/stop.png");
+}
+#testControl .runOne{
+	width: 32px;
+	background-image: url("../img/step.png");
+}
+#testControl .runOneEnd {
+	width: 32px;
+	background-image: url("../img/step_disabled.png");
+}
+
+#testControl .pause{
+	width: 32px;
+	background-image: url("../img/pause.png");
+}
+#testControl .resume{
+	width: 32px;
+	background-image: url("../img/continue.png");
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>UIUT-Runner</title>
+        <link type="text/css" rel="stylesheet" href="./app/css/base.css">
+        <link type="text/css" rel="stylesheet" href="./app/css/framework.css">
+        <link type="text/css" rel="stylesheet" href="./app/css/uiut_style.css">
+        <script type="text/javascript" language="JavaScript" src="./uiut.js">
+        </script>
+    </head>	
+    <body>
+        <!--[if IE 7]><![endif]--><!--[if IE 6]><![endif]-->
+		
+		
+		
+        <div id="wrapper">
+            <div id="header">
+                <img id="logo_img" border="0" width="137" height="46" src="./app/img/logo.gif"><h1>UI-Unit Test</h1>
+                <h3>V0.7.5</h3>
+                <div class="bar"></div>
+            </div>
+            <div id="container" class="clearfix">
+                <div id="content">
+                	<div id="uiControl">
+                		<div id="testurl"></div>
+						<div id="testControl">
+							Test Control:
+							<input id="runAll" class="runAll" accesskey="r" title="Run All Test" type="button"></input>
+							<input id="runOne" class="runOne" accesskey="o" title="Run One Test" type="button"></input>
+							<input id="pause" class="pause" accesskey="p" title="Pause Run Test" type="button"></input>
+						</div>
+						<div id="testListControl">&nbsp;</div>
+                	</div>
+                    <div id="TestList">
+                    </div>
+                </div>
+                <div id="aside">
+	            	<div id="showBar">
+	            		<div id="showLog" class="switcher active">Log</div>
+	            		<div id="showFrame" class="switcher inactive">UI</div>
+	            	</div>
+                    <div id="LogList" class="">
+                    </div>
+					<iframe  class="hideDiv" id='uiFrame' width='100%' height='100%'></iframe>
+                </div>
+            </div>
+        </div>
+    </body>
+	<script type="text/javascript">
+        //uiut.Utils.addEventHandler(window,"load",function(){
+		document.getElementById("uiFrame").src = "";
+        var manager = uiut.UIUTTestManager.getInstance();
+        manager.ini();
+        //})
+    </script>
+</html>
