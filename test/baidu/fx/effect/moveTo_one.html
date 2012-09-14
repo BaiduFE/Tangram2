@@ -446,11 +446,11 @@
                 test_element: function(){
                     baidu.fx.moveTo(baidu.G('i_blockquote'), 600, 50, options);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.getStyle('i_blockquote', 'left') +
+                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.dom.getStyle('i_blockquote', 'left') +
                         ", 50 == " +
-                        baidu.getStyle('i_blockquote', 'top');
-                        t.is('600px', baidu.getStyle('i_blockquote', 'left'));
-                        t.is('50px', baidu.getStyle('i_blockquote', 'top'));
+                        baidu.dom.getStyle('i_blockquote', 'top');
+                        t.is('600px', baidu.dom.getStyle('i_blockquote', 'left'));
+                        t.is('50px', baidu.dom.getStyle('i_blockquote', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -460,11 +460,11 @@
                 test_no_options: function(){
                     baidu.fx.moveTo('i_center', 500, 120);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.getStyle('i_center', 'left') +
+                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.dom.getStyle('i_center', 'left') +
                         ", 120 == " +
-                        baidu.getStyle('i_center', 'top');
-                        t.is('500px', baidu.getStyle('i_center', 'left'));
-                        t.is('120px', baidu.getStyle('i_center', 'top'));
+                        baidu.dom.getStyle('i_center', 'top');
+                        t.is('500px', baidu.dom.getStyle('i_center', 'left'));
+                        t.is('120px', baidu.dom.getStyle('i_center', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -476,11 +476,11 @@
                     t.is(baidu.G("r_bs").innerHTML, 'before start:1');
                     setTimeout(function(){
                         baidu.G("r_bs").innerHTML = "";
-                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_dir', 'left') +
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.dom.getStyle('i_dir', 'left') +
                         ", 155 == " +
-                        baidu.getStyle('i_dir', 'top');
-                        t.is('400px', baidu.getStyle('i_dir', 'left'));
-                        t.is('155px', baidu.getStyle('i_dir', 'top'));
+                        baidu.dom.getStyle('i_dir', 'top');
+                        t.is('400px', baidu.dom.getStyle('i_dir', 'left'));
+                        t.is('155px', baidu.dom.getStyle('i_dir', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -490,11 +490,11 @@
                 test_beforeupdate: function(){
                     baidu.fx.moveTo('i_div', 300, 205, options_bu);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.getStyle('i_div', 'left') +
+                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.dom.getStyle('i_div', 'left') +
                         ", 205 == " +
-                        baidu.getStyle('i_div', 'top');
-                        t.is('300px', baidu.getStyle('i_div', 'left'));
-                        t.is('205px', baidu.getStyle('i_div', 'top'));
+                        baidu.dom.getStyle('i_div', 'top');
+                        t.is('300px', baidu.dom.getStyle('i_div', 'left'));
+                        t.is('205px', baidu.dom.getStyle('i_div', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -504,11 +504,11 @@
                 test_afterupdate: function(){
                     baidu.fx.moveTo('i_dl', 450, 205, options_au);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "450 ==" + baidu.getStyle('i_dl', 'left') +
+                        baidu.G("r_af_a").innerHTML = "450 ==" + baidu.dom.getStyle('i_dl', 'left') +
                         ", 205 == " +
-                        baidu.getStyle('i_dl', 'top');
-                        t.is('450px', baidu.getStyle('i_dl', 'left'));
-                        t.is('205px', baidu.getStyle('i_dl', 'top'));
+                        baidu.dom.getStyle('i_dl', 'top');
+                        t.is('450px', baidu.dom.getStyle('i_dl', 'left'));
+                        t.is('205px', baidu.dom.getStyle('i_dl', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -519,11 +519,11 @@
                     baidu.fx.moveTo('i_fieldset', 400, 250, options_af);
                     setTimeout(function(){
                         t.is(baidu.G("r_af").innerHTML, 'after finish:1');
-                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_fieldset', 'left') +
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.dom.getStyle('i_fieldset', 'left') +
                         ", 250 == " +
-                        baidu.getStyle('i_fieldset', 'top');
-                        t.is('400px', baidu.getStyle('i_fieldset', 'left'));
-                        t.is('250px', baidu.getStyle('i_fieldset', 'top'));
+                        baidu.dom.getStyle('i_fieldset', 'top');
+                        t.is('400px', baidu.dom.getStyle('i_fieldset', 'left'));
+                        t.is('250px', baidu.dom.getStyle('i_fieldset', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -540,46 +540,46 @@
                     baidu.fx.moveTo(baidu.G('i_h1_7'), 400, 250, options);
                     baidu.fx.moveTo(baidu.G('i_h1_8'), 300, 300, options);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "200 ==" + baidu.getStyle('i_h1_1', 'left') +
+                        baidu.G("r_af_a").innerHTML = "200 ==" + baidu.dom.getStyle('i_h1_1', 'left') +
                         ", 450 == " +
-                        baidu.getStyle('i_h1_1', 'top');
-                        t.is('200px', baidu.getStyle('i_h1_1', 'left'));
-                        t.is('450px', baidu.getStyle('i_h1_1', 'top'));
-                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.getStyle('i_h1_2', 'left') +
+                        baidu.dom.getStyle('i_h1_1', 'top');
+                        t.is('200px', baidu.dom.getStyle('i_h1_1', 'left'));
+                        t.is('450px', baidu.dom.getStyle('i_h1_1', 'top'));
+                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.dom.getStyle('i_h1_2', 'left') +
                         ", 500 == " +
-                        baidu.getStyle('i_h1_2', 'top');
-                        t.is('300px', baidu.getStyle('i_h1_2', 'left'));
-                        t.is('500px', baidu.getStyle('i_h1_2', 'top'));
-                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_h1_3', 'left') +
+                        baidu.dom.getStyle('i_h1_2', 'top');
+                        t.is('300px', baidu.dom.getStyle('i_h1_2', 'left'));
+                        t.is('500px', baidu.dom.getStyle('i_h1_2', 'top'));
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.dom.getStyle('i_h1_3', 'left') +
                         ", 650 == " +
-                        baidu.getStyle('i_h1_3', 'top');
-                        t.is('400px', baidu.getStyle('i_h1_3', 'left'));
-                        t.is('650px', baidu.getStyle('i_h1_3', 'top'));
-                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.getStyle('i_h1_4', 'left') +
+                        baidu.dom.getStyle('i_h1_3', 'top');
+                        t.is('400px', baidu.dom.getStyle('i_h1_3', 'left'));
+                        t.is('650px', baidu.dom.getStyle('i_h1_3', 'top'));
+                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.dom.getStyle('i_h1_4', 'left') +
                         ", 500 == " +
-                        baidu.getStyle('i_h1_4', 'top');
-                        t.is('500px', baidu.getStyle('i_h1_4', 'left'));
-                        t.is('500px', baidu.getStyle('i_h1_4', 'top'));
-                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.getStyle('i_h1_5', 'left') +
+                        baidu.dom.getStyle('i_h1_4', 'top');
+                        t.is('500px', baidu.dom.getStyle('i_h1_4', 'left'));
+                        t.is('500px', baidu.dom.getStyle('i_h1_4', 'top'));
+                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.dom.getStyle('i_h1_5', 'left') +
                         ", 450 == " +
-                        baidu.getStyle('i_h1_5', 'top');
-                        t.is('600px', baidu.getStyle('i_h1_5', 'left'));
-                        t.is('450px', baidu.getStyle('i_h1_5', 'top'));
-                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.getStyle('i_h1_6', 'left') +
+                        baidu.dom.getStyle('i_h1_5', 'top');
+                        t.is('600px', baidu.dom.getStyle('i_h1_5', 'left'));
+                        t.is('450px', baidu.dom.getStyle('i_h1_5', 'top'));
+                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.dom.getStyle('i_h1_6', 'left') +
                         ", 300 == " +
-                        baidu.getStyle('i_h1_6', 'top');
-                        t.is('500px', baidu.getStyle('i_h1_6', 'left'));
-                        t.is('300px', baidu.getStyle('i_h1_6', 'top'));
-                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_h1_7', 'left') +
+                        baidu.dom.getStyle('i_h1_6', 'top');
+                        t.is('500px', baidu.dom.getStyle('i_h1_6', 'left'));
+                        t.is('300px', baidu.dom.getStyle('i_h1_6', 'top'));
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.dom.getStyle('i_h1_7', 'left') +
                         ", 250 == " +
-                        baidu.getStyle('i_h1_7', 'top');
-                        t.is('400px', baidu.getStyle('i_h1_7', 'left'));
-                        t.is('250px', baidu.getStyle('i_h1_7', 'top'));
-                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.getStyle('i_h1_8', 'left') +
+                        baidu.dom.getStyle('i_h1_7', 'top');
+                        t.is('400px', baidu.dom.getStyle('i_h1_7', 'left'));
+                        t.is('250px', baidu.dom.getStyle('i_h1_7', 'top'));
+                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.dom.getStyle('i_h1_8', 'left') +
                         ", 300 == " +
-                        baidu.getStyle('i_h1_8', 'top');
-                        t.is('300px', baidu.getStyle('i_h1_8', 'left'));
-                        t.is('300px', baidu.getStyle('i_h1_8', 'top'));
+                        baidu.dom.getStyle('i_h1_8', 'top');
+                        t.is('300px', baidu.dom.getStyle('i_h1_8', 'left'));
+                        t.is('300px', baidu.dom.getStyle('i_h1_8', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -589,11 +589,11 @@
                 test_not_xy: function(){
                     baidu.fx.moveTo('i_form');
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "0 ==" + baidu.getStyle('i_form', 'left') +
+                        baidu.G("r_af_a").innerHTML = "0 ==" + baidu.dom.getStyle('i_form', 'left') +
                         ", 555 == " +
-                        baidu.getStyle('i_form', 'top');
-                        t.is('0px', baidu.getStyle('i_form', 'left'));
-                        t.is('555px', baidu.getStyle('i_form', 'top'));
+                        baidu.dom.getStyle('i_form', 'top');
+                        t.is('0px', baidu.dom.getStyle('i_form', 'left'));
+                        t.is('555px', baidu.dom.getStyle('i_form', 'top'));
                     }, 900);
                     sleep(1000);
                 }
@@ -603,11 +603,11 @@
                 test_not_xy: function(){
                     baidu.fx.moveTo('i_pre', 400, 555, options_du);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_pre', 'left') +
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.dom.getStyle('i_pre', 'left') +
                         ", 555 == " +
-                        baidu.getStyle('i_pre', 'top');
-                        t.is('400px', baidu.getStyle('i_pre', 'left'));
-                        t.is('555px', baidu.getStyle('i_pre', 'top'));
+                        baidu.dom.getStyle('i_pre', 'top');
+                        t.is('400px', baidu.dom.getStyle('i_pre', 'left'));
+                        t.is('555px', baidu.dom.getStyle('i_pre', 'top'));
                     }, 900);
                     sleep(800);
                 }
@@ -630,11 +630,11 @@
                     baidu.fx.moveTo('i_h2', 50, 860, options_tr_a);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "50 ==" + baidu.getStyle('i_h2', 'left') +
+                        baidu.G("r_af_a").innerHTML = "50 ==" + baidu.dom.getStyle('i_h2', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_h2', 'top');
-                        t.is('50px', baidu.getStyle('i_h2', 'left'));
-                        t.is('860px', baidu.getStyle('i_h2', 'top'));
+                        baidu.dom.getStyle('i_h2', 'top');
+                        t.is('50px', baidu.dom.getStyle('i_h2', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_h2', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -647,11 +647,11 @@
                     baidu.fx.moveTo('i_h3', 100, 860, options_tr_b);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "100 ==" + baidu.getStyle('i_h3', 'left') +
+                        baidu.G("r_af_a").innerHTML = "100 ==" + baidu.dom.getStyle('i_h3', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_h3', 'top');
-                        t.is('100px', baidu.getStyle('i_h3', 'left'));
-                        t.is('860px', baidu.getStyle('i_h3', 'top'));
+                        baidu.dom.getStyle('i_h3', 'top');
+                        t.is('100px', baidu.dom.getStyle('i_h3', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_h3', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -664,11 +664,11 @@
                     baidu.fx.moveTo('i_h4', 150, 860, options_tr_c);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "150 ==" + baidu.getStyle('i_h4', 'left') +
+                        baidu.G("r_af_a").innerHTML = "150 ==" + baidu.dom.getStyle('i_h4', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_h4', 'top');
-                        t.is('150px', baidu.getStyle('i_h4', 'left'));
-                        t.is('860px', baidu.getStyle('i_h4', 'top'));
+                        baidu.dom.getStyle('i_h4', 'top');
+                        t.is('150px', baidu.dom.getStyle('i_h4', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_h4', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -681,11 +681,11 @@
                     baidu.fx.moveTo('i_h5', 200, 460, options_tr_d);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "200 ==" + baidu.getStyle('i_h5', 'left') +
+                        baidu.G("r_af_a").innerHTML = "200 ==" + baidu.dom.getStyle('i_h5', 'left') +
                         ", 460 == " +
-                        baidu.getStyle('i_h5', 'top');
-                        t.is('200px', baidu.getStyle('i_h5', 'left'));
-                        t.is('460px', baidu.getStyle('i_h5', 'top'));
+                        baidu.dom.getStyle('i_h5', 'top');
+                        t.is('200px', baidu.dom.getStyle('i_h5', 'left'));
+                        t.is('460px', baidu.dom.getStyle('i_h5', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -698,11 +698,11 @@
                     baidu.fx.moveTo('i_h6', 250, 460, options_tr_e);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "250 ==" + baidu.getStyle('i_h6', 'left') +
+                        baidu.G("r_af_a").innerHTML = "250 ==" + baidu.dom.getStyle('i_h6', 'left') +
                         ", 460 == " +
-                        baidu.getStyle('i_h6', 'top');
-                        t.is('250px', baidu.getStyle('i_h6', 'left'));
-                        t.is('460px', baidu.getStyle('i_h6', 'top'));
+                        baidu.dom.getStyle('i_h6', 'top');
+                        t.is('250px', baidu.dom.getStyle('i_h6', 'left'));
+                        t.is('460px', baidu.dom.getStyle('i_h6', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -721,11 +721,11 @@
                     baidu.fx.moveTo('i_hr', 300, 860, options_tr_f);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.getStyle('i_hr', 'left') +
+                        baidu.G("r_af_a").innerHTML = "300 ==" + baidu.dom.getStyle('i_hr', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_hr', 'top');
-                        t.is('300px', baidu.getStyle('i_hr', 'left'));
-                        t.is('860px', baidu.getStyle('i_hr', 'top'));
+                        baidu.dom.getStyle('i_hr', 'top');
+                        t.is('300px', baidu.dom.getStyle('i_hr', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_hr', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -744,11 +744,11 @@
                     baidu.fx.moveTo('i_menu', 350, 860, options_tr_g);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "350 ==" + baidu.getStyle('i_menu', 'left') +
+                        baidu.G("r_af_a").innerHTML = "350 ==" + baidu.dom.getStyle('i_menu', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_menu', 'top');
-                        t.is('350px', baidu.getStyle('i_menu', 'left'));
-                        t.is('860px', baidu.getStyle('i_menu', 'top'));
+                        baidu.dom.getStyle('i_menu', 'top');
+                        t.is('350px', baidu.dom.getStyle('i_menu', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_menu', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -767,11 +767,11 @@
                     baidu.fx.moveTo('i_ol', 400, 860, options_tr_h);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_ol', 'left') +
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.dom.getStyle('i_ol', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_ol', 'top');
-                        t.is('400px', baidu.getStyle('i_ol', 'left'));
-                        t.is('860px', baidu.getStyle('i_ol', 'top'));
+                        baidu.dom.getStyle('i_ol', 'top');
+                        t.is('400px', baidu.dom.getStyle('i_ol', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_ol', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -784,11 +784,11 @@
                     baidu.fx.moveTo('i_table', 450, 860, options_tr_i);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "450 ==" + baidu.getStyle('i_table', 'left') +
+                        baidu.G("r_af_a").innerHTML = "450 ==" + baidu.dom.getStyle('i_table', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_table', 'top');
-                        t.is('450px', baidu.getStyle('i_table', 'left'));
-                        t.is('860px', baidu.getStyle('i_table', 'top'));
+                        baidu.dom.getStyle('i_table', 'top');
+                        t.is('450px', baidu.dom.getStyle('i_table', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_table', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -801,11 +801,11 @@
                     baidu.fx.moveTo('i_ul', 500, 860, options_tr_j);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.getStyle('i_ul', 'left') +
+                        baidu.G("r_af_a").innerHTML = "500 ==" + baidu.dom.getStyle('i_ul', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_ul', 'top');
-                        t.is('500px', baidu.getStyle('i_ul', 'left'));
-                        t.is('860px', baidu.getStyle('i_ul', 'top'));
+                        baidu.dom.getStyle('i_ul', 'top');
+                        t.is('500px', baidu.dom.getStyle('i_ul', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_ul', 'top'));
                     }, 3100);
                     sleep(3000);
                 }
@@ -840,11 +840,11 @@
                     baidu.fx.moveTo('i_p', 600, 950, options_all);
                     timeCount(2000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.getStyle('i_p', 'left') +
+                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.dom.getStyle('i_p', 'left') +
                         ", 950 == " +
-                        baidu.getStyle('i_p', 'top');
-                        t.is('600px', baidu.getStyle('i_p', 'left'));
-                        t.is('950px', baidu.getStyle('i_p', 'top'));
+                        baidu.dom.getStyle('i_p', 'top');
+                        t.is('600px', baidu.dom.getStyle('i_p', 'left'));
+                        t.is('950px', baidu.dom.getStyle('i_p', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -854,11 +854,11 @@
                 test_id: function(){
                     baidu.fx.moveTo('i_address', 400, 0, options);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.getStyle('i_address', 'left') +
+                        baidu.G("r_af_a").innerHTML = "400 ==" + baidu.dom.getStyle('i_address', 'left') +
                         ", 0 == " +
-                        baidu.getStyle('i_address', 'top');
-                        t.is('400px', baidu.getStyle('i_address', 'left'));
-                        t.is('0px', baidu.getStyle('i_address', 'top'));
+                        baidu.dom.getStyle('i_address', 'top');
+                        t.is('400px', baidu.dom.getStyle('i_address', 'left'));
+                        t.is('0px', baidu.dom.getStyle('i_address', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -868,11 +868,11 @@
                 test_id: function(){
                     baidu.fx.moveTo('i_address', 0, 400, options);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "0 ==" + baidu.getStyle('i_address', 'left') +
+                        baidu.G("r_af_a").innerHTML = "0 ==" + baidu.dom.getStyle('i_address', 'left') +
                         ", 400 == " +
-                        baidu.getStyle('i_address', 'top');
-                        t.is('0px', baidu.getStyle('i_address', 'left'));
-                        t.is('400px', baidu.getStyle('i_address', 'top'));
+                        baidu.dom.getStyle('i_address', 'top');
+                        t.is('0px', baidu.dom.getStyle('i_address', 'left'));
+                        t.is('400px', baidu.dom.getStyle('i_address', 'top'));
                     }, 2100);
                     sleep(2000);
                 }

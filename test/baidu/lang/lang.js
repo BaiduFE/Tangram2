@@ -1,19 +1,5 @@
 module("baidu.lang.lang");
 
-
-//加载快捷方式
-test('prepareTest',function(){
-    expect(1);
-    stop();
-
-    //加载快捷方式
-    ua.importsrc("baidu.short", function(){
-        start();
-        ok(true,'ok');
-    }, "baidu.lang.lang", "baidu.dom.setAttr");
-});
-
-
 baidu.lang.Class.prototype.owner = 'baidu';
 var Device = function(){
     baidu.lang.Class.call(this);

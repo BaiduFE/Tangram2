@@ -422,12 +422,12 @@
                     baidu.fx.moveBy('i_img', 500, 0, options);
                     baidu.fx.moveBy('i_sup', 550, 0, options);
                     setTimeout(function(){
-                        t.is('400px', baidu.getStyle('i_a', 'left'));
-                        t.is('0px', baidu.getStyle('i_a', 'top'));
-                        t.is('500px', baidu.getStyle('i_img', 'left'));
-                        t.is('0px', baidu.getStyle('i_img', 'top'));
-                        t.is('550px', baidu.getStyle('i_sup', 'left'));
-                        t.is('0px', baidu.getStyle('i_sup', 'top'));
+                        t.is('400px', baidu.dom.getStyle('i_a', 'left'));
+                        t.is('0px', baidu.dom.getStyle('i_a', 'top'));
+                        t.is('500px', baidu.dom.getStyle('i_img', 'left'));
+                        t.is('0px', baidu.dom.getStyle('i_img', 'top'));
+                        t.is('550px', baidu.dom.getStyle('i_sup', 'left'));
+                        t.is('0px', baidu.dom.getStyle('i_sup', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -438,8 +438,8 @@
                 test_no_options: function(){
                     baidu.fx.moveBy('i_acronym', 385, 15);
                     setTimeout(function(){
-                        t.is('385px', baidu.getStyle('i_acronym', 'left'));
-                        t.is('120px', baidu.getStyle('i_acronym', 'top'));
+                        t.is('385px', baidu.dom.getStyle('i_acronym', 'left'));
+                        t.is('120px', baidu.dom.getStyle('i_acronym', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -451,11 +451,11 @@
                     t.is(baidu.G("r_bs").innerHTML, 'before start:1');
                     setTimeout(function(){
                         baidu.G("r_bs").innerHTML = "";
-                        baidu.G("r_af_a").innerHTML = "295px ==" + baidu.getStyle('i_span', 'left') +
+                        baidu.G("r_af_a").innerHTML = "295px ==" + baidu.dom.getStyle('i_span', 'left') +
                         ", 155px == " +
-                        baidu.getStyle('i_span', 'top');
-                        t.is('295px', baidu.getStyle('i_span', 'left'));
-                        t.is('155px', baidu.getStyle('i_span', 'top'));
+                        baidu.dom.getStyle('i_span', 'top');
+                        t.is('295px', baidu.dom.getStyle('i_span', 'left'));
+                        t.is('155px', baidu.dom.getStyle('i_span', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -465,8 +465,8 @@
                 test_beforeupdate: function(){
                     baidu.fx.moveBy('i_cite', 300, -5, options_bu);
                     setTimeout(function(){
-                        t.is('300px', baidu.getStyle('i_cite', 'left'));
-                        t.is('205px', baidu.getStyle('i_cite', 'top'));
+                        t.is('300px', baidu.dom.getStyle('i_cite', 'left'));
+                        t.is('205px', baidu.dom.getStyle('i_cite', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -476,8 +476,8 @@
                 test_afterupdate: function(){
                     baidu.fx.moveBy('i_code', 345, -5, options_au);
                     setTimeout(function(){
-                        t.is('450px', baidu.getStyle('i_code', 'left'));
-                        t.is('205px', baidu.getStyle('i_code', 'top'));
+                        t.is('450px', baidu.dom.getStyle('i_code', 'left'));
+                        t.is('205px', baidu.dom.getStyle('i_code', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -488,8 +488,8 @@
                     baidu.fx.moveBy('i_textarea', 400, -65, options_af);
                     setTimeout(function(){
                         t.is(baidu.G("r_af").innerHTML, 'after finish:1');
-                        t.is('400px', baidu.getStyle('i_textarea', 'left'));
-                        t.is('250px', baidu.getStyle('i_textarea', 'top'));
+                        t.is('400px', baidu.dom.getStyle('i_textarea', 'left'));
+                        t.is('250px', baidu.dom.getStyle('i_textarea', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -506,22 +506,22 @@
                     baidu.fx.moveBy(baidu.G('i_dfn_7'), 0, -200, options);
                     baidu.fx.moveBy(baidu.G('i_dfn_8'), -100, -150, options);
                     setTimeout(function(){
-                        t.is('200px', baidu.getStyle('i_dfn_1', 'left'));
-                        t.is('450px', baidu.getStyle('i_dfn_1', 'top'));
-                        t.is('300px', baidu.getStyle('i_dfn_2', 'left'));
-                        t.is('500px', baidu.getStyle('i_dfn_2', 'top'));
-                        t.is('400px', baidu.getStyle('i_dfn_3', 'left'));
-                        t.is('650px', baidu.getStyle('i_dfn_3', 'top'));
-                        t.is('500px', baidu.getStyle('i_dfn_4', 'left'));
-                        t.is('500px', baidu.getStyle('i_dfn_4', 'top'));
-                        t.is('600px', baidu.getStyle('i_dfn_5', 'left'));
-                        t.is('450px', baidu.getStyle('i_dfn_5', 'top'));
-                        t.is('500px', baidu.getStyle('i_dfn_6', 'left'));
-                        t.is('300px', baidu.getStyle('i_dfn_6', 'top'));
-                        t.is('400px', baidu.getStyle('i_dfn_7', 'left'));
-                        t.is('250px', baidu.getStyle('i_dfn_7', 'top'));
-                        t.is('300px', baidu.getStyle('i_dfn_8', 'left'));
-                        t.is('300px', baidu.getStyle('i_dfn_8', 'top'));
+                        t.is('200px', baidu.dom.getStyle('i_dfn_1', 'left'));
+                        t.is('450px', baidu.dom.getStyle('i_dfn_1', 'top'));
+                        t.is('300px', baidu.dom.getStyle('i_dfn_2', 'left'));
+                        t.is('500px', baidu.dom.getStyle('i_dfn_2', 'top'));
+                        t.is('400px', baidu.dom.getStyle('i_dfn_3', 'left'));
+                        t.is('650px', baidu.dom.getStyle('i_dfn_3', 'top'));
+                        t.is('500px', baidu.dom.getStyle('i_dfn_4', 'left'));
+                        t.is('500px', baidu.dom.getStyle('i_dfn_4', 'top'));
+                        t.is('600px', baidu.dom.getStyle('i_dfn_5', 'left'));
+                        t.is('450px', baidu.dom.getStyle('i_dfn_5', 'top'));
+                        t.is('500px', baidu.dom.getStyle('i_dfn_6', 'left'));
+                        t.is('300px', baidu.dom.getStyle('i_dfn_6', 'top'));
+                        t.is('400px', baidu.dom.getStyle('i_dfn_7', 'left'));
+                        t.is('250px', baidu.dom.getStyle('i_dfn_7', 'top'));
+                        t.is('300px', baidu.dom.getStyle('i_dfn_8', 'left'));
+                        t.is('300px', baidu.dom.getStyle('i_dfn_8', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -531,8 +531,8 @@
                 test_not_xy: function(){
                     baidu.fx.moveBy('i_sub');
                     setTimeout(function(){
-                        t.is('0px', baidu.getStyle('i_sub', 'left'));
-                        t.is('555px', baidu.getStyle('i_sub', 'top'));
+                        t.is('0px', baidu.dom.getStyle('i_sub', 'left'));
+                        t.is('555px', baidu.dom.getStyle('i_sub', 'top'));
                     }, 900);
                     sleep(1000);
                 }
@@ -542,8 +542,8 @@
                 test_not_xy: function(){
                     baidu.fx.moveBy('i_em', 200, 0, options_du);
                     setTimeout(function(){
-                        t.is('400px', baidu.getStyle('i_em', 'left'));
-                        t.is('555px', baidu.getStyle('i_em', 'top'));
+                        t.is('400px', baidu.dom.getStyle('i_em', 'left'));
+                        t.is('555px', baidu.dom.getStyle('i_em', 'top'));
                     }, 900);
                     sleep(800);
                 }
@@ -566,11 +566,11 @@
                     baidu.fx.moveBy('i_i', 50, 110, options_tr_a);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "50px ==" + baidu.getStyle('i_i', 'left') +
+                        baidu.G("r_af_a").innerHTML = "50px ==" + baidu.dom.getStyle('i_i', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_i', 'top');
-                        t.is('50px', baidu.getStyle('i_i', 'left'));
-                        t.is('860px', baidu.getStyle('i_i', 'top'));
+                        baidu.dom.getStyle('i_i', 'top');
+                        t.is('50px', baidu.dom.getStyle('i_i', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_i', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -583,11 +583,11 @@
                     baidu.fx.moveBy('i_checkbox', 50, 110, options_tr_b);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "100px ==" + baidu.getStyle('i_checkbox', 'left') +
+                        baidu.G("r_af_a").innerHTML = "100px ==" + baidu.dom.getStyle('i_checkbox', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_checkbox', 'top');
-                        t.is('100px', baidu.getStyle('i_checkbox', 'left'));
-                        t.is('860px', baidu.getStyle('i_checkbox', 'top'));
+                        baidu.dom.getStyle('i_checkbox', 'top');
+                        t.is('100px', baidu.dom.getStyle('i_checkbox', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_checkbox', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -600,11 +600,11 @@
                     baidu.fx.moveBy('i_text', 50, 110, options_tr_c);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "150 ==" + baidu.getStyle('i_text', 'left') +
+                        baidu.G("r_af_a").innerHTML = "150 ==" + baidu.dom.getStyle('i_text', 'left') +
                         ", 860 == " +
-                        baidu.getStyle('i_text', 'top');
-                        t.is('150px', baidu.getStyle('i_text', 'left'));
-                        t.is('860px', baidu.getStyle('i_text', 'top'));
+                        baidu.dom.getStyle('i_text', 'top');
+                        t.is('150px', baidu.dom.getStyle('i_text', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_text', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -617,11 +617,11 @@
                     baidu.fx.moveBy('i_kbd', 200, 460, options_tr_d);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "200 ==" + baidu.getStyle('i_kbd', 'left') +
+                        baidu.G("r_af_a").innerHTML = "200 ==" + baidu.dom.getStyle('i_kbd', 'left') +
                         ", 460 == " +
-                        baidu.getStyle('i_kbd', 'top');
-                        t.is('200px', baidu.getStyle('i_kbd', 'left'));
-                        t.is('460px', baidu.getStyle('i_kbd', 'top'));
+                        baidu.dom.getStyle('i_kbd', 'top');
+                        t.is('200px', baidu.dom.getStyle('i_kbd', 'left'));
+                        t.is('460px', baidu.dom.getStyle('i_kbd', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -634,13 +634,13 @@
                     baidu.fx.moveBy('i_label', 50, -290, options_tr_e);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "250px ==" + baidu.getStyle('i_label', 'left') +
+                        baidu.G("r_af_a").innerHTML = "250px ==" + baidu.dom.getStyle('i_label', 'left') +
                         ", 460 == " +
-                        baidu.getStyle('i_label', 'top');
+                        baidu.dom.getStyle('i_label', 'top');
 						if (baidu.ie != 6) {
 							//由于IE6.0不支持fixed，故当作static来处理，position的结果会有误
-							t.is('250px', baidu.getStyle('i_label', 'left'));
-							t.is('460px', baidu.getStyle('i_label', 'top'));
+							t.is('250px', baidu.dom.getStyle('i_label', 'left'));
+							t.is('460px', baidu.dom.getStyle('i_label', 'top'));
 						}
                     }, 3100);
                     sleep(3000);
@@ -660,11 +660,11 @@
                     baidu.fx.moveBy('i_q', 50, 110, options_tr_f);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "300px ==" + baidu.getStyle('i_q', 'left') +
+                        baidu.G("r_af_a").innerHTML = "300px ==" + baidu.dom.getStyle('i_q', 'left') +
                         ", 860px == " +
-                        baidu.getStyle('i_q', 'top');
-                        t.is('300px', baidu.getStyle('i_q', 'left'));
-                        t.is('860px', baidu.getStyle('i_q', 'top'));
+                        baidu.dom.getStyle('i_q', 'top');
+                        t.is('300px', baidu.dom.getStyle('i_q', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_q', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -683,11 +683,11 @@
                     baidu.fx.moveBy('i_samp', 50, 110, options_tr_g);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "350px ==" + baidu.getStyle('i_samp', 'left') +
+                        baidu.G("r_af_a").innerHTML = "350px ==" + baidu.dom.getStyle('i_samp', 'left') +
                         ", 860px == " +
-                        baidu.getStyle('i_samp', 'top');
-                        t.is('350px', baidu.getStyle('i_samp', 'left'));
-                        t.is('860px', baidu.getStyle('i_samp', 'top'));
+                        baidu.dom.getStyle('i_samp', 'top');
+                        t.is('350px', baidu.dom.getStyle('i_samp', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_samp', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -706,11 +706,11 @@
                     baidu.fx.moveBy('i_radio', 50, 110, options_tr_h);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "400px ==" + baidu.getStyle('i_radio', 'left') +
+                        baidu.G("r_af_a").innerHTML = "400px ==" + baidu.dom.getStyle('i_radio', 'left') +
                         ", 860px == " +
-                        baidu.getStyle('i_radio', 'top');
-                        t.is('400px', baidu.getStyle('i_radio', 'left'));
-                        t.is('860px', baidu.getStyle('i_radio', 'top'));
+                        baidu.dom.getStyle('i_radio', 'top');
+                        t.is('400px', baidu.dom.getStyle('i_radio', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_radio', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -723,11 +723,11 @@
                     baidu.fx.moveBy('i_b', 50, 110, options_tr_i);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "450px ==" + baidu.getStyle('i_b', 'left') +
+                        baidu.G("r_af_a").innerHTML = "450px ==" + baidu.dom.getStyle('i_b', 'left') +
                         ", 860px == " +
-                        baidu.getStyle('i_b', 'top');
-                        t.is('450px', baidu.getStyle('i_b', 'left'));
-                        t.is('860px', baidu.getStyle('i_b', 'top'));
+                        baidu.dom.getStyle('i_b', 'top');
+                        t.is('450px', baidu.dom.getStyle('i_b', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_b', 'top'));
                     }, 3100);
                     sleep(3000);
                 },
@@ -740,11 +740,11 @@
                     baidu.fx.moveBy('i_strong', 50, 110, options_tr_j);
                     timeCount(3000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "500px ==" + baidu.getStyle('i_strong', 'left') +
+                        baidu.G("r_af_a").innerHTML = "500px ==" + baidu.dom.getStyle('i_strong', 'left') +
                         ", 860px == " +
-                        baidu.getStyle('i_strong', 'top');
-                        t.is('500px', baidu.getStyle('i_strong', 'left'));
-                        t.is('860px', baidu.getStyle('i_strong', 'top'));
+                        baidu.dom.getStyle('i_strong', 'top');
+                        t.is('500px', baidu.dom.getStyle('i_strong', 'left'));
+                        t.is('860px', baidu.dom.getStyle('i_strong', 'top'));
                     }, 3100);
                     sleep(3000);
                 }
@@ -779,11 +779,11 @@
                     baidu.fx.moveBy('i_big', 600, 70, options_all);
                     timeCount(2000);
                     setTimeout(function(){
-                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.getStyle('i_big', 'left') +
+                        baidu.G("r_af_a").innerHTML = "600 ==" + baidu.dom.getStyle('i_big', 'left') +
                         ", 950 == " +
-                        baidu.getStyle('i_big', 'top');
-                        t.is('600px', baidu.getStyle('i_big', 'left'));
-                        t.is('950px', baidu.getStyle('i_big', 'top'));
+                        baidu.dom.getStyle('i_big', 'top');
+                        t.is('600px', baidu.dom.getStyle('i_big', 'left'));
+                        t.is('950px', baidu.dom.getStyle('i_big', 'top'));
                     }, 2100);
                     sleep(2000);
                 }
@@ -794,10 +794,10 @@
                     baidu.fx.moveBy(baidu.G('i_select'), 495, 50, options);
                     baidu.fx.moveBy(baidu.G('i_bdo'), 490, 50, options);
                     setTimeout(function(){
-                        t.is('600px', baidu.getStyle('i_select', 'left'));
-                        t.is('50px', baidu.getStyle('i_select', 'top'));
-                        t.is('700px', baidu.getStyle('i_bdo', 'left'));
-                        t.is('50px', baidu.getStyle('i_bdo', 'top'));
+                        t.is('600px', baidu.dom.getStyle('i_select', 'left'));
+                        t.is('50px', baidu.dom.getStyle('i_select', 'top'));
+                        t.is('700px', baidu.dom.getStyle('i_bdo', 'left'));
+                        t.is('50px', baidu.dom.getStyle('i_bdo', 'top'));
                     }, 2100);
                     sleep(2000);
                 }

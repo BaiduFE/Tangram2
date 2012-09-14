@@ -136,8 +136,8 @@
                 test_no_options: function(){
                     baidu.fx.moveTo(baidu.G('i_button'), 200, 0);
                     setTimeout(function(){
-                        t.is('200px', baidu.getStyle('i_button', 'left'));
-                        t.is('0px', baidu.getStyle('i_button', 'top'));
+                        t.is('200px', baidu.dom.getStyle('i_button', 'left'));
+                        t.is('0px', baidu.dom.getStyle('i_button', 'top'));
                     }, 1000);
                 }
             });
@@ -146,8 +146,8 @@
                 test_beforeupdate: function(){
                     baidu.fx.moveTo('i_iframe', 200, 150, options_bs);
                     setTimeout(function(){
-                        t.is('200px', baidu.getStyle('i_iframe', 'left'));
-                        t.is('150px', baidu.getStyle('i_iframe', 'top'));
+                        t.is('200px', baidu.dom.getStyle('i_iframe', 'left'));
+                        t.is('150px', baidu.dom.getStyle('i_iframe', 'top'));
                     }, 3000);
                     sleep(3000);
                 }
@@ -181,8 +181,8 @@
                 test_all: function(){
                     baidu.fx.moveTo(baidu.G('i_object'), 200, 300, options_all);
                     setTimeout(function(){
-                        t.is('200px', baidu.getStyle('i_object', 'left'));
-                        t.is('300px', baidu.getStyle('i_object', 'top'));
+                        t.is('200px', baidu.dom.getStyle('i_object', 'left'));
+                        t.is('300px', baidu.dom.getStyle('i_object', 'top'));
                     }, 3000);
                     sleep(3000);
                 }
