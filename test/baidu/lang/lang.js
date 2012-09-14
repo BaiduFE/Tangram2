@@ -1,3 +1,5 @@
+module("baidu.lang.lang");
+
 baidu.lang.Class.prototype.owner = 'baidu';
 var Device = function(){
     baidu.lang.Class.call(this);
