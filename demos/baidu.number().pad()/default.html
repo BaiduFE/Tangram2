@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.number().pad() 示例" />
+		<title>baidu.number().pad() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.number().pad()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>对目标数字进行0补齐处理</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>为目标数字25按照指定的位数进行0补齐处理
+						<select id="param0">
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var value = baidu('#param0').val(), num = 25, result = baidu.number(num).pad(value);
+				baidu('#demo_execute_result_1').html('结果：' + result);
+			})
+		</script>
+	</body>
+</html>

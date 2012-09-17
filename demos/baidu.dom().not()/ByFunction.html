@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().not() 示例，排除TangramDom集合中的元素" />
+		<title>函数排除</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().filter()</strong> 函数排除</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>你的1对吗</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->					
+					<ul class="binary">
+						<li>0000</li>
+						<li>0001</li>
+						<li>0010</li>
+						<li>0011</li>
+						<li>0100</li>
+						<li>0101</li>
+						<li>0110</li>
+						<li>0111</li>
+						<li>1000</li>
+						<li>1001</li>
+						<li>1010</li>
+						<li>1011</li>
+						<li>1100</li>
+						<li>1101</li>
+						<li>1110</li>
+						<li>1111</li>
+					</ul>
+					<p>
+						<button id="btn-execute" class="button">排除索引的二进制中1的个数为奇数的项</button>
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			.hl{
+				color: red;
+				background-color: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			function execute(){
+				baidu.dom('ul.binary li').not(function(index){
+					var str = index.toString(2); //转成二进制字符串
+					var cnt = 0;
+					for(var i = 0; i < str.length; ++i){
+						str[i] == 1 && cnt++; //统计
+					}
+					this.innerHTML = index + ' : ' + str; //顺便修改其表现
+					return cnt & 1; // 1的个数为奇数
+				}).addClass('hl');
+			}
+			baidu.dom('#btn-execute').on('click', execute);
+		</script>
+	</body>
+</html>

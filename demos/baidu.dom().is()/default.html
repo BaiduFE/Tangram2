@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().is() 示例" />
+		<title>baidu.dom().is() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().is()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>根据 selector 检测匹配元素集合，如果其中至少有一个元素符合这个给定的表达式就返回true</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>检测元素
+						<select id="param0">
+							<option value="div">div</option>
+							<option value="p">p</option>
+						</select>
+						里是否有selector
+						<select id="param1">
+							<option value=".pannel-content-part">.pannel-content-part</option>
+							<option value="#test_block">#test_block</option>
+							<option value=".text">.text</option>
+						</select>
+					</div>
+					<div class="pannel-content-part">
+						<div class="test_block" id="test_block">
+							<p class="text"></p>
+							html结构如下
+							<br/>
+							div.pannel-content-part
+							<br/>
+							div#test_block
+							<br/>
+							p.test
+						</div>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var ele = baidu('#param0').val(), sel = baidu('#param1').val(), result = baidu.dom(ele).is(sel);
+				baidu('#demo_execute_result_1').html(result.toString());
+			})
+		</script>
+	</body>
+</html>

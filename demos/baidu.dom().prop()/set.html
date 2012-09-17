@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().prop() 示例" />
+		<title>设置属性值</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().prop()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>设置元素的属性值 --- 字符串方式</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">对下面的 input 禁用/取消禁用</a>
+					</div>
+					<div class="pannel-content-part">
+						<p>
+							<input type="text" id="demo_input" disabled value="disabled text input" />
+						</p>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				if(baidu('#demo_input').prop('disabled')){
+					baidu('#demo_input').prop('disabled', false);
+				}else{
+					baidu('#demo_input').prop('disabled', true);
+				}
+				baidu('#demo_execute_result').html('设置成功，当前 input 的 disabled 值为：'+ baidu('#demo_input').prop('disabled'));
+			});
+		</script>
+	</body>
+</html>

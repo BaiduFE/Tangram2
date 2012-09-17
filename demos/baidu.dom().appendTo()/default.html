@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().appendTo() 示例" />
+		<title>插入元素内部的末端</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.test_block{
+				margin-left:20px;
+				border:1px dotted red;
+				background:#FFF1F1;
+				padding:10px;
+			}
+			.test_block li{
+				padding:3px 0;
+				margin-left:20px;
+			}
+			.dynamic{
+				color:#FF3300;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().appendTo()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>将匹配到的DOM元素插入到参数指定的DOM元素内部的末端 </span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">向下面的列表末端添加内容</span>
+					</div>
+					<div class="pannel-content-part">
+						<ul class="test_block" id="test_block">
+							<li>我是一个列表</li>
+						</ul>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var list = baidu('<li class="dynamic">我是由 appendTo 添加的</li>');
+				list.appendTo(baidu('#test_block'));
+				baidu('#demo_execute_result').html('插入到目标容器成功');
+			});
+		</script>
+	</body>
+</html>

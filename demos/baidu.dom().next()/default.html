@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().next() 获得后继节点>" />
+		<title>获得后继节点</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().next()</strong> 获得后继节点
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>往前走，Go Go GO !!</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<button id="btn-go" class="button">Go!!</button>
+					<p>
+						<span class="hl">1</span>
+						<span>2</span>
+						<span>3</span>
+						<span>4</span>
+						<span>5</span>
+						<span>6</span>
+						<span>7</span>
+						<span>8</span>
+						<span>9</span>
+						<span>10</span>
+						<span>11</span>
+						<span>12</span>
+						<span>13</span>
+						<span>14</span>
+						<span>15</span>
+						<span>16</span>
+						<span>17</span>
+						<span>18</span>
+						<span>19</span>
+						<span>20</span>
+					</p>
+					<p>
+						<span>1</span>
+						<span class="hl">2</span>
+						<span>3</span>
+						<span>4</span>
+						<span>5</span>
+						<span>6</span>
+						<span>7</span>
+						<span>8</span>
+						<span>9</span>
+						<span>10</span>
+						<span>11</span>
+						<span>12</span>
+						<span>13</span>
+						<span>14</span>
+						<span>15</span>
+						<b>16</b>
+						<span>17</span>
+						<span>18</span>
+						<span>19</span>
+						<span>20</span>
+					</p>
+					<p>
+						<span class="hl">1</span>
+						<span>2</span>
+						<span>3</span>
+						<span>4</span>
+						<span>5</span>
+						<span>6</span>
+						<span>7</span>
+						<span>8</span>
+						<span>9</span>
+						<span>10</span>
+						<b>11</b>
+						<span>12</span>
+						<span>13</span>
+						<span>14</span>
+						<span>15</span>
+						<span>16</span>
+						<span>17</span>
+						<span>18</span>
+						<span>19</span>
+						<span>20</span>
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>		
+		<style type="text/css">
+			.hl{background-color: yellow; color: red;}
+			b{text-decoration: line-through;}
+		</style>
+		<script type="text/javascript">
+			baidu.dom('#btn-go').on('click', function(){
+				// 如果不加selector "span"， 则三个都会跑到尽头
+				baidu.dom('.hl').removeClass('hl').next('span').addClass('hl');
+			});
+		</script>
+	</body>
+</html>

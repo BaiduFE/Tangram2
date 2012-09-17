@@ -15,6 +15,11 @@
 				passed : args[1]
 			}, window._$jscoverage || null ]);
 		}
+
+		// dron
+		if(parent && parent.testDoneCallBack){
+		    parent.testDoneCallBack({ failed: args[0], passed: args[1] });
+		}
 	}
 	
 	QUnit.moduleStart = function(name,testEnvironment) {
@@ -27,10 +32,6 @@
 				start();
 			}
 		}, 20);
-		
-		//田丽丽添加   调用公共用例
-//		var testName = name.split('.');
-//		commonTests(testName);
 	};
 	
 	QUnit.done = function() {

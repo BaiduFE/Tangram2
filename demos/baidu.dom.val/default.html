@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.val'></script>
+
+</head>
+<body>
+
+<input type='text' value='wangxiao1'>
+<input type='text' value='wangxiao2'>
+<input type='text' value='wangxiao3'>
+<input type='text' value='wangxiao4'>
+<input type='text' value='wangxiao5'>
+<input type='text' value='wangxiao6'>
+<input type='text' value='wangxiao7'>
+
+<script>
+baidu.dom('input').val(function(index,value){
+	alert(index);
+	alert(value);
+});
+</script>
+</body>
+</html>

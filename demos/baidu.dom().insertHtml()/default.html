@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().insertHTML() 示例" />
+		<title>在目标元素的指定位置插入HTML代码</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.form-item{
+				padding:5px 0;
+			}
+			#demo-insertTarget{
+				padding:10px;
+				border:1px solid #ccc;
+				background:#EFEFEF;
+				margin:3px 0;
+			}
+			#exist{
+				color:red;
+				margin:3px 0;
+			}
+			#demo-insertWrapper{
+				border:1px solid #ccc;
+				padding:10px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().insertHTML()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>在目标元素的指定位置插入HTML代码</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<p class="form-item">
+							<label>HTML代码：</label>
+							<input type="text" id="formEle-code" value="&lt;span&gt;这是插入的文本&lt;/span&gt;" />
+						</p>
+						<p class="form-item">
+							<label>位置：</label>
+							<select id="formEle-pos">
+								<option value="beforeBegin">beforeBegin</option>
+								<option value="afterBegin">afterBegin</option>
+								<option value="beforeEnd">beforeEnd</option>
+								<option value="afterEnd">afterEnd</option>
+							</select>
+						</p>
+						<p class="form-item">
+							<a id="formEle-submit" class="button">插入HTML到下面的元素</a>
+						</p>
+					</div>
+					<div class="pannel-content-part" id="demo-insertWrapper">
+						<div id="demo-insertTarget">
+							<div id="exist">我是目标元素</div>
+						</div>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			var target = baidu('#demo-insertTarget');
+			baidu('#formEle-submit').on('click',function(){
+				var html = baidu('#formEle-code').val();
+				var pos = baidu('#formEle-pos').val();
+				target.insertHTML(pos, html);
+			});
+		</script>
+	</body>
+</html>

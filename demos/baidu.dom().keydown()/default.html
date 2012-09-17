@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().keydown() 示例" />
+		<title>集合添加 keydown 事件监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().keydown()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>集合添加 keydown 事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+					</div>
+					<div class="pannel-content-part">
+						Enter your name:
+						<input type="text" />
+						<p>
+							当发生 keydown 和 keyup 事件时，输入域会改变颜色。请试着在其中输入内容。
+						</p>
+					</div>
+					<div class="pannel-show">
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var arr = ['keydown', 'keyup'];
+			baidu.array(arr).each(function(item, index) {
+				baidu('.pannel-content-part input')[item](function(e) {
+					({
+					'keydown':function(){
+						baidu.dom(e.target).css('background-color', '#FFFFCC')
+					},
+					'keyup':function(){
+						baidu.dom(e.target).css('background-color', '#D6D6FF')
+					}
+					})[e.type]()
+				});
+			})
+		</script>
+	</body>
+</html>

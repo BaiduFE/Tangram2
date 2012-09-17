@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.cookie.setRaw() 示例" />
+		<title>baidu.cookie.setRaw()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo-cookieForm p{
+				padding:3px 10px;
+			}
+			.label{
+				width:140px;
+				display: inline-block;
+				text-align:right;
+				padding-right:10px;
+			}
+			#demo_btn{
+				margin-left:160px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.cookie.setRaw()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>设置cookie(不进行编码)</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<form class="pannel-content-tool" autocomplete="off">
+						<div id="demo-cookieForm">
+							<p><label for="key" class="label">Key: </label><input type="text" value="testCookie" id="key" /></p>
+							<p><label for="value" class="label">Value: </label><input type="text" value="testCookieValue" id="value" /></p>
+							<p><label for="path" class="label">options.path: </label><input type="text" value="" id="path" /></p>
+							<p><label for="expires" class="label">options.expires: </label>
+								<select id="expires">
+									<option value="" selected>本次会话</option>
+									<option value="1">1 天</option>
+									<option value="30">1 个月</option>
+									<option value="90">3 个月</option>
+								</select>
+							</p>
+							<p><label for="domain" class="label">options.domain: </label><input type="text" value="" id="domain" /></p>
+							<p><label class="label">options.secure: </label>
+								<label for="secure-N">否</label><input checked type="radio" value="0" id="secure-N" name="secure" />
+								<label for="secure-Y">是</label><input type="radio" value="1" id="secure-Y" name="secure" />
+							</p>
+						</div>
+					</form>
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">确定，设置 Cookie!</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewStart-->
+				</div>
+			</div>
+		</div>
+	<script>
+		function getOption(){
+			var expires = baidu('#expires').val().length ? baidu('#expires').val() * 1000*60*60*24 : '';
+			return {
+				key : baidu('#key').val(),
+				value : baidu('#value').val(),
+				path : baidu('#path').val(),
+				expires : expires,
+				domain : baidu('#domain').val(),
+				secure : baidu('#secure-Y').prop('checked')
+			}
+		}
+		baidu('#demo_btn').on('click',function(e){
+			var option = getOption();
+			baidu.cookie.setRaw(option.key, option.value, option);
+			baidu('#demo_execute_result').html(option.key+' 设置成功！');
+		});
+	</script>
+	</body>
+</html>

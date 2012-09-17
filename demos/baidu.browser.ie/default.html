@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.browser.ie 示例" />
+		<title>baidu.browser.ie 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			.demo table {
+				width: 50%;
+				border-spacing: 0;
+				border-collapse: collapse;
+				margin: 10px;
+			}
+			.demo table td {
+				padding: 5px;
+				border: 1px solid gray;
+			}
+			.demo table .light {
+				background-color: #b1daef;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.browser.ie</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>判断是否为ie浏览器</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>对当前用户代理进行检查
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var brow = ['chrome', 'firefox', 'ie', 'isGecko', 'isStrict', 'isWebkit', 'maxthon', 'opera', 'safari'], result = [];
+				baidu.array(brow).each(function(item, index) {
+					(baidu.browser[item] == undefined) ? result.push('<tr><td>baidu.browser.' + item + '</td><td>' + baidu.browser[item] + '</td></tr>') : result.push('<tr class="light"><td>baidu.browser.' + item + '</td><td>' + baidu.browser[item] + '</td></tr>');
+				})
+				result = '<table>' + result.join('') + '</table>';
+				baidu('#demo_execute_result_1').html('检查结果：<br />' + result);
+			})
+		</script>
+	</body>
+</html>

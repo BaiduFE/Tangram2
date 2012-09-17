@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().scrollTop() 示例" />
+		<title>获取</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo-text{
+				padding:10px;
+				border:1px dotted red;
+				background:#FFF1F1;
+				width:300px;
+				height:100px;
+				overflow:auto;
+			}
+			#demo-text-inner{
+				width:200px;
+				height:1500px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().scrollTop()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>取得元素横向滚动条的滚动位置</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<div id="demo-text">
+							<div id="demo-text-inner">
+								Hello Tangram !
+							</div>
+						</div>
+					</div>
+					<div class="pannel-content-tool">
+						<b>拖动滚动条获取 scrollTop 值</b>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			var testArea = baidu('#demo-text');
+			var resultArea = baidu('#demo_execute_result');
+			function getScroll(){
+				var scroll = testArea.scrollTop();
+				resultArea.html('当前 scrollTop 值： <b>' + scroll + '</b>');
+			}
+			baidu('#demo_btn').on('click',getScroll);
+			baidu('#demo-text').on('scroll',getScroll);
+			
+		</script>
+	</body>
+</html>

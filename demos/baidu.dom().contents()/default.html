@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().contents() 示例" />
+		<title>普通元素</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.tip{
+				background:gold;
+				padding:10px;
+				width:230px;
+				border-radius:5px;
+				font-size:12px;
+				box-shadow:0px 0px 2px #A0A0A0;
+				margin-bottom:10px;
+			}
+			.tip_success{
+				background:#B2EF60;
+			}
+			.tip_warn a{
+				color:green;
+				margin-left:5px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().contents()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>取得匹配元素内部第一级的子节点，包括文本节点等</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool" id="tip-wrapper">
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个未处理事件将到期</p>
+						<p class="tip tip_success"><b>完成</b>： <b>XXX</b> 的申请已被受理</p>
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个安全漏洞</p>
+						<p class="tip tip_success"><b>完成</b>：<b>XXX</b> 的申请已被受理</p>
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个安全漏洞</p>
+					</div>
+					
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">获取所有 tip，并篡改其文本</span>
+					</div>
+					
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>			
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var contents = baidu.dom('#tip-wrapper').contents();
+				var counter = 0;
+				baidu.dom(contents).each(function(index, item){
+					if(item.nodeType == 1){
+						baidu(item).html('Hello Contents !');
+						counter++;
+					}
+				});
+				baidu('#demo_execute_result').html('获取一级子节点成功，共 '+contents.length+' 个，其中 ElementNode '+counter+' 个');
+			});
+		</script>
+	</body>
+</html>

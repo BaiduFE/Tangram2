@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.platform.isWindows 示例" />
+		<title>baidu.platform.isWindows 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.platform.isWindows</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>判断是否为windows平台</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>判断是何种平台[Windows,Android,iPad,iPhone,Macintosh,X11]
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var arr = ['Android', 'Ipad', 'Iphone', 'Windows', 'Macintosh', 'X11'];
+				baidu.array(arr).each(function(item, index) {
+					baidu.platform['is' + item] == true && baidu('#demo_execute_result_1').html('您当前的平台是：' + item);
+				})
+			})
+		</script>
+	</body>
+</html>

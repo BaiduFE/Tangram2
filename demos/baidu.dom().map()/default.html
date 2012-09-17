@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().map()，映射Dom对象" />
+		<title>映射Dom对象</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().map()</strong> 映射Dom对象
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>转换为超链接</span>
+				</div>
+				<div class="pannel-content">
+					<p>将下面li中的文本内容转换为超链接</p>
+					<!--html view start-->					
+					<ul class="plain-url">
+						<li>http://www.baidu.com</li>
+						<li>http://tangram.baidu.com</li>
+						<li>http://zhidao.baidu.com</li>
+						<li>http://wenku.baidu.com</li>
+						<li>http://tieba.baidu.com</li>
+					</ul>
+					<ul class="link-url"></ul>
+					<button id="btn-map" class="button">转换</button>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			ul.plain-url, ul.link-url{
+				border: 1px solid gray;
+				border-radius: 10px;
+				padding: 10px;
+				margin: 10px 0;
+				display: block;
+				list-style-position: inside;
+			}
+		</style>
+		<script type="text/javascript">
+			baidu.dom('#btn-map').on('click', function(){
+				baidu.dom('ul.plain-url li').map(function(){
+					var li = baidu.dom('<li></li>');
+					var a = baidu.dom('<a></a>').html(this.innerText).attr('href', this.innerText).appendTo(li);
+					return li;
+				}).appendTo('ul.link-url');
+				baidu.dom('#btn-map').attr('disabled', 'disabled');
+			});
+		</script>
+	</body>
+</html>

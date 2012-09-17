@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().addClass() 示例" />
+		<title>添加类</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			a.redText{
+				color:red;
+			}
+			.italicText{
+				font-style:italic;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().addClass()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>为每个匹配的元素添加指定的类名</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">为下面的链接添加名为 redText 和 italicText 的类</a>
+					</div>
+					<div class="pannel-content-part">
+						<a href="http://tangram.baidu.com" id="demo_element_1">元素一</a><br />
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var hasClassA = baidu('#demo_element_1').addClass('redText italicText');
+				baidu('#demo_execute_result').html('操作成功');
+			});
+		</script>
+	</body>
+</html>

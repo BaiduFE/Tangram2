@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type='text/css'>
+.div-css {
+    border: pink solid 2px;
+    width: 500px;
+}
+.div-border-blue {
+    border: blue solid 2px;
+    width: 600px;
+}
+</style>
+<script type='text/javascript' src='../../src/import.php?f=baidu.dom.getWindow'></script>
+</head>
+<body>
+<h3>取得window对象</h3>
+<div id='div-one' class='div-css'>hello world div</div>
+<br/>
+<input type='button' value='getWindow()' onclick='main();'/>
+
+</body>
+<script type='text/javascript'>
+function main(){
+    var win = baidu.dom('#div-one').getWindow();
+    alert(win);
+}
+//
+</script>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().parent() 获得元素的父节点" />
+		<title>获得父节点</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().parent()</strong> 获得父节点
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>高亮我的父节点</span>
+				</div>
+				<div class="pannel-content">
+					<p>鼠标点击li，其父节点将被选中</p>
+					<!--html view start-->					
+					<ul class="parent">
+						<li>child1</li>
+						<li>child2</li>
+						<li>child3</li>
+						<li>child4</li>
+						<li>child5</li>
+						<li>child6</li>
+						<li>child7</li>
+						<li>child8</li>
+					</ul>
+					<ul class="parent">
+						<li>child1</li>
+						<li>child2</li>
+						<li>child3</li>
+						<li>child4</li>
+						<li>child5</li>
+						<li>child6</li>
+						<li>child7</li>
+						<li>child8</li>
+					</ul>
+					<ul class="parent">
+						<li>child1</li>
+						<li>child2</li>
+						<li>child3</li>
+						<li>child4</li>
+						<li>child5</li>
+						<ul class="parent">
+							<li>child1</li>
+							<li>child2</li>
+							<li>child3</li>
+							<li>child4</li>
+							<li>child5</li>
+						</ul>
+					</ul>
+					<ul class="parent">
+						<li>child1</li>
+						<li>child2</li>
+						<li>child3</li>
+						<li>child4</li>
+						<li>child5</li>
+						<li>child6</li>
+						<li>child7</li>
+						<li>child8</li>
+					</ul>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			ul.parent{
+				border: 1px solid #89A;
+				margin: 5px 5px 5px 0;
+				display: inline-block;
+				list-style-position: inside;
+			}
+			ul.parent.hl{
+				border: 1px solid red;
+			}
+			ul.parent li{
+				margin: 5px;
+				cursor: pointer;
+			}
+			ul.parent li.hl{
+				color: red;
+				background-color: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			baidu.dom('li').on('click', function(){
+				baidu.dom('.hl').removeClass('hl');
+				baidu.dom(this).addClass('hl').parent().addClass('hl');
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,614 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>highlight</title>
+		<!-- uiut js -->
+		<script src="../uiut/uiut.js"></script>
+		<!-- uiut js -->
+		<!-- tangram js -->
+		<script type="text/javascript" src="http://img.baidu.com/js/tangram-1.1.0.js"></script>
+		<!-- tangram js -->
+		<!-- fx.js -->
+		<script type="text/javascript" src="../../../src/fx.js"></script>
+		<script type="text/javascript" src="../../../src/fx/_Timeline.js"></script>
+		<script type="text/javascript" src="../../../src/fx/Effect.js"></script>
+        <script type="text/javascript" src="../../../src/fx/highlight.js"></script>
+		<!-- fx.js -->
+        <style type="text/css">
+            a {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #FFFF00;
+                color: green;
+                font-size: 18px;
+            }
+            
+            select {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #6600CC;
+                color: green;
+                font-size: 18px;
+            }
+            
+            acronym {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #FF9966;
+                color: green;
+                font-size: 18px;
+            }
+            
+            span {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: Olive;
+                color: green;
+                font-size: 18px;
+                display: none;
+            }
+            
+            b {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #339933;
+                color: green;
+                font-size: 18px;
+            }
+            
+            bdo {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #FFFF99;
+                color: green;
+                font-size: 18px;
+            }
+            
+            big {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #FF6666;
+                color: green;
+                font-size: 18px;
+            }
+            
+            strong {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: Purple;
+                color: green;
+                font-size: 18px;
+            }
+            
+            cite {
+                width: 100px;
+                height: 50px;
+                border: 1px solide #765432;
+                background: #FF6633;
+                color: green;
+                font-size: 18px;
+                visibility: hidden;
+            }
+            
+            code, textarea, sub, sup {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #66CCFF;
+                color: green;
+                font-size: 18px;
+            }
+            
+            dfn, em, i, img, input, kbd, label, q {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #33CC33;
+                color: green;
+                font-size: 18px;
+                visibility: visible;
+            }
+            
+            samp {
+                width: 100px;
+                height: 100px;
+                border: 1px solide #765432;
+                background: #66CCFF;
+                color: green;
+                font-size: 18px;
+            }
+            
+            td {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <p style="color:#66CC66" align="center">
+            内联元素
+        </p>
+        <table id="table" border=1>
+            <tr>
+                <td>
+                    <a href="http://www.baidu.com" id="i_a">a</a>
+                    <br>
+                    <select id="i_select">
+                        <option value ="volvo">Volvo</option>
+                        <option value ="saab">Saab</option>
+                        <option value="opel">Opel</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </td>
+                <td>
+                    <acronym title="这不是缩写" id="i_acronym">
+                        acronym
+                    </acronym>
+                    <br>
+                    <br>
+                    <span id="i_span">span</span>
+                </td>
+                <td>
+                    <b id="i_b">b</b>
+                    <p id="r_bs">
+                    </p>
+                </td>
+                <td>
+                    <bdo dir="rtl" id="i_bdo">
+                        bdo
+                    </bdo>
+                    <p id="r_bu">
+                    </p>
+                </td>
+                <td>
+                    <big id="i_big">
+                        big
+                    </big>
+                    <p id="r_au">
+                    </p>
+                </td>
+                <td>
+                    <strong id="i_strong">strong</strong>
+                    <p id="r_af">
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <cite id="i_cite">
+                        cite
+                    </cite>
+                    <br>
+                    <br>
+                    <sup id="i_sup">
+                        sup
+                    </sup>
+                </td>
+                <td>
+                    <code id="i_code">
+                        code
+                    </code>
+                    <br>
+                    <br>
+                    <textarea rows="3" cols="20" id="i_textarea">
+                        textarea
+                    </textarea>
+                    <br/>
+                    <sub id="i_sub">
+                        sub
+                    </sub>
+                </td>
+                <td>
+                    <dfn id="i_dfn">
+                        dfn
+                    </dfn>
+                    <br>
+                    <br/>
+                    <em id="i_em">em</em>
+                    <br/>
+                    <br/>
+                    <i id="i_i">i</i>
+                </td>
+                <td>
+                    <img src="../Coffee_Bean.bmp" alt="coffe" id="i_img"/>
+                    <br/>
+                    <br/>
+                    <input type="text" name="firstname" id="i_text" value="text">
+                    <br/>
+                    <br/>
+                    <input type="checkbox" name="Bike" id="i_checkbox">
+                </td>
+                <td>
+                    <input type="radio" checked="checked" name="radio" value="hello radio" id="i_radio">
+                    <br/>
+                    <br/>
+                    <kbd id="i_kbd">
+                        kbd
+                    </kbd>
+                    <br/>
+                    <br/>
+                    <label id="i_label">
+                        label<input type="text" name="DofB" />
+                    </label>
+                </td>
+                <td>
+                    <q id="i_q">
+                        q
+                    </q>
+                    <br>
+                    <samp id="i_samp">
+                        samp
+                    </samp>
+                    <p id="r_bs_a">
+                    </p>
+                    <p id="r_bu_a">
+                    </p>
+                    <p id="r_au_a">
+                    </p>
+                    <p id="r_af_a">
+                    </p>
+                </td>
+                <td>
+                    time:
+                    <p id="i_time">
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            //normal options
+            options = {
+                'duration': 1000,
+                'startcolor': '#99FFFF',
+                'endcolor': '#00FF33',
+                'restorecolor': '#9900FF',
+                'transition': function(schedule){
+                    return schedule;
+                }
+            };
+            //before start options
+            var start = 1;
+            options_bs = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onbeforestart': function(){
+                    baidu.G("r_bs").innerHTML = "before start:" + start;
+                    ++start;
+                }
+            };
+            //before update case options
+            var update = 1;
+            options_bu = {
+                'duration': 2000,
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onbeforeupdate': function(){
+                    baidu.G("r_bu").innerHTML = "before update:" + update;
+                    ++update;
+                }
+            };
+            //after update case options
+            var update_a = 1;
+            options_au = {
+                'duration': 2000,
+                'startcolor': '#99FFFF',
+                'endcolor': '#00FF33',
+                'restorecolor': '#9900FF',
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onafterupdate': function(){
+                    baidu.G("r_au").innerHTML = "after update:" + update_a;
+                    ++update_a;
+                }
+            };
+            //after finish case options
+            var finish = 1;
+            options_af = {
+                'duration': 2000,
+                'startcolor': '#99FFFF',
+                'endcolor': '#00FF33',
+                'restorecolor': '#9900FF',
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onafterfinish': function(){
+                    baidu.G("r_af").innerHTML = "after finish:" + finish;
+                    ++finish;
+                }
+            };
+            //duration options
+            options_du = {
+                'duration': 0,
+                'transition': function(schedule){
+                    return schedule;
+                }
+            };
+            //display options
+            options_di = {
+                'duration': 2000,
+                'startcolor': '#99FFFF',
+                'endcolor': '#00FF33',
+                'restorecolor': '#9900FF',
+                'transition': function(schedule){
+                    if (schedule <= 0.5) {
+                        return 2 * schedule;
+                    }
+                    else {
+                        return 2 - 2 * schedule;
+                    }
+                }
+            };
+            function sleep(time){
+                uiut.nan();
+                setTimeout(function(){
+                    uiut.an();
+                }, time);
+            }
+            
+            uiut.at({
+                name: "element参数为Id时正常highlight",
+                test_id: function(){
+                    baidu.fx.highlight('i_a', options);
+                }
+            });
+            uiut.at({
+                name: "element参数为元素时正常highlight",
+                test_element: function(){
+                    baidu.fx.highlight(baidu.G("i_select"), options);
+                    sleep(1000);
+                }
+            });
+            uiut.at({
+                name: "未给定options参数时正常highlight",
+                test_no_options: function(){
+                    baidu.fx.highlight('i_acronym');
+                    sleep(1000);
+                }
+            });
+            uiut.at({
+                name: "元素的display属性为none时，highlight正常",
+                test_display: function(){
+                    baidu.fx.highlight(baidu.G('i_span'), options_di);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onbeforestart事件",
+                test_beforestart: function(){
+                    baidu.fx.highlight('i_b', options_bs);
+                    t.is(baidu.G("r_bs").innerHTML, 'before start:1');
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onbeforeupdate事件",
+                test_beforeupdate: function(){
+                    baidu.fx.highlight('i_bdo', options_bu);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onafterupdate事件",
+                test_afterupdate: function(){
+                    baidu.fx.highlight('i_big', options_au);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的onafterfinish事件",
+                test_afterfinish: function(){
+                    baidu.fx.highlight('i_strong', options_af);
+                    setTimeout(function(){
+                        t.is(baidu.G("r_af").innerHTML, 'after finish:1');
+                    }, 2200);
+                    sleep(2200);
+                }
+            });
+            uiut.at({
+                name: "元素的visibility属性为hidden时页面不会出错",
+                test_hidden: function(){
+                    baidu.fx.highlight('i_cite', options);
+                    sleep(2000);
+                }
+            });
+            uiut.at({
+                name: "options参数的duration属性的有效性",
+                test_duration: function(){
+                    baidu.fx.highlight('i_code', options_du);
+                    baidu.fx.highlight(baidu.G("i_sub"), options_du);
+                    baidu.fx.highlight(baidu.G("i_sup"), options_du);
+                    baidu.fx.highlight(baidu.G("i_textarea"), options_du);
+                    sleep(1000);
+                }
+            });
+            //trasition options
+            options_tr = {
+                'duration': 3000,
+                'startcolor': '#99FFFF',
+                'endcolor': '#00FF33',
+                'restorecolor': '#9900FF',
+                'transition': function(schedule){
+                    return schedule;
+                }
+            };
+            function timeCount(time){
+                var c = 0
+                for (i = 1; i <= time / 100; ++i) {
+                    setTimeout(function(){
+                        c = c + 1;
+                        baidu.G("i_time").innerHTML = c / 10 + "秒";
+                    }, 100 * i);
+                }
+            }
+            
+            uiut.at({
+                name: "options参数的transition属性的有效性",
+                test_duration_a: function(){
+                    //transition函数为y = 0
+                    var options_tr_a = options_tr;
+                    options_tr_a.transition = function(schedule){
+                        return 0;
+                    };
+                    baidu.fx.highlight('i_dfn', options_tr_a);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_duration_b: function(){
+                    //transition函数为y = 1
+                    var options_tr_b = options_tr;
+                    options_tr_b.transition = function(schedule){
+                        return 1;
+                    };
+                    baidu.fx.highlight('i_em', options_tr_b);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_duration_c: function(){
+                    //transition函数为y = x*x
+                    var options_tr_c = options_tr;
+                    options_tr_c.transition = function(schedule){
+                        return schedule * schedule;
+                    };
+                    baidu.fx.highlight('i_i', options_tr_c);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_duration_d: function(){
+                    //transition函数为y = 2x-1
+                    var options_tr_d = options_tr;
+                    options_tr_d.transition = function(schedule){
+                        return 2 * schedule - 1;
+                    };
+                    baidu.fx.highlight('i_img', options_tr_d);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_duration_e: function(){
+                    //transition函数为y = 2x
+                    var options_tr_e = options_tr;
+                    options_tr_e.transition = function(schedule){
+                        return 2 * schedule;
+                    };
+                    baidu.fx.highlight('i_text', options_tr_e);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_duration_f: function(){
+                    //transition函数为y = x, 0 <= x <= 0.5
+                    //                y = 0, 0.5 < x <= 1
+                    var options_tr_f = options_tr;
+                    options_tr_f.transition = function(schedule){
+                        if (schedule <= 0.5) {
+                            return schedule;
+                        }
+                        else {
+                            return 0;
+                        }
+                    };
+                    baidu.fx.highlight('i_checkbox', options_tr_f);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_duration_g: function(){
+                    //transition函数为y = 0, 0 <= x <= 0.5
+                    //                 y = x, 0.5 < x <= 1
+                    var options_tr_g = options_tr;
+                    options_tr_g.transition = function(schedule){
+                        if (schedule <= 0.5) {
+                            return 0;
+                        }
+                        else {
+                            return schedule;
+                        }
+                    };
+                    baidu.fx.highlight('i_radio', options_tr_g);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_duration_h: function(){
+                    //transition函数为y = 2x，0<= x <=0.5
+                    //                 y = 2-2x, 0.5 <= x <= 1
+                    var options_tr_h = options_tr;
+                    options_tr_h.transition = function(schedule){
+                        if (schedule <= 0.5) {
+                            return 2 * schedule;
+                        }
+                        else {
+                            return 2 - 2 * schedule;
+                        }
+                    };
+                    baidu.fx.highlight('i_kbd', options_tr_h);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_duration_i: function(){
+                    //transition函数为 y = 1- x
+                    var options_tr_i = options_tr;
+                    options_tr_i.transition = function(schedule){
+                        return 1 - schedule;
+                    };
+                    baidu.fx.highlight('i_label', options_tr_i);
+                    timeCount(3000);
+                    sleep(3000);
+                },
+                test_duration_j: function(){
+                    //transition函数为 y*y = x
+                    var options_tr_j = options_tr;
+                    options_tr_j.transition = function(schedule){
+                        return Math.sqrt(schedule);
+                    };
+                    baidu.fx.highlight('i_q', options_tr_j);
+                    timeCount(3000);
+                    sleep(3000);
+                }
+            });
+            //event case options
+            var all_start = 1, all_update = 1, all_update_a = 1, all_finish = 1;
+            options_all = {
+                'duration': 2000,
+                'startcolor': '#99FFFF',
+                'endcolor': '#00FF33',
+                'restorecolor': '#9900FF',
+                'transition': function(schedule){
+                    return schedule;
+                },
+                'onbeforestart': function(){
+                    baidu.G("r_bs_a").innerHTML = "before start:" + all_start;
+                    ++all_start;
+                },
+                'onbeforeupdate': function(){
+                    baidu.G("r_bu_a").innerHTML = "before update:" + all_update;
+                    ++all_update;
+                },
+                'onafterupdate': function(){
+                    baidu.G("r_au_a").innerHTML = "after update:" + all_update_a;
+                    ++all_update_a;
+                },
+                'onafterfinish': function(){
+                    baidu.G("r_af_a").innerHTML = "after finish:" + all_finish;
+                    ++all_finish;
+                }
+            };
+            uiut.at({
+                name: "options参数含有所有属性",
+                test_all: function(){
+                    baidu.fx.highlight('i_samp', options_all);
+                    baidu.fx.highlight(baidu.G("i_sub"), options_du);
+                    baidu.fx.highlight(baidu.G("i_sup"), options_du);
+                    sleep(2000);
+                }
+            });
+        </script>
+    </body>
+</html>

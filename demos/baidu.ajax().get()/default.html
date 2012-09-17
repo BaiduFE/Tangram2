@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.ajax().get() GET异步请求" />
+		<title>常规用法</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.ajax().get()</strong> GET异步请求
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>异步获取源代码</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<div class="pannel-content-tool">
+						<span id="request-source" class="button">读取联系人信息</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>		
+		<script type="text/javascript">
+			baidu.dom('#request-source').on('click', function(){
+				baidu.ajax('../../demos/baidu.ajax().get()/get.js').get(function(xhr, responseText){
+					var data = eval(responseText);
+					baidu.dom('#demo_execute_result').html('name:'+data.name+', age:'+data.age+', city:'+data.city+', email:'+data.email);
+				});
+			});
+		</script>
+	</body>
+</html>

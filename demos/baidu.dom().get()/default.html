@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().get() 示例" />
+		<title>获取TangramDom对象里的DOM元素</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.focus{
+				border:1px dotted red;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().get()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>按指定序号返回TangramDom对象里的DOM元素</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<select id="demo_select">
+							<option value="" selected="selected">按序号获取dom元素</option>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+						</select>
+					</div>
+					<div class="pannel-content-part" id="demo_paragraph">
+						<p>
+							文本一
+						</p>
+						<p>
+							文本二
+						</p>
+						<p>
+							文本三
+						</p>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_select').on('change',function(e){
+				baidu('#demo_paragraph p').removeClass('focus');
+				var index = baidu('#demo_select').val();
+				if(index){
+					var dom = baidu('#demo_paragraph p').get(+index);
+					dom.className = 'focus';
+					baidu('#demo_execute_result').html(dom.toString());
+				}
+			});
+		</script>
+	</body>
+</html>

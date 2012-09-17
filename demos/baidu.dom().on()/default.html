@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().on() 示例" />
+		<title>字符串方式</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.d1{
+				color:red;
+			}
+			.d2{
+				color:green;
+			}
+			.d3{
+				color:blue;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().on()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<p>下面的按钮都监听了 click 事件，操作按钮查看运行结果</p>
+						<span class="button" id="demo_btn">按钮</span>
+						<span class="button" id="demo_btn_selector" >按钮(with selector)</span>
+						<span class="button" id="demo_btn_data" >按钮(with data)</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click', function(e){
+				baidu('#demo_execute_result').get(0).innerHTML += '<em class="d1">'+e.type + '</em>, ';
+			});
+			
+			baidu('span').on('click', '#demo_btn_selector', function(e){
+				baidu('#demo_execute_result').get(0).innerHTML += '<em class="d2">'+e.type + '</em>, ';
+			});
+			
+			baidu('#demo_btn_data').on('click', {
+				info : 'data'
+			},function(e){
+				baidu('#demo_execute_result').get(0).innerHTML += '<em class="d3">'+e.type + '(' +e.data.info + ')</em>, ';
+			});
+		</script>
+	</body>
+</html>

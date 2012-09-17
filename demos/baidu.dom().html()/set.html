@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().html() 示例" />
+		<title>设置HTML内容 </title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo_element_1{
+				border:1px solid #ccc;
+				padding:10px;
+				background:#efefef;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().html()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>设置每一个匹配元素的html内容</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">改写下面元素的HTML内容</a>
+					</div>
+					<div class="pannel-content-part">
+						<p id="demo_element_1"><a href="http://tangram.baidu.com" target="_blank">我是链接</a></p>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var html = baidu('#demo_element_1').html('我不是链接');
+				baidu('#demo_execute_result').html('操作成功');
+			});
+		</script>
+	</body>
+</html>

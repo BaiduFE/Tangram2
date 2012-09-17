@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.array().every() 示例" />
+		<title>baidu.array().every() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.array().every()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>遍历数组每一项，判断是否全部符合指定的条件</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>判断数组 ['a','身边','新知',1,'','d'] 中的每一项是否满足指定条件isNaN
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var arr = ['a', '身边', '新知', 1, '', 'd'], result = baidu.array(arr).every(function(item, index) {
+					return isNaN(item);
+				});
+				baidu('#demo_execute_result_1').html('' + result);
+			})
+		</script>
+	</body>
+</html>

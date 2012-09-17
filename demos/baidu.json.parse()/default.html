@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.json.parse() 示例" />
+		<title>baidu.json.parse() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			.demo table { 
+				width:60%; 
+				border-spacing: 0;
+				border-collapse: collapse;
+				margin:10px;
+			}
+			.demo table td {
+				padding: 5px;
+				border: 1px solid gray;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.json.parse()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>将字符串解析成json对象</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>将字符串 '{"a" : "baidu.dom.add" , "b" : "baidu.dom.after","c" : "baidu.dom.append","d" : "baidu.dom.attr","e" : "baidu.dom.before",}' 解析为json对象		
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script>
+		baidu('#demo_btn_1').on('click',function(e){
+			var str = '{"a" : "baidu.dom.add" , "b" : "baidu.dom.after","c" : "baidu.dom.append","d" : "baidu.dom.attr","e" : "baidu.dom.before",}',
+				arr=[],
+				result=baidu.json.parse(str);
+			baidu.object.each(result, function (item, key) {
+    			arr[arr.length]='<tr><td>键：' + key + '</td><td>值：' + item + '</td></tr>';		
+    		});
+			baidu('#demo_execute_result_1').html('<table>' + arr.join('') + '</table>');			
+   		})
+	</script>
+	</body>	
+</html>

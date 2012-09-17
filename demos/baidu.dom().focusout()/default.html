@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().focusout() 示例" />
+		<title>baidu.dom().focusout()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo-content{
+				padding:5px 10px;
+				border:1px dotted yellow;
+				background:green;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().focusout()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>focusin/focusout 事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-part">
+						<p>与 focus/blur 的区别在于, focusin/focusout 支持事件冒泡</p>
+						<p>下面的事件监听在 input 的父元素上。</p>
+					</div>
+					<div class="pannel-content-tool">
+						<!--DemoViewStart-->
+						<div id="demo-content">
+							<input type="text" value="hello Tangram !" />
+						</div>
+						<!--DemoViewEnd-->
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			// focusin
+			baidu('#demo-content').focusin(function(e){
+				baidu(this).css({
+					background: 'gold'
+				});
+				baidu('#demo_execute_result').html('focusin 触发');
+			});
+			
+			// focusout
+			baidu('#demo-content').focusout(function(e){
+				baidu(this).css({
+					background: 'green'
+				});
+				baidu('#demo_execute_result').html('focusout 触发');
+			});
+		</script>
+	</body>
+</html>

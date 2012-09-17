@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().select() 示例" />
+		<title>集合添加 select 事件监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().select()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>集合添加 select 事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						文本框的值被双击选中后，在结果区显示文本框的值
+					</div>
+					<div class="pannel-content-part">
+						<input type='text' value="用户名" />
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('.pannel-content-part input').select(function(e) {
+				baidu('#demo_execute_result_1').html(baidu('.pannel-content-part input').val());
+			});
+		</script>
+	</body>
+</html>

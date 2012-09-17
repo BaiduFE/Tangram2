@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.sio().callByServer() 示例" />
+		<title>baidu.sio().callByServer()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo_list{
+				margin-left:20px;
+				padding:0 20px;
+				border:1px dotted green;
+			}
+			#demo_list li{
+				padding:3px 0;
+				margin:5px 0;
+			}
+			.dynamic{
+				background:yellow;
+				color:red;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.sio().callByServer()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>通过script标签加载数据，加载完成由服务器端触发回调</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<ul id="demo_list">
+							<li>可通过定制创建最适合的轻量级版本</li>
+							<li>多种机制实现扩展，良好的插件支持</li>
+						</ul>
+					</div>
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">从服务器加载更多</a>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			// 加载完成的回调函数
+			function fn(data) {
+				var list = baidu('#demo_list');
+				baidu.array(data).each(function(item, index){
+					list.append('<li class="dynamic">'+item+'</li>');
+				});
+				baidu('#demo_execute_result').html('数据加载成功');
+			}
+			
+			baidu('#demo_btn').on('click', function(){
+				baidu.sio('../../demos/baidu.sio().callByServer()/request.php').callByServer('fn');
+			});
+		</script>
+	</body>
+</html>

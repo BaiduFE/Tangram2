@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().offset() 示例" />
+		<title>设置偏移量</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo_element_1{
+				width:100px;
+				height:30px;
+				background:#ccc;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().offset()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>点击获取自定义属性值(空值)</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">点击将我向右移动10个像素</a>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var left = baidu(this).offset().left + 10;
+				baidu(this).offset({
+					left : left
+				});
+				baidu('#demo_execute_result').html('设置成功！按钮当前的水平偏移量为: '+left);
+			});
+		</script>
+	</body>
+</html>

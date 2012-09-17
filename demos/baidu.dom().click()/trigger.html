@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().click() 示例" />
+		<title>触发</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo_text{
+				padding:10px;
+				border:1px dotted green;
+				cursor: pointer;
+				margin-top:10px;
+			}
+			.highlight{
+				background:yellow;
+				color:red
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().click()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>click 事件监听/触发</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<p>下面的文本框监听了 click 事件, 触发切换样式</p>
+						<p id="demo_text">Hello Tangram !</p>
+					</div>
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">触发文本框的 click 事件</span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			// listener
+			baidu('#demo_text').click(function(e){
+				baidu(this).toggleClass('highlight');
+			});
+			
+			// trigger
+			baidu('#demo_btn').click(function(){
+				baidu('#demo_text').click();
+			});
+
+		</script>
+	</body>
+</html>

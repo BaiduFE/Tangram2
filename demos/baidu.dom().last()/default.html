@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="获得最后一个元素" />
+		<title>baidu.dom().last()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().last()</strong>				
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>高亮最后一个li</span>
+				</div>
+				<div class="pannel-content">					
+					<!--html view start-->					
+					<ul class="list">
+						<li>baidu.dom().last()</li>
+						<li>可以选择集合中的最后一个元素</li>
+						<li>当然，如果集合中没有元素</li>
+						<li>会返回没有任何元素的TangramDom</li>
+					</ul>
+					<button id="btn-execute" class="button">点击选择最后一个元素</button>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			.hl{
+				color: red;
+				background-color: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			function execute(){
+				baidu.dom('ul.list li').last().toggleClass('hl');
+			}			
+			baidu.dom('#btn-execute').on('click', execute);
+		</script>
+	</body>
+</html>

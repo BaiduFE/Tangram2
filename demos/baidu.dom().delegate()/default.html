@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().delegate() 示例" />
+		<title>baidu.dom().delegate()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo_list{
+				margin:0 0 10px 20px;
+				border:1px dotted green;
+				padding-left:20px;
+			}
+			#demo_list li{
+				padding:3px;
+			}
+			.hightlight{
+				background:gold;
+				color:red;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().delegate()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>事件代理</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<!--DemoViewStart-->
+						<ul id="demo_list">
+							<li>列表</li>
+							<li>列表</li>
+							<li>列表</li>
+							<li>列表</li>
+						</ul>
+						<!--DemoViewEnd-->
+					</div>
+					<div class="pannel-content-part">
+						<p>为上面的列表 添加/卸载 事件代理</p>
+						<span class="button off" id="demo_btn_delegate">delegate</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var handler = function(e){
+				baidu(e.target).toggleClass('hightlight');
+			}
+			baidu('#demo_btn_delegate').on('click', function(){
+				if(baidu(this).hasClass('off')){
+					baidu.dom('#demo_list').delegate('li', 'click', handler);
+					baidu(this).html('undelegate');
+					baidu('#demo_execute_result').html('事件代理添加成功，点击列表可切换样式');
+				}else{
+					baidu.dom('#demo_list').undelegate('li', 'click', handler);
+					baidu(this).html('delegate');
+					baidu('#demo_execute_result').html('事件代理移除成功');
+				}
+				baidu(this).toggleClass('off');
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().getWindow() 示例" />
+		<title>取得Window</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().getWindow()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>取得匹配元素所属的window对象</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">获取我所属的window对象，并从中读取当前页面地址</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>			
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(){
+				var win = baidu(this).getWindow();
+				baidu('#demo_execute_result').html(win.location.href);
+			});
+		</script>
+	</body>
+</html>

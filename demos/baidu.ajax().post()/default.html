@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.ajax().get() POST异步请求" />
+		<title>常规用法</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.ajax().post()</strong> POST异步请求
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>用服务器计算大数阶乘</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<p><input id="num" type="number" value="500" /> ! <button id="request-factorial">计算</button> (最大1000)</p>					
+					<p id="calc-result"></p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			#calc-result{
+				word-break: break-all;
+			}
+		</style>
+		<script type="text/javascript">
+			var btn = baidu.dom('#request-factorial').on('click', function(){
+				btn.attr('disabled', 'disabled');
+
+				var data = 'num=' + baidu.dom('#num').val();
+				baidu.ajax('../../demos/baidu.ajax().post()/factorial.php').post(data ,function(xhr, responseText){
+					baidu.dom('#calc-result').html(responseText);
+					btn.attr('disabled', false);
+				});
+
+				baidu.dom('#calc-result').html('计算中...');
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().height() 示例" />
+		<title>设置高度</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo_block_1{
+				background: gold;
+				padding:20px;
+				cursor:pointer;
+				font-weight:bold;
+			}
+			#demo_block_1:hover{
+				background:#EAC200;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().height()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>设置匹配元素的高度</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<div id="demo_block_1">
+							点击为我的高度增加 10 px
+						</div>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_block_1').on('click',function(e){
+				var height = baidu('#demo_block_1').height() + 10;
+				baidu('#demo_block_1').height(height)
+				baidu('#demo_execute_result').html('操作成功，当前的高度值为： '+ height);
+			});
+		</script>
+	</body>
+</html>

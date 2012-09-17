@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.lang.createSingle() 示例" />
+		<title>baidu.lang.createSingle() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.lang.createSingle()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>创建一个baidu.lang.Class的单例实例</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>创建baidu.lang.Class的单例
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var obj = {
+					'name' : 'single',
+					'show' : function() {
+						return 'in show';
+					}
+				}, 
+					result = baidu.lang.createSingle(obj);
+				baidu('#demo_execute_result_1').html(result.name + '--- ' + result.show());
+			})
+		</script>
+	</body>
+</html>

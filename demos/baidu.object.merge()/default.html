@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.object.merge() 示例" />
+		<title>baidu.object.merge() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.object.merge()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>合并源对象的属性到目标对象</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>合并源对象
+						{'a':'one,two,three','b':'four,five,six', c: {a: 'a'}}
+						的属性到目标对象
+						{'f':'un,deux,thois','b':'hao123', c: {b: 'b'}}中
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var sou = {
+					'a' : 'one,two,three',
+					'b' : 'four,five,six',
+					c : {
+						a : 'a'
+					}
+				}, tar = {
+					'f' : 'un,deux,thois',
+					'b' : 'hao123',
+					c : {
+						b : 'b'
+					}
+				}, result = baidu.object.merge(tar, sou, {
+					overwrite : true,
+					recursive : true
+				});
+				baidu('#demo_execute_result_1').html(baidu.json.stringify(result));
+			})
+		</script>
+	</body>
+</html>

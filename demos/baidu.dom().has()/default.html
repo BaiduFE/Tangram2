@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().has() 保留具有特定后代的元素" />
+		<title>baidu.dom().has()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().has()</strong> 保留具有特定后代的元素
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>高亮带超链接的li</span>
+				</div>
+				<div class="pannel-content">					
+					<!--html view start-->			
+					<button id="btn-has" class="button">高亮带超链接的li</button>		
+					<ul class="url">
+						<li>http://www.baidu.com</li>
+						<li><a href="http://tangram.baidu.com">http://tangram.baidu.com</a></li>
+						<li><a href="http://zhidao.baidu.com">http://zhidao.baidu.com</a></li>
+						<li>http://wenku.baidu.com</li>
+						<li>http://tieba.baidu.com</li>
+					</ul>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+		<style type="text/css">
+			.hl{color:red; background-color: yellow;}
+		</style>
+		<script type="text/javascript">
+			baidu.dom('#btn-has').on('click', function(){
+				baidu.dom('ul.url li').has('a').toggleClass('hl');
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().css() 示例" />
+		<title>设置css属性(callback 方式)</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().css()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>取得第一个匹配元素的css属性</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">切换字体大小</a>
+					</div>
+					<div class="pannel-content-part">
+						<p id="demo_element_1">元素一</p>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			var fontSize = baidu('#demo_element_1').css('fontSize');
+			baidu('#demo_btn').on('click',function(e){
+				baidu('#demo_element_1').css('fontSize', function(index, value){
+					var newFontSize = fontSize;
+					if(value == fontSize){
+						newFontSize = 28 + 'px';
+					}
+					baidu('#demo_execute_result').html('设置成功，当前字体为：' + newFontSize);
+					return newFontSize;
+				});
+			});
+		</script>
+	</body>
+</html>

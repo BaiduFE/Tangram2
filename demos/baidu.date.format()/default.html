@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.date.format() 示例" />
+		<title>baidu.date.format()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo-dateForm p{
+				padding:3px 10px;
+			}
+			#demo-dateForm label{
+				width:120px;
+				display: inline-block;
+				text-align:right;
+				padding-right:10px;
+			}
+			#demo-dateForm input{
+				width:250px;
+			}
+			#demo_btn_format{
+				margin-left:150px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.date.format()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>对目标日期对象进行格式化</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<form id="demo-dateForm" autocomplete="off">
+							<p>格式化后的当前时间：<span id="now"></span></p>
+							<p>
+								<label>要格式化的日期：</label>
+								<input type="text" id="date" value="Tue Aug 09 2011 16:53:05 GMT+0800" />
+							</p>
+							<p>
+								<label>格式化规则：</label>
+								<input type="text" id="rule" value="yyyy年MM月dd日 HH时mm分ss秒" />
+							</p>
+						</form>
+						<div class="pannel-content-tool">
+							<span id="demo_btn_format" class="button">格式化</span>
+						</div>
+					</div>
+					
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			var dateInput = baidu('#date');
+			var ruleInput = baidu('#rule');
+			var nowText = baidu('#now');
+			
+			// 格式化
+			baidu('#demo_btn_format').on('click',function(e){
+				var formated = baidu.date.format(new Date(dateInput.val()), ruleInput.val());
+				baidu('#demo_execute_result').html(formated);
+			});
+			
+			//设置当前时间
+			(function(){
+				var formated = baidu.date.format(new Date(), ruleInput.val());
+				nowText.html(formated);
+				setTimeout(arguments.callee, 1000);
+			}());
+		</script>
+	</body>
+</html>

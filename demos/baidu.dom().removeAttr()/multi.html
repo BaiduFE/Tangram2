@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().removeAttr() 示例" />
+		<title>移除多个属性</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().removeAttr()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>取得第一个匹配元素对应的属性值</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn">移除下面链接的 href 和 style 属性</a>
+					</div>
+					<div class="pannel-content-part">
+						<p>
+							<a href="http://www.baidu.com" style="color:red" target="_blank" id="demo_link">http://www.baidu.com</a>
+						</p>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				baidu('#demo_link').removeAttr('href style');
+				baidu('#demo_execute_result').html('href 和 style 属性移除成功');
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().unload() 示例" />
+		<title>集合添加 unload 事件监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			.pannel-content-part ul li {
+				margin-left: 20px;
+				line-height: 24px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().unload()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>集合添加 unload 事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool"></div>
+					<div class="pannel-content-part">
+						<p>
+							当发生以下情况时，显示您确定要离开本页面吗的警告框：<br/><br/>Onunload是无 法阻止页面的更新和关闭的。而 Onbeforeunload 可以做到
+						</p>
+						<ul>
+							<li>
+								点击某个离开页面的链接 <a href="http://tangram.baidu.com/">打开新页面</a>
+							</li>
+							<li>
+								在地址栏中键入了新的 URL
+							</li>
+							<li>
+								使用前进或后退按钮
+							</li>
+							<li>
+								关闭浏览器
+							</li>
+							<li>
+								重新加载页面
+							</li>
+						</ul>
+					</div>
+					<div class="pannel-show"></div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu(window).unload(function() {
+				confirm('您确定要离开本页面吗？');
+			});
+		</script>
+	</body>
+</html>

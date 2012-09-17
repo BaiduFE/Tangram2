@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.array().map() 示例" />
+		<title>baidu.array().map() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.array().map()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>数组映射</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>将数组 [1,2,3,4,5]的元素按方法 item = item + 10 进行转换
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var arr = [1, 2, 3, 4, 5], 
+					result = baidu.array(arr).map(function(item, index) {
+						return item + 10;
+					});
+				baidu('#demo_execute_result_1').html(result.join(','));
+			})
+		</script>
+	</body>
+
+</html>

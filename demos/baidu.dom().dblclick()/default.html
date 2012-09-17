@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().dblclick() 示例" />
+		<title>监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo_text{
+				padding:10px;
+				border:1px dotted green;
+				margin-top:10px;
+			}
+			.highlight{
+				background:yellow;
+				color:red
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().dblclick()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>dblclick 事件监听</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<p>下面的文本框监听了 dblclick 事件, 鼠标双击触发切换样式</p>
+						<p id="demo_text">Hello Tangram !</p>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			// listener
+			baidu('#demo_text').dblclick(function(e){
+				baidu(this).toggleClass('highlight');
+			});
+
+		</script>
+	</body>
+</html>

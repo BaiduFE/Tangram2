@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().empty() 示例" />
+		<title>清空</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.tip{
+				background:gold;
+				padding:10px;
+				width:230px;
+				border-radius:5px;
+				font-size:12px;
+				box-shadow:0px 0px 2px #A0A0A0;
+				margin-bottom:10px;
+			}
+			.tip_success{
+				background:#B2EF60;
+			}
+			.tip_warn a{
+				color:green;
+				margin-left:5px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().empty()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>将匹配到的DOM元素的内部内容全部清空</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool" id="tip-wrapper">
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个未处理事件将到期</p>
+						<p class="tip tip_success"><b>完成</b>： <b>XXX</b> 的申请已被受理</p>
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个安全漏洞</p>
+						<p class="tip tip_success"><b>完成</b>：<b>XXX</b> 的申请已被受理</p>
+						<p class="tip"><b>警告</b>：您有 <b>3</b> 个安全漏洞</p>
+					</div>
+					
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">清除所有提醒</span>
+					</div>
+					
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>			
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				baidu.dom('#tip-wrapper').empty();
+				baidu('#demo_execute_result').html('清除成功');
+			});
+		</script>
+	</body>
+</html>

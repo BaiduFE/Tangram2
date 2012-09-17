@@ -1,0 +1,84 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().toHalfWidth() 示例" />
+		<title>将常见全角字符转换为半角</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().toHalfWidth()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>将字符转换为半角</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<button id="btn-half-width" class="button">转换</button>	
+					<p>
+						<!--The quick brown fox jumps over the lazy dog-->
+						<textarea id="content-full-width" rows="3" cols="80">ｔｈｅ　ｑｕｉｃｋ　ｂｒｏｗｎ　ｆｏｘ　ｊｕｍｐｓ　ｏｖｅｒ　ｔｈｅ　ｌａｚｙ　ｄｏｇ．　１２３４５６７８９０</textarea>
+
+					</p>
+					<p id="demo-show-area">
+						
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">		
+		T('#btn-half-width').on('click', function(e){
+			var fullWidth = baidu.string(T('#content-full-width').val());
+			var halfWidth = fullWidth.toHalfWidth();
+			T('#demo-show-area').html(halfWidth);
+		});
+	</script>
+=======
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().toHalfWidth() 示例" />
+		<title>将常见全角字符转换为半角</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().toHalfWidth()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>将字符转换为半角</span>
+				</div>
+				<div class="pannel-content">
+					<!--html view start-->
+					<button id="btn-half-width" class="button">转换</button>	
+					<p>
+						<!--The quick brown fox jumps over the lazy dog-->
+						<textarea id="content-full-width" rows="3" cols="80">ｔｈｅ　ｑｕｉｃｋ　ｂｒｏｗｎ　ｆｏｘ　ｊｕｍｐｓ　ｏｖｅｒ　ｔｈｅ　ｌａｚｙ　ｄｏｇ．　１２３４５６７８９０</textarea>
+
+					</p>
+					<p id="demo-show-area">
+						
+					</p>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">		
+		T('#btn-half-width').on('click', function(e){
+			var fullWidth = baidu.string(T('#content-full-width').val());
+			var halfWidth = fullWidth.toHalfWidth();
+			T('#demo-show-area').html(halfWidth);
+		});
+	</script>
+>>>>>>> c6255ca33895ad779fb7083dfd7d33a74a4f5736
+</html>

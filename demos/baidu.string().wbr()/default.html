@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.string().wbr() 示例" />
+		<title>baidu.string().wbr() 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			.insert {
+				border: 1px solid #99CCCC;
+				width: 200px;
+				height: 100px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().wbr()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>为目标字符串添加wbr软换行</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<a class="button" id="demo_btn_1">点击运行</a>
+						为目标字符串添加wbr软换行
+						<br/>
+						<br/>
+						直接写入效果
+						<br/>
+						<div class="insert">
+							ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789
+						</div>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result_1"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			baidu('#demo_btn_1').on('click', function(e) {
+				var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789', div = document.createElement('div'), result = div.innerHTML = baidu.string(str).wbr();
+				div.className = 'insert';
+				baidu('#demo_execute_result_1').empty(div);
+				baidu('#demo_execute_result_1').append(div);
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().parentsUntil() " />
+		<title>parentsUntil()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.dom().parentUntil</strong>
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>深深的嵌套</span>
+				</div>
+				<div class="pannel-content">
+					<p>点击元素，会高亮其所有父元素，遇到fieldset为止</p>
+					<!--html view start-->
+					<div class="container">
+					level1
+					<div>
+					level2
+					<div>
+					level3
+					<fieldset><legend>
+					level4</legend>
+					<div>
+					level5
+					<div>
+					level6
+					<div>
+					level7
+					<fieldset><legend>
+					level8</legend>
+					<div>
+					level9
+					<div>
+					level10
+					</div>
+					</div>
+					</fieldset>
+					</div>
+					</div
+					</div>
+					</fieldset>
+					</div>
+					</div>
+					</div>
+					<!--html view end-->
+				</div>
+			</div>
+		</div>	
+		<style type="text/css">
+			div.container *.selected{border:1px solid red;}
+			div.container *.hl{color: red; background-color: yellow;}
+			div.container *{
+				border: 1px solid gray;
+				padding: 10px;
+			}
+		</style>	
+		<script type="text/javascript">
+			baidu.dom('div.container *').on('click', function(e){
+				baidu.dom('.selected').removeClass('selected');
+				baidu.dom('.hl').removeClass('hl');
+				baidu.dom(e.target).addClass('hl').parentsUntil('fieldset').addClass('selected');
+			})
+		</script>
+	</body>
+</html>
