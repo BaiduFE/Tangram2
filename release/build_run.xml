@@ -46,7 +46,7 @@
 		<get src="http://${serverip}/addTask?proj=${git.user}.${git.project}&amp;cov=true" dest="/tmp/${git.user}_${git.project}.html" />
 	</target>
 	<target name="getreport" depends="execute">
-		<waitfor maxwait="600" maxwaitunit="second">
+		<waitfor maxwait="1000" maxwaitunit="second">
 			<available file="${report.file}" />
 		</waitfor>
 		<echo>[report] : ${report.file}</echo>
