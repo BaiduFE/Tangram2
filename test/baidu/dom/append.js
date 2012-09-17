@@ -81,3 +81,8 @@ test('append Script', function(){
     equal(tangramId, 100, 'script appendTo div and execution');
     equal(div.firstChild.firstChild.tagName.toLowerCase(), 'script', 'script tag appendTo div');
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").append("wangxiao");
+    ok(result);
+});

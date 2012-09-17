@@ -196,6 +196,11 @@ test('异常case',function(){
 });
 
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").contains("wangxiao");
+    ok(result);
+}); 
+
 /*ff下会抛异常*/
 //test("异常用例",function(){
 //	var div = document.createElement('div');

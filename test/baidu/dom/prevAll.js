@@ -53,3 +53,8 @@ test('.prevAll( selector )重载', function () {
 		equal(target[1].id, 'e3');
 	});
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").prevAll("wangxiao");
+    ok(result);
+});

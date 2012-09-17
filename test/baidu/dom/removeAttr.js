@@ -53,6 +53,11 @@ test("removeAttr(String)", function() {
 	ok( !$first.attr("Case"), "mixed-case attribute was removed" );
 });
 
+test("dom为空的情况",function(){
+	var result = baidu("#baidujsxiaozu").removeAttr("wangxiao");
+	ok(result);
+});
+
 //修改
 // test("removeAttr(String) in XML", function() {
 // 	expect( 7 );

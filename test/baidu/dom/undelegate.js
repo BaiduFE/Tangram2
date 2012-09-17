@@ -83,3 +83,8 @@ test('normal test', function(){
         start();
     }, 'baidu.dom.delegate', 'baidu.dom.undelegate');
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").undelegate("wangxiao");
+    ok(result);
+});

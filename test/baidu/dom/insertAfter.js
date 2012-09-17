@@ -125,3 +125,8 @@ test("Insert Document Fragment", function(){
 
         equal(div.nextSibling, document.getElementById("hello-leeight"), "pass test");
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").insertAfter("wangxiao");
+    ok(result);
+});

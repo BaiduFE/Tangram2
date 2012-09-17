@@ -51,3 +51,8 @@ test("before Function", function(){
 	});
 	equal( formatHTML(div.innerHTML), "<div class=a>A</div><div class=a>A</div><div class=b>B</div><div>C</div><div>D</div><div class=b>B</div>" );
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").before("wangxiao");
+    ok(result);
+});

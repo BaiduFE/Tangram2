@@ -21,6 +21,10 @@ test("after TangramDom", function(){
 	equal( formatHTML(div.innerHTML), "<div class=b>B</div><div class=a>A</div><div class=a>A</div><div class=b>B</div><div class=a>A</div><div class=a>A</div>" );
 });
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").after("wangxiao");
+    ok(result);
+});
 
 /*
 test("after HTMLString", function(){

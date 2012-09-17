@@ -50,3 +50,8 @@ test('.closest( context )重载', function () {
 		equal(target.length, 0, 'find body');
 	});
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").closest("wangxiao");
+    ok(result);
+});

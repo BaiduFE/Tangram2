@@ -146,4 +146,12 @@ test('all support event', function(){
     document.body.removeChild(div);
 });
 
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").on("wangxiao");
+    ok(result);
+    var result = baidu("#baidujsxiaozu").click("wangxiao");
+    ok(result);
+});
+
 // TODO baidu.dom(div).trigger(baidu.event());

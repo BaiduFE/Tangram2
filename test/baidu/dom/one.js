@@ -126,3 +126,9 @@ test('off event', function(){
     ua.fireMouseEvent(d.get(), 'click');
     ua.fireMouseEvent(d.get(), 'click');
 });
+
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").one("wangxiao");
+    ok(result);
+});

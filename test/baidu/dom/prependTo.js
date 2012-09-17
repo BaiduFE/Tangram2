@@ -38,3 +38,8 @@ test("prependTo TangramDom", function(){
     baidu.dom("div.A").prependTo( baidu.dom("div.B") );
 	equal( formatHTML(div.innerHTML), "<div class=b><div class=a>A</div><div class=a>A</div>B</div><div class=b><div class=a>A</div><div class=a>A</div>B</div>", "div.a prependTo div.b dom" );
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").prependTo("wangxiao");
+    ok(result);
+});
