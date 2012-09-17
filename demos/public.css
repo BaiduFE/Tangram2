@@ -1,17 +1,27 @@
+html{
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
 body {
 	overflow-y: hidden;	
+	font-family: 'Arial', '宋体';
+}
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Arial', 'Microsoft Yahei', '微软雅黑', '黑体';
+	font-weight: normal;
 }
 * {
 	padding: 0; margin: 0;
 }
 .demo{
-	padding: 32px 20px 20px 20px; font-family: "宋体"; font-size: 14px;  
+	font-size: 14px;  
 }			
 .demo .ac-h1 {
-	font-size:24px; margin-bottom: 20px; color:#3C70A5; font-weight: 700; 
+	font-size: 16px; margin-bottom: 20px; color:#3C70A5;	 
 }
 .demo .ac-h1 strong {
-	color:blue;
+	color: #0071BC;
 }
 .demo .ac-des {
 	margin-bottom: 15px; line-height:22px;
@@ -59,10 +69,16 @@ body {
 	color: blue;
 }
 .demo .pannel {
-	border:1px solid #DFE9F6; border-radius:4px; background: #DFE9F6;
+	background: #EFF6FF;
 }
 .demo .pannel-title {
-	padding: 10px; margin-bottom: 20px; background: #5088AE; box-shadow: 0 1px 0 0 #F4F8FD inset, -1px 0 0 0 #F4F8FD inset, 1px 0 0 0 #F4F8FD inset; 
+	padding: 10px; 
+	font-size: 16px;
+	margin-bottom: 20px; 
+	background-color: #C1D9F0;
+	color: #003A61;
+	text-shadow: 1px 1px 0 white; 
+	font-family: 'Arial', 'Microsoft Yahei';
 }
 .demo .pannel-content {
 	padding: 0 20px 20px 20px; 
@@ -83,7 +99,7 @@ body {
 	margin-bottom:20px;
 }		
 .demo .pannel-content-part {
-	margin-bottom: 20px; padding-bottom: 20px;
+	padding-bottom: 20px;
 }
 .demo .pannel-content-part p {
 	margin-bottom: 8px;
@@ -95,14 +111,83 @@ body {
 	background: #CBDDF3; padding: 10px;
 }
 .demo .button {
-	font-size: 14px; height: 25px; line-height: 25px; text-decoration: none; background-color: #E6F1F6; border: 1px solid #D8D8D8; border-radius: 5px 5px 5px 5px; color: #666666; cursor: pointer; padding: 3px 10px; text-align: center; margin:0 5px;
+	font-size: 14px; 
+	height: 25px; 
+	line-height: 25px; 
+	text-decoration: none; 
+	background-color: #59A1C2; 
+	background-image: linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(210,242,250)),
+		color-stop(0.58, rgb(79,144,179)),
+		color-stop(0.58, rgb(89,161,194)),
+		color-stop(1, rgb(217,242,255))
+	);
+	color: white; 
+	text-shadow: 1px 1px 0 #1C4E6F;
+	cursor: pointer; 
+	padding: 3px 18px; 
+	text-align: center; 
+	margin: 10px;
+	margin-left: 0;
+	display: inline-block;
+	border: 1px solid #4FACD8;
+	border-radius: 5px;
+	box-shadow: inset 0 1px 0 white;
+	vertical-align: baseline;
 }
-<<<<<<< HEAD
+.demo button.button{
+	height: 30px;
+	line-height: 20px;
+}
+.demo .button:hover{
+	background-color: #96CAE6;
+	background-image: linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(210,242,250)),
+		color-stop(0.58, rgb(99,161,194)),
+		color-stop(0.58, rgb(107,178,209)),
+		color-stop(1, rgb(255,255,255))
+	);
+}
+.demo .button:active{
+	background-color: rgb(85,144,173);
+	background-image: linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(159,201,212)),
+		color-stop(0.58, rgb(85,144,173)),
+		color-stop(0.58, rgb(106,175,204)),
+		color-stop(1, rgb(82,135,171))
+	);
+	box-shadow: none;
+}
 .demo-clear:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
 .demo-clear{zoom:1;}
-=======
-remark{
-	color: red;
-	background-color: yellow;
+.demo ul{
+	list-style-position: inside;
+	margin-left: 0;
 }
->>>>>>> c6255ca33895ad779fb7083dfd7d33a74a4f5736
