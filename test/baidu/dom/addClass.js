@@ -153,3 +153,8 @@ test("老接口：给有className的元素添加", function() {
 	equal((div.className), "orig_class class1 class2 class3");
 	document.body.removeChild(div);
 });
+
+test("dom为空的情况",function(){
+	var result = baidu("#baidujsxiaozu").addClass("wangxiao");
+	ok(result);
+});

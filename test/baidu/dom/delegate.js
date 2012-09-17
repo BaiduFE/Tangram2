@@ -130,3 +130,8 @@ test('handler', function(){
     span1.dispose();
     document.body.removeChild(div);
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").delegate("wangxiao");
+    ok(result);
+});

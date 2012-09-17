@@ -75,3 +75,8 @@ test('.parents( selector )重载', function () {
 		equal(count(target, 'ul.level-2'), 1, 'li.level-2');
 	});
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").parents("wangxiao");
+    ok(result);
+});

@@ -64,3 +64,9 @@ test("iframe", function(){
 		this.finish();
 	});
 });
+
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").getDocument("wangxiao");
+    ok(result);
+});

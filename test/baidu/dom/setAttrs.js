@@ -33,6 +33,10 @@ test('shortcut',function(){
 	equal(img.getAttribute('height'),20,"img gets height attribute");
 })
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").setAttrs("wangxiao");
+    ok(result);
+});
 //老接口
 test('基础测试', function() {
 	expect(3);

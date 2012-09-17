@@ -41,3 +41,9 @@ function style(el, key){
     }
     return parseInt(result) || 0;
 }
+
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").innerWidth("wangxiao");
+    ok(result);
+});

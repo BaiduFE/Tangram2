@@ -112,3 +112,9 @@ test("baidu.dom(div).css(name,value)", function(){
 
       div.style.display = "none";
 });
+
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").css("wangxiao");
+    ok(result);
+});

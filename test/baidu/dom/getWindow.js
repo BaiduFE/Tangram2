@@ -37,6 +37,11 @@ test('iframe', function() {
 	});
 });
 
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").getWindow("wangxiao");
+    ok(result);
+});
 // 老接口
 
 test('当前页元素window', function() {

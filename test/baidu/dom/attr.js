@@ -458,6 +458,11 @@ test("attr('tabindex', value)", function() {
 });
 //end
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").attr("wangxiao");
+    ok(result);
+});
+
 //准备工序
 function prepareTest(){
 	var html = "<div id='body'>"+

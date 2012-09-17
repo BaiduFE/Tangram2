@@ -78,3 +78,9 @@ test("老接口：给有className的元素判断className",function(){
 	ok(baidu.dom.hasClass(div,'  class2     '),"div contains 2 classes");//有空格
 	document.body.removeChild(div);
 });
+
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").hasClass("wangxiao");
+    ok(result);
+});

@@ -85,3 +85,8 @@ test('没有兄弟',function(){
 	equal(baidu.dom.next(div),null,"no child");
 	document.body.removeChild(div);
 })
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").next("wangxiao");
+    ok(result);
+});

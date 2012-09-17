@@ -120,6 +120,10 @@ test("hide()", function() {
 	baidu("<div>test</div> text <span>test</span>").hide().remove();
 });
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").hide("wangxiao");
+    ok(result);
+});
 
 //准备工序
 function prepareTest(){

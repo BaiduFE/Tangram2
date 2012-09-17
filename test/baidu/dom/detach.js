@@ -66,3 +66,9 @@ test('event', function(){
         start();
     }, 'baidu.dom.on', 'baidu.dom.detach');
 });
+
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").detach("wangxiao");
+    ok(result);
+});

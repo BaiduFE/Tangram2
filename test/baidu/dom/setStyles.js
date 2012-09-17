@@ -84,6 +84,10 @@ test("shortcut",function(){
 	document.body.removeChild(div);
 });
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").setStyles("wangxiao");
+    ok(result);
+});
 //describe('baidu.dom.setStyles测试', {
 //    '通过Json方式设置多个样式值': function() {    
 //        var sStyles; 

@@ -71,3 +71,8 @@ test("prepend Array", function(){
 
    	equal( getWord(div.innerHTML), "ABCD", "div prepend TextNode Array" );
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").prepend("wangxiao");
+    ok(result);
+});

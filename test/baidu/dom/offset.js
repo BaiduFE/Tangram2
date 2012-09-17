@@ -284,3 +284,9 @@ function Id(){
 function get(id){
     return document.getElementById(id);
 }
+
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").offset("wangxiao");
+    ok(result);
+});

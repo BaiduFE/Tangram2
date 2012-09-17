@@ -39,3 +39,8 @@ test("appendTo TangramDom", function(){
     baidu.dom("div.A").appendTo( baidu.dom("div.B") );
 	equal( formatHTML(div.innerHTML), "<div class=b>B<div class=a>A</div><div class=a>A</div></div><div class=b>B<div class=a>A</div><div class=a>A</div></div>", "div.a appendTo div.b dom" );
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").appendTo("wangxiao");
+    ok(result);
+});
