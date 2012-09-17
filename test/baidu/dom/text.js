@@ -98,6 +98,11 @@ test("text(Function)", function() {
 // });
 
 
+test("dom为空的情况",function(){
+	var result = baidu("#baidujsxiaozu").text("wangxiao");
+	ok(result);
+});
+
 //准备工序
 function prepareTest(){
 	var html = "<div id='body'>"+

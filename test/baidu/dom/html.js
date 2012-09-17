@@ -213,6 +213,11 @@ test("html(Function) with incoming value", function() {
 	// }).html().replace(/>/g, "&gt;"), " " + insert, "Verify escaped insertion." );
 });
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").html("wangxiao");
+    ok(result);
+});
+
 // test("html() - script exceptions bubble (#11743)", function() {
 // 	expect(2);
 

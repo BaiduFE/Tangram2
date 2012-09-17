@@ -242,6 +242,11 @@ test("val(select) after form.reset() (Bug #2551)", function() {
 });
 
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").val("wangxiao");
+    ok(result);
+});
+
 //准备工序
 function prepareTest(){
 	var html = "<div id='body'>"+

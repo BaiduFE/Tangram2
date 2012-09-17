@@ -58,3 +58,8 @@ test('逻辑特性测试 - 有offsetParent情况', function () {
 		equal(count(target, 'ul.level-3'), 2);
 	});
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").offsetParent("wangxiao");
+    ok(result);
+});

@@ -36,6 +36,10 @@ test('.prev( selector )重载', function () {
 	});
 });
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").prev("wangxiao");
+    ok(result);
+});
 //老接口
 test('兄弟节点有空节点',function(){
 	expect(3);

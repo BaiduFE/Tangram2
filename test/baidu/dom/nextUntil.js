@@ -44,3 +44,8 @@ test('重叠情形', function () {
 		equal(target[1].tagName, 'SCRIPT');
 	});
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").nextUntil("wangxiao");
+    ok(result);
+});

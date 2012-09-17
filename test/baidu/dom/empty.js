@@ -56,3 +56,9 @@ test('innerHTML is blank', function(){
 	document.body.removeChild(a);
 	document.body.removeChild(p);
 });
+
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").empty("wangxiao");
+    ok(result);
+});
