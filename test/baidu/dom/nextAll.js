@@ -55,3 +55,8 @@ test('.nextAll( selector )重载', function () {
 		equal(target[1].id, 'e8');
 	});
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").nextAll("wangxiao");
+    ok(result);
+});

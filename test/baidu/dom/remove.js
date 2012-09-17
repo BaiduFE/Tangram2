@@ -103,6 +103,10 @@ test('text node', function() {
     baidu.dom.remove(div);
 });
 
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").remove("wangxiao");
+    ok(result);
+});
 //2.0已经加入了容错
 //test('异常用例', function() {
 //    expect(1);

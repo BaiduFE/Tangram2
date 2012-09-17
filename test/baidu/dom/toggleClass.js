@@ -106,3 +106,8 @@ test('老接口：异常用例', function(){
 	equal(head.className,"","head sets classname");
 
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").toggleClass("wangxiao");
+    ok(result);
+});

@@ -35,6 +35,11 @@ test("removeProp(String)", function() {
 	// });
 });
 
+test("dom为空的情况",function(){
+	var result = baidu("#baidujsxiaozu").removeProp("wangxiao");
+	ok(result);
+});
+
 //准备工序
 function prepareTest(){
 	var html = "<div id='body'>"+

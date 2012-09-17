@@ -233,3 +233,8 @@ test('etcEvents', function(){
     
     c.dispose();
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").on("wangxiao");
+    ok(result);
+});

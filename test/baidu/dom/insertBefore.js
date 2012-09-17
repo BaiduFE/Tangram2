@@ -110,3 +110,8 @@ test('异常case',function(){
 	baidu.dom.insertBefore(div,img);
 	equal(img.previousSibling,null,'insert failed');
 })
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").insertBefore("wangxiao");
+    ok(result);
+});

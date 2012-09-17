@@ -265,6 +265,11 @@ test("prop('tabindex', value)", function() {
 	equal(element.prop("tabindex"), -1, "set negative tabindex");
 });
 
+test("dom为空的情况",function(){
+	var result = baidu("#baidujsxiaozu").prop("wangxiao");
+	ok(result);
+});
+
 //准备工序
 function prepareTest(){
 	var html = "<div id='body'>"+

@@ -66,3 +66,8 @@ test('.parent( selector )重载', function () {
 		equal(target[1].className, 'level-2');
 	});
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").parent("wangxiao");
+    ok(result);
+});

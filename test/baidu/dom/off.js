@@ -144,3 +144,9 @@ test('span uninstall event', function(){
     c.dispose();
     document.body.removeChild(span);
 });
+
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").off("wangxiao");
+    ok(result);
+});

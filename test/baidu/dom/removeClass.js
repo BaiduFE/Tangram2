@@ -123,3 +123,8 @@ test('老接口：异常用例', function(){
 	baidu.dom.removeClass(html,'not_exited_class');
 	equal(html.className,'html_name','remove not existed class of html');
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").removeClass("wangxiao");
+    ok(result);
+});

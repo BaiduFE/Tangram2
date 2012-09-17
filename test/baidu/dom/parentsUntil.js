@@ -65,3 +65,8 @@ test('获得多个元素的祖先（至ul.level-1为止）', function () {
 		equal(count(target, 'li.item-ii'), 1, 'li.item-ii');
 	});
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").parentsUntil("wangxiao");
+    ok(result);
+});

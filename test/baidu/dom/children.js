@@ -117,4 +117,4 @@ test("empty childs", function() {
 	equal(baidu.dom.children(div), "", "no childs");
 	equal(baidu.dom.children('div_id'), "", "no childs by id");
 	document.body.removeChild(div);
-})
+});

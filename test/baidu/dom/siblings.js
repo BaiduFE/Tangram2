@@ -51,3 +51,8 @@ test('多个节点的兄弟（有重复）', function () {
 		equal(target[2].className, 'item-a');
 	});
 });
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").siblings("wangxiao");
+    ok(result);
+});
