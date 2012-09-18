@@ -33,7 +33,7 @@
 		</div>
 		<script type="text/javascript">
 			var arr = ['mouseover', 'mouseenter', 'mousemove', 'mousedown','mouseup', 'mouseout','mouseleave'];
-			baidu.array(arr).each(function(item, index) {
+			baidu.array(arr).each(function(index, item) {
 				baidu('#sendArea')[item](function(e) {
 					baidu('#demo_execute_result_1')[0].innerHTML += '<p>鼠标事件：' + item + '</p>';
 				})
