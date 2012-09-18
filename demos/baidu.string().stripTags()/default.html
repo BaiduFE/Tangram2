@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -36,43 +35,4 @@
 			T('#demo-show-area').html(baidu.string(T('#content-with-tag').val()).stripTags());
 		});
 	</script>
-=======
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.string().stripTags() 示例" />
-		<title>去除XML标签</title>
-		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
-		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
-		<script type="text/javascript" src="../../demos/public.js"></script>
-	</head>
-	<body>
-		<div class="demo" id="demo">
-			<h1 class="ac-h1"><strong>baidu.string().stripTags()</strong> 示例</h1>
-			<div class="pannel">
-				<div class="pannel-title">
-					<span>去除XML标签</span>
-				</div>
-				<div class="pannel-content">
-					<!--html view start-->
-					<button id="stripe-tag" class="button">去除标签</button>			
-					<p>去除HTML标签</p>
-					<p>
-						<textarea id="content-with-tag" rows="3" cols="80"><a href="http://www.baidu.com">百度</a><a href="http://mp3.baidu.com">MP3</a></textarea>
-					</p>
-					<p id="demo-show-area">
-						
-					</p>
-					<!--html view end-->
-				</div>
-			</div>
-		</div>
-	</body>
-	<script type="text/javascript">		
-		T('#stripe-tag').on('click', function(e){
-			T('#demo-show-area').html(baidu.string(T('#content-with-tag').val()).stripTags());
-		});
-	</script>
->>>>>>> c6255ca33895ad779fb7083dfd7d33a74a4f5736
 </html>
