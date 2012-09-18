@@ -45,7 +45,7 @@
 		<script type="text/javascript">
 			baidu('#demo_btn_1').on('click', function(e) {
 				var brow = ['chrome', 'firefox', 'ie', 'isGecko', 'isStrict', 'isWebkit', 'maxthon', 'opera', 'safari'], result = [];
-				baidu.array(brow).each(function(item, index) {
+				baidu.array(brow).each(function(index, item) {
 					(baidu.browser[item] == undefined) ? result.push('<tr><td>baidu.browser.' + item + '</td><td>' + baidu.browser[item] + '</td></tr>') : result.push('<tr class="light"><td>baidu.browser.' + item + '</td><td>' + baidu.browser[item] + '</td></tr>');
 				})
 				result = '<table>' + result.join('') + '</table>';

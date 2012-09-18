@@ -30,7 +30,7 @@
 		<script type="text/javascript">
 			baidu('#demo_btn_1').on('click', function(e) {
 				var arr = ['Android', 'Ipad', 'Iphone', 'Windows', 'Macintosh', 'X11'];
-				baidu.array(arr).each(function(item, index) {
+				baidu.array(arr).each(function(index, item) {
 					baidu.platform['is' + item] == true && baidu('#demo_execute_result_1').html('您当前的平台是：' + item);
 				})
 			})
