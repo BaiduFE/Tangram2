@@ -107,7 +107,7 @@ h1, h2, h3, h4, h5, h6{
 .demo .pannel-show {
 	background: #CBDDF3; padding: 10px;
 }
-.demo .button, .demo button {
+.demo .button, .demo button, .demo input[type=button] {
 	font-size: 14px; 
 	height: 25px; 
 	line-height: 25px; 
@@ -141,11 +141,11 @@ h1, h2, h3, h4, h5, h6{
 	box-shadow: inset 0 1px 0 white;
 	vertical-align: baseline;
 }
-.demo button, .demo button.button{
+.demo button, .demo button.button, .demo input[type=button]{
 	height: 30px;
 	line-height: 20px;
 }
-.demo .button:hover, .demo button:hover{
+.demo .button:hover, .demo button:hover, .demo input[type=button]:hover{
 	background-color: #96CAE6;
 	background-image: linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
 	background-image: -o-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6{
 		color-stop(1, rgb(255,255,255))
 	);
 }
-.demo .button:active, .demo button:active{
+.demo .button:active, .demo button:active, , .demo input[type=button]:active{
 	background-color: rgb(85,144,173);
 	background-image: linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
 	background-image: -o-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
