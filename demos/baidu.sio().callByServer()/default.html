@@ -52,7 +52,7 @@
 			// 加载完成的回调函数
 			function fn(data) {
 				var list = baidu('#demo_list');
-				baidu.array(data).each(function(item, index){
+				baidu.array(data).each(function(index, item){
 					list.append('<li class="dynamic">'+item+'</li>');
 				});
 				baidu('#demo_execute_result').html('数据加载成功');
