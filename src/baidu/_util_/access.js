@@ -6,6 +6,9 @@
 ///import baidu.type;
 
 baidu._util_.access = function(key, value, callback){
+    if( this.size()<=0 ){
+        return this;
+    };
     switch(baidu.type(key)){
         case 'string'://高频
             if(value === undefined){

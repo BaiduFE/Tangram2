@@ -22,6 +22,7 @@ test("after TangramDom", function(){
 });
 
 test("dom为空的情况",function(){
+	
     var result = baidu("#baidujsxiaozu").after("wangxiao");
     ok(result);
 });

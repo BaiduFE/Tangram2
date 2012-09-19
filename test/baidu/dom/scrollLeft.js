@@ -109,5 +109,5 @@ function create( tag, sLeft, sTop ){
 
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").scrollLeft("wangxiao");
-    ok(result);
+    equal(result,0);
 });

@@ -66,7 +66,19 @@ baidu.dom.extend({
             me = this,
             isSet = false,
             result;
-        
+
+        //当dom选择器为空时
+        if(this.size()<=0){
+            switch(typeof value){
+                case 'undefined':
+                    return undefined;
+                break;
+                default:
+                    return me;
+                break;
+            }            
+        }
+                
         baidu.forEach(me,function(elem, index){
             
             var hooks,
@@ -74,8 +86,8 @@ baidu.dom.extend({
 
             if(result){
                 return;
-            };
-            
+            }
+
             switch(typeof value){
                 case 'undefined':
         
