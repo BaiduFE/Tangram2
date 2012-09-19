@@ -10,13 +10,21 @@
 
 /**
  * @description 拷贝某对象的所有属性/方法；如果第一个参数为true，则进入深度克隆，并返回一个全新对象
- * @name baidu.extend
+ * @name baidu.extend()
  * @function
- * @grammar baidu.extend([depthClone,] obj0[, obj1[, obj2....]])
- * @param   {Boolean}   depthClone  是否深度克隆的标识，默认为false
+ * @grammar baidu.extend(obj0,obj1,obj2...)
+ * @param   {Object} obj0,0bj1... 
  * @return  {Object}                合并后的JS对象
  */
 
+/**
+ * @description 拷贝某对象的所有属性/方法；如果第一个参数为true，则进入深度克隆，并返回一个全新对象
+ * @name baidu.extend
+ * @function
+ * @grammar baidu.extend(depthClone,obj0,obj1,obj2....)
+ * @param   {Boolean}   depthClone  是否深度克隆的标识，默认为false，可以不传。
+ * @return  {Object}                合并后的JS对象
+ */
 baidu.extend = function(depthClone, object) {
     var second, options, key, src, copy,
         i = 1,
