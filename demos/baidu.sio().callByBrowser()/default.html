@@ -52,14 +52,14 @@
 			// 加载完成的回调函数
 			function fn() {
 				var list = baidu('#demo_list');
-				baidu.array(response).each(function(item, index){
+				baidu.array(response).each(function(index, item){
 					list.append('<li class="dynamic">'+item+'</li>');
 				});
 				baidu('#demo_execute_result').html('数据加载成功');
 			}
 			
 			baidu('#demo_btn').on('click', function(e) {
-				baidu.sio('../../demos/baidu.sio().callByBrowser()/request.php').callByBrowser(fn);
+				baidu.sio('../../demos/baidu.sio().callByBrowser()/response.json').callByBrowser(fn);
 			});
 		</script>
 	</body>
