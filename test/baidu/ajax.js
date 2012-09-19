@@ -938,34 +938,34 @@ $.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label ) {
             }
         });
 
-        baidu.ajax({
-            url: upath + "/ajax/jsonp.php?callback=??",
-            dataType: "jsonp",
-            crossDomain: crossDomain,
-            success: function(data){
-                ok( data.data, "JSON results returned (GET, url context-free callback)" );
-                plus();
-            },
-            error: function(data){
-                ok( false, "Ajax error JSON (GET, url context-free callback)" );
-                plus();
-            }
-        });
+//        baidu.ajax({
+//            url: upath + "/ajax/jsonp.php?callback=??",
+//            dataType: "jsonp",
+//            crossDomain: crossDomain,
+//            success: function(data){
+//                ok( data.data, "JSON results returned (GET, url context-free callback)" );
+//                plus();
+//            },
+//            error: function(data){
+//                ok( false, "Ajax error JSON (GET, url context-free callback)" );
+//                plus();
+//            }
+//        });
 
-        baidu.ajax({
-            url: upath + "/ajax/jsonp.php",
-            dataType: "jsonp",
-            crossDomain: crossDomain,
-            data: "callback=??",
-            success: function(data){
-                ok( data.data, "JSON results returned (GET, data context-free callback)" );
-                plus();
-            },
-            error: function(data){
-                ok( false, "Ajax error JSON (GET, data context-free callback)" );
-                plus();
-            }
-        });
+//        baidu.ajax({
+//            url: upath + "/ajax/jsonp.php",
+//            dataType: "jsonp",
+//            crossDomain: crossDomain,
+//            data: "callback=??",
+//            success: function(data){
+//                ok( data.data, "JSON results returned (GET, data context-free callback)" );
+//                plus();
+//            },
+//            error: function(data){
+//                ok( false, "Ajax error JSON (GET, data context-free callback)" );
+//                plus();
+//            }
+//        });
 
 //        baidu.ajax({
 //            url: upath + "/ajax/jsonp.php/??",
