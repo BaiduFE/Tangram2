@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6{
 		color-stop(1, rgb(255,255,255))
 	);
 }
-.demo .button:active, .demo button:active, , .demo input[type=button]:active{
+.demo .button:active, .demo button:active, .demo input[type=button]:active{
 	background-color: rgb(85,144,173);
 	background-image: linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
 	background-image: -o-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
