@@ -16,12 +16,6 @@ test('基础测试', function() {
 			"div has class attribute");
 });
 
-
-test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").hasAttr("wangxiao");
-    ok(result);
-});
-
 /**
  * 针对所有对象做id判断的用例
  */

@@ -69,11 +69,24 @@
 
 baidu.dom.extend({
     html: function(value){
+
         var bd = baidu.dom,
             bt = baidu._util_,
             me = this,
             isSet = false,
             result;
+
+        //当dom选择器为空时
+        if(this.size()<=0){
+            switch(typeof value){
+                case 'undefined':
+                    return undefined;
+                break;
+                default:
+                    return me;
+                break;
+            }            
+        }
         
         var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
         "header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
@@ -100,7 +113,7 @@ baidu.dom.extend({
         // unless wrapped in a div with non-breaking characters in front of it.
         if ( !baidu.support.htmlSerialize ) {
             wrapMap._default = [ 1, "X<div>", "</div>" ];
-        };
+        }
 
         baidu.forEach(me,function(elem, index){
             
@@ -160,7 +173,7 @@ baidu.dom.extend({
                 break;
             };
         });
-
+        
         return isSet?me:result;
     }
 });

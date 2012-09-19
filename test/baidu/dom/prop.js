@@ -266,8 +266,10 @@ test("prop('tabindex', value)", function() {
 });
 
 test("dom为空的情况",function(){
-	var result = baidu("#baidujsxiaozu").prop("wangxiao");
-	ok(result);
+    var result = baidu("#baidujsxiaozu").prop('type');
+    equal(result,undefined,'get方法');
+    var result = baidu("#baidujsxiaozu").prop('type','wlkafjl');
+    ok(result,'有东西就行');
 });
 
 //准备工序

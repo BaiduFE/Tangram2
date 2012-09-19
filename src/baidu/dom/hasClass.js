@@ -41,6 +41,11 @@ baidu.dom.extend({
         if(arguments.length <= 0 || typeof value === 'function'){
             return this;
         };
+        
+        if(this.size()<=0){
+            return false;
+        };
+
         //对输入进行处理
         value = value.replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
         var arr = value.split(' ');

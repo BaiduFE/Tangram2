@@ -26,6 +26,7 @@
  
 baidu.dom.extend({
 contains : function ( contained) {
+	if(this.size()<=0){return false;}
 	container = this[0];
     var g = baidu.dom._g;
     container = g(container);

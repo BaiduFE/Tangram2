@@ -19,6 +19,7 @@
  */
 baidu.dom.extend({
     getDocument: function(){
+    	if(this.size()<=0){return undefined;}
         var ele = this[0];
         return ele.nodeType == 9 ? ele : ele.ownerDocument || ele.document;
     }

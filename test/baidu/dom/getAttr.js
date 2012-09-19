@@ -267,10 +267,3 @@ test(
 			ok(baidu.dom.getAttr(div,"id")==""||baidu.dom.getAttr(div,"id")==null,"no name attribute");
 			equal(baidu.getAttr(div,"name"),null,"no name attribute");
 		})
-
-
-
-test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").css("wangxiao");
-    ok(result);
-});

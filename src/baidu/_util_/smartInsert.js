@@ -10,7 +10,7 @@
 ///import baidu.dom.html;
 
 baidu._util_.smartInsert = function(tang, args, callback){
-    if(args.length <= 0){return;}
+    if(args.length <= 0 || tang.size() <= 0){return;}
     if(baidu.type(args[0]) === 'function'){
         var fn = args[0],
             tangItem;
