@@ -31,7 +31,7 @@
 			baidu('#demo_btn_1').on('click', function(e) {
 				var arr = ['a', 'b', 'c', 'd'];
 				baidu('#demo_execute_result_1').html('');
-				baidu.array(arr).each(function(item, index) {
+				baidu.array(arr).each(function(index, item) {
 					baidu('#demo_execute_result_1').html(baidu('#demo_execute_result_1').html() + index + ':' + item + ';');
 				});
 			});
