@@ -69,7 +69,7 @@
 		baidu('#demo-target').prepend(ul);
 		
 		// 列表生成迭代器
-		function iteratorRenderList(value, key){
+		function iteratorRenderList(key, value){
 			var timeStamp = new Date().getTime();
 			var list = baidu('<li>'+key+' : '+value.title+' '+value.date+' '+timeStamp+'</li>');
 			ul.append(list);
