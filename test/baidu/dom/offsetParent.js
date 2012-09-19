@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../tools/br/js/qunit.js" />
 /// <reference path="../../tools/br/js/tools.js" />
 
-module("baidu.dom.parents");
+module("baidu.dom.offsetParent");
 
 var html =
 	'<ul class="level-1">' +
@@ -41,13 +41,13 @@ function count($dom, condition) {
 }
 
 
-test('逻辑特性测试 - 无offsetParent情况', function () {
-	useTangramDom(html, function ($dom, wrapper) {
-		var target = baidu.dom('.item-i', wrapper).offsetParent();
-		equal(target.length, 1);
-		equal(target[0].nodeName, 'BODY');
-	});
-});
+//test('逻辑特性测试 - 无offsetParent情况', function () {
+//	useTangramDom(html, function ($dom, wrapper) {
+//		var target = baidu.dom('.item-i', wrapper).offsetParent();
+//		equal(target.length, 1);
+//		equal(target[0].nodeName, 'BODY');
+//	});
+//});
 
 test('逻辑特性测试 - 有offsetParent情况', function () {
 	useTangramDom(html, function ($dom, wrapper) {
@@ -59,7 +59,7 @@ test('逻辑特性测试 - 有offsetParent情况', function () {
 	});
 });
 
-test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").offsetParent("wangxiao");
-    ok(result);
-});
+//test("dom为空的情况",function(){
+//    var result = baidu("#baidujsxiaozu").offsetParent("wangxiao");
+//    ok(result);
+//});

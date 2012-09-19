@@ -25,6 +25,7 @@ baidu._util_.smartScroll = function(axis){
         },
         
         set: function(ele, val){
+            if(!ele){return;}
             var win = getWindow(ele);
             win ? win.scrollTo(is ? val : this.get(ele), !is ? val : this.get(ele))
                 : ele[axis] = val;
