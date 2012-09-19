@@ -22,8 +22,8 @@ test("get style from style", function() {
 	ok(color == '#ff0000' || color == 'red'
 			|| (/rgb\(255,\s?0,\s?0\)/.test(color)), 'color red');
 	equal(baidu.dom.getCurrentStyle(img, 'display'), 'block');
-	equal(baidu.dom.getCurrentStyle(img, 'width'), '10px');
-	equal(baidu.dom.getCurrentStyle(img, 'height'), '15px');
+	equal(baidu.dom.getCurrentStyle(img, 'width'), '10%');
+	equal(baidu.dom.getCurrentStyle(img, 'height'), '10%');
 
 	document.body.removeChild(div);
 });
