@@ -241,10 +241,11 @@ test("val(select) after form.reset() (Bug #2551)", function() {
 	baidu("#kk").remove();
 });
 
-
 test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").val("wangxiao");
-    ok(result);
+    var result = baidu("#baidujsxiaozu").val();
+    equal(result,undefined,'get方法');
+    var result = baidu("#baidujsxiaozu").val('无法金额非连裤袜家乐福');
+    ok(result,'有东西就行');
 });
 
 //准备工序

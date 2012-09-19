@@ -82,5 +82,5 @@ test("老接口：给有className的元素判断className",function(){
 
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").hasClass("wangxiao");
-    ok(result);
+    ok(result==false);
 });

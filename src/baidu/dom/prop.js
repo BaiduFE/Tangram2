@@ -122,6 +122,18 @@ baidu.dom.extend({
         var result,
         me = this,
         isSet = false;
+
+        //当dom选择器为空时
+        if(this.size()<=0){
+            if(name&&value){
+                return me;
+            }else if(name&&!value){
+                return undefined;
+            }else{
+                return me;
+            }
+        }
+        
         baidu.forEach(this, function(item,index){
 
             if(result){

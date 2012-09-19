@@ -14,6 +14,7 @@
  */
 baidu.dom.extend({
     position: function(){
+        if(this.size()<=0){return 0;}        
         var patrn = /^(?:body|html)$/i,
             coordinate = this.offset(),
             offsetParent = this.offsetParent(),

@@ -145,9 +145,3 @@ test('FF下的特殊情况',function(){
 	equals($("#table1")[0].parentNode.parentNode.id, 'test1', '确认table位置');
 	insertHtmlRemove(table);
 })
-
-
-test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").insertHTML("wangxiao");
-    ok(result);
-});
