@@ -27,7 +27,7 @@
  * @description 取得第一个匹配元素或是设置多个匹配元素相对于文档的偏移量
  * @function 
  * @name baidu.dom().offset()
- * @grammar baidu.dom(args).offset([function(index, coordinates)])
+ * @grammar baidu.dom(args).offset([fn(index, coordinates)])
  * @param {function} fn 接收两个参数，index参数表示匹配元素在集合中的索引，coordinates表示匹配元素的坐标，fn最终需要返回一个格式为{left: val, top: val}的json
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */

@@ -13,7 +13,7 @@
  * @description 判断对象类型，返回值为全小写对象名
  * @function
  * @name baidu.type()
- * @grammar baidu.type( unknow )
+ * @grammar baidu.type( unknow[,match] )
  * @param   {Any}       unknow  任意类型的对象
  * @param   {String}    match   [可选]与对象类型作比较的字符串，这个参数如果赋值则.type()方法的返回值为布尔值，使用此种判断的效率只有 is* 系列的 1/7
  * @return  {String}            对应对象类型的字符串
