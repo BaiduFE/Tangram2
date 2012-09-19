@@ -60,7 +60,7 @@
 		// 迭代数据，生成列表
 		baidu('#demo_btn_1').on('click',function(e){
 			ul.empty();
-			baidu.each(data, function(value, key){
+			baidu.each(data, function(key, value){
 				var timeStamp = new Date().getTime();
 				var list = baidu('<li>'+key+' : '+value.title+' '+value.date+' '+timeStamp+'</li>');
 				ul.append(list);
