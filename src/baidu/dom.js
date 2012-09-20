@@ -16,6 +16,7 @@
  * @name baidu.dom()
  * @grammar baidu.dom(selector[, context])
  * @param {Null|Undefined} selector 非正常的对象
+ * @param   {Document}   context  [可选]指选择器的范围
  * @return {TangramDom} 空TangramDom对象
  * @meta standard
  */
@@ -42,7 +43,7 @@
  * @function 
  * @name baidu.dom()
  * @grammar baidu.dom(null)
- * @param   {Null}      selector    null对象
+ * @param   {Null}   null    null对象
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
