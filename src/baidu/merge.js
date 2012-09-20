@@ -12,7 +12,7 @@
  * 
  * @function
  * @name baidu.merge
- * @grammar baidu.merge(arrayLike, arrayLike)
+ * @grammar baidu.merge(first,second)
  * @param   {Object}    first   第一个 ArrayLike
  * @param   {Object}    second  第二个 ArrayLike
  * @return              first   第一个对象

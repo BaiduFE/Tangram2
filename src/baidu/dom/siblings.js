@@ -14,7 +14,7 @@
  * @function
  * @name baidu.dom().siblings()
  * @grammar baidu.dom(args).siblings(filter)
- * @param   {Function}      fn(a, b)    [可选]
+ * @param   {Function}      fn(a,b)    [可选]
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({

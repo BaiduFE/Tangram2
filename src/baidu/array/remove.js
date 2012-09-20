@@ -13,7 +13,7 @@
  * @name baidu.array.remove
  * @function
  * @grammar $Array.remove(item)
- * @param   {Object}        match   数组匹配项
+ * @param   {Object}     item   数组匹配项
  * @return  {Array}                 操作后的数组
  */
 
@@ -23,7 +23,7 @@
  * @name baidu.array().remove()
  * @function
  * @grammar $Array.remove(item)
- * @param   {Object}        match   数组匹配项
+ * @param   {Object}    item  数组匹配项
  * @return  {Array}                 操作后的数组
  */
 baidu.array.extend({
