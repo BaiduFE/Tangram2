@@ -53,12 +53,12 @@ function( event ){
     if( typeof event == "object" && event.type ){
         me.originalEvent = e = event;
 
-        baidu.forEach( "altKey bubbles button buttons cancelable clientX clientY ctrlKey metaKey commandKey currentTarget fromElement screenX screenY shiftKey toElement type view which triggerData".split(" "), function(item){
+        baidu.forEach( "altKey bubbles button buttons cancelable clientX clientY ctrlKey commandKey currentTarget fromElement metaKey screenX screenY shiftKey toElement type view which triggerData".split(" "), function(item){
             me[ item ] = e[ item ];
         });
 
         me.target = me.srcElement = e.srcElement || (( t = e.target ) ? ( t.nodeType == 3 ? t.parentNode : t ) : null);
-        me.relatedTarget = e.relatedTarget || (( t = e.fromElement ) ? (t === e.target ? e.toElement : t ) : null);
+        me.relatedTarget = e.relatedTarget || (( t = e.fromElement ) ? (t === me.target ? e.toElement : t ) : null);
 
         me.keyCode = me.which = e.keyCode || e.which;
 
