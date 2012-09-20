@@ -12,8 +12,8 @@
  * @description 拷贝某对象的所有属性/方法，并返回一个全新对象(非深度克隆)
  * @function
  * @name baidu.extend
- * @grammar baidu.extend(obj0,obj1 ... objN)
- * @param   {Object} obj0,0bj1... 
+ * @grammar baidu.extend(obj0,obj1,obj2。。。objN)
+ * @param   {Object} obj0,obj1。。。objN
  * @return  {Object}                合并后的JS对象
  */
 
@@ -22,7 +22,7 @@
  * @function
  * @name baidu.extend
  *
- * @grammar baidu.extend(depthClone,obj0[,obj1,obj2...objN])
+ * @grammar baidu.extend(depthClone,obj0[,obj1,obj2。。。objN])
  * @param   {Boolean}   depthClone  是否深度克隆的标识，默认为false，可以不传。
  * @return  {Object}                合并后的JS对象
  */

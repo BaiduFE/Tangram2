@@ -11,7 +11,7 @@
 /**
  * @description 数组映射
  *
- * @name baidu.array.map
+ * @name baidu.array().map()
  * @function
  * @grammar baidu.array(array).map(iterator,context)
  * @param   {Function}      iterator    指定的执行方法
@@ -29,6 +29,7 @@ Array.prototype.map = function (iterator, context) {
     }
     return array;
 };
+
 /// Tangram 1.x Code Start
 baidu.array.map = function(array, iterator, context){
     return baidu.isArray(array) ? array.map(iterator, context) : array;

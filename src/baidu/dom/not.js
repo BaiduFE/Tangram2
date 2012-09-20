@@ -10,15 +10,31 @@
  */
 
 /**
- * @description 去除当前集合中符合选择器的项
+ * @description 去除当前集合中符合再次输入的选择器的项
  *
  * @function
  * @name baidu.dom().not()
- * @grammar baidu.dom(args).not(selector[, filter])
- * @param   {Object}            selector    选择器
+ * @grammar baidu.dom(args).not(selector)
  * @param   {Object}            selector    选择器
   
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
+ * @example 
+ 去除当前集合中符合再次输入的选择器的项
+ 
+ 示例代码：
+ //HTML片段
+ <div class="test">1</div>
+ <div>2</div>
+ <div>3</div>
+ <div class="test">4</div>
+
+ //去掉class为test的元素
+ baidu('div').not('.test');
+
+ //结果
+ <div>2</div>
+ <div>3</div>
+
  */
 baidu.dom.extend({
     not : function (selector) {
