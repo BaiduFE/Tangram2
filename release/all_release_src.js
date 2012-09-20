@@ -98,7 +98,7 @@
  * @function 
  * @name baidu()
  * @grammar baidu(TangramDom)
- * @param   {TangramDom}    selector    TangramDom对象
+ * @param   {TangramDom}   TangramDom    TangramDom对象
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
@@ -106,7 +106,7 @@
  * @function 
  * @name baidu()
  * @grammar baidu(HTMLString)
- * @param   {String}        selector    HTMLString
+ * @param   {String}     HTMLString    HTMLString
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
@@ -229,7 +229,7 @@ baidu._util_ = baidu._util_ || {};
  * 
  * @function
  * @name baidu.merge
- * @grammar baidu.merge(arrayLike, arrayLike)
+ * @grammar baidu.merge(first,second)
  * @param   {Object}    first   第一个 ArrayLike
  * @param   {Object}    second  第二个 ArrayLike
  * @return              first   第一个对象
@@ -1870,7 +1870,7 @@ baidu.forEach = function( enumerable, iterator, context ) {
  * @description 判断对象类型，返回值为全小写对象名
  * @function
  * @name baidu.type()
- * @grammar baidu.type( unknow )
+ * @grammar baidu.type( unknow[,match] )
  * @param   {Any}       unknow  任意类型的对象
  * @param   {String}    match   [可选]与对象类型作比较的字符串，这个参数如果赋值则.type()方法的返回值为布尔值，使用此种判断的效率只有 is* 系列的 1/7
  * @return  {String}            对应对象类型的字符串
@@ -2076,11 +2076,22 @@ baidu.object.clone  = function (source) {
  */
 
 /**
- * @description 拷贝某对象的所有属性/方法；如果第一个参数为true，则进入深度克隆，并返回一个全新对象
- * @name baidu.extend
+ * @description 拷贝某对象的所有属性/方法，并返回一个全新对象(非深度克隆)
  * @function
- * @grammar baidu.extend([depthClone,] obj0[, obj1[, obj2....]])
- * @param   {Boolean}   depthClone  是否深度克隆的标识，默认为false
+ * @name baidu.extend
+ * @grammar baidu.extend(obj0,obj1,obj2。。。objN)
+ * @param   {Object} obj0,obj1。。。objN  每一个传入的对象
+ * @return  {Object}                合并后的JS对象
+ */
+
+/**
+ * @description 拷贝某对象的所有属性/方法；如果第一个参数为true，则进入深度克隆，并返回一个全新对象
+ * @function
+ * @name baidu.extend
+ *
+ * @grammar baidu.extend(depthClone,obj0[,obj1,obj2。。。objN])
+ * @param   {Boolean}   depthClone  是否深度克隆的标识，默认为false，可以不传。
+ * @param   {Object} obj0,obj1。。。objN  每一个传入的对象
  * @return  {Object}                合并后的JS对象
  */
 
@@ -2278,10 +2289,10 @@ baidu.lang.isFunction = baidu.isFunction;
  * @grammar baidu.object.merge(target, source[, opt_options])
  * @param {Function} target 目标对象.
  * @param {Function} source 源对象.
- * @param {Object} opt_options optional merge选项.
- * @param {boolean} overwrite optional 如果为真，源对象属性会覆盖掉目标对象上的已有属性，默认为假.
- * @param {string[]} whiteList optional 白名单，默认为空，如果存在，只有在这里的属性才会被处理.
- * @param {boolean} recursive optional 是否递归合并对象里面的object，默认为否.
+ * @param {Object} opt_options  optional merge选项.
+ * @param {boolean} opt_options.overwrite   optional 如果为真，源对象属性会覆盖掉目标对象上的已有属性，默认为假.
+ * @param {string[]} opt_options.whiteList   optional 白名单，默认为空，如果存在，只有在这里的属性才会被处理.
+ * @param {boolean} opt_options.recursive    optional 是否递归合并对象里面的object，默认为否.
  * @return {object} merge后的object.
  * @see baidu.object.extend
  * @author berg
@@ -2649,7 +2660,7 @@ baidu.overwrite(baidu.array.$Array, "concat slice".split(" "), function(key) {
  * @name baidu.array.remove
  * @function
  * @grammar $Array.remove(item)
- * @param   {Object}        match   数组匹配项
+ * @param   {Object}     item   数组匹配项
  * @return  {Array}                 操作后的数组
  */
 
@@ -2659,7 +2670,7 @@ baidu.overwrite(baidu.array.$Array, "concat slice".split(" "), function(key) {
  * @name baidu.array().remove()
  * @function
  * @grammar $Array.remove(item)
- * @param   {Object}        match   数组匹配项
+ * @param   {Object}    item  数组匹配项
  * @return  {Array}                 操作后的数组
  */
 baidu.array.extend({
@@ -2888,12 +2899,11 @@ baidu.id.key = "tangram_guid";
 /**
  * @description Tangram继承机制提供的一个基类，用户可以通过继承baidu.lang.Class来获取它的属性及方法。
  * @class
- * @name 	baidu.lang.Class
+ * @name baidu.lang.Class
  * @grammar baidu.lang.Class(guid)
- * @param 	{string}	guid	对象的唯一标识
+ * @param {string} guid 对象的唯一标识
  * @meta standard
  * @remark baidu.lang.Class和它的子类的实例均包含一个全局唯一的标识guid。guid是在构造函数中生成的，因此，继承自baidu.lang.Class的类应该直接或者间接调用它的构造函数。<br>baidu.lang.Class的构造函数中产生guid的方式可以保证guid的唯一性，及每个实例都有一个全局唯一的guid。
- * @meta standard
  * @see baidu.lang.inherits,baidu.lang.Event
  */
 baidu.lang.Class = function() {
@@ -2903,7 +2913,7 @@ baidu.lang.Class = function() {
 /**
  * @description 释放对象所持有的资源，主要是自定义事件。
  * @name obj.dispose
- * @name function 
+ * @function 
  * @grammar obj.dispose()
  * TODO: 将_listeners中绑定的事件剔除掉
  */
@@ -5642,7 +5652,7 @@ baidu.json = baidu.json || {};
  * @name baidu.json.parse
  * @function
  * @grammar baidu.json.parse(data)
- * @param {string} source 需要解析的字符串
+ * @param {string} data 需要解析的字符串
  * @remark
  * 该方法的实现与ecma-262第五版中规定的JSON.parse不同，暂时只支持传入一个参数。后续会进行功能丰富。
  * @meta standard
@@ -7192,10 +7202,10 @@ baidu.dom.extend({
 
 /**
  * @description 判断一个元素是否包含另一个元素
- * @name baidu.dom.contains
+ * @name baidu.dom().contains()
  * @function
- * @grammar baidu.dom.contains(container, contained)
- * @param {HTMLElement|string} container 包含元素或元素的id
+ * @grammar baidu.dom(args).contains(contained)
+ * @param {HTMLElement|string} args 包含元素或元素的id
  * @param {HTMLElement|string} contained 被包含元素或元素的id
  * @meta standard
  * @see baidu.dom.intersect
@@ -7205,6 +7215,7 @@ baidu.dom.extend({
  
 baidu.dom.extend({
 contains : function ( contained) {
+	if(this.size()<=0){return false;}
 	container = this[0];
     var g = baidu.dom._g;
     container = g(container);
@@ -8322,9 +8333,10 @@ baidu.event.getPageY = function (event) {
  * @description 对当前 TangramDom 集合解除事件监听
  * @function 
  * @name baidu.dom().off()
- * @grammar baidu.dom(args).off(events[,selector],fn)
+ * @grammar baidu.dom(args).off(eventMap[,selector],fn)
  * @param {Object} eventMap 一个以 eventName:eventFn 键值对表示的 JSON 格式对象
  * @param {String} selector 用于限制事件源的选择器表达式，此参数可选。
+ * @param {Function} fn 事件触发函数
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
  */
 
@@ -10801,6 +10813,7 @@ baidu._util_.smartScroll = function(axis){
         },
         
         set: function(ele, val){
+            if(!ele){return;}
             var win = getWindow(ele);
             win ? win.scrollTo(is ? val : this.get(ele), !is ? val : this.get(ele))
                 : ele[axis] = val;
@@ -11007,6 +11020,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     getDocument: function(){
+    	if(this.size()<=0){return undefined;}
         var ele = this[0];
         return ele.nodeType == 9 ? ele : ele.ownerDocument || ele.document;
     }
@@ -11306,11 +11320,24 @@ baidu.dom.extend({
 
 baidu.dom.extend({
     html: function(value){
+
         var bd = baidu.dom,
             bt = baidu._util_,
             me = this,
             isSet = false,
             result;
+
+        //当dom选择器为空时
+        if(this.size()<=0){
+            switch(typeof value){
+                case 'undefined':
+                    return undefined;
+                break;
+                default:
+                    return me;
+                break;
+            }            
+        }
         
         var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
         "header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
@@ -11337,7 +11364,7 @@ baidu.dom.extend({
         // unless wrapped in a div with non-breaking characters in front of it.
         if ( !baidu.support.htmlSerialize ) {
             wrapMap._default = [ 1, "X<div>", "</div>" ];
-        };
+        }
 
         baidu.forEach(me,function(elem, index){
             
@@ -11397,7 +11424,7 @@ baidu.dom.extend({
                 break;
             };
         });
-
+        
         return isSet?me:result;
     }
 });
@@ -11413,7 +11440,7 @@ baidu.dom.extend({
 
 
 baidu._util_.smartInsert = function(tang, args, callback){
-    if(args.length <= 0){return;}
+    if(args.length <= 0 || tang.size() <= 0){return;}
     if(baidu.type(args[0]) === 'function'){
         var fn = args[0],
             tangItem;
@@ -11850,6 +11877,9 @@ baidu.dom.extend({
 
 
 baidu._util_.access = function(key, value, callback){
+    if( this.size()<=0 ){
+        return this;
+    };
     switch(baidu.type(key)){
         case 'string'://高频
             if(value === undefined){
@@ -12800,8 +12830,8 @@ baidu.number.extend({
  *
  * @name baidu.array.each
  * @function
- * @grammar array.each(iterator[, context])
- * @param   {Function}      iterator(item, index, array)    枚举器，函数
+ * @grammar array.each(iterator[,context])
+ * @param   {Function}      iterator(item,index,array)    枚举器，函数
  * @param   {Object}        context                         方法作用域
  * @return  {Array}         数组
  */
@@ -12810,8 +12840,8 @@ baidu.number.extend({
  *
  * @name baidu.array().each()
  * @function
- * @grammar array.each(iterator[, context])
- * @param   {Function}      iterator(item, index, array)    枚举器，函数
+ * @grammar array.each(iterator[,context])
+ * @param   {Function}      iterator(item,index,array)    枚举器，函数
  * @param   {Object}        context                         方法作用域
  * @return  {Array}         数组
  */
@@ -14820,6 +14850,11 @@ baidu.dom.extend({
         if(arguments.length <= 0 || typeof value === 'function'){
             return this;
         };
+        
+        if(this.size()<=0){
+            return false;
+        };
+
         //对输入进行处理
         value = value.replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
         var arr = value.split(' ');
@@ -15059,7 +15094,7 @@ baidu.base = baidu.base || {};
  *
  * @name baidu.array.some
  * @function
- * @grammar array.some(iterator[, context])
+ * @grammar array.some(fn[, context])
  * @param   {Function}      fn      用于做判断的函数
  * @param   {Object}        context 指定方法作用域
  * @return  {Boolean}               是否含有指定条件
@@ -15070,7 +15105,7 @@ baidu.base = baidu.base || {};
  *
  * @name baidu.array().some()
  * @function
- * @grammar array.some(iterator[, context])
+ * @grammar array.some(fn[, context])
  * @param   {Function}      fn      用于做判断的函数
  * @param   {Object}        context 指定方法作用域
  * @return  {Boolean}               是否含有指定条件
@@ -15108,7 +15143,7 @@ baidu.array.some = function(array, iterator, context) {
  * @name baidu.array.find
  * @function
  * @grammar $Array.find([fn])
- * @param   {Function}      iterator    用于做对比的函数
+ * @param   {Function}     fn    用于做对比的函数
  * @return  {Object}                    匹配的项
  */
 /**
@@ -15117,7 +15152,7 @@ baidu.array.some = function(array, iterator, context) {
  * @name baidu.array().find()
  * @function
  * @grammar $Array.find([fn])
- * @param   {Function}      iterator    用于做对比的函数
+ * @param   {Function}    fn   用于做对比的函数
  * @return  {Object}                    匹配的项
  */
 
@@ -15329,24 +15364,14 @@ baidu.array.extend({
 /**
  * @description 数组映射
  *
- * @name baidu.array.map
+ * @name baidu.array().map()
  * @function
- * @grammar array.map(index)
+ * @grammar baidu.array(array).map(iterator,context)
  * @param   {Function}      iterator    指定的执行方法
  * @param   {Object}        context     方法作用域
  * @return  {Array}                     映射操作后的数组
  */
 
-/**
- * @description 数组映射
- *
- * @name baidu.array().map()
- * @function
- * @grammar array.map(index)
- * @param   {Function}      iterator    指定的执行方法
- * @param   {Object}        context     方法作用域
- * @return  {Array}                     映射操作后的数组
- */
 Array.prototype.map = function (iterator, context) {
     baidu.check("function(,.+)?","baidu.array.map");
     var i, n,
@@ -15357,6 +15382,7 @@ Array.prototype.map = function (iterator, context) {
     }
     return array;
 };
+
 /// Tangram 1.x Code Start
 baidu.array.map = function(array, iterator, context){
     return baidu.isArray(array) ? array.map(iterator, context) : array;
@@ -15693,7 +15719,7 @@ baidu.dom.extend({
  * @function 
  * @name baidu.dom().removeClass()
  * @grammar baidu.dom(args).removeClass(fn)
- * @param {Function}  fn(index, className) 这个函数返回一个或更多用空格隔开的要增加的样式名。接收元素的索引index和元素旧的样式名className作为参数。
+ * @param {Function}  fn(index,className)  这个函数返回一个或更多用空格隔开的要增加的样式名。接收元素的索引index和元素旧的样式名className作为参数。
  * @return {TangramDom} 接口最终返回之前匹配元素的TangramDom对象
  * @example
  该接口为迭代器方法，可以获取每个匹配元素的className和index（索引值），并且删除将函数返回值为对应的className；
@@ -16071,6 +16097,7 @@ baidu.dom.ddManager = baidu.lang.createSingle({
  */
 baidu.dom.extend({
     outerHeight: function(margin){
+    	if(this.size()<=0){return 0;}
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
@@ -16231,7 +16258,19 @@ baidu.dom.extend({
             me = this,
             isSet = false,
             result;
-        
+
+        //当dom选择器为空时
+        if(this.size()<=0){
+            switch(typeof value){
+                case 'undefined':
+                    return undefined;
+                break;
+                default:
+                    return me;
+                break;
+            }            
+        }
+                
         baidu.forEach(me,function(elem, index){
             
             var hooks,
@@ -16239,8 +16278,8 @@ baidu.dom.extend({
 
             if(result){
                 return;
-            };
-            
+            }
+
             switch(typeof value){
                 case 'undefined':
         
@@ -16410,9 +16449,18 @@ baidu.dom.extend({
  * @function
  * @name baidu.dom().filter()
  * @grammar TangramDom.filter(selector|tangramDom|HTMLElement|fn)
- * @param   {Function}      筛选的指定方法
+ * @param   {HTMLElement}   HTMLElement对象
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
+/**
+ * @description 对 TangramDom 里的所有元素进行筛选
+ * @function
+ * @name baidu.dom().filter()
+ * @grammar TangramDom.filter(selector|tangramDom|HTMLElement|fn)
+ * @param   {Function}   fn   筛选的指定方法
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
+ */
+
 baidu.dom.extend({
     filter : function (selector) {
         return baidu.dom(baidu.dom.match(this, selector));
@@ -16488,6 +16536,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     innerWidth: function(){
+    	if(this.size()<=0){return 0;}
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
@@ -17279,6 +17328,18 @@ baidu.dom.extend({
         var result,
         me = this,
         isSet = false;
+
+        //当dom选择器为空时
+        if(this.size()<=0){
+            if(name&&value){
+                return me;
+            }else if(name&&!value){
+                return undefined;
+            }else{
+                return me;
+            }
+        }
+        
         baidu.forEach(this, function(item,index){
 
             if(result){
@@ -17426,6 +17487,23 @@ baidu.dom.extend({
 baidu.dom.extend({
     text: function(value){
 
+        var bd = baidu.dom,
+            me = this,
+            isSet = false,
+            result;
+
+        //当dom选择器为空时
+        if(this.size()<=0){
+            switch(typeof value){
+                case 'undefined':
+                    return undefined;
+                break;
+                default:
+                    return me;
+                break;
+            }            
+        }
+
         /* Sizzle.getText
          * Utility function for retrieving the text value of an array of DOM nodes
          * @param {Array|Element} elem
@@ -17462,11 +17540,6 @@ baidu.dom.extend({
             }
             return ret;
         };
-
-        var bd = baidu.dom,
-            me = this,
-            isSet = false,
-            result;
 
         baidu.forEach(me,function(elem, index){
             
@@ -17700,7 +17773,7 @@ baidu.dom.extend({
 baidu.dom.extend({
     getWindow: function(){
         var doc = this.getDocument();
-        return doc.parentWindow || doc.defaultView;
+        return (this.size()<=0)? undefined :(doc.parentWindow || doc.defaultView);
     }
 });
 /**
@@ -17732,7 +17805,7 @@ baidu.dom.extend({
  * @description 取得第一个匹配元素或是设置多个匹配元素相对于文档的偏移量
  * @function 
  * @name baidu.dom().offset()
- * @grammar baidu.dom(args).offset([function(index, coordinates)])
+ * @grammar baidu.dom(args).offset([fn(index, coordinates)])
  * @param {function} fn 接收两个参数，index参数表示匹配元素在集合中的索引，coordinates表示匹配元素的坐标，fn最终需要返回一个格式为{left: val, top: val}的json
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
@@ -17972,6 +18045,17 @@ baidu.dom.extend({
             me = this,
             isSet = false;
 
+        //当dom选择器为空时
+        if(this.size()<=0){
+            if(name&&value){
+                return me;
+            }else if(name&&!value){
+                return undefined;
+            }else{
+                return me;
+            }
+        }
+
         baidu.forEach(this, function(item, index){
 
             if(result){
@@ -18185,6 +18269,9 @@ baidu.dom.extend({
         var ret = baidu._util_.smartScroll('scrollTop');
         return function(value){
             value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollTop');
+            if(this.size()<=0){
+            	return value === undefined ? 0 : this;
+            };
             return value === undefined ? ret.get(this[0])
                 : ret.set(this[0], value) || this;
         }
@@ -19055,7 +19142,7 @@ baidu.dom.create = function(tagName, opt_attributes) {
  */
 
 /**
- * @description 所有了元素的集合
+ * @description 所有子元素的集合
  * @function
  * @name baidu.dom().children()
  * @grammar baidu.dom(args).children(selector)
@@ -19709,6 +19796,7 @@ baidu.dom.setPosition = function (element, position) {
  */
 baidu.dom.extend({
     position: function(){
+        if(this.size()<=0){return 0;}        
         var patrn = /^(?:body|html)$/i,
             coordinate = this.offset(),
             offsetParent = this.offsetParent(),
@@ -19932,6 +20020,9 @@ baidu.dom.styleFixer = function(){
  */
 baidu.dom.extend({
     innerHeight: function(){
+    	if(this.size()<=0){
+    		return 0;
+    	}
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
@@ -21772,6 +21863,9 @@ baidu.dom.extend({
         var ret = baidu._util_.smartScroll('scrollLeft');
         return function(value){
             value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollLeft');
+            if(this.size()<=0){
+            	return value === undefined ? 0 : this;
+            };
             return value === undefined ? ret.get(this[0])
                 : ret.set(this[0], value) || this;
         }
@@ -21928,7 +22022,7 @@ baidu.dom.first = function(e) {
  * @function
  * @name baidu.dom().siblings()
  * @grammar baidu.dom(args).siblings(filter)
- * @param   {Function}      fn(a, b)    [可选]
+ * @param   {Function}      fn(a,b)    [可选]
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
@@ -21959,13 +22053,31 @@ baidu.dom.extend({
  */
 
 /**
- * @description 去除当前集合中符合选择器的项
+ * @description 去除当前集合中符合再次输入的选择器的项
  *
  * @function
  * @name baidu.dom().not()
- * @grammar baidu.dom(args).not(selector[, filter])
+ * @grammar baidu.dom(args).not(selector)
  * @param   {Object}            selector    选择器
+  
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
+ * @example 
+ 去除当前集合中符合再次输入的选择器的项
+ 
+ 示例代码：
+ //HTML片段
+ <div class="test">1</div>
+ <div>2</div>
+ <div>3</div>
+ <div class="test">4</div>
+
+ //去掉class为test的元素
+ baidu('div').not('.test');
+
+ //结果
+ <div>2</div>
+ <div>3</div>
+
  */
 baidu.dom.extend({
     not : function (selector) {
@@ -22492,6 +22604,7 @@ baidu.dom.resizable = /**@function*/function(element,options) {
  */
 baidu.dom.extend({
     outerWidth: function(margin){
+    	if(this.size()<=0){return 0;} 	
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
@@ -23100,7 +23213,7 @@ baidu.lang.Class.prototype.addEventListeners = function (events, fn) {
  * @grammar baidu.lang.register(Class, constructorHook, methods)
  * @param   {Class}     Class   		接受注册的载体 类
  * @param   {Function}  constructorHook 运行在载体类构造器里钩子函数
- * @param	{JSON}		methods			挂载到载体类原型链上的方法集，可选
+ * @param	{Object}  methods   挂载到载体类原型链上的方法集，可选
  * @meta standard
  *             
  */
@@ -25005,10 +25118,10 @@ baidu.cookie._isValidKey = function (key) {
  * @param {string} key 需要设置Cookie的键名
  * @param {string} value 需要设置Cookie的值
  * @param {Object} options 设置Cookie的其他可选参数
- * @param {string} path cookie路径
- * @param {Date|number} expires cookie过期时间,如果类型是数字的话, 单位是毫秒
- * @param {string} domain cookie域名
- * @param {string} secure cookie是否安全传输
+ * @param {string} options.path cookie路径
+ * @param {Date|number} options.expires cookie过期时间,如果类型是数字的话, 单位是毫秒
+ * @param {string} options.domain cookie域名
+ * @param {string} options.secure cookie是否安全传输
  */
 /*
  * @remark
@@ -25066,10 +25179,10 @@ baidu.cookie.setRaw = function (key, value, options) {
  * @param {string} key 需要设置Cookie的键名
  * @param {string} value 需要设置Cookie的值
  * @param {Object} options 设置Cookie的其他可选参数
- * @param {string} path cookie路径
- * @param {Date|number} expires cookie过期时间,如果类型是数字的话, 单位是毫秒
- * @param {string} domain cookie域名
- * @param {string} secure cookie是否安全传输
+ * @param {string} options.path cookie路径
+ * @param {Date|number} options.expires cookie过期时间,如果类型是数字的话, 单位是毫秒
+ * @param {string} options.domain cookie域名
+ * @param {string} options.secure cookie是否安全传输
  */
 /*
  * @remark
@@ -25689,7 +25802,6 @@ post : function(data){
  */
  
 //baidu.platform.isWindows = /windows/i.test(navigator.userAgent);
-
 // 声明快捷
 
 
