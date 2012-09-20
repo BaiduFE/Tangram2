@@ -13,7 +13,7 @@
  * @function
  * @name baidu.extend
  * @grammar baidu.extend(obj0,obj1,obj2。。。objN)
- * @param   {Object} obj0,obj1。。。objN
+ * @param   {Object} obj0,obj1。。。objN  每一个传入的对象
  * @return  {Object}                合并后的JS对象
  */
 
@@ -24,6 +24,7 @@
  *
  * @grammar baidu.extend(depthClone,obj0[,obj1,obj2。。。objN])
  * @param   {Boolean}   depthClone  是否深度克隆的标识，默认为false，可以不传。
+ * @param   {Object} obj0,obj1。。。objN  每一个传入的对象
  * @return  {Object}                合并后的JS对象
  */
 
