@@ -16,6 +16,8 @@
  * @name baidu.dom().not()
  * @grammar baidu.dom(args).not(selector[, filter])
  * @param   {Object}            selector    选择器
+ * @param   {Object}            selector    选择器
+  
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({
