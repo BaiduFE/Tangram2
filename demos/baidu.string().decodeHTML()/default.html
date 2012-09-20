@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom.decodeHTML 示例" />
+		<title>baidu.string().decodeHTML 示例</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.string().decodeHTML</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>解码字符串</span>
+				</div>
+				<div class="pannel-content">
+					<a id="btn_decode" class="button">点此演示</a>
+					<!--html view start-->
+					<!--您可以在控制台中查看输出-->
+					<!--html view end-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		T('#btn_decode').on('click', function(e){
+			var src    = '&lt;a href="http://www.baidu.com"&gt;百度&lt;/a&gt;';
+			var result = baidu.string(src).decodeHTML();
+
+			console && console.log('src = ' + src);
+			console && console.log('result = ' + result);
+			alert('解码前：' + src + '\n\n'
+				+ '解码后：' + result);
+		});
+	</script>
+</html>

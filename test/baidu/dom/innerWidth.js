@@ -45,5 +45,5 @@ function style(el, key){
 
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").innerWidth("wangxiao");
-    ok(result);
+    ok(result==0);
 });

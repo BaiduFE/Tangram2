@@ -11,7 +11,7 @@
  *
  * @name baidu.array.some
  * @function
- * @grammar array.some(iterator[, context])
+ * @grammar array.some(fn[, context])
  * @param   {Function}      fn      用于做判断的函数
  * @param   {Object}        context 指定方法作用域
  * @return  {Boolean}               是否含有指定条件
@@ -22,7 +22,7 @@
  *
  * @name baidu.array().some()
  * @function
- * @grammar array.some(iterator[, context])
+ * @grammar array.some(fn[, context])
  * @param   {Function}      fn      用于做判断的函数
  * @param   {Object}        context 指定方法作用域
  * @return  {Boolean}               是否含有指定条件

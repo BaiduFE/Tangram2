@@ -17,7 +17,7 @@
  * @grammar baidu.lang.register(Class, constructorHook, methods)
  * @param   {Class}     Class   		接受注册的载体 类
  * @param   {Function}  constructorHook 运行在载体类构造器里钩子函数
- * @param	{JSON}		methods			挂载到载体类原型链上的方法集，可选
+ * @param	{Object}  methods   挂载到载体类原型链上的方法集，可选
  * @meta standard
  *             
  */

@@ -237,10 +237,6 @@ test('特定标签的特定属性测试', function() {
 	equal(a.getAttribute('shape'), 'default', 'shape testing');
 })
 
-test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").setAttr("wangxiao");
-    ok(result);
-});
 /**
  * TODO : add dom for testing
  * 

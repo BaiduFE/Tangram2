@@ -24,6 +24,9 @@ baidu.dom.extend({
         var ret = baidu._util_.smartScroll('scrollTop');
         return function(value){
             value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollTop');
+            if(this.size()<=0){
+            	return value === undefined ? 0 : this;
+            };
             return value === undefined ? ret.get(this[0])
                 : ret.set(this[0], value) || this;
         }

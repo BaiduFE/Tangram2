@@ -16,7 +16,7 @@
  * @name baidu.json.parse
  * @function
  * @grammar baidu.json.parse(data)
- * @param {string} source 需要解析的字符串
+ * @param {string} data 需要解析的字符串
  * @remark
  * 该方法的实现与ecma-262第五版中规定的JSON.parse不同，暂时只支持传入一个参数。后续会进行功能丰富。
  * @meta standard

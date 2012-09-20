@@ -456,12 +456,14 @@ test("attr('tabindex', value)", function() {
 	element.attr("tabindex", -1);
 	equal(element.attr("tabindex"), -1, "set negative tabindex");
 });
-//end
 
 test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").attr("wangxiao");
-    ok(result);
+    var result = baidu("#baidujsxiaozu").attr('type');
+    equal(result,undefined,'get方法');
+    var result = baidu("#baidujsxiaozu").attr('type','wlkafjl');
+    ok(result,'有东西就行');
 });
+//end
 
 //准备工序
 function prepareTest(){
@@ -572,7 +574,7 @@ function prepareTest(){
 		"<b id='floatTest'>Float test.</b>"+
 		"<iframe id='iframe' name='iframe'></iframe>"+
 		"<form id='lengthtest'>"+
-			"<input type='text' id='length' name='test'/>"+
+			"<input type='text' id='length123' name='test'/>"+
 			"<input type='text' id='idTest' name='id'/>"+
 		"</form>"+
 		"<table id='table'></table>"+

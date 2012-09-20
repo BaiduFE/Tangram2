@@ -143,8 +143,3 @@ test('special character',function(){
 	equal(baidu.dom.getText(a),"^_'{}~@=?|/+-$%&*!<>\();:.,","get special characters");
 })
 
-
-test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").getText("wangxiao");
-    ok(result);
-});

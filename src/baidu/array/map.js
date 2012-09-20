@@ -11,24 +11,14 @@
 /**
  * @description 数组映射
  *
- * @name baidu.array.map
+ * @name baidu.array().map()
  * @function
- * @grammar array.map(index)
+ * @grammar baidu.array(array).map(iterator,context)
  * @param   {Function}      iterator    指定的执行方法
  * @param   {Object}        context     方法作用域
  * @return  {Array}                     映射操作后的数组
  */
 
-/**
- * @description 数组映射
- *
- * @name baidu.array().map()
- * @function
- * @grammar array.map(index)
- * @param   {Function}      iterator    指定的执行方法
- * @param   {Object}        context     方法作用域
- * @return  {Array}                     映射操作后的数组
- */
 Array.prototype.map = function (iterator, context) {
     baidu.check("function(,.+)?","baidu.array.map");
     var i, n,
@@ -39,6 +29,7 @@ Array.prototype.map = function (iterator, context) {
     }
     return array;
 };
+
 /// Tangram 1.x Code Start
 baidu.array.map = function(array, iterator, context){
     return baidu.isArray(array) ? array.map(iterator, context) : array;

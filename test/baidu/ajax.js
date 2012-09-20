@@ -691,7 +691,8 @@ test("baidu.ajax - HEAD requests", function() {
         type: "HEAD",
         success: function(data, status, xhr){
             var h = xhr.getAllResponseHeaders();
-            ok( /Date/i.test(h), "No Date in HEAD response" );
+//            ok( /Date/i.test(h), "No Date in HEAD response" );
+            ok(/Content-Type/i.test(h), 'No content-type in HEAD response');
 
             baidu.ajax({
                 url: upath + "/ajax/name.html",
@@ -868,10 +869,10 @@ test("ajax cache", function () {
 $.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label ) {
 
     test("baidu.ajax() - JSONP, " + label, function() {
-        expect(23);
+        expect(21);
 
         var count = 0;
-        function plus(){ if ( ++count == 20 ) start(); }
+        function plus(){ if ( ++count == 18 ) start(); }
 
         stop();
 
@@ -966,33 +967,33 @@ $.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label ) {
             }
         });
 
-        baidu.ajax({
-            url: upath + "/ajax/jsonp.php/??",
-            dataType: "jsonp",
-            crossDomain: crossDomain,
-            success: function(data){
-                ok( data.data, "JSON results returned (GET, REST-like)" );
-                plus();
-            },
-            error: function(data){
-                ok( false, "Ajax error JSON (GET, REST-like)" );
-                plus();
-            }
-        });
-
-        baidu.ajax({
-            url: upath + "/ajax/jsonp.php/???json=1",
-            dataType: "jsonp",
-            crossDomain: crossDomain,
-            success: function(data){
-                strictEqual( $.type(data), "array", "JSON results returned (GET, REST-like with param)" );
-                plus();
-            },
-            error: function(data){
-                ok( false, "Ajax error JSON (GET, REST-like with param)" );
-                plus();
-            }
-        });
+//        baidu.ajax({
+//            url: upath + "/ajax/jsonp.php/??",
+//            dataType: "jsonp",
+//            crossDomain: crossDomain,
+//            success: function(data){
+//                ok( data.data, "JSON results returned (GET, REST-like)" );
+//                plus();
+//            },
+//            error: function(data){
+//                ok( false, "Ajax error JSON (GET, REST-like)" );
+//                plus();
+//            }
+//        });
+//
+//        baidu.ajax({
+//            url: upath + "/ajax/jsonp.php/???json=1",
+//            dataType: "jsonp",
+//            crossDomain: crossDomain,
+//            success: function(data){
+//                strictEqual( $.type(data), "array", "JSON results returned (GET, REST-like with param)" );
+//                plus();
+//            },
+//            error: function(data){
+//                ok( false, "Ajax error JSON (GET, REST-like with param)" );
+//                plus();
+//            }
+//        });
 
         baidu.ajax({
             url: upath + "/ajax/jsonp.php",
@@ -1166,28 +1167,6 @@ $.each( [ "Same Domain", "Cross Domain" ] , function( crossDomain , label ) {
 
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 test("baidu.ajax() - script, Remote", function() {
     expect(2);

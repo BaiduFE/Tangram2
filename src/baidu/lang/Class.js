@@ -14,12 +14,11 @@
 /**
  * @description Tangram继承机制提供的一个基类，用户可以通过继承baidu.lang.Class来获取它的属性及方法。
  * @class
- * @name 	baidu.lang.Class
+ * @name baidu.lang.Class
  * @grammar baidu.lang.Class(guid)
- * @param 	{string}	guid	对象的唯一标识
+ * @param {string} guid 对象的唯一标识
  * @meta standard
  * @remark baidu.lang.Class和它的子类的实例均包含一个全局唯一的标识guid。guid是在构造函数中生成的，因此，继承自baidu.lang.Class的类应该直接或者间接调用它的构造函数。<br>baidu.lang.Class的构造函数中产生guid的方式可以保证guid的唯一性，及每个实例都有一个全局唯一的guid。
- * @meta standard
  * @see baidu.lang.inherits,baidu.lang.Event
  */
 baidu.lang.Class = function() {
@@ -29,7 +28,7 @@ baidu.lang.Class = function() {
 /**
  * @description 释放对象所持有的资源，主要是自定义事件。
  * @name obj.dispose
- * @name function 
+ * @function 
  * @grammar obj.dispose()
  * TODO: 将_listeners中绑定的事件剔除掉
  */

@@ -22,6 +22,6 @@
 baidu.dom.extend({
     getWindow: function(){
         var doc = this.getDocument();
-        return doc.parentWindow || doc.defaultView;
+        return (this.size()<=0)? undefined :(doc.parentWindow || doc.defaultView);
     }
 });

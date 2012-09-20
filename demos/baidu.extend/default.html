@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.extend() 示例" />
+		<title>baidu.extend()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#demo-target ul{
+				margin-left:20px;
+				line-height:20px;
+				margin-bottom:10px;
+			}
+			#demo-target li:nth-child(2n){
+				color:red;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.extend()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>枚举对象，生成列表</span>
+				</div>
+				<!--DemoViewStart-->
+				<div class="pannel-content" id="demo-target">
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn_1">枚举对象，生成列表</span>
+						<span class="button" id="demo_btn_2">枚举合并后的对象，生成列表</span>
+					</div>
+				</div>
+				<!--DemoViewStart-->
+			</div>
+		</div>
+	<script>
+		//数据源
+		var dataA = {
+			'34623' : {
+				title : '标题一',
+				date : '2012-03-23'
+			},
+			'34624' : {
+				title : '标题二',
+				date : '2012-03-24'
+			},
+			'34625' : {
+				title : '标题三',
+				date : '2012-03-25'
+			},
+			'34626' : {
+				title : '标题四',
+				date : '2012-03-26'
+			}
+		}
+		var dataB = {
+			'34623' : {
+				title : '新的项目一',
+				date : '2012-03-27'
+			},
+			'34628' : {
+				title : '新的项目二',
+				date : '2012-03-28'
+			}
+		}
+		var ul = baidu('<ul></ul>');
+		baidu('#demo-target').prepend(ul);
+		
+		// 列表生成迭代器
+		function iteratorRenderList(key, value){
+			var timeStamp = new Date().getTime();
+			var list = baidu('<li>'+key+' : '+value.title+' '+value.date+' '+timeStamp+'</li>');
+			ul.append(list);
+		}
+		
+		// 使用原始数据生成列表
+		baidu('#demo_btn_1').on('click',function(e){
+			ul.empty();
+			baidu.each(dataA, iteratorRenderList);
+		});
+		
+		// 使用extend 数据生成列表
+		var extendedData = baidu.extend(dataB, dataA);
+		baidu('#demo_btn_2').on('click',function(e){
+			ul.empty();
+			baidu.each(extendedData, iteratorRenderList);
+		});
+	</script>
+	</body>
+</html>

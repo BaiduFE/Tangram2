@@ -186,6 +186,13 @@ test("relative + absolute + scroll + scroll + margin3 + padding + inline2", func
 	div.remove();
 });
 
+
+test("dom为空的情况",function(){
+    var result = baidu("#baidujsxiaozu").position("wangxiao");
+    equal(result,0);
+});
+
+
 //test("fragment", function(){
 //	var el = document.createElement("div"), el1;
 //
@@ -238,7 +245,3 @@ function get(id){
 }
 
 
-test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").position("wangxiao");
-    ok(result);
-});

@@ -214,8 +214,10 @@ test("html(Function) with incoming value", function() {
 });
 
 test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").html("wangxiao");
-    ok(result);
+    var result = baidu("#baidujsxiaozu").html();
+    equal(result,undefined,'get方法');
+    var result = baidu("#baidujsxiaozu").html('无法金额非连裤袜家乐福');
+    ok(result,'有东西就行');
 });
 
 // test("html() - script exceptions bubble (#11743)", function() {
@@ -341,7 +343,7 @@ function prepareTest(){
 		"<b id='floatTest'>Float test.</b>"+
 		"<iframe id='iframe' name='iframe'></iframe>"+
 		"<form id='lengthtest'>"+
-			"<input type='text' id='length' name='test'/>"+
+			"<input type='text' id='lenght123' name='test'/>"+
 			"<input type='text' id='idTest' name='id'/>"+
 		"</form>"+
 		"<table id='table'></table>"+

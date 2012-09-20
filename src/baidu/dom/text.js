@@ -69,6 +69,23 @@
 baidu.dom.extend({
     text: function(value){
 
+        var bd = baidu.dom,
+            me = this,
+            isSet = false,
+            result;
+
+        //当dom选择器为空时
+        if(this.size()<=0){
+            switch(typeof value){
+                case 'undefined':
+                    return undefined;
+                break;
+                default:
+                    return me;
+                break;
+            }            
+        }
+
         /* Sizzle.getText
          * Utility function for retrieving the text value of an array of DOM nodes
          * @param {Array|Element} elem
@@ -105,11 +122,6 @@ baidu.dom.extend({
             }
             return ret;
         };
-
-        var bd = baidu.dom,
-            me = this,
-            isSet = false,
-            result;
 
         baidu.forEach(me,function(elem, index){
             
