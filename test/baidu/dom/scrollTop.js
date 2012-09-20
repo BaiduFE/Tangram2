@@ -117,6 +117,8 @@ function create( tag, sLeft, sTop ){
 }
 
 test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").scrollTop("wangxiao");
-    equal(result,0);
+    var result = baidu("#baidujsxiaozu").scrollTop();
+    equal(result,0,'get方法');
+    var result = baidu("#baidujsxiaozu").scrollTop(1231231);
+    ok(result,'有东西就行');
 });
