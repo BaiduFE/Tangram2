@@ -32,7 +32,7 @@
  * @function 
  * @name baidu.dom().removeClass()
  * @grammar baidu.dom(args).removeClass(fn)
- * @param {Function}  fn(index, className) 这个函数返回一个或更多用空格隔开的要增加的样式名。接收元素的索引index和元素旧的样式名className作为参数。
+ * @param {Function}  fn(index,className)  这个函数返回一个或更多用空格隔开的要增加的样式名。接收元素的索引index和元素旧的样式名className作为参数。
  * @return {TangramDom} 接口最终返回之前匹配元素的TangramDom对象
  * @example
  该接口为迭代器方法，可以获取每个匹配元素的className和index（索引值），并且删除将函数返回值为对应的className；

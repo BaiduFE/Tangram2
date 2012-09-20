@@ -18,10 +18,10 @@
  * @grammar baidu.object.merge(target, source[, opt_options])
  * @param {Function} target 目标对象.
  * @param {Function} source 源对象.
- * @param {Object} opt_options optional merge选项.
- * @param {boolean} overwrite optional 如果为真，源对象属性会覆盖掉目标对象上的已有属性，默认为假.
- * @param {string[]} whiteList optional 白名单，默认为空，如果存在，只有在这里的属性才会被处理.
- * @param {boolean} recursive optional 是否递归合并对象里面的object，默认为否.
+ * @param {Object} opt_options  optional merge选项.
+ * @param {boolean} opt_options.overwrite   optional 如果为真，源对象属性会覆盖掉目标对象上的已有属性，默认为假.
+ * @param {string[]} opt_options.whiteList   optional 白名单，默认为空，如果存在，只有在这里的属性才会被处理.
+ * @param {boolean} opt_options.recursive    optional 是否递归合并对象里面的object，默认为否.
  * @return {object} merge后的object.
  * @see baidu.object.extend
  * @author berg
