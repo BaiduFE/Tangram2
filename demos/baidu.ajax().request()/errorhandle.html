@@ -55,7 +55,7 @@
 						writeStatus('fail.')
 					}
 				}
-				baidu.array([200, 400, 401, 403, 404, 500, 503]).each(function(code){
+				baidu.array([200, 400, 401, 403, 404, 500, 503]).each(function(index, code){
 					cfg['on' + code] = function(xhr){
 						writeStatus(xhr.status + " - " + xhr.statusText);
 					}
