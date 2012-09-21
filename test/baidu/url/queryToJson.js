@@ -3,6 +3,7 @@ module("baidu.url.queryToJson测试");
 test("URL中没有参数的情况", function(){
 	var obj = baidu.url.queryToJson("http://baidu.com");
 	equals(typeof obj, "object", '');
+	equals(obj, null, "The result is null");
 	//same(obj, {}, '');
 });
 

@@ -14,7 +14,7 @@
  * @name baidu.array.find
  * @function
  * @grammar $Array.find([fn])
- * @param   {Function}      iterator    用于做对比的函数
+ * @param   {Function}     fn    用于做对比的函数
  * @return  {Object}                    匹配的项
  */
 /**
@@ -23,7 +23,7 @@
  * @name baidu.array().find()
  * @function
  * @grammar $Array.find([fn])
- * @param   {Function}      iterator    用于做对比的函数
+ * @param   {Function}    fn   用于做对比的函数
  * @return  {Object}                    匹配的项
  */
 

@@ -21,9 +21,10 @@
  * @description 对当前 TangramDom 集合解除事件监听
  * @function 
  * @name baidu.dom().off()
- * @grammar baidu.dom(args).off(events[,selector],fn)
+ * @grammar baidu.dom(args).off(eventMap[,selector],fn)
  * @param {Object} eventMap 一个以 eventName:eventFn 键值对表示的 JSON 格式对象
  * @param {String} selector 用于限制事件源的选择器表达式，此参数可选。
+ * @param {Function} fn 事件触发函数
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
  */
 

@@ -13,10 +13,10 @@
 
 /**
  * @description 判断一个元素是否包含另一个元素
- * @name baidu.dom.contains
+ * @name baidu.dom().contains()
  * @function
- * @grammar baidu.dom.contains(container, contained)
- * @param {HTMLElement|string} container 包含元素或元素的id
+ * @grammar baidu.dom(args).contains(contained)
+ * @param {HTMLElement|string} args 包含元素或元素的id
  * @param {HTMLElement|string} contained 被包含元素或元素的id
  * @meta standard
  * @see baidu.dom.intersect

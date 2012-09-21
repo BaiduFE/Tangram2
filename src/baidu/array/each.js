@@ -14,8 +14,8 @@
  *
  * @name baidu.array.each
  * @function
- * @grammar array.each(iterator[, context])
- * @param   {Function}      iterator(item, index, array)    枚举器，函数
+ * @grammar array.each(iterator[,context])
+ * @param   {Function}      iterator(item,index,array)    枚举器，函数
  * @param   {Object}        context                         方法作用域
  * @return  {Array}         数组
  */
@@ -24,8 +24,8 @@
  *
  * @name baidu.array().each()
  * @function
- * @grammar array.each(iterator[, context])
- * @param   {Function}      iterator(item, index, array)    枚举器，函数
+ * @grammar array.each(iterator[,context])
+ * @param   {Function}      iterator(item,index,array)    枚举器，函数
  * @param   {Object}        context                         方法作用域
  * @return  {Array}         数组
  */

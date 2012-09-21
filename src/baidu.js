@@ -98,7 +98,7 @@
  * @function 
  * @name baidu()
  * @grammar baidu(TangramDom)
- * @param   {TangramDom}    selector    TangramDom对象
+ * @param   {TangramDom}   TangramDom    TangramDom对象
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**
@@ -106,7 +106,7 @@
  * @function 
  * @name baidu()
  * @grammar baidu(HTMLString)
- * @param   {String}        selector    HTMLString
+ * @param   {String}     HTMLString    HTMLString
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 /**

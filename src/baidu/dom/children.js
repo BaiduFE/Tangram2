@@ -12,7 +12,7 @@
  */
 
 /**
- * @description 所有了元素的集合
+ * @description 所有子元素的集合
  * @function
  * @name baidu.dom().children()
  * @grammar baidu.dom(args).children(selector)
