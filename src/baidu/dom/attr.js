@@ -163,7 +163,9 @@ baidu.dom.extend({
 
             // Fallback to prop when attributes are not supported
             if ( typeof item.getAttribute === "undefined" ) {
-                result = this.prop( name, value );
+                var ele = bd(item); 
+                debugger;
+                result = ele.prop( name, value );
             };
 
             switch(typeof name){

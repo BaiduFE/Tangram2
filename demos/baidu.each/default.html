@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.each() Ê¾Àı" />
+		<meta name="description" content="baidu.each() ç¤ºä¾‹" />
 		<title>baidu.each()</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
@@ -20,44 +20,44 @@
 			}
 		</style>
 		<div class="demo" id="demo">
-			<h1 class="ac-h1"><strong>baidu.each()</strong> Ê¾Àı</h1>
+			<h1 class="ac-h1"><strong>baidu.each()</strong> ç¤ºä¾‹</h1>
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>Ã¶¾Ù¶ÔÏó£¬Éú³ÉÁĞ±í</span>
+					<span>æšä¸¾å¯¹è±¡ï¼Œç”Ÿæˆåˆ—è¡¨</span>
 				</div>
 				<!--DemoViewStart-->
 				<div class="pannel-content" id="demo-target">
 					<div class="pannel-content-tool">
-						<span class="button" id="demo_btn_1">Ã¶¾Ù¶ÔÏó£¬Éú³ÉÁĞ±í</span>
+						<span class="button" id="demo_btn_1">æšä¸¾å¯¹è±¡ï¼Œç”Ÿæˆåˆ—è¡¨</span>
 					</div>
 				</div>
 				<!--DemoViewEnd-->
 			</div>
 		</div>
 	<script>
-		//Êı¾İÔ´
+		//æ•°æ®æº
 		var data = {
 			'34623' : {
-				title : '±êÌâÒ»',
+				title : 'æ ‡é¢˜ä¸€',
 				date : '2012-03-23'
 			},
 			'34624' : {
-				title : '±êÌâ¶ş',
+				title : 'æ ‡é¢˜äºŒ',
 				date : '2012-03-24'
 			},
 			'34625' : {
-				title : '±êÌâÈı',
+				title : 'æ ‡é¢˜ä¸‰',
 				date : '2012-03-25'
 			},
 			'34626' : {
-				title : '±êÌâËÄ',
+				title : 'æ ‡é¢˜å››',
 				date : '2012-03-26'
 			}
 		}
 		var ul = baidu('<ul></ul>');
 		baidu('#demo-target').prepend(ul);
 		
-		// µü´úÊı¾İ£¬Éú³ÉÁĞ±í
+		// è¿­ä»£æ•°æ®ï¼Œç”Ÿæˆåˆ—è¡¨
 		baidu('#demo_btn_1').on('click',function(e){
 			ul.empty();
 			baidu.each(data, function(key, value){
