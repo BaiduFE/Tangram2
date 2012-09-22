@@ -25,8 +25,6 @@
 							<option value="rgb(11, 120, 153)">rgb(11, 120, 153)</option>
 							<option value="#69f">#69f</option>
 						</select>
-						or						
-						<input id="color-input" />
 						<button id="btn_format" class="button">格式化</button>
 					</p>
 					<p id="format-result">
@@ -38,27 +36,10 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-
-		function isColorInput(){
-			var val = baidu.dom('#color-input').val();
-			return val && val.trim().length > 0;
-		}
-
-		function getColor(){
-			return isColorInput() ? baidu.dom('#color-input').val() : baidu.dom('#color-select').val();
-		}
-
-		function getFormatedColor(){
-			return baidu.string(getColor()).formatColor();			
-		}
-
 		T('#btn_format').on('click', function(e){
-			var resultPattern = baidu.string('<span style="background-color: #{0}; width: 20px; height: 20px; display: inline-block;"></span> #{0}');
-			baidu.dom('#format-result')[0].innerHTML = resultPattern.format(getFormatedColor());
-		});
-
-		T('#color-input').on('change', function(e){
-			T('#color-select').attr('disabled', isColorInput() ? 'disabled' : null);
+			var color = baidu.dom('#color-select').val();
+			var formatColor = baidu.string(color).formatColor();
+			baidu.dom('#format-result')[0].innerHTML = '<span style="background-color: '+formatColor+'; width: 20px; height: 20px; display: inline-block;"></span> '+formatColor;
 		});
 		
 	</script>
