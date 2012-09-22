@@ -8,7 +8,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.lang.Class.$addEventListeners", "baidu.lang.Class.$addEventListeners");
+	}, "baidu.trim", "baidu.lang.Class.$addEventListeners");
 });
 
 (function() {

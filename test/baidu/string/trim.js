@@ -8,7 +8,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.string.trim", "baidu.string.trim");
+	}, "baidu.trim", "baidu.string.trim");
 });
 
 test("删除字符串两边的空格", function(){
