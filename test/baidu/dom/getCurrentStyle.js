@@ -2,7 +2,8 @@ module("baidu.dom.getCurrentStyle");
 
 
 test("get style from style", function() {
-	// expect(7);
+	expect(7);
+	var currStyle = document.documentElement.currentStyle;
 	var div = document.createElement('div');
 	var img = document.createElement('img');
 	document.body.appendChild(div);
@@ -22,6 +23,7 @@ test("get style from style", function() {
 	var color = baidu.dom(div).getCurrentStyle('color').toLowerCase();
 	ok(color == '#ff0000' || color == 'red'
 			|| (/rgb\(255,\s?0,\s?0\)/.test(color)), 'color red');
+
 	var img = baidu.dom(img);
 	equal(img.getCurrentStyle('display'), 'block');
 

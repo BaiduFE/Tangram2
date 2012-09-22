@@ -40,30 +40,6 @@
 						<li>child7</li>
 						<li>child8</li>
 					</ul>
-					<ul class="parent">
-						<li>child1</li>
-						<li>child2</li>
-						<li>child3</li>
-						<li>child4</li>
-						<li>child5</li>
-						<ul class="parent">
-							<li>child1</li>
-							<li>child2</li>
-							<li>child3</li>
-							<li>child4</li>
-							<li>child5</li>
-						</ul>
-					</ul>
-					<ul class="parent">
-						<li>child1</li>
-						<li>child2</li>
-						<li>child3</li>
-						<li>child4</li>
-						<li>child5</li>
-						<li>child6</li>
-						<li>child7</li>
-						<li>child8</li>
-					</ul>
 					<!--html view end-->
 				</div>
 			</div>
@@ -88,7 +64,8 @@
 			}
 		</style>
 		<script type="text/javascript">
-			baidu.dom('li').on('click', function(){
+			baidu.dom('li').on('click', function(e){
+				e.stopPropagation();
 				baidu.dom('.hl').removeClass('hl');
 				baidu.dom(this).addClass('hl').parent().addClass('hl');
 			});
