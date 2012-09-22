@@ -290,7 +290,6 @@ test("attr(String, Object)", function() {
 
 
 	// using contents will get comments regular, text, and comment nodes
-    if(baidu.browsers.safari){
 		var j = baidu("#nonnodes").contents();
 
 		j.attr("name", "attrvalue");
@@ -298,8 +297,6 @@ test("attr(String, Object)", function() {
 		equal( j.attr("name"), "attrvalue", "Check node,textnode,comment for attr" );
 
 		j.removeAttr("name");
-
-    }
 
 	// Type
 	var type = baidu("#check2").attr("type");
