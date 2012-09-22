@@ -74,7 +74,7 @@ void function(global, tree){
 	        id = id.id,
 	        tree.focusToKey(id),
 	        runTest(id),
-	        autoTimeouter = setTimeout( autoNext, 1000 );
+	        autoTimeouter = setTimeout( autoNext, 10000 );
 	    else
 	        autoRunning = false;
 	}
