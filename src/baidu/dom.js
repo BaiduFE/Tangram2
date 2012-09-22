@@ -11,17 +11,6 @@
  */
 
 /**
- * @description 生成DOM操作链头
- * @function 
- * @name baidu.dom()
- * @grammar baidu.dom(selector[, context])
- * @param {Null|Undefined} selector 非正常的对象
- * @param   {Document}   context  [可选]指选择器的范围
- * @return {TangramDom} 空TangramDom对象
- * @meta standard
- */
-
-/**
  * @description 从文档中获取指定的DOM元素
  * @function 
  * @name baidu.dom.g
