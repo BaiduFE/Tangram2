@@ -23,9 +23,13 @@ test("get style from style", function() {
 	var color = baidu.dom(div).getCurrentStyle('color').toLowerCase();
 	ok(color == '#ff0000' || color == 'red'
 			|| (/rgb\(255,\s?0,\s?0\)/.test(color)), 'color red');
-	equal(baidu.dom(img).getCurrentStyle( 'display'), 'block');
-	equal(baidu.dom(img).getCurrentStyle( 'width'),  currStyle ? '10%' : '10px');
-	equal(baidu.dom(img).getCurrentStyle('height'), currStyle ? '10%' : '15px');
+
+	var img = baidu.dom(img);
+	equal(img.getCurrentStyle('display'), 'block');
+
+	equal(img.getCurrentStyle('width'), '10%');
+	equal(img.getCurrentStyle('height'), '10%');
+
 	document.body.removeChild(div);
 });
 
@@ -107,8 +111,8 @@ test("get style from style", function() {
 	ok(color == '#ff0000' || color == 'red'
 			|| (/rgb\(255,\s?0,\s?0\)/.test(color)), 'color red');
 	equal(baidu.dom.getCurrentStyle(img, 'display'), 'block');
-	// equal(baidu.dom.getCurrentStyle(img, 'width'), '10%');
-	// equal(baidu.dom.getCurrentStyle(img, 'height'), '10%');
+	equal(baidu.dom.getCurrentStyle(img, 'width'), '10%');
+	equal(baidu.dom.getCurrentStyle(img, 'height'), '10%');
 
 	document.body.removeChild(div);
 });
