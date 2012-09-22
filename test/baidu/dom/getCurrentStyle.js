@@ -2,7 +2,8 @@ module("baidu.dom.getCurrentStyle");
 
 
 test("get style from style", function() {
-	// expect(7);
+	expect(7);
+	var currStyle = document.documentElement.currentStyle;
 	var div = document.createElement('div');
 	var img = document.createElement('img');
 	document.body.appendChild(div);
@@ -23,9 +24,8 @@ test("get style from style", function() {
 	ok(color == '#ff0000' || color == 'red'
 			|| (/rgb\(255,\s?0,\s?0\)/.test(color)), 'color red');
 	equal(baidu.dom(img).getCurrentStyle( 'display'), 'block');
-	// equal(baidu.dom(img).getCurrentStyle( 'width'), '10%');
-	// equal(baidu.dom(img).getCurrentStyle('height'), '10%');
-
+	equal(baidu.dom(img).getCurrentStyle( 'width'),  currStyle ? '10%' : '10px');
+	equal(baidu.dom(img).getCurrentStyle('height'), currStyle ? '10%' : '15px');
 	document.body.removeChild(div);
 });
 
