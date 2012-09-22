@@ -54,7 +54,7 @@
 					var str = index.toString(2); //转成二进制字符串
 					var cnt = 0;
 					for(var i = 0; i < str.length; ++i){
-						str[i] == 1 && cnt++; //统计
+						str.substr(i, 1) == '1' && cnt++; //统计
 					}
 					this.innerHTML = index + ' : ' + str; //顺便修改其表现
 					return cnt & 1; // 1的个数为奇数
