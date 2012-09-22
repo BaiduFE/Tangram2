@@ -25,15 +25,6 @@
  * 声明 baidu 包
  *
  */
-/**
- * @description 生成DOM操作链头
- * @function 
- * @name baidu()
- * @grammar baidu(selector[, context])
- * @param {Null|Undefined} selector 非正常的对象
- * @return {TangramDom} 空TangramDom对象
- * @meta standard
- */
 
 /**
  * @description 从文档中获取指定的DOM元素

@@ -53,9 +53,10 @@ test('逻辑特性测试 - 有offsetParent情况', function () {
 	useTangramDom(html, function ($dom, wrapper) {
 	    //ie6下取得offsetParent和其它浏览器存在差异，jq也是同样的结果
 		var target = baidu.dom('li.item-1, li.item-a', wrapper).offsetParent();
+		var target2 = jQuery('li.item-1, li.item-a', wrapper).offsetParent();
 		equal(target.length, 3);
-		equal(count(target, 'ul.level-2'), 1);
-		equal(count(target, 'ul.level-3'), 2);
+		equal(count(target, 'ul.level-2'), count(target2, 'ul.level-2'));
+		equal(count(target, 'ul.level-3'), count(target2, 'ul.level-3'));
 	});
 });
 
