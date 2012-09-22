@@ -1,4 +1,53 @@
 module("baidu.dom.setStyle");
+
+//加载快捷方式
+test('prepareTest',function(){
+	expect(1);
+	stop();
+
+	//加载快捷方式
+	ua.importsrc("baidu.short", function(){
+		start();
+		ok(true,'ok');
+	}, "baidu.trim", "baidu.dom.setStyle");
+});
+test("set style",function(){
+	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
+	expect(3);
+	var div = document.createElement('div');
+	var img = document.createElement('img');
+	document.body.appendChild(div);
+	div.appendChild(img);
+	img.id = 'img_id';
+	baidu.dom(img).setStyle('width','20px');
+	baidu.dom(img).setStyle('height','10px');
+	baidu.dom('#img_id').setStyle('float','left');
+	
+	equal(img.style.height,'10px',"get img height style");
+	equal(img.style.width,'20px','get img width style');
+	equal($(img).css('float'),'left','get img float');
+	document.body.removeChild(div);
+});
+
+test('short cut',function(){
+	expect(3);
+	var div = document.createElement('div');
+	var img = document.createElement('img');
+	document.body.appendChild(div);
+	div.appendChild(img);
+	img.id = 'img_id';
+	baidu(img).setStyle('width','20px');
+	baidu(img).setStyle('height','10px');
+	baidu('#img_id').setStyle('float','left');
+	
+	equal(img.style.height,'10px',"get img height style by shortcut");
+	equal(img.style.width,'20px','get img width style by shortcut');
+	equal($(img).css('float'),'left','get img float by shortcut');
+	document.body.removeChild(div);
+});
+
+
+//老接口
 //加载快捷方式
 test('prepareTest',function(){
 	expect(1);
