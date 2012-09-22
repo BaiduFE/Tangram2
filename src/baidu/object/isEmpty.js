@@ -19,10 +19,14 @@
  * @return {boolean} 如果是空的对象就返回true.
  */
 baidu.object.isEmpty = function(obj) {
-	obj=Object(obj);
-    for (var key in obj) {
-        return false;
+    var ret = true;
+    if('[object Array]' === Object.prototype.toString.call(obj)){
+        ret = !obj.length;
+    }else{
+        obj = new Object(obj);
+        for(var key in obj){
+            return false;
+        }
     }
-    
-    return true;
+    return ret;
 };
