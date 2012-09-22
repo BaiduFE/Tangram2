@@ -6,7 +6,7 @@ var functionReturningObj = function(value) { return (function() { return value; 
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.  baidu.dom.remove,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.browser.safari,baidu.dom.remove,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');
@@ -106,6 +106,8 @@ test("attr(String)", function() {
 	equal( baidu("<div/>").attr("value"), undefined, "An unset value on a div returns undefined." );
 	equal( baidu("<input/>").attr("value"), "", "An unset value on an input returns current value." );
 	$form = baidu("#form").attr("enctype", "multipart/form-data");
+
+
 	equal( $form.prop("enctype"), "multipart/form-data", "Set the enctype of a form (encoding in IE6/7 #6743)" );
 });
 
@@ -287,9 +289,10 @@ test("attr(String, Object)", function() {
 	equal( baidu("#name").attr("someAttr"), "1", "Set attribute to the number 1" );
 
 
+	ok(false,'wangxiao');
 
 	// using contents will get comments regular, text, and comment nodes
-    if(baidu.browsers.safari<0){
+    if(baidu.browsers){
 		var j = baidu("#nonnodes").contents();
 
 		j.attr("name", "attrvalue");
