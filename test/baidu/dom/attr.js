@@ -6,7 +6,7 @@ var functionReturningObj = function(value) { return (function() { return value; 
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.  baidu.dom.remove,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');
@@ -289,12 +289,16 @@ test("attr(String, Object)", function() {
 
 
 	// using contents will get comments regular, text, and comment nodes
-	var j = baidu("#nonnodes").contents();
+    if(baidu.browsers.){
+		var j = baidu("#nonnodes").contents();
 
-	j.attr("name", "attrvalue");
+		j.attr("name", "attrvalue");
 
-	equal( j.attr("name"), "attrvalue", "Check node,textnode,comment for attr" );
-	j.removeAttr("name");
+		equal( j.attr("name"), "attrvalue", "Check node,textnode,comment for attr" );
+
+		j.removeAttr("name");
+
+    }
 
 	// Type
 	var type = baidu("#check2").attr("type");

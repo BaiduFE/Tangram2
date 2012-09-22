@@ -23,8 +23,9 @@ test("base", function() {
 					setTimeout(function() {// 这地方必须等，safari上不能连续滚
 						frames[0].scroll(0, 1000);
 					}, 0);
+
 				} else {
-					baidu.un(frames[0], 'scroll', check);
+					baidu.dom(frames[0]).off('scroll', check);
 					setTimeout(function() {
 						ok(img.src.indexOf("test.jpg") >= 0, "图片显示链接更新");
 						iframe.parentNode.removeChild(iframe);
@@ -33,8 +34,9 @@ test("base", function() {
 				}
 			};
 
-			baidu.on(frames[0], 'scroll', check);
+			baidu.dom(frames[0]).on('scroll',check);
 			frames[0].scroll(0, 20);
 		}
+
 	}, 50);
 });
