@@ -36,20 +36,6 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-
-		function isColorInput(){
-			var val = baidu.dom('#color-input').val();
-			return val && val.trim().length > 0;
-		}
-
-		function getColor(){
-			return isColorInput() ? baidu.dom('#color-input').val() : baidu.dom('#color-select').val();
-		}
-
-		function getFormatedColor(){
-			return baidu.string(getColor()).formatColor();			
-		}
-
 		T('#btn_format').on('click', function(e){
 			var color = baidu.dom('#color-select').val();
 			var formatColor = baidu.string(color).formatColor();
