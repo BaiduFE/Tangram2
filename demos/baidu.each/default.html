@@ -1,71 +1,72 @@
-<!DOCTYPE html>
+CTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.each() Ê¾Àı" />
-		<title>baidu.each()</title>
-		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
-		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
-		<script type="text/javascript" src="../../demos/public.js"></script>
-	</head>
-	<body>
-		<style>
-			#demo-target ul{
-				margin-left:20px;
-				line-height:20px;
-				margin-bottom:10px;
-			}
-			#demo-target li:nth-child(2n){
-				color:red;
-			}
-		</style>
-		<div class="demo" id="demo">
-			<h1 class="ac-h1"><strong>baidu.each()</strong> Ê¾Àı</h1>
-			<div class="pannel">
-				<div class="pannel-title">
-					<span>Ã¶¾Ù¶ÔÏó£¬Éú³ÉÁĞ±í</span>
-				</div>
-				<!--DemoViewStart-->
-				<div class="pannel-content" id="demo-target">
-					<div class="pannel-content-tool">
-						<span class="button" id="demo_btn_1">Ã¶¾Ù¶ÔÏó£¬Éú³ÉÁĞ±í</span>
-					</div>
-				</div>
-				<!--DemoViewEnd-->
-			</div>
-		</div>
-	<script>
-		//Êı¾İÔ´
-		var data = {
-			'34623' : {
-				title : '±êÌâÒ»',
-				date : '2012-03-23'
-			},
-			'34624' : {
-				title : '±êÌâ¶ş',
-				date : '2012-03-24'
-			},
-			'34625' : {
-				title : '±êÌâÈı',
-				date : '2012-03-25'
-			},
-			'34626' : {
-				title : '±êÌâËÄ',
-				date : '2012-03-26'
-			}
-		}
-		var ul = baidu('<ul></ul>');
-		baidu('#demo-target').prepend(ul);
-		
-		// µü´úÊı¾İ£¬Éú³ÉÁĞ±í
-		baidu('#demo_btn_1').on('click',function(e){
-			ul.empty();
-			baidu.each(data, function(key, value){
-				var timeStamp = new Date().getTime();
-				var list = baidu('<li>'+key+' : '+value.title+' '+value.date+' '+timeStamp+'</li>');
-				ul.append(list);
-			});
-		});
-	</script>
-	</body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="baidu.each() ç¤ºä¾‹" />
+        <title>baidu.each()</title>
+        <link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+        <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+        <script type="text/javascript" src="../../demos/public.js"></script>
+    </head> 
+    <body>
+        <style>
+            #demo-target ul{
+                margin-left:20px;
+                line-height:20px;
+                margin-bottom:10px;
+            }
+            #demo-target li:nth-child(2n){
+                color:red;
+            }
+        </style>
+        <div class="demo" id="demo">
+            <h1 class="ac-h1"><strong>baidu.each()</strong> ç¤ºä¾‹</h1>
+            <div class="pannel">
+                <div class="pannel-title">
+                    <span>æšä¸¾å¯¹è±¡ï¼Œç”Ÿæˆåˆ—è¡¨</span>
+                </div>
+                <!--DemoViewStart-->
+                <div class="pannel-content" id="demo-target">
+                    <div class="pannel-content-tool">
+                        <span class="button" id="demo_btn_1">æšä¸¾å¯¹è±¡ï¼Œç”Ÿæˆåˆ—è¡¨</span>
+                    </div>
+                </div>
+                <!--DemoViewEnd-->
+            </div>
+        </div>
+    <script>
+        //æ•°æ®æº
+        var data = {
+            '34623' : {
+                title : 'æ ‡é¢˜ä¸€',
+                date : '2012-03-23'
+            },
+            '34624' : {
+                title : 'æ ‡é¢˜äºŒ',
+                date : '2012-03-24'
+            },
+            '34625' : {
+                title : 'æ ‡é¢˜ä¸‰',
+                date : '2012-03-25'
+            },
+            '34626' : {
+                title : 'æ ‡é¢˜å››',
+                date : '2012-03-26'
+            }
+        }
+        var ul = baidu('<ul></ul>');
+        baidu('#demo-target').prepend(ul);
+
+        // è¿­ä»£æ•°æ®ï¼Œç”Ÿæˆåˆ—è¡¨
+        baidu('#demo_btn_1').on('click',function(e){
+            ul.empty();
+            baidu.each(data, function(key, value){
+                var timeStamp = new Date().getTime();
+                var list = baidu('<li>'+key+' : '+value.title+' '+value.date+' '+timeStamp+'</li>');
+                ul.append(list);
+            });
+        });
+    </script>
+    </body>
 </html>
+
