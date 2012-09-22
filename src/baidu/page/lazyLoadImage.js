@@ -77,10 +77,10 @@ baidu.page.lazyLoadImage = function(options) {
                 }
             }
             //当全部图片都已经加载, 去掉事件监听
-            finished && baidu.un(window, 'scroll', loadNeeded);
+            finished && baidu.dom(window).off('scroll', loadNeeded);
         };
 
-        baidu.on(window, 'scroll', loadNeeded);
+        baidu.dom(window).on('scroll', loadNeeded);
     });
 };
 /// Tangram 1.x Code End
