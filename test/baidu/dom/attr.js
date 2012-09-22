@@ -289,10 +289,8 @@ test("attr(String, Object)", function() {
 	equal( baidu("#name").attr("someAttr"), "1", "Set attribute to the number 1" );
 
 
-	ok(false,'wangxiao');
-
 	// using contents will get comments regular, text, and comment nodes
-    if(baidu.browsers){
+    if(baidu.browsers.safari){
 		var j = baidu("#nonnodes").contents();
 
 		j.attr("name", "attrvalue");
