@@ -8,7 +8,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.dom.setBorderBoxWidth", "baidu.dom.setBorderBoxWidth");
+	}, "baidu.trim", "baidu.dom.setBorderBoxWidth");
 });
 
 test("base", function() {

@@ -9,7 +9,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.dom.removeClass", "baidu.dom.removeClass");
+	}, "baidu.trim", "baidu.dom.removeClass");
 });
 
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };

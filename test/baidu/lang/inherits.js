@@ -8,7 +8,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.lang.inherits", "baidu.lang.inherits");
+	}, "baidu.trim", "baidu.lang.inherits");
 });
 
 var vehicle= function(vName){

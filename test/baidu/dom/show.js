@@ -19,7 +19,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.dom.show", "baidu.dom.show");
+	}, "baidu.trim", "baidu.dom.show");
 });
 
 test("show()", function() {

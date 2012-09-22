@@ -8,7 +8,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.dom.insertHTML", "baidu.dom.insertHTML");
+	}, "baidu.trim", "baidu.dom.insertHTML");
 });
 
 /*

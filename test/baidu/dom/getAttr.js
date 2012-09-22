@@ -12,7 +12,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.dom.getAttr", "baidu.dom.getAttr");
+	}, "baidu.trim", "baidu.dom.getAttr");
 });
 
 
