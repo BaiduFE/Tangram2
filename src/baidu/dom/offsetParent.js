@@ -1,6 +1,7 @@
 /**
  * @author linlingyu
  */
+
 ///import baidu.dom.map;
 ///import baidu.dom.getCurrentStyle;
 baidu.dom.extend({
