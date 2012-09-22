@@ -289,7 +289,7 @@ test("attr(String, Object)", function() {
 
 
 	// using contents will get comments regular, text, and comment nodes
-    if(baidu.browsers.){
+    if(baidu.browsers.safari<0){
 		var j = baidu("#nonnodes").contents();
 
 		j.attr("name", "attrvalue");
