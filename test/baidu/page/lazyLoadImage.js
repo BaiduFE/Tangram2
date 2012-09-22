@@ -24,7 +24,7 @@ test("base", function() {
 						frames[0].scroll(0, 1000);
 					}, 0);
 				} else {
-					baidu.dom(frames[0]).un('scroll', check);
+					baidu.dom(frames[0]).off('scroll', check);
 					setTimeout(function() {
 						ok(img.src.indexOf("test.jpg") >= 0, "图片显示链接更新");
 						iframe.parentNode.removeChild(iframe);
