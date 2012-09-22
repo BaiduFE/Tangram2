@@ -8,7 +8,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.string.decodeHTML", "baidu.string.decodeHTML");
+	}, "baidu.trim", "baidu.string.decodeHTML");
 });
 
 //新接口

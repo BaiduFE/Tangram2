@@ -9,7 +9,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.dom.setBorderBoxSize", "baidu.dom.setBorderBoxSize");
+	}, "baidu.trim", "baidu.dom.setBorderBoxSize");
 });
 
 test("base", function() {

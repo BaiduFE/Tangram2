@@ -9,7 +9,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.dom.g", "baidu.dom.g");
+	}, "baidu.trim", "baidu.dom.g");
 });
 
 

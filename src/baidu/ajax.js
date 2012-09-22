@@ -749,7 +749,9 @@ void function(){
                                 xhr.setRequestHeader(i, headers[i]);
                             }
                         }catch(e){}
+
                         xhr.send((opts.hasContent && opts.data) || null);
+                        
                         callback = function(arg, isAbort){
                             var status,
                                 statusText,

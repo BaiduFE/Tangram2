@@ -8,7 +8,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.dom.setStyle", "baidu.dom.setStyle");
+	}, "baidu.trim", "baidu.dom.setStyle");
 });
 test("set style",function(){
 	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";

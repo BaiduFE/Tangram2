@@ -9,7 +9,7 @@ test('prepareTest',function(){
 	ua.importsrc("baidu.short", function(){
 		start();
 		ok(true,'ok');
-	}, "baidu.array.each", "baidu.array.each");
+	}, "baidu.trim", "baidu.array.each");
 });
 
 //新接口
