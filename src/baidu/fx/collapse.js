@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -78,3 +79,4 @@ baidu.fx.collapse = function(element, options) {
 };
 
 // [TODO] 20100509 在元素绝对定位时，收缩到最后时会有一次闪烁
+/// Tangram 1.x Code End

@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * JavaScript framework: mz
  * Copyright (c) 2010 meizz, http://www.meizz.com/
@@ -71,3 +72,5 @@ baidu.fx.opacity = function(element, options) {
 
     return fx.launch();
 };
+
+/// Tangram 1.x Code End

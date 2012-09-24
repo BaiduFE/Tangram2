@@ -1,5 +1,5 @@
 ///import baidu.dom;
-///import baidu.dom.g;
+
 
 /**
  * @fileoverview
@@ -21,7 +21,8 @@ baidu.dom.extend({
         return baidu.dom(this.get(-1));
     }
 });
-
+/// Tangram 1.x Code Start
+///import baidu.dom.g;
 baidu.dom.last = function(element) {
     element = baidu.dom.g(element);
 
@@ -33,3 +34,4 @@ baidu.dom.last = function(element) {
 
     return null;
 };
+/// Tangram 1.x Code End

@@ -7,16 +7,6 @@
 ///import baidu.form;
 ///import baidu.url.escapeSymbol;
 
-
-/**
- * @description josn化表单数据
- * @function
- * @name baidu.form().json()
- * @grammar baidu.form(ele).json([replacer])
- * @param {function} replacer 对参数值特殊处理的函数，格式：replacer(string value, string key)
- * @return {Object} 表单数据js对象
- */
-
 /**
  * @description josn化表单数据
  * @function
