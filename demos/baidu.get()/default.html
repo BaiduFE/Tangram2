@@ -33,7 +33,6 @@
 			function getPersonInfo(){
 				baidu.get('../../demos/baidu.get()/person.json', 
 					function(person){
-						person = baidu.json.parse(person);
 						var ul = baidu('<ul/>');
 						// 填入数据的每个字段
 						baidu.each(person, function(field, value){
