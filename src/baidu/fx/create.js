@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -141,3 +142,5 @@ baidu.fx.create = function(element, options, fxName) {
  *  restore()               效果结束后的恢复操作
  *  render(schedule)        每个脉冲在DOM上的效果展现
  */
+
+/// Tangram 1.x Code End

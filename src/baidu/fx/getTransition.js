@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -115,3 +116,5 @@ Fx.Transitions.extend({
 
 
 //*/
+
+/// Tangram 1.x Code End

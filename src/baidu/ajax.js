@@ -9,6 +9,64 @@
 ///import baidu.support;
 ///import baidu.dom.on;
 
+/**
+ * @description 执行一个异步的ajax请求
+ * @function 
+ * @name baidu.ajax()
+ * @grammar baidu.ajax(url[, options])
+ * @param {String} url 用来发送请求的url字符串
+ * @param {Object} options options参数
+ * @param {Boolean} options.async 设置该次请求是一个异步请求或是同步，默认是异步请求
+ * @param {function} options.beforeSend 发送请求之前的触发事件，事件函数第一参数接收tangramAjax对象，第二参数接收setting，即当次的ajax设置
+ * @param {Boolean} options.cache 是否开启ajax缓存，默认true，当dataType为"script"和"jsonp"时默认为false，即不缓存
+ * @param {function} options.complete 请求完成后的回调函数（请求成功与失败都回调），函数接收两个参数，tangramAjax对象和一个描述成功请求类型的字符串("success", "notmodified", "error","timeout", or "parsererror")
+ * @param {Object} options.contents 一个以"{字符串:正则表达式}"配对的对象，用来确定ajax将如何解析响应，给定其内容类型
+ * @param {String} options.contentType 发送信息至服务器时内容编码类型。默认值是"application/x-www-form-urlencoded"，适合大多数情况。如果你明确地传递了一个content-type给 baidu.ajax() 那么他必定会发送给服务器（即使没有数据要发送）。数据将总是使用UTF-8字符集传递给服务器；你必须译码这适当的在服务器端。
+ * @param {Object} options.context 这个对象用于设置Ajax相关回调函数的上下文。也就是说，让回调函数内this指向这个对象（如果不设定这个参数，那么this就指向调用本次AJAX请求时传递的options参数）。比如指定一个DOM元素作为context参数，这样就设置了success回调函数的上下文为这个DOM元素。
+ * @param {Object} options.converters 一个数据类型对数据类型转换器的对象。每个转换器的值是一个函数，返回响应的转化值，默认值是： {"* text": window.String, "text html": true, "text json": parseJSON, "text xml": parseXML}
+ * @param {Boolean} options.crossDomain 同域请求为false， 跨域请求为true，如果你想强制跨域请求（如JSONP形式）同一域，设置crossDomain为true。这使得例如，服务器端重定向到另一个域
+ * @param {Object|String} options.data 发送到服务器的数据。将自动转换为请求字符串格式。GET 请求中将附加在 URL 后。
+ * @param {function} options.dataFilter 一个函数被用来处理XMLHttpRequest的原始响应数据。这是一个预过滤功能，净化响应。您应该返回安全数据。函数接收data和type两个参数：data是Ajax返回的原始数据，type是调用jQuery.ajax时提供的dataType参数
+ * @param {String} options.dataType 预期服务器返回的数据类型。如果不指定，将自动根据 HTTP 包 MIME 信息来智能判断，可用值：xml, html, script, json, jsonp, text
+ * @param {function} options.error 请求失败时调用此函数，函数接收三个参数：tangramAjax, textStatus, errorThrown。textStatus是描述发生的错误类型的一个字符串，取值除了得到null之外，还可能是"timeout", "error", "abort" 和 "parsererror"。errorThrown是捕获的异常对象。注意：此处理程序不被跨域脚本和JSONP形式的请求调用。
+ * @param {Object} options.headers 一个额外的"{键:值}"对映射到请求一起发送。此设置被设置之前beforeSend函数被调用;因此，消息头中的值设置可以在覆盖beforeSend函数范围内的任何设置。
+ * @param {Boolean} options.ifModified 仅在服务器数据改变时获取新数据。使用 HTTP 包 Last-Modified 头信息判断。默认值false
+ * @param {Boolean} options.isLocal 允许当前环境被认定为“本地”，（如文件系统），即使jQuery默认情况下不会承认它。以下协议目前公认为本地：file, *-extension, and widget。
+ * @param {String} options.jsonp 在一个jsonp请求中重写回调函数的名字。这个值用来替代在"callback=?"这种GET或POST请求中URL参数里的"callback"部分，比如{jsonp:'onJsonPLoad'}会导致将"onJsonPLoad=?"传给服务器。设置jsonp选项为false阻止了ajax从加入"?callback"字符串的URL或试图使用"=?"转换。在这种情况下，你也应该明确设置jsonpCallback设置。例如, { jsonp: false, jsonpCallback: "callbackName" }
+ * @param {String|function} options.jsonpCallback 为jsonp请求指定一个回调函数名。这个值将用来取代ajax自动生成的随机函数名。这主要用来让ajax生成度独特的函数名，这样管理请求更容易，也能方便地提供回调函数和错误处理。你也可以在想让浏览器缓存GET请求的时候，指定这个回调函数名。
+ * @param {String} options.mimeType 一个mime类型用来覆盖XHR的 MIME类型
+ * @param {String} options.password 用于响应HTTP访问认证请求的密码
+ * @param {Boolean} options.processData 默认情况下，通过data选项传递进来的数据，如果是一个对象(技术上讲只要不是字符串)，都会处理转化成一个查询字符串，以配合默认内容类型 "application/x-www-form-urlencoded"。如果要发送 DOM 树信息或其它不希望转换的信息，请设置为 false。
+ * @param {String} options.scriptCharset 只有当请求时dataType为"jsonp"或"script"，并且type是"GET"才会用于强制修改charset。通常只在本地和远程的内容编码不同时使用。
+ * @param {Object} options.statusCode 一组数值的HTTP代码和函数对象，当响应时调用了相应的代码。例如，如果响应状态是404，将触发以下警报：baidu.ajax(statusCode: {404: function(){}});
+ * @param {function} options.success 请求成功后的回调函数。这个函数传递3个参数data, textStatus, tangramAjax：data从服务器返回的数据，并根据dataType参数进行处理后的数据，一个描述状态的字符串。
+ * @param {Number} options.timeout 置请求超时时间（毫秒）。
+ * @param {Boolean} options.traditional 如果你想要用传统的方式来序列化数据，那么就设置为true。
+ * @param {String} options.type 请求方式 ("POST" 或 "GET")， 默认为 "GET"。
+ * @param {Number} options.username 于响应HTTP访问认证请求的用户名
+ * @param {function} options.xhr 回调创建XMLHttpRequest对象。当可用时默认为ActiveXObject（IE）中，否则为XMLHttpRequest。提供覆盖你自己的执行的XMLHttpRequest或增强工厂。
+ * @param {Number} options.xhrFields 一对“文件名-文件值”在本机设置XHR对象。例如，如果需要的话，你可以用它来设置withCredentials为true的跨域请求。
+ * @return {tangramAjax} 返回一个tangramAjax对象
+ */
+ 
+/**
+ * @description 设置全局的AJAX请求默认选项
+ * @function 
+ * @name baidu.ajax.setup
+ * @grammar baiud.ajax.setup(options)
+ * @param {Object} options 用于设置AJAX的全局参数, 参见baidu.ajax()
+ * @return {Object} 最终的options结果
+ */
+ 
+/**
+ * @description 创建一个序列化的数组或对象，适用于一个URL 地址查询字符串或Ajax请求
+ * @function 
+ * @name baidu.ajax.param
+ * @grammar baidu.ajax.param(obj[, traditional ])
+ * @param {Object} obj 一个数组或序列化的对象
+ * @return {traditional} 一个布尔值，指示是否执行了传统的“shallow”的序列化
+ */
+
 
 void function(){
     var ajaxLocation = location.href,
@@ -819,3 +877,6 @@ void function(){
         });
     }
 }();
+/// Tangram 1.x Code Start
+///import baidu.ajax.request;
+/// Tangram 1.x Code End

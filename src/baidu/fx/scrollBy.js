@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -63,3 +64,5 @@ baidu.fx.scrollBy = function(element, distance, options) {
 
     return fx.launch();
 };
+
+/// Tangram 1.x Code End

@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -41,3 +42,5 @@ baidu.fx.fadeOut = function(element, options) {
 
     return fx;
 };
+
+/// Tangram 1.x Code End
