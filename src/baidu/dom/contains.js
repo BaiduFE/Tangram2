@@ -30,7 +30,7 @@ baidu.dom.extend({
             || contained.size() <= 0){
             return false;
         }
-        container = this[0];
+        var container = this[0];
         contained = contained[0];
         //fixme: 无法处理文本节点的情况(IE)
         return container.contains
