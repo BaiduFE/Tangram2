@@ -46,7 +46,7 @@
  * @param {Number} options.username 于响应HTTP访问认证请求的用户名
  * @param {function} options.xhr 回调创建XMLHttpRequest对象。当可用时默认为ActiveXObject（IE）中，否则为XMLHttpRequest。提供覆盖你自己的执行的XMLHttpRequest或增强工厂。
  * @param {Number} options.xhrFields 一对“文件名-文件值”在本机设置XHR对象。例如，如果需要的话，你可以用它来设置withCredentials为true的跨域请求。
- * @return {tangramAjax} 返回一个tangramAjax对象
+ * @return {tangramAjax} 一个tangramAjax对象
  */
  
 /**
@@ -64,7 +64,8 @@
  * @name baidu.ajax.param
  * @grammar baidu.ajax.param(obj[, traditional ])
  * @param {Object} obj 一个数组或序列化的对象
- * @return {traditional} 一个布尔值，指示是否执行了传统的“shallow”的序列化
+ * @param {Boolean} traditional 一个布尔值，指示是否执行了传统的“shallow”的序列化
+ * @return {String} 序列化的结果
  */
 
 
