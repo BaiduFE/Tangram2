@@ -1,6 +1,6 @@
 module("baidu.page.createStyleSheet");
 
-test("create and add", function() {
+test("老接口：create and add", function() {
 	var check = function(w) {
 		var op = this;
 		var div = w.document.createElement('div');
@@ -28,7 +28,7 @@ test("create and add", function() {
 	ua.frameExt(check);
 });
 
-test("remove rule", function() {
+test("老接口：remove rule", function() {
 	var check = function(w) {
 		var div = w.document.createElement("div");
 		div.id = 'test2';
@@ -47,7 +47,7 @@ test("remove rule", function() {
 /**
  * 跨frame创建css并生效
  */
-test('another document', function() {
+test('老接口：another document', function() {
 	var check = function(w) {
 		var op = this;
 		var div = w.document.createElement('div');
@@ -74,7 +74,7 @@ test('another document', function() {
 	});
 });
 
-test('url with add and remove', function() {
+test('老接口：url with add and remove', function() {
 	var check = function(w) {
 		var op = this;
 		var div = w.document.createElement('div');

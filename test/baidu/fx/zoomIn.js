@@ -1,7 +1,7 @@
 module("baidu.fx.zoomIn");
 
 // scale的一种调用，仅校验参数即可
-test('test id', function() {
+test('老接口：test id', function() {
 	stop();
 	document.body.appendChild(document.getElementById('img_id'));
 	$('#img_id').css('position', 'absolute').css('left', 0).css('top', 0).css('width', 100).css('height', 100);

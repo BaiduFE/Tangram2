@@ -1,6 +1,6 @@
 module("baidu.fx.scale");
 
-test('test dom, fade = false', function() {
+test('老接口：test dom, fade = false', function() {
 	var c, t;
 	stop();
 	t = te.dom[1];
@@ -21,7 +21,7 @@ test('test dom, fade = false', function() {
 	});
 });
 
-test('test dom, fade = true', function() {
+test('老接口：test dom, fade = true', function() {
 	var c, t;
 	stop();
 	t = te.dom[1];
@@ -43,7 +43,7 @@ test('test dom, fade = true', function() {
 });
 
 // test id-dom
-test('test dom', function() {
+test('老接口：test dom', function() {
 	var c, t;
 	stop();
 	t = te.dom[1];
@@ -59,7 +59,7 @@ test('test dom', function() {
 });
 
 // test id-dom
-test('test id', function() {
+test('老接口：test id', function() {
 	var c, t;
 	stop();
 	t = te.dom[1].id;
@@ -75,7 +75,7 @@ test('test id', function() {
 });
 
 // test default params
-test('test default params', function() {
+test('老接口：test default params', function() {
 	var c;
 	var stime, dtime;
 
@@ -103,7 +103,7 @@ test('test default params', function() {
 });
 
 // test transformOrigin
-test('test transformOrigin', function() {
+test('老接口：test transformOrigin', function() {
 	var c, tran;
 
 	stop();
@@ -119,7 +119,7 @@ test('test transformOrigin', function() {
 });
 
 // test transformOrigin
-test('test transformOrigin', function() {
+test('老接口：test transformOrigin', function() {
 	var c, tran;
 
 	stop();
@@ -135,7 +135,7 @@ test('test transformOrigin', function() {
 });
 
 // test from
-test('test from', function() {
+test('老接口：test from', function() {
 	var c, f = 0.5;
 	var img = document.getElementById('img_id');
 	stop();	
@@ -156,7 +156,7 @@ test('test from', function() {
 /**
  * TODO 没干活这个用例！！需要开问题单
  */
-test('test to', function() {
+test('老接口：test to', function() {
 	var c, t = 0.5;
 	var img = document.getElementById('img_id');
 	stop();
@@ -175,7 +175,7 @@ test('test to', function() {
 });
 
 // test duration
-test('test duration', function() {
+test('老接口：test duration', function() {
 	var c, stime, dtime;
 	stime = new Date().getTime();
 
@@ -190,7 +190,7 @@ test('test duration', function() {
 });
 
 // test interval
-test('test interval', function() {
+test('老接口：test interval', function() {
 	var c, inter = 24; // modify from 16 to 24
 		stop();
 		c = baidu.fx.scale(te.dom[1].id, {
@@ -203,7 +203,7 @@ test('test interval', function() {
 	});
 
 // test events
-test('test events', function() {
+test('老接口：test events', function() {
 	var c, bu = false, au = false;
 	c = baidu.fx.scale(te.dom[1].id, {
 		onbeforestart : function() {

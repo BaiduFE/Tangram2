@@ -12,19 +12,17 @@ test("onsuccess", function() {
 		baidu.sio(urlstring).log();
 		setTimeout(function() {
 			var urlstring = upath + "logcheck.php";
-			var xhr = baidu.ajax.post(urlstring, arg, successAction);
-			function successAction(xhr, text) {
-				equals(text, "test", "get log info 'test' true");
-				equals(xhr.responseText, "test", "get log info 'test' true");
+			baidu.post(urlstring, arg, function(result){
+				equals(result, "test", "get log info 'test' true");
 				start();
-			}
+			});
 		}, 1000);
 
 	};
-	ua.importsrc('baidu.ajax.post', check, 'baidu.ajax.post', 'baidu.sio.log');
+	ua.importsrc('baidu.post', check, 'baidu.post', 'baidu.sio.log');
 });
 //老接口
-test("老接口：onsuccess", function() {
+test("onsuccess", function() {
 	stop();
 	var check = function() {
 		var now = new Date();
@@ -35,14 +33,12 @@ test("老接口：onsuccess", function() {
 		baidu.sio.log(urlstring);
 		setTimeout(function() {
 			var urlstring = upath + "logcheck.php";
-			var xhr = baidu.ajax.post(urlstring, arg, successAction);
-			function successAction(xhr, text) {
-				equals(text, "test", "get log info 'test' true");
-				equals(xhr.responseText, "test", "get log info 'test' true");
+			baidu.post(urlstring, arg, function(result){
+				equals(result, "test", "get log info 'test' true");
 				start();
-			}
+			});
 		}, 1000);
 
 	};
-	ua.importsrc('baidu.ajax.post', check, 'baidu.ajax.post', 'baidu.sio.log');
+	ua.importsrc('baidu.post', check, 'baidu.post', 'baidu.sio.log');
 });

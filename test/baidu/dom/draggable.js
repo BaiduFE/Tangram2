@@ -10,7 +10,7 @@ var clear = function(element, dd, needstart) {
 };
 
 /* need move mouse before testing */
-test('check return value', function() {
+test('老接口：check return value', function() {
 	stop();
 	expect(1);
 	ua.importsrc("baidu.dom.getPosition", function(){
@@ -23,7 +23,7 @@ test('check return value', function() {
 	}, "baidu.dom.getPosition", "baidu.dom.drag");
 });
 
-test('drag,no options', function() {
+test('老接口：drag,no options', function() {
 	stop();
 	expect(2);
 	var div = document.createElement('div');
@@ -60,7 +60,7 @@ test('drag,no options', function() {
 	move(div, 0, 0);
 });
 
-test('drag, static', function() {
+test('老接口：drag, static', function() {
 	stop();
 	expect(3);
 	var div = document.createElement('div');
@@ -100,7 +100,7 @@ test('drag, static', function() {
 	move(div, 0, 0);
 });
 
-test('options', function() {
+test('老接口：options', function() {
 	stop();
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -146,7 +146,7 @@ test('options', function() {
 	}, 100);
 });
 
-test('undraggble', function() {
+test('老接口：undraggble', function() {
 	stop();
 	var check = function() {
 		var div = document.body.appendChild(document.createElement("div"));
@@ -183,7 +183,7 @@ test('undraggble', function() {
 			'baidu.dom.draggable');
 });
 
-test('ddManager', function() {
+test('老接口：ddManager', function() {
 	stop();
 	var div = document.createElement('div');
 	document.body.appendChild(div);

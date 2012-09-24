@@ -1,6 +1,6 @@
 module("baidu.page.loadCssFile");
 
-test("load存在的Css", function() {
+test("老接口：load存在的Css", function() {
 	var check = function(w, f) {
 		var op, doc, body, div;
 		op = this;
@@ -36,7 +36,7 @@ test("load存在的Css", function() {
 /**
  * 这个用例只校验是否会抛异常
  */
-test("load不存在的JS", function() {
+test("老接口：load不存在的JS", function() {
 	var check = function(w, f) {
 		var op, doc, body, div;
 		op = this;

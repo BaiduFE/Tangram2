@@ -1,7 +1,7 @@
 module('baidu.dom.setAttr')
 
 //加载快捷方式
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -13,7 +13,7 @@ test('prepareTest',function(){
 });
 
 //新接口
-test('基础测试',
+test('老接口：基础测试',
 		function() {
 			expect(3);
 			var div = document.createElement('div');
@@ -29,7 +29,7 @@ test('基础测试',
  * 针对所有对象做自定义属性判断的用例
  */
 test(
-		'遍历所有元素类型',
+		'老接口：遍历所有元素类型',
 		function() {
 			var eleNames = ('p,h1,h2,h3,h4,h5,h6,blockquote,ol,ul,dl,div,form,a' + ',table,fieldset,address,ins,del,em,strong,q,cite,dfn,abbr' + ',acronym,code,samp,kbd,var,img,object,hr' + ',input,button,label,select,iframe')
 					.split(',');
@@ -55,7 +55,7 @@ test(
  * 
  */
 test(
-		'针对一个元素的多个属性进行的判断',
+		'老接口：针对一个元素的多个属性进行的判断',
 		function() {
 			expect(2);
 			var input = document.createElement('input');
@@ -71,7 +71,7 @@ test(
  * However, the World Wide Web Consortium (W3C) recommends
  * <li>lowercase attributes/attribute values in their HTML 4 recommendation.
  */
-test('针对大写情况下的属性进行判定', function() {
+test('老接口：针对大写情况下的属性进行判定', function() {
 	expect(1);
 	// TODO 该情况需要在其他Attribute用例中补充
 		var div = document.createElement('div');
@@ -91,7 +91,7 @@ test('针对大写情况下的属性进行判定', function() {
  title	tooltip_text 		Specifies extra information about an element (displayed as a tool tip)
  * </code>
  */
-test('针对特定的默认属性进行测试', function() {
+test('老接口：针对特定的默认属性进行测试', function() {
 	expect(3);
 	var li = document.createElement('li');
 	baidu.dom(li).setAttr('className', "li_className");
@@ -107,7 +107,7 @@ test('针对特定的默认属性进行测试', function() {
 		equal(li.getAttribute("title"), "li_title", "li gets title attribute");
 	})
 
-test('特定标签的特定属性测试', function() {
+test('老接口：特定标签的特定属性测试', function() {
 	expect(5);
 	var a = document.createElement('a');
 	baidu.dom(a).setAttr('charset', 'utf-8');
@@ -125,7 +125,7 @@ test('特定标签的特定属性测试', function() {
 })
 
 //老接口
-test('基础测试',
+test('老接口：基础测试',
 		function() {
 			expect(3);
 			var div = document.createElement('div');
@@ -142,7 +142,7 @@ test('基础测试',
  * 针对所有对象做自定义属性判断的用例
  */
 test(
-		'遍历所有元素类型',
+		'老接口：遍历所有元素类型',
 		function() {
 			var eleNames = ('p,h1,h2,h3,h4,h5,h6,blockquote,ol,ul,dl,div,form,a' + ',table,fieldset,address,ins,del,em,strong,q,cite,dfn,abbr' + ',acronym,code,samp,kbd,var,img,object,hr' + ',input,button,label,select,iframe')
 					.split(',');
@@ -168,7 +168,7 @@ test(
  * 
  */
 test(
-		'针对一个元素的多个属性进行的判断',
+		'老接口：针对一个元素的多个属性进行的判断',
 		function() {
 			expect(2);
 			var input = document.createElement('input');
@@ -184,7 +184,7 @@ test(
  * However, the World Wide Web Consortium (W3C) recommends
  * <li>lowercase attributes/attribute values in their HTML 4 recommendation.
  */
-test('针对大写情况下的属性进行判定', function() {
+test('老接口：针对大写情况下的属性进行判定', function() {
 	expect(1);
 	// TODO 该情况需要在其他Attribute用例中补充
 		var div = document.createElement('div');
@@ -204,7 +204,7 @@ test('针对大写情况下的属性进行判定', function() {
  title	tooltip_text 		Specifies extra information about an element (displayed as a tool tip)
  * </code>
  */
-test('针对特定的默认属性进行测试', function() {
+test('老接口：针对特定的默认属性进行测试', function() {
 	expect(3);
 	var li = document.createElement('li');
 	baidu.dom.setAttr(li, 'className', "li_className");
@@ -220,7 +220,7 @@ test('针对特定的默认属性进行测试', function() {
 		equal(li.getAttribute("title"), "li_title", "li gets title attribute");
 	})
 
-test('特定标签的特定属性测试', function() {
+test('老接口：特定标签的特定属性测试', function() {
 	expect(5);
 	var a = document.createElement('a');
 	baidu.dom.setAttr(a, 'charset', 'utf-8');

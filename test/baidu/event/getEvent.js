@@ -1,6 +1,6 @@
 module('baidu.event.getEvent');
 
-test('mouse event', function(){
+test('老接口：mouse event', function(){
 	expect(1);
 	$(document.body).append('<div id="div_test"></div>');
 	$('div#div_test').click(function (){
@@ -13,7 +13,7 @@ test('mouse event', function(){
 	ua.click($('div#div_test')[0]);
 });
 
-test('key event', function(){
+test('老接口：key event', function(){
 	expect(1);
 	$(document.body).append('<div id="div_test"></div>');
 	$('div#div_test').keydown(function(){
@@ -26,7 +26,7 @@ test('key event', function(){
 	ua.keydown($('div#div_test')[0]);
 });
 
-test('html event', function(){
+test('老接口：html event', function(){
 	expect(1);
 	$(document.body).append('<div id="div_test"></div>');
 	$("#div_test").resize(function(){
@@ -38,7 +38,7 @@ test('html event', function(){
 	$("#div_test").resize()
 });
 
-test('other event', function(){
+test('老接口：other event', function(){
 	expect(4);
 	$(document.body).append('<div id="div_test"></div>');
 	(function (){

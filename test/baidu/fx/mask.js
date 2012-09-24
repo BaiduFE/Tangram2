@@ -1,6 +1,6 @@
 module('baidu.fx.mask');
 //
-test('dom', function() {
+test('老接口：dom', function() {
 	var t = te.dom[1];
 	$(t).css('height', '100px');
 	$(t).css('width', '100px');
@@ -18,7 +18,7 @@ test('dom', function() {
 	stop();
 });
 
-test('id', function() {
+test('老接口：id', function() {
 	var t, h;
 	t = te.dom[1];
 	$(t).css('height', '100px');
@@ -34,7 +34,7 @@ test('id', function() {
 	stop();
 });
 
-test('properties', function() {
+test('老接口：properties', function() {
 	var t, h;
 	t = te.dom[1];
 	$(t).css('height', '100px');
@@ -56,7 +56,7 @@ test('properties', function() {
 /**
  * 根据时间线校验具体值
  */
-test('timeline', function() {
+test('老接口：timeline', function() {
 	var t, h, i;
 	t = te.dom[1];
 	$(t).css('height', '100px');

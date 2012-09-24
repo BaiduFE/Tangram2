@@ -1,6 +1,6 @@
 module("baidu.dom.getKeyCode");
 
-test('getKeyCode', function() {
+test('老接口：getKeyCode', function() {
 	expect(2);
 	var i = 0, element = document.body, type = 'keypress';
 	var fn = function(e) {
@@ -24,7 +24,7 @@ test('getKeyCode', function() {
 	equal(i, 1, 'i count once');
 });
 
-test('document', function() {
+test('老接口：document', function() {
 	expect(2);
 	var i = 0, type = 'keypress', element = document;
 	var fn = function(e) {
@@ -51,7 +51,7 @@ test('document', function() {
 	equal(i, 1, 'i count once');
 });
 
-test('Esc', function() {
+test('老接口：Esc', function() {
 	expect(2);
 	var i = 0, type = 'keypress', element = document;
 	var fn = function(e) {

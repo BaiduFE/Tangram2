@@ -1,7 +1,7 @@
 module("baidu.lang.getModule");
 
 var a = 10;
-test("getModule", function(){
+test("老接口getModule", function(){
   equals(baidu.lang.getModule('a'), 10);
   equals(baidu.lang.getModule('nosuchvar'), null);
 
@@ -29,7 +29,7 @@ test("getModule", function(){
   equals(baidu.lang.getModule('baidu.object.a'), null);
 });
 
-//test("performance", function(){
+//test("老接口performance", function(){
 //
 //function impl1(name, opt_obj) {
 //    var parts = name.split('.');

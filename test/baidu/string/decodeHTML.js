@@ -38,7 +38,7 @@ test('将<>"&的实体字符转义成html字符', function(){
  * use two function(baidu.string.decodeHTML() and baidu.decodeHTML())
  */
 
-test('老接口：将<>"&的实体字符转义成html字符', function(){
+test('将<>"&的实体字符转义成html字符', function(){
 	var strDecodeHTML = "";
 	
 	strDecodeHTML = baidu.string.decodeHTML('&lt;&gt;&quot;&amp;');

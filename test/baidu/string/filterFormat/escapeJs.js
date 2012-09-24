@@ -26,7 +26,7 @@
 
 module('baidu.string.filterFormat.escapeJs');
 
-test('format', function(){
+test('老接口：format', function(){
 
 	// escapeJs
 	var sPattern = '#{0|escapeJs}|#{1|js}|#{2|js}', sRet = baidu.string

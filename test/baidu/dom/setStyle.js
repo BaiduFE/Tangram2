@@ -1,7 +1,7 @@
 module("baidu.dom.setStyle");
 
 //加载快捷方式
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -11,7 +11,7 @@ test('prepareTest',function(){
 		ok(true,'ok');
 	}, "baidu.trim", "baidu.dom.setStyle");
 });
-test("set style",function(){
+test("老接口：set style",function(){
 	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
 	expect(3);
 	var div = document.createElement('div');
@@ -29,7 +29,7 @@ test("set style",function(){
 	document.body.removeChild(div);
 });
 
-test('short cut',function(){
+test('老接口：short cut',function(){
 	expect(3);
 	var div = document.createElement('div');
 	var img = document.createElement('img');
@@ -49,7 +49,7 @@ test('short cut',function(){
 
 //老接口
 //加载快捷方式
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -59,7 +59,7 @@ test('prepareTest',function(){
 		ok(true,'ok');
 	}, "baidu.trim", "baidu.dom.setStyle");
 });
-test("set style",function(){
+test("老接口：set style",function(){
 	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
 	expect(3);
 	var div = document.createElement('div');
@@ -77,7 +77,7 @@ test("set style",function(){
 	document.body.removeChild(div);
 });
 
-test('short cut',function(){
+test('老接口：short cut',function(){
 	expect(3);
 	var div = document.createElement('div');
 	var img = document.createElement('img');

@@ -21,7 +21,7 @@ var jslist = "baidu.dom.draggable,baidu.dom.resizable,"
 		+ "baidu.event.un,baidu.event.stop,"
 		+ "baidu.short";
 
-test('封装基础 - 输入字符串', function() {
+test('老接口：封装基础 - 输入字符串', function() {
 	stop();
 	ua.importsrc(jslist, function() {
 		var div = document.body.appendChild(document.createElement('div'));
@@ -38,7 +38,7 @@ test('封装基础 - 输入字符串', function() {
 });
 
 
-test('封装基础 - 输入数组', function() {
+test('老接口：封装基础 - 输入数组', function() {
 	var sp1, sp2;
 	sp1 = document.body.appendChild(document.createElement('span'));
 	sp1.className = 'span';
@@ -60,7 +60,7 @@ test('封装基础 - 输入数组', function() {
 	document.body.removeChild(sp1);
 });
 
-test('封装基础 - 含有get的函数', function() {
+test('老接口：封装基础 - 含有get的函数', function() {
 	var p = document.body.appendChild(document.createElement('div'));
 	p.id = 'first';
 	baidu.e(p).setAttr('rel', 'i-m-first');
@@ -71,7 +71,7 @@ test('封装基础 - 含有get的函数', function() {
 	baidu.e(c).remove();
 });
 
-test('封装基础 - each', function() {
+test('老接口：封装基础 - each', function() {
 	var parentNode = document.body.appendChild(document.createElement('div')),
 	//
 	childNode1 = parentNode.appendChild(document.createElement('div')),
@@ -122,7 +122,7 @@ test('封装基础 - each', function() {
 	baidu.e([ parentNode, a_link ]).remove();
 });
 
-test('event + on + un + stop', function() {
+test('老接口：event + on + un + stop', function() {
 	expect(6);
 	stop();
 	ua.importsrc('baidu.event.stop', function() {
@@ -173,7 +173,7 @@ test('event + on + un + stop', function() {
 //  * <li>校验方法的集合，方法包含所有baidu.dom中包含的方法
 //  * <li>不包含drag和ready
 //  */
-// test('function list',function() {
+// test('老接口：function list',function() {
 // 	var div = document.body.appendChild(document.createElement('div'));
 // 	var ele = baidu.element(div);
 // 	stop();
@@ -202,7 +202,7 @@ test('event + on + un + stop', function() {
 /**
  * 返回值是第一个参数的包装 draggable droppable resizable
  */
-test('返回值是第一个参数的包装 draggable droppable', function() {
+test('老接口：返回值是第一个参数的包装 draggable droppable', function() {
 	var drag = document.body.appendChild(document.createElement('div'));
 	var e = baidu.e(drag);
 	e.attr('id', 'drag');// 无返回
@@ -211,7 +211,7 @@ test('返回值是第一个参数的包装 draggable droppable', function() {
 	$(drag).remove();
 });
 
-test('返回值是第一个参数的包装 resizable', function() {
+test('老接口：返回值是第一个参数的包装 resizable', function() {
 	var div1 = document.body.appendChild(document.createElement('div'));
 	baidu.e(div1).resizable().addClass("berg").attr('id', 'berg');
 	ok(baidu.e(div1).hasClass('berg'), 'has class');
@@ -222,7 +222,7 @@ test('返回值是第一个参数的包装 resizable', function() {
  * 直接返回返回值
  * 
  */
-test('直接返回返回值 ', function() {
+test('老接口：直接返回返回值 ', function() {
 	var div = document.body.appendChild(document.createElement('div'));
 	var div1 = div.appendChild(document.createElement('div'));
 	div.id = "div";
@@ -247,7 +247,7 @@ test('直接返回返回值 ', function() {
 	equal(d, null, 'check remove : ');
 });
 
-test('封装基础 - 构造函数', function() {
+test('老接口：封装基础 - 构造函数', function() {
 	var div = document.body.appendChild(document.createElement('DIV'));
 	div.innerHTML = new Array(10).join('<span>hello</span>');
 
@@ -267,7 +267,7 @@ test('封装基础 - 构造函数', function() {
 	document.body.removeChild(div);
 });
 
-test('element with select', function() {
+test('老接口：element with select', function() {
 	var sel0 = document.createElement('select');
 	var sel1 = document.createElement('select');
 	// sel0.name = "sel";

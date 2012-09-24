@@ -51,7 +51,7 @@ test("输入函数并输入iterator", function() {
 });
 
 //老接口
-test("老接口：输入数组有重复元素", function() {
+test("输入数组有重复元素", function() {
 	expect(5);
 	var arraytest = [ 2, 3, 6, 2, 4, 2, 3, 'name', 4, 6, 'word', 'name', '2',
 			'3' ]; // 输入数组有重复元素
@@ -68,7 +68,7 @@ test("老接口：输入数组有重复元素", function() {
 			.unique([ String(123), String('123'), '123' ]));
 });
 
-test("老接口：输入数组沒有重复元素", function() {
+test("输入数组沒有重复元素", function() {
 	expect(1);
 	var arraytest = [ 2, 3, 4, 5, 'name', '2', '3', '5' ]; // 输入数组有重复元素
 	var rArr = baidu.array.unique(arraytest);
@@ -76,13 +76,13 @@ test("老接口：输入数组沒有重复元素", function() {
 	ok(ua.isEqualArray(rArr, array), "输入数组沒有重复项");
 });
 
-test("老接口：空数组", function() {
+test("空数组", function() {
 	expect(1);
 	var array = baidu.array.unique([]);
 	equal(array.toString(), "", "空数组");
 });
 
-test("老接口：输入函数并输入iterator", function() {
+test("输入函数并输入iterator", function() {
 	expect(2);
 	var arraytest = [ 'name', 'job', 'ghost', 'window', 'linux', 'mail', 'we',
 			'word' ];

@@ -124,23 +124,23 @@ function check(method, sync, ajax_options, result) {
 	baidu.ajax.form(f, options);
 }
 
-test("get", function() {
+test("老接口：get", function() {
 	check();
 });
 
-test("post", function() {
+test("老接口：post", function() {
 	check('post');
 });
 
-test("get sync", function() {
+test("老接口：get sync", function() {
 	check(0, true);
 });
 
-test("post sync", function() {
+test("老接口：post sync", function() {
 	check('post', true);
 });
 
-test("get async options", function() {
+test("老接口：get async options", function() {
 	var options = {
 		headers : "text/xml",
 		username : "tester",
@@ -153,7 +153,7 @@ test("get async options", function() {
 	check(0, false, options);
 });
 
-test("get sync options", function() {
+test("老接口：get sync options", function() {
 
 	var options = {
 		headers : "text/xml",
@@ -166,7 +166,7 @@ test("get sync options", function() {
 	check(0, true, options);
 });
 
-test("post async options", function() {
+test("老接口：post async options", function() {
 	var options = {
 		headers : "text/xml",
 		username : "tester",
@@ -178,7 +178,7 @@ test("post async options", function() {
 	check('post', false, options);
 });
 
-test("post sync options", function() {
+test("老接口：post sync options", function() {
 	var options = {
 		headers : "text/xml",
 		username : "tester",
@@ -190,7 +190,7 @@ test("post sync options", function() {
 	check('post', true, options);
 });
 
-test("get async replacer", function() {
+test("老接口：get async replacer", function() {
 	var options = {
 		replacer : function(value, key) {
 			return 0;
@@ -200,7 +200,7 @@ test("get async replacer", function() {
 	check(0, false, options, result);
 });
 
-test("get sync options", function() {
+test("老接口：get sync options", function() {
 	var options = {
 		replacer : function(value, key) {
 			return 0;
@@ -210,7 +210,7 @@ test("get sync options", function() {
 	check(0, true, options, result);
 });
 
-test("post async options", function() {
+test("老接口：post async options", function() {
 	var options = {
 		replacer : function(value, key) {
 			return 0;
@@ -220,7 +220,7 @@ test("post async options", function() {
 	check('post', false, options, result);
 });
 
-test("post sync options", function() {
+test("老接口：post sync options", function() {
 	var options = {
 		replacer : function(value, key) {
 			return 0;

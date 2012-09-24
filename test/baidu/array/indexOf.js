@@ -93,7 +93,7 @@ test("异常用例", function() {
 });
 
 //老接口
-test("老接口：2个参数，查询数组项", function() {
+test("2个参数，查询数组项", function() {
 	expect(4);
 	var arraytest = [ 2, 5, 8, 19, 'name', '44', 56, 5, 'name' ];
 	var r = baidu.array.indexOf(arraytest, 'name');
@@ -108,7 +108,7 @@ test("老接口：2个参数，查询数组项", function() {
 	equal(r, -1, "查询不存在的元素");
 });
 
-test("老接口：3个参数,正常用例", function() {
+test("3个参数,正常用例", function() {
 	expect(2);
 	var arraytest = [ 2, 3, 5, 6, 7, 'odd', 3, 1, 'even', 6 ];
 	var i = 6;
@@ -119,7 +119,7 @@ test("老接口：3个参数,正常用例", function() {
 	equal(r, 3, "start为小数");
 });
 
-test("老接口：3个参数，start为负数", function() {
+test("3个参数，start为负数", function() {
 	expect(2);
 	var arraytest = [ 2, 3, 5, 6, 7, 'odd', 3, 1, 'even', 6 ];
 	var i = 6;
@@ -131,7 +131,7 @@ test("老接口：3个参数，start为负数", function() {
 	equal(r, 3, "start 为-15.8");
 });
 
-test("老接口：3个参数，start大于数组长度", function() {
+test("3个参数，start大于数组长度", function() {
 	expect(3);
 	var arraytest = [ 2, 3, 5, 6, 7, 'odd', 3, 1, 'even', 6 ];
 	var i = 6;
@@ -149,7 +149,7 @@ test("老接口：3个参数，start大于数组长度", function() {
 	equal(r, -1, "查询函数：start 为20");
 
 });
-test("老接口：异常用例", function() {
+test("异常用例", function() {
 	expect(8);
 	var r = baidu.array.indexOf([], 1);
 	equal(r, -1, "空数组查询数组项");

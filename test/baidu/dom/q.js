@@ -1,7 +1,7 @@
 module("baidu.dom.q")
 
 //加载快捷方式
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -12,7 +12,7 @@ test('prepareTest',function(){
 	}, "baidu.trim", "baidu.dom.q");
 });
 
-test('1 param--className', function() {
+test('老接口：1 param--className', function() {
 	expect(4);
 	var div = document.createElement('div');
 	var div2 = document.createElement('div');
@@ -41,7 +41,7 @@ test('1 param--className', function() {
 	document.body.removeChild(div);
 })
 
-test('2 params,element', function() {
+test('老接口：2 params,element', function() {
 	expect(3);
 	var div = document.createElement('div');
 	var div2 = document.createElement('div');
@@ -76,7 +76,7 @@ test('2 params,element', function() {
 	document.body.removeChild(div2);
 	document.body.removeChild(div);
 })
-test('2 params,document', function() {
+test('老接口：2 params,document', function() {
 	expect(5);
 	var div = document.createElement('div');
 	var div2 = document.createElement('div');
@@ -104,7 +104,7 @@ test('2 params,document', function() {
 	document.body.removeChild(div2);
 	document.body.removeChild(div);
 })
-test('3 params', function() {
+test('老接口：3 params', function() {
 	expect(4);
 	var div = document.createElement('div');
 	var div2 = document.createElement('div');
@@ -142,7 +142,7 @@ test('3 params', function() {
 	document.body.removeChild(div2);
 	document.body.removeChild(div);
 })
-test('short cut', function() {
+test('老接口：short cut', function() {
 	expect(7);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -172,7 +172,7 @@ test('short cut', function() {
 	document.body.removeChild(div);
 })
 
-test('null', function() {
+test('老接口：null', function() {
 	expect(2);
 	var result = baidu.dom.q('');
 	equal(result.length, 0, '空参数返回空数组');
@@ -180,7 +180,7 @@ test('null', function() {
 	equal(result, "", 'no param');
 })
 
-test('异常case', function() {
+test('老接口：异常case', function() {
 	expect(2);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
