@@ -1,7 +1,7 @@
 module("baidu.async.get");
 
 
-test("输入正确的url", function() {
+test("老接口：输入正确的url", function() {
 	stop();
 	var urlstring = upath + "hello.php";
 	var defer = baidu.async(urlstring).get();
@@ -17,7 +17,7 @@ test("输入正确的url", function() {
 	};
 });
 
-test("输入错误的url", function() {
+test("老接口：输入错误的url", function() {
 	stop();
 	var urlstring = upath + "notexist.php";
 	var defer = baidu.async(urlstring).get();

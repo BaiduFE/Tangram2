@@ -1,7 +1,7 @@
 module("baidu.fx.puff");
 
 // test id
-test('test id', function(){
+test('老接口：test id', function(){
 	var c = baidu.fx.puff(te.dom[1].id, {
 		onafterfinish: function(){
 			equals(this.to, 1.8, 'to = ' + this.to);
@@ -14,7 +14,7 @@ test('test id', function(){
 });
 
 // test dom
-test('test dom', function() {
+test('老接口：test dom', function() {
 	var t, c;
 	t = te.dom[1];
 	c = baidu.fx.puff(t, {
@@ -29,7 +29,7 @@ test('test dom', function() {
 });
 
 // test to 
-test('test to', function(){
+test('老接口：test to', function(){
 	var t, c;
 	t = te.dom[1];
 	c = baidu.fx.puff(t, {
@@ -43,7 +43,7 @@ test('test to', function(){
 });
 
 // test duration
-test('', function(){
+test('老接口：', function(){
 	var c, stime, dtime;
 	c = baidu.fx.puff(te.dom[1].id, {
 		onafterfinish: function(){
@@ -57,7 +57,7 @@ test('', function(){
 });
 
 //test transformOrigin(percent)
-test('test transformOrigin(percent)', function(){
+test('老接口：test transformOrigin(percent)', function(){
 	var t, c;
 	t = te.dom[1];
 	c = baidu.fx.puff(t, {
@@ -71,7 +71,7 @@ test('test transformOrigin(percent)', function(){
 });
 
 //test transformOrigin(pixel)
-test('test transformOrigin(pixel)', function(){
+test('老接口：test transformOrigin(pixel)', function(){
 	var t, c;
 	t = te.dom[1];
 	c = baidu.fx.puff(t, {

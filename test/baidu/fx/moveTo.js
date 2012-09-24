@@ -1,6 +1,6 @@
 module('baidu.fx.moveTo');
 
-test('dom', function() {
+test('老接口：dom', function() {
 	expect(4);
 	var t;
 	t = te.dom[0];
@@ -26,7 +26,7 @@ test('dom', function() {
 
 });
 
-test('id', function() {
+test('老接口：id', function() {
 	expect(2);
 	var t;
 	t = te.dom[0];
@@ -46,7 +46,7 @@ test('id', function() {
 	});
 });
 
-test('duration', function() {
+test('老接口：duration', function() {
 	expect(3);
 	var t;
 	t = te.dom[0];

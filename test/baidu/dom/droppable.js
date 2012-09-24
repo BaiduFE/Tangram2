@@ -82,15 +82,15 @@ module('baidu.dom.droppable');
 			beforecheck(move);
 	};
 
-	test('drop over', function() {
+	test('老接口：drop over', function() {
 		run(1, 0, 1);
 	});
 
-	test('drop', function() {
+	test('老接口：drop', function() {
 		run(1, 1, 0);
 	});
 
-	test('cancel', function() {
+	test('老接口：cancel', function() {
 		run(0, 0, 0);
 	});
 })();

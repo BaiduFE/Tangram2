@@ -33,14 +33,14 @@ var op = {/* fx效果方法依赖参数 */
 	}
 };
 
-test('校验元素类型为id', function() {
+test('老接口：校验元素类型为id', function() {
 	te.checkfx.create(te.dom[0].id, {
 		method : baidu.fx.fadeIn,
 		options : op
 	}).checkbase();
 });
 
-test('校验元素类型为dom', function() {
+test('老接口：校验元素类型为dom', function() {
 	var notchecked = true;
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.fadeIn,
@@ -48,7 +48,7 @@ test('校验元素类型为dom', function() {
 	}).checkbase();
 });
 
-test('校验事件序列', function() {
+test('老接口：校验事件序列', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.fadeIn,
 		beforestart : function() { // 初始设置启动高度为100
@@ -59,7 +59,7 @@ test('校验事件序列', function() {
 	}, 4);
 });
 
-test('校验时间序列', function() {
+test('老接口：校验时间序列', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.fadeIn,
 		beforestart : function() { // 初始设置启动高度为100
@@ -78,7 +78,7 @@ test('校验时间序列', function() {
 			});
 });
 
-test('校验cancel', function() {
+test('老接口：校验cancel', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.fadeIn,
 		beforestart : function() { // 初始设置启动高度为100
@@ -91,7 +91,7 @@ test('校验cancel', function() {
 // /**
 // * 抽样3个时间点的数据是否满足渐变效果
 // */
-// test('events',
+// test('老接口：events',
 // function() {
 // var t, f;
 // t = te.dom[0];

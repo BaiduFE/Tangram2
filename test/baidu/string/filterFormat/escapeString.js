@@ -24,7 +24,7 @@
 
 module('baidu.string.filterFormat.escapeString');
 
-test('format', function(){
+test('老接口：format', function(){
 
 			var sPattern = '<input value="#{0|escapeString}#{1|e}#{2|e}#{3|e}#{4|e}#{5|e}">', sRet = baidu.string
 					.filterFormat(sPattern, '<', '>', '/', '\\', '"', "'");

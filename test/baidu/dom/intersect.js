@@ -1,6 +1,6 @@
 module('baidu.dom.insertsect');
 
-test('两个区域包含', function() {// 只适用于块元素
+test('老接口：两个区域包含', function() {// 只适用于块元素
 	expect(7);
 	var div = document.createElement('div');
 	var divChild = document.createElement('div');
@@ -26,7 +26,7 @@ test('两个区域包含', function() {// 只适用于块元素
 	document.body.removeChild(div);
 });
 
-test('两个区域相交', function() {
+test('老接口：两个区域相交', function() {
 	expect(2);
 	var div = document.createElement('div');
 	var div2 = document.createElement('div');
@@ -43,7 +43,7 @@ test('两个区域相交', function() {
 	document.body.removeChild(div2);
 });
 
-test('两个区域不重叠', function() {// 只适用于块元素
+test('老接口：两个区域不重叠', function() {// 只适用于块元素
 	expect(2);
 	var div = document.createElement('div');
 	var div2 = document.createElement('div');

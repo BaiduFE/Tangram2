@@ -1,7 +1,7 @@
 module("baidu.page.load");
 var path = (upath || "");
 
-test("加载资源", function() {
+test("老接口：加载资源", function() {
 	stop();
 	var div = document.body.appendChild(document.createElement('div'));
 	div.id = "css";
@@ -38,7 +38,7 @@ test("加载资源", function() {
 	}, 10);
 });
 
-test("类型参数的有效性", function() {
+test("老接口：类型参数的有效性", function() {
 	stop();
 	//expect(5);
 	var step = 0;
@@ -79,7 +79,7 @@ test("类型参数的有效性", function() {
 	baidu.page.load(ops, old || {});
 });
 
-test("js支持charset设置", function() {// opera下这个用例固定失败...
+test("老接口：js支持charset设置", function() {// opera下这个用例固定失败...
 	if (ua.browser.opera) {
 		ok(true, 'not support by opera');
 		return;
@@ -95,7 +95,7 @@ test("js支持charset设置", function() {// opera下这个用例固定失败...
 	} ]);
 });
 
-test("第一个参数是url", function() {
+test("老接口：第一个参数是url", function() {
 	stop();
 	baidu.page.load([{
 		url : path + "jsfile2.js",
@@ -111,7 +111,7 @@ test("第一个参数是url", function() {
 
 });
 
-test("并行", function() {
+test("老接口：并行", function() {
 	stop();
 	var step = 0;
 	var ops = [ {

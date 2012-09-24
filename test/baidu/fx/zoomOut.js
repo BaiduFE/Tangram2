@@ -1,6 +1,6 @@
 module("baidu.fx.zoomOut");
 // zoomOut引用scale，此处仅测试完成时的效果，
-test('check property and hide after finish', function() {
+test('老接口：check property and hide after finish', function() {
 	// 1、hide after finish
 	// 2、check to and from as default
 	stop();
@@ -29,7 +29,7 @@ test('check property and hide after finish', function() {
 //
 // 用例逻辑设置有问题（fx cancel后调用dispose），导致IE下抛异常
 // // test id
-// test('test id', function() {
+// test('老接口：test id', function() {
 // var c = baidu.fx.zoomOut('img_div', {
 // onafterfinish : function() {
 // ok(true, 'test id');
@@ -51,7 +51,7 @@ test('check property and hide after finish', function() {
 // });
 //
 // // test dom
-// test('test dom', function() {
+// test('老接口：test dom', function() {
 // var c = baidu.fx.zoomOut('img_div', {
 // onafterfinish : function() {
 // ok(true, 'test id');
@@ -73,7 +73,7 @@ test('check property and hide after finish', function() {
 // });
 //
 // // test from
-// test('test from', function() {
+// test('老接口：test from', function() {
 // var c, f = 0.5;
 // var img = document.getElementById('img_id');
 // c = baidu.fx.zoomOut('img_div', {
@@ -88,7 +88,7 @@ test('check property and hide after finish', function() {
 // });
 //
 // // test to
-// test('test to', function() {
+// test('老接口：test to', function() {
 // var c, t = 0.5;
 // var img = document.getElementById('img_id');
 // c = baidu.fx.zoomOut('img_div', {
@@ -103,7 +103,7 @@ test('check property and hide after finish', function() {
 // });
 //
 // // test duraton
-// test('test duration', function() {
+// test('老接口：test duration', function() {
 // var c, stime, dtime;
 // c = baidu.fx.zoomOut('img_div', {
 // onafterfinish : function() {
@@ -117,7 +117,7 @@ test('check property and hide after finish', function() {
 // });
 //
 // // test interval
-// test('test interval', function() {
+// test('老接口：test interval', function() {
 // var c, itime;
 // c = baidu.fx.zoomOut('img_div', {
 // onafterfinish : function() {
@@ -130,7 +130,7 @@ test('check property and hide after finish', function() {
 //
 // /* Events将在Timeline用例中被测试，此处忽略 */
 // // //test transition
-// // test('test transition 时间线', function(){
+// // test('老接口：test transition 时间线', function(){
 // // var c, img, timeline;
 // // c = baidu.fx.zoomIn('img_div', {
 // // onbeforestart: function(){
@@ -141,7 +141,7 @@ test('check property and hide after finish', function() {
 // // stop();
 // // });
 // // test onbeforestart
-// test('test onbeforestart', function() {
+// test('老接口：test onbeforestart', function() {
 // var c, bu = false, au = false; // bool 控制一次
 // c = baidu.fx.zoomOut('img_div', {
 // onbeforestart : function() {

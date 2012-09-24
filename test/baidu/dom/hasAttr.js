@@ -4,7 +4,7 @@
 module('baidu.dom.hasAttr');
 
 //新接口
-test('基础测试', function() {
+test('老接口：基础测试', function() {
 	expect(3);
 	var div = document.createElement('div');
 	div.setAttribute('title', "div_hasAttri");
@@ -19,7 +19,7 @@ test('基础测试', function() {
 /**
  * 针对所有对象做id判断的用例
  */
-test('遍历所有元素类型', function() {
+test('老接口：遍历所有元素类型', function() {
 	var eleNames = ('p,h1,h2,h3,h4,h5,h6,blockquote,ol,ul,dl,div,form,a'
 			+ ',table,fieldset,address,ins,del,em,strong,q,cite,dfn,abbr'
 			+ ',acronym,code,samp,kbd,var,img,object,hr'
@@ -36,7 +36,7 @@ test('遍历所有元素类型', function() {
  * 为一个元素添加多个属性，判断各个属性是否存在
  * 
  */
-test('针对一个元素的多个属性进行的判断', function() {
+test('老接口：针对一个元素的多个属性进行的判断', function() {
 	expect(3);
 	var input = null;
 	try {
@@ -58,7 +58,7 @@ test('针对一个元素的多个属性进行的判断', function() {
  * However, the World Wide Web Consortium (W3C) recommends
  * <li>lowercase attributes/attribute values in their HTML 4 recommendation.
  */
-test('针对大写情况下的属性进行判定', function() {
+test('老接口：针对大写情况下的属性进行判定', function() {
 	expect(1);
 	// TODO 该情况需要在其他Attribute用例中补充
 	var div = document.createElement('div');
@@ -77,7 +77,7 @@ test('针对大写情况下的属性进行判定', function() {
  title	tooltip_text 		Specifies extra information about an element (displayed as a tool tip)
  * </code>
  */
-test('针对特定的默认属性进行测试', function() {
+test('老接口：针对特定的默认属性进行测试', function() {
 	expect(3);
 	var li = document.createElement('li');
 	li.setAttribute('className', "li_className");
@@ -92,7 +92,7 @@ test('针对特定的默认属性进行测试', function() {
 /**
  * a href
  */
-test('特定标签的特定属性测试', function() {
+test('老接口：特定标签的特定属性测试', function() {
 	expect(5);
 	try {
 		// IE6/IE7 构建方式
@@ -115,7 +115,7 @@ test('特定标签的特定属性测试', function() {
 });
 
 //老接口
-test('基础测试', function() {
+test('老接口：基础测试', function() {
 	expect(3);
 	var div = document.createElement('div');
 	div.setAttribute('title', "div_hasAttri");
@@ -130,7 +130,7 @@ test('基础测试', function() {
 /**
  * 针对所有对象做id判断的用例
  */
-test('遍历所有元素类型', function() {
+test('老接口：遍历所有元素类型', function() {
 	var eleNames = ('p,h1,h2,h3,h4,h5,h6,blockquote,ol,ul,dl,div,form,a'
 			+ ',table,fieldset,address,ins,del,em,strong,q,cite,dfn,abbr'
 			+ ',acronym,code,samp,kbd,var,img,object,hr'
@@ -147,7 +147,7 @@ test('遍历所有元素类型', function() {
  * 为一个元素添加多个属性，判断各个属性是否存在
  * 
  */
-test('针对一个元素的多个属性进行的判断', function() {
+test('老接口：针对一个元素的多个属性进行的判断', function() {
 	expect(3);
 	var input = null;
 	try {
@@ -169,7 +169,7 @@ test('针对一个元素的多个属性进行的判断', function() {
  * However, the World Wide Web Consortium (W3C) recommends
  * <li>lowercase attributes/attribute values in their HTML 4 recommendation.
  */
-test('针对大写情况下的属性进行判定', function() {
+test('老接口：针对大写情况下的属性进行判定', function() {
 	expect(1);
 	// TODO 该情况需要在其他Attribute用例中补充
 	var div = document.createElement('div');
@@ -188,7 +188,7 @@ test('针对大写情况下的属性进行判定', function() {
  title	tooltip_text 		Specifies extra information about an element (displayed as a tool tip)
  * </code>
  */
-test('针对特定的默认属性进行测试', function() {
+test('老接口：针对特定的默认属性进行测试', function() {
 	expect(3);
 	var li = document.createElement('li');
 	li.setAttribute('className', "li_className");
@@ -203,7 +203,7 @@ test('针对特定的默认属性进行测试', function() {
 /**
  * a href
  */
-test('特定标签的特定属性测试', function() {
+test('老接口：特定标签的特定属性测试', function() {
 	expect(5);
 	try {
 		// IE6/IE7 构建方式

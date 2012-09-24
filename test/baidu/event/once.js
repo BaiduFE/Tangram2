@@ -1,6 +1,6 @@
 module('baidu.event.once');
 
-test('once', function(){
+test('老接口：once', function(){
 	expect(1);
 	var div = document.body.appendChild(document.createElement("div"));
 	var l = function(){

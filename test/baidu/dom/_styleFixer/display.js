@@ -1,6 +1,6 @@
 module('baidu.dom._styleFixer');
 
-test('display', function() {
+test('老接口：display', function() {
 	$(document.body).append('<div id="test_div"></div>');
 	var div = $('div#test_div').css('height', '20px').css(
 			'backgroundColor', 'red')[0];

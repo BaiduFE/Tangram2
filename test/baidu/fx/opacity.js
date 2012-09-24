@@ -2,7 +2,7 @@ module('baidu.fx.opacity');
 var check = function(t, expect) {
 	equal(Math.round(parseFloat($(t).css('opacity')) * 100) / 100, parseFloat(expect));
 };
-test('dom', function() {
+test('老接口：dom', function() {
 	expect(1);
 	var t = te.dom[0];
 	$(t).css('height', '100px');
@@ -28,7 +28,7 @@ test('dom', function() {
 			});
 });
 
-test('id', function() {
+test('老接口：id', function() {
 	expect(1);
 	var t = te.dom[0];
 	$(t).css('height', '100px');
@@ -56,7 +56,7 @@ test('id', function() {
 /**
  * 检查时间线的抽样点
  */
-test('timeline', function() {
+test('老接口：timeline', function() {
 	// expect(25);
 	var t = te.dom[0];
 	$(t).css('height', '100px');

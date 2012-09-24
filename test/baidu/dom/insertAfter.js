@@ -63,7 +63,7 @@ test("Element",function(){
 	document.body.removeChild(div);
 	document.body.removeChild(a);
 })
-test("id",function(){
+test("老接口：id",function(){
 	expect(4);
 	var div = document.createElement('div');
 	var a = document.createElement('a');
@@ -76,7 +76,7 @@ test("id",function(){
 	baidu.dom.insertAfter(a,'div_id');
 	equal(div.nextSibling,a,"insert a after div");
 	equal(a.previousSibling,div,"insert a after div-2");
-	baidu.dom.insertAfter(p,'img_id');
+	baidu.dom.insertAfter(p,'#img_id');
 	equal(img.nextSibling,p,"insert p after img");
 	equal(p.previousSibling,img,"insert p after img-2");
 	document.body.removeChild(div);
