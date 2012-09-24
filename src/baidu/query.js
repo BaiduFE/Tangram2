@@ -84,9 +84,6 @@ baidu.query = baidu.query || (function(){
                     t = " " + dom.className + " ";
                     x = true;
 
-//                    baidu.each(list, function(){
-//                        t.indexOf(" "+ this +" ") == -1 && (x = false);
-//                    });
                     baidu.forEach(list, function(item){
                         t.indexOf(" "+ item +" ") == -1 && (x = false);
                     });
