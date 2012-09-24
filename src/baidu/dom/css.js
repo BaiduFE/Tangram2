@@ -1,9 +1,9 @@
 /**
  * @author linlingyu
  */
-///import baidu.dom;
 ///import baidu._util_.access;
 ///import baidu.dom.getCurrentStyle;
+///import baidu.dom.styleFixer;
 
 /**
  * @description 取得第一个匹配元素或是设置多个匹配元素的css属性
