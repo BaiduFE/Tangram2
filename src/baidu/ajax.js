@@ -878,6 +878,3 @@ void function(){
         });
     }
 }();
-/// Tangram 1.x Code Start
-///import baidu.ajax.request;
-/// Tangram 1.x Code End
