@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.ajax().request() 异步请求" />
+		<meta name="description" content="baidu.ajax() 同步调用" />
 		<title>同步调用</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
@@ -11,7 +11,7 @@
 	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1">
-				<strong>baidu.ajax().request()</strong> 异步请求
+				<strong>baidu.ajax()</strong> 异步请求
 			</h1>
 			<div class="pannel">
 				<div class="pannel-title">
@@ -20,8 +20,8 @@
 				<div class="pannel-content">
 					<p>本例请求的sleep.php，可以在指定时间后响应请求</p>
 					<!--html view start-->
-					<p><label>异步请求<input id="chk-async" type="checkbox" checked="checked" /></label></p>
-					<p><label>阻塞时间：<input id="sleep-time" type="number" value="3" />（最多10秒）</label></p>
+					<p><label><input id="chk-async" type="checkbox" checked="checked" />异步请求</label>(取消后请求会阻塞浏览器)</p>
+					<p><label>阻塞时间：<input id="sleep-time" type="number" value="1" />（最多3秒）</label></p>
 					<p><button id="request">请求，并等待响应</button>
 					<p id="status"></p>
 					<!--html view end-->
@@ -29,21 +29,28 @@
 			</div>
 		</div>		
 		<script type="text/javascript">
-			function request(){
-				baidu.dom('#status').html('请求时间：'+new Date());
-				baidu.ajax('../../demos/baidu.ajax().request()/sleep.php').request({
+			function request() {
+				baidu.ajax({
+					url: '../../demos/baidu.ajax()/sleep.php',
 					method: 'POST',
-					data: 'time=' + baidu.dom('#sleep-time').val(),
+					data: {
+						time: baidu.dom('#sleep-time').val()
+					},
 
 					// 此参数决定请求是否异步进行
 					async: baidu.dom('#chk-async').attr('checked') === 'checked',
 
-					onsuccess: function(xhr, responseText){
+					success: function(responseText){
 						baidu.dom('#status').html(responseText);
 					}
 				});
 			}
-			baidu.dom('#request').on('click', request);
+
+			baidu.dom('#request').on('click', function(){
+				baidu.dom('#status').html('正在等待服务器...');
+				//50 ms后请求时为了让上面那句话保证能渲染出来（否则同步模式会阻塞浏览器，无法渲染）
+				setTimeout(request, 50);
+			});
 		</script>
 	</body>
 </html>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.ajax().request() 异步请求" />
+		<meta name="description" content="baidu.ajax() 异步请求" />
 		<title>出错处理</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
@@ -11,7 +11,7 @@
 	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1">
-				<strong>baidu.ajax().request()</strong> 异步请求
+				<strong>baidu.ajax()</strong> 异步请求
 			</h1>
 			<div class="pannel">
 				<div class="pannel-title">
@@ -22,6 +22,7 @@
 					<!--html view start-->
 					<p><label>让服务器响应：
 						<select id="status-code">
+							<!--您可以添加其它的Status Code-->
 							<option value="200" selected="selected">200 - OK</option>
 							<option value="400">400 - Bad Request</option>
 							<option value="401">401 - Unauthorized</option>
@@ -39,28 +40,19 @@
 		</div>		
 		<script type="text/javascript">
 			function request(){
-				function writeStatus(status){
-					baidu.dom('#status')[0].innerHTML += status + '<br />';
-				}
-				var cfg = {
+				baidu.ajax({
+					url: '../../demos/baidu.ajax()/error.php',
 					method: 'POST',
-					data: 'code=' + baidu.dom('#status-code').val(),
-					onbeforerequest: function(){
-						baidu.dom('#status').empty();
+					data: {
+						code : baidu.dom('#status-code').val()
 					},
-					onsuccess: function(xhr, responseText){
-						writeStatus('success.');
+					success: function(xhr, responseText){
+						baidu('#status').html('200 - Success');
 					},
-					onfailure: function(xhr){
-						writeStatus('fail.')
+					error: function(xhr){
+						baidu('#status').html(xhr.status + " - " + xhr.statusText);
 					}
-				}
-				baidu.array([200, 400, 401, 403, 404, 500, 503]).each(function(index, code){
-					cfg['on' + code] = function(xhr){
-						writeStatus(xhr.status + " - " + xhr.statusText);
-					}
-				});
-				baidu.ajax('../../demos/baidu.ajax().request()/error.php').request(cfg);
+				});		
 			}
 			baidu.dom('#request').on('click', request);
 		</script>

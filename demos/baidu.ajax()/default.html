@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.ajax().request() 异步请求" />
+		<meta name="description" content="baidu.ajax() 异步请求" />
 		<title>常规用法</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
@@ -11,7 +11,7 @@
 	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1">
-				<strong>baidu.ajax().request()</strong> 异步请求
+				<strong>baidu.ajax()</strong> 异步请求
 			</h1>
 			<div class="pannel">
 				<div class="pannel-title">
@@ -27,8 +27,10 @@
 		</div>		
 		<script type="text/javascript">
 			baidu.dom('#request-time').on('click', function(){
-				baidu.ajax('../../demos/baidu.ajax().request()/servertime.php').request({
-					onsuccess: function(xhr, responseText){
+				baidu.ajax({
+					url: '../../demos/baidu.ajax()/servertime.php',
+					method: 'GET',
+					success: function(responseText){
 						baidu.dom('#server-time').html(responseText);
 					}
 				});
