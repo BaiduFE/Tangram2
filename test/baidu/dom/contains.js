@@ -28,8 +28,8 @@ test("父子关系",function(){
 	ok(baidu.dom(div).contains(aGrand),"grandfather contains grandson");
 	ok(baidu.dom('#father_div').contains(aGrand),"grandfather contains grandson-by id");
 	ok(baidu.dom("#father_div").contains(divChild),"div contains child div--father by id");//id
-	ok(baidu.dom(div).contains("child_div"),"div contains child div--child by id");//id
-	ok(baidu.dom("#father_div").contains("child_div"),"div contains child div--both by id");//id
+	ok(baidu.dom(div).contains("#child_div"),"div contains child div--child by id");//id
+	ok(baidu.dom("#father_div").contains("#child_div"),"div contains child div--both by id");//id
 	div.removeChild(divChild);
 	document.body.removeChild(div);
 });

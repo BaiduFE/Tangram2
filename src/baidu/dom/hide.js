@@ -10,8 +10,8 @@
 /**
  * @description 隐藏匹配的元素
  * @function 
- * @name baidu.dom.show
- * @grammar baidu.dom().show()
+ * @name baidu.dom.hide
+ * @grammar baidu.dom().hide()
  * @return {TangramDom} 返回之前匹配的TangramDom对象
  */
 
