@@ -1,5 +1,6 @@
 /*
  * @author meizz
+ * @create 2012-09-24
  */
 
 ///import baidu.regexp;
