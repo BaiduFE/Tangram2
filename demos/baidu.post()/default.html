@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.ajax().get() POST异步请求" />
+		<meta name="description" content="baidu.get() POST异步请求" />
 		<title>常规用法</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
@@ -11,7 +11,7 @@
 	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1">
-				<strong>baidu.ajax().post()</strong> POST异步请求
+				<strong>baidu.post()</strong> POST异步请求
 			</h1>
 			<div class="pannel">
 				<div class="pannel-title">
@@ -34,9 +34,10 @@
 			var btn = baidu.dom('#request-factorial').on('click', function(){
 				btn.attr('disabled', 'disabled');
 
-				var data = 'num=' + baidu.dom('#num').val();
-				baidu.ajax('../../demos/baidu.ajax().post()/factorial.php').post(data ,function(xhr, responseText){
-					baidu.dom('#calc-result').html(responseText);
+				var data = {num : baidu.dom('#num').val()};
+				
+				baidu.post('../../demos/baidu.post()/factorial.php', data, function(result){
+					baidu.dom('#calc-result').html(result);
 					btn.attr('disabled', false);
 				});
 
