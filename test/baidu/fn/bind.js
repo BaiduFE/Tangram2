@@ -45,7 +45,7 @@ test('function', function() {
  * <li>绑定并带默认参数
  * <li>参数后传入
  */
-test('老接口：object', function() {
+test('object', function() {
 	var x = {
 		a : 1,
 		f : function(){}
@@ -67,7 +67,7 @@ test('老接口：object', function() {
 /**
  * 独立作用域，函数以自己为作用域
  */
-test('老接口：function', function() {
+test('function', function() {
 	var x = {
 		f : function(){
 			equals(this, x.f, '独立作用域');

@@ -3,7 +3,7 @@ module("baidu.url.escapeSymbol测试");
 // import("baidu.ajax");
 // import("baidu.ajax.request");
 
-test("字符串只含有转义的七个字符", function() {
+test("老接口：字符串只含有转义的七个字符", function() {
 	equals(baidu.url.escapeSymbol("%"), "%25", '% is included in string');
 	equals(baidu.url.escapeSymbol("&"), "%26", '& is included in string');
 	equals(baidu.url.escapeSymbol("+"), "%2B", '+ is included in string');
@@ -14,7 +14,7 @@ test("字符串只含有转义的七个字符", function() {
 });
 
 test(
-		"含有转义的七个字符的字符串正常转义",
+		"老接口：含有转义的七个字符的字符串正常转义",
 		function() {
 			equals(baidu.url
 					.escapeSymbol("aQ1!%sW2@&dE3$+fR4^/gT5*#hY6(=jU7) "),
@@ -33,7 +33,7 @@ test(
 					'% & + / # = /s is included in string(quan jiao zi fu)');
 		});
 
-test("没有这七个字符，有空白符", function() {
+test("老接口：没有这七个字符，有空白符", function() {
 	equals(baidu.url.escapeSymbol("aQ1!sW2@dE3$fR4^gT5*hY6(jU7)"),
 			"aQ1!sW2@dE3$fR4^gT5*hY6(jU7)",
 			'% & + / # =   is not included in string(for english char)');

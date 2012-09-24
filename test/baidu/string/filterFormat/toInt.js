@@ -17,7 +17,7 @@
 
 module('baidu.string.filterFormat.toInt');
 
-test('format', function(){
+test('老接口：format', function(){
 
 	// toInt
 	var sPattern = '#{0|toInt}|#{1|i}|#{2|i}', sRet = baidu.string

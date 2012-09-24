@@ -36,7 +36,7 @@ var checkscrollY = function(x, offset, type) {// 通过设置div的宽度制造�
 	document.body.removeChild(div);
 };
 
-test("getPageX", function() {
+test("老接口：getPageX", function() {
 	expect(8);
 	checkscrollY(0, 0);
 	checkscrollY(100, 200, 'mousedown');

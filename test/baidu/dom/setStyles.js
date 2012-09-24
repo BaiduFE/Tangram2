@@ -1,6 +1,6 @@
 module('baidu.dom.setStyles');
 //加载快捷方式
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -11,7 +11,7 @@ test('prepareTest',function(){
 	}, "baidu.trim", "baidu.dom.setStyles");
 });
 
-test("set styles",function(){
+test("老接口：set styles",function(){
 
 	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
 	expect(4);
@@ -30,7 +30,7 @@ test("set styles",function(){
 	document.body.removeChild(div);
 });
 
-test("shortcut",function(){
+test("老接口：shortcut",function(){
 	expect(4);
 	var div = document.createElement('div');
 	var img = document.createElement('img');
@@ -48,7 +48,7 @@ test("shortcut",function(){
 });
 
 //老用例
-test("set styles",function(){
+test("老接口：set styles",function(){
 
 	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
 	expect(4);
@@ -67,7 +67,7 @@ test("set styles",function(){
 	document.body.removeChild(div);
 });
 
-test("shortcut",function(){
+test("老接口：shortcut",function(){
 	expect(4);
 	var div = document.createElement('div');
 	var img = document.createElement('img');

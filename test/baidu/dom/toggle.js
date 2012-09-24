@@ -1,6 +1,6 @@
 module('baidu.dom.toggle')
 
-test('element',function(){
+test('老接口：element',function(){
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	equal(div.style.display,"","default to display;")
@@ -11,7 +11,7 @@ test('element',function(){
 	document.body.removeChild(div);
 })
 
-test('id',function(){
+test('老接口：id',function(){
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	div.id = 'div_id';

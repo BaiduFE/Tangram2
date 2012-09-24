@@ -51,7 +51,7 @@ module("baidu.async.when");
 
 
 //
-test("when第一个参数async方法", function() {
+test("老接口：when第一个参数async方法", function() {
 	QUnit.expect(3);
 	var te = tt.check();
 	te.init();
@@ -59,7 +59,7 @@ test("when第一个参数async方法", function() {
 	te.teardown();
 });
 //
-test("when第一个参数async方法,回调onFail", function() {
+test("老接口：when第一个参数async方法,回调onFail", function() {
 	QUnit.expect(3);
 	var te = tt.check();
 	te.init();
@@ -68,7 +68,7 @@ test("when第一个参数async方法,回调onFail", function() {
 	te.teardown();
 });
 
-test("when第一个参数sync方法", function() {
+test("老接口：when第一个参数sync方法", function() {
 	QUnit.expect(3);
 	var te = tt.check();
 	te.init();
@@ -77,7 +77,7 @@ test("when第一个参数sync方法", function() {
 	te.teardown();
 });
 //
-test("when第一个参数是形参", function() {
+test("老接口：when第一个参数是形参", function() {
 	QUnit.expect(2);
 	var te = tt.check();
 	te.init();
@@ -86,7 +86,7 @@ test("when第一个参数是形参", function() {
 	te.teardown();
 });
 //
-test("when中onSuccess是函数，then中调用defer", function() {
+test("老接口：when中onSuccess是函数，then中调用defer", function() {
 	QUnit.expect(5);
 	var te = tt.check();
 	te.init();
@@ -95,7 +95,7 @@ test("when中onSuccess是函数，then中调用defer", function() {
 	}).then(te.getFn(4));
 	te.teardown();
 });
-test("when中onSuccess是Defer对象的情况", function() {
+test("老接口：when中onSuccess是Defer对象的情况", function() {
 	QUnit.expect(5);
 	var te = tt.check();
 	te.init();

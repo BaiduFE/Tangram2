@@ -48,13 +48,13 @@ test("新接口测试",function(){
 });
 
 //老接口测试
-test("老接口：给没有className的元素判断className",function(){
+test("给没有className的元素判断className",function(){
 	//expect(1);
 	var div = document.createElement('div');
 	ok(!baidu.dom.hasClass(div,"class"),"no class");
 });
 
-test("老接口：给有className的元素判断className",function(){
+test("给有className的元素判断className",function(){
 	//expect(8);
 	var div = document.createElement('div');
 	document.body.appendChild(div);

@@ -113,7 +113,7 @@ test("给有className的元素添加", function() {
 });
 
 //老接口测试
-test("老接口：给没有className的元素添加", function() {
+test("给没有className的元素添加", function() {
 	//expect(7);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -136,7 +136,7 @@ test("老接口：给没有className的元素添加", function() {
 	document.body.removeChild(div);
 });
 
-test("老接口：给有className的元素添加", function() {
+test("给有className的元素添加", function() {
 	//expect(5);
 	var div = document.createElement('div');
 	document.body.appendChild(div);

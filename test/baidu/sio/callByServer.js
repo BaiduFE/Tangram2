@@ -94,7 +94,7 @@ test('page not exist with timeOut', function() {
 });
 
 //老接口
-test('老接口：queryField is input manually and callback is a function',function(){
+test('queryField is input manually and callback is a function',function(){
 stop();
 var check=function(text){
 equals(text,'i am from server');
@@ -105,7 +105,7 @@ queryField : "callback"
 });
 });
 
-test('老接口：queryField is input manually and callback is a string',function(){
+test('queryField is input manually and callback is a string',function(){
   stop();
 window.check_string=function(text){
 	equals(text,'i am from server');
@@ -116,7 +116,7 @@ baidu.sio.callByServer(upath+"callByServer.php","check_string",{
 });
 });
 
-test('老接口：charset utf-8', function() {
+test('charset utf-8', function() {
 	stop();
 	var check = function(text) {
 		equals(text, '百度中文--UTF');
@@ -127,7 +127,7 @@ test('老接口：charset utf-8', function() {
 	});
 });
 
-test('老接口：charset gbk', function() {
+test('charset gbk', function() {
 	stop();
 	var check = function(text) {
 		equals(text, '百度中文--GBK');
@@ -159,7 +159,7 @@ test('老接口：charset gbk', function() {
 //	}
 //});
 
-test('老接口：throw exception in callback', function() {
+test('throw exception in callback', function() {
 	stop();
 	var check = function() {
 		ok(true);
@@ -174,7 +174,7 @@ test('老接口：throw exception in callback', function() {
 /**
  * 由于不存在网页不会触发回调，设置半秒超时，用例可能会有问题……
  */
-test('老接口：page not exist', function() {
+test('page not exist', function() {
 	stop();
 	var h, check = function(text) {
 		clearTimeout(h);
@@ -188,7 +188,7 @@ test('老接口：page not exist', function() {
 	}, 500);
 });
 
-test('老接口：page not exist with timeOut', function() {
+test('page not exist with timeOut', function() {
 	stop();
 	var h, check = function(text) {
 		clearTimeout(h);

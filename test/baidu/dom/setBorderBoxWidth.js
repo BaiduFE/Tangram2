@@ -1,6 +1,6 @@
 module("baidu.dom.setBorderBoxWidth");
 //加载快捷方式
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -11,7 +11,7 @@ test('prepareTest',function(){
 	}, "baidu.trim", "baidu.dom.setBorderBoxWidth");
 });
 
-test("base", function() {
+test("老接口：base", function() {
 	var check = function(styles, expects) {
 		if (baidu.browser.isStrict) {
 			var div = document.body.appendChild(document.createElement("div"));

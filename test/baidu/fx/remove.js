@@ -1,7 +1,7 @@
 module("baidu.fx.remove");
 
 // test id
-test('test id', function(){
+test('老接口：test id', function(){
 	stop();
 	var c = baidu.fx.remove('img_div', {
 		onbeforestart: function(){
@@ -17,7 +17,7 @@ test('test id', function(){
 });
 
 //test dom
-test('test dom', function(){
+test('老接口：test dom', function(){
 	var c, t;
 	t = te.dom[1];
 	stop();

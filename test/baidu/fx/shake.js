@@ -1,7 +1,7 @@
 module("baidu.fx.shake");
 //TODO 太不靠谱了
 // test id
-test('test id', function(){
+test('老接口：test id', function(){
 	var c;
 //	var offset = new Array(1, 1);
 	var offset = {x: 2, y: 4};
@@ -16,7 +16,7 @@ test('test id', function(){
 });
 
 // test offset
-test('test offset', function() {
+test('老接口：test offset', function() {
 	var c, offset, left = 100;
 	offset = new Object(); // Object
 	offset.x = 1;
@@ -38,7 +38,7 @@ test('test offset', function() {
 });
 
 // test duration
-test('test duration', function(){
+test('老接口：test duration', function(){
 	var c, offset = new Array(1, 1), dtime = 50;
 	stop();
 	c = baidu.fx.shake('img_div', offset, {
@@ -51,7 +51,7 @@ test('test duration', function(){
 });
 
 // test events
-test('test events', function(){
+test('老接口：test events', function(){
 	var c, offset = Array(2, 2);
 	var bu = false, au = false;
 	

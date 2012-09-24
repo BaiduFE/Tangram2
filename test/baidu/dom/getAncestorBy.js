@@ -1,6 +1,6 @@
 module("baidu.dom.getAncestorBy")
 
-test("Element", function() {
+test("老接口：Element", function() {
 	expect(3);
 	var div = document.createElement('div');
 	var div1 = document.createElement('div');
@@ -28,7 +28,7 @@ test("Element", function() {
 	document.body.removeChild(div);
 })
 
-test("id", function() {
+test("老接口：id", function() {
 	expect(3);
 	var div = document.createElement('div');
 	var div1 = document.createElement('div');
@@ -57,7 +57,7 @@ test("id", function() {
 	document.body.removeChild(div);
 })
 
-test("body", function() {
+test("老接口：body", function() {
 	expect(1);
 	equal(baidu.dom.getAncestorBy(document.body, function(ele) {
 		return true;
