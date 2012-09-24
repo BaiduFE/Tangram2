@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="description" content="baidu.ajax().get() GET异步请求" />
+		<meta name="description" content="baidu.get() GET异步请求" />
 		<title>常规用法</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
@@ -11,7 +11,7 @@
 	<body>
 		<div class="demo" id="demo">
 			<h1 class="ac-h1">
-				<strong>baidu.ajax().get()</strong> GET异步请求
+				<strong>baidu.get()</strong> GET异步请求
 			</h1>
 			<div class="pannel">
 				<div class="pannel-title">
@@ -30,12 +30,19 @@
 			</div>
 		</div>		
 		<script type="text/javascript">
-			baidu.dom('#request-source').on('click', function(){
-				baidu.ajax('../../demos/baidu.ajax().get()/get.js').get(function(xhr, responseText){
-					var data = eval(responseText);
-					baidu.dom('#demo_execute_result').html('name:'+data.name+', age:'+data.age+', city:'+data.city+', email:'+data.email);
-				});
-			});
+			function getPersonInfo(){
+				baidu.get('../../demos/baidu.get()/person.json', 
+					function(person){
+						person = baidu.json.parse(person);
+						var ul = baidu('<ul/>');
+						// 填入数据的每个字段
+						baidu.each(person, function(field, value){
+							baidu('<li/>').html(field + ' : ' + value).appendTo(ul);
+						});
+						baidu.dom('#demo_execute_result').empty().append(ul);
+					});
+			}
+			baidu.dom('#request-source').on('click', getPersonInfo);
 		</script>
 	</body>
 </html>
