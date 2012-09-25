@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
@@ -32,3 +33,4 @@ baidu.lang.register = function (Class, constructorHook, methods) {
 
 // 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
 // 20111129	meizz	添加第三个参数，可以直接挂载方法到目标类原型链上
+/// Tangram 1.x Code End
