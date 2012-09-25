@@ -27,6 +27,5 @@
 //baidu.lang.isElement = function (source) {
 //    return !!(source && source.nodeName && source.nodeType == 1);
 //};
-
-baidu.lang.isElement = baidu.isElement;
 /// Tangram 1.x Code End
+baidu.lang.isElement = baidu.isElement;
