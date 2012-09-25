@@ -27,6 +27,5 @@
 //baidu.lang.isBoolean = function(o) {
 //    return typeof o === 'boolean';
 //};
-
-baidu.lang.isBoolean = baidu.isBoolean;
 /// Tangram 1.x Code End
+baidu.lang.isBoolean = baidu.isBoolean;

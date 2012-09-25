@@ -29,6 +29,5 @@
 //    return {}.toString.call(o) === "[object Date]" && o.toString() !== 'Invalid Date' && !isNaN(o);
 //};
 
-
-baidu.lang.isDate = baidu.isDate;
 /// Tangram 1.x Code End
+baidu.lang.isDate = baidu.isDate;
