@@ -2,7 +2,7 @@
 /**
  * @description 通过服务器HTTP GET请求加载数据
  * @function 
- * @name baidu.post
+ * @name baidu.post()
  * @grammar baidu.post(url[, data], [successtion], [dataType])
  * @param {String} url 一个包含发送请求的URL字符串
  * @param {String|Object} data 向服务器发送请求的Key/value参数
