@@ -1,4 +1,3 @@
-/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -9,7 +8,6 @@
  * date: 2010-07-05
  */
 
-///import baidu.lang;
 ///import baidu.lang.isArray;
 ///import baidu.lang.isFunction;
 
@@ -44,5 +42,3 @@ baidu.lang.toArray = function (source) {
 
     return [].slice.call(source);
 };
-
-/// Tangram 1.x Code End
