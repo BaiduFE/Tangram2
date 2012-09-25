@@ -23,5 +23,6 @@
 //baidu.lang.isNumber = function (source) {
 //    return '[object Number]' == Object.prototype.toString.call(source) && isFinite(source);
 //};
-/// Tangram 1.x Code End
+
 baidu.lang.isNumber = baidu.isNumber;
+/// Tangram 1.x Code End

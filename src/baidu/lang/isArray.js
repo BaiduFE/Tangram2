@@ -28,5 +28,5 @@
 //    return '[object Array]' == Object.prototype.toString.call(source);
 //};
 
-/// Tangram 1.x Code End
 baidu.lang.isArray = baidu.isArray;
+/// Tangram 1.x Code End
