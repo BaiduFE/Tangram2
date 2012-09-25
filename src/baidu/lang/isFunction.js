@@ -1,4 +1,3 @@
-/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -28,5 +27,4 @@
     // chrome下,'function' == typeof /a/ 为true.
 //    return '[object Function]' == Object.prototype.toString.call(source);
 //};
-/// Tangram 1.x Code End
 baidu.lang.isFunction = baidu.isFunction;

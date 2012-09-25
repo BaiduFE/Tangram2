@@ -1,4 +1,3 @@
-/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -29,5 +28,4 @@
 //    return {}.toString.call(o) === "[object Date]" && o.toString() !== 'Invalid Date' && !isNaN(o);
 //};
 
-/// Tangram 1.x Code End
 baidu.lang.isDate = baidu.isDate;
