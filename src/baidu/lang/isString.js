@@ -29,5 +29,5 @@
 //    return '[object String]' == Object.prototype.toString.call(source);
 //};
 
-/// Tangram 1.x Code End
 baidu.lang.isString = baidu.isString;
+/// Tangram 1.x Code End
