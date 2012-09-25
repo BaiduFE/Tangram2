@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -44,3 +45,5 @@ baidu.lang.eventCenter = baidu.lang.eventCenter || baidu.lang.createSingle();
  * @param {baidu.lang.Event|String} event 	Event对象，或事件名称(1.1.1起支持)
  * @param {Object} 					options 扩展参数,所含属性键值会扩展到Event对象上(1.2起支持)
  */
+
+/// Tangram 1.x Code End
