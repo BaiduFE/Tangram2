@@ -1,6 +1,6 @@
 {
-	"name": "John",
-	"age": 30,
-	"city": "Beijing",
-	"email": "John@baidu.com"
+	"Name": "John",
+	"Age": 30,
+	"City": "Beijing",
+	"Email": "John@baidu.com"
 }
