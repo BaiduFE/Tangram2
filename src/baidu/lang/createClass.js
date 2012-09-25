@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -88,3 +89,5 @@ baidu.lang.createClass = /**@function*/function(constructor, options) {
 };
 
 // 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
+
+/// Tangram 1.x Code End

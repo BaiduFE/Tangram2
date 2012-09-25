@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -22,3 +23,5 @@
  * @return {JSON} 解析结果json对象
  */
 baidu.json.decode = baidu.json.parse;
+
+/// Tangram 1.x Code End

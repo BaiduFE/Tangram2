@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -22,3 +23,5 @@
  * @return {string} 序列化后的字符串
  */
 baidu.json.encode = baidu.json.stringify;
+
+/// Tangram 1.x Code End
