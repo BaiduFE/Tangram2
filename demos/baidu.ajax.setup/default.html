@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.ajax.setup" />
+		<title>设置全局的AJAX请求默认选项</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.ajax.setup</strong> 示例
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>设置全局的AJAX请求默认选项</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<span id="request-source" class="button">根据全局的AJAX请求选项，读取联系人信息</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewStart-->
+				</div>
+			</div>
+		</div>		
+		<script type="text/javascript">
+            // 设置全局的AJAX请求默认选项
+	        baidu.ajax.setup({
+                // 请求超时时间
+                timeout: 5000,
+                
+                // 发送到服务器的数据
+                data: {
+                    name: 'name',
+                    age: 20
+                },
+                
+                // 预期服务器返回的数据类型
+                dataType: 'json',
+                
+                // 请求成功后的回调函数
+                success: function(data, textStatus, tangramAjax){
+                    var ul = baidu('<ul/>');
+                    // 填入数据的每个字段
+                    baidu.each(data, function(field, value){
+                        baidu('<li/>').html(field + ' : ' + value).appendTo(ul);
+                    }, 'json');
+                    baidu.dom('#demo_execute_result').empty().append(ul);
+                }
+            });
+            
+			function getPersonInfo(){
+				baidu.ajax('../../demos/baidu.ajax.setup/person.json');
+			}
+			baidu.dom('#request-source').on('click', getPersonInfo);
+		</script>
+	</body>
+</html>
