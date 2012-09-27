@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.ajax.param" />
+		<title>序列化一个对象作为URL查询</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1">
+				<strong>baidu.ajax.param</strong>示例
+			</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>创建一个序列化的对象，适用于一个URL 地址查询字符串或Ajax请求</span>
+				</div>
+				<div class="pannel-content">
+				    <p>序列化： {name: 'Tangram', age: 2}</p>
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<span id="execute" class="button">执行</span>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>		
+		<script type="text/javascript">
+			var param = {name: 'Tangrame', age: 2};
+			baidu('#execute').click(function(){
+    			var result = baidu.ajax.param(param);
+    			baidu('#demo_execute_result').html(result);
+			});
+		</script>
+	</body>
+</html>
