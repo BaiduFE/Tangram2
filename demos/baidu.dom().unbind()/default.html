@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().unbind() 示例" />
+		<title>解除事件绑定</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().unbind()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>解除事件绑定</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<p>打开/关闭 鼠标指针坐标指示</p>
+						<p>
+							<span class="button closed" id="demo_btn">开始 (bind)</span>
+						</p>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			function mousemoveEvent(e){
+				baidu('#demo_execute_result').html(e.clientX + ','+e.clientY);
+			}
+
+			baidu('#demo_btn').on('click', function(){
+				if(baidu(this).hasClass('closed')){
+					baidu(document).bind('mousemove', mousemoveEvent);
+					baidu(this).removeClass('closed').html('停止 (unbind)');
+				}else{
+					baidu(document).unbind('mousemove', mousemoveEvent);
+					baidu(this).addClass('closed').html('开始 (bind)');
+				}
+			});
+		</script>
+	</body>
+</html>
