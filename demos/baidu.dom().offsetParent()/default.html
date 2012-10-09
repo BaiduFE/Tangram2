@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().offsetParent() 示例" />
+		<title>取得元素的 offsetParent</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.demo-offsetParent{
+				padding:10px;
+				position:relative;
+				border:1px dotted red;
+				background:#FFF1F1;
+			}
+			.static{
+				position:static;
+				border-color:green;
+				background:none;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().offsetParent()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>取得元素的 offsetParent</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<div class="demo-offsetParent">
+							<div class="pannel-content-tool">
+								<label>切换父元素的 position 属性:</label>
+								<select id="demo-offsetParentSelect" autocomplete="off">
+									<option value="static">static</option>
+									<option value="relative" selected>relative</option>
+								</select>
+							</div>
+							<p>
+								<a class="button" id="demo_btn">点击获取我的 offsetParent</a>
+							</p>
+						</div>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			var parentNode = baidu('.demo-offsetParent');
+			baidu('#demo-offsetParentSelect').change(function(){
+				var v = baidu(this).val();
+				if(v === 'static'){
+					parentNode.addClass('static');
+				}else{
+					parentNode.removeClass('static');
+				}
+			});
+			
+			baidu('#demo_btn').on('click',function(e){
+				var offsetParent = baidu(this).offsetParent();
+				baidu('#demo_execute_result').html('offsetParent:'+ offsetParent.get(0).nodeName);
+			});
+		</script>
+	</body>
+</html>
