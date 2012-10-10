@@ -148,13 +148,23 @@ function(context) {
 
 ).extend({
 
-    /**
-     * @description 取得 TangramDom 对象里的 length
-     * @name baidu.dom().size()
-     * @function 
-     * @grammar TangramDom.size()
-     * @return  {Number}    TangramDom对象里DOM元素的个数
-     */
+/**
+ * @description 取得 TangramDom 对象里的 length
+ * @name baidu.dom().size()
+ * @function 
+ * @grammar TangramDom.size()
+ * @return  {Number}    TangramDom对象里DOM元素的个数
+ * @example 
+ 直接获取baidu()方法所生成的TangramDom对象中的元素数量，也可以直接baidu(args).length 
+
+ 示例代码：
+ //HTML片段
+ <div>1</div>
+ <div>2</div>
+
+ //取得src属性
+ baidu("div").size();  //2    
+ */
     
     size: function() {
         return this.length;
