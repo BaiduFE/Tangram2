@@ -16,7 +16,18 @@
  * @grammar baidu.dom(args).each(iterator)
  * @param   {Function}      iterator    迭代器
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象                tangramDom(this)
+ * @example 
+ 
+ 
+ 示例代码：
+ //HTML片段
+ <div>1</div>
+ <div>2</div>
+
+ //取得src属性
+ baidu("div").size();  //2     
  */
+
 baidu.dom.extend({
     each : function (iterator) {
         baidu.check("function", "baidu.dom.each");
