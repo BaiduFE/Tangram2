@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Callbacks().locked() 示例" />
+		<title>baidu.Callbacks().locked()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Callbacks().locked()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>查看回调列表是否已被锁定</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+                        <span class="button" id="demo_btn_fire">执行列表中的回调</span>
+                        <span class="button" id="demo_btn_lock">锁定回调列表</span>
+                        <span class="button" id="demo_btn_locked">查看是否锁定</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+
+            var fn = function(){
+                output('回调执行');
+            }
+            var callbacks = baidu.Callbacks();
+            callbacks.add(fn);
+
+            // fire
+            baidu('#demo_btn_fire').click(function(){
+                clear();
+                callbacks.fire();
+            });
+            
+            // lock
+            baidu('#demo_btn_lock').click(function(){
+                clear();
+                callbacks.lock();
+            });
+
+            // locked
+            baidu('#demo_btn_locked').click(function(){
+                clear();
+                if(callbacks.disabled()){
+                    output('已锁定');
+                }else{
+                    output('未锁定');
+                }
+            });
+            
+            function output(info){
+                baidu('#demo_execute_result').html(baidu('#demo_execute_result').html() +'<br />'+ info);
+            }
+            function clear(){
+                baidu('#demo_execute_result').html('');
+            }
+		</script>
+	</body>
+</html>

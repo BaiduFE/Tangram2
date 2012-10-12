@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Callbacks().has() 示例" />
+		<title>baidu.Callbacks().has()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Callbacks().has()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>baidu.Callbacks().has()</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn_add">添加 fn</span>
+						<span class="button" id="demo_btn_remove">移除 fn</span><br />
+						<span class="button" id="demo_btn_has">列表中是否存在 fn</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            var counter = 0;
+            var fn = function(){
+                output('回调执行');
+            }
+            var callbacks = baidu.Callbacks();
+            
+            // add
+            baidu('#demo_btn_add').click(function(){
+                output('添加成功');
+                if(counter == 1) return;
+                callbacks.add(fn);
+                counter++;
+            });
+            
+            // remove
+            baidu('#demo_btn_remove').click(function(){
+                if(counter == 0){
+                     output('没有可移除的回调');
+                     return;
+                }
+                output('移除成功');
+                callbacks.remove(fn);
+                counter--;
+            });
+            
+            // has
+            baidu('#demo_btn_has').click(function(){
+                if(callbacks.has(fn)){
+                    output('列表中存在 fn');
+                }else{
+                    output('列表中<b>不</b>存在 fn');
+                }
+            });
+            
+            function output(info){
+                baidu('#demo_execute_result').html(info);
+            }
+		</script>
+	</body>
+</html>
