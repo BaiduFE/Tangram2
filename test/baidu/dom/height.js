@@ -17,6 +17,7 @@ test("window and document", function(){
 
 function testGet( el ){
     diff( el, 100 );
+    diff(el, 100.25);
     diff( el, 0 );
     diff( el, -100 );
     diff( el, NaN );
