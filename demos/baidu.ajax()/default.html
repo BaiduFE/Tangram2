@@ -29,7 +29,7 @@
 			baidu.dom('#request-time').on('click', function(){
 				baidu.ajax({
 					url: '../../demos/baidu.ajax()/servertime.php',
-					method: 'GET',
+					type: 'GET',
 					success: function(responseText){
 						baidu.dom('#server-time').html(responseText);
 					}
