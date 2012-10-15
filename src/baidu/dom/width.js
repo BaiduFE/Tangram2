@@ -2,6 +2,7 @@
  * @author linlingyu
  */
 ///import baidu.dom;
+///import baidu.type;
 ///import baidu._util_.access;
 ///import baidu._util_.getWidthOrHeight;
 ///import baidu._util_.getWindowOrDocumentWidthOrHeight;
@@ -76,7 +77,7 @@ baidu.dom.extend({
                 type = ele != null && ele == ele.window ? 'window'
                     : (ele.nodeType === 9 ? 'document' : false);
             if(hasValue && parseValue < 0 || isNaN(parseValue)){return;}
-            hasValue && /^\d+$/.test(val += '') && (val += 'px');
+            hasValue && /^(?:\d*\.)?\d+$/.test(val += '') && (val += 'px');
             return type ? baidu._util_.getWindowOrDocumentWidthOrHeight(ele, type, key)
                 : (hasValue ? ele.style.width = val : baidu._util_.getWidthOrHeight(ele, key));
         });
