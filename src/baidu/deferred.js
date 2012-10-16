@@ -10,14 +10,63 @@
 ///import baidu.forEach;
 
 /**
- * @description Deferred功能链头
- * @name baidu.Deferred
+ * @description 提供应对延迟事件、异步调用的解决方案
+ * @function 
+ * @name baidu.Deferred()
  * @grammar baidu.Deferred()
- * @param   {}
- * @return  
+ * @return {Deferred} 返回一个Deferred对象
  */
 
+/**
+ * @description 添加一个当延对象是无论成功失败都会被调用函数
+ * @function 
+ * @name baidu.Deferred().always()
+ * @grammar baidu.Deferred().always( alwaysCallbacks )
+ * @param {Function|Array} alwaysCallbacks 一个函数，或者函数数组
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 添加一个当延对象成功后会被调用函数
+ * @function 
+ * @name baidu.Deferred().done()
+ * @grammar baidu.Deferred().done( doneCallbacks )
+ * @param {Function|Array} doneCallbacks 一个函数，或者函数数组
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 添加一个当延对象失败后会被调用函数
+ * @function 
+ * @name baidu.Deferred().fail()
+ * @grammar baidu.Deferred().fail( failCallbacks )
+ * @param {Function|Array} failCallbacks 一个函数，或者函数数组
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+
+/**
+ * @description 将当前Deferred对象的执行状态从"未完成"改为"已完成"，从而触发done()方法
+ * @function 
+ * @name baidu.Deferred().resolve()
+ * @grammar baidu.Deferred().resolve([args])
+ * @param {Arguments} args 可选，传递给回调的参数
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 将当前Deferred对象的执行状态从"未完成"改为"已失败"，从而触发fail()方法
+ * @function 
+ * @name baidu.Deferred().reject()
+ * @grammar baidu.Deferred().reject([args])
+ * @param {Arguments} args 可选，传递给回调的参数
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+
+
 baidu.createChain("Deferred",
+//copy from jquery 1.8.2,thanks for jquery
 
 // 执行方法
 function( func ) {
