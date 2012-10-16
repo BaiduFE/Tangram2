@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.when() 示例" />
+		<title>baidu.when()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.when()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>baidu.when()</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn">开始</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            var deferred = baidu.Deferred();
+            var wait = function(deferred){
+                setTimeout(function(){
+                    output('我经历了2秒才执行完成');
+                    deferred.resolve();
+                },2000);
+                return deferred;
+            };
+            
+            baidu('#demo_btn').one('click', function(){
+                clear();
+                output('执行开始，请等待2秒...');
+                baidu.when(wait(deferred))
+                .done(function(){
+                    output('我是 done 回调： 执行完成');
+                });
+            });
+            
+            function clear(){
+                baidu('#demo_execute_result').html('');
+            }
+            function output(v){
+                baidu('#demo_execute_result').html(baidu('#demo_execute_result').html()+'<br />' + v);
+            }
+		</script>
+	</body>
+</html>
