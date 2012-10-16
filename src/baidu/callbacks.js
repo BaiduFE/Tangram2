@@ -35,6 +35,14 @@
  */
 
 /**
+ * @description 判断当前列表是否被禁用
+ * @function 
+ * @name baidu.Callbacks().disabled()
+ * @grammar baidu.Callbacks().disabled()
+ * @return {Callbacks} 如果已经被禁用返回true，如果没有返回false。
+ */
+
+/**
  * @description 从列表中删除所有的回调
  * @function 
  * @name baidu.Callbacks().empty()
@@ -47,7 +55,7 @@
  * @function 
  * @name baidu.Callbacks().fire()
  * @grammar baidu.Callbacks().fire(arguments)
- * @param {Function|Array|Number|Object|String|Null|Undefined} arguments 这个参数或参数列表传回给回调列表
+ * @param {Any} arguments 这个参数或参数列表传回给回调列表
  * @return {Callbacks} 返回当前的Callbacks对象
  */
 
@@ -56,7 +64,7 @@
  * @function 
  * @name baidu.Callbacks().fired()
  * @grammar baidu.Callbacks().fired()
- * @param {Function|Array|Number|Object|String|Null|Undefined|Boolean} arguments 这个参数或参数列表传回给回调列表
+ * @param {Any|Boolean} arguments 这个参数或参数列表传回给回调列表
  * @return {Boolean} 如果被调用过一次，则返回true，没被调用过返回false
  */
 
@@ -65,8 +73,8 @@
  * @function 
  * @name baidu.Callbacks().firewith()
  * @grammar baidu.Callbacks().firewith([context][,args])
- * @param {Function|Array|Number|Object|String|Null|Undefined} context 该列表中的回调被触发的上下文引用
- * @param {Function|Array|Number|Object|String|Null|Undefined} args 一个参数或参数列表传回给回调列表
+ * @param {Any} context 该列表中的回调被触发的上下文引用
+ * @param {Any} args 一个参数或参数列表传回给回调列表
  * @return {Callbacks} 返回当前的Callbacks对象
  */
 
