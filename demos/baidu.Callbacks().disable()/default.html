@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Callbacks().disable() 示例" />
+		<title>baidu.Callbacks().disable()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Callbacks().disable()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>禁用回调列表中的回调</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+                        <span class="button" id="demo_btn_fire">执行列表中的回调</span>
+                        <span class="button" id="demo_btn_disable">禁用列表中的回调</span>
+                        <span class="button" id="demo_btn_disabled">查看是否禁用</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+
+            var fn = function(){
+                output('回调执行');
+            }
+            var callbacks = baidu.Callbacks();
+            callbacks.add(fn);
+
+            // fire
+            baidu('#demo_btn_fire').click(function(){
+                clear();
+                callbacks.fire();
+            });
+            
+            // disable
+            baidu('#demo_btn_disable').click(function(){
+                clear();
+                callbacks.disable();
+            });
+
+            // disabled
+            baidu('#demo_btn_disabled').click(function(){
+                clear();
+                if(callbacks.disabled()){
+                    output('已禁用');
+                }else{
+                    output('未禁用');
+                }
+            });
+            
+            function output(info){
+                baidu('#demo_execute_result').html(baidu('#demo_execute_result').html() +'<br />'+ info);
+            }
+            function clear(){
+                baidu('#demo_execute_result').html('');
+            }
+		</script>
+	</body>
+</html>

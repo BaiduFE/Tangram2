@@ -1,5 +1,6 @@
 /*
  * @author meizz
+ * @create 2012-09-24
  */
 
 ///import baidu.regexp;
@@ -23,4 +24,4 @@ baidu.regexp.compile = function(maps){
         reg.lastIndex > 0 && ( reg.lastIndex = 0 );
         return reg;
     }
-}(baidu.global("_maps_RegExp"));
+}( baidu.global("_maps_RegExp") );

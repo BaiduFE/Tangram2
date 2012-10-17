@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Callbacks() 示例" />
+		<title>baidu.Callbacks()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Callbacks()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>baidu.Callbacks()</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn">执行列表中的回调</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            var fn1 = function(){
+                output('fn1');
+            }
+            var callbacks = baidu.Callbacks();
+            callbacks.add(fn1);
+		
+            function output(fnName){
+                baidu('#demo_execute_result').html('回调 '+fnName+' 执行 ');
+            }
+            baidu('#demo_btn').click(function(){
+                callbacks.fire();
+            });
+		</script>
+	</body>
+</html>

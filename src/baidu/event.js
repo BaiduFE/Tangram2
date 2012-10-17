@@ -57,8 +57,8 @@ function( event ){
             me[ item ] = e[ item ];
         });
 
-        me.target = me.srcElement = e.srcElement || (( t = e.target ) ? ( t.nodeType == 3 ? t.parentNode : t ) : null);
-        me.relatedTarget = e.relatedTarget || (( t = e.fromElement ) ? (t === me.target ? e.toElement : t ) : null);
+        me.target = me.srcElement = e.srcElement || (( t = e.target ) && ( t.nodeType == 3 ? t.parentNode : t ));
+        me.relatedTarget = e.relatedTarget || (( t = e.fromElement ) && (t === me.target ? e.toElement : t ));
 
         me.keyCode = me.which = e.keyCode || e.which;
 
