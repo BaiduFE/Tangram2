@@ -36,24 +36,6 @@ baidu.lang.getModule = function(name, opt_obj) {
     return cur;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* vim: set ts=4 sw=4 sts=4 tw=100 noet: */
 
 /// Tangram 1.x Code End

@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -43,3 +44,5 @@ baidu.fx.zoomIn = function(element, options) {
 
     return baidu.fx.scale(element, options);
 };
+
+/// Tangram 1.x Code End

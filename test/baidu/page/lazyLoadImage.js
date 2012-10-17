@@ -1,6 +1,6 @@
 module("baidu.page.lazyLoadImage");
 
-test("base", function() {
+test("老接口：base", function() {
 	expect(3);
 	var iframe = document.createElement('iframe');
 	document.body.appendChild(iframe);

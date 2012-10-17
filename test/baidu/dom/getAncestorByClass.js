@@ -1,6 +1,6 @@
 module("baidu.dom.getAncestorByClass")
 
-test("Element or id",function(){
+test("老接口：Element or id",function(){
 	expect(2);
 	var div = document.createElement('div');
 	var a = document.createElement('div');
@@ -20,7 +20,7 @@ test("Element or id",function(){
 })
 
 
-test("多个class",function(){
+test("老接口：多个class",function(){
 	expect(2);
 	var div = document.createElement('div');
 	var a = document.createElement('div');

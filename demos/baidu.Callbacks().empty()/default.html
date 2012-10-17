@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Callbacks().empty() 示例" />
+		<title>baidu.Callbacks().empty()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Callbacks().empty()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>从列表中删除所有的回调</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn_add">添加 fn</span>
+                        <span class="button" id="demo_btn_empty">清空列表中的回调</span>
+                        <span class="button" id="demo_btn_fire">执行列表中的回调</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            var counter = 0;
+            var fn = function(){
+                output('回调执行');
+            }
+            var callbacks = baidu.Callbacks();
+            
+            // add
+            baidu('#demo_btn_add').click(function(){
+                clear();
+                output('添加成功，列表中共' + ++counter + '个回调');
+                callbacks.add(fn);
+            });
+            
+            // empty
+            baidu('#demo_btn_empty').click(function(){
+                clear();
+                output('清除成功');
+                counter = 0;
+                callbacks.empty();
+            });
+            
+            // fire
+            baidu('#demo_btn_fire').click(function(){
+                clear();
+                callbacks.fire();
+            });
+            
+            function output(info){
+                baidu('#demo_execute_result').html(baidu('#demo_execute_result').html() +'<br />'+ info);
+            }
+            function clear(){
+                baidu('#demo_execute_result').html('');
+            }
+		</script>
+	</body>
+</html>

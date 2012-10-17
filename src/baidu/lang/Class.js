@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -65,3 +66,5 @@ baidu.lang.Class.prototype.toString = function(){
 //  2011.11.23  meizz   添加 baiduInstance 这个全局方法，可以快速地通过guid得到实例对象
 //  2011.11.22  meizz   废除创建类时指定guid的模式，guid只作为只读属性
 //  2011.11.22  meizz   废除 baidu.lang._instances 模块，由统一的global机制完成；
+
+/// Tangram 1.x Code End

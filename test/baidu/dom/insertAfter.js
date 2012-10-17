@@ -63,7 +63,7 @@ test("Element",function(){
 	document.body.removeChild(div);
 	document.body.removeChild(a);
 })
-test("id",function(){
+test("老接口：id",function(){
 	expect(4);
 	var div = document.createElement('div');
 	var a = document.createElement('a');

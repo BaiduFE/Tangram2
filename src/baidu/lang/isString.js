@@ -1,4 +1,3 @@
-/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -28,6 +27,4 @@
 //baidu.lang.isString = function (source) {
 //    return '[object String]' == Object.prototype.toString.call(source);
 //};
-
-/// Tangram 1.x Code End
 baidu.lang.isString = baidu.isString;

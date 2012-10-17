@@ -79,7 +79,7 @@ test('老接口：add', function(){
 /**
  * 针对有class的元素进行移除操作
  */
-test('老接口：remove', function(){
+test('remove', function(){
 	//expect(2);
 	var div = document.createElement('div');
 	baidu.dom.toggleClass(div,"div_class1");
@@ -94,7 +94,7 @@ test('老接口：remove', function(){
 /**
  * 针对不可以设置class的元素进行操作,base,head,html,meta,param,script,style以及title,实验证明是可以设置的
  */
-test('老接口：异常用例', function(){
+test('异常用例', function(){
 	expect(2);
 	var html = document.getElementsByTagName('html')[0];
 	var head = document.getElementsByTagName('head')[0];

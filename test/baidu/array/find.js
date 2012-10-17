@@ -51,7 +51,7 @@ test("异常case", function() {
 
 //老接口
 
-test("老接口：只有一个元素满足", function() {
+test("只有一个元素满足", function() {
 	expect(1);
 	var arraytest = [ 2, 3, 5, 6, 7, 'odd', 8, 9, 'even', 10 ]; // 检测只有一个元素使得iterator为true
 	r = baidu.array.find(arraytest, function(x) {
@@ -60,7 +60,7 @@ test("老接口：只有一个元素满足", function() {
 	equal(r, "odd", "只有一个元素满足条件");
 });
 
-test("老接口：回调函数中途返回", function() {
+test("回调函数中途返回", function() {
 	expect(1);
 	var arraytest = [ 2, 3, 5, 6, 7, 'odd', 8, 9, 'even', 10 ]; // 检测有多个元素满足使得iterator为true
 	var fn = function(x) {
@@ -72,7 +72,7 @@ test("老接口：回调函数中途返回", function() {
 	equal(r, 3, "回调函数中途返回");
 });
 
-test("老接口：返回结果为空", function() {
+test("返回结果为空", function() {
 	expect(1);
 	var arraytest = [ 2, 3, 5, 6, 7, 'odd', 8, 9, 'even', 10 ]; // 检测没有元素使得iterator为true
 	var r = baidu.array.find(arraytest, function(x) {
@@ -82,7 +82,7 @@ test("老接口：返回结果为空", function() {
 	});
 	equal(r, null, "find no result");
 });
-test("老接口：空数组", function() {
+test("空数组", function() {
 	expect(1);
 	r = baidu.array.find([], function(x) {
 		return x > 2;
@@ -90,7 +90,7 @@ test("老接口：空数组", function() {
 	equal(r, null, "empty array find nothing");
 });
 
-test("老接口：异常case", function() {
+test("异常case", function() {
 	expect(2);
 	var r = baidu.array.find([ 1, 2, 3 ], "find function");
 	equal(r, null, "not a function");

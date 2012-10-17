@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Deferred().pipe() 示例" />
+		<title>baidu.Deferred().pipe()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Deferred().pipe()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>baidu.Deferred().pipe()</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn_done">开始</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            
+            baidu('#demo_btn_done').click(function(){
+                var defer = baidu.Deferred(),
+                
+                    // 返回一个新的值作为参数传递给回调
+                    filtered = defer.pipe(function(value) {
+                        return value + ' filter';
+                    },function(value){
+                        return value + ' filter';
+                    });
+                    
+                // 随机产生结果
+                if(Math.round(Math.random())){
+                    defer.reject('fail');
+                }else{
+                    defer.resolve('done');
+                }
+                
+                filtered.done(function(value) {
+                    // 这里接收的参数来自 pipe的返回值
+                    clear();
+                    output('我是 done 回调： 执行完成，接受参数： ' + value);
+                }).fail(function(value){
+                    // 这里接收的参数来自 pipe的返回值
+                    clear();
+                    output('我是 fail 回调： 执行完成，接受参数： ' + value);
+                });
+            });
+            
+            function clear(){
+                baidu('#demo_execute_result').html('');
+            }
+            function output(v){
+                baidu('#demo_execute_result').html(baidu('#demo_execute_result').html()+'<br />' + v);
+            }
+		</script>
+	</body>
+</html>

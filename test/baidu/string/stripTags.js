@@ -19,7 +19,7 @@ test('stripTags', function(){
 });
 
 //老接口
-test('老接口：stripTags', function(){
+test('stripTags', function(){
   equals(baidu.string.stripTags('abc'),'abc');
   equals(baidu.string.stripTags('abc<ab>'), 'abc');
   equals(baidu.string.stripTags('<ab/>abc<ab>'), 'abc');
@@ -34,25 +34,3 @@ test('老接口：stripTags', function(){
   equals(baidu.string.stripTags('<!DOCTYPE html>'),'');
   equals(!baidu.string.stripTags('   '),'');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* vim: set ts=4 sw=4 sts=4 tw=100 noet: */

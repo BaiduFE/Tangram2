@@ -98,7 +98,7 @@ test('异常case',function(){
 });
 
 //老接口
-test("父子关系",function(){
+test("老接口：父子关系",function(){
 	expect(9);
 	var div = document.createElement('div');
 	div.id = "father_div";

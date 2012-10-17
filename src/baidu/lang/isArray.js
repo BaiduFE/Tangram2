@@ -1,4 +1,3 @@
-/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -27,6 +26,4 @@
 //baidu.lang.isArray = function (source) {
 //    return '[object Array]' == Object.prototype.toString.call(source);
 //};
-
-/// Tangram 1.x Code End
 baidu.lang.isArray = baidu.isArray;

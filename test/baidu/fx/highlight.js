@@ -17,21 +17,21 @@ var op = {
 	}
 };
 
-test('校验元素类型为id', function() {
+test('老接口：校验元素类型为id', function() {
 	te.checkfx.create(te.dom[0].id, {
 		method : baidu.fx.highlight,
 		options : op
 	}).checkbase();
 });
 
-test('校验元素类型为dom', function() {
+test('老接口：校验元素类型为dom', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.highlight,
 		options : op
 	}).checkbase();
 });
 
-test('校验事件序列', function() {
+test('老接口：校验事件序列', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.highlight
 	}).checkevents( {
@@ -39,7 +39,7 @@ test('校验事件序列', function() {
 	}, 4);
 });
 
-test('校验时间序列', function() {
+test('老接口：校验时间序列', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.highlight,
 		options : {
@@ -58,7 +58,7 @@ test('校验时间序列', function() {
 	}, 4, 20);
 });
 
-test('校验cancel', function() {
+test('老接口：校验cancel', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.highlight,
 		beforestart : function() {/* 初始设置启动高度为100 */
@@ -67,7 +67,7 @@ test('校验cancel', function() {
 	}).checkcancel();
 });
 
-// test('dom', function() {
+// test('老接口：dom', function() {
 // var t, h;
 // t = te.dom[0];
 // $(t).css('height', '100px');
@@ -92,7 +92,7 @@ test('校验cancel', function() {
 // stop();
 // });
 //
-// test('id', function() {
+// test('老接口：id', function() {
 // var t, h;
 // t = te.dom[0];
 // $(t).css('height', '100px');
@@ -113,7 +113,7 @@ test('校验cancel', function() {
 // stop();
 // });
 //
-// test('duration', function() {
+// test('老接口：duration', function() {
 // var t, h;
 // t = te.dom[0];
 // $(t).css('height', '100px');

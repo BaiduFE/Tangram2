@@ -2,7 +2,7 @@ module("baidu.event.EventArg");
 /**
  * stop = preventDefault + stopPropagation
  */
-test('stop = preventDefault + stoppropagation', function() {
+test('老接口：stop = preventDefault + stoppropagation', function() {
 	expect(3);
 	ua.frameExt(function(w) {
 		var doc = w.document, div = doc.body.appendChild(doc

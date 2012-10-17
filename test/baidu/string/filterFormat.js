@@ -1,21 +1,13 @@
 module("baidu.string.filterFormat");
 
-
-baidu.string.filterFormat.encodeUrl = function(url){
-	return window.encodeURIComponent(url);
-};
-baidu.string.filterFormat.first5 = function(str){
-	return str.substr(0,5);
-};
-
-test("only source",function(){
+test("老接口：only source",function(){
 	var source = "test";
 	var sRet;
 	sRet = baidu.string.filterFormat(source);
 	equals(sRet, "test");
 });
 
-test("默认分隔符Json数据格式化字符串", function(){
+test("老接口：默认分隔符Json数据格式化字符串", function(){
 	var sPattern = "id=#{id}?+&action=#{action}&||type=#{type}.*result=#{result}";
 	var sRet;
 	sRet = baidu.string.filterFormat(sPattern, {id:1, action:"post", type:"node", result:5.1});
@@ -35,7 +27,7 @@ test("默认分隔符Json数据格式化字符串", function(){
 	equals(sRet, "#a: 中文hello字符${0}$1c#{}");
 }); // 1
 
-test("默认分隔符多个参数格式化字符串", function(){
+test("老接口：默认分隔符多个参数格式化字符串", function(){
 	var sPattern = "a:#{0}|b:#{1}|c:#{2}";
 	var sRet;
 	
@@ -57,7 +49,7 @@ test("默认分隔符多个参数格式化字符串", function(){
 	equals(sRet, "a|c|e");
 }); // 2
 
-test("默认数组数据格式化字符串", function(){
+test("老接口：默认数组数据格式化字符串", function(){
 	var sPattern = "a:#{0}|b:#{1}|c:#{2}";
 	var sRet;
 	
@@ -79,7 +71,7 @@ test("默认数组数据格式化字符串", function(){
 	equals(sRet, "a|c|e");
 }); // 3
 
-test("特殊case", function(){
+test("老接口：特殊case", function(){
 	var sPattern, sRet;
 	
 	//第一个0 
@@ -98,7 +90,13 @@ test("特殊case", function(){
 	equals(sRet, "abc");	
 }); // 4
 
-test('filter', function(){
+test('老接口：filter', function(){
+	baidu.string.filterFormat.encodeUrl = function(url){
+		return window.encodeURIComponent(url);
+	};
+	baidu.string.filterFormat.first5 = function(str){
+		return str.substr(0,5);
+	};
 
 	// 自定义功能
 	var sPattern = '<input value="#{0|encodeUrl}">', sRet = baidu.string
@@ -116,7 +114,7 @@ test('filter', function(){
 
 /*过滤功能移入独立case中*/
 
-//test("过滤功能case", function(){
+//test("老接口：过滤功能case", function(){
 //	//escapeString
 //	
 //	var sPattern = '<input value="#{0|escapeString}#{1|e}#{2|e}#{3|e}#{4|e}#{5|e}">',
@@ -152,7 +150,7 @@ test('filter', function(){
 //	}	
 //}); // 5
 
-test("异常case", function(){
+test("老接口：异常case", function(){
 	var sPattern = "a:#{a},b=#{b}";
 	var sRet;	
 	sRet = baidu.string.filterFormat(sPattern, {a:"A"});	

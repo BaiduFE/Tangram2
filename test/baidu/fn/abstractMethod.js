@@ -1,6 +1,6 @@
 module('baidu.fn.abstractMethod');
 
-test("call abstractMethod", function(){
+test("老接口：call abstractMethod", function(){
   expect(1);
 
   function MyClass() {}
@@ -14,7 +14,7 @@ test("call abstractMethod", function(){
     ok(true);
   }
 });
-test("call method override",function() {
+test("老接口：call method override",function() {
 	expect(1);
 	function ClassA(){};
 	ClassA.prototype.abs = T.fn.abstractMethod;
@@ -28,7 +28,7 @@ test("call method override",function() {
 		ok(false);
 	}
 });
-test("call method chain",function() {
+test("老接口：call method chain",function() {
 //	expect(1);
 	function ClassA(){};
 	ClassA.prototype.abs = T.fn.abstractMethod;
@@ -46,7 +46,7 @@ test("call method chain",function() {
 	}
 });
 
-test("call method chain",function() {
+test("老接口：call method chain",function() {
 //	expect(1);
 	function ClassA(){};
 	ClassA.prototype.abs = T.fn.abstractMethod;
@@ -63,24 +63,3 @@ test("call method chain",function() {
 		ok(false,'catch exception');
 	}
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* vim: set ts=4 sw=4 sts=4 tw=100 noet: */

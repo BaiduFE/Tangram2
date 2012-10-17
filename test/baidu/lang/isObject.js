@@ -1,18 +1,18 @@
 module("baidu.lang.isObject测试");
 
-test("Object参数", function(){
+test("老接口：Object参数", function(){
 	equals(baidu.lang.isObject({}), true, 'baidu.lang.isObject({}) is true');
 });
 
-test("Function类型", function(){
+test("老接口：Function类型", function(){
 	equals(baidu.lang.isObject(new Function()), true, 'baidu.lang.isObject(new Function()) is true');
 });
 
-test("Array对象", function(){
+test("老接口：Array对象", function(){
 	equals(baidu.lang.isObject([]), true, 'baidu.lang.isObject([]) is true');
 });
 
-test("Element对象", function(){
+test("老接口：Element对象", function(){
 	var oDiv = document.createElement("div"); // create div
 	oDiv.id="erikElement";
 	document.body.appendChild(oDiv);
@@ -22,32 +22,32 @@ test("Element对象", function(){
 	oDiv.parentNode.removeChild(oDiv); // remove div
 });
 
-test("string对象", function(){
+test("老接口：string对象", function(){
 	equals(baidu.lang.isObject(new String("test")), true, 'baidu.lang.isObject(new String("test")) is true');
 });
 
-test("string类型", function(){
+test("老接口：string类型", function(){
 	equals(baidu.lang.isObject("test"), false, 'baidu.lang.isObject("test") is false');
 });
 
-test("number类型", function(){
+test("老接口：number类型", function(){
 	equals(baidu.lang.isObject(1), false, 'baidu.lang.isObject(1) is false');
 });
 
-test("boolean类型", function(){
+test("老接口：boolean类型", function(){
 	equals(baidu.lang.isObject(true), false, 'baidu.lang.isObject(true) is false');
 	equals(baidu.lang.isObject(false), false, 'baidu.lang.isObject(false) is false');
 });
 
-test("null参数", function(){
+test("老接口：null参数", function(){
 	equals(baidu.lang.isObject(null), false, 'baidu.lang.isObject(null) is false');
 });
 
-test("undefined参数", function(){
+test("老接口：undefined参数", function(){
 	equals(baidu.lang.isObject(void(1)), false, 'baidu.lang.isObject(void(1)) is false');
 });
 
-test("快捷方式", function(){
+test("老接口：快捷方式", function(){
 	equals(baidu.isObject({}), true, 'baidu.isObject({}) is true');
 });
 

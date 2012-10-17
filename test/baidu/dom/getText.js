@@ -5,7 +5,7 @@ module('baidu.dom.getText')
  * 仅考虑针对core方法进行元素遍历
  */
 //应该考虑nodeType为4和8的情况！！！！
-test('getText', function(){
+test('老接口：getText', function(){
 	expect(2);
 	var text = document.createTextNode("textNode");
 	var text2 = document.createTextNode("textNode2");
@@ -22,7 +22,7 @@ test('getText', function(){
  * 
  */
 
-test('dom or id', function(){
+test('老接口：dom or id', function(){
 	expect(2);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -37,7 +37,7 @@ test('dom or id', function(){
  * null or other parms
  * 
  */
-test('null or other parms', function(){
+test('老接口：null or other parms', function(){
 	expect(2);
 	var div;//非法节点
 	try{
@@ -55,14 +55,14 @@ test('null or other parms', function(){
 /**
  * 
  */
-test('dom with none text', function(){
+test('老接口：dom with none text', function(){
 	expect(1);
 	var p = document.createElement('p');
 	equal(baidu.dom(p).getText(),"","no text in p");
 })
 
 //确认一下哪些是特殊字符
-test('special character',function(){
+test('老接口：special character',function(){
 	expect(2);
 	var a  = document.createElement('a');
 	a.innerHTML = "百度一下"
@@ -77,7 +77,7 @@ test('special character',function(){
  * 仅考虑针对core方法进行元素遍历
  */
 //应该考虑nodeType为4和8的情况！！！！
-test('getText', function(){
+test('老接口：getText', function(){
 	expect(2);
 	var text = document.createTextNode("textNode");
 	var text2 = document.createTextNode("textNode2");
@@ -94,7 +94,7 @@ test('getText', function(){
  * 
  */
 
-test('dom or id', function(){
+test('老接口：dom or id', function(){
 	expect(2);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -109,7 +109,7 @@ test('dom or id', function(){
  * null or other parms
  * 
  */
-test('null or other parms', function(){
+test('老接口：null or other parms', function(){
 	expect(2);
 	var div;//非法节点
 	try{
@@ -127,14 +127,14 @@ test('null or other parms', function(){
 /**
  * 
  */
-test('dom with none text', function(){
+test('老接口：dom with none text', function(){
 	expect(1);
 	var p = document.createElement('p');
 	equal(baidu.dom.getText(p),"","no text in p");
 })
 
 //确认一下哪些是特殊字符
-test('special character',function(){
+test('老接口：special character',function(){
 	expect(2);
 	var a  = document.createElement('a');
 	a.innerHTML = "百度一下"

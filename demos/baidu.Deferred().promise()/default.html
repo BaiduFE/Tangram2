@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Deferred().promise() 示例" />
+		<title>baidu.Deferred().promise()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Deferred().promise()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>baidu.Deferred().promise()</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn_done">开始</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            var deferred = baidu.Deferred();
+            var wait = function(deferred){
+                setTimeout(function(){
+                    // 解决延迟对象
+                    deferred.resolve();
+                },2000);
+                
+                // 这里返回 Deferred 的 promise 对象，防止执行状态被外部改变
+                return deferred.promise();
+            };
+            
+            baidu('#demo_btn_done').one('click', function(){
+                clear();
+                output('执行开始，请等待2秒...');
+                var d = wait(deferred);
+                baidu.when(d)
+                .done(function(){
+                    output('我是 done 回调： 执行完成');
+                });
+                try{
+                    // 这里试图从外部修改状态失败，promise 对象只开放与改变执行状态无关的方法
+                    d.reject();
+                }catch(e){}
+            });
+            
+            function clear(){
+                baidu('#demo_execute_result').html('');
+            }
+            function output(v){
+                baidu('#demo_execute_result').html(baidu('#demo_execute_result').html()+'<br />' + v);
+            }
+		</script>
+	</body>
+</html>

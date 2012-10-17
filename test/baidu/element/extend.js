@@ -1,7 +1,7 @@
 module('baidu.element.extend');
 
 baidu.e = baidu.element;
-test('封装扩展 - function', function() {
+test('老接口：封装扩展 - function', function() {
 	stop();
 	ua.importsrc('baidu.sizzle', function(){
 		
@@ -22,7 +22,7 @@ test('封装扩展 - function', function() {
 });
 
 
-test('封装扩展 - function', function() {
+test('老接口：封装扩展 - function', function() {
 	stop();
 	ua.importsrc('baidu.sizzle', function(){
 		

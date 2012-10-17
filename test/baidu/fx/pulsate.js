@@ -1,7 +1,7 @@
 module("baidu.fx.pulsate");
 //
 // // test id
-// test('test id', function() {
+// test('老接口：test id', function() {
 // var c, loop = 1;
 // stop();
 // c = baidu.fx.pulsate(te.dom[1].id, loop, { // loop = 1
@@ -23,7 +23,7 @@ module("baidu.fx.pulsate");
 // });
 //
 // // test dom
-// test('test dom', function() {
+// test('老接口：test dom', function() {
 // var c, t, loop = 1;
 // t = te.dom[1];
 // stop();
@@ -47,7 +47,7 @@ module("baidu.fx.pulsate");
 
 // TODO
 
-test('test loop', function() {
+test('老接口：test loop', function() {
 	var c  , loop = 3, count = 0; // loop>0: jump
 		stop();
 		var duration,st,percent,visibleNum=0,hiddenNum=0;
@@ -81,7 +81,7 @@ test('test loop', function() {
 	});
 
 // multi instance
-/*test('test loop', function() {
+/*test('老接口：test loop', function() {
 	var c, loop = 3, count = 3; // loop>0: jump
 		var af = false; // prevent show again
 		stop();
@@ -101,7 +101,7 @@ test('test loop', function() {
 	});
 
 // test loop = -1
-test('test loop', function() {
+test('老接口：test loop', function() {
 	var c, loop = -1; // loop<0: jump for ever; but loop=0 will not show
 		var af = false; // prevent show again
 		stop();
@@ -117,7 +117,7 @@ test('test loop', function() {
 	});*/
 
 // // test duration
-// test('test duration', function() {
+// test('老接口：test duration', function() {
 // var c, loop = 1;
 // var stime, dtime;
 // stime = new Date().getTime();
@@ -133,7 +133,7 @@ test('test loop', function() {
 // });
 //
 // // test interval
-// test('test interval', function() {
+// test('老接口：test interval', function() {
 // var c, loop = 1;
 // stop();
 // c = baidu.fx.pulsate('img_div', loop, {
@@ -147,7 +147,7 @@ test('test loop', function() {
 // });
 //
 // // test events
-// test('test events', function() {
+// test('老接口：test events', function() {
 // var c, loop = 1;
 // var bu = false, au = false;
 // stop();

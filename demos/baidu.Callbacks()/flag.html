@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Callbacks(flag) 示例" />
+		<title>baidu.Callbacks(flag)</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Callbacks(flag)</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>baidu.Callbacks(flag)</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<span class="button" id="empty">Callbacks()</span>
+						<span class="button" id="once">Callbacks('once')</span>
+						<span class="button" id="memory">Callbacks('memory')</span>
+						<span class="button" id="unique">Callbacks('unique')</span>
+						<span class="button" id="stopOnFalse">Callbacks('stopOnFalse')</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<div id="demo_execute_result"></div>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+		    var callbacks = {}
+            var fn1 = function(){
+                output('fn1');
+                return false;
+            }
+            var fn2 = function(){
+                output('fn2');
+            }
+            
+            // without parameter
+            callbacks['empty'] = baidu.Callbacks();
+            callbacks['empty'].add(fn1);
+            callbacks['empty'].add(fn1);
+            
+            // once
+            callbacks['once'] = baidu.Callbacks('once');
+            callbacks['once'].add(fn1);
+            
+            // memory
+            callbacks['memory'] = baidu.Callbacks('memory');
+            callbacks['memory'].add(fn1);
+            callbacks['memory'].add(fn2);
+            
+            // unique
+            callbacks['unique'] = baidu.Callbacks('unique');
+            callbacks['unique'].add(fn1);
+            callbacks['unique'].add(fn1);
+            
+            // stopOnFalse
+            callbacks['stopOnFalse'] = baidu.Callbacks('stopOnFalse');
+            callbacks['stopOnFalse'].add(fn1);
+            callbacks['stopOnFalse'].add(fn2);
+		
+            function output(fnName, keep){
+                baidu('#demo_execute_result').html(baidu('#demo_execute_result').html()+'<br />回调 '+fnName+' 执行。 ' + new Date().getTime());
+            }
+            function clear(){
+                baidu('#demo_execute_result').html('');
+            }
+            baidu('.button').click(function(){
+                clear();
+                callbacks[this.id].fire();
+            });
+		</script>
+	</body>
+</html>

@@ -22,7 +22,6 @@ var rbrace = /^(?:\{.*\}|\[.*\])$/,
 	rmsPrefix = /^-ms-/,
 	rdashAlpha = /-([\da-z])/gi,
 
-	// Used by jQuery.camelCase as callback to replace()
 	fcamelCase = function( all, letter ) {
 		return ( letter + "" ).toUpperCase();
 	};
@@ -36,6 +35,7 @@ baidu.extend(baidu._util_,{
 	}
 });
 
+//Copy from jQuery 1.8.1 , thank you jQuery
 baidu.extend(baidu._util_,{
 	cache: {},
 
@@ -44,8 +44,8 @@ baidu.extend(baidu._util_,{
 	// Please use with caution
 	uuid: 0,
 
-	// Unique for each copy of jQuery on the page
-	// Non-digits removed to match rinlinejQuery
+	// Unique for each copy of baidu on the page
+	// Non-digits removed to match rinlineBaidu
 	expando: "baidu" + ( '2.0.0' + Math.random() ).replace( /\D/g, "" ),
 
 	// The following elements throw uncatchable exceptions if you
@@ -75,7 +75,8 @@ baidu.extend(baidu._util_,{
 			// can't GC object references properly across the DOM-JS boundary
 			isNode = elem.nodeType,
 
-			// Only DOM nodes need the global jQuery cache; JS object data is
+			// 此处jQuery采用了全局的cache，tangram2.0目前没有设计此功能，不过涉及到该部分的接口使用不受任何影响
+			// (Only DOM nodes need the global baidu cache; JS object data is)
 			// attached directly to the object so GC can occur automatically
 			cache = isNode ? baidu._util_.cache : elem,
 
@@ -102,14 +103,14 @@ baidu.extend(baidu._util_,{
 		if ( !cache[ id ] ) {
 			cache[ id ] = {};
 
-			// Avoids exposing jQuery metadata on plain JS objects when the object
+			// Avoids exposing baidu metadata on plain JS objects when the object
 			// is serialized using JSON.stringify
 			if ( !isNode ) {
 				cache[ id ].toJSON = function() {};
 			}
 		}
 
-		// An object can be passed to jQuery.data instead of a key/value pair; this gets
+		// An object can be passed to baidu.dom.data instead of a key/value pair; this gets
 		// shallow copied over onto the existing cache
 		if ( typeof name === "object" || typeof name === "function" ) {
 			if ( pvt ) {
@@ -121,7 +122,7 @@ baidu.extend(baidu._util_,{
 
 		thisCache = cache[ id ];
 
-		// jQuery data() is stored in a separate object inside the object's internal data
+		// baidu.dom.data() is stored in a separate object inside the object's internal data
 		// cache in order to avoid key collisions between internal data and user-defined
 		// data.
 		if ( !pvt ) {
@@ -165,7 +166,6 @@ baidu.extend(baidu._util_,{
 
 			isNode = elem.nodeType,
 
-			// See jQuery.data for more information
 			cache = isNode ? baidu._util_.cache : elem,
 			id = isNode ? elem[ baidu._util_.expando ] : baidu._util_.expando;
 
@@ -211,7 +211,6 @@ baidu.extend(baidu._util_,{
 			}
 		}
 
-		// See jQuery.data for more information
 		if ( !pvt ) {
 			delete cache[ id ].data;
 

@@ -2,7 +2,7 @@
 
 module("baidu.lang.isFunction");
 
-test("函数校验",function(){
+test("老接口：函数校验",function(){
 	expect(3);
 	var isFunction__obj = function() {
 		}
@@ -12,7 +12,7 @@ test("函数校验",function(){
 	ok(baidu.lang.isFunction(baidu.lang.isFunction),"baidu.lang.isFunction is function");
 })
 
-test("类型覆盖校验",function(){
+test("老接口：类型覆盖校验",function(){
 	// 空对象
 		ok(!baidu.lang.isFunction(),"empty obj is not function");
 		// 字符串

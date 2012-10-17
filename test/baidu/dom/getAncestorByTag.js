@@ -1,6 +1,6 @@
 module("baidu.dom.getAncestorByTag")
 
-test("Element or id",function(){
+test("老接口：Element or id",function(){
 	expect(2);
 	var div = document.createElement('div');
 	var a = document.createElement('div');
@@ -17,7 +17,7 @@ test("Element or id",function(){
 })
 
 
-test("html or body", function() {
+test("老接口：html or body", function() {
 	expect(3);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -28,7 +28,7 @@ test("html or body", function() {
 })
 
 
-test("no ancestor",function(){
+test("老接口：no ancestor",function(){
 	
 	var div = document.createElement('div');
 	equal(baidu.dom.getAncestorByTag(div,'body'),null,"no ancestor");

@@ -76,7 +76,7 @@ test('异常用例', function(){
 });
 
 //老接口测试
-test('老接口：正常用例',function(){
+test('正常用例',function(){
 	expect(4);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -93,7 +93,7 @@ test('老接口：正常用例',function(){
 	document.body.removeChild(div);
 });
 
-test('老接口：shortcut',function(){
+test('shortcut',function(){
 	//expect(3);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -109,7 +109,7 @@ test('老接口：shortcut',function(){
 	document.body.removeChild(div);
 });
 
-test('老接口：异常用例', function(){
+test('异常用例', function(){
 	//expect(3);
 	var html = document.getElementsByTagName('html')[0];
 	var head = document.getElementsByTagName('head')[0];

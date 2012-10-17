@@ -2,7 +2,7 @@ module("baidu.json.decode测试");
 
 test("decode函数输入合法的Json字符串", function(){
 	var obj = "{\"a\":1,\"b\":\"text\",\"c\":true,\"d\":3.12345,\"e\":false,\"f\":null,\"g\":[1,2,3],\"h\":{\"aa\":1,\"bb\":2}}";
-	var testobj = baidu.json.parse(obj);
+	var testobj = baidu.json.decode(obj);
 	
 	equals(testobj.a, 1);
 	equals(testobj.b, "text");

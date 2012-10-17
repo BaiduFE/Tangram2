@@ -1,6 +1,6 @@
 module("baidu.dom.opacity");
 
-test('set form null to 0.5',function(){
+test('老接口：set form null to 0.5',function(){
 	expect(1);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
@@ -15,7 +15,7 @@ test('set form null to 0.5',function(){
 	document.body.removeChild(div);
 });
 
-test('set form 0.1 to 1',function(){
+test('老接口：set form 0.1 to 1',function(){
 	expect(1);
 	var div = document.createElement('div');
 	document.body.appendChild(div);

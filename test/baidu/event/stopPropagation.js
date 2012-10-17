@@ -1,5 +1,5 @@
 module("stopPropagation");
-test("停止冒泡",function(){
+test("老接口：停止冒泡",function(){
 	var on = function(element, type, fn) {
 		if (element.addEventListener) {
 			element.addEventListener(type, fn, false);

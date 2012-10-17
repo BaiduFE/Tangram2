@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().show() 示例" />
+		<title>显示匹配的元素</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+	    <style>
+	        #demo_element_1{
+	            width:100px;
+	            padding:20px;
+	            border:1px solid #ccc;
+	            background:yellow;
+	            text-align:center;
+	        }
+	    </style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().show()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>显示匹配的元素</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn_hide">隐藏下面的 Div</span>
+						<span class="button" id="demo_btn_show">显示下面的 Div</span>
+					</div>
+					<div class="pannel-content-part">
+						<div id="demo_element_1">文本</div>
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn_hide').on('click',function(e){
+				baidu('#demo_element_1').hide();
+				baidu('#demo_execute_result').html('操作成功');
+			});
+			baidu('#demo_btn_show').on('click',function(e){
+				baidu('#demo_element_1').show();
+				baidu('#demo_execute_result').html('操作成功');
+			});
+		</script>
+	</body>
+</html>

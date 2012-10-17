@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.makeArray 示例" />
+		<title>类数组转换为数组</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			.tip{
+				background:gold;
+				padding:5px 10px;
+				width:100px;
+				border-radius:5px;
+				font-size:12px;
+				box-shadow:0px 0px 2px #A0A0A0;
+				margin-bottom:10px;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.makeArray</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>转换一个类似数组的对象成为真正的JavaScript数组</span>
+				</div>
+				<div class="pannel-content">
+				    <p>在本 demo 中，通过将 NodeList 转换为 Array，并调用 Array 的 sort 方法，对下面的元素进行排序操作。</p>
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool" id="tip-wrapper">
+						<p class="tip">30</p>
+						<p class="tip">8</p>
+						<p class="tip">54</p>
+						<p class="tip">12</p>
+						<p class="tip">23</p>
+					</div>
+					
+					<div class="pannel-content-tool">
+						<span class="button" id="demo_btn">排序上面的列表</span>
+					</div>
+					
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>			
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+				var tips = baidu('#tip-wrapper p');
+				
+				// 转换 NodeList 为 Array
+				tips = baidu.makeArray(tips);
+				
+				// 调用 Array 的 sort 方法排序
+                tips.sort(function(a, b){
+                   return a.innerHTML - b.innerHTML; 
+                });
+                
+                // 重新插入元素
+                baidu('#tip-wrapper').empty();
+                baidu.each(tips, function(index, item){
+                    baidu('#tip-wrapper').append(item);
+                });
+                
+				baidu('#demo_execute_result').html('排序成功');
+			});
+		</script>
+	</body>
+</html>
