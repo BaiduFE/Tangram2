@@ -115,7 +115,7 @@ var T,
     };
 
 // 版本号
-baidu.version = "2.0.0.0";
+baidu.version = "2.0.0.1";
 
 // baidu 对象的唯一标识（身份证号）
 baidu.guid = "$BAIDU$";
@@ -334,7 +334,7 @@ baidu.isObject = function( unknow ) {
  * @description 拷贝某对象的所有属性/方法，并返回一个全新对象(非深度克隆)
  * @function
  * @name baidu.extend
- * @grammar baidu.extend(obj0,obj1,obj2。。。objN)
+ * @grammar baidu.extend(obj1[, obj2[, ...objN]])
  * @param   {Object} obj0,obj1。。。objN  每一个传入的对象
  * @return  {Object}                合并后的JS对象
  */
@@ -344,7 +344,7 @@ baidu.isObject = function( unknow ) {
  * @function
  * @name baidu.extend
  *
- * @grammar baidu.extend(depthClone,obj0[,obj1,obj2。。。objN])
+ * @grammar baidu.extend(depthClone, obj1[, obj2[, ...objN]])
  * @param   {Boolean}   depthClone  是否深度克隆的标识，默认为false，可以不传。
  * @param   {Object} obj0,obj1。。。objN  每一个传入的对象
  * @return  {Object}                合并后的JS对象
@@ -673,7 +673,113 @@ baidu.array.extend({
 
 
 
+/**
+ * @description 一个多用途的回调列表对象，提供了强大的的方式来管理回调函数列表
+ * @function 
+ * @name baidu.Callbacks()
+ * @grammar baidu.Callbacks(flags)
+ * @param {String} flags 一个用空格标记分隔的标志可选列表,用来改变回调列表中的行为
+ * @return {Callbacks} 返回一个Callbacks对象
+ */
+
+/**
+ * @description 回调列表中添加一个回调函数或回调函数的集合
+ * @function 
+ * @name baidu.Callbacks().add()
+ * @grammar baidu.Callbacks().add(callbacks)
+ * @param {Function|Array} callbacks 一个函数，或者一个函数数组用来添加到回调列表
+ * @return {Callbacks} 返回当前的Callbacks对象
+ */
+
+/**
+ * @description 禁用回调列表中的回调
+ * @function 
+ * @name baidu.Callbacks().disable()
+ * @grammar baidu.Callbacks().disable()
+ * @return {Callbacks} 返回当前的Callbacks对象
+ */
+
+/**
+ * @description 判断当前列表是否被禁用
+ * @function 
+ * @name baidu.Callbacks().disabled()
+ * @grammar baidu.Callbacks().disabled()
+ * @return {Callbacks} 如果已经被禁用返回true，如果没有返回false。
+ */
+
+/**
+ * @description 从列表中删除所有的回调
+ * @function 
+ * @name baidu.Callbacks().empty()
+ * @grammar baidu.Callbacks().empty()
+ * @return {Callbacks} 返回当前的Callbacks对象
+ */
+
+/**
+ * @description 用给定的参数调用所有的回调
+ * @function 
+ * @name baidu.Callbacks().fire()
+ * @grammar baidu.Callbacks().fire(arguments)
+ * @param {Any} arguments 这个参数或参数列表传回给回调列表
+ * @return {Callbacks} 返回当前的Callbacks对象
+ */
+
+/**
+ * @description 确定如果回调至少已经调用一次
+ * @function 
+ * @name baidu.Callbacks().fired()
+ * @grammar baidu.Callbacks().fired()
+ * @param {Any|Boolean} arguments 这个参数或参数列表传回给回调列表
+ * @return {Boolean} 如果被调用过一次，则返回true，没被调用过返回false
+ */
+
+/**
+ * @description 访问给定的上下文和参数列表中的所有回调
+ * @function 
+ * @name baidu.Callbacks().firewith()
+ * @grammar baidu.Callbacks().firewith([context][,args])
+ * @param {Any} context 该列表中的回调被触发的上下文引用
+ * @param {Any} args 一个参数或参数列表传回给回调列表
+ * @return {Callbacks} 返回当前的Callbacks对象
+ */
+
+/**
+ * @description 确定是否含有提供的回调列表
+ * @function
+ * @name baidu.Callbacks().has()
+ * @grammar baidu.Callbacks().has(callback)
+ * @param {Function} callback 判断是否含有的回调函数
+ * @return {Boolean} 当含有该函数，返回true，不含有返回false
+ */
+
+/**
+ * @description 锁定在其当前状态的回调列表
+ * @function
+ * @name baidu.Callbacks().lock()
+ * @grammar baidu.Callbacks().lock()
+ * @return {Callbacks} 返回当前的Callbacks对象
+ */
+
+/**
+ * @description 判断是否已被锁定的回调列表
+ * @function
+ * @name baidu.Callbacks().locked()
+ * @grammar baidu.Callbacks().locked()
+ * @param {Function} callback 判断是否含有的回调函数
+ * @return {Boolean} 当前列表已被锁定，返回true，没有锁定返回false
+ */
+
+/**
+ * @description 删除回调或回调回调列表的集合
+ * @function
+ * @name baidu.Callbacks().remove()
+ * @grammar baidu.Callbacks().remove(callbacks)
+ * @param {Function|Array} callbacks 一个函数，或者一个函数数组，会被从回调列表中删除
+ * @return {Callbacks} 返回当前的Callbacks对象
+ */
+
 baidu.createChain("Callbacks",
+//copy from jquery 1.8.2,thanks for jquery
 
 // 执行方法
 function(options){
@@ -882,14 +988,153 @@ function(){});
 
 
 /**
- * @description Deferred功能链头
- * @name baidu.Deferred
+ * @description 提供应对延迟事件、异步调用的解决方案
+ * @function 
+ * @name baidu.Deferred()
  * @grammar baidu.Deferred()
- * @param   {}
- * @return  
+ * @return {Deferred} 返回一个Deferred对象
+ */
+
+/**
+ * @description 添加一个当延对象是无论成功失败都会被调用函数
+ * @function 
+ * @name baidu.Deferred().always()
+ * @grammar baidu.Deferred().always( alwaysCallbacks )
+ * @param {Function|Array} alwaysCallbacks 一个函数，或者函数数组
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 添加一个当延对象成功后会被调用函数
+ * @function 
+ * @name baidu.Deferred().done()
+ * @grammar baidu.Deferred().done( doneCallbacks )
+ * @param {Function|Array} doneCallbacks 一个函数，或者函数数组
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 添加一个当延对象失败后会被调用函数
+ * @function 
+ * @name baidu.Deferred().fail()
+ * @grammar baidu.Deferred().fail( failCallbacks )
+ * @param {Function|Array} failCallbacks 一个函数，或者函数数组
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 将当前Deferred对象的执行状态从"未完成"改为"已完成"，从而触发done()方法
+ * @function 
+ * @name baidu.Deferred().resolve()
+ * @grammar baidu.Deferred().resolve([args])
+ * @param {Any} args 可选，传递给回调的参数
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 将当前Deferred对象的执行状态从"未完成"改为"已完成"，从而触发done()方法，并根据给定的上下文和参数调用回调函数
+ * @function 
+ * @name baidu.Deferred().resolveWith()
+ * @grammar baidu.Deferred().resolve(context[,args])
+ * @param {Any} context 传递给回调函数的上下文
+ * @param {Any} args 可选，传递给回调的参数
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 将当前Deferred对象的执行状态从"未完成"改为"已失败"，从而触发fail()方法
+ * @function 
+ * @name baidu.Deferred().reject()
+ * @grammar baidu.Deferred().reject([args])
+ * @param {Any} args 可选，传递给回调的参数
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 将当前Deferred对象的执行状态从"未完成"改为"已失败"，并根据给定的上下文和参数调用回调函数，从而触发fail()方法
+ * @function 
+ * @name baidu.Deferred().rejectWith()
+ * @grammar baidu.Deferred().rejectWith(context[,args])
+ * @param {Any} context 传递给回调函数的上下文
+ * @param {Any} args 可选，传递给回调的参数
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 确定一个Deferred对象的当前状态
+ * @function 
+ * @name baidu.Deferred().state()
+ * @grammar baidu.Deferred().state()
+ * @return {Deferred} 返回当前的Deferred对象的状态，"pending"：未完成，“resolved”：b，“rejected”：被拒绝（失败）
+ */
+
+/**
+ * @description 产生一个Promise对象，该对象为Deferred对象的精简对象，用户无法在外层通过resolve和reject方法改变状态
+ * @function 
+ * @name baidu.Deferred().promise()
+ * @grammar baidu.Deferred().promise()
+ * @return {Promise} 返回一个Promise对象
+ */
+
+/**
+ * @description 传入Deferred对象（通常表示异步事件），提供一种方法来执行一个或多个Deferred对象的回调函数。
+ * @function 
+ * @name baidu.when()
+ * @grammar baidu.when(deferreds)
+ * @param {Deferred|Object} deferreds 一个或多个延迟对象，或者普通的Object。
+ * @return {Deferred} 返回一个Deferred对象
+ */
+
+/**
+ * @description 添加Deferred对象延迟成功或者失败时的调用
+ * @function 
+ * @name baidu.Deferred().then()
+ * @grammar baidu.Deferred().then(doneCallbacks, failCallbacks)
+ * @param {Function|Array} doneCallbacks 一个函数或函数数组，当延迟解决时调用
+ * @param {Function|Array} failCallbacks 一个函数或函数数组，当延迟失败时调用
+ * @return {Deferred} 返回一个Deferred对象
+ */
+
+/**
+ * @description 当Deferred对象时生成进度通知时添加被访问处理程序
+ * @function 
+ * @name baidu.Deferred().progress()
+ * @grammar baidu.Deferred().progress( progressCallbacks )
+ * @param {Function|Array} progressCallbacks 一个函数或函数数组，当延迟解决时调用
+ * @return {Deferred} 返回一个Deferred对象
+ */
+
+/**
+ * @description 添加一个Promise对象延迟成功或者失败时的调用
+ * @function 
+ * @name baidu.Deferred().pipe()
+ * @grammar baidu.Deferred().pipe(doneCallbacks, failCallbacks)
+ * @param {Function|Array} doneCallbacks 一个函数或函数数组，当延迟解决时调用
+ * @param {Function|Array} failCallbacks 一个函数或函数数组，当延迟失败时调用
+ * @return {Promise} 返回一个Promise对象
+ */
+
+/**
+ * @description 用来通知正在进行的延迟对象的回调函数
+ * @function 
+ * @name baidu.Deferred().notify()
+ * @grammar baidu.Deferred().notify([args])
+ * @param {Any} args 可选，传递给回调的参数
+ * @return {Deferred} 返回当前的Deferred对象
+ */
+
+/**
+ * @description 用来通知正在进行的延迟对象的回调函数
+ * @function 
+ * @name baidu.Deferred().notifyWith()
+ * @grammar baidu.Deferred().notifyWith(context[,args])
+ * @param {Any} context 传递给回调函数的上下文
+ * @param {Any} args 可选，传递给回调的参数
+ * @return {Deferred} 返回当前的Deferred对象
  */
 
 baidu.createChain("Deferred",
+//copy from jquery 1.8.2,thanks for jquery
 
 // 执行方法
 function( func ) {
@@ -1186,15 +1431,15 @@ baidu.id = function() {
 
     return function( object, command ) {
         var e
-            ,s_1= baidu.isString( object )
-            ,o_1= baidu.isObject( object )
-            ,id = o_1 ? object[ key ] : s_1 ? object : "";
+            ,str_1= baidu.isString( object )
+            ,obj_1= baidu.isObject( object )
+            ,id = obj_1 ? object[ key ] : str_1 ? object : "";
 
+        // 第二个参数为 String
         if ( baidu.isString( command ) ) {
-
             switch ( command ) {
             case "get" :
-                return o_1 ? id : maps[id];
+                return obj_1 ? id : maps[id];
             break;
             case "remove" :
             case "delete" :
@@ -1210,15 +1455,15 @@ baidu.id = function() {
                 return id;
             break;
             case "decontrol" : 
-                !(e = maps[id]) && o_1 && ( object[ key ] = id = baidu.id() );
+                !(e = maps[id]) && obj_1 && ( object[ key ] = id = baidu.id() );
                 id && delete maps[ id ];
                 return id;
             break;
             default :
-                if ( s_1 ) {
+                if ( str_1 ) {
                     (e = maps[ id ]) && delete maps[ id ];
                     e && ( maps[ e[ key ] = command ] = e );
-                } else if ( o_1 ) {
+                } else if ( obj_1 ) {
                     id && delete maps[ id ];
                     maps[ object[ key ] = command ] = object;
                 }
@@ -1226,10 +1471,11 @@ baidu.id = function() {
             }
         }
 
-        if ( o_1 ) {
+        // 第一个参数不为空
+        if ( obj_1 ) {
             !id && (maps[ object[ key ] = id = baidu.id() ] = object);
             return id;
-        } else if ( s_1 ) {
+        } else if ( str_1 ) {
             return maps[ object ];
         }
 
@@ -1425,9 +1671,6 @@ baidu.query = baidu.query || (function(){
                     t = " " + dom.className + " ";
                     x = true;
 
-//                    baidu.each(list, function(){
-//                        t.indexOf(" "+ this +" ") == -1 && (x = false);
-//                    });
                     baidu.forEach(list, function(item){
                         t.indexOf(" "+ item +" ") == -1 && (x = false);
                     });
@@ -1615,9 +1858,9 @@ function(selector, context) {
 
     } else if (typeof selector == "string") {
         // HTMLString
-        if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 3) {
+        if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 2) {
             if ( baidu.dom.createElements ) {
-                baidu.merge( me, baidu.dom.createElements(selector) );
+                baidu.merge( me, baidu.dom.createElements( selector ) );
             }
 
         // baidu.query
@@ -1642,13 +1885,23 @@ function(context) {
 
 ).extend({
 
-    /**
-     * @description 取得 TangramDom 对象里的 length
-     * @name baidu.dom().size()
-     * @function 
-     * @grammar TangramDom.size()
-     * @return  {Number}    TangramDom对象里DOM元素的个数
-     */
+/**
+ * @description 取得 TangramDom 对象里的 length
+ * @name baidu.dom().size()
+ * @function 
+ * @grammar TangramDom.size()
+ * @return  {Number}    TangramDom对象里DOM元素的个数
+ * @example 
+ 直接获取baidu()方法所生成的TangramDom对象中的元素数量，也可以直接baidu(args).length 
+
+ 示例代码：
+ //HTML片段
+ <div>1</div>
+ <div>2</div>
+
+ //取得src属性
+ baidu("div").size();  //2    
+ */
     
     size: function() {
         return this.length;
@@ -2000,8 +2253,8 @@ function( event ){
             me[ item ] = e[ item ];
         });
 
-        me.target = me.srcElement = e.srcElement || (( t = e.target ) ? ( t.nodeType == 3 ? t.parentNode : t ) : null);
-        me.relatedTarget = e.relatedTarget || (( t = e.fromElement ) ? (t === me.target ? e.toElement : t ) : null);
+        me.target = me.srcElement = e.srcElement || (( t = e.target ) && ( t.nodeType == 3 ? t.parentNode : t ));
+        me.relatedTarget = e.relatedTarget || (( t = e.fromElement ) && (t === me.target ? e.toElement : t ));
 
         me.keyCode = me.which = e.keyCode || e.which;
 
@@ -2535,7 +2788,18 @@ function( event ){
  * @grammar baidu.dom(args).each(iterator)
  * @param   {Function}      iterator    迭代器
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象                tangramDom(this)
+ * @example 
+ 
+ 
+ 示例代码：
+ //HTML片段
+ <div>1</div>
+ <div>2</div>
+
+ //取得src属性
+ baidu("div").size();  //2     
  */
+
 baidu.dom.extend({
     each : function (iterator) {
         baidu.check("function", "baidu.dom.each");
@@ -3785,12 +4049,12 @@ baidu.event.on = baidu.on = function(element, evtName, handler){
  * @param {Object} options.converters 一个数据类型对数据类型转换器的对象。每个转换器的值是一个函数，返回响应的转化值，默认值是： {"* text": window.String, "text html": true, "text json": parseJSON, "text xml": parseXML}
  * @param {Boolean} options.crossDomain 同域请求为false， 跨域请求为true，如果你想强制跨域请求（如JSONP形式）同一域，设置crossDomain为true。这使得例如，服务器端重定向到另一个域
  * @param {Object|String} options.data 发送到服务器的数据。将自动转换为请求字符串格式。GET 请求中将附加在 URL 后。
- * @param {function} options.dataFilter 一个函数被用来处理XMLHttpRequest的原始响应数据。这是一个预过滤功能，净化响应。您应该返回安全数据。函数接收data和type两个参数：data是Ajax返回的原始数据，type是调用jQuery.ajax时提供的dataType参数
+ * @param {function} options.dataFilter 一个函数被用来处理XMLHttpRequest的原始响应数据。这是一个预过滤功能，净化响应。您应该返回安全数据。函数接收data和type两个参数：data是Ajax返回的原始数据，type是调用baidu.ajax时提供的dataType参数
  * @param {String} options.dataType 预期服务器返回的数据类型。如果不指定，将自动根据 HTTP 包 MIME 信息来智能判断，可用值：xml, html, script, json, jsonp, text
  * @param {function} options.error 请求失败时调用此函数，函数接收三个参数：tangramAjax, textStatus, errorThrown。textStatus是描述发生的错误类型的一个字符串，取值除了得到null之外，还可能是"timeout", "error", "abort" 和 "parsererror"。errorThrown是捕获的异常对象。注意：此处理程序不被跨域脚本和JSONP形式的请求调用。
  * @param {Object} options.headers 一个额外的"{键:值}"对映射到请求一起发送。此设置被设置之前beforeSend函数被调用;因此，消息头中的值设置可以在覆盖beforeSend函数范围内的任何设置。
  * @param {Boolean} options.ifModified 仅在服务器数据改变时获取新数据。使用 HTTP 包 Last-Modified 头信息判断。默认值false
- * @param {Boolean} options.isLocal 允许当前环境被认定为“本地”，（如文件系统），即使jQuery默认情况下不会承认它。以下协议目前公认为本地：file, *-extension, and widget。
+ * @param {Boolean} options.isLocal 允许当前环境被认定为“本地”，（如文件系统）。以下协议目前公认为本地：file, *-extension, and widget。
  * @param {String} options.jsonp 在一个jsonp请求中重写回调函数的名字。这个值用来替代在"callback=?"这种GET或POST请求中URL参数里的"callback"部分，比如{jsonp:'onJsonPLoad'}会导致将"onJsonPLoad=?"传给服务器。设置jsonp选项为false阻止了ajax从加入"?callback"字符串的URL或试图使用"=?"转换。在这种情况下，你也应该明确设置jsonpCallback设置。例如, { jsonp: false, jsonpCallback: "callbackName" }
  * @param {String|function} options.jsonpCallback 为jsonp请求指定一个回调函数名。这个值将用来取代ajax自动生成的随机函数名。这主要用来让ajax生成度独特的函数名，这样管理请求更容易，也能方便地提供回调函数和错误处理。你也可以在想让浏览器缓存GET请求的时候，指定这个回调函数名。
  * @param {String} options.mimeType 一个mime类型用来覆盖XHR的 MIME类型
@@ -4437,7 +4701,7 @@ void function(){
             }
             
             opts.converters['script json'] = function() {
-//                !responseContainer && jQuery.error( callbackName + " was not called" );
+//                !responseContainer && baidu.error( callbackName + " was not called" );
                 return responseContainer[0];
             }
             
@@ -6722,7 +6986,6 @@ var rbrace = /^(?:\{.*\}|\[.*\])$/,
 	rmsPrefix = /^-ms-/,
 	rdashAlpha = /-([\da-z])/gi,
 
-	// Used by jQuery.camelCase as callback to replace()
 	fcamelCase = function( all, letter ) {
 		return ( letter + "" ).toUpperCase();
 	};
@@ -6736,6 +6999,7 @@ baidu.extend(baidu._util_,{
 	}
 });
 
+//Copy from jQuery 1.8.1 , thank you jQuery
 baidu.extend(baidu._util_,{
 	cache: {},
 
@@ -6744,8 +7008,8 @@ baidu.extend(baidu._util_,{
 	// Please use with caution
 	uuid: 0,
 
-	// Unique for each copy of jQuery on the page
-	// Non-digits removed to match rinlinejQuery
+	// Unique for each copy of baidu on the page
+	// Non-digits removed to match rinlineBaidu
 	expando: "baidu" + ( '2.0.0' + Math.random() ).replace( /\D/g, "" ),
 
 	// The following elements throw uncatchable exceptions if you
@@ -6775,7 +7039,8 @@ baidu.extend(baidu._util_,{
 			// can't GC object references properly across the DOM-JS boundary
 			isNode = elem.nodeType,
 
-			// Only DOM nodes need the global jQuery cache; JS object data is
+			// 此处jQuery采用了全局的cache，tangram2.0目前没有设计此功能，不过涉及到该部分的接口使用不受任何影响
+			// (Only DOM nodes need the global baidu cache; JS object data is)
 			// attached directly to the object so GC can occur automatically
 			cache = isNode ? baidu._util_.cache : elem,
 
@@ -6802,14 +7067,14 @@ baidu.extend(baidu._util_,{
 		if ( !cache[ id ] ) {
 			cache[ id ] = {};
 
-			// Avoids exposing jQuery metadata on plain JS objects when the object
+			// Avoids exposing baidu metadata on plain JS objects when the object
 			// is serialized using JSON.stringify
 			if ( !isNode ) {
 				cache[ id ].toJSON = function() {};
 			}
 		}
 
-		// An object can be passed to jQuery.data instead of a key/value pair; this gets
+		// An object can be passed to baidu.dom.data instead of a key/value pair; this gets
 		// shallow copied over onto the existing cache
 		if ( typeof name === "object" || typeof name === "function" ) {
 			if ( pvt ) {
@@ -6821,7 +7086,7 @@ baidu.extend(baidu._util_,{
 
 		thisCache = cache[ id ];
 
-		// jQuery data() is stored in a separate object inside the object's internal data
+		// baidu.dom.data() is stored in a separate object inside the object's internal data
 		// cache in order to avoid key collisions between internal data and user-defined
 		// data.
 		if ( !pvt ) {
@@ -6865,7 +7130,6 @@ baidu.extend(baidu._util_,{
 
 			isNode = elem.nodeType,
 
-			// See jQuery.data for more information
 			cache = isNode ? baidu._util_.cache : elem,
 			id = isNode ? elem[ baidu._util_.expando ] : baidu._util_.expando;
 
@@ -6911,7 +7175,6 @@ baidu.extend(baidu._util_,{
 			}
 		}
 
-		// See jQuery.data for more information
 		if ( !pvt ) {
 			delete cache[ id ].data;
 
@@ -9589,6 +9852,7 @@ baidu._util_.getWindowOrDocumentWidthOrHeight = baidu._util_.getWindowOrDocument
 
 
 
+
 /**
  * @description 取得第一个匹配元素或是设置多个匹配元素的宽度，该宽度忽略margin, border, padding的计算
  * @function 
@@ -9660,7 +9924,7 @@ baidu.dom.extend({
                 type = ele != null && ele == ele.window ? 'window'
                     : (ele.nodeType === 9 ? 'document' : false);
             if(hasValue && parseValue < 0 || isNaN(parseValue)){return;}
-            hasValue && /^\d+$/.test(val += '') && (val += 'px');
+            hasValue && /^(?:\d*\.)?\d+$/.test(val += '') && (val += 'px');
             return type ? baidu._util_.getWindowOrDocumentWidthOrHeight(ele, type, key)
                 : (hasValue ? ele.style.width = val : baidu._util_.getWidthOrHeight(ele, key));
         });
@@ -9746,7 +10010,7 @@ baidu.dom.extend({
                 type = ele != null && ele == ele.window ? 'window'
                     : (ele.nodeType === 9 ? 'document' : false);
             if(hasValue && parseValue < 0 || isNaN(parseValue)){return;}
-            hasValue && /^\d+$/.test(val += '') && (val += 'px');
+            hasValue && /^(?:\d*\.)?\d+$/.test(val += '') && (val += 'px');
             return type ? baidu._util_.getWindowOrDocumentWidthOrHeight(ele, type, key)
                 : (hasValue ? ele.style.height = val : baidu._util_.getWidthOrHeight(ele, key));
         });
@@ -9795,6 +10059,8 @@ baidu.dom.extend({
  * @name baidu.dom().offset()
  * @grammar baidu.dom(args).offset()
  * @return {Object} 返回一个包含left和top键名的json来标示元素的偏移量
+ * @example 
+ 
  */
 /**
  * @description 取得第一个匹配元素或是设置多个匹配元素相对于文档的偏移量
@@ -9861,7 +10127,7 @@ baidu.dom.extend({
                     currLeft = tang.getCurrentStyle('left'),
                     currTop = tang.getCurrentStyle('top');
                 type === 'function' && (options = options.call(ele, index, currOffset));
-                // TODO see jquery
+                // TODO
                 if(!options || options.left === undefined
                     && options.top === undefined){
                         return;
@@ -12710,6 +12976,15 @@ function css_defaultDisplay( nodeName ) {
  * @name baidu.dom().hide()
  * @grammar baidu.dom(args).hide()
  * @return {TangramDom} 之前匹配的TangramDom对象
+ * @example 
+ show和hide方法是最简单的显示或者隐藏一个元素的方法
+
+ 示例代码：
+ //HTML片段
+ <div>元素</div>
+
+ //隐藏一个元素
+ baidu("div").hide();
  */
 
 baidu.dom.extend({
@@ -16317,6 +16592,16 @@ baidu.dom.setPosition = function (element, position) {
  * @name baidu.dom().show()
  * @grammar baidu.dom(args).show()
  * @return {TangramDom} 之前匹配的TangramDom对象
+ * @example 
+ show和hide方法是最简单的显示或者隐藏一个元素的方法
+
+ 示例代码：
+ //HTML片段
+ <div>元素</div>
+
+ //显示一个元素
+ baidu("div").show();
+
  */
 
 baidu.dom.extend({
@@ -22734,6 +23019,7 @@ baidu.post = baidu.post || baidu._util_.smartAjax('post');
 baidu.regexp = baidu.regexp || {};
 /*
  * @author meizz
+ * @create 2012-09-24
  */
 
 
@@ -22742,7 +23028,7 @@ baidu.regexp = baidu.regexp || {};
 /**
  * @description 将所有的正则表达式对象进行预编译处理，存储到全局对象中，以便重复调用
  * @function 
- * @name baidu.regexp()
+ * @name baidu.regexp.compile
  * @grammar baidu.regexp.compile(regString)
  * @param {String} regString 正则表达式的文本
  * @return {RegExp} 返回一个正则表达式对象
@@ -22757,7 +23043,7 @@ baidu.regexp.compile = function(maps){
         reg.lastIndex > 0 && ( reg.lastIndex = 0 );
         return reg;
     }
-}(baidu.global("_maps_RegExp"));
+}( baidu.global("_maps_RegExp") );
 /*
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -25633,7 +25919,6 @@ var rbrace = /^(?:\{.*\}|\[.*\])$/,
 	rmsPrefix = /^-ms-/,
 	rdashAlpha = /-([\da-z])/gi,
 
-	// Used by jQuery.camelCase as callback to replace()
 	fcamelCase = function( all, letter ) {
 		return ( letter + "" ).toUpperCase();
 	};
@@ -25647,6 +25932,7 @@ baidu.extend(baidu._util_,{
 	}
 });
 
+//Copy from jQuery 1.8 , thank you for jQuery 
 baidu.extend(baidu._util_,{
 	cache: {},
 
@@ -25655,8 +25941,8 @@ baidu.extend(baidu._util_,{
 	// Please use with caution
 	uuid: 0,
 
-	// Unique for each copy of jQuery on the page
-	// Non-digits removed to match rinlinejQuery
+	// Unique for each copy of baidu on the page
+	// Non-digits removed to match rinlinebaidu
 	expando: "baidu" + ( '2.0.0' + Math.random() ).replace( /\D/g, "" ),
 
 	// The following elements throw uncatchable exceptions if you
@@ -25686,7 +25972,8 @@ baidu.extend(baidu._util_,{
 			// can't GC object references properly across the DOM-JS boundary
 			isNode = elem.nodeType,
 
-			// Only DOM nodes need the global jQuery cache; JS object data is
+			//这部分为jQuery全局的缓存设计，目前tangram2.0中没有设计该部分功能，但是使用涉及到这部分的接口全部正常。
+			// Only DOM nodes need the global baidu cache; JS object data is
 			// attached directly to the object so GC can occur automatically
 			cache = isNode ? baidu._util_.cache : elem,
 
@@ -25713,14 +26000,14 @@ baidu.extend(baidu._util_,{
 		if ( !cache[ id ] ) {
 			cache[ id ] = {};
 
-			// Avoids exposing jQuery metadata on plain JS objects when the object
+			// Avoids exposing baidu metadata on plain JS objects when the object
 			// is serialized using JSON.stringify
 			if ( !isNode ) {
 				cache[ id ].toJSON = function() {};
 			}
 		}
 
-		// An object can be passed to jQuery.data instead of a key/value pair; this gets
+		// An object can be passed to baidu.dom.data instead of a key/value pair; this gets
 		// shallow copied over onto the existing cache
 		if ( typeof name === "object" || typeof name === "function" ) {
 			if ( pvt ) {
@@ -25732,7 +26019,7 @@ baidu.extend(baidu._util_,{
 
 		thisCache = cache[ id ];
 
-		// jQuery data() is stored in a separate object inside the object's internal data
+		// baidu data() is stored in a separate object inside the object's internal data
 		// cache in order to avoid key collisions between internal data and user-defined
 		// data.
 		if ( !pvt ) {
@@ -25776,7 +26063,6 @@ baidu.extend(baidu._util_,{
 
 			isNode = elem.nodeType,
 
-			// See jQuery.data for more information
 			cache = isNode ? baidu._util_.cache : elem,
 			id = isNode ? elem[ baidu._util_.expando ] : baidu._util_.expando;
 
@@ -25822,7 +26108,6 @@ baidu.extend(baidu._util_,{
 			}
 		}
 
-		// See jQuery.data for more information
 		if ( !pvt ) {
 			delete cache[ id ].data;
 
