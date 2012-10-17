@@ -123,7 +123,7 @@ function(selector, context) {
         // HTMLString
         if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 2) {
             if ( baidu.dom.createElements ) {
-                baidu.merge( me, baidu.dom.createElements(selector) );
+                baidu.merge( me, baidu.dom.createElements( selector ) );
             }
 
         // baidu.query
