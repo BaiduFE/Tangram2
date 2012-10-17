@@ -27,15 +27,15 @@ baidu.id = function() {
 
     return function( object, command ) {
         var e
-            ,s_1= baidu.isString( object )
-            ,o_1= baidu.isObject( object )
-            ,id = o_1 ? object[ key ] : s_1 ? object : "";
+            ,str_1= baidu.isString( object )
+            ,obj_1= baidu.isObject( object )
+            ,id = obj_1 ? object[ key ] : str_1 ? object : "";
 
+        // 第二个参数为 String
         if ( baidu.isString( command ) ) {
-
             switch ( command ) {
             case "get" :
-                return o_1 ? id : maps[id];
+                return obj_1 ? id : maps[id];
             break;
             case "remove" :
             case "delete" :
@@ -51,15 +51,15 @@ baidu.id = function() {
                 return id;
             break;
             case "decontrol" : 
-                !(e = maps[id]) && o_1 && ( object[ key ] = id = baidu.id() );
+                !(e = maps[id]) && obj_1 && ( object[ key ] = id = baidu.id() );
                 id && delete maps[ id ];
                 return id;
             break;
             default :
-                if ( s_1 ) {
+                if ( str_1 ) {
                     (e = maps[ id ]) && delete maps[ id ];
                     e && ( maps[ e[ key ] = command ] = e );
-                } else if ( o_1 ) {
+                } else if ( obj_1 ) {
                     id && delete maps[ id ];
                     maps[ object[ key ] = command ] = object;
                 }
@@ -67,10 +67,11 @@ baidu.id = function() {
             }
         }
 
-        if ( o_1 ) {
+        // 第一个参数不为空
+        if ( obj_1 ) {
             !id && (maps[ object[ key ] = id = baidu.id() ] = object);
             return id;
-        } else if ( s_1 ) {
+        } else if ( str_1 ) {
             return maps[ object ];
         }
 
