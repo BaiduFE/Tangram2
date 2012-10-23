@@ -22,37 +22,37 @@
  */
  
 baidu.forEach = function( enumerable, iterator, context ) {
-    var i, n, t;
+    var i, n;
 
-    if ( typeof iterator == "function" && enumerable) {
-
-        // Array or ArrayLike or NodeList or String
-        if ( typeof enumerable.length == "number" ) {
-
-            for ( i=0, n=enumerable.length; i<n; i++ ) {
-
-                t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
-
-                // 被循环执行的函数，默认会传入三个参数(array[i], i, array)
-                iterator.call( context || null, t, i, enumerable );
-            }
-        
-        // enumerable is number
-        } else if (typeof enumerable == "number") {
-
-            for (i=0; i<enumerable; i++) {
+    var callbacks = {
+            arrayLike: function(i,enumerable){
+                var t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
+                iterator.call( context || null, t, i, enumerable);
+            },
+            number: function(i){
                 iterator.call( context || null, i, i, i);
             }
-        
-        // enumerable is json
-        } else if (typeof enumerable == "object") {
+        };
 
-            for (i in enumerable) {
-                if ( enumerable.hasOwnProperty(i) ) {
-                    iterator.call( context || null, enumerable[ i ], i, enumerable );
-                }
+    if ( typeof iterator !== "function" || !enumerable) return enumerable;
+
+    var type = typeof enumerable.length == "number" ? "arrayLike" :
+               typeof enumerable == "number" ? "number" : "other" ;
+
+    if (type === "other" && typeof enumerable == "object") {
+        // 作为属性 变量为property 缩写p
+        for ( var p in enumerable ) {
+            if ( enumerable.hasOwnProperty(p) ) {
+                iterator.call( context || null, enumerable[ p ], p, enumerable );
             }
         }
+        return enumerable;
+    }
+
+    var n = type === "number" ? enumerable : enumerable.length;
+
+    for ( i=0 ; i<n; i++ ) {
+        callbacks[type](i,enumerable);
     }
 
     return enumerable;
