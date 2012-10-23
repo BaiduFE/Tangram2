@@ -78,10 +78,15 @@ baidu._util_.eventBase = function(){
                 e.data = data;
             if( e.triggerData ) 
                 [].push.apply( arguments, e.triggerData );
-            if( !selector )
+            if( !proxyEl )
                 return e.result = fn.apply( target, arguments );
-            if( t.is( selector ) || t.is( selector + " *" ) )
-                return e.result = fn.apply( baidu.dom( e.target ).closest( selector )[0], arguments );
+            
+            // if( t.is( selector ) || t.is( selector + " *" ) )
+            //     return e.result = fn.apply( baidu.dom( e.target ).closest( selector )[0], arguments );
+            
+            for(var i = 0, l = proxyEl.length; i < l; i ++)
+                if(proxyEl.get(i).contains( e.target ))
+                    return e.result = fn.apply( proxyEl[i], arguments );
         };
 
         var tangId = baidu.id( target );
@@ -90,6 +95,10 @@ baidu._util_.eventBase = function(){
 
         eventArray.push( call, fn );
         proxy( target, name, eventArray );
+
+        var proxyEl = null;
+        if(selector)
+            proxyEl = baidu.dom( selector, target );
 
         return call;
     };
