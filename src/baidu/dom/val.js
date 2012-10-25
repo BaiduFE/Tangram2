@@ -54,7 +54,6 @@
  */ 
 ///import baidu;
 ///import baidu.dom;
-///import baidu.dom.extend;
 ///import baidu.forEach;
 ///import baidu.type;
 ///import baidu._util_.valHooks;

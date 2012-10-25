@@ -71,8 +71,8 @@
 /**
  * @description 访问给定的上下文和参数列表中的所有回调
  * @function 
- * @name baidu.Callbacks().firewith()
- * @grammar baidu.Callbacks().firewith([context][,args])
+ * @name baidu.Callbacks().fireWith()
+ * @grammar baidu.Callbacks().fireWith([context][,args])
  * @param {Any} context 该列表中的回调被触发的上下文引用
  * @param {Any} args 一个参数或参数列表传回给回调列表
  * @return {Callbacks} 返回当前的Callbacks对象
