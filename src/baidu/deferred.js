@@ -87,7 +87,7 @@
  * @function 
  * @name baidu.Deferred().state()
  * @grammar baidu.Deferred().state()
- * @return {Deferred} 返回当前的Deferred对象的状态，"pending"：未完成，“resolved”：b，“rejected”：被拒绝（失败）
+ * @return {Deferred} 返回当前的Deferred对象的状态，"pending"：未完成，“resolved”：被解决，“rejected”：被拒绝（失败）
  */
 
 /**
