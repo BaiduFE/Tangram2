@@ -9,7 +9,7 @@
 ///import baidu.dom.contains;
 ///import baidu.dom.getCurrentStyle;
 ///import baidu.dom.css;
-///import baidu.data;
+///import baidu._util_.data;
 ///import baidu.dom.appendTo;
 ///import baidu.dom.css;
 
