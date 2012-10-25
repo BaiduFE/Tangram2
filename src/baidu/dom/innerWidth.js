@@ -2,7 +2,7 @@
  * @author linlingyu
  */
 ///import baidu.dom;
-///import baidu._util_._getWindowOrDocumentWidthOrHeight;
+///import baidu._util_.getWindowOrDocumentWidthOrHeight;
 ///import baidu._util_.getWidthOrHeight;
 /**
  * @description 取得第一个匹配元素的宽度，该宽度忽略margin, border的计算，但包含padding的计算

@@ -202,7 +202,8 @@ test("attr(String, Object)", function() {
 	equal( $radios2.prop("checked"), true, "Second radio was checked when clicked");
 	
 	
-	//去掉equal( $radios.attr("checked"), $radios[0].checked ? "checked" : undefined, "Known booleans do not fall back to attribute presence (#10278)");
+	//去掉
+	equal( $radios.attr("checked"), $radios[0].checked ? "checked" : undefined, "Known booleans do not fall back to attribute presence (#10278)");
 
 	baidu("#text1").prop("readOnly", true);
 	equal( document.getElementById("text1").readOnly, true, "Set readonly attribute" );
