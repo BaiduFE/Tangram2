@@ -19,22 +19,36 @@
  */
  
 baidu.each = function( enumerable, iterator, context ) {
-    var i, n, t, result;
+    var i, n, t, len, result;
 
     if ( typeof iterator == "function" && enumerable) {
 
-        // Array or ArrayLike or NodeList or String
-        if ( typeof enumerable.length == "number" ) {
+        if ( typeof enumerable == "object" ) {
 
-            for ( i=0, n=enumerable.length; i<n; i++ ) {
+            // Array or ArrayLike or NodeList or String
+            len = enumerable.length || enumerable.byteLength;
+            if ( typeof len == "number" ) {
 
-                t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
+                for ( i=0, n=len; i<n; i++ ) {
 
-                // 被循环执行的函数，默认会传入三个参数(i, array[i], array)
-                result = iterator.call( context || t, i, t, enumerable );
+                    t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
 
-                // 被循环执行的函数的返回值若为 false 和"break"时可以影响each方法的流程
-                if ( result === false || result == "break" ) {break;}
+                    // 被循环执行的函数，默认会传入三个参数(i, array[i], array)
+                    result = iterator.call( context || t, i, t, enumerable );
+
+                    // 被循环执行的函数的返回值若为 false 和"break"时可以影响each方法的流程
+                    if ( result === false || result == "break" ) {break;}
+                }
+
+            // enumerable is json
+            } else {
+                for (i in enumerable) {
+                    if ( enumerable.hasOwnProperty(i) ) {
+                        result = iterator.call( context || enumerable[ i ], i, enumerable[ i ], enumerable );
+
+                        if ( result === false || result == "break" ) { break;}
+                    }
+                }
             }
         
         // enumerable is number
@@ -43,17 +57,6 @@ baidu.each = function( enumerable, iterator, context ) {
             for (i=0; i<enumerable; i++) {
                 result = iterator.call( context || i, i, i, i);
                 if ( result === false || result == "break" ) { break;}
-            }
-        
-        // enumerable is json
-        } else if (typeof enumerable == "object") {
-
-            for (i in enumerable) {
-                if ( enumerable.hasOwnProperty(i) ) {
-                    result = iterator.call( context || enumerable[ i ], i, enumerable[ i ], enumerable );
-
-                    if ( result === false || result == "break" ) { break;}
-                }
             }
         }
     }

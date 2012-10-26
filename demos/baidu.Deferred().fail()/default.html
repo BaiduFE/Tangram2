@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Deferred().fail() 示例" />
+		<title>baidu.Deferred().fail()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Deferred().fail()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>baidu.Deferred().fail()</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn_fail">开始</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            var deferred = baidu.Deferred();
+            var wait = function(deferred){
+                setTimeout(function(){
+                    // 拒绝延迟对象
+                    deferred.reject();
+                },2000);
+                return deferred;
+            };
+            
+            baidu('#demo_btn_fail').one('click', function(){
+                clear();
+                output('执行开始，请等待2秒...');
+                baidu.when(wait(deferred))
+                .fail(function(){
+                    // 添加处理程序被调用时，延迟对象被拒绝的回调
+                    output('我是 fail 回调： 执行失败');
+                });
+            });
+            
+            function clear(){
+                baidu('#demo_execute_result').html('');
+            }
+            function output(v){
+                baidu('#demo_execute_result').html(baidu('#demo_execute_result').html()+'<br />' + v);
+            }
+		</script>
+	</body>
+</html>

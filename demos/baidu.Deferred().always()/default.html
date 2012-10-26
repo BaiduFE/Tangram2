@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.Deferred().always() 示例" />
+		<title>baidu.Deferred().always()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.Deferred().always()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>baidu.Deferred().always()</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-part">
+						<span class="button" id="demo_btn_always">开始</span>
+					</div>
+					<div class="pannel-show">
+                                                            运行结果：<span id="demo_execute_result"></span>
+                    </div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            var deferred = baidu.Deferred();
+            var wait = function(deferred){
+                setTimeout(function(){
+                    if(Math.round(Math.random())){
+                        output('解决延迟对象');
+                        deferred.resolve();      
+                    }else{
+                        output('拒绝延迟对象');
+                        deferred.reject();
+                    }
+                },2000);
+                return deferred;
+            };
+            
+            baidu('#demo_btn_always').one('click', function(){
+                clear();
+                output('执行开始，请等待2秒...');
+                baidu.when(wait(deferred))
+                .always(function(){
+                    // always
+                    output('我是 always 回调： 解决或拒绝时都会被调用');
+                });
+            });
+            
+            function clear(){
+                baidu('#demo_execute_result').html('');
+            }
+            function output(v){
+                baidu('#demo_execute_result').html(baidu('#demo_execute_result').html()+'<br />' + v);
+            }
+		</script>
+	</body>
+</html>

@@ -1,5 +1,5 @@
 ///import baidu;
-///import baidu._util_;
+
 /*
  * @fileoverview 在当前页面开辟一个全局的信息存放地
  * @name baidu.global
@@ -18,7 +18,8 @@
  * @return  {Object}                该key对象的对象
  */
 baidu.global = baidu.global || (function() {
-    var global = baidu._util_.$global = window[ baidu.guid ];
+    baidu._global_ = window[ baidu.guid ];
+    var global = baidu._global_._ = {};
 
     return function( key, value, overwrite ) {
         if ( typeof value != "undefined" ) {

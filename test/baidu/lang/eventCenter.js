@@ -1,6 +1,6 @@
 module("baidu.lang.eventCenter");
 	// 1
-	test("add dispatch remove", function() {
+	test("老接口：add dispatch remove", function() {
 
 		
 		function listner1() {
@@ -49,7 +49,7 @@ module("baidu.lang.eventCenter");
 		baidu.lang.eventCenter.dispatchEvent("onMyEvent");
 	});
 	// 2 constant dispatch event
-	test("constant dispatch event and the prefix of event name is not 'on'",
+	test("老接口：constant dispatch event and the prefix of event name is not 'on'",
 			function() {
 
 				function listner1() {
@@ -64,7 +64,7 @@ module("baidu.lang.eventCenter");
 				baidu.lang.eventCenter.dispatchEvent("MyEvent");
 			});
 	// 3 dispatch with options
-	test("dispatch event with options", function() {
+	test("老接口：dispatch event with options", function() {
 
 		function listner1() {
 			ok(true, "listner1 is added");
@@ -79,7 +79,7 @@ module("baidu.lang.eventCenter");
 
 	});
 	// 4 remove a listener which did not regist the event
-	test("remove EventListener without handler function or key", function() {
+	test("老接口：remove EventListener without handler function or key", function() {
 
 		function listner1() {
 			ok(true, "listner1 is added");
