@@ -1,6 +1,5 @@
 ///import baidu;
 ///import baidu.type;
-///import baidu._util_;
 ///import baidu.global;
 ///import baidu.browser;
 /*
@@ -75,7 +74,7 @@ baidu.id = function() {
             return maps[ object ];
         }
 
-        return "TANGRAM__" + baidu._util_.$global._counter ++;
+        return "TANGRAM__" + baidu._global_._._counter ++;
     };
 }();
 
