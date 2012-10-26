@@ -2,7 +2,7 @@ module("baidu.lang.createSingle");
 
 //import("baidu.lang.instance");
 
-test("with params", function(){
+test("老接口：with params", function(){
 	var so = baidu.lang.createSingle({
 		givenName: 'Jim',
 		company: 'baidu',
@@ -22,7 +22,7 @@ test("with params", function(){
 //	equals(baidu.lang.instance(i), null, 'baidu.lang.instance(i) = null'); // include src.baidu.lang.instance.js
 });
 
-test("without params", function(){
+test("老接口：without params", function(){
 	var so = baidu.lang.createSingle({test:"test"});
 	equals(so.test, "test", 'so.test = "test"');
 	equals(so.test1, undefined, 'so.test1 = undefined');
