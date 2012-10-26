@@ -1,6 +1,6 @@
 module("baidu.lang.Class.$addEventListeners");
 //加载快捷方式
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -29,7 +29,7 @@ test('prepareTest',function(){
 		}
 	};
 
-	test("1个参数，没有挂载函数", function() {
+	test("老接口：1个参数，没有挂载函数", function() {
 		expect(2);
 		function myClass() {
 			this.name = "myclass";
@@ -52,7 +52,7 @@ test('prepareTest',function(){
 		obj.dispatchEvent("onMyEvent2");
 	});
 
-	test("2个参数，有挂载函数", function() {
+	test("老接口：2个参数，有挂载函数", function() {
 		expect(3);
 		function myClass() {
 			this.name = "myclass";
@@ -76,7 +76,7 @@ test('prepareTest',function(){
 			obj.dispatchEvent("onMyEvent2");
 		});
 
-	test("参数不合法", function() {
+	test("老接口：参数不合法", function() {
 		expect(0);
 		function myClass() {
 			this.name = "myclass";

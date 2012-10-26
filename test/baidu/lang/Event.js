@@ -19,7 +19,7 @@ module("baidu.lang.Event");
 			proto._className = className;
 		}
 	};
-	test("dispatchEvent", function() {
+	test("老接口：dispatchEvent", function() {
 		expect(2);
 		function myClass() {
 			this.name = "myclass";
@@ -38,7 +38,7 @@ module("baidu.lang.Event");
 		
 		});
 
-	test("addEventListener", function() {
+	test("老接口：addEventListener", function() {
 		expect(2);
 		function myClass() {
 			this.name = "myclass";
@@ -57,7 +57,7 @@ module("baidu.lang.Event");
 			obj.dispatchEvent("YourEvent");
 		});
 	
-	test("addEventListener, more listeners", function() {
+	test("老接口：addEventListener, more listeners", function() {
 		expect(2);
 		function myClass() {
 			this.name = "myclass";
