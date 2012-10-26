@@ -22,19 +22,33 @@
  */
  
 baidu.forEach = function( enumerable, iterator, context ) {
-    var i, n, t;
+    var i, n, t, len;
 
     if ( typeof iterator == "function" && enumerable) {
 
-        // Array or ArrayLike or NodeList or String
-        if ( typeof enumerable.length == "number" ) {
+        if ( typeof enumerable == "object" ) {
 
-            for ( i=0, n=enumerable.length; i<n; i++ ) {
+            // Array or ArrayLike or NodeList or String
+            len = enumerable.length || enumerable.byteLength;
+            if ( typeof len == "number" ) {
 
-                t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
+                for ( i=0, n=len; i<n; i++ ) {
 
-                // 被循环执行的函数，默认会传入三个参数(array[i], i, array)
-                iterator.call( context || null, t, i, enumerable );
+                    t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
+
+                    // 被循环执行的函数，默认会传入三个参数(array[i], i, array)
+                    iterator.call( context || null, t, i, enumerable );
+                }
+
+            // enumerable is json
+            } else {
+                for (i in enumerable) {
+                    if ( enumerable.hasOwnProperty(i) ) {
+                        result = iterator.call( context || enumerable[ i ], i, enumerable[ i ], enumerable );
+
+                        if ( result === false || result == "break" ) { break;}
+                    }
+                }
             }
         
         // enumerable is number
@@ -42,15 +56,6 @@ baidu.forEach = function( enumerable, iterator, context ) {
 
             for (i=0; i<enumerable; i++) {
                 iterator.call( context || null, i, i, i);
-            }
-        
-        // enumerable is json
-        } else if (typeof enumerable == "object") {
-
-            for (i in enumerable) {
-                if ( enumerable.hasOwnProperty(i) ) {
-                    iterator.call( context || null, enumerable[ i ], i, enumerable );
-                }
             }
         }
     }

@@ -1,124 +1,126 @@
 module("baidu.lang.Class");
 (function() {
-	/* 引入_inherits */
-	var _inherits = function(subClass, superClass, className) {
-		var key, proto, selfProps = subClass.prototype, clazz = new Function();
+	if(baidu.lang.Class){
+		/* 引入_inherits */
+		var _inherits = function(subClass, superClass, className) {
+			var key, proto, selfProps = subClass.prototype, clazz = new Function();
 
-		clazz.prototype = superClass.prototype;
-		proto = subClass.prototype = new clazz();
-		for (key in selfProps) {
-			proto[key] = selfProps[key];
-		}
-		subClass.prototype.constructor = subClass;
-		subClass.superClass = superClass.prototype;
-
-		// 类名标识，兼容Class的toString，基本没用
-		if ("string" == typeof className) {
-			proto._className = className;
-		}
-	};
-	/*
-	 * 定义一些继承与baidu.lang.Class的类
-	 */
-	baidu.lang.Class.prototype.owner = 'baidu';
-	var Device = function() {
-		baidu.lang.Class.call(this);
-	};
-
-	Device.prototype = new baidu.lang.Class();
-	Device.prototype.constructor = Device;
-	Device.prototype.dispose = function() {
-		baidu.lang.Class.prototype.dispose.call(this);
-	};
-
-	var simpleDevice = function() {
-		Device.call(this);
-		this.tag = 'i am a simple device!';
-	};
-	_inherits(simpleDevice, Device);
-	simpleDevice.prototype.dispose = function() {
-		this.tag = null;
-		baidu.lang.Class.prototype.dispose.call(this);
-
-	};
-
-	var Monitor = function(mbrand) {
-		this.brand = mbrand;
-		Device.call(this);
-	};
-	_inherits(Monitor, Device, 'Monitor_Class');
-	Monitor.prototype.size = '22 inch';
-	Monitor.prototype.dispose = function() {
-		Device.prototype.dispose.call(this);
-		this.brand = null;
-		// BaseClass.prototype.dispose.call(this);
-	};
-
-	var MotherBoard = function(mproducer) {
-		this.producer = mproducer;
-		Device.call(this);
-	};
-	MotherBoard.prototype = {
-		voltage : '5v',
-		beep : true
-	};
-	_inherits(MotherBoard, Device, 'MotherBoard_Class');
-	MotherBoard.prototype.dispose = function() {
-		this.producer = null;
-		Device.prototype.dispose.call(this);
-	};
-
-	var InputDevice = function(damount) {
-		this.amount = damount;
-		this.state = 'Work Fine';
-		Device.call(this);
-	};
-	_inherits(InputDevice, Device, 'InputDevice_Class');
-	InputDevice.prototype.dispose = function() {
-		this.amount = null;
-		this.state = null;
-		Device.prototype.dispose.call(this);
-	};
-
-	var Computer = function(mbrand, monitorbrand, mproducer) {
-		this.machineBrand = mbrand;
-		this.inputPart = new InputDevice(2);
-		this.monitor = new Monitor(monitorbrand);
-		this.motherboard = new MotherBoard(mproducer);
-		Device.call(this);
-	};
-
-	_inherits(Computer, Device, 'Computer_Class');
-	Computer.prototype.dispose = function() {
-		this.machineBrand = null;
-		this.inputPart.dispose();
-		this.inputPart = null;
-		this.monitor.dispose();
-		this.monitor = null;
-		this.motherboard.dispose();
-		this.motherboard = null;
-		Device.prototype.dispose.call(this);
-	};
-
-	/*
-	 * The following codes check the results with JSSpec framework
-	 */
-	var guidArray = []; // This array contains all the guids of all the
-						// instances
-	var arrayContain = function(array, ele) {
-		i = 0;
-		while (i < array.length) {
-			if (array[i] == ele) {
-				return true;
+			clazz.prototype = superClass.prototype;
+			proto = subClass.prototype = new clazz();
+			for (key in selfProps) {
+				proto[key] = selfProps[key];
 			}
-			i = i + 1;
+			subClass.prototype.constructor = subClass;
+			subClass.superClass = superClass.prototype;
+
+			// 类名标识，兼容Class的toString，基本没用
+			if ("string" == typeof className) {
+				proto._className = className;
+			}
+		};
+		/*
+		 * 定义一些继承与baidu.lang.Class的类
+		 */
+		baidu.lang.Class.prototype.owner = 'baidu';
+		var Device = function() {
+			baidu.lang.Class.call(this);
+		};
+
+		Device.prototype = new baidu.lang.Class();
+		Device.prototype.constructor = Device;
+		Device.prototype.dispose = function() {
+			baidu.lang.Class.prototype.dispose.call(this);
+		};
+
+		var simpleDevice = function() {
+			Device.call(this);
+			this.tag = 'i am a simple device!';
+		};
+		_inherits(simpleDevice, Device);
+		simpleDevice.prototype.dispose = function() {
+			this.tag = null;
+			baidu.lang.Class.prototype.dispose.call(this);
+
+		};
+
+		var Monitor = function(mbrand) {
+			this.brand = mbrand;
+			Device.call(this);
+		};
+		_inherits(Monitor, Device, 'Monitor_Class');
+		Monitor.prototype.size = '22 inch';
+		Monitor.prototype.dispose = function() {
+			Device.prototype.dispose.call(this);
+			this.brand = null;
+			// BaseClass.prototype.dispose.call(this);
+		};
+
+		var MotherBoard = function(mproducer) {
+			this.producer = mproducer;
+			Device.call(this);
+		};
+		MotherBoard.prototype = {
+			voltage : '5v',
+			beep : true
+		};
+		_inherits(MotherBoard, Device, 'MotherBoard_Class');
+		MotherBoard.prototype.dispose = function() {
+			this.producer = null;
+			Device.prototype.dispose.call(this);
+		};
+
+		var InputDevice = function(damount) {
+			this.amount = damount;
+			this.state = 'Work Fine';
+			Device.call(this);
+		};
+		_inherits(InputDevice, Device, 'InputDevice_Class');
+		InputDevice.prototype.dispose = function() {
+			this.amount = null;
+			this.state = null;
+			Device.prototype.dispose.call(this);
+		};
+
+		var Computer = function(mbrand, monitorbrand, mproducer) {
+			this.machineBrand = mbrand;
+			this.inputPart = new InputDevice(2);
+			this.monitor = new Monitor(monitorbrand);
+			this.motherboard = new MotherBoard(mproducer);
+			Device.call(this);
+		};
+
+		_inherits(Computer, Device, 'Computer_Class');
+		Computer.prototype.dispose = function() {
+			this.machineBrand = null;
+			this.inputPart.dispose();
+			this.inputPart = null;
+			this.monitor.dispose();
+			this.monitor = null;
+			this.motherboard.dispose();
+			this.motherboard = null;
+			Device.prototype.dispose.call(this);
+		};
+
+		/*
+		 * The following codes check the results with JSSpec framework
+		 */
+		var guidArray = []; // This array contains all the guids of all the
+							// instances
+		var arrayContain = function(array, ele) {
+			i = 0;
+			while (i < array.length) {
+				if (array[i] == ele) {
+					return true;
+				}
+				i = i + 1;
+			}
+			return false;
 		}
-		return false;
 	}
 
 	// Start test ...
 
-	test("dispose", function() {
+	test("老接口：dispose", function() {
 		expect(3);
 		function myClass() {
 			this.name = "myclass";
@@ -137,7 +139,7 @@ module("baidu.lang.Class");
 
 		});
 	
-	test("toString", function() {
+	test("老接口：toString", function() {
 		function myClass() {
 			this.name = "myclass";
 		}

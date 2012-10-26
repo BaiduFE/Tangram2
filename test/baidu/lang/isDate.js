@@ -1,11 +1,11 @@
 module("baidu.lang.isDate");
 
-test("老接口：日期校验",function(){
+test("日期校验",function(){
 	expect(1);
 	ok(baidu.lang.isDate(new Date()),"new Date is date");
 });
 
-test("老接口：类型覆盖校验",function(){
+test("类型覆盖校验",function(){
 	// 空对象
     ok(!baidu.lang.isDate(),"empty obj is not boolean");
     // 字符串

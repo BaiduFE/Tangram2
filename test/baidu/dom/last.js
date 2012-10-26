@@ -23,7 +23,7 @@ test("获得最后一个元素（集合不包含元素）", function () {
 });
 
 //老用例
-test('最后一个子节点有空节点',function(){
+test('老接口：最后一个子节点有空节点',function(){
     expect(2);
     var div = document.createElement('div');
     var a = document.createElement('a');
@@ -39,7 +39,7 @@ test('最后一个子节点有空节点',function(){
     document.body.removeChild(div);
 })
 
-test('最后一个子节点后没有空节点',function(){
+test('老接口：最后一个子节点后没有空节点',function(){
     expect(1);
     var div = document.createElement('div');
     var a = document.createElement('a');
@@ -51,13 +51,13 @@ test('最后一个子节点后没有空节点',function(){
     document.body.removeChild(div);
 })
 
-test('不在dom树上',function(){
+test('老接口：不在dom树上',function(){
     expect(1);
     var div = document.createElement('div');
     equal(baidu.dom.last(div),null,"no child");
 })
 
-test('没有子节点',function(){
+test('老接口：没有子节点',function(){
     expect(1);
     var div = document.createElement('div');
     document.body.appendChild(div);

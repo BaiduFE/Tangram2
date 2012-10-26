@@ -1,23 +1,23 @@
 module("baidu.lang.isNumber");
 
-test("老接口：number类型", function(){
+test("number类型", function(){
 	equals(baidu.lang.isNumber(1), true, 'baidu.lang.isNumber(1) is true');
 });
 
-test("老接口：Number对象", function(){
+test("Number对象", function(){
 	equals(baidu.lang.isNumber(new Number(1)), true, 'baidu.lang.isNumber(new Number(1)) is true');
 });
 
 
-test("老接口：Object参数", function(){
+test("Object参数", function(){
 	equals(baidu.lang.isNumber({}), false, 'baidu.lang.isNumber({}) is true');
 });
 
-test("老接口：Function类型", function(){
+test("Function类型", function(){
 	equals(baidu.lang.isNumber(new Function()), false, 'baidu.lang.isNumber(new Function()) is false');
 });
 
-test("老接口：Element对象", function(){
+test("Element对象", function(){
 	var oDiv = document.createElement("div"); // create div
 	oDiv.id="erikElement";
 	document.body.appendChild(oDiv);
@@ -27,23 +27,23 @@ test("老接口：Element对象", function(){
 	oDiv.parentNode.removeChild(oDiv); // remove div
 });
 
-test("老接口：string类型", function(){
+test("string类型", function(){
 	equals(baidu.lang.isNumber("test"), false, 'baidu.lang.isNumber("test") is false');
 });
 
-test("老接口：boolean类型", function(){
+test("boolean类型", function(){
 	equals(baidu.lang.isNumber(true), false, 'baidu.lang.isNumber(true) is false');
 });
 
-test("老接口：null参数", function(){
+test("null参数", function(){
 	equals(baidu.lang.isNumber(null), false, 'baidu.lang.isNumber(null) is false');
 });
 
-test("老接口：undefined参数", function(){
+test("undefined参数", function(){
 	equals(baidu.lang.isNumber(void(0)), false, 'baidu.lang.isNumber(void(0)) is false');
 });
 
-test("老接口：NaN", function(){
+test("NaN", function(){
 	equals(baidu.lang.isNumber(NaN), false, 'baidu.lang.isNumber(NaN) is false');
 });
 

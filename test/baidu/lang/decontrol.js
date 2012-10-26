@@ -1,6 +1,6 @@
 module("baidu.lang.decontrol");
 
-test('guid', function() {
+test('老接口：guid', function() {
 	var m = window[baidu.guid];
 	m._maps_id['a'] = {};
 	baidu.lang.decontrol('a');
