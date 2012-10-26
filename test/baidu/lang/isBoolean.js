@@ -1,6 +1,6 @@
 module("baidu.lang.isBoolean");
 
-test("老接口：类型覆盖校验",function(){
+test("类型覆盖校验",function(){
 	// 空对象
     ok(!baidu.lang.isBoolean(),"empty obj is not boolean");
     // 字符串

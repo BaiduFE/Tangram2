@@ -6,7 +6,7 @@ function myClass(option) {
 	this.getInfo = option.getInfo;
 }
 
-test("constructorHook", function(){
+test("老接口：constructorHook", function(){
 	expect(4);
 	stop();
 	ua.importsrc("baidu.lang.createClass", function(){
@@ -27,7 +27,7 @@ test("constructorHook", function(){
 	}, "baidu.lang.createClass", "baidu.lang.register");
 });
 
-test("methods", function(){
+test("老接口：methods", function(){
 	expect(3);
 	stop();
 	ua.importsrc("baidu.lang.createClass", function(){

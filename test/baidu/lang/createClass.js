@@ -10,7 +10,7 @@ function myClass(option) {
 	this.getInfo = option.getInfo;
 }
 
-test("default parent class", function(){
+test("老接口：default parent class", function(){
 	var NewClass = baidu.lang.createClass(myClass);
 	var sObject = new NewClass({
 		givenName: 'Jim',
@@ -30,7 +30,7 @@ test("default parent class", function(){
 	equals(sObject instanceof baidu.lang.Class, true, 'sObject instanceof baidu.lang.Class is true');
 });
 
-test("specific parent class point to baidu.lang.Class", function(){
+test("老接口：specific parent class point to baidu.lang.Class", function(){
 	var NewClass = baidu.lang.createClass(myClass, new function(){
 		baidu.lang.Class.call(this);
 	});
@@ -52,7 +52,7 @@ test("specific parent class point to baidu.lang.Class", function(){
 	equals(sObject instanceof baidu.lang.Class, true, 'sObject instanceof baidu.lang.Class is true');
 });
 
-test("specific parent class", function(){
+test("老接口：specific parent class", function(){
 	var NewClass = baidu.lang.createClass(myClass, new function(){
 	});
 	
@@ -74,7 +74,7 @@ test("specific parent class", function(){
 	equals(sObject instanceof baidu.lang.Class, true, 'sObject instanceof baidu.lang.Class is true');
 });
 
-test("option param", function(){
+test("老接口：option param", function(){
 	function superClass(){
 		this.superClassname = "superMyclass";
 		ok(true,"to superClass !");
@@ -92,7 +92,7 @@ test("option param", function(){
 	equal(sObject.superClassname,new superClass().superClassname,"this is superClassname");
 });
 
-test("class extend", function(){
+test("老接口：class extend", function(){
 	function superClass(){
 		this.superClassname = "superMyclass";
 	}
@@ -111,7 +111,7 @@ test("class extend", function(){
 	equal(sObject.extend(),extendFunc(),"extend is success");
 });
 
-test("global config", function(){
+test("老接口：global config", function(){
 	expect(4);
 	var NewClass = baidu.lang.createClass(myClass, {
 		options : {subtitle : "test"}
