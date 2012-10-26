@@ -43,20 +43,4 @@ baidu.url.queryToJson = function(url){
     }
     return ret;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /// Tangram 1.x Code End

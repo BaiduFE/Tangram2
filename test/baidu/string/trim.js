@@ -25,7 +25,7 @@ test("删除字符串两边的空格", function(){
 });
 
 //老接口
-test("老接口：删除字符串两边的空格", function(){
+test("删除字符串两边的空格", function(){
 	var sStr = "     半角空格tab键	 ";
 	equals(baidu.string.trim(sStr), "半角空格tab键");
 	

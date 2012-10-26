@@ -1,7 +1,7 @@
 module('baidu.dom.setAttrs')
 
 //加载快捷方式
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -13,7 +13,7 @@ test('prepareTest',function(){
 });
 
 //新接口
-test('基础测试', function() {
+test('老接口：基础测试', function() {
 	expect(3);
 	var img = document.createElement('img');
 	var attrs = {"align":"right", "width":30, "height":20};
@@ -23,7 +23,7 @@ test('基础测试', function() {
 	equal(img.getAttribute('height'),20,"img gets height attribute");
 });
 
-test('shortcut',function(){
+test('老接口：shortcut',function(){
 	expect(3);
 	var img = document.createElement('img');
 	var attrs = {"align":"right", "width":30, "height":20};
@@ -34,7 +34,7 @@ test('shortcut',function(){
 })
 
 //老接口
-test('基础测试', function() {
+test('老接口：基础测试', function() {
 	expect(3);
 	var img = document.createElement('img');
 	var attrs = {"align":"right", "width":30, "height":20};
@@ -44,7 +44,7 @@ test('基础测试', function() {
 	equal(img.getAttribute('height'),20,"img gets height attribute");
 });
 
-test('shortcut',function(){
+test('老接口：shortcut',function(){
 	expect(3);
 	var img = document.createElement('img');
 	var attrs = {"align":"right", "width":30, "height":20};

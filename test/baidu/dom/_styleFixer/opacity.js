@@ -1,6 +1,6 @@
 module('baidu.dom._styleFixer.opacity');
 
-test('opacity', function() {
+test('老接口：opacity', function() {
 	var func = baidu.dom._styleFixer.opacity;
 	if (ua.browser.ie) {
 		stop();

@@ -1,4 +1,3 @@
-/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -28,6 +27,4 @@
 //baidu.lang.isObject = function (source) {
 //    return 'function' == typeof source || !!(source && 'object' == typeof source);
 //};
-
-/// Tangram 1.x Code End
 baidu.lang.isObject = baidu.isObject;

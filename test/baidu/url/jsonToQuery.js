@@ -1,10 +1,10 @@
 module("baidu.url.jsonToQuery");
 
-test("Json没有属性对", function(){
+test("老接口：Json没有属性对", function(){
 	equals(baidu.url.jsonToQuery({}), "", '');
 });
 
-test("Json只有一个属性对", function(){
+test("老接口：Json只有一个属性对", function(){
 	//属性和值中包括字母、数字，符号字符
 	equals(baidu.url.jsonToQuery({"zaq147!@":"xsw258$^"}), "zaq147!@=xsw258$^", '');
 	//属性和值只有一个字符
@@ -25,25 +25,25 @@ test("Json只有一个属性对", function(){
 	equals(baidu.url.jsonToQuery({"ＡａｂＢ！＠＃＄％＾＆＊（）＿＋＝／　１２３４\t\a":"１９０ａｌｄｏｅ；ｓ）（＊＆＾％＄＃＠\n\f"}), 'ＡａｂＢ！＠＃＄％＾＆＊（）＿＋＝／　１２３４\t\a=１９０ａｌｄｏｅ；ｓ）（＊＆＾％＄＃＠\%0A\%0C', '');
 });
 
-test("Json不止一个属性对", function(){
+test("老接口：Json不止一个属性对", function(){
 	equals(baidu.url.jsonToQuery({"zaq147!@":"xsw258$^", "a":"q", "@":"$", "+":"+", "abc中文":"你好baidu","ＡａｂＢ！＠＃＄％＾＆＊（）＿＋＝／　１２３４\t\a":"１９０ａｌｄｏｅ；ｓ）（＊＆＾％＄＃＠\n\f"}), "zaq147!@=xsw258$^&a=q&@=$&+=%2B&abc中文=你好baidu&ＡａｂＢ！＠＃＄％＾＆＊（）＿＋＝／　１２３４\t\a=１９０ａｌｄｏｅ；ｓ）（＊＆＾％＄＃＠\%0A\%0C", '');
 	//key名字可能与前面的&符号组成实体字符，如&copy=1,这是不正常的用法
 	equals(baidu.url.jsonToQuery({"copy":"1", "copy3":"2", "lt;":"\t"}), "copy=1&copy3=2&lt;=%09", '');
 });
 
-test("Json存在相同的属性对", function(){
+test("老接口：Json存在相同的属性对", function(){
 	equals(baidu.url.jsonToQuery({"abc":"123abc", "abc":"27ad", "aaa":"aaa", "adc":"+aa", "abc中文":"你好baidu","ccc":"dds", "adc":"degc", "abc中文":"你好aaaddbaidu", "adc":"34fdgf"}), "abc=27ad&aaa=aaa&adc=34fdgf&abc中文=你好aaaddbaidu&ccc=dds", '');
 });
 
-test("Json的属性值中存在&、+等字符", function(){
+test("老接口：Json的属性值中存在&、+等字符", function(){
 	equals(baidu.url.jsonToQuery({"abc%&":"123abc =", "aaa+/":"aaa#/", "adc#=":"+&aa", "abc中文 ":"你好%baidu", "%25":"&26"}), "abc%&=123abc%20%3D&aaa+/=aaa%23%2F&adc#==%2B%26aa&abc中文 =你好%25baidu&%25=%2626", '');
 });
 
-test("replacer方法有效",  function(){
+test("老接口：replacer方法有效",  function(){
 	equals(baidu.url.jsonToQuery({"acdc":"123abc", "abc":"27ad", "abc中文":"你好baidu"}, function(value, key){var value=value+key; return value;}), "acdc=123abcacdc&abc=27adabc&abc中文=你好baiduabc中文", '');
 });
 
-test("嵌套的object",  function(){
+test("老接口：嵌套的object",  function(){
 	var array1 = [1,2,3],
 	    array2 = [4,5,6],
 	    array3 = [7,8,9];

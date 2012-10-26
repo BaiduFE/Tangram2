@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -37,3 +38,5 @@ baidu.fx.puff = function(element, options) {
         }, options||{})
     );
 };
+
+/// Tangram 1.x Code End

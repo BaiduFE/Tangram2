@@ -1,7 +1,7 @@
 module("baidu.page.loadJsFile");
 
 
-test("load两个存在的JS", function() {
+test("老接口：load两个存在的JS", function() {
 //expect(2);
 stop();
 baidu.page.loadJsFile(upath + 'jsfile1.js');
@@ -35,7 +35,7 @@ isLoaded();
 
 });
 
-test("load不存在的JS", function() {
+test("老接口：load不存在的JS", function() {
 	expect(0);
 	stop();
 	baidu.page.loadJsFile(upath+'jsfileNotExsist.js');

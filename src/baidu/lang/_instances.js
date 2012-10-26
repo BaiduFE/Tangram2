@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -20,3 +21,4 @@
 baidu.global("_maps_id");
 
 //	[TODO]	meizz	在2012年版本中将删除此模块
+/// Tangram 1.x Code End

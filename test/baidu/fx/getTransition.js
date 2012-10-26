@@ -1,6 +1,6 @@
 module('baidu.fx.getTransition');
 
-test('retrun value',function(){
+test('老接口：retrun value',function(){
 	expect(10);
 	var getTransition = baidu.fx.getTransition;
 	var r = (getTransition('reverse'))(0.1);

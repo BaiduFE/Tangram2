@@ -9,7 +9,6 @@
  */
 
 ///import baidu.dom;
-///import baidu.dom._g;
 
 /**
  * @description 判断一个元素是否包含另一个元素
@@ -25,9 +24,23 @@
  */
  
 baidu.dom.extend({
-contains : function ( contained) {
-	if(this.size()<=0){return false;}
-	container = this[0];
+    contains : function(contained) {
+        contained = baidu.dom(contained);
+        if(this.size() <= 0
+            || contained.size() <= 0){
+            return false;
+        }
+        var container = this[0];
+        contained = contained[0];
+        //fixme: 无法处理文本节点的情况(IE)
+        return container.contains
+            ? container != contained && container.contains(contained)
+            : !!(container.compareDocumentPosition(contained) & 16);
+    }	
+});
+/// Tangram 1.x Code Start
+///import baidu.dom._g;
+baidu.dom.contains = function (container, contained) {
     var g = baidu.dom._g;
     container = g(container);
     contained = g(contained);
@@ -36,5 +49,5 @@ contains : function ( contained) {
     return container.contains
         ? container != contained && container.contains(contained)
         : !!(container.compareDocumentPosition(contained) & 16);
-}	
-});
+};
+/// Tangram 1.x Code End

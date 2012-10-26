@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -54,3 +55,4 @@ baidu.lang.Class.prototype.removeEventListener = function (type, handler) {
 };
 
 // 2011.12.19 meizz 为兼容老版本的按 key 删除，添加了一行代码
+/// Tangram 1.x Code End

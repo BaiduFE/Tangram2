@@ -177,7 +177,7 @@ test("异常case12",function () {
 });
 
 //老接口
-test("老接口：默认分隔符Json数据格式化字符串", function(){
+test("默认分隔符Json数据格式化字符串", function(){
 	var sPattern = "id=#{id}?+&action=#{action}&||type=#{type}.*result=#{result}";
 	
 	var sRet;
@@ -198,7 +198,7 @@ test("老接口：默认分隔符Json数据格式化字符串", function(){
 	equals(sRet, "#a: 中文hello字符${0}$1c");	
 }); // 1
 
-test("老接口：默认分隔符多个参数格式化字符串", function(){
+test("默认分隔符多个参数格式化字符串", function(){
 	var sPattern = "a:#{0}|b:#{1}|c:#{2}";
 	var sRet;
 	
@@ -220,7 +220,7 @@ test("老接口：默认分隔符多个参数格式化字符串", function(){
 	equals(sRet, "a|c|e");
 }); // 2
 
-test("老接口：默认数组数据格式化字符串", function(){
+test("默认数组数据格式化字符串", function(){
 	var sPattern = "a:#{0}|b:#{1}|c:#{2}";
 	var sRet;
 	
@@ -243,7 +243,7 @@ test("老接口：默认数组数据格式化字符串", function(){
 	
 }); // 3
 
-test("老接口：特殊case", function(){
+test("特殊case", function(){
 	var sPattern, sRet;
 	
 	//第一个0
@@ -262,7 +262,7 @@ test("老接口：特殊case", function(){
 	equals(sRet, "abc");
 });  // 4
 
-test("老接口：异常case1", function(){
+test("异常case1", function(){
 	var sPattern = "a:#{a},b=#{c}";
 	var sRet;
 	
@@ -270,42 +270,42 @@ test("老接口：异常case1", function(){
 	equals(sRet, "a:A,b=");
 });  // 5
 
-test("老接口：异常case2", function(){
+test("异常case2", function(){
 	//2种方式混杂
 	var sPattern = "a=#{a},b=#{0},c=#{c},d=#{1}";
 	var sRet = baidu.string.format(sPattern, {a:"A",c:"C",0:"B",1:"D"});
 	equals(sRet, "a=A,b=B,c=C,d=D");
 });  // 6
 
-test("老接口：异常case3", function(){
+test("异常case3", function(){
 	//顺序颠倒
 	sPattern = "#{1}|#{0}";
 	sRet = baidu.string.format(sPattern, "A", "B");
 	equals(sRet, "B|A");
 });  // 7
 
-test("老接口：异常case4", function(){
+test("异常case4", function(){
 	//负序号
 	sPattern = "#{-1}|#{0}|#{2}";
 	sRet = baidu.string.format(sPattern, "A", "B");
 	equals(sRet, "|A|");
 });  // 8
 
-test("老接口：异常case5", function(){
+test("异常case5", function(){
 	//#{}括号内包含特殊字符{
 	sPattern = "#{ab{cd}";
 	sRet = baidu.string.format(sPattern, {"ab{cd":"OK"});
 	equals(sRet, "OK");
 });  // 9
 
-test("老接口：异常case6", function(){
+test("异常case6", function(){
 	//特殊对象 RegExp
 	sPattern = "#{0}";
 	sRet = baidu.string.format(sPattern, /a/);
 	equals(sRet, "/a/");
 });  // 10
 
-test("老接口：异常case7", function(){
+test("异常case7", function(){
 	sPattern = "#{0}";
 	sRet = baidu.string.format(sPattern, null);
 	equals(sRet, "null");
@@ -317,25 +317,25 @@ test("老接口：异常case7", function(){
 //	equals(sRet, "0");
 //});  // 12
 
-test("老接口：异常case9", function(){
+test("异常case9", function(){
 	sPattern = "#{0}#{1}";
 	sRet = baidu.string.format(sPattern, [,"a"]);
 	equals(sRet, "a");
 });  // 13
 
-test("老接口：异常case10", function(){
+test("异常case10", function(){
 	sPattern = "#{0}#{1}";
 	sRet = baidu.string.format(sPattern, [,false]);
 	equals(sRet, "false");
 });  // 14
 
-test("老接口：异常case11", function(){
+test("异常case11", function(){
 	sPattern = "#{0} #{1} #{2} #{3} #{4} #{5}";
 	sRet = baidu.string.format(sPattern, [,false, 100, function(){return 123}, [1,2], {a:"a"}]);
 	equals(sRet, " false 100 123 1,2 [object Object]");
 });  // 15
 
-test("老接口：异常case12",function () {
+test("异常case12",function () {
 	sPattern = "#error #test";
 	sRet = baidu.string.format(sPattern);
 	equals(sRet, "#error #test", "无格式自动返回当前源");

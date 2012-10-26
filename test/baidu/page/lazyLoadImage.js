@@ -1,6 +1,6 @@
 module("baidu.page.lazyLoadImage");
 
-test("base", function() {
+test("老接口：base", function() {
 	expect(3);
 	var iframe = document.createElement('iframe');
 	document.body.appendChild(iframe);
@@ -24,7 +24,7 @@ test("base", function() {
 						frames[0].scroll(0, 1000);
 					}, 0);
 				} else {
-					baidu.un(frames[0], 'scroll', check);
+					baidu.dom(frames[0]).off('scroll', check);
 					setTimeout(function() {
 						ok(img.src.indexOf("test.jpg") >= 0, "图片显示链接更新");
 						iframe.parentNode.removeChild(iframe);
@@ -33,7 +33,7 @@ test("base", function() {
 				}
 			};
 
-			baidu.on(frames[0], 'scroll', check);
+			baidu.dom(frames[0]).on('scroll', check);
 			frames[0].scroll(0, 20);
 		}
 	}, 50);

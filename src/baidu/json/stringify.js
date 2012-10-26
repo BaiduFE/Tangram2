@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -10,6 +10,7 @@
  */
 
 ///import baidu.json;
+///import baidu.type;
 
 /**
  * @description 将json对象序列化
@@ -128,9 +129,9 @@ baidu.json.stringify = (function () {
         default:
             if (value === null) {
                 return 'null';
-            } else if (value instanceof Array) {
+            } else if (baidu.type(value) === 'array') {
                 return encodeArray(value);
-            } else if (value instanceof Date) {
+            } else if (baidu.type(value) === 'date') {
                 return encodeDate(value);
             } else {
                 var result = ['{'],
@@ -161,4 +162,4 @@ baidu.json.stringify = (function () {
         }
     };
 })();
-/// Tangram 1.x Code End
+

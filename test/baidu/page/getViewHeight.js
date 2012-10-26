@@ -1,6 +1,6 @@
 module("baidu.page.getViewHeight");
 
-test("无滚动条", function() {
+test("老接口：无滚动条", function() {
 	ua.frameExt( {
 		onafterstart : function(f) {
 			$(f).css('width', 200).css('height', 200);
@@ -41,7 +41,7 @@ function getScrollBarWidth() {
   return (w1 - w2);  
 };
 
-test("有滚动条", function() {
+test("老接口：有滚动条", function() {
 	ua.frameExt( {
 		onafterstart : function(f) {
 			$(f).css('width', 200).css('height',200 );

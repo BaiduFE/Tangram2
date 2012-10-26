@@ -1,6 +1,6 @@
 module("baidu.dom.resizable");
 
-test("base", function() {
+test("老接口：base", function() {
 	// 添加了三个元素，e、s、es
 	var div = document.body.appendChild(document.createElement("div"));
 	$(div).css("width", 40).css("height", 40).css("position", "absolute").css(
@@ -19,7 +19,7 @@ test("base", function() {
 	$(div).remove();
 });
 
-test("drag e", function() {
+test("老接口：drag e", function() {
 	var div = document.body.appendChild(document.createElement("div"));
 	$(div).css("width", 40).css("height", 40).css("position", "absolute").css(
 			"left", 0).css("top", 40).css("backgroundColor", "red");
@@ -55,7 +55,7 @@ test("drag e", function() {
 	}, 30);
 });
 
-test("drag s", function() {
+test("老接口：drag s", function() {
 	var div = document.body.appendChild(document.createElement("div"));
 	$(div).css("width", 40).css("height", 40).css("position", "absolute").css(
 			"left", 0).css("top", 80).css("backgroundColor", "red");
@@ -91,7 +91,7 @@ test("drag s", function() {
 	}, 30);
 });
 
-test("drag e", function() {
+test("老接口：drag e", function() {
 	var div = document.body.appendChild(document.createElement("div"));
 	$(div).css("width", 40).css("height", 40).css("position", "absolute").css(
 			"left", 0).css("top", 0).css("backgroundColor", "red");
@@ -127,7 +127,7 @@ test("drag e", function() {
 	}, 30);
 });
 
-test("mouseup on body", function() {
+test("老接口：mouseup on body", function() {
 	expect(3);
 	var div = document.body.appendChild(document.createElement("div"));
 	$(div).css("width", 40).css("height", 40).css("position", "absolute").css(
@@ -166,7 +166,7 @@ test("mouseup on body", function() {
 	}, 30);
 });
 
-test("start again before stop", function() {
+test("老接口：start again before stop", function() {
 	expect(4);
 	var div = document.body.appendChild(document.createElement("div"));
 	$(div).css("width", 40).css("height", 40).css("position", "absolute").css(
@@ -216,7 +216,7 @@ test("start again before stop", function() {
 	}, 30);
 });
 
-test("start again after stop", function() {
+test("老接口：start again after stop", function() {
 	expect(4);
 	var div = document.body.appendChild(document.createElement("div"));
 	$(div).css("width", 40).css("height", 40).css("position", "absolute").css(

@@ -1,8 +1,17 @@
 /**
  * @author linlingyu
  */
+
 ///import baidu.dom.map;
 ///import baidu.dom.getCurrentStyle;
+
+/**
+ * @description 取得元素的父元素
+ * @function 
+ * @name baidu.dom().offsetParent()
+ * @grammar baidu.dom(args).offsetParent()
+ * @return {TangramDom} 返回之前匹配的TangramDom对象
+ */
 baidu.dom.extend({
     offsetParent: function(){
         return this.map(function(){

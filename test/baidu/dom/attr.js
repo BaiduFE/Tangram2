@@ -6,7 +6,7 @@ var functionReturningObj = function(value) { return (function() { return value; 
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.browser.safari,baidu.dom.remove,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');
@@ -106,6 +106,8 @@ test("attr(String)", function() {
 	equal( baidu("<div/>").attr("value"), undefined, "An unset value on a div returns undefined." );
 	equal( baidu("<input/>").attr("value"), "", "An unset value on an input returns current value." );
 	$form = baidu("#form").attr("enctype", "multipart/form-data");
+
+
 	equal( $form.prop("enctype"), "multipart/form-data", "Set the enctype of a form (encoding in IE6/7 #6743)" );
 });
 
@@ -274,6 +276,7 @@ test("attr(String, Object)", function() {
 	table.attr("cellspacing", "2");
 	equal( table[0].cellSpacing, "2", "Check cellspacing is correctly set" );
 
+
 	equal( baidu("#area1").attr("value"), "foobar", "Value attribute retrieves the property for backwards compatibility." );
 
 	// for #1070
@@ -282,14 +285,18 @@ test("attr(String, Object)", function() {
 	baidu("#name").attr("someAttr", 0);
 	equal( baidu("#name").attr("someAttr"), "0", "Set attribute to the number 0" );
 	baidu("#name").attr("someAttr", 1);
+
 	equal( baidu("#name").attr("someAttr"), "1", "Set attribute to the number 1" );
 
-	// using contents will get comments regular, text, and comment nodes
-	var j = baidu("#nonnodes").contents();
 
-	j.attr("name", "attrvalue");
-	equal( j.attr("name"), "attrvalue", "Check node,textnode,comment for attr" );
-	j.removeAttr("name");
+	// using contents will get comments regular, text, and comment nodes
+		var j = baidu("#nonnodes").contents();
+
+		j.attr("name", "attrvalue");
+
+		equal( j.attr("name"), "attrvalue", "Check node,textnode,comment for attr" );
+
+		j.removeAttr("name");
 
 	// Type
 	var type = baidu("#check2").attr("type");
@@ -333,6 +340,7 @@ test("attr(String, Object)", function() {
 		thrown = true;
 	}
 	ok( thrown, "Exception thrown when trying to change type property" );
+
 	equal( "button", button.attr("type"), "Verify that you can't change the type of a button element" );
 
 	//修改
@@ -343,6 +351,7 @@ test("attr(String, Object)", function() {
 	var $svg = baidu("<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' baseProfile='full' width='200' height='200'>"
 		+ "<circle cx='200' cy='200' r='150' />"
 	+ "</svg>").appendTo("body");
+
 	equal( $svg.attr("cx", 100).attr("cx"), "100", "Set attribute on svg element" );
 	$svg.remove();
 

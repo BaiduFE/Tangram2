@@ -8,7 +8,6 @@
  * date: 2010-07-05
  */
 
-///import baidu.lang;
 ///import baidu.lang.isArray;
 ///import baidu.lang.isFunction;
 

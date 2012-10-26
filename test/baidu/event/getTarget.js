@@ -15,7 +15,7 @@ module('baidu.event.getTarget');
 		}
 	};
 	
-	test('dom', function() {
+	test('老接口：dom', function() {
 		expect(1);
 		var callback = function(e) {
 			equal(div, baidu.event.getTarget(e), 'target is div');
@@ -32,7 +32,7 @@ module('baidu.event.getTarget');
 	 * document不能直接派发click事件，因为document是一个抽象的东西，用户不可能会对它直接派发事件，
 	 * 而所有事件的click事件都会冒泡到document上,选择在document上注册，在body上派发*
 	 **************************************************************************/
-	test('document,click',
+	test('老接口：document,click',
 			function() {
 				expect(1);
 				var callback = function(e) {
@@ -45,7 +45,7 @@ module('baidu.event.getTarget');
 				un(document, 'click', callback);
 			});
 
-	test('document,keypress',
+	test('老接口：document,keypress',
 			function() {
 				expect(1);
 				var i = 0;

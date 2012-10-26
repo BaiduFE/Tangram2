@@ -33,28 +33,28 @@ var opV = {/* fx效果方法依赖参数 */
     }
 };
 
-test('校验元素类型为id', function() {
+test('老接口：校验元素类型为id', function() {
 	te.checkfx.create(te.dom[0].id, {
 		method : baidu.fx.expand,
 		options : op
 	}).checkbase();
 });
 
-test('校验元素类型为dom', function() {
+test('老接口：校验元素类型为dom', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.expand,
 		options : op
 	}).checkbase();
 });
 
-test('校验orientation 为vertical', function() {
+test('老接口：校验orientation 为vertical', function() {
     te.checkfx.create(te.dom[0], {
         method : baidu.fx.expand,
         options : opV
     }).checkbase();
 });
 
-test('校验事件序列', function() {
+test('老接口：校验事件序列', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.expand,
 		beforestart : function() {/* 初始设置启动高度为100 */
@@ -65,7 +65,7 @@ test('校验事件序列', function() {
 	}, 4);
 });
 
-test('校验时间序列', function() {
+test('老接口：校验时间序列', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.expand,
 		beforestart : function() {/* 初始设置启动高度为100 */
@@ -78,7 +78,7 @@ test('校验时间序列', function() {
 	});
 });
 
-test('校验cancel', function() {
+test('老接口：校验cancel', function() {
 	te.checkfx.create(te.dom[0], {
 		method : baidu.fx.expand,
 		beforestart : function() {/* 初始设置启动高度为100 */

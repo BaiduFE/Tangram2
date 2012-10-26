@@ -1,6 +1,6 @@
 module("baidu.dom.getStyle");
 
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 	ua.importsrc("baidu.lang.isString", function(){
@@ -26,7 +26,7 @@ var check = function(dom, options) {
 	options.remove && document.body.removeChild(dom);
 	typeof options.callback == 'function' && options.callback();
 };
-test("null height ", function() {
+test("老接口：null height ", function() {
 	var img = document.createElement('img');
 	document.body.appendChild(img);
 	check(null, {
@@ -36,7 +36,7 @@ test("null height ", function() {
 
 });
 // 1
-test("style src null", function() {
+test("老接口：style src null", function() {
 	var img = document.createElement('img');
 	document.body.appendChild(img);
 	check(img, {
@@ -46,7 +46,7 @@ test("style src null", function() {
 
 });
 // 2
-test("img height、float", function() {
+test("老接口：img height、float", function() {
 	var img = document.createElement('img');
 	document.body.appendChild(img);
 	if (ua.browser['firefox'] || ua.browser['ie']) {
@@ -65,7 +65,7 @@ test("img height、float", function() {
 	});
 });
 // 3
-test("img height,width by id", function() {
+test("老接口：img height,width by id", function() {
 	var img = document.createElement('img');
 	img.id = 'img_id';
 	document.body.appendChild(img);
@@ -80,7 +80,7 @@ test("img height,width by id", function() {
 
 });
 // 4
-test("float,color,display", function() {
+test("老接口：float,color,display", function() {
 	stop();
 	var div = document.createElement('div');
 	var a = document.createElement('a');
@@ -107,7 +107,7 @@ test("float,color,display", function() {
 });
 // 5
 /** css加载也需要时间 * */
-test("get style from css file", function() {
+test("老接口：get style from css file", function() {
 	stop();
 	var div = document.createElement('div');
 	var div1 = document.createElement('div');
@@ -170,7 +170,7 @@ test("get style from css file", function() {
 	ua.loadcss(upath + 'style.css', handle, 'content', 'width', '200px');
 });
 
-test("null style ", function() {
+test("老接口：null style ", function() {
 	stop();
 	ua.importsrc("baidu.dom._styleFixer.size", function(){
 		var div = document.createElement('div');

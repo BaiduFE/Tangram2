@@ -1,6 +1,6 @@
 ﻿module('baidu.dom.setPosition');
 
-test('基础用例', function() {
+test('老接口：基础用例', function() {
 
     var div = document.createElement('div');
 
@@ -18,7 +18,7 @@ test('基础用例', function() {
     equal(baidu.dom.getStyle(div, "top"), '-100px', "应该减去margin-top的偏移");
 });
     
-test('not set marginLeft value', function() {
+test('老接口：not set marginLeft value', function() {
 
     var div = document.createElement('div');
 

@@ -1,7 +1,7 @@
 //Event的stop方法
 module("stop event");
 
-test("stop事件--结合stopPropagation和preventDefault",function(){
+test("老接口：stop事件--结合stopPropagation和preventDefault",function(){
 	
     stop();
     

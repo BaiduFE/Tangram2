@@ -1,6 +1,6 @@
 module("preventDefault");
 
-test("阻止默认行为", function() {
+test("老接口：阻止默认行为", function() {
     stop();
 	expect(1);
 	var div = document.createElement('div');

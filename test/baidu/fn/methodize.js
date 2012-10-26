@@ -8,7 +8,7 @@ module('baidu.fn.methodize');
  */
 
 //新接口
-test('base', function() {
+test('老接口：base', function() {
 	var fn1 = function(a){
 		return a.t; 
 	},

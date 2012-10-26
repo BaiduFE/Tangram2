@@ -76,19 +76,19 @@ test('page not exist with timeOut', function() {
 });
 
 //老接口
-test('老接口：callback is function', function() {
+test('callback is function', function() {
 	stop();
 	baidu.sio.callByBrowser(upath + "exist.js", check1);
 });
 
-test('老接口：charset utf-8', function() {
+test('charset utf-8', function() {
 	stop();
 	baidu.sio.callByBrowser(upath + "exist-utf.js", check1, {
 		charset : "UTF-8"
 	});
 });
 
-test('老接口：charset gbk', function() {
+test('charset gbk', function() {
 	/**
 	 * opera下无法动态切换
 	 */
@@ -105,7 +105,7 @@ test('老接口：charset gbk', function() {
 /**
  * 由于不存在网页不会触发回调，设置半秒超时，用例可能会有问题…… FIXME:to QA:用例有啥问题？
  */
-test('老接口：js not exist', function() {
+test('js not exist', function() {
 	stop();
 	var h, check1 = function() {
 		clearTimeout(h);
@@ -119,7 +119,7 @@ test('老接口：js not exist', function() {
 	}, 500);
 });
 
-test('老接口：page not exist with timeOut', function() {
+test('page not exist with timeOut', function() {
 	if ($.browser.msie)
 		// || $.browser.opera) //更新by bell，opera下照样能call到onfailure
 		expect(1);

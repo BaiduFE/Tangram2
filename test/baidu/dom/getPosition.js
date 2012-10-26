@@ -54,7 +54,7 @@ run, /* Boolean */abs) {
  * <li>set body margin as 0
  * <li>set body border width as 0
  */
-test('body border 0 and margin 0 and padding 0', function() {
+test('老接口：body border 0 and margin 0 and padding 0', function() {
 	go(0, 0, function(doc) {
 		doc.body.style.margin = '0px';
 		doc.body.style.borderWidth = '0px';
@@ -63,7 +63,7 @@ test('body border 0 and margin 0 and padding 0', function() {
 });
 
 if (ua.browser.ie == 0) {// TODO IE下这个用例固定失败，暂时屏蔽
-	test('border margin padding', function() {
+	test('老接口：border margin padding', function() {
 		go(20, 20, function(doc) {
 			doc.body.style.margin = '10px';
 			doc.body.style.padding = '10px';
@@ -71,7 +71,7 @@ if (ua.browser.ie == 0) {// TODO IE下这个用例固定失败，暂时屏蔽
 		});
 	});
 }
-test('position - absolute', function() {
+test('老接口：position - absolute', function() {
 	go(20, 20, function(doc) {
 		doc.body.style.margin = '0px';
 		doc.body.style.borderWidth = '0px';
@@ -83,7 +83,7 @@ test('position - absolute', function() {
 	}, true);
 });
 
-test('position - relative', function() {
+test('老接口：position - relative', function() {
 	go(20, 20, function(doc) {
 		doc.body.style.margin = '0px';
 		doc.body.style.borderWidth = '0px';
@@ -98,7 +98,7 @@ test('position - relative', function() {
 /**
  * try scroll and check position
  */
-test('position fix', function() {
+test('老接口：position fix', function() {
 	// fixed not supported by IE on strict mode;
 	if (ua.browser.ie)
 		return;
@@ -124,7 +124,7 @@ if (ua.browser.ie == 0) {// TODO IE下这个用例固定失败，暂时屏蔽
 	 * set DIV with parent position as absolute
 	 * 
 	 */
-	test('parent border solid', function() {
+	test('老接口：parent border solid', function() {
 		go(ua.browser.ie == 8 ? 11 : 10, 10, function(doc) {
 			doc.body.style.margin = '0px';
 			doc.body.style.borderWidth = '0px';

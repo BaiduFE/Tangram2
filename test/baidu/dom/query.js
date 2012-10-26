@@ -1,7 +1,7 @@
 module("baidu.dom.query");
 
 //加载快捷方式
-test('prepareTest',function(){
+test('老接口：prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -12,7 +12,7 @@ test('prepareTest',function(){
 	}, "baidu.trim", "baidu.dom.query");
 });
 
-test('selector', function() {
+test('老接口：selector', function() {
 	var total = baidu.dom.query('*').length;
 	var input_len = baidu.dom.query('input').length;
 	var link_len = baidu.dom.query('a').length;
@@ -168,7 +168,7 @@ test('selector', function() {
 	p.parentNode.removeChild(p);
 });
 
-test('context', function() {
+test('老接口：context', function() {
 	expect(13);
 	
 	var p = document.createElement('p');
@@ -217,7 +217,7 @@ test('context', function() {
 	link1.parentNode.removeChild(link1);
 });
 
-test('results', function() {
+test('老接口：results', function() {
 	var len = baidu.dom.query('*').length;
 	var results = [];
 	
@@ -261,7 +261,7 @@ test('results', function() {
 	link1.parentNode.removeChild(link1);
 });
 
-test('baidu.dom.query.matches', function() {
+test('老接口：baidu.dom.query.matches', function() {
 	var p = document.createElement('p');
 	p.id = 'test_p';
 	p = document.body.appendChild(p);
@@ -325,7 +325,7 @@ test('baidu.dom.query.matches', function() {
 });
 
 if(!ua.browser['ie']){
-	test('xhtml', function() {
+	test('老接口：xhtml', function() {
 		stop();
 		expect(3);
 		var iframe = document.createElement('iframe');

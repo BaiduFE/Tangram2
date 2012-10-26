@@ -79,7 +79,7 @@ module('baidu.event.fire');
 	/**
 	 * fire event on dom
 	 */
-	test('on dom', function() {
+	test('老接口：on dom', function() {
 		var eList = [ 'keydown', 'keyup', 'keypress', 'click', 'dblclick',
 				'mousedown', 'mouseup', 'mouseover', 'mouseout' ];
 		var hList = [ 'abort', 'blur', 'change', 'focus', 'error','load','reset', 'select',
@@ -126,7 +126,7 @@ module('baidu.event.fire');
 	/**
 	 * keyboard event options
 	 */
-	test('options of keyboard', function() {
+	test('老接口：options of keyboard', function() {
 		if(ua.browser.ie || ua.browser.ff)
 		check( {
 			eName : 'keypress',
@@ -141,7 +141,7 @@ module('baidu.event.fire');
 		});
 	});
 	
-	test('options.relatedTarget', function() {
+	test('老接口：options.relatedTarget', function() {
 		var div = document.body.appendChild(document.createElement('div'));
 		$(div).css('width', 50).css('height', 50).css('background-color', 'red');
 		var div1 = document.body.appendChild(document.createElement('div'));
