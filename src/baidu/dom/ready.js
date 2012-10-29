@@ -77,9 +77,10 @@ baidu.dom.extend({
                 return;
             }
             readyBound = true;
-
-            if (document.readyState === "complete") {
-                // TODO: 改进异步加载 tangram 时不触发 DOMContentLoaded 的问题
+			
+			//解决如果DOMContentLoaded事件已经触发会自动fallback到onload事件造成dom ready时间延迟问题
+			//IE下使用readyState === "complete"，因为IE9、10的interactive不靠谱
+            if (document.readyState === "complete" || ( document.readyState !== "loading" && document.addEventListener )) {
                 ready.isReady = true;
             } else {
                 if (document.addEventListener) {
