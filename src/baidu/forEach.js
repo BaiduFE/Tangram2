@@ -26,7 +26,7 @@ baidu.forEach = function( enumerable, iterator, context ) {
 
     if ( typeof iterator == "function" && enumerable) {
 
-        if ( typeof enumerable == "object" ) {
+        if ( typeof enumerable == "object" || typeof enumerable == "string" ) {
 
             // Array or ArrayLike or NodeList or String
             len = enumerable.length || enumerable.byteLength;
@@ -44,9 +44,7 @@ baidu.forEach = function( enumerable, iterator, context ) {
             } else {
                 for (i in enumerable) {
                     if ( enumerable.hasOwnProperty(i) ) {
-                        result = iterator.call( context || enumerable[ i ], i, enumerable[ i ], enumerable );
-
-                        if ( result === false || result == "break" ) { break;}
+                        iterator.call( context || null, enumerable[ i ], i, enumerable );
                     }
                 }
             }
