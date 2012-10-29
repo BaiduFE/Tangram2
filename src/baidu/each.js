@@ -23,7 +23,7 @@ baidu.each = function( enumerable, iterator, context ) {
 
     if ( typeof iterator == "function" && enumerable) {
 
-        if ( typeof enumerable == "object" ) {
+        if ( typeof enumerable == "object" || typeof enumerable == "string" ) {
 
             // Array or ArrayLike or NodeList or String
             len = enumerable.length || enumerable.byteLength;
