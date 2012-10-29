@@ -2,6 +2,7 @@
  * @author dron
  */
 
+///import baidu._util_;
 ///import baidu.forEach;
 ///import baidu.id;
 ///import baidu.event;
