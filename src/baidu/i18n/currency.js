@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -47,3 +48,4 @@ baidu.i18n.currency = baidu.i18n.currency || /** @lends baidu.i18n.currency.prot
         return baidu.i18n.number.format(number, sLocale, tLocale || baidu.i18n.currentLocale); 
     }
 };
+/// Tangram 1.x Code End

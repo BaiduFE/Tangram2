@@ -1,3 +1,5 @@
+/// Tangram 1.x Code Start
+
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -48,3 +50,5 @@ baidu.i18n.cultures['en-US'] = baidu.object.extend(baidu.i18n.cultures['en-US'] 
 });
 
 baidu.i18n.currentLocale = 'en-US';
+
+/// Tangram 1.x Code End
