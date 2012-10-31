@@ -22,33 +22,25 @@
  */
  
 baidu.forEach = function( enumerable, iterator, context ) {
-    var i, n, t, len;
+    var i, n, t;
 
     if ( typeof iterator == "function" && enumerable) {
 
-        if ( typeof enumerable == "object" ) {
+        // Array or ArrayLike or NodeList or String or ArrayBuffer
+        n = typeof enumerable.length == "number" ? enumerable.length : enumerable.byteLength;
+        if ( typeof n == "number" ) {
 
-            // Array or ArrayLike or NodeList or String
-            len = enumerable.length || enumerable.byteLength;
-            if ( typeof len == "number" ) {
+            // 20121030 function.length
+            if (typeof enumerable == "function") {
+                return enumerable;
+            }
 
-                for ( i=0, n=len; i<n; i++ ) {
+            for ( i=0; i<n; i++ ) {
 
-                    t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
+                t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
 
-                    // 被循环执行的函数，默认会传入三个参数(array[i], i, array)
-                    iterator.call( context || null, t, i, enumerable );
-                }
-
-            // enumerable is json
-            } else {
-                for (i in enumerable) {
-                    if ( enumerable.hasOwnProperty(i) ) {
-                        result = iterator.call( context || enumerable[ i ], i, enumerable[ i ], enumerable );
-
-                        if ( result === false || result == "break" ) { break;}
-                    }
-                }
+                // 被循环执行的函数，默认会传入三个参数(array[i], i, array)
+                iterator.call( context || null, t, i, enumerable );
             }
         
         // enumerable is number
@@ -56,6 +48,15 @@ baidu.forEach = function( enumerable, iterator, context ) {
 
             for (i=0; i<enumerable; i++) {
                 iterator.call( context || null, i, i, i);
+            }
+        
+        // enumerable is json
+        } else if (typeof enumerable == "object") {
+
+            for (i in enumerable) {
+                if ( enumerable.hasOwnProperty(i) ) {
+                    iterator.call( context || null, enumerable[ i ], i, enumerable );
+                }
             }
         }
     }
