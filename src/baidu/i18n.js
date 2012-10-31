@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -8,3 +9,4 @@
  * @namespace baidu.i18n
  */
 baidu.i18n = baidu.i18n || {};
+/// Tangram 1.x Code End

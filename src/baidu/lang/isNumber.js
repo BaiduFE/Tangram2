@@ -1,3 +1,4 @@
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -23,3 +24,4 @@
 //    return '[object Number]' == Object.prototype.toString.call(source) && isFinite(source);
 //};
 baidu.lang.isNumber = baidu.isNumber;
+/// Tangram 1.x Code End
