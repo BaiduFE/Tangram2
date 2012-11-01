@@ -115,7 +115,7 @@ var T,
     };
 
 // 版本号
-baidu.version = "2.0.0.1";
+baidu.version = "2.0.0.2";
 
 // baidu 对象的唯一标识（身份证号）
 baidu.guid = "$BAIDU$";
