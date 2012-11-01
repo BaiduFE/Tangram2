@@ -115,7 +115,7 @@ var T,
     };
 
 // 版本号
-baidu.version = "2.0.0.1";
+baidu.version = "2.0.0.2";
 
 // baidu 对象的唯一标识（身份证号）
 baidu.guid = "$BAIDU$";
@@ -125,7 +125,7 @@ baidu.key = "tangram_guid";
 
 // Tangram可能被放在闭包中
 // 一些页面级别唯一的属性，需要挂载在window[baidu.guid]上
-window[baidu.guid] = window[baidu.guid] || {};
+(window[baidu.guid] = window[baidu.guid] || {versions:[]}).versions.push(baidu.version);
 
 // 20120709 mz 添加参数类型检查器，对参数做类型检测保护
 baidu.check = baidu.check || function(){};
@@ -176,10 +176,16 @@ baidu.forEach = function( enumerable, iterator, context ) {
 
     if ( typeof iterator == "function" && enumerable) {
 
-        // Array or ArrayLike or NodeList or String
-        if ( typeof enumerable.length == "number" ) {
+        // Array or ArrayLike or NodeList or String or ArrayBuffer
+        n = typeof enumerable.length == "number" ? enumerable.length : enumerable.byteLength;
+        if ( typeof n == "number" ) {
 
-            for ( i=0, n=enumerable.length; i<n; i++ ) {
+            // 20121030 function.length
+            if (typeof enumerable == "function") {
+                return enumerable;
+            }
+
+            for ( i=0; i<n; i++ ) {
 
                 t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
 
@@ -334,8 +340,8 @@ baidu.isObject = function( unknow ) {
  * @description 拷贝某对象的所有属性/方法，并返回一个全新对象(非深度克隆)
  * @function
  * @name baidu.extend
- * @grammar baidu.extend(obj1[, obj2[, ...objN]])
- * @param   {Object} obj0,obj1。。。objN  每一个传入的对象
+ * @grammar baidu.extend(obj1[,objN])
+ * @param   {Object} obj0,obj1,objN  每一个传入的对象
  * @return  {Object}                合并后的JS对象
  */
 
@@ -344,9 +350,9 @@ baidu.isObject = function( unknow ) {
  * @function
  * @name baidu.extend
  *
- * @grammar baidu.extend(depthClone, obj1[, obj2[, ...objN]])
+ * @grammar baidu.extend(depthClone, obj1[,objN])
  * @param   {Boolean}   depthClone  是否深度克隆的标识，默认为false，可以不传。
- * @param   {Object} obj0,obj1。。。objN  每一个传入的对象
+ * @param   {Object} obj0,obj1,objN  每一个传入的对象
  * @return  {Object}                合并后的JS对象
  */
 
@@ -736,8 +742,8 @@ baidu.array.extend({
 /**
  * @description 访问给定的上下文和参数列表中的所有回调
  * @function 
- * @name baidu.Callbacks().firewith()
- * @grammar baidu.Callbacks().firewith([context][,args])
+ * @name baidu.Callbacks().fireWith()
+ * @grammar baidu.Callbacks().fireWith([context][,args])
  * @param {Any} context 该列表中的回调被触发的上下文引用
  * @param {Any} args 一个参数或参数列表传回给回调列表
  * @return {Callbacks} 返回当前的Callbacks对象
@@ -1065,7 +1071,7 @@ function(){});
  * @function 
  * @name baidu.Deferred().state()
  * @grammar baidu.Deferred().state()
- * @return {Deferred} 返回当前的Deferred对象的状态，"pending"：未完成，“resolved”：b，“rejected”：被拒绝（失败）
+ * @return {Deferred} 返回当前的Deferred对象的状态，"pending"：未完成，“resolved”：被解决，“rejected”：被拒绝（失败）
  */
 
 /**
@@ -1281,21 +1287,6 @@ function( func ) {
 // constructor
 function(){});
 
-/*
- * @author meizz
- * @create 2012.08.28
- */
-
-
-
-/**
- * @description 框架内一些私用方法的集合
- * @Object 
- * @name baidu._util_
- */
-
-
-baidu._util_ = baidu._util_ || {};
 
 
 /*
@@ -1316,7 +1307,8 @@ baidu._util_ = baidu._util_ || {};
  * @return  {Object}                该key对象的对象
  */
 baidu.global = baidu.global || (function() {
-    var global = baidu._util_.$global = window[ baidu.guid ];
+    baidu._global_ = window[ baidu.guid ];
+    var global = baidu._global_._ = {};
 
     return function( key, value, overwrite ) {
         if ( typeof value != "undefined" ) {
@@ -1406,7 +1398,6 @@ try {
 
 
 
-
 /*
  * @fileoverview
  * @author dron,meizz
@@ -1479,7 +1470,7 @@ baidu.id = function() {
             return maps[ object ];
         }
 
-        return "TANGRAM__" + baidu._util_.$global._counter ++;
+        return "TANGRAM__" + baidu._global_._._counter ++;
     };
 }();
 
@@ -2011,9 +2002,10 @@ baidu.dom.extend({
                 return;
             }
             readyBound = true;
-
-            if (document.readyState === "complete") {
-                // TODO: 改进异步加载 tangram 时不触发 DOMContentLoaded 的问题
+			
+			//解决如果DOMContentLoaded事件已经触发会自动fallback到onload事件造成dom ready时间延迟问题
+			//IE下使用readyState === "complete"，因为IE9、10的interactive不靠谱
+            if (document.readyState === "complete" || ( document.readyState !== "loading" && document.addEventListener )) {
                 ready.isReady = true;
             } else {
                 if (document.addEventListener) {
@@ -2815,6 +2807,21 @@ baidu.dom.extend({
         return this;
     }
 });
+/*
+ * @author meizz
+ * @create 2012.08.28
+ */
+
+
+
+/**
+ * @description 框架内一些私用方法的集合
+ * @Object 
+ * @name baidu._util_
+ */
+
+
+baidu._util_ = baidu._util_ || {};
 
 
 
@@ -3085,6 +3092,7 @@ baidu.dom.extend({
 
 
 
+
 baidu._util_.eventBase = function(){
     var eventsCache = {
         /*
@@ -3152,10 +3160,15 @@ baidu._util_.eventBase = function(){
                 e.data = data;
             if( e.triggerData ) 
                 [].push.apply( arguments, e.triggerData );
-            if( !selector )
+            if( !proxyEl )
                 return e.result = fn.apply( target, arguments );
-            if( t.is( selector ) || t.is( selector + " *" ) )
-                return e.result = fn.apply( baidu.dom( e.target ).closest( selector )[0], arguments );
+            
+            // if( t.is( selector ) || t.is( selector + " *" ) )
+            //     return e.result = fn.apply( baidu.dom( e.target ).closest( selector )[0], arguments );
+            
+            for(var i = 0, l = proxyEl.length; i < l; i ++)
+                if(proxyEl.get(i).contains( e.target ))
+                    return e.result = fn.apply( proxyEl[i], arguments );
         };
 
         var tangId = baidu.id( target );
@@ -3164,6 +3177,10 @@ baidu._util_.eventBase = function(){
 
         eventArray.push( call, fn );
         proxy( target, name, eventArray );
+
+        var proxyEl = null;
+        if(selector)
+            proxyEl = baidu.dom( selector, target );
 
         return call;
     };
@@ -5445,16 +5462,21 @@ baidu.array.extend({
  * @param   {Object}        context         [可选]作用域
  * @return  {ArrayLike}     arrayLike
  */
- 
 baidu.each = function( enumerable, iterator, context ) {
     var i, n, t, result;
 
     if ( typeof iterator == "function" && enumerable) {
 
-        // Array or ArrayLike or NodeList or String
-        if ( typeof enumerable.length == "number" ) {
+        // Array or ArrayLike or NodeList or String or ArrayBuffer
+        n = typeof enumerable.length == "number" ? enumerable.length : enumerable.byteLength;
+        if ( typeof n == "number" ) {
 
-            for ( i=0, n=enumerable.length; i<n; i++ ) {
+            // 20121030 function.length
+            if (typeof enumerable == "function") {
+                return enumerable;
+            }
+
+            for ( i=0; i<n; i++ ) {
 
                 t = enumerable[ i ] || (enumerable.charAt && enumerable.charAt( i ));
 
@@ -5488,6 +5510,13 @@ baidu.each = function( enumerable, iterator, context ) {
 
     return enumerable;
 };
+
+/*
+error
+window.length
+function.length
+ArrayBuffer.byteLength
+*/
 
 
 
@@ -6870,404 +6899,6 @@ baidu.cookie.set = function (key, value, options) {
     baidu.cookie.setRaw(key, encodeURIComponent(value), options);
 };
 /*
- * tangram
- * copyright 2011 baidu inc. all rights reserved.
- *
- * path: baidu/object/isEmpty.js
- * author: leeight
- * version: 1.1.0
- * date: 2011/04/30
- */
-
-
-
-/**
- * @description 检测一个对象是否是空的，需要注意的是：如果污染了Object.prototype或者Array.prototype，那么baidu.object.isEmpty({})或者baidu.object.isEmpty([])可能返回的就是false.
- * @name baidu.object.isEmpty
- * @function
- * @grammar baidu.object.isEmpty(obj)
- * @param {Object} obj 需要检测的对象.
- * @return {boolean} 如果是空的对象就返回true.
- */
-baidu.object.isEmpty = function(obj) {
-    var ret = true;
-    if('[object Array]' === Object.prototype.toString.call(obj)){
-        ret = !obj.length;
-    }else{
-        obj = new Object(obj);
-        for(var key in obj){
-            return false;
-        }
-    }
-    return ret;
-};
-
-
-
-
-baidu._util_.cleanData = function(array){
-    var tangId;
-    for(var i = 0, ele; ele = array[i]; i++){
-        tangId = baidu.id(ele, 'get');
-        if(!tangId){continue;}
-        baidu._util_.eventBase.removeAll(ele);
-        baidu.id(ele, 'remove');
-    }
-}
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/json.js
- * author: erik
- * version: 1.1.0
- * date: 2009/12/02
- */
-
-
-/**
- * @description 操作json对象的方法
- * @name baidu.json
- * @namespace
- */
-baidu.json = baidu.json || {};
-
-/*
- * Tangram
- * Copyright 2009 Baidu Inc. All rights reserved.
- * 
- * path: baidu/json/parse.js
- * author: erik, berg
- * version: 1.2
- * date: 2009/11/23
- */
-
-
-
-/**
- * @description 将字符串解析成json对象。注：不会自动祛除空格
- * @name baidu.json.parse
- * @function
- * @grammar baidu.json.parse(data)
- * @param {string} data 需要解析的字符串
- * @remark
- * 该方法的实现与ecma-262第五版中规定的JSON.parse不同，暂时只支持传入一个参数。后续会进行功能丰富。
- * @meta standard
- * @see baidu.json.stringify,baidu.json.decode
- *             
- * @return {JSON} 解析结果json对象
- */
-baidu.json.parse = function (data) {
-    //2010/12/09：更新至不使用原生parse，不检测用户输入是否正确
-    return (new Function("return (" + data + ")"))();
-};
-
-/**
- * @author wangxiao
- * @email  1988wangxiao@gmail.com
- */
-
-
-
-
-
-
-
-
-
-
-
-;(function(){
-
-var rbrace = /^(?:\{.*\}|\[.*\])$/,
-	rmultiDash = /([A-Z])/g,
-
-	// Matches dashed string for camelizing
-	rmsPrefix = /^-ms-/,
-	rdashAlpha = /-([\da-z])/gi,
-
-	fcamelCase = function( all, letter ) {
-		return ( letter + "" ).toUpperCase();
-	};
-
-baidu.extend(baidu._util_,{
-
-	// Convert dashed to camelCase; used by the css and data modules
-	// Microsoft forgot to hump their vendor prefix (#9572)
-	camelCase: function( string ) {
-		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
-	}
-});
-
-//Copy from jQuery 1.8.1 , thank you jQuery
-baidu.extend(baidu._util_,{
-	cache: {},
-
-	deletedIds: [],
-
-	// Please use with caution
-	uuid: 0,
-
-	// Unique for each copy of baidu on the page
-	// Non-digits removed to match rinlineBaidu
-	expando: "baidu" + ( '2.0.0' + Math.random() ).replace( /\D/g, "" ),
-
-	// The following elements throw uncatchable exceptions if you
-	// attempt to add expando properties to them.
-	noData: {
-		"embed": true,
-		// Ban all objects except for Flash (which handle expandos)
-		"object": "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
-		"applet": true
-	},
-
-	hasData: function( elem ) {
-		elem = elem.nodeType ? baidu._util_.cache[ elem[baidu._util_.expando] ] : elem[ baidu._util_.expando ];
-		return !!elem && !isEmptyDataObject( elem );
-	},
-
-	data: function( elem, name, data, pvt /* Internal Use Only */ ) {
-		if ( !baidu._util_.acceptData( elem ) ) {
-			return;
-		}
-
-		var thisCache, ret,
-			internalKey = baidu._util_.expando,
-			getByName = typeof name === "string",
-
-			// We have to handle DOM nodes and JS objects differently because IE6-7
-			// can't GC object references properly across the DOM-JS boundary
-			isNode = elem.nodeType,
-
-			// 此处jQuery采用了全局的cache，tangram2.0目前没有设计此功能，不过涉及到该部分的接口使用不受任何影响
-			// (Only DOM nodes need the global baidu cache; JS object data is)
-			// attached directly to the object so GC can occur automatically
-			cache = isNode ? baidu._util_.cache : elem,
-
-			// Only defining an ID for JS objects if its cache already exists allows
-			// the code to shortcut on the same path as a DOM node with no cache
-			id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
-
-		// Avoid doing any more work than we need to when trying to get data on an
-		// object that has no data at all
-		if ( (!id || !cache[id] || (!pvt && !cache[id].data)) && getByName && data === undefined ) {
-			return;
-		}
-
-		if ( !id ) {
-			// Only DOM nodes need a new unique ID for each element since their data
-			// ends up in the global cache
-			if ( isNode ) {
-				elem[ internalKey ] = id = baidu._util_.deletedIds.pop() || ++baidu._util_.uuid;
-			} else {
-				id = internalKey;
-			}
-		}
-
-		if ( !cache[ id ] ) {
-			cache[ id ] = {};
-
-			// Avoids exposing baidu metadata on plain JS objects when the object
-			// is serialized using JSON.stringify
-			if ( !isNode ) {
-				cache[ id ].toJSON = function() {};
-			}
-		}
-
-		// An object can be passed to baidu.dom.data instead of a key/value pair; this gets
-		// shallow copied over onto the existing cache
-		if ( typeof name === "object" || typeof name === "function" ) {
-			if ( pvt ) {
-				cache[ id ] = baidu.extend( cache[ id ], name );
-			} else {
-				cache[ id ].data = baidu.extend( cache[ id ].data, name );
-			}
-		}
-
-		thisCache = cache[ id ];
-
-		// baidu.dom.data() is stored in a separate object inside the object's internal data
-		// cache in order to avoid key collisions between internal data and user-defined
-		// data.
-		if ( !pvt ) {
-			if ( !thisCache.data ) {
-				thisCache.data = {};
-			}
-
-			thisCache = thisCache.data;
-		}
-
-		if ( data !== undefined ) {
-			thisCache[ baidu._util_.camelCase( name ) ] = data;
-		}
-
-		// Check for both converted-to-camel and non-converted data property names
-		// If a data property was specified
-		if ( getByName ) {
-
-			// First Try to find as-is property data
-			ret = thisCache[ name ];
-
-			// Test for null|undefined property data
-			if ( ret == null ) {
-
-				// Try to find the camelCased property
-				ret = thisCache[ baidu._util_.camelCase( name ) ];
-			}
-		} else {
-			ret = thisCache;
-		}
-
-		return ret;
-	},
-
-	removeData: function( elem, name, pvt /* Internal Use Only */ ) {
-		if ( !baidu._util_.acceptData( elem ) ) {
-			return;
-		}
-
-		var thisCache, i, l,
-
-			isNode = elem.nodeType,
-
-			cache = isNode ? baidu._util_.cache : elem,
-			id = isNode ? elem[ baidu._util_.expando ] : baidu._util_.expando;
-
-		// If there is already no cache entry for this object, there is no
-		// purpose in continuing
-		if ( !cache[ id ] ) {
-			return;
-		}
-
-		if ( name ) {
-
-			thisCache = pvt ? cache[ id ] : cache[ id ].data;
-
-			if ( thisCache ) {
-
-				// Support array or space separated string names for data keys
-				if ( !baidu.isArray( name ) ) {
-
-					// try the string as a key before any manipulation
-					if ( name in thisCache ) {
-						name = [ name ];
-					} else {
-
-						// split the camel cased version by spaces unless a key with the spaces exists
-						name = baidu._util_.camelCase( name );
-						if ( name in thisCache ) {
-							name = [ name ];
-						} else {
-							name = name.split(" ");
-						}
-					}
-				}
-
-				for ( i = 0, l = name.length; i < l; i++ ) {
-					delete thisCache[ name[i] ];
-				}
-
-				// If there is no data left in the cache, we want to continue
-				// and let the cache object itself get destroyed
-				if ( !( pvt ? isEmptyDataObject : baidu.object.isEmpty )( thisCache ) ) {
-					return;
-				}
-			}
-		}
-
-		if ( !pvt ) {
-			delete cache[ id ].data;
-
-			// Don't destroy the parent cache unless the internal data object
-			// had been the only thing left in it
-			if ( !isEmptyDataObject( cache[ id ] ) ) {
-				return;
-			}
-		}
-
-		// Destroy the cache
-		if ( isNode ) {
-			baidu._util_.cleanData( [ elem ], true );
-
-		// Use delete when supported for expandos or `cache` is not a window per isWindow (#10080)
-		} else if ( baidu.support.deleteExpando || cache != cache.window ) {
-			delete cache[ id ];
-
-		// When all else fails, null
-		} else {
-			cache[ id ] = null;
-		}
-	},
-
-	// For internal use only.
-	_data: function( elem, name, data ) {
-		return baidu._util_.data( elem, name, data, true );
-	},
-
-	// A method for determining if a DOM node can handle the data expando
-	acceptData: function( elem ) {
-		var noData = elem.nodeName && baidu._util_.noData[ elem.nodeName.toLowerCase() ];
-
-		// nodes accept data unless otherwise specified; rejection can be conditional
-		return !noData || noData !== true && elem.getAttribute("classid") === noData;
-	}
-});
-
-//TODO data的入口
-
-function dataAttr( elem, key, data ) {
-	// If nothing was found internally, try to fetch any
-	// data from the HTML5 data-* attribute
-	if ( data === undefined && elem.nodeType === 1 ) {
-
-		var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
-
-		data = elem.getAttribute( name );
-
-		if ( typeof data === "string" ) {
-			try {
-				data = data === "true" ? true :
-				data === "false" ? false :
-				data === "null" ? null :
-				baidu.isNumber( data ) ? +data :
-					rbrace.test( data ) ? baidu.json.parse( data ) :
-					data;
-			} catch( e ) {}
-
-			// Make sure we set the data so it isn't changed later
-			baidu._util_.data( elem, key, data );
-
-		} else {
-			data = undefined;
-		}
-	}
-
-	return data;
-}
-
-// checks a cache object for emptiness
-function isEmptyDataObject( obj ) {
-	var name;
-	for ( name in obj ) {
-
-		// if the public data object is empty, the private is still empty
-		if ( name === "data" && baidu.object.isEmpty( obj[name] ) ) {
-			continue;
-		}
-		if ( name !== "toJSON" ) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-
-//
-})();
-
-
-/*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  * 
@@ -7793,6 +7424,19 @@ baidu.dom.extend({
         return ele.nodeType == 9 ? ele : ele.ownerDocument || ele.document;
     }
 });
+
+
+
+
+baidu._util_.cleanData = function(array){
+    var tangId;
+    for(var i = 0, ele; ele = array[i]; i++){
+        tangId = baidu.id(ele, 'get');
+        if(!tangId){continue;}
+        baidu._util_.eventBase.removeAll(ele);
+        baidu.id(ele, 'remove');
+    }
+}
 /**
  * @author linlingyu
  */
@@ -9166,7 +8810,6 @@ baidu.forEach([ "radio", "checkbox" ], function(item) {
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  * @example baidu.dom("<div>").val(function(index, value){});
  */ 
-
 
 
 
@@ -12766,6 +12409,391 @@ baidu.dom.extend({
         return result;
     }
 });
+/*
+ * tangram
+ * copyright 2011 baidu inc. all rights reserved.
+ *
+ * path: baidu/object/isEmpty.js
+ * author: leeight
+ * version: 1.1.0
+ * date: 2011/04/30
+ */
+
+
+
+/**
+ * @description 检测一个对象是否是空的，需要注意的是：如果污染了Object.prototype或者Array.prototype，那么baidu.object.isEmpty({})或者baidu.object.isEmpty([])可能返回的就是false.
+ * @name baidu.object.isEmpty
+ * @function
+ * @grammar baidu.object.isEmpty(obj)
+ * @param {Object} obj 需要检测的对象.
+ * @return {boolean} 如果是空的对象就返回true.
+ */
+baidu.object.isEmpty = function(obj) {
+    var ret = true;
+    if('[object Array]' === Object.prototype.toString.call(obj)){
+        ret = !obj.length;
+    }else{
+        obj = new Object(obj);
+        for(var key in obj){
+            return false;
+        }
+    }
+    return ret;
+};
+/*
+ * Tangram
+ * Copyright 2009 Baidu Inc. All rights reserved.
+ * 
+ * path: baidu/json.js
+ * author: erik
+ * version: 1.1.0
+ * date: 2009/12/02
+ */
+
+
+/**
+ * @description 操作json对象的方法
+ * @name baidu.json
+ * @namespace
+ */
+baidu.json = baidu.json || {};
+
+/*
+ * Tangram
+ * Copyright 2009 Baidu Inc. All rights reserved.
+ * 
+ * path: baidu/json/parse.js
+ * author: erik, berg
+ * version: 1.2
+ * date: 2009/11/23
+ */
+
+
+
+/**
+ * @description 将字符串解析成json对象。注：不会自动祛除空格
+ * @name baidu.json.parse
+ * @function
+ * @grammar baidu.json.parse(data)
+ * @param {string} data 需要解析的字符串
+ * @remark
+ * 该方法的实现与ecma-262第五版中规定的JSON.parse不同，暂时只支持传入一个参数。后续会进行功能丰富。
+ * @meta standard
+ * @see baidu.json.stringify,baidu.json.decode
+ *             
+ * @return {JSON} 解析结果json对象
+ */
+baidu.json.parse = function (data) {
+    //2010/12/09：更新至不使用原生parse，不检测用户输入是否正确
+    return (new Function("return (" + data + ")"))();
+};
+
+/**
+ * @author wangxiao
+ * @email  1988wangxiao@gmail.com
+ */
+
+
+
+
+
+
+
+
+
+
+
+;(function(){
+
+var rbrace = /^(?:\{.*\}|\[.*\])$/,
+	rmultiDash = /([A-Z])/g,
+
+	// Matches dashed string for camelizing
+	rmsPrefix = /^-ms-/,
+	rdashAlpha = /-([\da-z])/gi,
+
+	fcamelCase = function( all, letter ) {
+		return ( letter + "" ).toUpperCase();
+	};
+
+baidu.extend(baidu._util_,{
+
+	// Convert dashed to camelCase; used by the css and data modules
+	// Microsoft forgot to hump their vendor prefix (#9572)
+	camelCase: function( string ) {
+		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
+	}
+});
+
+//Copy from jQuery 1.8 , thank you for jQuery 
+baidu.extend(baidu._util_,{
+	cache: {},
+
+	deletedIds: [],
+
+	// Please use with caution
+	uuid: 0,
+
+	// Unique for each copy of baidu on the page
+	// Non-digits removed to match rinlinebaidu
+	expando: "baidu" + ( '2.0.0' + Math.random() ).replace( /\D/g, "" ),
+
+	// The following elements throw uncatchable exceptions if you
+	// attempt to add expando properties to them.
+	noData: {
+		"embed": true,
+		// Ban all objects except for Flash (which handle expandos)
+		"object": "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
+		"applet": true
+	},
+
+	hasData: function( elem ) {
+		elem = elem.nodeType ? baidu._util_.cache[ elem[baidu._util_.expando] ] : elem[ baidu._util_.expando ];
+		return !!elem && !isEmptyDataObject( elem );
+	},
+
+	data: function( elem, name, data, pvt /* Internal Use Only */ ) {
+		if ( !baidu._util_.acceptData( elem ) ) {
+			return;
+		}
+
+		var thisCache, ret,
+			internalKey = baidu._util_.expando,
+			getByName = typeof name === "string",
+
+			// We have to handle DOM nodes and JS objects differently because IE6-7
+			// can't GC object references properly across the DOM-JS boundary
+			isNode = elem.nodeType,
+
+			//这部分为jQuery全局的缓存设计，目前tangram2.0中没有设计该部分功能，但是使用涉及到这部分的接口全部正常。
+			// Only DOM nodes need the global baidu cache; JS object data is
+			// attached directly to the object so GC can occur automatically
+			cache = isNode ? baidu._util_.cache : elem,
+
+			// Only defining an ID for JS objects if its cache already exists allows
+			// the code to shortcut on the same path as a DOM node with no cache
+			id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
+
+		// Avoid doing any more work than we need to when trying to get data on an
+		// object that has no data at all
+		if ( (!id || !cache[id] || (!pvt && !cache[id].data)) && getByName && data === undefined ) {
+			return;
+		}
+
+		if ( !id ) {
+			// Only DOM nodes need a new unique ID for each element since their data
+			// ends up in the global cache
+			if ( isNode ) {
+				elem[ internalKey ] = id = baidu._util_.deletedIds.pop() || ++baidu._util_.uuid;
+			} else {
+				id = internalKey;
+			}
+		}
+
+		if ( !cache[ id ] ) {
+			cache[ id ] = {};
+
+			// Avoids exposing baidu metadata on plain JS objects when the object
+			// is serialized using JSON.stringify
+			if ( !isNode ) {
+				cache[ id ].toJSON = function() {};
+			}
+		}
+
+		// An object can be passed to baidu.dom.data instead of a key/value pair; this gets
+		// shallow copied over onto the existing cache
+		if ( typeof name === "object" || typeof name === "function" ) {
+			if ( pvt ) {
+				cache[ id ] = baidu.extend( cache[ id ], name );
+			} else {
+				cache[ id ].data = baidu.extend( cache[ id ].data, name );
+			}
+		}
+
+		thisCache = cache[ id ];
+
+		// baidu data() is stored in a separate object inside the object's internal data
+		// cache in order to avoid key collisions between internal data and user-defined
+		// data.
+		if ( !pvt ) {
+			if ( !thisCache.data ) {
+				thisCache.data = {};
+			}
+
+			thisCache = thisCache.data;
+		}
+
+		if ( data !== undefined ) {
+			thisCache[ baidu._util_.camelCase( name ) ] = data;
+		}
+
+		// Check for both converted-to-camel and non-converted data property names
+		// If a data property was specified
+		if ( getByName ) {
+
+			// First Try to find as-is property data
+			ret = thisCache[ name ];
+
+			// Test for null|undefined property data
+			if ( ret == null ) {
+
+				// Try to find the camelCased property
+				ret = thisCache[ baidu._util_.camelCase( name ) ];
+			}
+		} else {
+			ret = thisCache;
+		}
+
+		return ret;
+	},
+
+	removeData: function( elem, name, pvt /* Internal Use Only */ ) {
+		if ( !baidu._util_.acceptData( elem ) ) {
+			return;
+		}
+
+		var thisCache, i, l,
+
+			isNode = elem.nodeType,
+
+			cache = isNode ? baidu._util_.cache : elem,
+			id = isNode ? elem[ baidu._util_.expando ] : baidu._util_.expando;
+
+		// If there is already no cache entry for this object, there is no
+		// purpose in continuing
+		if ( !cache[ id ] ) {
+			return;
+		}
+
+		if ( name ) {
+
+			thisCache = pvt ? cache[ id ] : cache[ id ].data;
+
+			if ( thisCache ) {
+
+				// Support array or space separated string names for data keys
+				if ( !baidu.isArray( name ) ) {
+
+					// try the string as a key before any manipulation
+					if ( name in thisCache ) {
+						name = [ name ];
+					} else {
+
+						// split the camel cased version by spaces unless a key with the spaces exists
+						name = baidu._util_.camelCase( name );
+						if ( name in thisCache ) {
+							name = [ name ];
+						} else {
+							name = name.split(" ");
+						}
+					}
+				}
+
+				for ( i = 0, l = name.length; i < l; i++ ) {
+					delete thisCache[ name[i] ];
+				}
+
+				// If there is no data left in the cache, we want to continue
+				// and let the cache object itself get destroyed
+				if ( !( pvt ? isEmptyDataObject : baidu.object.isEmpty )( thisCache ) ) {
+					return;
+				}
+			}
+		}
+
+		if ( !pvt ) {
+			delete cache[ id ].data;
+
+			// Don't destroy the parent cache unless the internal data object
+			// had been the only thing left in it
+			if ( !isEmptyDataObject( cache[ id ] ) ) {
+				return;
+			}
+		}
+
+		// Destroy the cache
+		if ( isNode ) {
+			baidu._util_.cleanData( [ elem ], true );
+
+		// Use delete when supported for expandos or `cache` is not a window per isWindow (#10080)
+		} else if ( baidu.support.deleteExpando || cache != cache.window ) {
+			delete cache[ id ];
+
+		// When all else fails, null
+		} else {
+			cache[ id ] = null;
+		}
+	},
+
+	// For internal use only.
+	_data: function( elem, name, data ) {
+		return baidu._util_.data( elem, name, data, true );
+	},
+
+	// A method for determining if a DOM node can handle the data expando
+	acceptData: function( elem ) {
+		var noData = elem.nodeName && baidu._util_.noData[ elem.nodeName.toLowerCase() ];
+
+		// nodes accept data unless otherwise specified; rejection can be conditional
+		return !noData || noData !== true && elem.getAttribute("classid") === noData;
+	}
+});
+
+//TODO data的入口
+
+function dataAttr( elem, key, data ) {
+	// If nothing was found internally, try to fetch any
+	// data from the HTML5 data-* attribute
+	if ( data === undefined && elem.nodeType === 1 ) {
+
+		var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+
+		data = elem.getAttribute( name );
+
+		if ( typeof data === "string" ) {
+			try {
+				data = data === "true" ? true :
+				data === "false" ? false :
+				data === "null" ? null :
+				baidu.isNumber( data ) ? +data :
+					rbrace.test( data ) ? baidu.json.parse( data ) :
+					data;
+			} catch( e ) {}
+
+			// Make sure we set the data so it isn't changed later
+			baidu._util_.data( elem, key, data );
+
+		} else {
+			data = undefined;
+		}
+	}
+
+	return data;
+}
+
+// checks a cache object for emptiness
+function isEmptyDataObject( obj ) {
+	var name;
+	for ( name in obj ) {
+
+		// if the public data object is empty, the private is still empty
+		if ( name === "data" && baidu.object.isEmpty( obj[name] ) ) {
+			continue;
+		}
+		if ( name !== "toJSON" ) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+
+//
+})();
+
+
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -18077,6 +18105,7 @@ baidu.object.values = function (source) {
     }
     return result;
 };
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -18102,6 +18131,7 @@ baidu.object.values = function (source) {
 //    return '[object Number]' == Object.prototype.toString.call(source) && isFinite(source);
 //};
 baidu.lang.isNumber = baidu.isNumber;
+/// Tangram 1.x Code End
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -18653,7 +18683,7 @@ baidu.fn.bind = function(func, scope) {
 };
 /// Tangram 1.x Code End
 /// Tangram 1.x Code Start
-﻿/**
+/**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
@@ -20920,6 +20950,7 @@ baidu.global.getZIndex = function(key, step) {
 };
 baidu.global.set("zIndex", {popup : 50000, dialog : 1000}, true);
 /// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -20930,12 +20961,17 @@ baidu.global.set("zIndex", {popup : 50000, dialog : 1000}, true);
  * @namespace baidu.i18n
  */
 baidu.i18n = baidu.i18n || {};
+/// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  */
 
 baidu.i18n.cultures = baidu.i18n.cultures || {};
+/// Tangram 1.x Code End
+/// Tangram 1.x Code Start
+
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -20986,6 +21022,9 @@ baidu.i18n.cultures['en-US'] = baidu.object.extend(baidu.i18n.cultures['en-US'] 
 });
 
 baidu.i18n.currentLocale = 'en-US';
+
+/// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21035,6 +21074,8 @@ baidu.i18n.cultures['zh-CN'] = baidu.object.extend(baidu.i18n.cultures['zh-CN'] 
 });
 
 baidu.i18n.currentLocale = 'zh-CN';
+/// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21117,6 +21158,8 @@ baidu.i18n.number = baidu.i18n.number || /**@lends baidu.i18n.number.prototype*/
         return result;
     }
 };
+/// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21166,6 +21209,8 @@ baidu.i18n.currency = baidu.i18n.currency || /** @lends baidu.i18n.currency.prot
         return baidu.i18n.number.format(number, sLocale, tLocale || baidu.i18n.currentLocale); 
     }
 };
+/// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21256,6 +21301,8 @@ baidu.i18n.date = baidu.i18n.date || /**@lends baidu.i18n.date.prototype*/{
             c.calendar.dateFormat);
     }
 };
+/// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21293,8 +21340,8 @@ baidu.i18n.string = baidu.i18n.string || /**@lends baidu.i18n.string.prototype*/
 
         return tOpt[source] || '';
     }
-
 };
+/// Tangram 1.x Code End
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -21771,6 +21818,7 @@ baidu.lang.getModule = function(name, opt_obj) {
 /* vim: set ts=4 sw=4 sts=4 tw=100 noet: */
 
 /// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21800,6 +21848,8 @@ baidu.lang.getModule = function(name, opt_obj) {
 //    return typeof o === 'boolean';
 //};
 baidu.lang.isBoolean = baidu.isBoolean;
+/// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21831,6 +21881,8 @@ baidu.lang.isBoolean = baidu.isBoolean;
 //};
 
 baidu.lang.isDate = baidu.isDate;
+/// Tangram 1.x Code End
+/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21860,6 +21912,7 @@ baidu.lang.isDate = baidu.isDate;
 //    return !!(source && source.nodeName && source.nodeType == 1);
 //};
 baidu.lang.isElement = baidu.isElement;
+/// Tangram 1.x Code End
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -25895,310 +25948,6 @@ baidu.url.queryToJson = function(url){
     return ret;
 };
 /// Tangram 1.x Code End
-/**
- * @author wangxiao
- * @email  1988wangxiao@gmail.com
- */
-
-
-
-
-
-
-
-
-
-
-
-;(function(){
-
-var rbrace = /^(?:\{.*\}|\[.*\])$/,
-	rmultiDash = /([A-Z])/g,
-
-	// Matches dashed string for camelizing
-	rmsPrefix = /^-ms-/,
-	rdashAlpha = /-([\da-z])/gi,
-
-	fcamelCase = function( all, letter ) {
-		return ( letter + "" ).toUpperCase();
-	};
-
-baidu.extend(baidu._util_,{
-
-	// Convert dashed to camelCase; used by the css and data modules
-	// Microsoft forgot to hump their vendor prefix (#9572)
-	camelCase: function( string ) {
-		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
-	}
-});
-
-//Copy from jQuery 1.8 , thank you for jQuery 
-baidu.extend(baidu._util_,{
-	cache: {},
-
-	deletedIds: [],
-
-	// Please use with caution
-	uuid: 0,
-
-	// Unique for each copy of baidu on the page
-	// Non-digits removed to match rinlinebaidu
-	expando: "baidu" + ( '2.0.0' + Math.random() ).replace( /\D/g, "" ),
-
-	// The following elements throw uncatchable exceptions if you
-	// attempt to add expando properties to them.
-	noData: {
-		"embed": true,
-		// Ban all objects except for Flash (which handle expandos)
-		"object": "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
-		"applet": true
-	},
-
-	hasData: function( elem ) {
-		elem = elem.nodeType ? baidu._util_.cache[ elem[baidu._util_.expando] ] : elem[ baidu._util_.expando ];
-		return !!elem && !isEmptyDataObject( elem );
-	},
-
-	data: function( elem, name, data, pvt /* Internal Use Only */ ) {
-		if ( !baidu._util_.acceptData( elem ) ) {
-			return;
-		}
-
-		var thisCache, ret,
-			internalKey = baidu._util_.expando,
-			getByName = typeof name === "string",
-
-			// We have to handle DOM nodes and JS objects differently because IE6-7
-			// can't GC object references properly across the DOM-JS boundary
-			isNode = elem.nodeType,
-
-			//这部分为jQuery全局的缓存设计，目前tangram2.0中没有设计该部分功能，但是使用涉及到这部分的接口全部正常。
-			// Only DOM nodes need the global baidu cache; JS object data is
-			// attached directly to the object so GC can occur automatically
-			cache = isNode ? baidu._util_.cache : elem,
-
-			// Only defining an ID for JS objects if its cache already exists allows
-			// the code to shortcut on the same path as a DOM node with no cache
-			id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
-
-		// Avoid doing any more work than we need to when trying to get data on an
-		// object that has no data at all
-		if ( (!id || !cache[id] || (!pvt && !cache[id].data)) && getByName && data === undefined ) {
-			return;
-		}
-
-		if ( !id ) {
-			// Only DOM nodes need a new unique ID for each element since their data
-			// ends up in the global cache
-			if ( isNode ) {
-				elem[ internalKey ] = id = baidu._util_.deletedIds.pop() || ++baidu._util_.uuid;
-			} else {
-				id = internalKey;
-			}
-		}
-
-		if ( !cache[ id ] ) {
-			cache[ id ] = {};
-
-			// Avoids exposing baidu metadata on plain JS objects when the object
-			// is serialized using JSON.stringify
-			if ( !isNode ) {
-				cache[ id ].toJSON = function() {};
-			}
-		}
-
-		// An object can be passed to baidu.dom.data instead of a key/value pair; this gets
-		// shallow copied over onto the existing cache
-		if ( typeof name === "object" || typeof name === "function" ) {
-			if ( pvt ) {
-				cache[ id ] = baidu.extend( cache[ id ], name );
-			} else {
-				cache[ id ].data = baidu.extend( cache[ id ].data, name );
-			}
-		}
-
-		thisCache = cache[ id ];
-
-		// baidu data() is stored in a separate object inside the object's internal data
-		// cache in order to avoid key collisions between internal data and user-defined
-		// data.
-		if ( !pvt ) {
-			if ( !thisCache.data ) {
-				thisCache.data = {};
-			}
-
-			thisCache = thisCache.data;
-		}
-
-		if ( data !== undefined ) {
-			thisCache[ baidu._util_.camelCase( name ) ] = data;
-		}
-
-		// Check for both converted-to-camel and non-converted data property names
-		// If a data property was specified
-		if ( getByName ) {
-
-			// First Try to find as-is property data
-			ret = thisCache[ name ];
-
-			// Test for null|undefined property data
-			if ( ret == null ) {
-
-				// Try to find the camelCased property
-				ret = thisCache[ baidu._util_.camelCase( name ) ];
-			}
-		} else {
-			ret = thisCache;
-		}
-
-		return ret;
-	},
-
-	removeData: function( elem, name, pvt /* Internal Use Only */ ) {
-		if ( !baidu._util_.acceptData( elem ) ) {
-			return;
-		}
-
-		var thisCache, i, l,
-
-			isNode = elem.nodeType,
-
-			cache = isNode ? baidu._util_.cache : elem,
-			id = isNode ? elem[ baidu._util_.expando ] : baidu._util_.expando;
-
-		// If there is already no cache entry for this object, there is no
-		// purpose in continuing
-		if ( !cache[ id ] ) {
-			return;
-		}
-
-		if ( name ) {
-
-			thisCache = pvt ? cache[ id ] : cache[ id ].data;
-
-			if ( thisCache ) {
-
-				// Support array or space separated string names for data keys
-				if ( !baidu.isArray( name ) ) {
-
-					// try the string as a key before any manipulation
-					if ( name in thisCache ) {
-						name = [ name ];
-					} else {
-
-						// split the camel cased version by spaces unless a key with the spaces exists
-						name = baidu._util_.camelCase( name );
-						if ( name in thisCache ) {
-							name = [ name ];
-						} else {
-							name = name.split(" ");
-						}
-					}
-				}
-
-				for ( i = 0, l = name.length; i < l; i++ ) {
-					delete thisCache[ name[i] ];
-				}
-
-				// If there is no data left in the cache, we want to continue
-				// and let the cache object itself get destroyed
-				if ( !( pvt ? isEmptyDataObject : baidu.object.isEmpty )( thisCache ) ) {
-					return;
-				}
-			}
-		}
-
-		if ( !pvt ) {
-			delete cache[ id ].data;
-
-			// Don't destroy the parent cache unless the internal data object
-			// had been the only thing left in it
-			if ( !isEmptyDataObject( cache[ id ] ) ) {
-				return;
-			}
-		}
-
-		// Destroy the cache
-		if ( isNode ) {
-			baidu._util_.cleanData( [ elem ], true );
-
-		// Use delete when supported for expandos or `cache` is not a window per isWindow (#10080)
-		} else if ( baidu.support.deleteExpando || cache != cache.window ) {
-			delete cache[ id ];
-
-		// When all else fails, null
-		} else {
-			cache[ id ] = null;
-		}
-	},
-
-	// For internal use only.
-	_data: function( elem, name, data ) {
-		return baidu._util_.data( elem, name, data, true );
-	},
-
-	// A method for determining if a DOM node can handle the data expando
-	acceptData: function( elem ) {
-		var noData = elem.nodeName && baidu._util_.noData[ elem.nodeName.toLowerCase() ];
-
-		// nodes accept data unless otherwise specified; rejection can be conditional
-		return !noData || noData !== true && elem.getAttribute("classid") === noData;
-	}
-});
-
-//TODO data的入口
-
-function dataAttr( elem, key, data ) {
-	// If nothing was found internally, try to fetch any
-	// data from the HTML5 data-* attribute
-	if ( data === undefined && elem.nodeType === 1 ) {
-
-		var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
-
-		data = elem.getAttribute( name );
-
-		if ( typeof data === "string" ) {
-			try {
-				data = data === "true" ? true :
-				data === "false" ? false :
-				data === "null" ? null :
-				baidu.isNumber( data ) ? +data :
-					rbrace.test( data ) ? baidu.json.parse( data ) :
-					data;
-			} catch( e ) {}
-
-			// Make sure we set the data so it isn't changed later
-			baidu._util_.data( elem, key, data );
-
-		} else {
-			data = undefined;
-		}
-	}
-
-	return data;
-}
-
-// checks a cache object for emptiness
-function isEmptyDataObject( obj ) {
-	var name;
-	for ( name in obj ) {
-
-		// if the public data object is empty, the private is still empty
-		if ( name === "data" && baidu.object.isEmpty( obj[name] ) ) {
-			continue;
-		}
-		if ( name !== "toJSON" ) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-
-//
-})();
-
 
 /**
  * @author wangxiao
