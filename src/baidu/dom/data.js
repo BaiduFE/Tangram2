@@ -44,7 +44,7 @@ baidu.dom.extend({
                     data[ key ] = value;
                 });
             
-            // jsonp
+            // json
             } else if ( baidu.type(key) == "object") {
 
                 // set all
