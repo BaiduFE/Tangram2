@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html{
 	padding: 0;
 	margin: 0;
@@ -194,4 +195,202 @@ h1, h2, h3, h4, h5, h6{
 }
 .demo p{
 	margin: 10px 0;
+=======
+html{
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+body {
+	overflow-y: hidden;	
+	font-family: 'Arial', '宋体';
+}
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Arial', 'Microsoft Yahei', '微软雅黑', '黑体';
+	font-weight: normal;
+}
+* {
+	padding: 0; margin: 0;
+}
+.demo{
+	font-size: 14px;  
+}			
+.demo .ac-h1 {
+	font-size: 16px; margin-bottom: 20px; color:#3C70A5;	 
+}
+.demo .ac-h1 strong {
+	color: #0071BC;
+}
+.demo .ac-des {
+	margin-bottom: 15px; line-height:22px;
+}
+.demo .ac-h2 {
+	font-size:18px; color:#3C70A5; margin:10px 0;
+}
+.demo .ac-h3 {
+	font-size:14px; color:#3C70A5; margin:10px 0;
+}
+.demo .ac-ul {
+	margin:10px 20px;
+}
+.demo .ac-ul li {
+	list-style-type:disc; line-height:24px;
+}
+.demo .ac-ol {
+	margin:10px 20px;
+}
+.demo .ac-ol li {
+	list-style-type:disc; line-height:24px;
+}
+.demo .ac_link, .ac-ul a, .ac-ol a {
+	color:#064581
+}
+.demo .ac_link:hover, .ac-ul a:hover, .ac-ol a:hover {
+	color:#990000;
+}
+.demo .ac-table {
+	width:100%; margin: 15px 0;
+}
+.demo .ac-table thead {
+	background: #cacaca;
+}
+.demo .ac-table thead td {
+	padding:10px; text-align:center;
+}		
+.demo .ac-table tbody td {
+	padding:5px;
+}	
+.demo .ac-table tbody em {
+	color: red; font-style:normal;
+}
+.demo .ac-table tbody a {
+	color: blue;
+}
+.demo .pannel-title {
+	padding: 10px; 
+	font-size: 16px;
+	margin-bottom: 20px; 
+	background-color: #C1D9F0;
+	color: #003A61;
+	text-shadow: 1px 1px 0 white; 
+	font-family: 'Arial', 'Microsoft Yahei';
+}
+.demo .pannel-content {
+	padding: 0 20px 20px 20px; 
+}
+.demo .codeview.pannel {
+	background: #cacaca;
+}
+.demo .pannel {
+	margin-bottom: 20px;
+	background-color: #EFF6FF;
+}
+.demo .fitsetArea {
+	width: 330px;
+}
+.demo .fitsetHead {
+	padding: 0 5px; font-size: 16px; font-weight:bold;
+}
+.demo .fitsetBody {
+	padding: 15px;
+}
+.demo .pannel-content-part {
+	margin-bottom: 10px;
+}
+.demo .pannel-content-tool {
+	margin-bottom:10px;
+}
+.demo .pannel-show {
+	background: #CBDDF3; padding: 10px;
+}
+.demo .button, .demo button, .demo input[type=button] {
+	font-size: 14px; 
+	height: 25px; 
+	line-height: 25px; 
+	text-decoration: none; 
+	background-color: #59A1C2; 
+	background-image: linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(79,144,179) 58%, rgb(89,161,194) 58%, rgb(217,242,255) 100%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(210,242,250)),
+		color-stop(0.58, rgb(79,144,179)),
+		color-stop(0.58, rgb(89,161,194)),
+		color-stop(1, rgb(217,242,255))
+	);
+	color: white; 
+	text-shadow: 1px 1px 0 #1C4E6F;
+	cursor: pointer; 
+	padding: 3px 18px; 
+	text-align: center; 
+	margin: 10px;
+	margin-left: 0;
+	display: inline-block;
+	border: 1px solid #4FACD8;
+	border-radius: 5px;
+	box-shadow: inset 0 1px 0 white;
+	vertical-align: baseline;
+}
+.demo .button {
+	*border: 1px solid #4FACD8;
+	cursor: hand;
+	*background-color: #96CAE6;
+	*padding: 5px;
+}
+.demo button, .demo button.button, .demo input[type=button]{
+	height: 30px;
+	line-height: 20px;
+}
+.demo .button:hover, .demo button:hover, .demo input[type=button]:hover{
+	background-color: #96CAE6;
+	background-image: linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(210,242,250) 0%, rgb(99,161,194) 58%, rgb(107,178,209) 58%, rgb(255,255,255) 100%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(210,242,250)),
+		color-stop(0.58, rgb(99,161,194)),
+		color-stop(0.58, rgb(107,178,209)),
+		color-stop(1, rgb(255,255,255))
+	);
+}
+.demo .button:active, .demo button:active, .demo input[type=button]:active{
+	background-color: rgb(85,144,173);
+	background-image: linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(159,201,212) 0%, rgb(85,144,173) 58%, rgb(106,175,204) 58%, rgb(82,135,171) 100%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgb(159,201,212)),
+		color-stop(0.58, rgb(85,144,173)),
+		color-stop(0.58, rgb(106,175,204)),
+		color-stop(1, rgb(82,135,171))
+	);
+	box-shadow: none;
+}
+.demo-clear:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.demo-clear{zoom:1;}
+.demo ul{
+	list-style-position: inside;
+	margin: 10px 0;
+}
+.demo p{
+	margin: 10px 0;
+>>>>>>> [BugFix] 修正在IE6下Demo按钮样式不正确的问题
 }
