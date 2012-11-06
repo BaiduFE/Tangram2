@@ -22,8 +22,14 @@ test("第一个参数为 String ", function () {
 //兼容JQ
 test("获取自定义属性", function () {
     var div1 = document.createElement('div');
-    div1.id = 'test-data';
-    div1.setAttribute('data-rayi','jiyou');
+    div1.id = 'test-data1';
+    div1.setAttribute('data-rayi','{"jiyou":"wangxiao","dashu":"jihu"}');
     document.body.appendChild(div1);
-    equal( baidu.dom('#test-data').data("rayi"), "jiyou", "取得data-开头的自定义属性" );    
+    equal( baidu.dom('#test-data1').data("rayi").dashu,"jihu", "取得data-开头的自定义Object" );    
+
+    var div2 = document.createElement('div');
+    div2.id = 'test-data2';
+    div2.setAttribute('data-rayi','jiyou');
+    document.body.appendChild(div2);
+    equal( baidu.dom('#test-data2').data("rayi"), "jiyou", "取得data-开头的自定义属性" );    
 });

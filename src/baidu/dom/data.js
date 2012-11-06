@@ -3,7 +3,6 @@
 ///import baidu.forEach;
 ///import baidu.type;
 ///import baidu.global;
-///import baidu.dom.attr;
 
 /**
  * @fileoverview
@@ -35,7 +34,14 @@ baidu.dom.extend({
                 if ( typeof value == "undefined" ) {
                     var data,result;
                     result = this[0] && (data = maps[ this[0][guid] ]) && data[ key ];
-                    return result?result:this[0].getAttribute('data-'+key);
+                    if(result){
+                        return result;
+                    }else{
+
+                        //取得自定义属性
+                        var attr = this[0].getAttribute('data-'+key);
+                        return (String(attr).indexOf('{') == -1)?attr:Function("return "+attr)();
+                    }
                 }
 
                 // set all
