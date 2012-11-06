@@ -26,91 +26,84 @@
 baidu.dom.extend({
     ready: function(){
 
-        var readyBound = false,
-            readyList = [],
-            DOMContentLoaded;
-
-        if (document.addEventListener) {
-            DOMContentLoaded = function() {
-                document.removeEventListener('DOMContentLoaded', DOMContentLoaded, false);
-                ready();
-            };
-
-        } else if (document.attachEvent) {
-            DOMContentLoaded = function() {
-                if (document.readyState === 'complete') {
-                    document.detachEvent('onreadystatechange', DOMContentLoaded);
-                    ready();
+   var doc = document,
+        branch = document.addEventListener ? 'w3c' : 'ie678'; //branching flag @2011-03-24
+    var _domReady = {
+        // When _domReady.done is true，all 'fn' will be invoked immediately.
+        done: false,
+        // The stack which all functions will be pushed into
+        fn: [],
+        // push callback functions
+        push: function (fn) {
+            if (!_domReady.done) {
+                // only bind once
+                if (_domReady.fn.length === 0) {
+                    _domReady.bind();
                 }
-            };
-        }
-
-        /**
-         * @private
-         */
-        function ready() {
-            if (!ready.isReady) {
-                ready.isReady = true;
-                for (var i = 0, j = readyList.length; i < j; i++) {
-                    readyList[i]();
-                }
-            }
-        }
-        /**
-         * @private
-         */
-        function doScrollCheck(){
-            try{
-                document.documentElement.doScroll("left");
-            }catch(e){
-                setTimeout( doScrollCheck, 1 );
-                return;
-            }
-            ready();
-        }
-        
-        /**
-         * @private
-         */
-        function bindReady() {
-            if (readyBound) {
-                return;
-            }
-            readyBound = true;
-			
-			//解决如果DOMContentLoaded事件已经触发会自动fallback到onload事件造成dom ready时间延迟问题
-			//IE下使用readyState === "complete"，因为IE9、10的interactive不靠谱
-            if (document.readyState === "complete" || ( document.readyState !== "loading" && document.addEventListener )) {
-                ready.isReady = true;
+                _domReady.fn.push(fn);
             } else {
-                if (document.addEventListener) {
-                    document.addEventListener('DOMContentLoaded', DOMContentLoaded, false);
-                    window.addEventListener('load', ready, false);
-                } else if (document.attachEvent) {
-                    document.attachEvent('onreadystatechange', DOMContentLoaded);
-                    window.attachEvent('onload', ready);
+                fn();
+            }
+        },
+        // The Real DOMContentLoaded Callback Function
+        ready: function () {
+            // Flag DOMContentLoaded Event was Done over
+            _domReady.done = true;
 
-                    var toplevel = false;
+            var fn = _domReady.fn;
+            for (var i = 0, l = fn.length; i < l; i++) {
+                fn[i]();
+            }
 
+            _domReady.unbind();
+            _domReady.fn = null;
+        },
+        bind: {
+            w3c: function () {
+                doc.addEventListener('DOMContentLoaded', _domReady.ready, false);
+            },
+            //IE的监听方法参考了这篇文章：http://javascript.nwbox.com/IEContentLoaded/
+            ie678: function () {
+                var done = false,
+                    // only fire once
+                    init = function () {
+                        if (!done) {
+                            done = true;
+                            _domReady.ready();
+                        }
+                    };
+                // polling for no errors
+                (function () {
                     try {
-                        toplevel = window.frameElement == null;
-                    } catch (e) {}
-
-                    if (document.documentElement.doScroll && toplevel) {
-                        doScrollCheck();
+                        // throws errors until after ondocumentready
+                        doc.documentElement.doScroll('left');
+                    } catch (e) {
+                        setTimeout(arguments.callee, 20);
+                        return;
                     }
-                }
+                    // no errors, fire
+                    init();
+                })();
+                // trying to always fire before onload
+                doc.onreadystatechange = function () {
+                    if (doc.readyState == 'complete') {
+                        doc.onreadystatechange = null;
+                        init();
+                    }
+                };
             }
-        }
-        bindReady();
-
-        return function(fn){
-            if(fn){
-                ready.isReady ? fn() : readyList.push(fn);   
+        }[branch],
+        unbind: {
+            w3c: function () {
+                doc.removeEventListener('DOMContentLoaded', _domReady.ready, false);
+            },
+            ie678: function () { /* Nothing to do */
             }
+        }[branch]
+    };
 
-            return this;
-        }
+    return _domReady.push;
+
     }()
 });
 /// Tangram 1.x Code Start
