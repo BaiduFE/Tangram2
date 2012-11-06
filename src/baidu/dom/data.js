@@ -32,8 +32,16 @@ baidu.dom.extend({
 
                 // get first
                 if ( typeof value == "undefined" ) {
-                    var data;
-                    return this[0] && (data = maps[ this[0][guid] ]) && data[ key ];
+                    var data,result;
+                    result = this[0] && (data = maps[ this[0][guid] ]) && data[ key ];
+                    if(result){
+                        return result;
+                    }else{
+
+                        //取得自定义属性
+                        var attr = this[0].getAttribute('data-'+key);
+                        return (String(attr).indexOf('{') == -1)?attr:Function("return "+attr)();
+                    }
                 }
 
                 // set all
@@ -42,7 +50,7 @@ baidu.dom.extend({
                     data[ key ] = value;
                 });
             
-            // jsonp
+            // json
             } else if ( baidu.type(key) == "object") {
 
                 // set all

@@ -2,25 +2,26 @@ module('baidu.sio.callByServer');
 
 //新接口
 test('queryField is input manually and callback is a function',function(){
-stop();
-var check=function(text){
-equals(text,'i am from server');
-start();
-};
-baidu.sio(upath+"callByServer.php").callByServer(check,{
-queryField : "callback"
-});
+	stop();
+	var check=function(text){
+		equals(text,'i am from server');
+		start();
+	};
+
+	baidu.sio(upath+"callByServer.php").callByServer(check,{
+		queryField : "callback"
+	});
 });
 
 test('queryField is input manually and callback is a string',function(){
-  stop();
-window.check_string=function(text){
-	equals(text,'i am from server');
-	start();
-};
-baidu.sio(upath+"callByServer.php").callByServer("check_string",{
-	queryField : "callback"
-});
+	stop();
+	window.check_string=function(text){
+		equals(text,'i am from server');
+		start();
+	};
+	baidu.sio(upath+"callByServer.php").callByServer("check_string",{
+		queryField : "callback"
+	});
 });
 
 test('charset utf-8', function() {
@@ -138,26 +139,28 @@ test('charset gbk', function() {
 	});
 });
 
-//test('check no callback params ',function() {
-//	stop();
-//	baidu.sio.callByServer(upath + "callByServer.php?callback=test");
-//	ok(true,true,"just for check no callback params.");	
-//	setTimeout(function() {
-//		start();
-//	}, 100);
-//});
+/*
+test('check no callback params ',function() {
+	stop();
+	baidu.sio.callByServer(upath + "callByServer.php?callback=test");
+	ok(true,true,"just for check no callback params.");	
+	setTimeout(function() {
+		start();
+	}, 100);
+});
 
 // modify by bell, 貌似短期没有修改计划，尚未实现
-//test('确保所有动态创建的script都被删除了', function() {
-////	start();
-////	var head = document.getElementsByTagName('HEAD')[0];
-//	var scripts = document.getElementsByTagName('SCRIPT');
-//	for ( var i = 0, j = scripts.length; i < j; i++) {
-//		if (scripts[i].src) {
-//			equal(scripts[i].src.indexOf('callback=') == -1, true ,scripts[i].src);
-//		}
-//	}
-//});
+test('确保所有动态创建的script都被删除了', function() {
+	//	start();
+	//	var head = document.getElementsByTagName('HEAD')[0];
+	var scripts = document.getElementsByTagName('SCRIPT');
+	for ( var i = 0, j = scripts.length; i < j; i++) {
+		if (scripts[i].src) {
+			equal(scripts[i].src.indexOf('callback=') == -1, true ,scripts[i].src);
+		}
+	}
+});
+*/
 
 test('throw exception in callback', function() {
 	stop();
@@ -207,23 +210,25 @@ test('page not exist with timeOut', function() {
 	}, 500);
 });
 
+/*
 //用例移除，暂不考虑该异常情况，IE下该用例一定不通过
-//test(
-//		'html with none head',
-//		function() {
-//			var f = document.body.appendChild(document.createElement('iframe'));
-//			f.src = (upath || '') + 'nonehead.html';
-//			stop();
-//			$(f)
-//					.ready(
-//							function() {
-//								equals(frames[0].document
-//										.getElementsByTagName('head').length,
-//										1,
-//										'html with none head could get elements by tag name head');
-//								setTimeout(function() {
-//									$(f).remove();
-//									start();
-//								}, 1);
-//							});
-//		});
+test(
+'html with none head',
+function() {
+	var f = document.body.appendChild(document.createElement('iframe'));
+	f.src = (upath || '') + 'nonehead.html';
+	stop();
+	$(f)
+			.ready(
+					function() {
+						equals(frames[0].document
+								.getElementsByTagName('head').length,
+								1,
+								'html with none head could get elements by tag name head');
+						setTimeout(function() {
+							$(f).remove();
+							start();
+						}, 1);
+					});
+});
+*/
