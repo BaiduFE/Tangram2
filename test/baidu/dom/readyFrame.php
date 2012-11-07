@@ -15,6 +15,7 @@ print "<script type='text/javascript' src='../../tools/br/import.php?f={$_GET['f
 else
 print "<script type='text/javascript' src='../../../release/all_release.js'></script>";
 ?>
+<script type="text/javascript" src="../../tools/lib/jQuery-1.8.2.js"></script>
 <script>
 parent&&parent.frameload && parent.frameload(window);
 </script>

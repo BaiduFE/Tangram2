@@ -4,6 +4,8 @@
 
 ///import baidu;
 ///import baidu.dom;
+///import baidu._util_;
+///import baidu.deferred;
 
 /**
  * @description 监听 documentDomReady 事件
@@ -26,86 +28,141 @@
 baidu.dom.extend({
     ready: function(){
 
-   var doc = document,
-        branch = document.addEventListener ? 'w3c' : 'ie678'; //branching flag @2011-03-24
-    var _domReady = {
-        // When _domReady.done is true，all 'fn' will be invoked immediately.
-        done: false,
-        // The stack which all functions will be pushed into
-        fn: [],
-        // push callback functions
-        push: function (fn) {
-            if (!_domReady.done) {
-                // only bind once
-                if (_domReady.fn.length === 0) {
-                    _domReady.bind();
-                }
-                _domReady.fn.push(fn);
+        var me = this,
+
+            // The deferred used on DOM ready
+            readyList,
+
+            // Use the correct document accordingly with window argument (sandbox)
+            document = window.document;
+
+        // Is the DOM ready to be used? Set to true once it occurs.
+        baidu._util_.isDomReady = false;
+
+        // A counter to track how many items to wait for before
+        // the ready event fires. See #6781
+        baidu._util_._readyWait = 1;
+
+        // Hold (or release) the ready event
+        baidu._util_.holdReady = function( hold ) {
+            if ( hold ) {
+                baidu._util_.readyWait++;
             } else {
-                fn();
+                _ready( true );
             }
-        },
-        // The Real DOMContentLoaded Callback Function
-        ready: function () {
-            // Flag DOMContentLoaded Event was Done over
-            _domReady.done = true;
+        };
 
-            var fn = _domReady.fn;
-            for (var i = 0, l = fn.length; i < l; i++) {
-                fn[i]();
+        // Handle when the DOM is ready
+        var _ready = function( wait ) {
+
+            // Abort if there are pending holds or we're already ready
+            if ( wait === true ? --baidu._util_.readyWait : baidu._util_.isDomReady ) {
+                return;
             }
 
-            _domReady.unbind();
-            _domReady.fn = null;
-        },
-        bind: {
-            w3c: function () {
-                doc.addEventListener('DOMContentLoaded', _domReady.ready, false);
-            },
-            //IE的监听方法参考了这篇文章：http://javascript.nwbox.com/IEContentLoaded/
-            ie678: function () {
-                var done = false,
-                    // only fire once
-                    init = function () {
-                        if (!done) {
-                            done = true;
-                            _domReady.ready();
-                        }
-                    };
-                // polling for no errors
-                (function () {
+            // Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
+            if ( !document.body ) {
+                return setTimeout( _ready, 1 );
+            }
+
+            // Remember that the DOM is ready
+            baidu._util_.isReady = true;
+
+            // If a normal DOM Ready event fired, decrement, and wait if need be
+            if ( wait !== true && --baidu._util_.readyWait > 0 ) {
+                return;
+            }
+
+            // If there are functions bound, to execute
+            readyList.resolveWith( document );
+
+            // Trigger any bound ready events
+            if ( baidu.dom.trigger ) {
+                baidu.dom( document ).trigger("ready").off("ready");
+            }
+        };
+
+        var DOMContentLoaded = function() {
+            if ( document.addEventListener ) {
+                document.removeEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+                _ready();
+            } else if ( document.readyState === "complete" ) {
+                // we're here because readyState === "complete" in oldIE
+                // which is good enough for us to call the dom ready!
+                document.detachEvent( "onreadystatechange", DOMContentLoaded );
+                _ready();
+            }
+        };
+
+        var readyPromise = function( obj ) {
+            if ( !readyList ) {
+
+                readyList = baidu.Deferred();
+
+                // Catch cases where $(document).ready() is called after the browser event has already occurred.
+                // we once tried to use readyState "interactive" here, but it caused issues like the one
+                // discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
+                if ( document.readyState === "complete" ) {
+                    // Handle it asynchronously to allow scripts the opportunity to delay ready
+                    setTimeout( _ready, 1 );
+
+                // Standards-based browsers support DOMContentLoaded
+                } else if ( document.addEventListener ) {
+                    // Use the handy event callback
+                    document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+
+                    // A fallback to window.onload, that will always work
+                    window.addEventListener( "load", _ready, false );
+
+                // If IE event model is used
+                } else {
+                    // Ensure firing before onload, maybe late but safe also for iframes
+                    document.attachEvent( "onreadystatechange", DOMContentLoaded );
+
+                    // A fallback to window.onload, that will always work
+                    window.attachEvent( "onload", _ready );
+
+                    // If IE and not a frame
+                    // continually check to see if the document is ready
+                    var top = false;
+
                     try {
-                        // throws errors until after ondocumentready
-                        doc.documentElement.doScroll('left');
-                    } catch (e) {
-                        setTimeout(arguments.callee, 20);
-                        return;
-                    }
-                    // no errors, fire
-                    init();
-                })();
-                // trying to always fire before onload
-                doc.onreadystatechange = function () {
-                    if (doc.readyState == 'complete') {
-                        doc.onreadystatechange = null;
-                        init();
-                    }
-                };
-            }
-        }[branch],
-        unbind: {
-            w3c: function () {
-                doc.removeEventListener('DOMContentLoaded', _domReady.ready, false);
-            },
-            ie678: function () { /* Nothing to do */
-            }
-        }[branch]
-    };
+                        top = window.frameElement == null && document.documentElement;
+                    } catch(e) {}
 
-    return _domReady.push;
+                    if ( top && top.doScroll ) {
+                        (function doScrollCheck() {
+                            if ( !baidu._util_.isDomReady ) {
+
+                                try {
+                                    // Use the trick by Diego Perini
+                                    // http://javascript.nwbox.com/IEContentLoaded/
+                                    top.doScroll("left");
+                                } catch(e) {
+                                    return setTimeout( doScrollCheck, 50 );
+                                }
+
+                                // and execute any waiting functions
+                                _ready();
+                            }
+                        })();
+                    }
+                }
+            }
+            return readyList.promise( obj );
+        };
+
+        return function( fn ) {
+            console.log(readyPromise());
+            // Add the callback
+            readyPromise().done( fn );
+
+            return me;
+        }
 
     }()
 });
+
 /// Tangram 1.x Code Start
 baidu.dom.ready = baidu.dom.fn.ready;
 /// Tangram 1.x Code End
