@@ -66,7 +66,6 @@ test("baidu.dom(div).css(name,value)", function(){
       ok( get("color") == "green" || get("color") == "rgb(0, 128, 0)" || get("color") == "#008000", "color" );
 
       if( ie < 9 ){
-          ok(false,'wangxiao');
           ok( ~ div.style.filter.indexOf("Alpha"), "opacity" );
       }
 
