@@ -1,4 +1,4 @@
-module('baidu.dom.css');
+module('baidu.dom.css',{});
 
 var ie = /msie/i.test( navigator.userAgent );
 
@@ -30,6 +30,17 @@ var css = function( name, value ){ return baidu.dom( div ).css( name, value ); }
 var get = function( name ){ return getStyle( div, name ); }
 
 appendStyle(" .a{ color: red; opacity: .5; filter: alpha(opacity=50); display: inline; } ");
+
+test('prepareTest',function(){
+  expect(1);
+  stop();
+  ua.importsrc("baidu.browser", function(){
+    start();
+    ok(true,'ok');
+    ie = baidu.browser.ie;
+  }, "baidu.browser", "baidu.dom.css");
+});
+
 test('baidu.dom(div).css(name)', function(){
     stop();
     ua.importsrc('baidu.dom.styleFixer', function(){
@@ -46,7 +57,6 @@ test('baidu.dom(div).css(name)', function(){
     }, 'baidu.dom.styleFixer', 'baidu.dom.css');
 });
 
-
 test("baidu.dom(div).css(name,value)", function(){
       css("position", "relative");
       css("color", "green");
@@ -55,8 +65,10 @@ test("baidu.dom(div).css(name,value)", function(){
       equal( get("position"), "relative", "position" );
       ok( get("color") == "green" || get("color") == "rgb(0, 128, 0)" || get("color") == "#008000", "color" );
 
-      if( ie )
+      if( ie < 9 ){
+          ok(false,'wangxiao');
           ok( ~ div.style.filter.indexOf("Alpha"), "opacity" );
+      }
 
       try{
           css( "z-index", 0 );
@@ -112,7 +124,6 @@ test("baidu.dom(div).css(name,value)", function(){
 
       div.style.display = "none";
 });
-
 
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").css("wangxiao");

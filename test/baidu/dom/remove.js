@@ -64,8 +64,10 @@ test('event', function(){
         baidu.dom(div.get()).remove();
         ua.fireMouseEvent(span.get(), 'click');
         ua.fireMouseEvent(div.get(), 'mouseover');
+
         ok(!div.get()[key], 'div has not baidu.key');
         ok(!span.get()[key], 'span has not baidu.key');
+
         start();
     }, 'baidu.dom.on', 'baidu.dom.remove');
 });

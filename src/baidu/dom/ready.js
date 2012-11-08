@@ -44,7 +44,7 @@ baidu.dom.extend({
         baidu._util_._readyWait = 1;
 
         // Hold (or release) the ready event
-        baidu._util_.holdReady = function( hold ) {
+        baidu.dom.holdReady = function( hold ) {
             if ( hold ) {
                 baidu._util_.readyWait++;
             } else {
