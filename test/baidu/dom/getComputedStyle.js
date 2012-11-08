@@ -1,8 +1,6 @@
 module("baidu.dom.getComputedStyle");
 
 var ie ;
-
-
 test('prepareTest',function(){
   expect(1);
   stop();
@@ -106,7 +104,7 @@ test("get style from fixer", function() {
 });
 
 test("get empty style in IE", function() {
-	if (ua.browser.ie < 9) {
+	if (ie < 9) {
 		stop();
 		var div = document.createElement('div');
 		div.style.width = '100px';
@@ -208,7 +206,7 @@ test("get style from fixer", function() {
 	}, 'baidu.dom._styleFixer.opacity', 'baidu.dom.getComputedStyle');
 });
 test("get empty style in IE", function() {
-	if (ua.browser.ie < 9 ) {
+	if (ie < 9 ) {
 		stop();
 		var div = document.createElement('div');
 		div.style.width = '100px';
