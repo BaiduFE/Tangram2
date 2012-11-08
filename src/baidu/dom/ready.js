@@ -1,5 +1,5 @@
 /**
- * @author dron
+ * @author dron,wangxiao
  */
 
 ///import baidu;
@@ -153,7 +153,7 @@ baidu.dom.extend({
         };
 
         return function( fn ) {
-            console.log(readyPromise());
+
             // Add the callback
             readyPromise().done( fn );
 
