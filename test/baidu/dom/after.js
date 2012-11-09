@@ -13,7 +13,6 @@ var div = document.createElement("div");
 	div.style.position = "absolute";
 	div.style.top = "-1000px";
 
-
 test("after TangramDom", function(){
 	document.body.appendChild(div);
 	div.innerHTML = "<div class='A'>A</div><div class='A'>A</div><div class='B'>B</div><div class='B'>B</div>";

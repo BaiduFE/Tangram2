@@ -9,7 +9,7 @@ var keyEvents = ['keydown', 'keypress', 'keyup'],
     htmlEvents = ['load', 'resize', 'unload'],
     etcEvents = ['error', 'scroll', 'contextmenu'];
 
-var ie = /msie/i.test( navigator.userAgent );
+var ie ;
 
 function Elements(tagName, noInsert){
     var ele = this._ele = document.createElement(tagName || 'div');
@@ -22,6 +22,15 @@ Elements.prototype.dispose = function(){
     ele = this._ele = null;
 }
 
+test('prepareTest',function(){
+  expect(1);
+  stop();
+  ua.importsrc("baidu.browser", function(){
+    start();
+    ok(true,'ok');
+    ie = baidu.browser.ie;
+  }, "baidu.browser", "baidu.dom.css");
+});
 
 test('bind event to div', function(){
     expect( 10 );
@@ -220,7 +229,7 @@ test('uiEvents', function(){
 });
 
 test('etcEvents', function(){
-    expect( etcEvents.length - ( ie ? 2 : 0 ) ); // ie 下 error 和 scroll 事件不知如何触发
+    expect( etcEvents.length - ( ( ie < 9 ) ? 2 : 0 ) ); // ie 下 error 和 scroll 事件不知如何触发
     var c = new Elements('input'),
         input = c.get();
 
