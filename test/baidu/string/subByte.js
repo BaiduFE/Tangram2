@@ -86,7 +86,7 @@ test("异常case", function() {
 test("尾部追加字符串功能", function() {
 	var str1 = "appending";
 	equals(baidu.string(str1).subByte(6, '...'), "append...");
-	equals(baidu.string(str1).subByte(100, '...'), "appending..."); // undefined is 9 characters
+	equals(baidu.string(str1).subByte(100, '...'), "appending"); // undefined is 9 characters
 });
 
 //老接口
@@ -174,7 +174,7 @@ test("异常case", function() {
 test("尾部追加字符串功能", function() {
 	var str1 = "appending";
 	equals(baidu.string.subByte(str1, 6, '...'), "append...");
-	equals(baidu.string.subByte(str1, 100, '...'), "appending..."); // undefined is 9 characters
+	equals(baidu.string.subByte(str1, 100, '...'), "appending"); // undefined is 9 characters
 });
 
 ////subByte的测试
