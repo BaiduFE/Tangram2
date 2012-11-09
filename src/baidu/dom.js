@@ -11,15 +11,6 @@
  */
 
 /**
- * @description 从文档中获取指定的DOM元素
- * @function 
- * @name baidu.dom.g
- * @grammar baidu.dom.g(id)
- * @param {String|Element} id 元素的ID名称或者直接传入元素本身
- * @return {Element} 如果传入的ID是不存在的则返回Null
- */
-
-/**
  * @description 创建一个空的TangramDom对象
  * @function 
  * @name baidu.dom()

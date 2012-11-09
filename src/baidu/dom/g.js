@@ -12,17 +12,14 @@
 ///import baidu.dom;
 
 /**
- * 从文档中获取指定的DOM元素
+ * @description 从文档中获取指定的DOM元素
+ * @function 
  * @name baidu.dom.g
- * @function
  * @grammar baidu.dom.g(id)
- * @param {string|HTMLElement} id 元素的id或DOM元素.
- * @shortcut g,T.G
- * @meta standard
- * @see baidu.dom.q
- *
- * @return {HTMLElement|null} 获取的元素，查找不到时返回null,如果参数不合法，直接返回参数.
+ * @param {String|Element} id 元素的ID名称或者直接传入元素本身
+ * @return {Element} 如果传入的ID是不存在的则返回Null
  */
+
 baidu.dom.g = function(id) {
     if (!id) return null; //修改IE下baidu.dom.g(baidu.dom.g('dose_not_exist_id'))报错的bug，by Meizz, dengping
     if ('string' == typeof id || id instanceof String) {

@@ -1,5 +1,16 @@
 module("baidu.dom.getComputedStyle");
 
+var ie ;
+test('prepareTest',function(){
+  expect(1);
+  stop();
+  ua.importsrc("baidu.browser", function(){
+    start();
+    ok(true,'ok');
+    ie = baidu.browser.ie;
+  }, "baidu.browser", "baidu.dom.css");
+});
+
 test("get style from style", function() {
 	if (ua.browser.ie) {
 		ok(true, "IE not supportted");
@@ -91,8 +102,9 @@ test("get style from fixer", function() {
 		start();
 	}, 'baidu.dom._styleFixer.opacity', 'baidu.dom.getComputedStyle');
 });
+
 test("get empty style in IE", function() {
-	if (ua.browser.ie) {
+	if (ie < 9) {
 		stop();
 		var div = document.createElement('div');
 		div.style.width = '100px';
@@ -194,7 +206,7 @@ test("get style from fixer", function() {
 	}, 'baidu.dom._styleFixer.opacity', 'baidu.dom.getComputedStyle');
 });
 test("get empty style in IE", function() {
-	if (ua.browser.ie) {
+	if (ie < 9 ) {
 		stop();
 		var div = document.createElement('div');
 		div.style.width = '100px';
