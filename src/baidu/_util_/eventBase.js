@@ -74,20 +74,28 @@ baidu._util_.eventBase = function(){
 
     var addEvent = function( target, name, fn, selector, data ){
         var call = function( e ){
-            var t = baidu.dom( e.target );
+            var t = baidu.dom( e.target ), args = arguments;
             if( data && !e.data ) 
                 e.data = data;
             if( e.triggerData ) 
-                [].push.apply( arguments, e.triggerData );
+                [].push.apply( args, e.triggerData );
             if( !proxyEl )
-                return e.result = fn.apply( target, arguments );
-            
-            // if( t.is( selector ) || t.is( selector + " *" ) )
-            //     return e.result = fn.apply( baidu.dom( e.target ).closest( selector )[0], arguments );
-            
-            for(var i = 0, l = proxyEl.length; i < l; i ++)
-                if(proxyEl.get(i).contains( e.target ))
-                    return e.result = fn.apply( proxyEl[i], arguments );
+                return e.result = fn.apply( target, args );
+
+            var found = false;
+
+            var callWithProxyEl = function(){
+                for(var i = 0, l = proxyEl.length; i < l; i ++)
+                    if(proxyEl.get(i).contains( e.target ))
+                        return found = true, e.result = fn.apply( proxyEl[i], args );
+            };
+
+            for(var i = 0, r; i < 2; i ++){
+                r = callWithProxyEl();
+                if(found)
+                    return r;
+                buildProxyEl();
+            }
         };
 
         var tangId = baidu.id( target );
@@ -98,8 +106,13 @@ baidu._util_.eventBase = function(){
         proxy( target, name, eventArray );
 
         var proxyEl = null;
+
+        var buildProxyEl = function(){
+            proxyEl = baidu.dom( selector, target );  
+        };
+
         if(selector)
-            proxyEl = baidu.dom( selector, target );
+            buildProxyEl();
 
         return call;
     };

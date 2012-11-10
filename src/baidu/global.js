@@ -23,7 +23,9 @@ baidu.global = baidu.global || (function() {
 
     return function( key, value, overwrite ) {
         if ( typeof value != "undefined" ) {
-            value = overwrite && typeof global[ key ] != "undefined" ? global[ key ] : value;
+            if(!overwrite) {
+                value = typeof global[ key ] == "undefined" ? value : global[ key ];
+            }
             global[ key ] =  value;
 
         } else if (key && typeof global[ key ] == "undefined" ) {
