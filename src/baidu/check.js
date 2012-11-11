@@ -1,6 +1,6 @@
 ///import baidu;
 ///import baidu.type;
-///import baidu.regexp.compile;
+///import baidu.regexp;
 /*
  * @fileoverview
  * @author meizz
@@ -39,7 +39,7 @@ baidu.check = function(){
 
         var caller, arg, i, n,
             types = "",
-            reg = baidu.regexp.compile(rs, "i");
+            reg = baidu.regexp(rs, "i");
 
         // 检查指定的对象(列)
         if (arguments.length > 2) {

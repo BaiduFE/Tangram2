@@ -25,21 +25,19 @@
  * @param {String} tail [可选]追加字符串
  * @return {String} 字符串截取结果
  */
-
-
 baidu.string.extend({
     subByte : function (len, tail) {
-        baidu.check('^(?:number(?:,(?:string|number))?)$', 'baidu.string.subByte');
-        var source = this.valueOf();
-        tail = tail || '';
-        if(len < 0 || baidu.string(source).getByteLength() <= len){
-            return source + tail;
+        baidu.check('number(,string)?$', 'baidu.string.subByte');
+
+        if(len < 0 || this.getByteLength() <= len){
+            return this.valueOf()/* + tail*/; // 20121109 mz 去掉tail
         }
         //thanks 加宽提供优化方法
-        source = source.substr(0, len).replace(/([^\x00-\xff])/g,"\x241 ")//双字节字符替换成两个
+        var source = this.substr(0, len)
+            .replace(/([^\x00-\xff])/g,"\x241 ")//双字节字符替换成两个
             .substr(0, len)//截取长度
             .replace(/[^\x00-\xff]$/,"")//去掉临界双字节字符
             .replace(/([^\x00-\xff]) /g,"\x241");//还原
-        return source + tail;
+        return source + (tail || "");
     }
 });

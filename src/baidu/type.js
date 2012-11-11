@@ -27,6 +27,7 @@ baidu.type = (function() {
     var objectType = {},
         nodeType = [, "HTMLElement", "Attribute", "Text", , , , , "Comment", "Document", , "DocumentFragment", ],
         str = "Array Boolean Date Error Function Number RegExp String",
+        retryType = {'object': 1, 'function': '1'},//解决safari对于childNodes算为function的问题
         toString = objectType.toString;
 
     // 给 objectType 集合赋值，建立映射
@@ -41,8 +42,7 @@ baidu.type = (function() {
     // 方法主体
     return function ( unknow ) {
         var s = typeof unknow;
-
-        return s != "object" ? s
+        return !retryType[s] ? s
             : unknow == null ? "null"
             : unknow._type_
                 || objectType[ toString.call( unknow ) ]
