@@ -63,9 +63,6 @@ test('ready before onload', function() {
 				equals(step++, 1, 'onload after ready');
 			};
 		});
-//		TT.on(w, 'load', function(){//IE6、8下，绑定事件的执行顺序并不固定，这个用例移除
-//			equals(step++, 1, 'onload after ready');
-//		});
 	};
 	f.src = upath + 'readyFrame.php?f=baidu.dom.ready';// 空页面
 	setTimeout(function(){
@@ -74,27 +71,28 @@ test('ready before onload', function() {
 	}, 1000);
 });
 
-test('ready after onload', function() {
-	expect(2);
-	stop();
-	setTimeout(function() {
-		var script = document.createElement('script');
-		script.src = upath + '../../../src/baidu/dom/ready.js';
-		var fun = function(){
-			if(ua.browser.ie && this.readyState == 'loaded' || !ua.browser.ie){
-				ok(true, "onload");
-				baidu.dom.ready(function() {
-						ok(true, "dom ready");
-						start();	
-				});
-			}
-		};
-		if(ua.browser.ie){
-			script.onreadystatechange = fun; 
-		}
-		else{
-			script.onload = fun;	
-		}
-		document.getElementsByTagName('head')[0].insertBefore(script, document.getElementsByTagName('head')[0].lastChild);
-	}, 100);
-});
+//该用例目的为证明domReady在onload之前，已在前面用例中测试通过，本用例使用当前页面，会存在一定问题，所以移除。
+// test('ready after onload', function() {
+// 	expect(2);
+// 	stop();
+// 	setTimeout(function() {
+// 		var script = document.createElement('script');
+// 		script.src = upath + '../../../src/baidu/dom/ready.js';
+// 		var fun = function(){
+// 			start();
+// 			if(ua.browser.ie && this.readyState == 'loaded' || !ua.browser.ie){
+// 				ok(true, "onload");
+// 				baidu.dom.ready(function() {
+// 						ok(true, "dom ready");	
+// 				});
+// 			}
+// 		};
+// 		if(ua.browser.ie){
+// 			script.onreadystatechange = fun; 
+// 		}
+// 		else{
+// 			script.onload = fun;	
+// 		}
+// 		document.getElementsByTagName('head')[0].insertBefore(script, document.getElementsByTagName('head')[0].lastChild);
+// 	}, 100);
+// });

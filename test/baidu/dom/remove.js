@@ -48,25 +48,27 @@ test('baidu.dom(args).remove(selector)', function(){
 test('event', function(){
     stop();
     ua.importsrc('baidu.dom.on', function(){
-        var div = new Elements('div'),
-            span = new Elements('span', true),
+        var div = document.createElement('div'),
+            span = document.createElement('span'),
             key = baidu.key;
-        div.get().appendChild(span.get());
+
+        div.appendChild(span);
         
-        baidu.dom(span.get()).on('click', function(){
+        baidu.dom(span).on('click', function(){
             ok(false, 'span event trigger');
         });
-        baidu.dom(div.get()).on('mouseover', function(){
+        baidu.dom(div).on('mouseover', function(){
             ok(false, 'div event trigger');
         });
-        ok(!!div.get()[key], 'div has baidu.key');
-        ok(!!span.get()[key], 'span has baidu.key');
-        baidu.dom(div.get()).remove();
-        ua.fireMouseEvent(span.get(), 'click');
-        ua.fireMouseEvent(div.get(), 'mouseover');
+        ok(!!div[key], 'div has baidu.key');
+        ok(!!span[key], 'span has baidu.key');
+        
+        baidu.dom(div).remove();
+        ua.fireMouseEvent(span, 'click');
+        ua.fireMouseEvent(div, 'mouseover');
 
-        ok(!div.get()[key], 'div has not baidu.key');
-        ok(!span.get()[key], 'span has not baidu.key');
+        ok(!div[key], 'div has not baidu.key');
+        ok(!span[key], 'span has not baidu.key');
 
         start();
     }, 'baidu.dom.on', 'baidu.dom.remove');
