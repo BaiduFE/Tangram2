@@ -21,9 +21,8 @@
  * @return {number} 页面视觉区域高度
  */
 baidu.page.getViewHeight = function () {
-    var doc = document,
-        client = doc.compatMode == 'BackCompat' ? doc.body : doc.documentElement;
-
-    return client.clientHeight;
+	var de = document.documentElement.clientHeight,
+	    db = document.body.clientHeight;
+	return Math.min(de||db, db);
 };
 /// Tangram 1.x Code End

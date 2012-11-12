@@ -16,12 +16,13 @@ function getScrollBarWidth() {
   outer.style.height = "150px";  
   outer.style.overflow = "hidden";  
   outer.appendChild (inner);  
-
   document.body.appendChild (outer);  
   var w1 = inner.offsetWidth;  
   outer.style.overflow = 'scroll';  
   var w2 = inner.offsetWidth;  
-  if (w1 == w2) w2 = outer.clientWidth;  
+  if (w1 == w2) {
+  	w2 = outer.clientWidth;
+  };  
 
   document.body.removeChild (outer);  
 
@@ -41,7 +42,6 @@ test("老接口：无滚动条", function() {
 		}
 	});
 });
-
 
 test("老接口：有滚动条", function() {
 	ua.frameExt( {
