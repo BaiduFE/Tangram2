@@ -16,7 +16,7 @@
 ///import baidu.array.each;
 ///import baidu.dom.getStyle;
 ///import baidu.lang.isNumber;
-///import biadu.forEach;
+///import baidu.forEach;
 
  
 /**

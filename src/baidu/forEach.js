@@ -31,7 +31,8 @@ baidu.forEach = function( enumerable, iterator, context ) {
         if ( typeof n == "number" ) {
 
             // 20121030 function.length
-            if (typeof enumerable == "function") {
+            //safari5.1.7 can not use typeof to check nodeList - linlingyu
+            if (Object.prototype.toString.call(enumerable) === "[object Function]") {
                 return enumerable;
             }
 

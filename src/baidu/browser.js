@@ -46,8 +46,9 @@ baidu.browser = baidu.browser || function(){
         case /firefox\/(\d+\.\d+)/i.test(ua) : 
             result.firefox = + RegExp['\x241'];
             break;
-        case /opera(\/| )(\d+(\.\d+)?)(.+?(version\/(\d+(\.\d+)?)))?/i.test(ua) :
-            result.opera = + ( RegExp["\x246"] || RegExp["\x242"] );
+        
+        case /opera(?:\/| )(\d+(?:\.\d+)?)(.+?(version\/(\d+(?:\.\d+)?)))?/i.test(ua) :
+            result.opera = + ( RegExp["\x244"] || RegExp["\x241"] );
             break;
     }
            
