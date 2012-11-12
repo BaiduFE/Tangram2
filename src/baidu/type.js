@@ -17,6 +17,11 @@
  * @param   {Any}       unknow  任意类型的对象
  * @param   {String}    match   [可选]与对象类型作比较的字符串，这个参数如果赋值则.type()方法的返回值为布尔值，使用此种判断的效率只有 is* 系列的 1/7
  * @return  {String}            对应对象类型的字符串
+ * @example 
+    返回值
+    基础类型：string , number , function , array , object , boolean , null
+    其他类型：HTMLElement , Attribute , Text , Comment , Document , DocumentFragment
+
  */
 baidu.type = (function() {
     var objectType = {},
