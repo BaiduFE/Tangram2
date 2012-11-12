@@ -19,6 +19,6 @@
  * @return  {object}                信息
  */
 baidu.global.set = function(key, value, overwrite){
-    return baidu.global(key, value, overwrite);
+    return baidu.global(key, value, !overwrite);
 }
 /// Tangram 1.x Code End
