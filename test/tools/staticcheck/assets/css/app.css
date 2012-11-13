@@ -1,0 +1,179 @@
+/* reset css*/
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+/* tree css*/
+.tree {
+	font-size: 84%;
+	cursor: default;
+	-moz-user-select:none;
+	width: 200px;
+}
+.tree-item {
+	background: url(../img/treeview-default-line.gif) repeat-y 0 -176px;
+}
+.tree-item.last {
+	background: none;
+}
+.tree-row {
+	border: 1px solid transparent;
+	white-space: nowrap;
+	position: relative;
+	height: 20px;
+	background: url(../img/treeview-default-line.gif) repeat-y -1px -177px;
+}
+.tree-row:hover {
+	-webkit-border-radius: 2px;
+	border: 1px solid #B6D4FC;
+	background: url(../img/treeview-default-line.gif) repeat-y -1px -175px #F5F8FC;
+}
+.tree-item.last > .tree-row {
+	background: none;
+}
+.tree-item.last .tree-row:hover {
+	background: none;
+	background-color: #F5F8FC;
+}
+
+.tree-item.focus > .tree-row,
+.tree-item.focus > .tree-row:hover {
+	-webkit-border-radius: 2px;
+	border: 1px solid #7DA2CE;
+	background: url(../img/treeview-default-line.gif) repeat-y -1px -177px #C9E0FC;
+}
+.tree-item.last.focus > .tree-row,
+.tree-item.last.focus > .tree-row:hover {
+	background-image: none;
+}
+
+.tree-item.expended > .tree-children {
+	display: block;
+}
+.hitarea {
+	position: absolute;
+	top: 0px;
+	left: -1px;
+	display: inline-block;
+	vertical-align: middle;
+	height: 20px;
+	width: 16px;
+	background: url(../img/treeview-default.gif) no-repeat -56px -68px;
+}
+.tree-item.nochildren .hitarea {
+	background-position: -9px -128px;
+}
+.tree-item.expended > .tree-row .hitarea {
+	background-position: -24px -112px;
+}
+.tree-item.last.nochildren .hitarea {
+	background-position: 7px -149px;
+}
+.tree-label {
+	margin-left: 16px;
+	vertical-align: middle;
+	white-space: nowrap;
+	line-height: 20px;
+	padding-left: 24px;
+	background: url(../img/folder_closed.png) no-repeat 2px center;
+}
+.tree-item.expended > .tree-row .tree-label {
+	background: url(../img/folder_open.png) no-repeat 2px center;
+}
+.tree-children {
+	padding-left: 15px;
+	display: none;
+}
+
+/* app css */
+body {
+	text-align: center;
+	background: #FCFCFC url(../img/header.gif) repeat-x 0 0;
+}
+header {
+	width: 950px;
+	height: 127px;
+	margin: auto;
+	text-align: left;
+}
+.logo {
+	width: 177px;
+	height: 90px;
+	background: url(../img/logo.gif) no-repeat center center;
+}
+.toolbar {
+	height: 36px;
+	line-height: 38px;
+	font-size: 14px;
+}
+.toolbar div {
+	float: left;
+	height: 36px;
+}
+.toolbar .options {
+	margin-top: -2px;
+}
+.toolbar .options input,
+.toolbar .options span {
+	vertical-align: middle;
+}
+.toolbar .options input {
+	margin-right: 3px;
+	height: 14px;
+}
+.toolbar button {
+	width: 88px;
+	line-height: 26px;
+	border: 1px solid #CCC;
+	background-color: #F9F9F9;
+	text-align: center;
+	font-size: 14px;
+	color: #6A0;
+	cursor: pointer;
+}
+.toolbar button:disabled {
+	border: 1px solid #F1F1F1;;
+	color: #808080;
+}
+.toolbar button:hover {
+	color: #A60;
+}
+.toolbar button[disabled^="disabled"]:hover {
+	color: #808080;
+}
+.toolbar .actions {
+	margin-left: 10px;
+}
+.main-wrap {
+	width: 950px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFF;
+	text-align: left;
+	border: 1px solid #CCC;
+	border-radius: 4px;
+}
+.main-wrap:after {
+	content: "."; 
+    display: block;
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+.tree-wrap,
+.test-wrap {
+	float: left;
+}
+.tree-wrap {
+	border-radius: 4px 0 0 4px;
+	background-color: #F6F6F6;
+	padding: 10px; 
+}
+.test-wrap {
+	padding: 10px;
+}
