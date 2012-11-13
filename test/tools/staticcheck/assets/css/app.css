@@ -14,44 +14,44 @@ body {
 	-moz-user-select:none;
 	width: 200px;
 }
-.tree-item {
+.node-item {
 	background: url(../img/treeview-default-line.gif) repeat-y 0 -176px;
 }
-.tree-item.last {
+.node-item.last {
 	background: none;
 }
-.tree-row {
+.node-row {
 	border: 1px solid transparent;
 	white-space: nowrap;
 	position: relative;
 	height: 20px;
 	background: url(../img/treeview-default-line.gif) repeat-y -1px -177px;
 }
-.tree-row:hover {
+.node-row:hover {
 	-webkit-border-radius: 2px;
 	border: 1px solid #B6D4FC;
 	background: url(../img/treeview-default-line.gif) repeat-y -1px -175px #F5F8FC;
 }
-.tree-item.last > .tree-row {
+.node-item.last > .node-row {
 	background: none;
 }
-.tree-item.last .tree-row:hover {
+.node-item.last .node-row:hover {
 	background: none;
-	background-color: #F5F8FC;
+	/*background-color: #F5F8FC;*/
 }
 
-.tree-item.focus > .tree-row,
-.tree-item.focus > .tree-row:hover {
+.node-item.focus > .node-row,
+.node-item.focus > .node-row:hover {
 	-webkit-border-radius: 2px;
 	border: 1px solid #7DA2CE;
 	background: url(../img/treeview-default-line.gif) repeat-y -1px -177px #C9E0FC;
 }
-.tree-item.last.focus > .tree-row,
-.tree-item.last.focus > .tree-row:hover {
+.node-item.last.focus > .node-row,
+.node-item.last.focus > .node-row:hover {
 	background-image: none;
 }
 
-.tree-item.expended > .tree-children {
+.node-item.expended > .node-children {
 	display: block;
 }
 .hitarea {
@@ -64,27 +64,33 @@ body {
 	width: 16px;
 	background: url(../img/treeview-default.gif) no-repeat -56px -68px;
 }
-.tree-item.nochildren .hitarea {
+.node-item.nochildren .hitarea {
 	background-position: -9px -128px;
 }
-.tree-item.expended > .tree-row .hitarea {
+.node-item.expended > .node-row .hitarea {
 	background-position: -24px -112px;
 }
-.tree-item.last.nochildren .hitarea {
+.node-item.last.nochildren .hitarea {
 	background-position: 7px -149px;
 }
-.tree-label {
+.node-label {
 	margin-left: 16px;
 	vertical-align: middle;
 	white-space: nowrap;
 	line-height: 20px;
 	padding-left: 24px;
+}
+.type-folder {
 	background: url(../img/folder_closed.png) no-repeat 2px center;
 }
-.tree-item.expended > .tree-row .tree-label {
+.node-item.expended > .node-row .type-folder {
 	background: url(../img/folder_open.png) no-repeat 2px center;
 }
-.tree-children {
+.type-file {
+	background: url(../img/file.png) no-repeat 2px center;
+}
+
+.node-children {
 	padding-left: 15px;
 	display: none;
 }

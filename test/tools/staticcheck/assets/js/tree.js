@@ -7,8 +7,8 @@ var tools = {
         });
     }
 };
-var itemrowTpl = '<div class="tree-item"><div class="tree-row">' +
-                    '<span class="hitarea"></span><p class="tree-label">#{name}</p>' +
+var itemrowTpl = '<div class="node-item"><div class="node-row">' +
+                    '<span class="hitarea"></span><p class="node-label type-#{type}">#{name}</p>' +
                 '</div></div>';
 
 /**
@@ -22,7 +22,7 @@ var node = function(data, container){
 node.prototype = {
 
     render: function(){
-        this.el = $(tools.sformat(itemrowTpl, {'name': this.data.name}));
+        this.el = $(tools.sformat(itemrowTpl, {'name': this.data.name, 'type': this.data.type}));
         if(this.data.children.length === 0){
             this.el.addClass('nochildren');
         }
@@ -49,7 +49,7 @@ node.prototype = {
         var nodeItem;
 
         if(!me.childrenContainer){
-            me.childrenContainer = $('<div class="tree-children"></div>');
+            me.childrenContainer = $('<div class="node-children"></div>');
             me.el[0].appendChild(me.childrenContainer[0]);
         }
         //将上一个子节点的last标识去掉
@@ -108,7 +108,7 @@ node.prototype = {
         var me = this;
 
         //鼠标在label上单击
-        me.el.on('click', '.tree-label', function(e){
+        me.el.on('click', '.node-label', function(e){
             me.focus();
             $(me.treeInstance).trigger('nodeclick', me);
             e.stopPropagation();
@@ -127,7 +127,7 @@ node.prototype = {
         });
 
         //鼠标在label上双击
-        // me.el.on('dblclick', '.tree-label', function(e){
+        // me.el.on('dblclick', '.node-label', function(e){
         //     $(me.treeInstance).trigger('nodedblclick', me);
         //     if(me.expended){
         //         me.collapse();
@@ -142,7 +142,7 @@ node.prototype = {
         // });
 
         //鼠标右键
-        me.el.on('contextmenu', '.tree-label', function(e){
+        me.el.on('contextmenu', '.node-label', function(e){
             e.preventDefault();
             e.stopPropagation();
             me.focus();
