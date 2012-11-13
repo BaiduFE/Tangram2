@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="getreport" basedir="../">
+	<!-- 配置信息 10.32.34.115:8000-->
+	<property name="serverip" value="10.32.34.115:8000" />
+	<property name="report.path" value="test/tools/br/report" />
+	<property name="coverage.path" value="test/coverage" />
+	<property name="report.file" value="test/tools/br/report.xml" />
+	<property name="coverage.report.file" value="test/tools/br/coveragereport/totalCoverage/coverage_report.xml" />
+	<property name="coverage.source.file" value="test/tools/br/coveragereport/totalCoverage/source.js" />
+	<property name="git.project" value="Tangram2" />
+	<property name="git.user" value="" />
+
+	<path id="ext.classpath">
+		<fileset dir="test/tools/lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<import file="build_report.xml" />
+
+	<target name="init">
+		<delete file="${report.file}" />
+		<delete dir="${report.path}" />
+		<delete file="${coverage.report.file}" />
+		<delete file="${coverage.source.file}" />
+		<mkdir dir="${report.path}/html" />
+		<mkdir dir="${report.path}/coverage/html" />
+		<mkdir dir="${report.path}/coverage/history" />
+	</target>
+	
+	<target name="close">
+		<exec executable="/home/work/soft/timer/stopbrow.sh">
+		</exec> 
+	</target>
+
+	<target name="coverage">
+		<delete dir="${coverage.path}" />
+		<exec executable="jscoverage">
+			<arg value="--encoding=UTF-8" />
+			<arg value="src" />
+			<arg value="${coverage.path}" />
+		</exec>
+	</target>
+
+	<target name="execute" depends="init,close,coverage">
+		<get src="http://${serverip}/addTask?proj=${git.user}.${git.project}&amp;cov=true" dest="/tmp/${git.user}_${git.project}.html" />
+	</target>
+	<target name="getreport" depends="execute">
+		<waitfor maxwait="1000" maxwaitunit="second">
+			<available file="${report.file}" />
+		</waitfor>
+		<echo>[report] : ${report.file}</echo>
+		<!-- junit report and mail-->
+		<antcall target="mail" />
+		<!-- junit report and mail end -->
+	</target>
+	<target name="getreport_release" depends="execute">
+		<waitfor maxwait="1000" maxwaitunit="second">
+			<available file="${report.file}" />
+		</waitfor>
+		
+		<waitfor maxwait="20" maxwaitunit="second">
+			<istrue value="false" />
+		</waitfor>
+
+		<!-- junit report and mail -->
+		<antcall target="mail" />
+		<!-- junit report and mail end -->
+	</target>
+	
+	<taskdef name='taskImport' classname="com.baidu.tangram.TaskImport" classpathref="ext.classpath">
+	</taskdef>
+	
+</project>
