@@ -79,6 +79,8 @@ body {
 	white-space: nowrap;
 	line-height: 20px;
 	padding-left: 24px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .type-folder {
 	background: url(../img/folder_closed.png) no-repeat 2px center;

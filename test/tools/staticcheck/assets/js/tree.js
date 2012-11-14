@@ -8,7 +8,7 @@ var tools = {
     }
 };
 var itemrowTpl = '<div class="node-item"><div class="node-row">' +
-                    '<span class="hitarea"></span><p class="node-label type-#{type}">#{name}</p>' +
+                    '<span class="hitarea"></span><p class="node-label type-#{type}" title="#{name}">#{name}</p>' +
                 '</div></div>';
 
 /**

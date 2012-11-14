@@ -1,18 +1,20 @@
-var treedata = {
-    children: [{
-        children: apis.children || [],
-        name: "baidu",
-        type: "folder"
-    }, {
-        children: [],
-        name: "baidu.js",
-        type: "file"
-    }]
-};
-var instance = new tree(treedata, $('#J_tree'));
-$(instance).bind('nodefocus', function(e, node){
-    console.log(node);
-    $('#J_tree').find('.focus').removeClass('focus');
-    node.el.addClass("focus");
-});
-instance.render();
+var treeDatas;
+
+function initApp(){
+    var instance = new tree(treeDatas, $('#J_tree'));
+
+    $(instance).bind('nodefocus', function(e, node){
+        node.data.type == "file" && console.log(node.data.dir);
+        $('#J_tree').find('.focus').removeClass('focus');
+        node.el.addClass("focus");
+    });
+
+    instance.render();
+}
+
+$.getJSON('./getFiles.php', function(data){
+                    console.log(data);
+                    treeDatas = data;
+
+                    initApp();
+                });
