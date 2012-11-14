@@ -17,11 +17,17 @@
  * @param   {Any}       unknow  任意类型的对象
  * @param   {String}    match   [可选]与对象类型作比较的字符串，这个参数如果赋值则.type()方法的返回值为布尔值，使用此种判断的效率只有 is* 系列的 1/7
  * @return  {String}            对应对象类型的字符串
+ * @example 
+    返回值
+    基础类型：string , number , function , array , object , boolean , null
+    其他类型：HTMLElement , Attribute , Text , Comment , Document , DocumentFragment
+
  */
 baidu.type = (function() {
     var objectType = {},
         nodeType = [, "HTMLElement", "Attribute", "Text", , , , , "Comment", "Document", , "DocumentFragment", ],
         str = "Array Boolean Date Error Function Number RegExp String",
+        retryType = {'object': 1, 'function': '1'},//解决safari对于childNodes算为function的问题
         toString = objectType.toString;
 
     // 给 objectType 集合赋值，建立映射
@@ -36,8 +42,7 @@ baidu.type = (function() {
     // 方法主体
     return function ( unknow ) {
         var s = typeof unknow;
-
-        return s != "object" ? s
+        return !retryType[s] ? s
             : unknow == null ? "null"
             : unknow._type_
                 || objectType[ toString.call( unknow ) ]

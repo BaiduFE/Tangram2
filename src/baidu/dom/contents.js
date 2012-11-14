@@ -12,10 +12,8 @@
  */
 baidu.dom.extend({
     contents: function(){
-        var array = Array.prototype.slice.call(this),
-            ret = [],
-            nodeName;
-        for(var i = 0, ele; ele = array[i]; i++){
+        var ret = [], nodeName;
+        for(var i = 0, ele; ele = this[i]; i++){
             nodeName = ele.nodeName;
             ret.push.apply(ret, baidu.makeArray(nodeName && nodeName.toLowerCase() === 'iframe' ?
                 ele.contentDocument || ele.contentWindow.document
