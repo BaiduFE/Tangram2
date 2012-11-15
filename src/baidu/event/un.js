@@ -1,3 +1,3 @@
-/// Tangram 1.x Code Start
+/// support maigc - Tangram 1.x Code Start
 ///import baidu.dom.off;
-/// Tangram 1.x Code End
+/// support maigc - Tangram 1.x Code End
