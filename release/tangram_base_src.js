@@ -10227,7 +10227,9 @@ baidu.dom.getStyle = function (element, key) {
 };
 
 /// support magic - Tangram 1.x Code End
+/// support magic - Tangram 1.x Code Start
 
+/// support magic - Tangram 1.x Code End
 
 /// support magic - Tangram 1.x Code Start
 /*
@@ -10593,7 +10595,9 @@ baidu.event.preventDefault = function (event) {
 /// support magic - Tangram 1.x Code End
 
 
+/// support maigc - Tangram 1.x Code Start
 
+/// support maigc - Tangram 1.x Code End
 
 
 
