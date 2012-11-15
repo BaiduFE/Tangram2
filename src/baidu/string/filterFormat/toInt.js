@@ -22,7 +22,7 @@
  * @return {Number} 转义之后的数字
  */
 baidu.string.filterFormat.toInt = function(str){
-	return parseInt(str, 10) || 0;
+    return parseInt(str, 10) || 0;
 };
 baidu.string.filterFormat.i = baidu.string.filterFormat.toInt;
 /// Tangram 1.x Code End

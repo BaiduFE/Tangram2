@@ -93,7 +93,7 @@
 
 baidu.dom.extend({
     toggleClass: function(value,status){
-    	var type = typeof value;
+        var type = typeof value;
         var status = (typeof status === 'undefined')? status : Boolean(status);
 
         if(arguments.length <= 0 ){

@@ -17,9 +17,9 @@
  * @function
  * @grammar baidu.object.map(source, iterator)
  * 
- * @param 	{Array}    source   需要遍历的object
- * @param 	{Function} iterator 对每个object元素进行处理的函数
- * @return 	{Array} 			map后的object
+ * @param     {Array}    source   需要遍历的object
+ * @param     {Function} iterator 对每个object元素进行处理的函数
+ * @return     {Array}             map后的object
  */
 baidu.object.map = function (source, iterator) {
     var results = {};

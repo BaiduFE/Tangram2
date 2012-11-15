@@ -56,7 +56,7 @@ baidu.fx.create = function(element, options, fxName) {
      * 打扫dom元素上的痕迹，删除元素自定义属性
      */
     timeline["\x06clean"] = function(e) {
-    	var me = this, guid;
+        var me = this, guid;
         if (e = me.element) {
             e.removeAttribute(me.attribName);
             guid = e.getAttribute(catt);

@@ -132,36 +132,36 @@ baidu.dom._styleFixer.textOverflow = (function () {
     }
 
     return {
-		get: function (element) {
+        get: function (element) {
             var browser = baidu.browser,
                 getStyle = dom.getStyle;
-			return (browser.opera ?
+            return (browser.opera ?
                         getStyle("OTextOverflow") :
                         browser.firefox ?
                             element._baiduOverflow :
                             getStyle("textOverflow")) ||
                    "clip";
-		},
+        },
 
-		set: function (element, value) {
+        set: function (element, value) {
             var browser = baidu.browser;
-			if (element.tagName == "TD" || element.tagName == "TH" || browser.firefox) {
-				element._baiduHTML && (element.innerHTML = element._baiduHTML);
+            if (element.tagName == "TD" || element.tagName == "TH" || browser.firefox) {
+                element._baiduHTML && (element.innerHTML = element._baiduHTML);
 
-				if (value == "ellipsis") {
-					element._baiduHTML = element.innerHTML;
-					var o = document.createElement("div"), width = element.appendChild(o).offsetWidth;
-					element.removeChild(o);
-					count(element, width);
-				}
-				else {
-					element._baiduHTML = "";
-				}
-			}
+                if (value == "ellipsis") {
+                    element._baiduHTML = element.innerHTML;
+                    var o = document.createElement("div"), width = element.appendChild(o).offsetWidth;
+                    element.removeChild(o);
+                    count(element, width);
+                }
+                else {
+                    element._baiduHTML = "";
+                }
+            }
 
-			o = element.style;
-			browser.opera ? (o.OTextOverflow = value) : browser.firefox ? (element._baiduOverflow = value) : (o.textOverflow = value);
-		}
+            o = element.style;
+            browser.opera ? (o.OTextOverflow = value) : browser.firefox ? (element._baiduOverflow = value) : (o.textOverflow = value);
+        }
     };
 })();
 /// Tangram 1.x Code End

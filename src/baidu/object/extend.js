@@ -19,7 +19,7 @@
  * 
 1.目标对象中，与源对象key相同的成员将会被覆盖。<br>
 2.源对象的prototype成员不会拷贝。
-		
+        
  * @shortcut extend
  * @meta standard
  *             

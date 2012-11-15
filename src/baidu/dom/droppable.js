@@ -39,49 +39,49 @@
  * @returns {Function} cancel取消拖拽
  */
 baidu.dom.droppable = function(element, options){
-	options = options || {};
-	var manager = baidu.dom.ddManager,
-		target = baidu.dom.g(element),
-	    guid = baidu.lang.guid(),
-		//拖拽进行时判断
-		_dragging = function(event){
-			var _targetsDroppingOver = manager._targetsDroppingOver,
-			    eventData = {trigger:event.DOM,reciever: target};
-			//判断被拖拽元素和容器是否相撞
-			if(baidu.dom.intersect(target, event.DOM)){
-				//进入容器区域
-				if(! _targetsDroppingOver[guid]){
-					//初次进入
-					(typeof options.ondropover == 'function') && options.ondropover.call(target,eventData);
-					manager.dispatchEvent("ondropover", eventData);
-					_targetsDroppingOver[guid] = true;
-				}
-			} else {
-				//出了容器区域
-				if(_targetsDroppingOver[guid]){
-					(typeof options.ondropout == 'function') && options.ondropout.call(target,eventData);
-					manager.dispatchEvent("ondropout", eventData);
-				}
-				delete _targetsDroppingOver[guid];
-			}
-		},
-		//拖拽结束时判断
-		_dragend = function(event){
-			var eventData = {trigger:event.DOM,reciever: target};
-			if(baidu.dom.intersect(target, event.DOM)){
-				typeof options.ondrop == 'function' && options.ondrop.call(target, eventData);
-				manager.dispatchEvent("ondrop", eventData);
-			}
-			delete manager._targetsDroppingOver[guid];
-		};
-	//事件注册,return object提供事件解除
-	manager.addEventListener("ondrag", _dragging);
-	manager.addEventListener("ondragend", _dragend);
-	return {
-		cancel : function(){
-			manager.removeEventListener("ondrag", _dragging);
-			manager.removeEventListener("ondragend",_dragend);
-		}
-	};
+    options = options || {};
+    var manager = baidu.dom.ddManager,
+        target = baidu.dom.g(element),
+        guid = baidu.lang.guid(),
+        //拖拽进行时判断
+        _dragging = function(event){
+            var _targetsDroppingOver = manager._targetsDroppingOver,
+                eventData = {trigger:event.DOM,reciever: target};
+            //判断被拖拽元素和容器是否相撞
+            if(baidu.dom.intersect(target, event.DOM)){
+                //进入容器区域
+                if(! _targetsDroppingOver[guid]){
+                    //初次进入
+                    (typeof options.ondropover == 'function') && options.ondropover.call(target,eventData);
+                    manager.dispatchEvent("ondropover", eventData);
+                    _targetsDroppingOver[guid] = true;
+                }
+            } else {
+                //出了容器区域
+                if(_targetsDroppingOver[guid]){
+                    (typeof options.ondropout == 'function') && options.ondropout.call(target,eventData);
+                    manager.dispatchEvent("ondropout", eventData);
+                }
+                delete _targetsDroppingOver[guid];
+            }
+        },
+        //拖拽结束时判断
+        _dragend = function(event){
+            var eventData = {trigger:event.DOM,reciever: target};
+            if(baidu.dom.intersect(target, event.DOM)){
+                typeof options.ondrop == 'function' && options.ondrop.call(target, eventData);
+                manager.dispatchEvent("ondrop", eventData);
+            }
+            delete manager._targetsDroppingOver[guid];
+        };
+    //事件注册,return object提供事件解除
+    manager.addEventListener("ondrag", _dragging);
+    manager.addEventListener("ondragend", _dragend);
+    return {
+        cancel : function(){
+            manager.removeEventListener("ondrag", _dragging);
+            manager.removeEventListener("ondragend",_dragend);
+        }
+    };
 };
 /// Tangram 1.x Code End

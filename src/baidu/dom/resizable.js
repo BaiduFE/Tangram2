@@ -180,12 +180,12 @@ baidu.dom.resizable = /**@function*/function(element,options) {
      * @return void
      */
     function start(e){
-		isResizabled && stop();
+        isResizabled && stop();
         var ele = baidu.event.getTarget(e),
             key = ele.key;
         currentEle = ele;
-		isResizabled = true;
-		
+        isResizabled = true;
+        
         if (ele.setCapture) {
             ele.setCapture();
         } else if (window.captureEvents) {
@@ -242,7 +242,7 @@ baidu.dom.resizable = /**@function*/function(element,options) {
         clearInterval(timer);
         baidu.dom.setStyle(document.body, 'cursor',orgCursor);
         currentEle = null;
-		isResizabled = false;
+        isResizabled = false;
         baidu.isFunction(op.onresizeend) && op.onresizeend();
     }
 

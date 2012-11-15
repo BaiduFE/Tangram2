@@ -21,8 +21,8 @@
  * @function
  * @grammar baidu.dom.setPosition(element, position)
  * 
- * @param {HTMLElement|string}	element 	目标元素或目标元素的id
- * @param {object} 				position 	位置对象 {top: {number}, left : {number}}
+ * @param {HTMLElement|string}    element     目标元素或目标元素的id
+ * @param {object}                 position     位置对象 {top: {number}, left : {number}}
  *
  * @return {HTMLElement}  进行设置的元素
  */

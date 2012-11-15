@@ -25,10 +25,10 @@
 (function(){
 
  baidu.page.getMousePosition = function(){
-	 return {
-		x : baidu.page.getScrollLeft() + xy.x,
-		y : baidu.page.getScrollTop() + xy.y
-	 };
+     return {
+        x : baidu.page.getScrollLeft() + xy.x,
+        y : baidu.page.getScrollTop() + xy.y
+     };
  };
 
  var xy = {x:0, y:0};
