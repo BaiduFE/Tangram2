@@ -1,3 +1,3 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 ///import baidu.dom.on;
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End
