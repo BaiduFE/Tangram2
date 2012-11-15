@@ -11210,9 +11210,9 @@ baidu.dom.getStyle = function (element, key) {
 };
 
 /// support magic - Tangram 1.x Code End
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End
 
 /// support magic - Tangram 1.x Code Start
 /*
@@ -11631,9 +11631,9 @@ baidu.dom.extend({
 
 /// Tangram 1.x Code End
 
-/// Tangram 1.x Code Start
+/// support maigc - Tangram 1.x Code Start
 
-/// Tangram 1.x Code End
+/// support maigc - Tangram 1.x Code End
 
 /// Tangram 1.x Code Start
 //为兼容Tangram1.x的magic增加的接口
