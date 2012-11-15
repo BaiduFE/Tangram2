@@ -7,12 +7,14 @@ body {
 	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 }
+ul, li {
+	list-style: none;
+}
 /* tree css*/
 .tree {
 	font-size: 84%;
 	cursor: default;
 	-moz-user-select:none;
-	width: 200px;
 }
 .node-item {
 	background: url(../img/treeview-default-line.gif) repeat-y 0 -176px;
@@ -156,7 +158,7 @@ header {
 .toolbar .actions {
 	margin-left: 10px;
 }
-.main-wrap {
+.content {
 	width: 950px;
 	margin-top: 10px;
 	margin-left: auto;
@@ -166,22 +168,54 @@ header {
 	border: 1px solid #CCC;
 	border-radius: 4px;
 }
-.main-wrap:after {
+.content:after {
 	content: "."; 
     display: block;
     height: 0; 
     clear: both; 
     visibility: hidden;
 }
-.tree-wrap,
-.test-wrap {
+.col-sub,
+.col-main {
 	float: left;
 }
-.tree-wrap {
+.col-sub {
 	border-radius: 4px 0 0 4px;
 	background-color: #F6F6F6;
-	padding: 10px; 
+	width: 220px;
 }
-.test-wrap {
-	padding: 10px;
+.tree {
+	margin: 10px;
+}
+.col-main {
+	width: 730px;
+}
+.main-wrap {
+	margin: 10px;
+}
+.test-header {
+	color: #8699A4;
+	background-color: #F6F6F6;
+	font-size: 16px;
+	line-height: 40px;
+	font-weight: bold;
+	padding-left: 15px;
+	border-bottom: 5px solid #C6E746;
+}
+.test-cases li {
+	line-height: 35px;
+	color: #000;
+	font-weight: normal;
+	background-color: #F8FAFB;
+	padding-left: 15px;
+	border-bottom: 1px solid #FFF;
+}
+.test-cases li.pass {
+	background-color: #2EAFF0;
+}
+.test-cases li.failure {
+	background-color: #EE5757;
+}
+.test-cases li.attention {
+	background-color: #E2EB13;
 }

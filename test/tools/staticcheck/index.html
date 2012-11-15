@@ -5,6 +5,7 @@
         <title>Tangram文件静态检查工具</title>
         <link rel="stylesheet" type="text/css" href="./assets/css/app.css" />
         <script type="text/javascript" src="../lib/jQuery-1.8.2.js"></script>
+        <script type="text/javascript" src="./assets/js/mustache.js"></script>
         <script type="text/javascript" src="./assets/js/tree.js"></script>
     </head>
     <body>
@@ -21,12 +22,14 @@
                 </div>
             </div>
         </header>
-        <div class="main-wrap">
-            <div class="tree-wrap">
+        <div class="content">
+            <div class="col-sub">
                 <div id="J_tree" class="tree" onselectstart="return false;"></div>
             </div>
-            <div class="test-wrap">
-                Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.13 (KHTML, like Gecko) Chrome/24.0.1290.1 Safari/537.13
+            <div class="col-main">
+                <div class="main-wrap">
+                    <div id="J_result" class="testcase-wrap"></div>
+                </div>
             </div>
         </div>
         
