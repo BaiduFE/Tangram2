@@ -54,12 +54,11 @@ baidu.dom.extend({
     }
 });
 
-/// Tangram 1.x Code Start
+/// support - magic Tangram 1.x Code Start
 ///import baidu.dom.g;
 baidu.event.un = baidu.un = function(element, evtName, handler){
     element = baidu.dom.g(element);
     baidu.dom(element).off(evtName.replace(/^\s*on/, ''), handler);
     return element;
  };
- /// Tangram 1.x Code End
- 
+ /// support - magic Tangram 1.x Code End

@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /**
  * @description 获取横向滚动量
  * @name baidu.page.getScrollLeft
@@ -29,4 +29,4 @@ baidu.page.getScrollLeft = function () {
     var d = document;
     return window.pageXOffset || d.documentElement.scrollLeft || d.body.scrollLeft;
 };
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

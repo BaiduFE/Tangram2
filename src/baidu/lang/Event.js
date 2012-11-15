@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -112,4 +112,4 @@ baidu.lang.Class.prototype.addEventListener = function (type, handler, key) {
 //  2011.11.23  meizz   事件handler的存储对象由json改成array，以保证注册函数的执行顺序
 //  2011.11.22  meizz   将 removeEventListener 方法分拆到 baidu.lang.Class.removeEventListener 中，以节约主程序代码
 
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

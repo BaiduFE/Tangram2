@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -36,4 +36,4 @@ baidu.dom.extend({
     }
 });
 
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

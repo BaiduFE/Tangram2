@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -55,4 +55,4 @@ baidu.lang.inherits = function (subClass, superClass, type) {
 };
 
 //  2011.11.22  meizz   为类添加了一个静态方法extend()，方便代码书写
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

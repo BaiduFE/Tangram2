@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -28,4 +28,4 @@ baidu.page.getHeight = function () {
 
     return Math.max(html.scrollHeight, body.scrollHeight, client.clientHeight);
 };
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End
