@@ -29,7 +29,7 @@ function getDependApis(content){
     var depends = [],
         reg = new RegExp('(import\\s(.*);)', 'ig');
 
-    while(arr = reg.exec(content)){
+    while(reg.exec(content)){
         depends.push(RegExp.$2);
     }
 

@@ -1,0 +1,221 @@
+/* reset css*/
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+ul, li {
+	list-style: none;
+}
+/* tree css*/
+.tree {
+	font-size: 84%;
+	cursor: default;
+	-moz-user-select:none;
+}
+.node-item {
+	background: url(../img/treeview-default-line.gif) repeat-y 0 -176px;
+}
+.node-item.last {
+	background: none;
+}
+.node-row {
+	border: 1px solid transparent;
+	white-space: nowrap;
+	position: relative;
+	height: 20px;
+	background: url(../img/treeview-default-line.gif) repeat-y -1px -177px;
+}
+.node-row:hover {
+	-webkit-border-radius: 2px;
+	border: 1px solid #B6D4FC;
+	background: url(../img/treeview-default-line.gif) repeat-y -1px -175px #F5F8FC;
+}
+.node-item.last > .node-row {
+	background: none;
+}
+.node-item.last .node-row:hover {
+	background: none;
+	/*background-color: #F5F8FC;*/
+}
+
+.node-item.focus > .node-row,
+.node-item.focus > .node-row:hover {
+	-webkit-border-radius: 2px;
+	border: 1px solid #7DA2CE;
+	background: url(../img/treeview-default-line.gif) repeat-y -1px -177px #C9E0FC;
+}
+.node-item.last.focus > .node-row,
+.node-item.last.focus > .node-row:hover {
+	background-image: none;
+}
+
+.node-item.expended > .node-children {
+	display: block;
+}
+.hitarea {
+	position: absolute;
+	top: 0px;
+	left: -1px;
+	display: inline-block;
+	vertical-align: middle;
+	height: 20px;
+	width: 16px;
+	background: url(../img/treeview-default.gif) no-repeat -56px -68px;
+}
+.node-item.nochildren .hitarea {
+	background-position: -9px -128px;
+}
+.node-item.expended > .node-row .hitarea {
+	background-position: -24px -112px;
+}
+.node-item.last.nochildren .hitarea {
+	background-position: 7px -149px;
+}
+.node-label {
+	margin-left: 16px;
+	vertical-align: middle;
+	white-space: nowrap;
+	line-height: 20px;
+	padding-left: 24px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.type-folder {
+	background: url(../img/folder_closed.png) no-repeat 2px center;
+}
+.node-item.expended > .node-row .type-folder {
+	background: url(../img/folder_open.png) no-repeat 2px center;
+}
+.type-file {
+	background: url(../img/file.png) no-repeat 2px center;
+}
+
+.node-children {
+	padding-left: 15px;
+	display: none;
+}
+
+/* app css */
+body {
+	text-align: center;
+	background: #FCFCFC url(../img/header.gif) repeat-x 0 0;
+}
+header {
+	width: 950px;
+	height: 127px;
+	margin: auto;
+	text-align: left;
+}
+.logo {
+	width: 177px;
+	height: 90px;
+	background: url(../img/logo.gif) no-repeat center center;
+}
+.toolbar {
+	height: 36px;
+	line-height: 38px;
+	font-size: 14px;
+}
+.toolbar div {
+	float: left;
+	height: 36px;
+}
+.toolbar .options {
+	margin-top: -2px;
+}
+.toolbar .options input,
+.toolbar .options span {
+	vertical-align: middle;
+}
+.toolbar .options input {
+	margin-right: 3px;
+	height: 14px;
+}
+.toolbar button {
+	width: 88px;
+	line-height: 26px;
+	border: 1px solid #CCC;
+	background-color: #F9F9F9;
+	text-align: center;
+	font-size: 14px;
+	color: #6A0;
+	cursor: pointer;
+}
+.toolbar button:disabled {
+	border: 1px solid #F1F1F1;;
+	color: #808080;
+}
+.toolbar button:hover {
+	color: #A60;
+}
+.toolbar button[disabled^="disabled"]:hover {
+	color: #808080;
+}
+.toolbar .actions {
+	margin-left: 10px;
+}
+.content {
+	width: 950px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFF;
+	text-align: left;
+	border: 1px solid #CCC;
+	border-radius: 4px;
+}
+.content:after {
+	content: "."; 
+    display: block;
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+.col-sub,
+.col-main {
+	float: left;
+}
+.col-sub {
+	border-radius: 4px 0 0 4px;
+	background-color: #F6F6F6;
+	width: 220px;
+}
+.tree {
+	margin: 10px;
+}
+.col-main {
+	width: 730px;
+}
+.main-wrap {
+	margin: 10px;
+}
+.test-header {
+	color: #8699A4;
+	background-color: #F6F6F6;
+	font-size: 16px;
+	line-height: 40px;
+	font-weight: bold;
+	padding-left: 15px;
+	border-bottom: 5px solid #C6E746;
+}
+.test-cases li {
+	line-height: 35px;
+	color: #000;
+	font-weight: normal;
+	background-color: #F8FAFB;
+	padding-left: 15px;
+	border-bottom: 1px solid #FFF;
+}
+.test-cases li.pass {
+	background-color: #2EAFF0;
+}
+.test-cases li.failure {
+	background-color: #EE5757;
+}
+.test-cases li.attention {
+	background-color: #E2EB13;
+}
