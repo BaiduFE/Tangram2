@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
@@ -21,4 +21,4 @@ baidu.dom.setPixel = function (el, style, n) {
 	typeof n != "undefined" &&
 	(baidu.dom.g(el).style[style] = n +(!isNaN(n) ? "px" : ""));
 };
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

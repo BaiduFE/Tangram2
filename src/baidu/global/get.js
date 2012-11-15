@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -19,4 +19,4 @@
 baidu.global.get = function(key){
     return baidu.global(key);
 }
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

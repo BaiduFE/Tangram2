@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -39,4 +39,4 @@ baidu.fx.scrollTo = function(element, point, options) {
     return baidu.fx.scrollBy(element, d, options);
 };
 
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End
