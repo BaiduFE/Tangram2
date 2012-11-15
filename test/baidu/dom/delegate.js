@@ -109,7 +109,7 @@ test('test', function(){
 });
 
 test('handler', function(){
-    expect(2);
+    expect(3);
     var div = document.createElement('div'),
         span0 = new Span(true),
         span1 = new Span(true),
@@ -119,8 +119,12 @@ test('handler', function(){
     div.appendChild(span1.get());        
     
     baidu.dom(div).delegate('span', 'click', function(evt){
-        var span = index === 0 ? span0 : span1;
-        ok(this === span.get(), 'it is span');
+        if( index < 2 ){
+            var span = index === 0 ? span0 : span1;
+            ok(this === span.get(), 'it is span');    
+        }else{
+            ok(this === div.getElementsByTagName("span")[0], 'it is span');
+        }
     });
     index = 0;
     ua.fireMouseEvent(span0.get(), 'click');
@@ -128,6 +132,11 @@ test('handler', function(){
     ua.fireMouseEvent(span1.get(), 'click');
     span0.dispose();
     span1.dispose();
+
+    index = 2;
+    div.innerHTML = "<span>1</span><span>2</span>";
+    ua.fireMouseEvent(div.getElementsByTagName("span")[0], "click");
+
     document.body.removeChild(div);
 });
 
