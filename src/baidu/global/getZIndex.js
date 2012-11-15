@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2011 Baidu Inc. All rights reserved.
@@ -27,4 +27,4 @@ baidu.global.getZIndex = function(key, step) {
 	return zi[key];
 };
 baidu.global.set("zIndex", {popup : 50000, dialog : 1000}, true);
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End
