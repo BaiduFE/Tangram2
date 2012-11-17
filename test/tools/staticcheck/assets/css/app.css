@@ -128,12 +128,12 @@ header {
 	margin-top: -2px;
 }
 .toolbar .options input,
-.toolbar .options span {
+.toolbar .options label {
 	vertical-align: middle;
+	color: #666;
 }
 .toolbar .options input {
 	margin-right: 3px;
-	height: 14px;
 }
 .toolbar button {
 	width: 88px;
