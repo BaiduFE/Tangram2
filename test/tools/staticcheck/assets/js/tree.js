@@ -93,6 +93,7 @@
             !me.childrenRended && me.renderChildren();
             me.expended = true;
             me.el.addClass("expended");
+            me.el.find('.node-item').show();
         },
 
         /**

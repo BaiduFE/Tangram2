@@ -14,12 +14,13 @@
                                     '<span>文件最后修改时间：{{testCaseCheck.msg.srcLastModify}}；</span>' +
                                     '<span>用例最后修改时间：{{testCaseCheck.msg.testCaseLastModify}}</span>' +
                                 '</li>' +
-                            '</ul>';
+                            '</ul>',
+        docTpl = '';
 
     function fileStaticCheck(node){
         $("#J_result").html();
 
-        $.getJSON('./staticcheck.php?file=' + node.data.dir, function(data){
+        $.getJSON('./staticcheck.php?file=' + node.data.dir + '&autoFixed=' + autoFixed, function(data){
                         data.file = node.data.dir.replace('../../../src/', '');
                         $("#J_result").html(Mustache.render(testCaseTpl, data));
 
@@ -50,11 +51,14 @@
     var autoNext = (function(){
         var i = -1;
         return function(){
+
+            // 跑完了
             if(++i >= flattenedTreeDates.length){
                 $('#J_autoRun').removeAttr('disabled');
                 $('#J_autoFixed').removeAttr('disabled');
                 $('#J_hideOnPass').removeAttr('disabled');
                 i = -1;
+                autoRuning = false;
                 return;
             }
 
@@ -86,7 +90,9 @@
             if(node.data.type == "file"){
                 $('#J_tree').find('.focus').removeClass('focus');
                 node.el.addClass("focus");
-                fileStaticCheck(node);
+
+                // 处于自动测试时，不响应
+                !autoRuning && fileStaticCheck(node);
             }
         });
 
@@ -136,11 +142,23 @@
 
     window.app = {
         run: function(){
+            $.get('./docTpl.html', function(tpl){
+                        docTpl = tpl;
+                    });
             $.getJSON('./getFiles.php', function(data){
                         initTree(data);
                         flatteningTreeDates(treeInstance);
                         treeInstance.children[0].expend();
                         bindUI();
+
+                        if(docTpl){
+                            $.getJSON('./doc.php', function(data){
+                                data.forEach(function(item){
+                                    $("#J_result")[0].innerHTML += Mustache.render(docTpl, item);
+                                });
+                                
+                            });
+                        }
                     });
         }
     };
