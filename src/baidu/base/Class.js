@@ -93,6 +93,7 @@ baidu.extend(baidu.base.Class.prototype, {
         type.indexOf("on") != 0 && (type = "on" + type);
 
         baidu.isFunction(this[type]) && this[type].apply(this, argu);
+        (i=this._options) && baidu.isFunction(i[type]) && i[type].apply(this, argu);
 
         if (baidu.isArray(list = t[type])) {
             for (i=0, n=list.length; i<n; i++) {
