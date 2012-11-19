@@ -1,6 +1,6 @@
 ///import baidu;
-///import baidu.forEach;
 ///import baidu.merge;
+///import baidu.forEach;
 ///import baidu.array.unique;
 /*
  * @fileoverview
@@ -24,14 +24,14 @@
  * @return  {Array}                 筛选后的对象组
  */
 baidu.query = baidu.query || (function(){
-    var rId = /^(\w*)#([\w\-\$]+)$/,
-        rId0= /^#([\w\-\$]+)$/
-        rTag = /^\w+$/,
-        rClass = /^(\w*)\.([\w\-\$]+)$/,
-        rComboClass = /^(\.[\w\-\$]+)+$/;
-        rDivider = /\s*,\s*/,
-        rSpace = /\s+/g,
-        slice = Array.prototype.slice;
+    var rId = /^(\w*)#([\w\-\$]+)$/
+       ,rId0= /^#([\w\-\$]+)$/
+       ,rTag = /^\w+$/
+       ,rClass = /^(\w*)\.([\w\-\$]+)$/
+       ,rComboClass = /^(\.[\w\-\$]+)+$/
+       ,rDivider = /\s*,\s*/
+       ,rSpace = /\s+/g
+       ,slice = Array.prototype.slice;
 
     // selector: #id, .className, tagName, *
     function query(selector, context) {
