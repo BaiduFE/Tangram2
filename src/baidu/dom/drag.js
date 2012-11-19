@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -139,4 +139,4 @@
 })();
 // [TODO] 20100625 添加cursorAt属性，absolute定位的定位的元素在不设置top|left值时，初始值有问题，得动态计算
 // [TODO] 20101101 在drag方法的返回对象中添加 dispose() 方法析构drag
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

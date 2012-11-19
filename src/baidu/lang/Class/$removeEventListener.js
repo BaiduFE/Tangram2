@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21,7 +21,7 @@
  * @grammar obj.removeEventListener(type, handler)
  * @param {string}   type     事件类型
  * @param {Function} handler  要移除的事件监听函数或者监听函数的key
- * @remark 	如果第二个参数handler没有被绑定到对应的自定义事件中，什么也不做。
+ * @remark     如果第二个参数handler没有被绑定到对应的自定义事件中，什么也不做。
  */
 baidu.lang.Class.prototype.un =
 baidu.lang.Class.prototype.removeEventListener = function (type, handler) {
@@ -55,4 +55,4 @@ baidu.lang.Class.prototype.removeEventListener = function (type, handler) {
 };
 
 // 2011.12.19 meizz 为兼容老版本的按 key 删除，添加了一行代码
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

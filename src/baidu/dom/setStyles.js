@@ -28,6 +28,6 @@ setStyles : function ( styles) {
     }
 
     return element;
-}	
+}    
 });
 /// Tangram 1.x Code End

@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -17,10 +17,10 @@
 /**
  * @description 自定义的事件对象。
  * @class
- * @name 	baidu.lang.Event
+ * @name     baidu.lang.Event
  * @grammar baidu.lang.Event(type[, target])
- * @param 	{string} type	 事件类型名称。为了方便区分事件和一个普通的方法，事件类型名称必须以"on"(小写)开头。
- * @param 	{Object} [target]触发事件的对象
+ * @param     {string} type     事件类型名称。为了方便区分事件和一个普通的方法，事件类型名称必须以"on"(小写)开头。
+ * @param     {Object} [target]触发事件的对象
  * @meta standard
  * @remark 引入该模块，会自动为Class引入3个事件扩展方法：addEventListener、removeEventListener和dispatchEvent。
  * @meta standard
@@ -37,8 +37,8 @@ baidu.lang.Event = function (type, target) {
  * @description 派发自定义事件，使得绑定到自定义事件上面的函数都会被执行。引入baidu.lang.Event后，Class的子类实例才会获得该方法。
  * @name obj.dispatchEvent
  * @grammar obj.dispatchEvent(event, options)
- * @param {baidu.lang.Event|String} event 	Event对象，或事件名称(1.1.1起支持)
- * @param {Object} 					options 扩展参数,所含属性键值会扩展到Event对象上(1.2起支持)
+ * @param {baidu.lang.Event|String} event     Event对象，或事件名称(1.1.1起支持)
+ * @param {Object}                     options 扩展参数,所含属性键值会扩展到Event对象上(1.2起支持)
  * @remark 处理会调用通过addEventListenr绑定的自定义事件回调函数之外，还会调用直接绑定到对象上面的自定义事件。例如：<br>
 myobj.onMyEvent = function(){}<br>
 myobj.addEventListener("onMyEvent", function(){});
@@ -112,4 +112,4 @@ baidu.lang.Class.prototype.addEventListener = function (type, handler, key) {
 //  2011.11.23  meizz   事件handler的存储对象由json改成array，以保证注册函数的执行顺序
 //  2011.11.22  meizz   将 removeEventListener 方法分拆到 baidu.lang.Class.removeEventListener 中，以节约主程序代码
 
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

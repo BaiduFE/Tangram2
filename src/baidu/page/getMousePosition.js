@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -25,10 +25,10 @@
 (function(){
 
  baidu.page.getMousePosition = function(){
-	 return {
-		x : baidu.page.getScrollLeft() + xy.x,
-		y : baidu.page.getScrollTop() + xy.y
-	 };
+     return {
+        x : baidu.page.getScrollLeft() + xy.x,
+        y : baidu.page.getScrollTop() + xy.y
+     };
  };
 
  var xy = {x:0, y:0};
@@ -41,4 +41,4 @@
  });
 
 })();
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2010 Baidu Inc. All rights reserved.
@@ -56,7 +56,7 @@ baidu.fx.create = function(element, options, fxName) {
      * 打扫dom元素上的痕迹，删除元素自定义属性
      */
     timeline["\x06clean"] = function(e) {
-    	var me = this, guid;
+        var me = this, guid;
         if (e = me.element) {
             e.removeAttribute(me.attribName);
             guid = e.getAttribute(catt);
@@ -143,4 +143,4 @@ baidu.fx.create = function(element, options, fxName) {
  *  render(schedule)        每个脉冲在DOM上的效果展现
  */
 
-/// Tangram 1.x Code End
+/// support magic - support magic - Tangram 1.x Code End

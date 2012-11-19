@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support maigc - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -28,4 +28,4 @@ baidu.page.getWidth = function () {
 
     return Math.max(html.scrollWidth, body.scrollWidth, client.clientWidth);
 };
-/// Tangram 1.x Code End
+/// support maigc - Tangram 1.x Code End

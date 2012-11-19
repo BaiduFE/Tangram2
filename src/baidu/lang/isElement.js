@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support maigc - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -28,4 +28,4 @@
 //    return !!(source && source.nodeName && source.nodeType == 1);
 //};
 baidu.lang.isElement = baidu.isElement;
-/// Tangram 1.x Code End
+/// support maigc - Tangram 1.x Code End

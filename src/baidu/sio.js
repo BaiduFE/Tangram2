@@ -29,5 +29,5 @@ function(url){
 
 // constructor
 function(url){
-	this.url = url;
+    this.url = url;
 });

@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -89,4 +89,4 @@ baidu.i18n.date = baidu.i18n.date || /**@lends baidu.i18n.date.prototype*/{
             c.calendar.dateFormat);
     }
 };
-/// Tangram 1.x Code End
+/// support magic -  Tangram 1.x Code End

@@ -63,7 +63,7 @@
 
 baidu.dom.extend({
     addClass: function(value){
-    	
+        
         //异常处理
         if(arguments.length <= 0 ){
             return this;

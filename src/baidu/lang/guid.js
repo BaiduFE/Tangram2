@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -30,5 +30,5 @@ baidu.lang.guid = function() {
 //baidu.$$._counter = baidu.$$._counter || 1;
 
 
-// 20111129	meizz	去除 _counter.toString(36) 这步运算，节约计算量
-/// Tangram 1.x Code End
+// 20111129    meizz    去除 _counter.toString(36) 这步运算，节约计算量
+/// support magic - Tangram 1.x Code End

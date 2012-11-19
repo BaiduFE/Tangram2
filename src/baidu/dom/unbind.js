@@ -15,7 +15,7 @@
  */
 
 baidu.dom.extend({
-	unbind: function(type, fn){
-		return this.off(type, fn);
-	}
+    unbind: function(type, fn){
+        return this.off(type, fn);
+    }
 });

@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -24,7 +24,7 @@
 使subClass继承superClass的prototype，因此subClass的实例能够使用superClass的prototype中定义的所有属性和方法。<br>
 这个函数实际上是建立了subClass和superClass的原型链集成，并对subClass进行了constructor修正。<br>
 <strong>注意：如果要继承构造函数，需要在subClass里面call一下，具体见下面的demo例子</strong>
-	
+    
  * @shortcut inherits
  * @meta standard
  * @see baidu.lang.Class
@@ -55,4 +55,4 @@ baidu.lang.inherits = function (subClass, superClass, type) {
 };
 
 //  2011.11.22  meizz   为类添加了一个静态方法extend()，方便代码书写
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

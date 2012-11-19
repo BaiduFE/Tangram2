@@ -1,4 +1,4 @@
-/// Tangram 1.x Code Start
+/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -21,8 +21,8 @@
  * @return {number} 页面视觉区域高度
  */
 baidu.page.getViewHeight = function () {
-	var de = document.documentElement.clientHeight,
-	    db = document.body.clientHeight;
-	return Math.min(de||db, db);
+    var de = document.documentElement.clientHeight,
+        db = document.body.clientHeight;
+    return Math.min(de||db, db);
 };
-/// Tangram 1.x Code End
+/// support magic - Tangram 1.x Code End

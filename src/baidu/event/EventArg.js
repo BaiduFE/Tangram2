@@ -17,7 +17,7 @@
  * @class
  * @grammar baidu.event.EventArg(event[, win])
  * @param {Event}   event   事件对象
- * @param {Window}  [win]	窗口对象，默认为window
+ * @param {Window}  [win]    窗口对象，默认为window
  * @meta standard
  * @remark 1.1.0开始支持
  * @see baidu.event.get

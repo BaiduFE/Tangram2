@@ -24,7 +24,7 @@
  * @param {HTMLElement|string|window} element 目标元素或目标元素id
  * @param {string} type 事件类型
  * @param {Object} options 触发的选项
-				
+                
  * @param {Boolean} options.bubbles 是否冒泡
  * @param {Boolean} options.cancelable 是否可以阻止事件的默认操作
  * @param {window|null} options.view 指定 Event 的 AbstractView
