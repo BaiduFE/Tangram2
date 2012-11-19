@@ -18,15 +18,15 @@
 baidu.dom._styleFixer.width = baidu.dom._styleFixer.height = {
     get: function(element, key, value) {
         var key = key.replace(/^[a-z]/, function($1){
-	            return $1.toUpperCase();
-	        }),
-        	val = element['client' + key] || element['offset' + key];
+                return $1.toUpperCase();
+            }),
+            val = element['client' + key] || element['offset' + key];
 
         return val > 0 ? val + 'px' : !value || value == 'auto' ? 0 + 'px' : val;
     },
 
     set: function(element, value, key){
-    	element.style[key] = value;
+        element.style[key] = value;
     }
 };
 /// Tangram 1.x Code End

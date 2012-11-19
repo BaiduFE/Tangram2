@@ -22,6 +22,6 @@
  * @private
  */
 baidu.dom.ddManager = baidu.lang.createSingle({
-	_targetsDroppingOver:{}
+    _targetsDroppingOver:{}
 });
 /// Tangram 1.x Code End

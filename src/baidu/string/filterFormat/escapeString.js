@@ -22,10 +22,10 @@
  * @return {String} 转义之后的字符串
  */
 baidu.string.filterFormat.escapeString = function(str){
-	if(!str || 'string' != typeof str) return str;
-	return str.replace(/["'<>\\\/`]/g, function($0){
-	   return '&#'+ $0.charCodeAt(0) +';';
-	});
+    if(!str || 'string' != typeof str) return str;
+    return str.replace(/["'<>\\\/`]/g, function($0){
+       return '&#'+ $0.charCodeAt(0) +';';
+    });
 };
 
 baidu.string.filterFormat.e = baidu.string.filterFormat.escapeString;

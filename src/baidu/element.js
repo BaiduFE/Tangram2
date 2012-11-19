@@ -56,7 +56,7 @@ baidu.element.Element = function(node){
      * @type {Array.<Node>}
      */
     this._dom = (node.tagName || '').toLowerCase() == 'select' ? 
-    	[node] : baidu.lang.toArray(node);
+        [node] : baidu.lang.toArray(node);
 };
 
 /**

@@ -36,7 +36,7 @@ baidu.dom.extend({
         return container.contains
             ? container != contained && container.contains(contained)
             : !!(container.compareDocumentPosition(contained) & 16);
-    }	
+    }    
 });
 /// Tangram 1.x Code Start
 ///import baidu.dom._g;
