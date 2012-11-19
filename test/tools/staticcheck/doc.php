@@ -1,6 +1,7 @@
 <?php
     header('Content-type:application/json;charset=utf-8');
-    $content = file_get_contents('./after.js');
+    $file = $_GET['file'];
+    $content = file_get_contents($file);
 
     // 解析每一个注释项
     function getDesc($desc){
@@ -45,7 +46,7 @@
     // 过滤出标准API注释块
     foreach ($matches as $key => $matche) {
         if(!preg_match('/@description/', $matche)){
-            array_splice($matches, $key, 1);
+            unset($matches[$key]);
         }
     }
 

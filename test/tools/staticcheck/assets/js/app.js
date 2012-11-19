@@ -17,26 +17,6 @@
                             '</ul>',
         docTpl = '';
 
-    function fileStaticCheck(node){
-        $("#J_result").html();
-
-        $.getJSON('./staticcheck.php?file=' + node.data.dir + '&autoFixed=' + autoFixed, function(data){
-                        data.file = node.data.dir.replace('../../../src/', '');
-                        $("#J_result").html(Mustache.render(testCaseTpl, data));
-
-                        // 在节点上标出检查结果（忽略用例的检查结果）
-                        if(data.encodingCheck.status == 'failure' || 
-                           data.BombCheck.status == 'failure' ||
-                           data.tabCheck.status == 'failure'){
-                            node.el.css('color', '#FF0000');
-                        }else{
-                            autoRuning && hideOnPass && node.el.hide();
-                        }
-                        
-                        autoRuning && autoNext();
-                    });
-    }
-
     function flatteningTreeDates(node){
         node.children.forEach(function(child){
             flattenedTreeDates.push(child);
@@ -73,12 +53,13 @@
                 node.expend();
                 autoNext();
             }else{
-                fileStaticCheck(node);
+                staticCheck(node);
             }
             
         }
     })();
 
+    // 初始化文件树
     function initTree(data){
         treeInstance = new tree(data, $('#J_tree'));
 
@@ -92,14 +73,28 @@
                 node.el.addClass("focus");
 
                 // 处于自动测试时，不响应
-                !autoRuning && fileStaticCheck(node);
+                // !autoRuning && staticCheck(node);
+                docPreview(node);
             }
         });
 
         treeInstance.render();
     }
 
-    function bindUI(){
+    // 初始化tab
+    function initTab(){
+        $(".tabs li").click(function(){
+            $(".tabs li").removeClass("current");
+            $(this).addClass("current");
+            var tabId = $(this).attr('id');
+            var tabItemId = tabId.replace('Tab', '');
+            $('.tab-item').removeClass("current");
+            $('#' + tabItemId).addClass("current");
+        });
+    }
+
+    // 初始化工具栏
+    function initToolbar(){
         // 批量测试
         $('#J_autoRun').click(function(){
             $('#J_autoRun').attr('disabled', 'disabled');
@@ -131,12 +126,50 @@
         });
 
         // 保持检查结果在可视范围内
-        $(window).scroll(function(){
-            if($(window).scrollTop() > 137){
-                $('.main-wrap').css('padding-top', $(window).scrollTop() - 137);
-            }else{
-                $('.main-wrap').css('padding-top', 0);
-            }
+        // $(window).scroll(function(){
+        //     if($(window).scrollTop() > 137){
+        //         $('.main-wrap').css('padding-top', $(window).scrollTop() - 137);
+        //     }else{
+        //         $('.main-wrap').css('padding-top', 0);
+        //     }
+        // });
+    }
+
+    // 静态检查
+    function staticCheck(node){
+        $("#J_result").html();
+
+        $.getJSON('./staticcheck.php?file=' + node.data.dir + '&autoFixed=' + autoFixed, function(data){
+                        data.file = node.data.dir.replace('../../../src/', '');
+                        $("#J_staticCheck").html(Mustache.render(testCaseTpl, data));
+
+                        // 在节点上标出检查结果（忽略用例的检查结果）
+                        if(data.encodingCheck.status == 'failure' || 
+                           data.BombCheck.status == 'failure' ||
+                           data.tabCheck.status == 'failure'){
+                            node.el.css('color', '#FF0000');
+                        }else{
+                            autoRuning && hideOnPass && node.el.hide();
+                        }
+                        
+                        autoRuning && autoNext();
+                    });
+    }
+    //动态检查
+    function syntaxCheck(node){
+
+    }
+
+    //文档预览
+    function docPreview(node){
+        if(!docTpl) return;
+
+        $.getJSON('./doc.php?file=' + node.data.dir, function(data){
+            $("#J_doc").html('');
+            data.forEach(function(item){
+                $("#J_doc")[0].innerHTML += Mustache.render(docTpl, item);
+            });
+            SyntaxHighlighter.highlight();
         });
     }
 
@@ -147,18 +180,11 @@
                     });
             $.getJSON('./getFiles.php', function(data){
                         initTree(data);
+                        initTab();
                         flatteningTreeDates(treeInstance);
                         treeInstance.children[0].expend();
-                        bindUI();
+                        initToolbar();
 
-                        if(docTpl){
-                            $.getJSON('./doc.php', function(data){
-                                data.forEach(function(item){
-                                    $("#J_result")[0].innerHTML += Mustache.render(docTpl, item);
-                                });
-                                
-                            });
-                        }
                     });
         }
     };

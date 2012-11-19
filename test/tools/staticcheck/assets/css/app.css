@@ -193,6 +193,32 @@ header {
 .main-wrap {
 	margin: 10px;
 }
+.tabs {
+	color: #6BA5F5;
+	font-size: 14px;
+	font-weight: bold;
+	height: 34px;
+	border-bottom: 4px solid #6BA5F5;
+	padding-left: 40px;
+}
+.tabs li {
+	display: inline-block;
+	line-height: 34px;
+	cursor: pointer;
+	padding: 0 10px;
+	margin-top: -2px;
+}
+.tabs li.current {
+ 	border: 2px solid #6BA5F5;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 4px solid white;
+}
+.tab-item {
+	display: none;
+}
+.tab-item.current {
+	display: block;
+}
 .test-header {
 	color: #8699A4;
 	background-color: #F6F6F6;
@@ -218,4 +244,62 @@ header {
 }
 .test-cases li.attention {
 	background-color: #E2EB13;
+}
+.api-block {
+	padding: 20px 0 0 30px;
+	color: #444;
+}
+.api-block h3 {
+	color: #0071BC;
+}
+.api-block p {
+	margin: 15px 0 20px;
+}
+.api-block .sig {
+	font-style: italic;
+	color: #267620;
+}
+.api-block h4 {
+	font-family: 'Microsoft YaHei';
+	text-indent: 0;
+	color: #0071BC;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 20px 0 10px;
+}
+.api-table th {
+	text-align: left;
+	font-family: 'Microsoft YaHei';
+	font-weight: normal;
+	background-color: #DFEEFE;
+	padding: 3px 5px;
+}
+.api-table td {
+	padding: 2px 5px;
+	line-height: 1.5em;
+}
+.api-block .jstype {
+	font-style: italic;
+	color: gray;
+}
+hr {
+	border: none;
+	border-bottom: 1px dashed #ECECEC;
+	margin-top: 20px;
+}
+.api-detail {
+	background-color: #EEEBEB;
+	line-height: 1.5em;
+	padding: 10px;
+}
+.api-detail p {
+	padding: 0;
+	margin: 0;
+}
+.api-example {
+	padding: 5px;
+	border: 1px dashed #CCC;
+}
+.syntaxhighlighter .toolbar {
+	display: none;
 }
