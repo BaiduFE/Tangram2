@@ -55,7 +55,7 @@
                 node.expend();
                 autoNext();
             }else{
-                staticCheck(node);
+                currentCheck == "syntaxCheck" ? syntaxCheck(node) : staticCheck(node);
             }
             
         }
@@ -122,6 +122,10 @@
     function initToolbar(){
         // 批量测试
         $('#J_autoRun').click(function(){
+            if(currentCheck == 'doc'){
+                alert("只有静态检查和语法检查支持批量测试！");
+                return;
+            }
             $('#J_autoRun').attr('disabled', 'disabled');
             $('#J_autoFixed').attr('disabled', 'disabled');
             $('#J_hideOnPass').attr('disabled', 'disabled');

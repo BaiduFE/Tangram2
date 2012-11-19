@@ -19,7 +19,7 @@
                 preg_match('/grammar\s(.*)\r/', $value, $matches);
                 $data['grammar'] = $matches[1];
                 $shortgrammar = explode('.', $matches[1]);
-                $data['shortgrammar'] = $shortgrammar[2];
+                $data['shortgrammar'] = $shortgrammar[count($shortgrammar) - 1];
             }elseif(preg_match('/@param/', $value)){
                 !$data['param'] && $data['param'] = array();
                 preg_match('/param\s(.*?)\s(.*?)\s(.*)\r/', $value, $matches);
