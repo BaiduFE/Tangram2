@@ -23,14 +23,14 @@
  * @return {RegExp} 返回一个正则表达式对象
  */
 baidu.regexp = baidu.regexp || function(maps){
-	var modalReg = /[^mig]/;
+    var modalReg = /[^mig]/;
 
     return function(reg, modal){
         var key, result;
 
         if ( baidu.isString(reg) ) {
         
-        	modalReg.test(modal) && (modal = "");
+            modalReg.test(modal) && (modal = "");
             key = reg + "$$" + (modal || "");
             (result = maps[ key ]) || (result = maps[ key ] = new RegExp( reg, modal ));
         

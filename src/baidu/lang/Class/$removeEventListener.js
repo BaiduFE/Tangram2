@@ -21,7 +21,7 @@
  * @grammar obj.removeEventListener(type, handler)
  * @param {string}   type     事件类型
  * @param {Function} handler  要移除的事件监听函数或者监听函数的key
- * @remark 	如果第二个参数handler没有被绑定到对应的自定义事件中，什么也不做。
+ * @remark     如果第二个参数handler没有被绑定到对应的自定义事件中，什么也不做。
  */
 baidu.lang.Class.prototype.un =
 baidu.lang.Class.prototype.removeEventListener = function (type, handler) {

@@ -56,13 +56,13 @@ baidu.dom.getPosition = function (element) {
 
     if(element.getBoundingClientRect){ // IE and Gecko 1.9+
         
-    	//当HTML或者BODY有border width时, 原生的getBoundingClientRect返回值是不符合预期的
-    	//考虑到通常情况下 HTML和BODY的border只会设成0px,所以忽略该问题.
+        //当HTML或者BODY有border width时, 原生的getBoundingClientRect返回值是不符合预期的
+        //考虑到通常情况下 HTML和BODY的border只会设成0px,所以忽略该问题.
         box = element.getBoundingClientRect();
 
         pos.left = Math.floor(box.left) + Math.max(doc.documentElement.scrollLeft, doc.body.scrollLeft);
         pos.top  = Math.floor(box.top)  + Math.max(doc.documentElement.scrollTop,  doc.body.scrollTop);
-	    
+        
         // IE会给HTML元素添加一个border，默认是medium（2px）
         // 但是在IE 6 7 的怪异模式下，可以被html { border: 0; } 这条css规则覆盖
         // 在IE7的标准模式下，border永远是2px，这个值通过clientLeft 和 clientTop取得

@@ -26,7 +26,7 @@
 
 baidu.number.extend({
     comma : function (length) {
-    	var source = this;
+        var source = this;
         if (!length || length < 1) {
             length = 3;
         }
@@ -34,5 +34,5 @@ baidu.number.extend({
         source = String(source).split(".");
         source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{'+length+'})+$)','ig'),"$1,");
         return source.join(".");
-    }	
+    }    
 });

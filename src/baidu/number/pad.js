@@ -28,7 +28,7 @@
 
 baidu.number.extend({
     pad : function (length) {
-    	var source = this;
+        var source = this;
         var pre = "",
             negative = (source < 0),
             string = String(Math.abs(source));
