@@ -55,7 +55,8 @@
                 node.expend();
                 autoNext();
             }else{
-                currentCheck == "syntaxCheck" ? syntaxCheck(node) : staticCheck(node);
+                currentNode = node;
+                currentCheck == "syntaxCheck" ? runCheck('syntaxCheck', node) : runCheck('staticCheck', node);
             }
             
         }
@@ -78,13 +79,13 @@
                 // 处于自动测试时，不响应
                 switch(currentCheck){
                     case "syntaxCheck":
-                        !autoRuning && syntaxCheck(node);
+                        !autoRuning && runCheck('syntaxCheck', currentNode);
                         break;
                     case "doc":
                         docPreview(node);
                         break;
                     default:
-                        !autoRuning && staticCheck(node);
+                        !autoRuning && runCheck('staticCheck', currentNode);
                 }
             }
         });
@@ -105,15 +106,15 @@
             switch(this.id){
                 case "J_syntaxCheckTab":
                     currentCheck = "syntaxCheck";
-                    currentNode && !autoRuning && syntaxCheck(currentNode);
+                    currentNode && !autoRuning && runCheck('syntaxCheck', currentNode);
                     break;
                 case "J_docTab":
                     currentCheck = "doc";
-                    currentNode && docPreview(currentNode);
+                    currentNode && runCheck('docPreview', currentNode);
                     break;
                 default:
                     currentCheck = "staticCheck";
-                    currentNode && !autoRuning && staticCheck(currentNode);
+                    currentNode && !autoRuning && runCheck('staticCheck', currentNode);
             }
         });
     }
@@ -162,6 +163,21 @@
         //         $('.main-wrap').css('padding-top', 0);
         //     }
         // });
+    }
+
+    function runCheck(type, node){
+        $("#J_appDesc").hide();
+        $(".tabs").show();
+        switch(type){
+            case "syntaxCheck":
+                syntaxCheck(node);
+                break;
+            case "docPreview":
+                docPreview(node);
+                break;
+            default:
+                staticCheck(node);
+        }
     }
 
     // 静态检查

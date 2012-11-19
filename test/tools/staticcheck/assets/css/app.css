@@ -193,6 +193,23 @@ header {
 .main-wrap {
 	margin: 10px;
 }
+.app-desc {
+	padding-left: 10px;
+}
+.app-desc h2 {
+	font-size: 28px;
+	line-height: 28px;
+	color: #0071BC;
+	padding: 20px 10px;
+	font-family: 'Microsoft YaHei';
+}
+.app-desc h3 {
+	color: #0071BC;
+	padding: 10px;
+}
+.app-desc p {
+	text-indent: 2em;
+}
 .tabs {
 	color: #6BA5F5;
 	font-size: 14px;
@@ -200,6 +217,7 @@ header {
 	height: 34px;
 	border-bottom: 4px solid #6BA5F5;
 	padding-left: 40px;
+	display: none;
 }
 .tabs li {
 	display: inline-block;
