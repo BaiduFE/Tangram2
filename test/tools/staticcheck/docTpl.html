@@ -5,7 +5,7 @@
         <span class="sig">{{grammar}} : </span>{{description}}
     </p>
     <!--参数-->
-    {{>param}}
+    {{#hasparam}}
     <h4>参数</h4>         
         <table class="api-table">
             <tr>
@@ -13,7 +13,7 @@
                 <th width="10%">类型</th>
                 <th>描述</th>
             </tr>
-    {{>param}}
+    {{/hasparam}}
     {{#param}}
             <tr>
                 <td class="sig">{{name}}</td>
@@ -21,9 +21,9 @@
                 <td>{{desc}}</td>
             </tr>
     {{/param}}
-    {{#param}}
+    {{#hasparam}}
         </table>
-    {{/param}}
+    {{/hasparam}}
     {{#return}}
         <h4>返回值</h4>
         <p><span class="jstype">{{type}}</span> 返回 {{desc}}</p>
@@ -31,7 +31,7 @@
     {{#example}}
         <h4>说明</h4>
         <div class="api-detail">
-            <p>{{desc}}</p>
+            <p>{{{desc}}}</p>
         </div>
         {{#code}}
         <h4>示例</h4>

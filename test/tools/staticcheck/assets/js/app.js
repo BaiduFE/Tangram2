@@ -4,6 +4,8 @@
         autoFixed = false,
         hideOnPass = false,
         autoRuning = false,
+        currentCheck = 'staticCheck',
+        currentNode,
         testCaseTpl = '<h1 class="test-header">{{file}}</h1>' +
                             '<ul class="test-cases">' +
                                 '<li class="{{encodingCheck.status}}"><span>文件编码检查：{{encodingCheck.status}}；当前文件编码：{{encodingCheck.msg}}</span></li>' +
@@ -71,10 +73,19 @@
             if(node.data.type == "file"){
                 $('#J_tree').find('.focus').removeClass('focus');
                 node.el.addClass("focus");
+                currentNode = node;
 
                 // 处于自动测试时，不响应
-                // !autoRuning && staticCheck(node);
-                docPreview(node);
+                switch(currentCheck){
+                    case "syntaxCheck":
+                        !autoRuning && syntaxCheck(node);
+                        break;
+                    case "doc":
+                        docPreview(node);
+                        break;
+                    default:
+                        !autoRuning && staticCheck(node);
+                }
             }
         });
 
@@ -90,6 +101,20 @@
             var tabItemId = tabId.replace('Tab', '');
             $('.tab-item').removeClass("current");
             $('#' + tabItemId).addClass("current");
+
+            switch(this.id){
+                case "J_syntaxCheckTab":
+                    currentCheck = "syntaxCheck";
+                    currentNode && !autoRuning && syntaxCheck(currentNode);
+                    break;
+                case "J_docTab":
+                    currentCheck = "doc";
+                    currentNode && docPreview(currentNode);
+                    break;
+                default:
+                    currentCheck = "staticCheck";
+                    currentNode && !autoRuning && staticCheck(currentNode);
+            }
         });
     }
 
@@ -155,6 +180,7 @@
                         autoRuning && autoNext();
                     });
     }
+
     //动态检查
     function syntaxCheck(node){
 
@@ -167,7 +193,7 @@
         $.getJSON('./doc.php?file=' + node.data.dir, function(data){
             $("#J_doc").html('');
             data.forEach(function(item){
-                $("#J_doc")[0].innerHTML += Mustache.render(docTpl, item);
+                $("#J_doc")[0].innerHTML += Mustache.render(docTpl, item, true);
             });
             SyntaxHighlighter.highlight();
         });
