@@ -481,11 +481,11 @@ baidu.createChain = function(chainName, fn, constructor) {
  * @return  {Function}              自定义的类
  */
 baidu.overwrite = function(Class, list, fn) {
-	for (var i = list.length - 1; i > -1; i--) {
-		Class.prototype[list[i]] = fn(list[i]);
-	}
+    for (var i = list.length - 1; i > -1; i--) {
+        Class.prototype[list[i]] = fn(list[i]);
+    }
 
-	return Class;
+    return Class;
 };
 /*
  * Tangram
@@ -623,9 +623,9 @@ baidu.createChain("array", function(array){
 
 // 对系统方法新产生的 array 对象注入自定义方法，支持完美的链式语法
 baidu.overwrite(baidu.array.$Array, "concat slice".split(" "), function(key) {
-	return function() {
-		return baidu.array( Array.prototype[key].apply(this, arguments) );
-	}
+    return function() {
+        return baidu.array( Array.prototype[key].apply(this, arguments) );
+    }
 });
 
 
@@ -801,195 +801,195 @@ baidu.createChain("Callbacks",
 // 执行方法
 function(options){
 
-	// String to Object options format cache
-	var optionsCache = {};
+    // String to Object options format cache
+    var optionsCache = {};
 
-	// Convert String-formatted options into Object-formatted ones and store in cache
-	function createOptions( options ) {
-		var object = optionsCache[ options ] = {};
-		baidu.forEach( options.split(/\s+/), function( flag, _ ) {
-			object[ flag ] = true;
-		});
-		return object;
-	};
+    // Convert String-formatted options into Object-formatted ones and store in cache
+    function createOptions( options ) {
+        var object = optionsCache[ options ] = {};
+        baidu.forEach( options.split(/\s+/), function( flag, _ ) {
+            object[ flag ] = true;
+        });
+        return object;
+    };
 
-	/*
-	 * Create a callback list using the following parameters:
-	 *
-	 *	options: an optional list of space-separated options that will change how
-	 *			the callback list behaves or a more traditional option object
-	 *
-	 * By default a callback list will act like an event callback list and can be
-	 * "fired" multiple times.
-	 *
-	 * Possible options:
-	 *
-	 *	once:			will ensure the callback list can only be fired once (like a Deferred)
-	 *
-	 *	memory:			will keep track of previous values and will call any callback added
-	 *					after the list has been fired right away with the latest "memorized"
-	 *					values (like a Deferred)
-	 *
-	 *	unique:			will ensure a callback can only be added once (no duplicate in the list)
-	 *
-	 *	stopOnFalse:	interrupt callings when a callback returns false
-	 *
-	 */
-	// Convert options from String-formatted to Object-formatted if needed
-	// (we check in cache first)
-	options = typeof options === "string" ?
-		( optionsCache[ options ] || createOptions( options ) ) :
-		baidu.extend( {}, options );
+    /*
+     * Create a callback list using the following parameters:
+     *
+     *    options: an optional list of space-separated options that will change how
+     *            the callback list behaves or a more traditional option object
+     *
+     * By default a callback list will act like an event callback list and can be
+     * "fired" multiple times.
+     *
+     * Possible options:
+     *
+     *    once:            will ensure the callback list can only be fired once (like a Deferred)
+     *
+     *    memory:            will keep track of previous values and will call any callback added
+     *                    after the list has been fired right away with the latest "memorized"
+     *                    values (like a Deferred)
+     *
+     *    unique:            will ensure a callback can only be added once (no duplicate in the list)
+     *
+     *    stopOnFalse:    interrupt callings when a callback returns false
+     *
+     */
+    // Convert options from String-formatted to Object-formatted if needed
+    // (we check in cache first)
+    options = typeof options === "string" ?
+        ( optionsCache[ options ] || createOptions( options ) ) :
+        baidu.extend( {}, options );
 
-	var // Last fire value (for non-forgettable lists)
-		memory,
-		// Flag to know if list was already fired
-		fired,
-		// Flag to know if list is currently firing
-		firing,
-		// First callback to fire (used internally by add and fireWith)
-		firingStart,
-		// End of the loop when firing
-		firingLength,
-		// Index of currently firing callback (modified by remove if needed)
-		firingIndex,
-		// Actual callback list
-		list = [],
-		// Stack of fire calls for repeatable lists
-		stack = !options.once && [],
-		// Fire callbacks
-		fire = function( data ) {
-			memory = options.memory && data;
-			fired = true;
-			firingIndex = firingStart || 0;
-			firingStart = 0;
-			firingLength = list.length;
-			firing = true;
-			for ( ; list && firingIndex < firingLength; firingIndex++ ) {
-				if ( list[ firingIndex ].apply( data[ 0 ], data[ 1 ] ) === false && options.stopOnFalse ) {
-					memory = false; // To prevent further calls using add
-					break;
-				}
-			}
-			firing = false;
-			if ( list ) {
-				if ( stack ) {
-					if ( stack.length ) {
-						fire( stack.shift() );
-					}
-				} else if ( memory ) {
-					list = [];
-				} else {
-					self.disable();
-				}
-			}
-		},
-		// Actual Callbacks object
-		self = {
-			// Add a callback or a collection of callbacks to the list
-			add: function() {
-				if ( list ) {
-					// First, we save the current length
-					var start = list.length;
-					(function add( args ) {
-						baidu.forEach( args, function( arg, _) {
-							if ( (typeof arg === 'function') && ( !options.unique || !self.has( arg ) ) ) {
-								list.push( arg );
-							} else if ( arg && arg.length ) {
-								// Inspect recursively
-								add( arg );
-							}
-						});
-					})( arguments );
-					// Do we need to add the callbacks to the
-					// current firing batch?
-					if ( firing ) {
-						firingLength = list.length;
-					// With memory, if we're not firing then
-					// we should call right away
-					} else if ( memory ) {
-						firingStart = start;
-						fire( memory );
-					}
-				}
-				return this;
-			},
-			// Remove a callback from the list
-			remove: function() {
-				if ( list ) {
-					baidu.forEach( arguments, function( arg, _ ) {
-						var index;
-						while( ( index = baidu.array(list).indexOf(arg,index) ) > -1 ) {
-							list.splice( index, 1 );
-							// Handle firing indexes
-							if ( firing ) {
-								if ( index <= firingLength ) {
-									firingLength--;
-								}
-								if ( index <= firingIndex ) {
-									firingIndex--;
-								}
-							}
-						}
-					});
-				}
-				return this;
-			},
-			// Control if a given callback is in the list
-			has: function( fn ) {
-				return baidu.array(list).indexOf(fn) > -1;
-			},
-			// Remove all callbacks from the list
-			empty: function() {
-				list = [];
-				return this;
-			},
-			// Have the list do nothing anymore
-			disable: function() {
-				list = stack = memory = undefined;
-				return this;
-			},
-			// Is it disabled?
-			disabled: function() {
-				return !list;
-			},
-			// Lock the list in its current state
-			lock: function() {
-				stack = undefined;
-				if ( !memory ) {
-					self.disable();
-				}
-				return this;
-			},
-			// Is it locked?
-			locked: function() {
-				return !stack;
-			},
-			// Call all callbacks with the given context and arguments
-			fireWith: function( context, args ) {
-				args = args || [];
-				args = [ context, args.slice ? args.slice() : args ];
-				if ( list && ( !fired || stack ) ) {
-					if ( firing ) {
-						stack.push( args );
-					} else {
-						fire( args );
-					}
-				}
-				return this;
-			},
-			// Call all the callbacks with the given arguments
-			fire: function() {
-				self.fireWith( this, arguments );
-				return this;
-			},
-			// To know if the callbacks have already been called at least once
-			fired: function() {
-				return !!fired;
-			}
-		};
+    var // Last fire value (for non-forgettable lists)
+        memory,
+        // Flag to know if list was already fired
+        fired,
+        // Flag to know if list is currently firing
+        firing,
+        // First callback to fire (used internally by add and fireWith)
+        firingStart,
+        // End of the loop when firing
+        firingLength,
+        // Index of currently firing callback (modified by remove if needed)
+        firingIndex,
+        // Actual callback list
+        list = [],
+        // Stack of fire calls for repeatable lists
+        stack = !options.once && [],
+        // Fire callbacks
+        fire = function( data ) {
+            memory = options.memory && data;
+            fired = true;
+            firingIndex = firingStart || 0;
+            firingStart = 0;
+            firingLength = list.length;
+            firing = true;
+            for ( ; list && firingIndex < firingLength; firingIndex++ ) {
+                if ( list[ firingIndex ].apply( data[ 0 ], data[ 1 ] ) === false && options.stopOnFalse ) {
+                    memory = false; // To prevent further calls using add
+                    break;
+                }
+            }
+            firing = false;
+            if ( list ) {
+                if ( stack ) {
+                    if ( stack.length ) {
+                        fire( stack.shift() );
+                    }
+                } else if ( memory ) {
+                    list = [];
+                } else {
+                    self.disable();
+                }
+            }
+        },
+        // Actual Callbacks object
+        self = {
+            // Add a callback or a collection of callbacks to the list
+            add: function() {
+                if ( list ) {
+                    // First, we save the current length
+                    var start = list.length;
+                    (function add( args ) {
+                        baidu.forEach( args, function( arg, _) {
+                            if ( (typeof arg === 'function') && ( !options.unique || !self.has( arg ) ) ) {
+                                list.push( arg );
+                            } else if ( arg && arg.length ) {
+                                // Inspect recursively
+                                add( arg );
+                            }
+                        });
+                    })( arguments );
+                    // Do we need to add the callbacks to the
+                    // current firing batch?
+                    if ( firing ) {
+                        firingLength = list.length;
+                    // With memory, if we're not firing then
+                    // we should call right away
+                    } else if ( memory ) {
+                        firingStart = start;
+                        fire( memory );
+                    }
+                }
+                return this;
+            },
+            // Remove a callback from the list
+            remove: function() {
+                if ( list ) {
+                    baidu.forEach( arguments, function( arg, _ ) {
+                        var index;
+                        while( ( index = baidu.array(list).indexOf(arg,index) ) > -1 ) {
+                            list.splice( index, 1 );
+                            // Handle firing indexes
+                            if ( firing ) {
+                                if ( index <= firingLength ) {
+                                    firingLength--;
+                                }
+                                if ( index <= firingIndex ) {
+                                    firingIndex--;
+                                }
+                            }
+                        }
+                    });
+                }
+                return this;
+            },
+            // Control if a given callback is in the list
+            has: function( fn ) {
+                return baidu.array(list).indexOf(fn) > -1;
+            },
+            // Remove all callbacks from the list
+            empty: function() {
+                list = [];
+                return this;
+            },
+            // Have the list do nothing anymore
+            disable: function() {
+                list = stack = memory = undefined;
+                return this;
+            },
+            // Is it disabled?
+            disabled: function() {
+                return !list;
+            },
+            // Lock the list in its current state
+            lock: function() {
+                stack = undefined;
+                if ( !memory ) {
+                    self.disable();
+                }
+                return this;
+            },
+            // Is it locked?
+            locked: function() {
+                return !stack;
+            },
+            // Call all callbacks with the given context and arguments
+            fireWith: function( context, args ) {
+                args = args || [];
+                args = [ context, args.slice ? args.slice() : args ];
+                if ( list && ( !fired || stack ) ) {
+                    if ( firing ) {
+                        stack.push( args );
+                    } else {
+                        fire( args );
+                    }
+                }
+                return this;
+            },
+            // Call all the callbacks with the given arguments
+            fire: function() {
+                self.fireWith( this, arguments );
+                return this;
+            },
+            // To know if the callbacks have already been called at least once
+            fired: function() {
+                return !!fired;
+            }
+        };
 
-	return self;
+    return self;
 },
 // constructor
 function(){});
@@ -1155,145 +1155,145 @@ baidu.createChain("Deferred",
 
 // 执行方法
 function( func ) {
-	var core_slice = Array.prototype.slice;
-	var tuples = [
-			// action, add listener, listener list, final state
-			[ "resolve", "done", baidu.Callbacks("once memory"), "resolved" ],
-			[ "reject", "fail", baidu.Callbacks("once memory"), "rejected" ],
-			[ "notify", "progress", baidu.Callbacks("memory") ]
-		],
-		state = "pending",
-		promise = {
-			state: function() {
-				return state;
-			},
-			always: function() {
-				deferred.done( arguments ).fail( arguments );
-				return this;
-			},
-			then: function( /* fnDone, fnFail, fnProgress */ ) {
-				var fns = arguments;
-				return baidu.Deferred(function( newDefer ) {
-					baidu.forEach( tuples, function( tuple, i ) {
-						var action = tuple[ 0 ],
-							fn = fns[ i ];
-						// deferred[ done | fail | progress ] for forwarding actions to newDefer
-						deferred[ tuple[1] ]( (typeof fn === 'function') ?
-							function() {
-								var returned = fn.apply( this, arguments );
-								if ( returned && ( typeof returned.promise === 'function') ) {
-									returned.promise()
-										.done( newDefer.resolve )
-										.fail( newDefer.reject )
-										.progress( newDefer.notify );
-								} else {
-									newDefer[ action + "With" ]( this === deferred ? newDefer : this, [ returned ] );
-								}
-							} :
-							newDefer[ action ]
-						);
-					});
-					fns = null;
-				}).promise();
-			},
-			// Get a promise for this deferred
-			// If obj is provided, the promise aspect is added to the object
-			promise: function( obj ) {
-				return typeof obj === "object" ? baidu.extend( obj, promise ) : promise;
-			}
-		},
-		deferred = {};
+    var core_slice = Array.prototype.slice;
+    var tuples = [
+            // action, add listener, listener list, final state
+            [ "resolve", "done", baidu.Callbacks("once memory"), "resolved" ],
+            [ "reject", "fail", baidu.Callbacks("once memory"), "rejected" ],
+            [ "notify", "progress", baidu.Callbacks("memory") ]
+        ],
+        state = "pending",
+        promise = {
+            state: function() {
+                return state;
+            },
+            always: function() {
+                deferred.done( arguments ).fail( arguments );
+                return this;
+            },
+            then: function( /* fnDone, fnFail, fnProgress */ ) {
+                var fns = arguments;
+                return baidu.Deferred(function( newDefer ) {
+                    baidu.forEach( tuples, function( tuple, i ) {
+                        var action = tuple[ 0 ],
+                            fn = fns[ i ];
+                        // deferred[ done | fail | progress ] for forwarding actions to newDefer
+                        deferred[ tuple[1] ]( (typeof fn === 'function') ?
+                            function() {
+                                var returned = fn.apply( this, arguments );
+                                if ( returned && ( typeof returned.promise === 'function') ) {
+                                    returned.promise()
+                                        .done( newDefer.resolve )
+                                        .fail( newDefer.reject )
+                                        .progress( newDefer.notify );
+                                } else {
+                                    newDefer[ action + "With" ]( this === deferred ? newDefer : this, [ returned ] );
+                                }
+                            } :
+                            newDefer[ action ]
+                        );
+                    });
+                    fns = null;
+                }).promise();
+            },
+            // Get a promise for this deferred
+            // If obj is provided, the promise aspect is added to the object
+            promise: function( obj ) {
+                return typeof obj === "object" ? baidu.extend( obj, promise ) : promise;
+            }
+        },
+        deferred = {};
 
-	// Keep pipe for back-compat
-	promise.pipe = promise.then;
+    // Keep pipe for back-compat
+    promise.pipe = promise.then;
 
-	// Add list-specific methods
-	baidu.forEach( tuples, function( tuple,i ) {
-		var list = tuple[ 2 ],
-			stateString = tuple[ 3 ];
+    // Add list-specific methods
+    baidu.forEach( tuples, function( tuple,i ) {
+        var list = tuple[ 2 ],
+            stateString = tuple[ 3 ];
 
-		// promise[ done | fail | progress ] = list.add
-		promise[ tuple[1] ] = list.add;
+        // promise[ done | fail | progress ] = list.add
+        promise[ tuple[1] ] = list.add;
 
-		// Handle state
-		if ( stateString ) {
-			list.add(function() {
-				// state = [ resolved | rejected ]
-				state = stateString;
+        // Handle state
+        if ( stateString ) {
+            list.add(function() {
+                // state = [ resolved | rejected ]
+                state = stateString;
 
-			// [ reject_list | resolve_list ].disable; progress_list.lock
-			}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
-		}
+            // [ reject_list | resolve_list ].disable; progress_list.lock
+            }, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
+        }
 
-		// deferred[ resolve | reject | notify ] = list.fire
-		deferred[ tuple[0] ] = list.fire;
-		deferred[ tuple[0] + "With" ] = list.fireWith;
-	});
+        // deferred[ resolve | reject | notify ] = list.fire
+        deferred[ tuple[0] ] = list.fire;
+        deferred[ tuple[0] + "With" ] = list.fireWith;
+    });
 
-	// Make the deferred a promise
-	promise.promise( deferred );
+    // Make the deferred a promise
+    promise.promise( deferred );
 
-	// Call given func if any
-	if ( func ) {
-		func.call( deferred, deferred );
-	}
+    // Call given func if any
+    if ( func ) {
+        func.call( deferred, deferred );
+    }
 
-	baidu.extend(baidu,{
-		// Deferred helper
-		when: function( subordinate /* , ..., subordinateN */ ) {
-			var i = 0,
-				resolveValues = core_slice.call( arguments ),
-				length = resolveValues.length,
+    baidu.extend(baidu,{
+        // Deferred helper
+        when: function( subordinate /* , ..., subordinateN */ ) {
+            var i = 0,
+                resolveValues = core_slice.call( arguments ),
+                length = resolveValues.length,
 
-				// the count of uncompleted subordinates
-				remaining = length !== 1 || ( subordinate && (typeof subordinate.promise === 'function') ) ? length : 0,
+                // the count of uncompleted subordinates
+                remaining = length !== 1 || ( subordinate && (typeof subordinate.promise === 'function') ) ? length : 0,
 
-				// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
-				deferred = remaining === 1 ? subordinate : baidu.Deferred(),
+                // the master Deferred. If resolveValues consist of only a single Deferred, just use that.
+                deferred = remaining === 1 ? subordinate : baidu.Deferred(),
 
-				// Update function for both resolve and progress values
-				updateFunc = function( i, contexts, values ) {
-					return function( value ) {
-						contexts[ i ] = this;
-						values[ i ] = arguments.length > 1 ? core_slice.call( arguments ) : value;
-						if( values === progressValues ) {
-							deferred.notifyWith( contexts, values );
-						} else if ( !( --remaining ) ) {
-							deferred.resolveWith( contexts, values );
-						}
-					};
-				},
+                // Update function for both resolve and progress values
+                updateFunc = function( i, contexts, values ) {
+                    return function( value ) {
+                        contexts[ i ] = this;
+                        values[ i ] = arguments.length > 1 ? core_slice.call( arguments ) : value;
+                        if( values === progressValues ) {
+                            deferred.notifyWith( contexts, values );
+                        } else if ( !( --remaining ) ) {
+                            deferred.resolveWith( contexts, values );
+                        }
+                    };
+                },
 
-				progressValues, progressContexts, resolveContexts;
+                progressValues, progressContexts, resolveContexts;
 
-			// add listeners to Deferred subordinates; treat others as resolved
-			if ( length > 1 ) {
-				progressValues = new Array( length );
-				progressContexts = new Array( length );
-				resolveContexts = new Array( length );
-				for ( ; i < length; i++ ) {
-					if ( resolveValues[ i ] && (typeof resolveValues[ i ].promise ==='function') ) {
-						resolveValues[ i ].promise()
-							.done( updateFunc( i, resolveContexts, resolveValues ) )
-							.fail( deferred.reject )
-							.progress( updateFunc( i, progressContexts, progressValues ) );
-					} else {
-						--remaining;
-					}
-				}
-			}
+            // add listeners to Deferred subordinates; treat others as resolved
+            if ( length > 1 ) {
+                progressValues = new Array( length );
+                progressContexts = new Array( length );
+                resolveContexts = new Array( length );
+                for ( ; i < length; i++ ) {
+                    if ( resolveValues[ i ] && (typeof resolveValues[ i ].promise ==='function') ) {
+                        resolveValues[ i ].promise()
+                            .done( updateFunc( i, resolveContexts, resolveValues ) )
+                            .fail( deferred.reject )
+                            .progress( updateFunc( i, progressContexts, progressValues ) );
+                    } else {
+                        --remaining;
+                    }
+                }
+            }
 
-			// if we're not waiting on anything, resolve the master
-			if ( !remaining ) {
-				deferred.resolveWith( resolveContexts, resolveValues );
-			}
+            // if we're not waiting on anything, resolve the master
+            if ( !remaining ) {
+                deferred.resolveWith( resolveContexts, resolveValues );
+            }
 
-			return deferred.promise();
-		}	
-	});
+            return deferred.promise();
+        }    
+    });
 
-	// All done!
-	return deferred;
+    // All done!
+    return deferred;
 },
 // constructor
 function(){});
@@ -1302,14 +1302,10 @@ function(){});
 
 
 /*
- * @fileoverview 在当前页面开辟一个全局的信息存放地
- * @name baidu.global
+ * @description 在页面全局读取或写入指定值
  * @author meizz
  * @create 2012-07-25
- */
-
-/**
- * @description 在当前页面开辟一个全局的信息存放地
+ *
  * @function
  * @name baidu.global
  * @grammar baidu.global(key[, value[, overwrite]])
@@ -1319,14 +1315,13 @@ function(){});
  * @return  {Object}                该key对象的对象
  */
 baidu.global = baidu.global || (function() {
-    baidu._global_ = window[ baidu.guid ];
-    var global = baidu._global_._ = {};
+    var me = baidu._global_ = window[ baidu.guid ],
+        // 20121116 mz 在多个tangram同时加载时有互相覆写的风险
+        global = me._ = me._ || {};
 
     return function( key, value, overwrite ) {
         if ( typeof value != "undefined" ) {
-            if(!overwrite) {
-                value = typeof global[ key ] == "undefined" ? value : global[ key ];
-            }
+            overwrite || ( value = typeof global[ key ] == "undefined" ? value : global[ key ] );
             global[ key ] =  value;
 
         } else if (key && typeof global[ key ] == "undefined" ) {
@@ -1336,6 +1331,7 @@ baidu.global = baidu.global || (function() {
         return global[ key ];
     }
 })();
+
 
 
 
@@ -1618,14 +1614,14 @@ baidu.array.extend({
  * @return  {Array}                 筛选后的对象组
  */
 baidu.query = baidu.query || (function(){
-    var rId = /^(\w*)#([\w\-\$]+)$/,
-        rId0= /^#([\w\-\$]+)$/
-        rTag = /^\w+$/,
-        rClass = /^(\w*)\.([\w\-\$]+)$/,
-        rComboClass = /^(\.[\w\-\$]+)+$/;
-        rDivider = /\s*,\s*/,
-        rSpace = /\s+/g,
-        slice = Array.prototype.slice;
+    var rId = /^(\w*)#([\w\-\$]+)$/
+       ,rId0= /^#([\w\-\$]+)$/
+       ,rTag = /^\w+$/
+       ,rClass = /^(\w*)\.([\w\-\$]+)$/
+       ,rComboClass = /^(\.[\w\-\$]+)+$/
+       ,rDivider = /\s*,\s*/
+       ,rSpace = /\s+/g
+       ,slice = Array.prototype.slice;
 
     // selector: #id, .className, tagName, *
     function query(selector, context) {
@@ -2282,6 +2278,407 @@ baidu.support = baidu.support || function(){
  * @return  {TangramEvebt}          返回 new TangramEvent 对象
  */
 
+/**
+ * @description TangramDom集合触发 blur 事件
+ * @function
+ * @name baidu.dom().blur()
+ * @grammar baidu.dom(args).blur()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 blur 事件监听
+ * @function
+ * @name baidu.dom().blur()
+ * @grammar baidu.dom(args).blur([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 change 事件
+ * @function
+ * @name baidu.dom().change()
+ * @grammar baidu.dom(args).change()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 change 事件监听
+ * @function
+ * @name baidu.dom().change()
+ * @grammar baidu.dom(args).change([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 click 事件
+ * @function
+ * @name baidu.dom().click()
+ * @grammar baidu.dom(args).click()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 click 事件监听
+ * @function
+ * @name baidu.dom().click()
+ * @grammar baidu.dom(args).click([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 dblclick 事件
+ * @function
+ * @name baidu.dom().dblclick()
+ * @grammar baidu.dom(args).dblclick()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 dblclick 事件监听
+ * @function
+ * @name baidu.dom().dblclick()
+ * @grammar baidu.dom(args).dblclick([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 error 事件
+ * @function
+ * @name baidu.dom().error()
+ * @grammar baidu.dom(args).error()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 error 事件监听
+ * @function
+ * @name baidu.dom().error()
+ * @grammar baidu.dom(args).error([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 focus 事件
+ * @function
+ * @name baidu.dom().focus()
+ * @grammar baidu.dom(args).focus()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 focus 事件监听
+ * @function
+ * @name baidu.dom().focus()
+ * @grammar baidu.dom(args).focus([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发focusin 事件
+ * @function
+ * @name baidu.dom().focusin()
+ * @grammar baidu.dom(args).focusin()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 focusin 事件监听
+ * @function
+ * @name baidu.dom().focusin()
+ * @grammar baidu.dom(args).focusin([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发focusout事件
+ * @function
+ * @name baidu.dom().focusout()
+ * @grammar baidu.dom(args).focusout()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 focusout 事件监听
+ * @function
+ * @name baidu.dom().focusout()
+ * @grammar baidu.dom(args).focusout([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 keydown 事件
+ * @function
+ * @name baidu.dom().keydown()
+ * @grammar baidu.dom(args).keydown()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 keydown 事件监听
+ * @function
+ * @name baidu.dom().keydown()
+ * @grammar baidu.dom(args).keydown([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发keypress事件
+ * @function
+ * @name baidu.dom().keypress()
+ * @grammar baidu.dom(args).keypress()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 keypress 事件监听
+ * @function
+ * @name baidu.dom().keypress()
+ * @grammar baidu.dom(args).keypress([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 keyup 事件
+ * @function
+ * @name baidu.dom().keyup()
+ * @grammar baidu.dom(args).keyup()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 keyup 事件监听
+ * @function
+ * @name baidu.dom().keyup()
+ * @grammar baidu.dom(args).keyup([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 mousedown 事件
+ * @function
+ * @name baidu.dom().mousedown()
+ * @grammar baidu.dom(args).mousedown()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 mousedown 事件监听
+ * @function
+ * @name baidu.dom().mousedown()
+ * @grammar baidu.dom(args).mousedown([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 mouseenter 事件
+ * @function
+ * @name baidu.dom().mouseenter()
+ * @grammar baidu.dom(args).mouseenter()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 mouseenter 事件监听
+ * @function
+ * @name baidu.dom().mouseenter()
+ * @grammar baidu.dom(args).mouseenter([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 mouseleave 事件
+ * @function
+ * @name baidu.dom().mouseleave()
+ * @grammar baidu.dom(args).mouseleave()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 mouseleave 事件监听
+ * @function
+ * @name baidu.dom().mouseleave()
+ * @grammar baidu.dom(args).mouseleave([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 mousemove 事件
+ * @function
+ * @name baidu.dom().mousemove()
+ * @grammar baidu.dom(args).mousemove()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 mousemove 事件监听
+ * @function
+ * @name baidu.dom().mousemove()
+ * @grammar baidu.dom(args).mousemove([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 mouseout 事件
+ * @function
+ * @name baidu.dom().mouseout()
+ * @grammar baidu.dom(args).mouseout()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 mouseout 事件监听
+ * @function
+ * @name baidu.dom().mouseout()
+ * @grammar baidu.dom(args).mouseout([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 mouseover 事件
+ * @function
+ * @name baidu.dom().mouseover()
+ * @grammar baidu.dom(args).mouseover()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 mouseover 事件监听
+ * @function
+ * @name baidu.dom().mouseover()
+ * @grammar baidu.dom(args).mouseover([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 mouseup 事件
+ * @function
+ * @name baidu.dom().mouseup()
+ * @grammar baidu.dom(args).mouseup()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 mouseup 事件监听
+ * @function
+ * @name baidu.dom().mouseup()
+ * @grammar baidu.dom(args).mouseup([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 resize 事件
+ * @function
+ * @name baidu.dom().resize()
+ * @grammar baidu.dom(args).resize()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 resize 事件监听
+ * @function
+ * @name baidu.dom().resize()
+ * @grammar baidu.dom(args).resize([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 scroll 事件
+ * @function
+ * @name baidu.dom().scroll()
+ * @grammar baidu.dom(args).scroll()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 scroll 事件监听
+ * @function
+ * @name baidu.dom().scroll()
+ * @grammar baidu.dom(args).scroll([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 select 事件
+ * @function
+ * @name baidu.dom().select()
+ * @grammar baidu.dom(args).select()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 select 事件监听
+ * @function
+ * @name baidu.dom().select()
+ * @grammar baidu.dom(args).select([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 submit 事件
+ * @function
+ * @name baidu.dom().submit()
+ * @grammar baidu.dom(args).submit()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 submit 事件监听
+ * @function
+ * @name baidu.dom().submit()
+ * @grammar baidu.dom(args).submit([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 load 事件
+ * @function
+ * @name baidu.dom().load()
+ * @grammar baidu.dom(args).load()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 load 事件监听
+ * @function
+ * @name baidu.dom().load()
+ * @grammar baidu.dom(args).load([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 unload 事件
+ * @function
+ * @name baidu.dom().unload()
+ * @grammar baidu.dom(args).unload()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 unload 事件监听
+ * @function
+ * @name baidu.dom().unload()
+ * @grammar baidu.dom(args).unload([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合触发 contextmenu 事件
+ * @function
+ * @name baidu.dom().contextmenu()
+ * @grammar baidu.dom(args).contextmenu()
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+/**
+ * @description TangramDom集合添加 contextmenu 事件监听
+ * @function
+ * @name baidu.dom().contextmenu()
+ * @grammar baidu.dom(args).contextmenu([data,]fn)
+ * @param {Object} data 触发事件函数时，携带event.data 上的数据
+ * @param {Function} fn 事件函数
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ */
+
 baidu.createChain("event",
 
 // 执行方法
@@ -2553,15 +2950,15 @@ baidu.dom.extend({
  */
 
 baidu.dom.extend({
-	triggerHandler: function(type, triggerData){
-		var eb = baidu._util_.eventBase;
+    triggerHandler: function(type, triggerData){
+        var eb = baidu._util_.eventBase;
 
-		baidu.forEach(this, function(item){
-		    eb.fireHandler(item, type, triggerData);
-		});
+        baidu.forEach(this, function(item){
+            eb.fireHandler(item, type, triggerData);
+        });
 
-		return this;
-	}
+        return this;
+    }
 });
 /// Tangram 1.x Code Start
 /**
@@ -2613,7 +3010,7 @@ baidu.dom.extend({
         return container.contains
             ? container != contained && container.contains(contained)
             : !!(container.compareDocumentPosition(contained) & 16);
-    }	
+    }    
 });
 /// Tangram 1.x Code Start
 
@@ -4543,7 +4940,7 @@ function(fn){
 
 // constructor
 function(fn){
-	this.fn = fn;
+    this.fn = fn;
 });
 /// Tangram 1.x Code Start
 /*
@@ -5679,12 +6076,12 @@ baidu.createChain("async",
 
 // 执行方法
 function(url){
-	return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
+    return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
 },
 
 // constructor
 function(url){
-	this.url = url;
+    this.url = url;
 });
 
 /// Tangram 1.x Code End
@@ -5710,7 +6107,7 @@ function(url){
  * 
 1.目标对象中，与源对象key相同的成员将会被覆盖。<br>
 2.源对象的prototype成员不会拷贝。
-		
+        
  * @shortcut extend
  * @meta standard
  *             
@@ -6173,6 +6570,7 @@ baidu.extend(baidu.base.Class.prototype, {
         type.indexOf("on") != 0 && (type = "on" + type);
 
         baidu.isFunction(this[type]) && this[type].apply(this, argu);
+        (i=this._options) && baidu.isFunction(i[type]) && i[type].apply(this, argu);
 
         if (baidu.isArray(list = t[type])) {
             for (i=0, n=list.length; i<n; i++) {
@@ -6342,9 +6740,9 @@ baidu.base.inherits = function (subClass, superClass, type) {
  * @name baidu.base.register
  * @function
  * @grammar baidu.base.register(Class, constructorHook, methods)
- * @param   {Class}     Class   		接受注册的载体 类
+ * @param   {Class}     Class           接受注册的载体 类
  * @param   {Function}  constructorHook 运行在载体类构造器里钩子函数
- * @param	{Object}  methods   [可选]挂载到载体类原型链上的方法集，可选
+ * @param    {Object}  methods   [可选]挂载到载体类原型链上的方法集，可选
  * @meta standard
  *             
  */
@@ -6352,12 +6750,12 @@ baidu.base.register = function (Class, constructorHook, methods) {
     (Class._reg_ || (Class._reg_ = [])).push( constructorHook );
 
     for (var method in methods) {
-    	Class.prototype[method] = methods[method];
+        Class.prototype[method] = methods[method];
     }
 };
 
 // 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
-// 20111129	meizz	添加第三个参数，可以直接挂载方法到目标类原型链上
+// 20111129    meizz    添加第三个参数，可以直接挂载方法到目标类原型链上
 
 /*
  * Tangram
@@ -6807,7 +7205,7 @@ path:cookie路径<br>
 expires:cookie过期时间，Number型，单位为毫秒。<br>
 domain:cookie域名<br>
 secure:cookie是否安全传输
-		
+        
  * @meta standard
  * @see baidu.cookie.setRaw,baidu.cookie.get
 */
@@ -6990,7 +7388,7 @@ baidu.createChain('number', function(number){
 
 baidu.number.extend({
     pad : function (length) {
-    	var source = this;
+        var source = this;
         var pre = "",
             negative = (source < 0),
             string = String(Math.abs(source));
@@ -7384,7 +7782,7 @@ baidu.dom.extend({
 
 baidu.dom.extend({
     addClass: function(value){
-    	
+        
         //异常处理
         if(arguments.length <= 0 ){
             return this;
@@ -7443,7 +7841,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     getDocument: function(){
-    	if(this.size()<=0){return undefined;}
+        if(this.size()<=0){return undefined;}
         var ele = this[0];
         return ele.nodeType == 9 ? ele : ele.ownerDocument || ele.document;
     }
@@ -8015,13 +8413,13 @@ baidu.dom.extend({
         }
         //
         function cloneCopyEvent(src, dest){
-        	if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
-        	var defaultEvents = event.get(src);
-        	for(var i in defaultEvents){
-        	    for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
-        	        event.add(dest, i, handler);
-        	    }
-        	}
+            if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
+            var defaultEvents = event.get(src);
+            for(var i in defaultEvents){
+                for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
+                    event.add(dest, i, handler);
+                }
+            }
         }
         //
         function clone(ele, dataAndEvents, deepDataAndEvents){
@@ -8045,7 +8443,7 @@ baidu.dom.extend({
                     destElements = getAll( cloneNode );
                     len = srcElements.length;
                     for(var i = 0; i < len; i++){
-                    	cloneCopyEvent(srcElements[i], destElements[i]);
+                        cloneCopyEvent(srcElements[i], destElements[i]);
                     }
                 }
             }
@@ -8160,67 +8558,67 @@ baidu.dom.extend({
 
 
 baidu.extend(baidu._util_,{
-	rfocusable:/^(?:button|input|object|select|textarea)$/i,
-	rclickable:/^a(?:rea)?$/i,
-	rboolean:/^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i,
-	propFix:{
-		tabindex: "tabIndex",
-		readonly: "readOnly",
-		"for": "htmlFor",
-		"class": "className",
-		maxlength: "maxLength",
-		cellspacing: "cellSpacing",
-		cellpadding: "cellPadding",
-		rowspan: "rowSpan",
-		colspan: "colSpan",
-		usemap: "useMap",
-		frameborder: "frameBorder",
-		contenteditable: "contentEditable"
-	},
-	propHooks: {
-		tabIndex:{
-			get: function( elem ) {
+    rfocusable:/^(?:button|input|object|select|textarea)$/i,
+    rclickable:/^a(?:rea)?$/i,
+    rboolean:/^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i,
+    propFix:{
+        tabindex: "tabIndex",
+        readonly: "readOnly",
+        "for": "htmlFor",
+        "class": "className",
+        maxlength: "maxLength",
+        cellspacing: "cellSpacing",
+        cellpadding: "cellPadding",
+        rowspan: "rowSpan",
+        colspan: "colSpan",
+        usemap: "useMap",
+        frameborder: "frameBorder",
+        contenteditable: "contentEditable"
+    },
+    propHooks: {
+        tabIndex:{
+            get: function( elem ) {
 
-				var bu = baidu._util_;
-				// elem.tabIndex doesn't always return the correct value when it hasn't been explicitly set
-				// http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
-				var attributeNode = elem.getAttributeNode("tabindex");
+                var bu = baidu._util_;
+                // elem.tabIndex doesn't always return the correct value when it hasn't been explicitly set
+                // http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+                var attributeNode = elem.getAttributeNode("tabindex");
 
-				return attributeNode && attributeNode.specified ?
-					parseInt( attributeNode.value, 10 ) :
-					bu.rfocusable.test( elem.nodeName ) || bu.rclickable.test( elem.nodeName ) && elem.href ?
-						0 :
-						undefined;
-			}
-		}
-	}
+                return attributeNode && attributeNode.specified ?
+                    parseInt( attributeNode.value, 10 ) :
+                    bu.rfocusable.test( elem.nodeName ) || bu.rclickable.test( elem.nodeName ) && elem.href ?
+                        0 :
+                        undefined;
+            }
+        }
+    }
 });
 
 // IE6/7 call enctype encoding
 if ( !baidu.support.enctype ) {
-	var bu = baidu._util_;
-	bu.propFix.enctype = "encoding";
+    var bu = baidu._util_;
+    bu.propFix.enctype = "encoding";
 };
 
 // Safari mis-reports the default selected property of an option
 // Accessing the parent's selectedIndex property fixes it
 if ( !baidu.support.optSelected ) {
-	var bu = baidu._util_;
-	bu.propHooks.selected = baidu.extend( bu.propHooks.selected, {
-		get: function( elem ) {
-			var parent = elem.parentNode;
+    var bu = baidu._util_;
+    bu.propHooks.selected = baidu.extend( bu.propHooks.selected, {
+        get: function( elem ) {
+            var parent = elem.parentNode;
 
-			if ( parent ) {
-				parent.selectedIndex;
+            if ( parent ) {
+                parent.selectedIndex;
 
-				// Make sure that it also works with optgroups, see #5701
-				if ( parent.parentNode ) {
-					parent.parentNode.selectedIndex;
-				}
-			}
-			return null;
-		}
-	});
+                // Make sure that it also works with optgroups, see #5701
+                if ( parent.parentNode ) {
+                    parent.parentNode.selectedIndex;
+                }
+            }
+            return null;
+        }
+    });
 };
 
 /**
@@ -8243,81 +8641,81 @@ baidu.extend(baidu,{
 });
 
 baidu.extend(baidu._util_,{
-	rfocusable : /^(?:button|input|object|select|textarea)$/i,
-	rtype : /^(?:button|input)$/i,
-	rclickable : /^a(?:rea)?$/i,
-	nodeHook:{},
-	attrHooks: {
-		type: {
-			set: function( elem, value ) {
-				var bu = baidu._util_;
-				// We can't allow the type property to be changed (since it causes problems in IE)
-				if ( bu.rtype.test( elem.nodeName ) && elem.parentNode ) {
-					baidu._error( "type property can't be changed" );
-				} else if ( !baidu.support.radioValue && value === "radio" && baidu._nodeName(elem, "input") ) {
-					// Setting the type on a radio button after the value resets the value in IE6-9
-					// Reset value to it's default in case type is set after value
-					// This is for element creation
-					var val = elem.value;
-					elem.setAttribute( "type", value );
-					if ( val ) {
-						elem.value = val;
-					}
-					return value;
-				}
-			}
-		},
-		// Use the value property for back compat
-		// Use the nodeHook for button elements in IE6/7 (#1954)
-		value: {
-			get: function( elem, name ) {
-				var bu = baidu._util_;
-				if ( bu.nodeHook && baidu._nodeName( elem, "button" ) ) {
-					return bu.nodeHook.get( elem, name );
-				}
-				return name in elem ?
-					elem.value :
-					null;
-			},
-			set: function( elem, value, name ) {
-				if ( bu.nodeHook && baidu._nodeName( elem, "button" ) ) {
-					return bu.nodeHook.set( elem, value, name );
-				}
-				// Does not return so that setAttribute is also used
-				elem.value = value;
-			}
-		}
-	},
-	// Hook for boolean attributes
-	boolHook : {
-		get: function( elem, name ) {
-			// Align boolean attributes with corresponding properties
-			// Fall back to attribute presence where some booleans are not supported
-			var attrNode,
-				property = baidu(elem).prop( name );
-			return property === true || typeof property !== "boolean" && ( attrNode = elem.getAttributeNode(name) ) && attrNode.nodeValue !== false ?
-				name.toLowerCase() :
-				undefined;
-		},
-		set: function( elem, value, name ) {
-			var propName;
-			if ( value === false ) {
-				// Remove boolean attributes when set to false
-				baidu(elem).removeAttr( name );
-			} else {
-				// value is true since we know at this point it's type boolean and not false
-				// Set boolean attributes to the same name and set the DOM property
-				propName = baidu._util_.propFix[ name ] || name;
-				if ( propName in elem ) {
-					// Only set the IDL specifically if it already exists on the element
-					elem[ propName ] = true;
-				}
+    rfocusable : /^(?:button|input|object|select|textarea)$/i,
+    rtype : /^(?:button|input)$/i,
+    rclickable : /^a(?:rea)?$/i,
+    nodeHook:{},
+    attrHooks: {
+        type: {
+            set: function( elem, value ) {
+                var bu = baidu._util_;
+                // We can't allow the type property to be changed (since it causes problems in IE)
+                if ( bu.rtype.test( elem.nodeName ) && elem.parentNode ) {
+                    baidu._error( "type property can't be changed" );
+                } else if ( !baidu.support.radioValue && value === "radio" && baidu._nodeName(elem, "input") ) {
+                    // Setting the type on a radio button after the value resets the value in IE6-9
+                    // Reset value to it's default in case type is set after value
+                    // This is for element creation
+                    var val = elem.value;
+                    elem.setAttribute( "type", value );
+                    if ( val ) {
+                        elem.value = val;
+                    }
+                    return value;
+                }
+            }
+        },
+        // Use the value property for back compat
+        // Use the nodeHook for button elements in IE6/7 (#1954)
+        value: {
+            get: function( elem, name ) {
+                var bu = baidu._util_;
+                if ( bu.nodeHook && baidu._nodeName( elem, "button" ) ) {
+                    return bu.nodeHook.get( elem, name );
+                }
+                return name in elem ?
+                    elem.value :
+                    null;
+            },
+            set: function( elem, value, name ) {
+                if ( bu.nodeHook && baidu._nodeName( elem, "button" ) ) {
+                    return bu.nodeHook.set( elem, value, name );
+                }
+                // Does not return so that setAttribute is also used
+                elem.value = value;
+            }
+        }
+    },
+    // Hook for boolean attributes
+    boolHook : {
+        get: function( elem, name ) {
+            // Align boolean attributes with corresponding properties
+            // Fall back to attribute presence where some booleans are not supported
+            var attrNode,
+                property = baidu(elem).prop( name );
+            return property === true || typeof property !== "boolean" && ( attrNode = elem.getAttributeNode(name) ) && attrNode.nodeValue !== false ?
+                name.toLowerCase() :
+                undefined;
+        },
+        set: function( elem, value, name ) {
+            var propName;
+            if ( value === false ) {
+                // Remove boolean attributes when set to false
+                baidu(elem).removeAttr( name );
+            } else {
+                // value is true since we know at this point it's type boolean and not false
+                // Set boolean attributes to the same name and set the DOM property
+                propName = baidu._util_.propFix[ name ] || name;
+                if ( propName in elem ) {
+                    // Only set the IDL specifically if it already exists on the element
+                    elem[ propName ] = true;
+                }
 
-				elem.setAttribute( name, name.toLowerCase() );
-			}
-			return name;
-		}
-	}
+                elem.setAttribute( name, name.toLowerCase() );
+            }
+            return name;
+        }
+    }
 });
 
 // Add the tabIndex propHook to attrHooks for back-compat (different case is intentional)
@@ -8326,36 +8724,36 @@ baidu._util_.attrHooks.tabindex = baidu._util_.propHooks.tabIndex;
 // IE6/7 do not support getting/setting some attributes with get/setAttribute
 if ( !baidu.support.getSetAttribute ) {
 
-	var bu = baidu._util_,
-		fixSpecified = {
-			name: true,
-			id: true,
-			coords: true
-		};
+    var bu = baidu._util_,
+        fixSpecified = {
+            name: true,
+            id: true,
+            coords: true
+        };
 
-	// Use this for any attribute in IE6/7
-	// This fixes almost every IE6/7 issue
-	bu.nodeHook = {
-		get: function( elem, name ) {
-			var ret;
-			ret = elem.getAttributeNode( name );
-			return ret && ( fixSpecified[ name ] ? ret.nodeValue !== "" : ret.specified ) ?
-				ret.nodeValue :
-				undefined;
-		},
-		set: function( elem, value, name ) {
-			// Set the existing or create a new attribute node
-			var ret = elem.getAttributeNode( name );
-			if ( !ret ) {
-				ret = document.createAttribute( name );
-				elem.setAttributeNode( ret );
-			}
-			return ( ret.nodeValue = value + "" );
-		}
-	};
+    // Use this for any attribute in IE6/7
+    // This fixes almost every IE6/7 issue
+    bu.nodeHook = {
+        get: function( elem, name ) {
+            var ret;
+            ret = elem.getAttributeNode( name );
+            return ret && ( fixSpecified[ name ] ? ret.nodeValue !== "" : ret.specified ) ?
+                ret.nodeValue :
+                undefined;
+        },
+        set: function( elem, value, name ) {
+            // Set the existing or create a new attribute node
+            var ret = elem.getAttributeNode( name );
+            if ( !ret ) {
+                ret = document.createAttribute( name );
+                elem.setAttributeNode( ret );
+            }
+            return ( ret.nodeValue = value + "" );
+        }
+    };
 
-	// Apply the nodeHook to tabindex
-	bu.attrHooks.tabindex.set = bu.nodeHook.set;
+    // Apply the nodeHook to tabindex
+    bu.attrHooks.tabindex.set = bu.nodeHook.set;
 
     // Set width and height to auto instead of 0 on empty string( Bug #8150 )
     // This is for removals
@@ -8370,22 +8768,22 @@ if ( !baidu.support.getSetAttribute ) {
         });
     });
 
-	// Set contenteditable to false on removals(#10429)
-	// Setting to empty string throws an error as an invalid value
-	bu.attrHooks.contenteditable = {
-		get: bu.nodeHook.get,
-		set: function( elem, value, name ) {
-			if ( value === "" ) {
-				value = "false";
-			}
-			bu.nodeHook.set( elem, value, name );
-		}
-	};
+    // Set contenteditable to false on removals(#10429)
+    // Setting to empty string throws an error as an invalid value
+    bu.attrHooks.contenteditable = {
+        get: bu.nodeHook.get,
+        set: function( elem, value, name ) {
+            if ( value === "" ) {
+                value = "false";
+            }
+            bu.nodeHook.set( elem, value, name );
+        }
+    };
 };
 
 // Some attributes require a special call on IE
 if ( !baidu.support.hrefNormalized ) {
-	var bu = baidu._util_;
+    var bu = baidu._util_;
     baidu.forEach([ "href", "src", "width", "height" ], function( name ) {
         bu.attrHooks[ name ] = baidu.extend( bu.attrHooks[ name ], {
             get: function( elem ) {
@@ -8397,17 +8795,17 @@ if ( !baidu.support.hrefNormalized ) {
 };
 
 if ( !baidu.support.style ) {
-	var bu = baidu._util_;
-	bu.attrHooks.style = {
-		get: function( elem ) {
-			// Return undefined in the case of empty string
-			// Normalize to lowercase since IE uppercases css property names
-			return elem.style.cssText.toLowerCase() || undefined;
-		},
-		set: function( elem, value ) {
-			return ( elem.style.cssText = "" + value );
-		}
-	};
+    var bu = baidu._util_;
+    bu.attrHooks.style = {
+        get: function( elem ) {
+            // Return undefined in the case of empty string
+            // Normalize to lowercase since IE uppercases css property names
+            return elem.style.cssText.toLowerCase() || undefined;
+        },
+        set: function( elem, value ) {
+            return ( elem.style.cssText = "" + value );
+        }
+    };
 };
 
 
@@ -8659,132 +9057,132 @@ baidu.makeArray = function(array, results){
 
 baidu.extend(baidu._util_,{
 
-	nodeName: function( elem, name ) {
-		return elem.nodeName && elem.nodeName.toUpperCase() === name.toUpperCase();
-	},
+    nodeName: function( elem, name ) {
+        return elem.nodeName && elem.nodeName.toUpperCase() === name.toUpperCase();
+    },
 
-	valHooks: {
-		option: {
-			get: function( elem ) {
-				// attributes.value is undefined in Blackberry 4.7 but
-				// uses .value. See #6932
-				var val = elem.attributes.value;
-				return !val || val.specified ? elem.value : elem.text;
-			}
-		},
-		select: {
-			get: function( elem ) {
-				var value, i, max, option,
-					index = elem.selectedIndex,
-					values = [],
-					options = elem.options,
-					one = elem.type === "select-one";
+    valHooks: {
+        option: {
+            get: function( elem ) {
+                // attributes.value is undefined in Blackberry 4.7 but
+                // uses .value. See #6932
+                var val = elem.attributes.value;
+                return !val || val.specified ? elem.value : elem.text;
+            }
+        },
+        select: {
+            get: function( elem ) {
+                var value, i, max, option,
+                    index = elem.selectedIndex,
+                    values = [],
+                    options = elem.options,
+                    one = elem.type === "select-one";
 
-				// Nothing was selected
-				if ( index < 0 ) {
-					return null;
-				}
+                // Nothing was selected
+                if ( index < 0 ) {
+                    return null;
+                }
 
-				// Loop through all the selected options
-				i = one ? index : 0;
-				max = one ? index + 1 : options.length;
-				for ( ; i < max; i++ ) {
-					option = options[ i ];
+                // Loop through all the selected options
+                i = one ? index : 0;
+                max = one ? index + 1 : options.length;
+                for ( ; i < max; i++ ) {
+                    option = options[ i ];
 
-					// Don't return options that are disabled or in a disabled optgroup
-					if ( option.selected && (baidu.support.optDisabled ? !option.disabled : option.getAttribute("disabled") === null) &&
-							(!option.parentNode.disabled || !baidu._util_.nodeName( option.parentNode, "optgroup" )) ) {
+                    // Don't return options that are disabled or in a disabled optgroup
+                    if ( option.selected && (baidu.support.optDisabled ? !option.disabled : option.getAttribute("disabled") === null) &&
+                            (!option.parentNode.disabled || !baidu._util_.nodeName( option.parentNode, "optgroup" )) ) {
 
-						// Get the specific value for the option
-						value = baidu.dom( option ).val();
+                        // Get the specific value for the option
+                        value = baidu.dom( option ).val();
 
-						// We don't need an array for one selects
-						if ( one ) {
-							return value;
-						}
+                        // We don't need an array for one selects
+                        if ( one ) {
+                            return value;
+                        }
 
-						// Multi-Selects return an array
-						values.push( value );
-					}
-				}
+                        // Multi-Selects return an array
+                        values.push( value );
+                    }
+                }
 
-				// Fixes Bug #2551 -- select.val() broken in IE after form.reset()
-				if ( one && !values.length && options.length ) {
-					return baidu( options[ index ] ).val();
-				}
+                // Fixes Bug #2551 -- select.val() broken in IE after form.reset()
+                if ( one && !values.length && options.length ) {
+                    return baidu( options[ index ] ).val();
+                }
 
-				return values;
-			},
+                return values;
+            },
 
-			set: function( elem, value ) {
-				var values = baidu.makeArray( value );
+            set: function( elem, value ) {
+                var values = baidu.makeArray( value );
 
-				baidu(elem).find("option").each(function() {
-					this.selected = baidu.array(values).indexOf( baidu(this).val()) >= 0;
-				});
+                baidu(elem).find("option").each(function() {
+                    this.selected = baidu.array(values).indexOf( baidu(this).val()) >= 0;
+                });
 
-				if ( !values.length ) {
-					elem.selectedIndex = -1;
-				}
-				return values;
-			}
-		}
-	}
-//	
+                if ( !values.length ) {
+                    elem.selectedIndex = -1;
+                }
+                return values;
+            }
+        }
+    }
+//    
 });
 
 
 // IE6/7 do not support getting/setting some attributes with get/setAttribute
 if ( !baidu.support.getSetAttribute ) {
 
-	var fixSpecified = {
-		name: true,
-		id: true,
-		coords: true
-	};
+    var fixSpecified = {
+        name: true,
+        id: true,
+        coords: true
+    };
 
-	// Use this for any attribute in IE6/7
-	// This fixes almost every IE6/7 issue
-	baidu._util_.valHooks.button = {
-		get: function( elem, name ) {
-			var ret;
-			ret = elem.getAttributeNode( name );
-			return ret && ( fixSpecified[ name ] ? ret.value !== "" : ret.specified ) ?
-				ret.value :
-				undefined;
-		},
-		set: function( elem, value, name ) {
-			// Set the existing or create a new attribute node
-			var ret = elem.getAttributeNode( name );
-			if ( !ret ) {
-				ret = document.createAttribute( name );
-				elem.setAttributeNode( ret );
-			}
-			return ( ret.value = value + "" );
-		}
-	};
+    // Use this for any attribute in IE6/7
+    // This fixes almost every IE6/7 issue
+    baidu._util_.valHooks.button = {
+        get: function( elem, name ) {
+            var ret;
+            ret = elem.getAttributeNode( name );
+            return ret && ( fixSpecified[ name ] ? ret.value !== "" : ret.specified ) ?
+                ret.value :
+                undefined;
+        },
+        set: function( elem, value, name ) {
+            // Set the existing or create a new attribute node
+            var ret = elem.getAttributeNode( name );
+            if ( !ret ) {
+                ret = document.createAttribute( name );
+                elem.setAttributeNode( ret );
+            }
+            return ( ret.value = value + "" );
+        }
+    };
 }
 
 // Radios and checkboxes getter/setter
 if ( !baidu.support.checkOn ) {
-	baidu.forEach([ "radio", "checkbox" ], function() {
-		baidu._util_.valHooks[ this ] = {
-			get: function( elem ) {
-				// Handle the case where in Webkit "" is returned instead of "on" if a value isn't specified
-				return elem.getAttribute("value") === null ? "on" : elem.value;
-			}
-		};
-	});
+    baidu.forEach([ "radio", "checkbox" ], function() {
+        baidu._util_.valHooks[ this ] = {
+            get: function( elem ) {
+                // Handle the case where in Webkit "" is returned instead of "on" if a value isn't specified
+                return elem.getAttribute("value") === null ? "on" : elem.value;
+            }
+        };
+    });
 }
 
 baidu.forEach([ "radio", "checkbox" ], function(item) {
-	baidu._util_.valHooks[ item ] = baidu.extend( baidu._util_.valHooks[ item ], {
-		set: function( elem, value ) {
-			if ( baidu.isArray( value ) ) {
-				return ( elem.checked = baidu.array(value).indexOf(baidu(elem).val()) >= 0 );
-			}
-		}
-	});
+    baidu._util_.valHooks[ item ] = baidu.extend( baidu._util_.valHooks[ item ], {
+        set: function( elem, value ) {
+            if ( baidu.isArray( value ) ) {
+                return ( elem.checked = baidu.array(value).indexOf(baidu(elem).val()) >= 0 );
+            }
+        }
+    });
 });
 
 /**
@@ -9111,7 +9509,7 @@ baidu._util_.getWidthOrHeight = function(){
  //todo:考虑以后去掉下划线支持？
 baidu.string.extend({
     toCamelCase : function () {
-    	var source = this.valueOf();
+        var source = this.valueOf();
         //提前判断，提高getStyle等的效率 thanks xianwei
         if (source.indexOf('-') < 0 && source.indexOf('_') < 0) {
             return source;
@@ -9279,9 +9677,9 @@ baidu.dom.styleFixer = function(){
 
  //设置css
  baidu("div").css({
- 	"background-color":"red",
- 	"left":"30px",
- 	"right":"40px"
+     "background-color":"red",
+     "left":"30px",
+     "right":"40px"
  });
  
  */
@@ -10283,9 +10681,9 @@ baidu.dom.extend({
 } */
 
 baidu.dom.extend({
-	bind: function(type, data, fn){
-		return this.on(type, undefined, data, fn);
-	}
+    bind: function(type, data, fn){
+        return this.on(type, undefined, data, fn);
+    }
 });
 
 
@@ -10636,7 +11034,7 @@ baidu.lang.Class.prototype.toString = function(){
  * @grammar obj.removeEventListener(type, handler)
  * @param {string}   type     事件类型
  * @param {Function} handler  要移除的事件监听函数或者监听函数的key
- * @remark 	如果第二个参数handler没有被绑定到对应的自定义事件中，什么也不做。
+ * @remark     如果第二个参数handler没有被绑定到对应的自定义事件中，什么也不做。
  */
 baidu.lang.Class.prototype.un =
 baidu.lang.Class.prototype.removeEventListener = function (type, handler) {
@@ -10703,7 +11101,7 @@ baidu.lang.guid = function() {
 //baidu.$$._counter = baidu.$$._counter || 1;
 
 
-// 20111129	meizz	去除 _counter.toString(36) 这步运算，节约计算量
+// 20111129    meizz    去除 _counter.toString(36) 这步运算，节约计算量
 /// support magic - Tangram 1.x Code End
 /*
  * Tangram
@@ -10754,10 +11152,10 @@ baidu.lang.isString = baidu.isString;
 /**
  * @description 自定义的事件对象。
  * @class
- * @name 	baidu.lang.Event
+ * @name     baidu.lang.Event
  * @grammar baidu.lang.Event(type[, target])
- * @param 	{string} type	 事件类型名称。为了方便区分事件和一个普通的方法，事件类型名称必须以"on"(小写)开头。
- * @param 	{Object} [target]触发事件的对象
+ * @param     {string} type     事件类型名称。为了方便区分事件和一个普通的方法，事件类型名称必须以"on"(小写)开头。
+ * @param     {Object} [target]触发事件的对象
  * @meta standard
  * @remark 引入该模块，会自动为Class引入3个事件扩展方法：addEventListener、removeEventListener和dispatchEvent。
  * @meta standard
@@ -10774,8 +11172,8 @@ baidu.lang.Event = function (type, target) {
  * @description 派发自定义事件，使得绑定到自定义事件上面的函数都会被执行。引入baidu.lang.Event后，Class的子类实例才会获得该方法。
  * @name obj.dispatchEvent
  * @grammar obj.dispatchEvent(event, options)
- * @param {baidu.lang.Event|String} event 	Event对象，或事件名称(1.1.1起支持)
- * @param {Object} 					options 扩展参数,所含属性键值会扩展到Event对象上(1.2起支持)
+ * @param {baidu.lang.Event|String} event     Event对象，或事件名称(1.1.1起支持)
+ * @param {Object}                     options 扩展参数,所含属性键值会扩展到Event对象上(1.2起支持)
  * @remark 处理会调用通过addEventListenr绑定的自定义事件回调函数之外，还会调用直接绑定到对象上面的自定义事件。例如：<br>
 myobj.onMyEvent = function(){}<br>
 myobj.addEventListener("onMyEvent", function(){});
@@ -10912,7 +11310,7 @@ baidu.lang.createSingle = function (json) {
  * @private
  */
 baidu.dom.ddManager = baidu.lang.createSingle({
-	_targetsDroppingOver:{}
+    _targetsDroppingOver:{}
 });
 /// Tangram 1.x Code End
 
@@ -10935,12 +11333,12 @@ baidu.dom.ddManager = baidu.lang.createSingle({
  */
 
 baidu.dom.extend({
-	delegate: function( selector, type, data, fn ){
+    delegate: function( selector, type, data, fn ){
         if( typeof data == "function" )
             fn = data,
             data = null;
-    	return this.on( type, selector, data, fn );
-	}
+        return this.on( type, selector, data, fn );
+    }
 });
 
 
@@ -11173,7 +11571,7 @@ baidu.dom._styleFilter.filter = function (key, value, method) {
  * 
  * 为了精简代码，本模块默认不对任何浏览器返回值进行归一化处理（如使用getStyle时，不同浏览器下可能返回rgb颜色或hex颜色），也不会修复浏览器的bug和差异性（如设置IE的float属性叫styleFloat，firefox则是cssFloat）。<br />
  * baidu.dom._styleFixer和baidu.dom._styleFilter可以为本模块提供支持。<br />
- * 其中_styleFilter能对颜色和px进行归一化处理，_styleFixer能对display，float，opacity，textOverflow的浏览器兼容性bug进行处理。	
+ * 其中_styleFilter能对颜色和px进行归一化处理，_styleFixer能对display，float，opacity，textOverflow的浏览器兼容性bug进行处理。    
  * @shortcut getStyle
  * @meta standard
  * @see baidu.dom.setStyle,baidu.dom.setStyles, baidu.dom.getComputedStyle
@@ -11321,10 +11719,10 @@ baidu.page.getScrollLeft = function () {
 (function(){
 
  baidu.page.getMousePosition = function(){
-	 return {
-		x : baidu.page.getScrollLeft() + xy.x,
-		y : baidu.page.getScrollTop() + xy.y
-	 };
+     return {
+        x : baidu.page.getScrollLeft() + xy.x,
+        y : baidu.page.getScrollTop() + xy.y
+     };
  };
 
  var xy = {x:0, y:0};
@@ -11600,7 +11998,7 @@ baidu.event.preventDefault = function (event) {
             为了精简代码，本模块默认不对任何浏览器返回值进行归一化处理（如使用getStyle时，不同浏览器下可能返回rgb颜色或hex颜色），也不会修复浏览器的bug和差异性（如设置IE的float属性叫styleFloat，firefox则是cssFloat）。<br />
 baidu.dom._styleFixer和baidu.dom._styleFilter可以为本模块提供支持。<br />
 其中_styleFilter能对颜色和px进行归一化处理，_styleFixer能对display，float，opacity，textOverflow的浏览器兼容性bug进行处理。
-		
+        
  * @shortcut setStyle
  * @meta standard
  * @see baidu.dom.getStyle,baidu.dom.setStyles
@@ -11803,13 +12201,13 @@ baidu.dom.getPosition = function (element) {
 
     if(element.getBoundingClientRect){ // IE and Gecko 1.9+
         
-    	//当HTML或者BODY有border width时, 原生的getBoundingClientRect返回值是不符合预期的
-    	//考虑到通常情况下 HTML和BODY的border只会设成0px,所以忽略该问题.
+        //当HTML或者BODY有border width时, 原生的getBoundingClientRect返回值是不符合预期的
+        //考虑到通常情况下 HTML和BODY的border只会设成0px,所以忽略该问题.
         box = element.getBoundingClientRect();
 
         pos.left = Math.floor(box.left) + Math.max(doc.documentElement.scrollLeft, doc.body.scrollLeft);
         pos.top  = Math.floor(box.top)  + Math.max(doc.documentElement.scrollTop,  doc.body.scrollTop);
-	    
+        
         // IE会给HTML元素添加一个border，默认是medium（2px）
         // 但是在IE 6 7 的怪异模式下，可以被html { border: 0; } 这条css规则覆盖
         // 在IE7的标准模式下，border永远是2px，这个值通过clientLeft 和 clientTop取得
@@ -11961,50 +12359,50 @@ baidu.dom.intersect = function (element1, element2) {
  * @returns {Function} cancel取消拖拽
  */
 baidu.dom.droppable = function(element, options){
-	options = options || {};
-	var manager = baidu.dom.ddManager,
-		target = baidu.dom.g(element),
-	    guid = baidu.lang.guid(),
-		//拖拽进行时判断
-		_dragging = function(event){
-			var _targetsDroppingOver = manager._targetsDroppingOver,
-			    eventData = {trigger:event.DOM,reciever: target};
-			//判断被拖拽元素和容器是否相撞
-			if(baidu.dom.intersect(target, event.DOM)){
-				//进入容器区域
-				if(! _targetsDroppingOver[guid]){
-					//初次进入
-					(typeof options.ondropover == 'function') && options.ondropover.call(target,eventData);
-					manager.dispatchEvent("ondropover", eventData);
-					_targetsDroppingOver[guid] = true;
-				}
-			} else {
-				//出了容器区域
-				if(_targetsDroppingOver[guid]){
-					(typeof options.ondropout == 'function') && options.ondropout.call(target,eventData);
-					manager.dispatchEvent("ondropout", eventData);
-				}
-				delete _targetsDroppingOver[guid];
-			}
-		},
-		//拖拽结束时判断
-		_dragend = function(event){
-			var eventData = {trigger:event.DOM,reciever: target};
-			if(baidu.dom.intersect(target, event.DOM)){
-				typeof options.ondrop == 'function' && options.ondrop.call(target, eventData);
-				manager.dispatchEvent("ondrop", eventData);
-			}
-			delete manager._targetsDroppingOver[guid];
-		};
-	//事件注册,return object提供事件解除
-	manager.addEventListener("ondrag", _dragging);
-	manager.addEventListener("ondragend", _dragend);
-	return {
-		cancel : function(){
-			manager.removeEventListener("ondrag", _dragging);
-			manager.removeEventListener("ondragend",_dragend);
-		}
-	};
+    options = options || {};
+    var manager = baidu.dom.ddManager,
+        target = baidu.dom.g(element),
+        guid = baidu.lang.guid(),
+        //拖拽进行时判断
+        _dragging = function(event){
+            var _targetsDroppingOver = manager._targetsDroppingOver,
+                eventData = {trigger:event.DOM,reciever: target};
+            //判断被拖拽元素和容器是否相撞
+            if(baidu.dom.intersect(target, event.DOM)){
+                //进入容器区域
+                if(! _targetsDroppingOver[guid]){
+                    //初次进入
+                    (typeof options.ondropover == 'function') && options.ondropover.call(target,eventData);
+                    manager.dispatchEvent("ondropover", eventData);
+                    _targetsDroppingOver[guid] = true;
+                }
+            } else {
+                //出了容器区域
+                if(_targetsDroppingOver[guid]){
+                    (typeof options.ondropout == 'function') && options.ondropout.call(target,eventData);
+                    manager.dispatchEvent("ondropout", eventData);
+                }
+                delete _targetsDroppingOver[guid];
+            }
+        },
+        //拖拽结束时判断
+        _dragend = function(event){
+            var eventData = {trigger:event.DOM,reciever: target};
+            if(baidu.dom.intersect(target, event.DOM)){
+                typeof options.ondrop == 'function' && options.ondrop.call(target, eventData);
+                manager.dispatchEvent("ondrop", eventData);
+            }
+            delete manager._targetsDroppingOver[guid];
+        };
+    //事件注册,return object提供事件解除
+    manager.addEventListener("ondrag", _dragging);
+    manager.addEventListener("ondragend", _dragend);
+    return {
+        cancel : function(){
+            manager.removeEventListener("ondrag", _dragging);
+            manager.removeEventListener("ondragend",_dragend);
+        }
+    };
 };
 /// Tangram 1.x Code End
 
@@ -12580,286 +12978,286 @@ baidu.json.parse = function (data) {
 ;(function(){
 
 var rbrace = /^(?:\{.*\}|\[.*\])$/,
-	rmultiDash = /([A-Z])/g,
+    rmultiDash = /([A-Z])/g,
 
-	// Matches dashed string for camelizing
-	rmsPrefix = /^-ms-/,
-	rdashAlpha = /-([\da-z])/gi,
+    // Matches dashed string for camelizing
+    rmsPrefix = /^-ms-/,
+    rdashAlpha = /-([\da-z])/gi,
 
-	fcamelCase = function( all, letter ) {
-		return ( letter + "" ).toUpperCase();
-	};
+    fcamelCase = function( all, letter ) {
+        return ( letter + "" ).toUpperCase();
+    };
 
 baidu.extend(baidu._util_,{
 
-	// Convert dashed to camelCase; used by the css and data modules
-	// Microsoft forgot to hump their vendor prefix (#9572)
-	camelCase: function( string ) {
-		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
-	}
+    // Convert dashed to camelCase; used by the css and data modules
+    // Microsoft forgot to hump their vendor prefix (#9572)
+    camelCase: function( string ) {
+        return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
+    }
 });
 
 //Copy from jQuery 1.8 , thank you for jQuery 
 baidu.extend(baidu._util_,{
-	cache: {},
+    cache: {},
 
-	deletedIds: [],
+    deletedIds: [],
 
-	// Please use with caution
-	uuid: 0,
+    // Please use with caution
+    uuid: 0,
 
-	// Unique for each copy of baidu on the page
-	// Non-digits removed to match rinlinebaidu
-	expando: "baidu" + ( '2.0.0' + Math.random() ).replace( /\D/g, "" ),
+    // Unique for each copy of baidu on the page
+    // Non-digits removed to match rinlinebaidu
+    expando: "baidu" + ( '2.0.0' + Math.random() ).replace( /\D/g, "" ),
 
-	// The following elements throw uncatchable exceptions if you
-	// attempt to add expando properties to them.
-	noData: {
-		"embed": true,
-		// Ban all objects except for Flash (which handle expandos)
-		"object": "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
-		"applet": true
-	},
+    // The following elements throw uncatchable exceptions if you
+    // attempt to add expando properties to them.
+    noData: {
+        "embed": true,
+        // Ban all objects except for Flash (which handle expandos)
+        "object": "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000",
+        "applet": true
+    },
 
-	hasData: function( elem ) {
-		elem = elem.nodeType ? baidu._util_.cache[ elem[baidu._util_.expando] ] : elem[ baidu._util_.expando ];
-		return !!elem && !isEmptyDataObject( elem );
-	},
+    hasData: function( elem ) {
+        elem = elem.nodeType ? baidu._util_.cache[ elem[baidu._util_.expando] ] : elem[ baidu._util_.expando ];
+        return !!elem && !isEmptyDataObject( elem );
+    },
 
-	data: function( elem, name, data, pvt /* Internal Use Only */ ) {
-		if ( !baidu._util_.acceptData( elem ) ) {
-			return;
-		}
+    data: function( elem, name, data, pvt /* Internal Use Only */ ) {
+        if ( !baidu._util_.acceptData( elem ) ) {
+            return;
+        }
 
-		var thisCache, ret,
-			internalKey = baidu._util_.expando,
-			getByName = typeof name === "string",
+        var thisCache, ret,
+            internalKey = baidu._util_.expando,
+            getByName = typeof name === "string",
 
-			// We have to handle DOM nodes and JS objects differently because IE6-7
-			// can't GC object references properly across the DOM-JS boundary
-			isNode = elem.nodeType,
+            // We have to handle DOM nodes and JS objects differently because IE6-7
+            // can't GC object references properly across the DOM-JS boundary
+            isNode = elem.nodeType,
 
-			//这部分为jQuery全局的缓存设计，目前tangram2.0中没有设计该部分功能，但是使用涉及到这部分的接口全部正常。
-			// Only DOM nodes need the global baidu cache; JS object data is
-			// attached directly to the object so GC can occur automatically
-			cache = isNode ? baidu._util_.cache : elem,
+            //这部分为jQuery全局的缓存设计，目前tangram2.0中没有设计该部分功能，但是使用涉及到这部分的接口全部正常。
+            // Only DOM nodes need the global baidu cache; JS object data is
+            // attached directly to the object so GC can occur automatically
+            cache = isNode ? baidu._util_.cache : elem,
 
-			// Only defining an ID for JS objects if its cache already exists allows
-			// the code to shortcut on the same path as a DOM node with no cache
-			id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
+            // Only defining an ID for JS objects if its cache already exists allows
+            // the code to shortcut on the same path as a DOM node with no cache
+            id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
 
-		// Avoid doing any more work than we need to when trying to get data on an
-		// object that has no data at all
-		if ( (!id || !cache[id] || (!pvt && !cache[id].data)) && getByName && data === undefined ) {
-			return;
-		}
+        // Avoid doing any more work than we need to when trying to get data on an
+        // object that has no data at all
+        if ( (!id || !cache[id] || (!pvt && !cache[id].data)) && getByName && data === undefined ) {
+            return;
+        }
 
-		if ( !id ) {
-			// Only DOM nodes need a new unique ID for each element since their data
-			// ends up in the global cache
-			if ( isNode ) {
-				elem[ internalKey ] = id = baidu._util_.deletedIds.pop() || ++baidu._util_.uuid;
-			} else {
-				id = internalKey;
-			}
-		}
+        if ( !id ) {
+            // Only DOM nodes need a new unique ID for each element since their data
+            // ends up in the global cache
+            if ( isNode ) {
+                elem[ internalKey ] = id = baidu._util_.deletedIds.pop() || ++baidu._util_.uuid;
+            } else {
+                id = internalKey;
+            }
+        }
 
-		if ( !cache[ id ] ) {
-			cache[ id ] = {};
+        if ( !cache[ id ] ) {
+            cache[ id ] = {};
 
-			// Avoids exposing baidu metadata on plain JS objects when the object
-			// is serialized using JSON.stringify
-			if ( !isNode ) {
-				cache[ id ].toJSON = function() {};
-			}
-		}
+            // Avoids exposing baidu metadata on plain JS objects when the object
+            // is serialized using JSON.stringify
+            if ( !isNode ) {
+                cache[ id ].toJSON = function() {};
+            }
+        }
 
-		// An object can be passed to baidu.dom.data instead of a key/value pair; this gets
-		// shallow copied over onto the existing cache
-		if ( typeof name === "object" || typeof name === "function" ) {
-			if ( pvt ) {
-				cache[ id ] = baidu.extend( cache[ id ], name );
-			} else {
-				cache[ id ].data = baidu.extend( cache[ id ].data, name );
-			}
-		}
+        // An object can be passed to baidu.dom.data instead of a key/value pair; this gets
+        // shallow copied over onto the existing cache
+        if ( typeof name === "object" || typeof name === "function" ) {
+            if ( pvt ) {
+                cache[ id ] = baidu.extend( cache[ id ], name );
+            } else {
+                cache[ id ].data = baidu.extend( cache[ id ].data, name );
+            }
+        }
 
-		thisCache = cache[ id ];
+        thisCache = cache[ id ];
 
-		// baidu data() is stored in a separate object inside the object's internal data
-		// cache in order to avoid key collisions between internal data and user-defined
-		// data.
-		if ( !pvt ) {
-			if ( !thisCache.data ) {
-				thisCache.data = {};
-			}
+        // baidu data() is stored in a separate object inside the object's internal data
+        // cache in order to avoid key collisions between internal data and user-defined
+        // data.
+        if ( !pvt ) {
+            if ( !thisCache.data ) {
+                thisCache.data = {};
+            }
 
-			thisCache = thisCache.data;
-		}
+            thisCache = thisCache.data;
+        }
 
-		if ( data !== undefined ) {
-			thisCache[ baidu._util_.camelCase( name ) ] = data;
-		}
+        if ( data !== undefined ) {
+            thisCache[ baidu._util_.camelCase( name ) ] = data;
+        }
 
-		// Check for both converted-to-camel and non-converted data property names
-		// If a data property was specified
-		if ( getByName ) {
+        // Check for both converted-to-camel and non-converted data property names
+        // If a data property was specified
+        if ( getByName ) {
 
-			// First Try to find as-is property data
-			ret = thisCache[ name ];
+            // First Try to find as-is property data
+            ret = thisCache[ name ];
 
-			// Test for null|undefined property data
-			if ( ret == null ) {
+            // Test for null|undefined property data
+            if ( ret == null ) {
 
-				// Try to find the camelCased property
-				ret = thisCache[ baidu._util_.camelCase( name ) ];
-			}
-		} else {
-			ret = thisCache;
-		}
+                // Try to find the camelCased property
+                ret = thisCache[ baidu._util_.camelCase( name ) ];
+            }
+        } else {
+            ret = thisCache;
+        }
 
-		return ret;
-	},
+        return ret;
+    },
 
-	removeData: function( elem, name, pvt /* Internal Use Only */ ) {
-		if ( !baidu._util_.acceptData( elem ) ) {
-			return;
-		}
+    removeData: function( elem, name, pvt /* Internal Use Only */ ) {
+        if ( !baidu._util_.acceptData( elem ) ) {
+            return;
+        }
 
-		var thisCache, i, l,
+        var thisCache, i, l,
 
-			isNode = elem.nodeType,
+            isNode = elem.nodeType,
 
-			cache = isNode ? baidu._util_.cache : elem,
-			id = isNode ? elem[ baidu._util_.expando ] : baidu._util_.expando;
+            cache = isNode ? baidu._util_.cache : elem,
+            id = isNode ? elem[ baidu._util_.expando ] : baidu._util_.expando;
 
-		// If there is already no cache entry for this object, there is no
-		// purpose in continuing
-		if ( !cache[ id ] ) {
-			return;
-		}
+        // If there is already no cache entry for this object, there is no
+        // purpose in continuing
+        if ( !cache[ id ] ) {
+            return;
+        }
 
-		if ( name ) {
+        if ( name ) {
 
-			thisCache = pvt ? cache[ id ] : cache[ id ].data;
+            thisCache = pvt ? cache[ id ] : cache[ id ].data;
 
-			if ( thisCache ) {
+            if ( thisCache ) {
 
-				// Support array or space separated string names for data keys
-				if ( !baidu.isArray( name ) ) {
+                // Support array or space separated string names for data keys
+                if ( !baidu.isArray( name ) ) {
 
-					// try the string as a key before any manipulation
-					if ( name in thisCache ) {
-						name = [ name ];
-					} else {
+                    // try the string as a key before any manipulation
+                    if ( name in thisCache ) {
+                        name = [ name ];
+                    } else {
 
-						// split the camel cased version by spaces unless a key with the spaces exists
-						name = baidu._util_.camelCase( name );
-						if ( name in thisCache ) {
-							name = [ name ];
-						} else {
-							name = name.split(" ");
-						}
-					}
-				}
+                        // split the camel cased version by spaces unless a key with the spaces exists
+                        name = baidu._util_.camelCase( name );
+                        if ( name in thisCache ) {
+                            name = [ name ];
+                        } else {
+                            name = name.split(" ");
+                        }
+                    }
+                }
 
-				for ( i = 0, l = name.length; i < l; i++ ) {
-					delete thisCache[ name[i] ];
-				}
+                for ( i = 0, l = name.length; i < l; i++ ) {
+                    delete thisCache[ name[i] ];
+                }
 
-				// If there is no data left in the cache, we want to continue
-				// and let the cache object itself get destroyed
-				if ( !( pvt ? isEmptyDataObject : baidu.object.isEmpty )( thisCache ) ) {
-					return;
-				}
-			}
-		}
+                // If there is no data left in the cache, we want to continue
+                // and let the cache object itself get destroyed
+                if ( !( pvt ? isEmptyDataObject : baidu.object.isEmpty )( thisCache ) ) {
+                    return;
+                }
+            }
+        }
 
-		if ( !pvt ) {
-			delete cache[ id ].data;
+        if ( !pvt ) {
+            delete cache[ id ].data;
 
-			// Don't destroy the parent cache unless the internal data object
-			// had been the only thing left in it
-			if ( !isEmptyDataObject( cache[ id ] ) ) {
-				return;
-			}
-		}
+            // Don't destroy the parent cache unless the internal data object
+            // had been the only thing left in it
+            if ( !isEmptyDataObject( cache[ id ] ) ) {
+                return;
+            }
+        }
 
-		// Destroy the cache
-		if ( isNode ) {
-			baidu._util_.cleanData( [ elem ], true );
+        // Destroy the cache
+        if ( isNode ) {
+            baidu._util_.cleanData( [ elem ], true );
 
-		// Use delete when supported for expandos or `cache` is not a window per isWindow (#10080)
-		} else if ( baidu.support.deleteExpando || cache != cache.window ) {
-			delete cache[ id ];
+        // Use delete when supported for expandos or `cache` is not a window per isWindow (#10080)
+        } else if ( baidu.support.deleteExpando || cache != cache.window ) {
+            delete cache[ id ];
 
-		// When all else fails, null
-		} else {
-			cache[ id ] = null;
-		}
-	},
+        // When all else fails, null
+        } else {
+            cache[ id ] = null;
+        }
+    },
 
-	// For internal use only.
-	_data: function( elem, name, data ) {
-		return baidu._util_.data( elem, name, data, true );
-	},
+    // For internal use only.
+    _data: function( elem, name, data ) {
+        return baidu._util_.data( elem, name, data, true );
+    },
 
-	// A method for determining if a DOM node can handle the data expando
-	acceptData: function( elem ) {
-		var noData = elem.nodeName && baidu._util_.noData[ elem.nodeName.toLowerCase() ];
+    // A method for determining if a DOM node can handle the data expando
+    acceptData: function( elem ) {
+        var noData = elem.nodeName && baidu._util_.noData[ elem.nodeName.toLowerCase() ];
 
-		// nodes accept data unless otherwise specified; rejection can be conditional
-		return !noData || noData !== true && elem.getAttribute("classid") === noData;
-	}
+        // nodes accept data unless otherwise specified; rejection can be conditional
+        return !noData || noData !== true && elem.getAttribute("classid") === noData;
+    }
 });
 
 //TODO data的入口
 
 function dataAttr( elem, key, data ) {
-	// If nothing was found internally, try to fetch any
-	// data from the HTML5 data-* attribute
-	if ( data === undefined && elem.nodeType === 1 ) {
+    // If nothing was found internally, try to fetch any
+    // data from the HTML5 data-* attribute
+    if ( data === undefined && elem.nodeType === 1 ) {
 
-		var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+        var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
 
-		data = elem.getAttribute( name );
+        data = elem.getAttribute( name );
 
-		if ( typeof data === "string" ) {
-			try {
-				data = data === "true" ? true :
-				data === "false" ? false :
-				data === "null" ? null :
-				baidu.isNumber( data ) ? +data :
-					rbrace.test( data ) ? baidu.json.parse( data ) :
-					data;
-			} catch( e ) {}
+        if ( typeof data === "string" ) {
+            try {
+                data = data === "true" ? true :
+                data === "false" ? false :
+                data === "null" ? null :
+                baidu.isNumber( data ) ? +data :
+                    rbrace.test( data ) ? baidu.json.parse( data ) :
+                    data;
+            } catch( e ) {}
 
-			// Make sure we set the data so it isn't changed later
-			baidu._util_.data( elem, key, data );
+            // Make sure we set the data so it isn't changed later
+            baidu._util_.data( elem, key, data );
 
-		} else {
-			data = undefined;
-		}
-	}
+        } else {
+            data = undefined;
+        }
+    }
 
-	return data;
+    return data;
 }
 
 // checks a cache object for emptiness
 function isEmptyDataObject( obj ) {
-	var name;
-	for ( name in obj ) {
+    var name;
+    for ( name in obj ) {
 
-		// if the public data object is empty, the private is still empty
-		if ( name === "data" && baidu.object.isEmpty( obj[name] ) ) {
-			continue;
-		}
-		if ( name !== "toJSON" ) {
-			return false;
-		}
-	}
+        // if the public data object is empty, the private is still empty
+        if ( name === "data" && baidu.object.isEmpty( obj[name] ) ) {
+            continue;
+        }
+        if ( name !== "toJSON" ) {
+            return false;
+        }
+    }
 
-	return true;
+    return true;
 }
 
 
@@ -13112,9 +13510,9 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     innerHeight: function(){
-    	if(this.size()<=0){
-    		return 0;
-    	}
+        if(this.size()<=0){
+            return 0;
+        }
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
@@ -13137,7 +13535,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     innerWidth: function(){
-    	if(this.size()<=0){return 0;}
+        if(this.size()<=0){return 0;}
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
@@ -13685,7 +14083,7 @@ baidu.dom.opacity = function(element, opacity){
  */
 baidu.dom.extend({
     outerHeight: function(margin){
-    	if(this.size()<=0){return 0;}
+        if(this.size()<=0){return 0;}
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
@@ -13709,7 +14107,7 @@ baidu.dom.extend({
  */
 baidu.dom.extend({
     outerWidth: function(margin){
-    	if(this.size()<=0){return 0;} 	
+        if(this.size()<=0){return 0;}     
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);
@@ -14237,325 +14635,325 @@ baidu.dom.q = function (className, element, tagName) {
 (function(){
 
 var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
-	expando = "sizcache" + (Math.random() + '').replace('.', ''),
-	done = 0,
-	toString = Object.prototype.toString,
-	hasDuplicate = false,
-	baseHasDuplicate = true,
-	rBackslash = /\\/g,
-	rReturn = /\r\n/g,
-	rNonWord = /\W/;
+    expando = "sizcache" + (Math.random() + '').replace('.', ''),
+    done = 0,
+    toString = Object.prototype.toString,
+    hasDuplicate = false,
+    baseHasDuplicate = true,
+    rBackslash = /\\/g,
+    rReturn = /\r\n/g,
+    rNonWord = /\W/;
 
 // Here we check if the JavaScript engine is using some sort of
 // optimization where it does not always call our comparision
 // function. If that is the case, discard the hasDuplicate value.
 //   Thus far that includes Google Chrome.
 [0, 0].sort(function() {
-	baseHasDuplicate = false;
-	return 0;
+    baseHasDuplicate = false;
+    return 0;
 });
 
 var Sizzle = function( selector, context, results, seed ) {
-	results = results || [];
-	context = context || document;
+    results = results || [];
+    context = context || document;
 
-	var origContext = context;
+    var origContext = context;
 
-	if ( context.nodeType !== 1 && context.nodeType !== 9 ) {
-		return [];
-	}
-	
-	if ( !selector || typeof selector !== "string" ) {
-		return results;
-	}
+    if ( context.nodeType !== 1 && context.nodeType !== 9 ) {
+        return [];
+    }
+    
+    if ( !selector || typeof selector !== "string" ) {
+        return results;
+    }
 
-	var m, set, checkSet, extra, ret, cur, pop, i,
-		prune = true,
-		contextXML = Sizzle.isXML( context ),
-		parts = [],
-		soFar = selector;
-	
-	// Reset the position of the chunker regexp (start from head)
-	do {
-		chunker.exec( "" );
-		m = chunker.exec( soFar );
+    var m, set, checkSet, extra, ret, cur, pop, i,
+        prune = true,
+        contextXML = Sizzle.isXML( context ),
+        parts = [],
+        soFar = selector;
+    
+    // Reset the position of the chunker regexp (start from head)
+    do {
+        chunker.exec( "" );
+        m = chunker.exec( soFar );
 
-		if ( m ) {
-			soFar = m[3];
-		
-			parts.push( m[1] );
-		
-			if ( m[2] ) {
-				extra = m[3];
-				break;
-			}
-		}
-	} while ( m );
+        if ( m ) {
+            soFar = m[3];
+        
+            parts.push( m[1] );
+        
+            if ( m[2] ) {
+                extra = m[3];
+                break;
+            }
+        }
+    } while ( m );
 
-	if ( parts.length > 1 && origPOS.exec( selector ) ) {
+    if ( parts.length > 1 && origPOS.exec( selector ) ) {
 
-		if ( parts.length === 2 && Expr.relative[ parts[0] ] ) {
-			set = posProcess( parts[0] + parts[1], context, seed );
+        if ( parts.length === 2 && Expr.relative[ parts[0] ] ) {
+            set = posProcess( parts[0] + parts[1], context, seed );
 
-		} else {
-			set = Expr.relative[ parts[0] ] ?
-				[ context ] :
-				Sizzle( parts.shift(), context );
+        } else {
+            set = Expr.relative[ parts[0] ] ?
+                [ context ] :
+                Sizzle( parts.shift(), context );
 
-			while ( parts.length ) {
-				selector = parts.shift();
+            while ( parts.length ) {
+                selector = parts.shift();
 
-				if ( Expr.relative[ selector ] ) {
-					selector += parts.shift();
-				}
-				
-				set = posProcess( selector, set, seed );
-			}
-		}
+                if ( Expr.relative[ selector ] ) {
+                    selector += parts.shift();
+                }
+                
+                set = posProcess( selector, set, seed );
+            }
+        }
 
-	} else {
-		// Take a shortcut and set the context if the root selector is an ID
-		// (but not if it'll be faster if the inner selector is an ID)
-		if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
-				Expr.match.ID.test(parts[0]) && !Expr.match.ID.test(parts[parts.length - 1]) ) {
+    } else {
+        // Take a shortcut and set the context if the root selector is an ID
+        // (but not if it'll be faster if the inner selector is an ID)
+        if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
+                Expr.match.ID.test(parts[0]) && !Expr.match.ID.test(parts[parts.length - 1]) ) {
 
-			ret = Sizzle.find( parts.shift(), context, contextXML );
-			context = ret.expr ?
-				Sizzle.filter( ret.expr, ret.set )[0] :
-				ret.set[0];
-		}
+            ret = Sizzle.find( parts.shift(), context, contextXML );
+            context = ret.expr ?
+                Sizzle.filter( ret.expr, ret.set )[0] :
+                ret.set[0];
+        }
 
-		if ( context ) {
-			ret = seed ?
-				{ expr: parts.pop(), set: makeArray(seed) } :
-				Sizzle.find( parts.pop(), parts.length === 1 && (parts[0] === "~" || parts[0] === "+") && context.parentNode ? context.parentNode : context, contextXML );
+        if ( context ) {
+            ret = seed ?
+                { expr: parts.pop(), set: makeArray(seed) } :
+                Sizzle.find( parts.pop(), parts.length === 1 && (parts[0] === "~" || parts[0] === "+") && context.parentNode ? context.parentNode : context, contextXML );
 
-			set = ret.expr ?
-				Sizzle.filter( ret.expr, ret.set ) :
-				ret.set;
+            set = ret.expr ?
+                Sizzle.filter( ret.expr, ret.set ) :
+                ret.set;
 
-			if ( parts.length > 0 ) {
-				checkSet = makeArray( set );
+            if ( parts.length > 0 ) {
+                checkSet = makeArray( set );
 
-			} else {
-				prune = false;
-			}
+            } else {
+                prune = false;
+            }
 
-			while ( parts.length ) {
-				cur = parts.pop();
-				pop = cur;
+            while ( parts.length ) {
+                cur = parts.pop();
+                pop = cur;
 
-				if ( !Expr.relative[ cur ] ) {
-					cur = "";
-				} else {
-					pop = parts.pop();
-				}
+                if ( !Expr.relative[ cur ] ) {
+                    cur = "";
+                } else {
+                    pop = parts.pop();
+                }
 
-				if ( pop == null ) {
-					pop = context;
-				}
+                if ( pop == null ) {
+                    pop = context;
+                }
 
-				Expr.relative[ cur ]( checkSet, pop, contextXML );
-			}
+                Expr.relative[ cur ]( checkSet, pop, contextXML );
+            }
 
-		} else {
-			checkSet = parts = [];
-		}
-	}
+        } else {
+            checkSet = parts = [];
+        }
+    }
 
-	if ( !checkSet ) {
-		checkSet = set;
-	}
+    if ( !checkSet ) {
+        checkSet = set;
+    }
 
-	if ( !checkSet ) {
-		Sizzle.error( cur || selector );
-	}
+    if ( !checkSet ) {
+        Sizzle.error( cur || selector );
+    }
 
-	if ( toString.call(checkSet) === "[object Array]" ) {
-		if ( !prune ) {
-			results.push.apply( results, checkSet );
+    if ( toString.call(checkSet) === "[object Array]" ) {
+        if ( !prune ) {
+            results.push.apply( results, checkSet );
 
-		} else if ( context && context.nodeType === 1 ) {
-			for ( i = 0; checkSet[i] != null; i++ ) {
-				if ( checkSet[i] && (checkSet[i] === true || checkSet[i].nodeType === 1 && Sizzle.contains(context, checkSet[i])) ) {
-					results.push( set[i] );
-				}
-			}
+        } else if ( context && context.nodeType === 1 ) {
+            for ( i = 0; checkSet[i] != null; i++ ) {
+                if ( checkSet[i] && (checkSet[i] === true || checkSet[i].nodeType === 1 && Sizzle.contains(context, checkSet[i])) ) {
+                    results.push( set[i] );
+                }
+            }
 
-		} else {
-			for ( i = 0; checkSet[i] != null; i++ ) {
-				if ( checkSet[i] && checkSet[i].nodeType === 1 ) {
-					results.push( set[i] );
-				}
-			}
-		}
+        } else {
+            for ( i = 0; checkSet[i] != null; i++ ) {
+                if ( checkSet[i] && checkSet[i].nodeType === 1 ) {
+                    results.push( set[i] );
+                }
+            }
+        }
 
-	} else {
-		makeArray( checkSet, results );
-	}
+    } else {
+        makeArray( checkSet, results );
+    }
 
-	if ( extra ) {
-		Sizzle( extra, origContext, results, seed );
-		Sizzle.uniqueSort( results );
-	}
+    if ( extra ) {
+        Sizzle( extra, origContext, results, seed );
+        Sizzle.uniqueSort( results );
+    }
 
-	return results;
+    return results;
 };
 
 Sizzle.uniqueSort = function( results ) {
-	if ( sortOrder ) {
-		hasDuplicate = baseHasDuplicate;
-		results.sort( sortOrder );
+    if ( sortOrder ) {
+        hasDuplicate = baseHasDuplicate;
+        results.sort( sortOrder );
 
-		if ( hasDuplicate ) {
-			for ( var i = 1; i < results.length; i++ ) {
-				if ( results[i] === results[ i - 1 ] ) {
-					results.splice( i--, 1 );
-				}
-			}
-		}
-	}
+        if ( hasDuplicate ) {
+            for ( var i = 1; i < results.length; i++ ) {
+                if ( results[i] === results[ i - 1 ] ) {
+                    results.splice( i--, 1 );
+                }
+            }
+        }
+    }
 
-	return results;
+    return results;
 };
 
 Sizzle.matches = function( expr, set ) {
-	return Sizzle( expr, null, null, set );
+    return Sizzle( expr, null, null, set );
 };
 
 Sizzle.matchesSelector = function( node, expr ) {
-	return Sizzle( expr, null, null, [node] ).length > 0;
+    return Sizzle( expr, null, null, [node] ).length > 0;
 };
 
 Sizzle.find = function( expr, context, isXML ) {
-	var set, i, len, match, type, left;
+    var set, i, len, match, type, left;
 
-	if ( !expr ) {
-		return [];
-	}
+    if ( !expr ) {
+        return [];
+    }
 
-	for ( i = 0, len = Expr.order.length; i < len; i++ ) {
-		type = Expr.order[i];
-		
-		if ( (match = Expr.leftMatch[ type ].exec( expr )) ) {
-			left = match[1];
-			match.splice( 1, 1 );
+    for ( i = 0, len = Expr.order.length; i < len; i++ ) {
+        type = Expr.order[i];
+        
+        if ( (match = Expr.leftMatch[ type ].exec( expr )) ) {
+            left = match[1];
+            match.splice( 1, 1 );
 
-			if ( left.substr( left.length - 1 ) !== "\\" ) {
-				match[1] = (match[1] || "").replace( rBackslash, "" );
-				set = Expr.find[ type ]( match, context, isXML );
+            if ( left.substr( left.length - 1 ) !== "\\" ) {
+                match[1] = (match[1] || "").replace( rBackslash, "" );
+                set = Expr.find[ type ]( match, context, isXML );
 
-				if ( set != null ) {
-					expr = expr.replace( Expr.match[ type ], "" );
-					break;
-				}
-			}
-		}
-	}
+                if ( set != null ) {
+                    expr = expr.replace( Expr.match[ type ], "" );
+                    break;
+                }
+            }
+        }
+    }
 
-	if ( !set ) {
-		set = typeof context.getElementsByTagName !== "undefined" ?
-			context.getElementsByTagName( "*" ) :
-			[];
-	}
+    if ( !set ) {
+        set = typeof context.getElementsByTagName !== "undefined" ?
+            context.getElementsByTagName( "*" ) :
+            [];
+    }
 
-	return { set: set, expr: expr };
+    return { set: set, expr: expr };
 };
 
 Sizzle.filter = function( expr, set, inplace, not ) {
-	var match, anyFound,
-		type, found, item, filter, left,
-		i, pass,
-		old = expr,
-		result = [],
-		curLoop = set,
-		isXMLFilter = set && set[0] && Sizzle.isXML( set[0] );
+    var match, anyFound,
+        type, found, item, filter, left,
+        i, pass,
+        old = expr,
+        result = [],
+        curLoop = set,
+        isXMLFilter = set && set[0] && Sizzle.isXML( set[0] );
 
-	while ( expr && set.length ) {
-		for ( type in Expr.filter ) {
-			if ( (match = Expr.leftMatch[ type ].exec( expr )) != null && match[2] ) {
-				filter = Expr.filter[ type ];
-				left = match[1];
+    while ( expr && set.length ) {
+        for ( type in Expr.filter ) {
+            if ( (match = Expr.leftMatch[ type ].exec( expr )) != null && match[2] ) {
+                filter = Expr.filter[ type ];
+                left = match[1];
 
-				anyFound = false;
+                anyFound = false;
 
-				match.splice(1,1);
+                match.splice(1,1);
 
-				if ( left.substr( left.length - 1 ) === "\\" ) {
-					continue;
-				}
+                if ( left.substr( left.length - 1 ) === "\\" ) {
+                    continue;
+                }
 
-				if ( curLoop === result ) {
-					result = [];
-				}
+                if ( curLoop === result ) {
+                    result = [];
+                }
 
-				if ( Expr.preFilter[ type ] ) {
-					match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter );
+                if ( Expr.preFilter[ type ] ) {
+                    match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter );
 
-					if ( !match ) {
-						anyFound = found = true;
+                    if ( !match ) {
+                        anyFound = found = true;
 
-					} else if ( match === true ) {
-						continue;
-					}
-				}
+                    } else if ( match === true ) {
+                        continue;
+                    }
+                }
 
-				if ( match ) {
-					for ( i = 0; (item = curLoop[i]) != null; i++ ) {
-						if ( item ) {
-							found = filter( item, match, i, curLoop );
-							pass = not ^ found;
+                if ( match ) {
+                    for ( i = 0; (item = curLoop[i]) != null; i++ ) {
+                        if ( item ) {
+                            found = filter( item, match, i, curLoop );
+                            pass = not ^ found;
 
-							if ( inplace && found != null ) {
-								if ( pass ) {
-									anyFound = true;
+                            if ( inplace && found != null ) {
+                                if ( pass ) {
+                                    anyFound = true;
 
-								} else {
-									curLoop[i] = false;
-								}
+                                } else {
+                                    curLoop[i] = false;
+                                }
 
-							} else if ( pass ) {
-								result.push( item );
-								anyFound = true;
-							}
-						}
-					}
-				}
+                            } else if ( pass ) {
+                                result.push( item );
+                                anyFound = true;
+                            }
+                        }
+                    }
+                }
 
-				if ( found !== undefined ) {
-					if ( !inplace ) {
-						curLoop = result;
-					}
+                if ( found !== undefined ) {
+                    if ( !inplace ) {
+                        curLoop = result;
+                    }
 
-					expr = expr.replace( Expr.match[ type ], "" );
+                    expr = expr.replace( Expr.match[ type ], "" );
 
-					if ( !anyFound ) {
-						return [];
-					}
+                    if ( !anyFound ) {
+                        return [];
+                    }
 
-					break;
-				}
-			}
-		}
+                    break;
+                }
+            }
+        }
 
-		// Improper expression
-		if ( expr === old ) {
-			if ( anyFound == null ) {
-				Sizzle.error( expr );
+        // Improper expression
+        if ( expr === old ) {
+            if ( anyFound == null ) {
+                Sizzle.error( expr );
 
-			} else {
-				break;
-			}
-		}
+            } else {
+                break;
+            }
+        }
 
-		old = expr;
-	}
+        old = expr;
+    }
 
-	return curLoop;
+    return curLoop;
 };
 
 Sizzle.error = function( msg ) {
-	throw "Syntax error, unrecognized expression: " + msg;
+    throw "Syntax error, unrecognized expression: " + msg;
 };
 
 /**
@@ -14564,588 +14962,588 @@ Sizzle.error = function( msg ) {
  */
 var getText = Sizzle.getText = function( elem ) {
     var i, node,
-		nodeType = elem.nodeType,
-		ret = "";
+        nodeType = elem.nodeType,
+        ret = "";
 
-	if ( nodeType ) {
-		if ( nodeType === 1 ) {
-			// Use textContent || innerText for elements
-			if ( typeof elem.textContent === 'string' ) {
-				return elem.textContent;
-			} else if ( typeof elem.innerText === 'string' ) {
-				// Replace IE's carriage returns
-				return elem.innerText.replace( rReturn, '' );
-			} else {
-				// Traverse it's children
-				for ( elem = elem.firstChild; elem; elem = elem.nextSibling) {
-					ret += getText( elem );
-				}
-			}
-		} else if ( nodeType === 3 || nodeType === 4 ) {
-			return elem.nodeValue;
-		}
-	} else {
+    if ( nodeType ) {
+        if ( nodeType === 1 ) {
+            // Use textContent || innerText for elements
+            if ( typeof elem.textContent === 'string' ) {
+                return elem.textContent;
+            } else if ( typeof elem.innerText === 'string' ) {
+                // Replace IE's carriage returns
+                return elem.innerText.replace( rReturn, '' );
+            } else {
+                // Traverse it's children
+                for ( elem = elem.firstChild; elem; elem = elem.nextSibling) {
+                    ret += getText( elem );
+                }
+            }
+        } else if ( nodeType === 3 || nodeType === 4 ) {
+            return elem.nodeValue;
+        }
+    } else {
 
-		// If no nodeType, this is expected to be an array
-		for ( i = 0; (node = elem[i]); i++ ) {
-			// Do not traverse comment nodes
-			if ( node.nodeType !== 8 ) {
-				ret += getText( node );
-			}
-		}
-	}
-	return ret;
+        // If no nodeType, this is expected to be an array
+        for ( i = 0; (node = elem[i]); i++ ) {
+            // Do not traverse comment nodes
+            if ( node.nodeType !== 8 ) {
+                ret += getText( node );
+            }
+        }
+    }
+    return ret;
 };
 
 var Expr = Sizzle.selectors = {
-	order: [ "ID", "NAME", "TAG" ],
-
-	match: {
-		ID: /#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
-		CLASS: /\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
-		NAME: /\[name=['"]*((?:[\w\u00c0-\uFFFF\-]|\\.)+)['"]*\]/,
-		ATTR: /\[\s*((?:[\w\u00c0-\uFFFF\-]|\\.)+)\s*(?:(\S?=)\s*(?:(['"])(.*?)\3|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/,
-		TAG: /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/,
-		CHILD: /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
-		POS: /:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/,
-		PSEUDO: /:((?:[\w\u00c0-\uFFFF\-]|\\.)+)(?:\((['"]?)((?:\([^\)]+\)|[^\(\)]*)+)\2\))?/
-	},
-
-	leftMatch: {},
-
-	attrMap: {
-		"class": "className",
-		"for": "htmlFor"
-	},
-
-	attrHandle: {
-		href: function( elem ) {
-			return elem.getAttribute( "href" );
-		},
-		type: function( elem ) {
-			return elem.getAttribute( "type" );
-		}
-	},
-
-	relative: {
-		"+": function(checkSet, part){
-			var isPartStr = typeof part === "string",
-				isTag = isPartStr && !rNonWord.test( part ),
-				isPartStrNotTag = isPartStr && !isTag;
-
-			if ( isTag ) {
-				part = part.toLowerCase();
-			}
-
-			for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
-				if ( (elem = checkSet[i]) ) {
-					while ( (elem = elem.previousSibling) && elem.nodeType !== 1 ) {}
-
-					checkSet[i] = isPartStrNotTag || elem && elem.nodeName.toLowerCase() === part ?
-						elem || false :
-						elem === part;
-				}
-			}
-
-			if ( isPartStrNotTag ) {
-				Sizzle.filter( part, checkSet, true );
-			}
-		},
-
-		">": function( checkSet, part ) {
-			var elem,
-				isPartStr = typeof part === "string",
-				i = 0,
-				l = checkSet.length;
-
-			if ( isPartStr && !rNonWord.test( part ) ) {
-				part = part.toLowerCase();
-
-				for ( ; i < l; i++ ) {
-					elem = checkSet[i];
-
-					if ( elem ) {
-						var parent = elem.parentNode;
-						checkSet[i] = parent.nodeName.toLowerCase() === part ? parent : false;
-					}
-				}
-
-			} else {
-				for ( ; i < l; i++ ) {
-					elem = checkSet[i];
-
-					if ( elem ) {
-						checkSet[i] = isPartStr ?
-							elem.parentNode :
-							elem.parentNode === part;
-					}
-				}
-
-				if ( isPartStr ) {
-					Sizzle.filter( part, checkSet, true );
-				}
-			}
-		},
-
-		"": function(checkSet, part, isXML){
-			var nodeCheck,
-				doneName = done++,
-				checkFn = dirCheck;
-
-			if ( typeof part === "string" && !rNonWord.test( part ) ) {
-				part = part.toLowerCase();
-				nodeCheck = part;
-				checkFn = dirNodeCheck;
-			}
-
-			checkFn( "parentNode", part, doneName, checkSet, nodeCheck, isXML );
-		},
-
-		"~": function( checkSet, part, isXML ) {
-			var nodeCheck,
-				doneName = done++,
-				checkFn = dirCheck;
-
-			if ( typeof part === "string" && !rNonWord.test( part ) ) {
-				part = part.toLowerCase();
-				nodeCheck = part;
-				checkFn = dirNodeCheck;
-			}
-
-			checkFn( "previousSibling", part, doneName, checkSet, nodeCheck, isXML );
-		}
-	},
-
-	find: {
-		ID: function( match, context, isXML ) {
-			if ( typeof context.getElementById !== "undefined" && !isXML ) {
-				var m = context.getElementById(match[1]);
-				// Check parentNode to catch when Blackberry 4.6 returns
-				// nodes that are no longer in the document #6963
-				return m && m.parentNode ? [m] : [];
-			}
-		},
-
-		NAME: function( match, context ) {
-			if ( typeof context.getElementsByName !== "undefined" ) {
-				var ret = [],
-					results = context.getElementsByName( match[1] );
-
-				for ( var i = 0, l = results.length; i < l; i++ ) {
-					if ( results[i].getAttribute("name") === match[1] ) {
-						ret.push( results[i] );
-					}
-				}
-
-				return ret.length === 0 ? null : ret;
-			}
-		},
-
-		TAG: function( match, context ) {
-			if ( typeof context.getElementsByTagName !== "undefined" ) {
-				return context.getElementsByTagName( match[1] );
-			}
-		}
-	},
-	preFilter: {
-		CLASS: function( match, curLoop, inplace, result, not, isXML ) {
-			match = " " + match[1].replace( rBackslash, "" ) + " ";
-
-			if ( isXML ) {
-				return match;
-			}
-
-			for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
-				if ( elem ) {
-					if ( not ^ (elem.className && (" " + elem.className + " ").replace(/[\t\n\r]/g, " ").indexOf(match) >= 0) ) {
-						if ( !inplace ) {
-							result.push( elem );
-						}
-
-					} else if ( inplace ) {
-						curLoop[i] = false;
-					}
-				}
-			}
-
-			return false;
-		},
-
-		ID: function( match ) {
-			return match[1].replace( rBackslash, "" );
-		},
-
-		TAG: function( match, curLoop ) {
-			return match[1].replace( rBackslash, "" ).toLowerCase();
-		},
-
-		CHILD: function( match ) {
-			if ( match[1] === "nth" ) {
-				if ( !match[2] ) {
-					Sizzle.error( match[0] );
-				}
-
-				match[2] = match[2].replace(/^\+|\s*/g, '');
-
-				// parse equations like 'even', 'odd', '5', '2n', '3n+2', '4n-1', '-n+6'
-				var test = /(-?)(\d*)(?:n([+\-]?\d*))?/.exec(
-					match[2] === "even" && "2n" || match[2] === "odd" && "2n+1" ||
-					!/\D/.test( match[2] ) && "0n+" + match[2] || match[2]);
-
-				// calculate the numbers (first)n+(last) including if they are negative
-				match[2] = (test[1] + (test[2] || 1)) - 0;
-				match[3] = test[3] - 0;
-			}
-			else if ( match[2] ) {
-				Sizzle.error( match[0] );
-			}
-
-			// TODO: Move to normal caching system
-			match[0] = done++;
-
-			return match;
-		},
-
-		ATTR: function( match, curLoop, inplace, result, not, isXML ) {
-			var name = match[1] = match[1].replace( rBackslash, "" );
-			
-			if ( !isXML && Expr.attrMap[name] ) {
-				match[1] = Expr.attrMap[name];
-			}
-
-			// Handle if an un-quoted value was used
-			match[4] = ( match[4] || match[5] || "" ).replace( rBackslash, "" );
-
-			if ( match[2] === "~=" ) {
-				match[4] = " " + match[4] + " ";
-			}
-
-			return match;
-		},
-
-		PSEUDO: function( match, curLoop, inplace, result, not ) {
-			if ( match[1] === "not" ) {
-				// If we're dealing with a complex expression, or a simple one
-				if ( ( chunker.exec(match[3]) || "" ).length > 1 || /^\w/.test(match[3]) ) {
-					match[3] = Sizzle(match[3], null, null, curLoop);
-
-				} else {
-					var ret = Sizzle.filter(match[3], curLoop, inplace, true ^ not);
-
-					if ( !inplace ) {
-						result.push.apply( result, ret );
-					}
-
-					return false;
-				}
-
-			} else if ( Expr.match.POS.test( match[0] ) || Expr.match.CHILD.test( match[0] ) ) {
-				return true;
-			}
-			
-			return match;
-		},
-
-		POS: function( match ) {
-			match.unshift( true );
-
-			return match;
-		}
-	},
-	
-	filters: {
-		enabled: function( elem ) {
-			return elem.disabled === false && elem.type !== "hidden";
-		},
-
-		disabled: function( elem ) {
-			return elem.disabled === true;
-		},
-
-		checked: function( elem ) {
-			return elem.checked === true;
-		},
-		
-		selected: function( elem ) {
-			// Accessing this property makes selected-by-default
-			// options in Safari work properly
-			if ( elem.parentNode ) {
-				elem.parentNode.selectedIndex;
-			}
-			
-			return elem.selected === true;
-		},
-
-		parent: function( elem ) {
-			return !!elem.firstChild;
-		},
-
-		empty: function( elem ) {
-			return !elem.firstChild;
-		},
-
-		has: function( elem, i, match ) {
-			return !!Sizzle( match[3], elem ).length;
-		},
-
-		header: function( elem ) {
-			return (/h\d/i).test( elem.nodeName );
-		},
-
-		text: function( elem ) {
-			var attr = elem.getAttribute( "type" ), type = elem.type;
-			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc) 
-			// use getAttribute instead to test this case
-			return elem.nodeName.toLowerCase() === "input" && "text" === type && ( attr === type || attr === null );
-		},
-
-		radio: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "radio" === elem.type;
-		},
-
-		checkbox: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "checkbox" === elem.type;
-		},
-
-		file: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "file" === elem.type;
-		},
-
-		password: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "password" === elem.type;
-		},
-
-		submit: function( elem ) {
-			var name = elem.nodeName.toLowerCase();
-			return (name === "input" || name === "button") && "submit" === elem.type;
-		},
-
-		image: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "image" === elem.type;
-		},
-
-		reset: function( elem ) {
-			var name = elem.nodeName.toLowerCase();
-			return (name === "input" || name === "button") && "reset" === elem.type;
-		},
-
-		button: function( elem ) {
-			var name = elem.nodeName.toLowerCase();
-			return name === "input" && "button" === elem.type || name === "button";
-		},
-
-		input: function( elem ) {
-			return (/input|select|textarea|button/i).test( elem.nodeName );
-		},
-
-		focus: function( elem ) {
-			return elem === elem.ownerDocument.activeElement;
-		}
-	},
-	setFilters: {
-		first: function( elem, i ) {
-			return i === 0;
-		},
-
-		last: function( elem, i, match, array ) {
-			return i === array.length - 1;
-		},
-
-		even: function( elem, i ) {
-			return i % 2 === 0;
-		},
-
-		odd: function( elem, i ) {
-			return i % 2 === 1;
-		},
-
-		lt: function( elem, i, match ) {
-			return i < match[3] - 0;
-		},
-
-		gt: function( elem, i, match ) {
-			return i > match[3] - 0;
-		},
-
-		nth: function( elem, i, match ) {
-			return match[3] - 0 === i;
-		},
-
-		eq: function( elem, i, match ) {
-			return match[3] - 0 === i;
-		}
-	},
-	filter: {
-		PSEUDO: function( elem, match, i, array ) {
-			var name = match[1],
-				filter = Expr.filters[ name ];
-
-			if ( filter ) {
-				return filter( elem, i, match, array );
-
-			} else if ( name === "contains" ) {
-				return (elem.textContent || elem.innerText || getText([ elem ]) || "").indexOf(match[3]) >= 0;
-
-			} else if ( name === "not" ) {
-				var not = match[3];
-
-				for ( var j = 0, l = not.length; j < l; j++ ) {
-					if ( not[j] === elem ) {
-						return false;
-					}
-				}
-
-				return true;
-
-			} else {
-				Sizzle.error( name );
-			}
-		},
-
-		CHILD: function( elem, match ) {
-			var first, last,
-				doneName, parent, cache,
-				count, diff,
-				type = match[1],
-				node = elem;
-
-			switch ( type ) {
-				case "only":
-				case "first":
-					while ( (node = node.previousSibling) )	 {
-						if ( node.nodeType === 1 ) { 
-							return false; 
-						}
-					}
-
-					if ( type === "first" ) { 
-						return true; 
-					}
-
-					node = elem;
-
-				case "last":
-					while ( (node = node.nextSibling) )	 {
-						if ( node.nodeType === 1 ) { 
-							return false; 
-						}
-					}
-
-					return true;
-
-				case "nth":
-					first = match[2];
-					last = match[3];
-
-					if ( first === 1 && last === 0 ) {
-						return true;
-					}
-					
-					doneName = match[0];
-					parent = elem.parentNode;
-	
-					if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
-						count = 0;
-						
-						for ( node = parent.firstChild; node; node = node.nextSibling ) {
-							if ( node.nodeType === 1 ) {
-								node.nodeIndex = ++count;
-							}
-						} 
-
-						parent[ expando ] = doneName;
-					}
-					
-					diff = elem.nodeIndex - last;
-
-					if ( first === 0 ) {
-						return diff === 0;
-
-					} else {
-						return ( diff % first === 0 && diff / first >= 0 );
-					}
-			}
-		},
-
-		ID: function( elem, match ) {
-			return elem.nodeType === 1 && elem.getAttribute("id") === match;
-		},
-
-		TAG: function( elem, match ) {
-			return (match === "*" && elem.nodeType === 1) || !!elem.nodeName && elem.nodeName.toLowerCase() === match;
-		},
-		
-		CLASS: function( elem, match ) {
-			return (" " + (elem.className || elem.getAttribute("class")) + " ")
-				.indexOf( match ) > -1;
-		},
-
-		ATTR: function( elem, match ) {
-			var name = match[1],
-				result = Sizzle.attr ?
-					Sizzle.attr( elem, name ) :
-					Expr.attrHandle[ name ] ?
-					Expr.attrHandle[ name ]( elem ) :
-					elem[ name ] != null ?
-						elem[ name ] :
-						elem.getAttribute( name ),
-				value = result + "",
-				type = match[2],
-				check = match[4];
-
-			return result == null ?
-				type === "!=" :
-				!type && Sizzle.attr ?
-				result != null :
-				type === "=" ?
-				value === check :
-				type === "*=" ?
-				value.indexOf(check) >= 0 :
-				type === "~=" ?
-				(" " + value + " ").indexOf(check) >= 0 :
-				!check ?
-				value && result !== false :
-				type === "!=" ?
-				value !== check :
-				type === "^=" ?
-				value.indexOf(check) === 0 :
-				type === "$=" ?
-				value.substr(value.length - check.length) === check :
-				type === "|=" ?
-				value === check || value.substr(0, check.length + 1) === check + "-" :
-				false;
-		},
-
-		POS: function( elem, match, i, array ) {
-			var name = match[2],
-				filter = Expr.setFilters[ name ];
-
-			if ( filter ) {
-				return filter( elem, i, match, array );
-			}
-		}
-	}
+    order: [ "ID", "NAME", "TAG" ],
+
+    match: {
+        ID: /#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
+        CLASS: /\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
+        NAME: /\[name=['"]*((?:[\w\u00c0-\uFFFF\-]|\\.)+)['"]*\]/,
+        ATTR: /\[\s*((?:[\w\u00c0-\uFFFF\-]|\\.)+)\s*(?:(\S?=)\s*(?:(['"])(.*?)\3|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/,
+        TAG: /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/,
+        CHILD: /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
+        POS: /:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/,
+        PSEUDO: /:((?:[\w\u00c0-\uFFFF\-]|\\.)+)(?:\((['"]?)((?:\([^\)]+\)|[^\(\)]*)+)\2\))?/
+    },
+
+    leftMatch: {},
+
+    attrMap: {
+        "class": "className",
+        "for": "htmlFor"
+    },
+
+    attrHandle: {
+        href: function( elem ) {
+            return elem.getAttribute( "href" );
+        },
+        type: function( elem ) {
+            return elem.getAttribute( "type" );
+        }
+    },
+
+    relative: {
+        "+": function(checkSet, part){
+            var isPartStr = typeof part === "string",
+                isTag = isPartStr && !rNonWord.test( part ),
+                isPartStrNotTag = isPartStr && !isTag;
+
+            if ( isTag ) {
+                part = part.toLowerCase();
+            }
+
+            for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
+                if ( (elem = checkSet[i]) ) {
+                    while ( (elem = elem.previousSibling) && elem.nodeType !== 1 ) {}
+
+                    checkSet[i] = isPartStrNotTag || elem && elem.nodeName.toLowerCase() === part ?
+                        elem || false :
+                        elem === part;
+                }
+            }
+
+            if ( isPartStrNotTag ) {
+                Sizzle.filter( part, checkSet, true );
+            }
+        },
+
+        ">": function( checkSet, part ) {
+            var elem,
+                isPartStr = typeof part === "string",
+                i = 0,
+                l = checkSet.length;
+
+            if ( isPartStr && !rNonWord.test( part ) ) {
+                part = part.toLowerCase();
+
+                for ( ; i < l; i++ ) {
+                    elem = checkSet[i];
+
+                    if ( elem ) {
+                        var parent = elem.parentNode;
+                        checkSet[i] = parent.nodeName.toLowerCase() === part ? parent : false;
+                    }
+                }
+
+            } else {
+                for ( ; i < l; i++ ) {
+                    elem = checkSet[i];
+
+                    if ( elem ) {
+                        checkSet[i] = isPartStr ?
+                            elem.parentNode :
+                            elem.parentNode === part;
+                    }
+                }
+
+                if ( isPartStr ) {
+                    Sizzle.filter( part, checkSet, true );
+                }
+            }
+        },
+
+        "": function(checkSet, part, isXML){
+            var nodeCheck,
+                doneName = done++,
+                checkFn = dirCheck;
+
+            if ( typeof part === "string" && !rNonWord.test( part ) ) {
+                part = part.toLowerCase();
+                nodeCheck = part;
+                checkFn = dirNodeCheck;
+            }
+
+            checkFn( "parentNode", part, doneName, checkSet, nodeCheck, isXML );
+        },
+
+        "~": function( checkSet, part, isXML ) {
+            var nodeCheck,
+                doneName = done++,
+                checkFn = dirCheck;
+
+            if ( typeof part === "string" && !rNonWord.test( part ) ) {
+                part = part.toLowerCase();
+                nodeCheck = part;
+                checkFn = dirNodeCheck;
+            }
+
+            checkFn( "previousSibling", part, doneName, checkSet, nodeCheck, isXML );
+        }
+    },
+
+    find: {
+        ID: function( match, context, isXML ) {
+            if ( typeof context.getElementById !== "undefined" && !isXML ) {
+                var m = context.getElementById(match[1]);
+                // Check parentNode to catch when Blackberry 4.6 returns
+                // nodes that are no longer in the document #6963
+                return m && m.parentNode ? [m] : [];
+            }
+        },
+
+        NAME: function( match, context ) {
+            if ( typeof context.getElementsByName !== "undefined" ) {
+                var ret = [],
+                    results = context.getElementsByName( match[1] );
+
+                for ( var i = 0, l = results.length; i < l; i++ ) {
+                    if ( results[i].getAttribute("name") === match[1] ) {
+                        ret.push( results[i] );
+                    }
+                }
+
+                return ret.length === 0 ? null : ret;
+            }
+        },
+
+        TAG: function( match, context ) {
+            if ( typeof context.getElementsByTagName !== "undefined" ) {
+                return context.getElementsByTagName( match[1] );
+            }
+        }
+    },
+    preFilter: {
+        CLASS: function( match, curLoop, inplace, result, not, isXML ) {
+            match = " " + match[1].replace( rBackslash, "" ) + " ";
+
+            if ( isXML ) {
+                return match;
+            }
+
+            for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
+                if ( elem ) {
+                    if ( not ^ (elem.className && (" " + elem.className + " ").replace(/[\t\n\r]/g, " ").indexOf(match) >= 0) ) {
+                        if ( !inplace ) {
+                            result.push( elem );
+                        }
+
+                    } else if ( inplace ) {
+                        curLoop[i] = false;
+                    }
+                }
+            }
+
+            return false;
+        },
+
+        ID: function( match ) {
+            return match[1].replace( rBackslash, "" );
+        },
+
+        TAG: function( match, curLoop ) {
+            return match[1].replace( rBackslash, "" ).toLowerCase();
+        },
+
+        CHILD: function( match ) {
+            if ( match[1] === "nth" ) {
+                if ( !match[2] ) {
+                    Sizzle.error( match[0] );
+                }
+
+                match[2] = match[2].replace(/^\+|\s*/g, '');
+
+                // parse equations like 'even', 'odd', '5', '2n', '3n+2', '4n-1', '-n+6'
+                var test = /(-?)(\d*)(?:n([+\-]?\d*))?/.exec(
+                    match[2] === "even" && "2n" || match[2] === "odd" && "2n+1" ||
+                    !/\D/.test( match[2] ) && "0n+" + match[2] || match[2]);
+
+                // calculate the numbers (first)n+(last) including if they are negative
+                match[2] = (test[1] + (test[2] || 1)) - 0;
+                match[3] = test[3] - 0;
+            }
+            else if ( match[2] ) {
+                Sizzle.error( match[0] );
+            }
+
+            // TODO: Move to normal caching system
+            match[0] = done++;
+
+            return match;
+        },
+
+        ATTR: function( match, curLoop, inplace, result, not, isXML ) {
+            var name = match[1] = match[1].replace( rBackslash, "" );
+            
+            if ( !isXML && Expr.attrMap[name] ) {
+                match[1] = Expr.attrMap[name];
+            }
+
+            // Handle if an un-quoted value was used
+            match[4] = ( match[4] || match[5] || "" ).replace( rBackslash, "" );
+
+            if ( match[2] === "~=" ) {
+                match[4] = " " + match[4] + " ";
+            }
+
+            return match;
+        },
+
+        PSEUDO: function( match, curLoop, inplace, result, not ) {
+            if ( match[1] === "not" ) {
+                // If we're dealing with a complex expression, or a simple one
+                if ( ( chunker.exec(match[3]) || "" ).length > 1 || /^\w/.test(match[3]) ) {
+                    match[3] = Sizzle(match[3], null, null, curLoop);
+
+                } else {
+                    var ret = Sizzle.filter(match[3], curLoop, inplace, true ^ not);
+
+                    if ( !inplace ) {
+                        result.push.apply( result, ret );
+                    }
+
+                    return false;
+                }
+
+            } else if ( Expr.match.POS.test( match[0] ) || Expr.match.CHILD.test( match[0] ) ) {
+                return true;
+            }
+            
+            return match;
+        },
+
+        POS: function( match ) {
+            match.unshift( true );
+
+            return match;
+        }
+    },
+    
+    filters: {
+        enabled: function( elem ) {
+            return elem.disabled === false && elem.type !== "hidden";
+        },
+
+        disabled: function( elem ) {
+            return elem.disabled === true;
+        },
+
+        checked: function( elem ) {
+            return elem.checked === true;
+        },
+        
+        selected: function( elem ) {
+            // Accessing this property makes selected-by-default
+            // options in Safari work properly
+            if ( elem.parentNode ) {
+                elem.parentNode.selectedIndex;
+            }
+            
+            return elem.selected === true;
+        },
+
+        parent: function( elem ) {
+            return !!elem.firstChild;
+        },
+
+        empty: function( elem ) {
+            return !elem.firstChild;
+        },
+
+        has: function( elem, i, match ) {
+            return !!Sizzle( match[3], elem ).length;
+        },
+
+        header: function( elem ) {
+            return (/h\d/i).test( elem.nodeName );
+        },
+
+        text: function( elem ) {
+            var attr = elem.getAttribute( "type" ), type = elem.type;
+            // IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc) 
+            // use getAttribute instead to test this case
+            return elem.nodeName.toLowerCase() === "input" && "text" === type && ( attr === type || attr === null );
+        },
+
+        radio: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "radio" === elem.type;
+        },
+
+        checkbox: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "checkbox" === elem.type;
+        },
+
+        file: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "file" === elem.type;
+        },
+
+        password: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "password" === elem.type;
+        },
+
+        submit: function( elem ) {
+            var name = elem.nodeName.toLowerCase();
+            return (name === "input" || name === "button") && "submit" === elem.type;
+        },
+
+        image: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "image" === elem.type;
+        },
+
+        reset: function( elem ) {
+            var name = elem.nodeName.toLowerCase();
+            return (name === "input" || name === "button") && "reset" === elem.type;
+        },
+
+        button: function( elem ) {
+            var name = elem.nodeName.toLowerCase();
+            return name === "input" && "button" === elem.type || name === "button";
+        },
+
+        input: function( elem ) {
+            return (/input|select|textarea|button/i).test( elem.nodeName );
+        },
+
+        focus: function( elem ) {
+            return elem === elem.ownerDocument.activeElement;
+        }
+    },
+    setFilters: {
+        first: function( elem, i ) {
+            return i === 0;
+        },
+
+        last: function( elem, i, match, array ) {
+            return i === array.length - 1;
+        },
+
+        even: function( elem, i ) {
+            return i % 2 === 0;
+        },
+
+        odd: function( elem, i ) {
+            return i % 2 === 1;
+        },
+
+        lt: function( elem, i, match ) {
+            return i < match[3] - 0;
+        },
+
+        gt: function( elem, i, match ) {
+            return i > match[3] - 0;
+        },
+
+        nth: function( elem, i, match ) {
+            return match[3] - 0 === i;
+        },
+
+        eq: function( elem, i, match ) {
+            return match[3] - 0 === i;
+        }
+    },
+    filter: {
+        PSEUDO: function( elem, match, i, array ) {
+            var name = match[1],
+                filter = Expr.filters[ name ];
+
+            if ( filter ) {
+                return filter( elem, i, match, array );
+
+            } else if ( name === "contains" ) {
+                return (elem.textContent || elem.innerText || getText([ elem ]) || "").indexOf(match[3]) >= 0;
+
+            } else if ( name === "not" ) {
+                var not = match[3];
+
+                for ( var j = 0, l = not.length; j < l; j++ ) {
+                    if ( not[j] === elem ) {
+                        return false;
+                    }
+                }
+
+                return true;
+
+            } else {
+                Sizzle.error( name );
+            }
+        },
+
+        CHILD: function( elem, match ) {
+            var first, last,
+                doneName, parent, cache,
+                count, diff,
+                type = match[1],
+                node = elem;
+
+            switch ( type ) {
+                case "only":
+                case "first":
+                    while ( (node = node.previousSibling) )     {
+                        if ( node.nodeType === 1 ) { 
+                            return false; 
+                        }
+                    }
+
+                    if ( type === "first" ) { 
+                        return true; 
+                    }
+
+                    node = elem;
+
+                case "last":
+                    while ( (node = node.nextSibling) )     {
+                        if ( node.nodeType === 1 ) { 
+                            return false; 
+                        }
+                    }
+
+                    return true;
+
+                case "nth":
+                    first = match[2];
+                    last = match[3];
+
+                    if ( first === 1 && last === 0 ) {
+                        return true;
+                    }
+                    
+                    doneName = match[0];
+                    parent = elem.parentNode;
+    
+                    if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
+                        count = 0;
+                        
+                        for ( node = parent.firstChild; node; node = node.nextSibling ) {
+                            if ( node.nodeType === 1 ) {
+                                node.nodeIndex = ++count;
+                            }
+                        } 
+
+                        parent[ expando ] = doneName;
+                    }
+                    
+                    diff = elem.nodeIndex - last;
+
+                    if ( first === 0 ) {
+                        return diff === 0;
+
+                    } else {
+                        return ( diff % first === 0 && diff / first >= 0 );
+                    }
+            }
+        },
+
+        ID: function( elem, match ) {
+            return elem.nodeType === 1 && elem.getAttribute("id") === match;
+        },
+
+        TAG: function( elem, match ) {
+            return (match === "*" && elem.nodeType === 1) || !!elem.nodeName && elem.nodeName.toLowerCase() === match;
+        },
+        
+        CLASS: function( elem, match ) {
+            return (" " + (elem.className || elem.getAttribute("class")) + " ")
+                .indexOf( match ) > -1;
+        },
+
+        ATTR: function( elem, match ) {
+            var name = match[1],
+                result = Sizzle.attr ?
+                    Sizzle.attr( elem, name ) :
+                    Expr.attrHandle[ name ] ?
+                    Expr.attrHandle[ name ]( elem ) :
+                    elem[ name ] != null ?
+                        elem[ name ] :
+                        elem.getAttribute( name ),
+                value = result + "",
+                type = match[2],
+                check = match[4];
+
+            return result == null ?
+                type === "!=" :
+                !type && Sizzle.attr ?
+                result != null :
+                type === "=" ?
+                value === check :
+                type === "*=" ?
+                value.indexOf(check) >= 0 :
+                type === "~=" ?
+                (" " + value + " ").indexOf(check) >= 0 :
+                !check ?
+                value && result !== false :
+                type === "!=" ?
+                value !== check :
+                type === "^=" ?
+                value.indexOf(check) === 0 :
+                type === "$=" ?
+                value.substr(value.length - check.length) === check :
+                type === "|=" ?
+                value === check || value.substr(0, check.length + 1) === check + "-" :
+                false;
+        },
+
+        POS: function( elem, match, i, array ) {
+            var name = match[2],
+                filter = Expr.setFilters[ name ];
+
+            if ( filter ) {
+                return filter( elem, i, match, array );
+            }
+        }
+    }
 };
 
 var origPOS = Expr.match.POS,
-	fescape = function(all, num){
-		return "\\" + (num - 0 + 1);
-	};
+    fescape = function(all, num){
+        return "\\" + (num - 0 + 1);
+    };
 
 for ( var type in Expr.match ) {
-	Expr.match[ type ] = new RegExp( Expr.match[ type ].source + (/(?![^\[]*\])(?![^\(]*\))/.source) );
-	Expr.leftMatch[ type ] = new RegExp( /(^(?:.|\r|\n)*?)/.source + Expr.match[ type ].source.replace(/\\(\d+)/g, fescape) );
+    Expr.match[ type ] = new RegExp( Expr.match[ type ].source + (/(?![^\[]*\])(?![^\(]*\))/.source) );
+    Expr.leftMatch[ type ] = new RegExp( /(^(?:.|\r|\n)*?)/.source + Expr.match[ type ].source.replace(/\\(\d+)/g, fescape) );
 }
 
 var makeArray = function( array, results ) {
-	array = Array.prototype.slice.call( array, 0 );
+    array = Array.prototype.slice.call( array, 0 );
 
-	if ( results ) {
-		results.push.apply( results, array );
-		return results;
-	}
-	
-	return array;
+    if ( results ) {
+        results.push.apply( results, array );
+        return results;
+    }
+    
+    return array;
 };
 
 // Perform a simple check to determine if the browser is capable of
@@ -15153,515 +15551,515 @@ var makeArray = function( array, results ) {
 // Also verifies that the returned array holds DOM nodes
 // (which is not the case in the Blackberry browser)
 try {
-	Array.prototype.slice.call( document.documentElement.childNodes, 0 )[0].nodeType;
+    Array.prototype.slice.call( document.documentElement.childNodes, 0 )[0].nodeType;
 
 // Provide a fallback method if it does not work
 } catch( e ) {
-	makeArray = function( array, results ) {
-		var i = 0,
-			ret = results || [];
+    makeArray = function( array, results ) {
+        var i = 0,
+            ret = results || [];
 
-		if ( toString.call(array) === "[object Array]" ) {
-			Array.prototype.push.apply( ret, array );
+        if ( toString.call(array) === "[object Array]" ) {
+            Array.prototype.push.apply( ret, array );
 
-		} else {
-			if ( typeof array.length === "number" ) {
-				for ( var l = array.length; i < l; i++ ) {
-					ret.push( array[i] );
-				}
+        } else {
+            if ( typeof array.length === "number" ) {
+                for ( var l = array.length; i < l; i++ ) {
+                    ret.push( array[i] );
+                }
 
-			} else {
-				for ( ; array[i]; i++ ) {
-					ret.push( array[i] );
-				}
-			}
-		}
+            } else {
+                for ( ; array[i]; i++ ) {
+                    ret.push( array[i] );
+                }
+            }
+        }
 
-		return ret;
-	};
+        return ret;
+    };
 }
 
 var sortOrder, siblingCheck;
 
 if ( document.documentElement.compareDocumentPosition ) {
-	sortOrder = function( a, b ) {
-		if ( a === b ) {
-			hasDuplicate = true;
-			return 0;
-		}
+    sortOrder = function( a, b ) {
+        if ( a === b ) {
+            hasDuplicate = true;
+            return 0;
+        }
 
-		if ( !a.compareDocumentPosition || !b.compareDocumentPosition ) {
-			return a.compareDocumentPosition ? -1 : 1;
-		}
+        if ( !a.compareDocumentPosition || !b.compareDocumentPosition ) {
+            return a.compareDocumentPosition ? -1 : 1;
+        }
 
-		return a.compareDocumentPosition(b) & 4 ? -1 : 1;
-	};
+        return a.compareDocumentPosition(b) & 4 ? -1 : 1;
+    };
 
 } else {
-	sortOrder = function( a, b ) {
-		// The nodes are identical, we can exit early
-		if ( a === b ) {
-			hasDuplicate = true;
-			return 0;
+    sortOrder = function( a, b ) {
+        // The nodes are identical, we can exit early
+        if ( a === b ) {
+            hasDuplicate = true;
+            return 0;
 
-		// Fallback to using sourceIndex (in IE) if it's available on both nodes
-		} else if ( a.sourceIndex && b.sourceIndex ) {
-			return a.sourceIndex - b.sourceIndex;
-		}
+        // Fallback to using sourceIndex (in IE) if it's available on both nodes
+        } else if ( a.sourceIndex && b.sourceIndex ) {
+            return a.sourceIndex - b.sourceIndex;
+        }
 
-		var al, bl,
-			ap = [],
-			bp = [],
-			aup = a.parentNode,
-			bup = b.parentNode,
-			cur = aup;
+        var al, bl,
+            ap = [],
+            bp = [],
+            aup = a.parentNode,
+            bup = b.parentNode,
+            cur = aup;
 
-		// If the nodes are siblings (or identical) we can do a quick check
-		if ( aup === bup ) {
-			return siblingCheck( a, b );
+        // If the nodes are siblings (or identical) we can do a quick check
+        if ( aup === bup ) {
+            return siblingCheck( a, b );
 
-		// If no parents were found then the nodes are disconnected
-		} else if ( !aup ) {
-			return -1;
+        // If no parents were found then the nodes are disconnected
+        } else if ( !aup ) {
+            return -1;
 
-		} else if ( !bup ) {
-			return 1;
-		}
+        } else if ( !bup ) {
+            return 1;
+        }
 
-		// Otherwise they're somewhere else in the tree so we need
-		// to build up a full list of the parentNodes for comparison
-		while ( cur ) {
-			ap.unshift( cur );
-			cur = cur.parentNode;
-		}
+        // Otherwise they're somewhere else in the tree so we need
+        // to build up a full list of the parentNodes for comparison
+        while ( cur ) {
+            ap.unshift( cur );
+            cur = cur.parentNode;
+        }
 
-		cur = bup;
+        cur = bup;
 
-		while ( cur ) {
-			bp.unshift( cur );
-			cur = cur.parentNode;
-		}
+        while ( cur ) {
+            bp.unshift( cur );
+            cur = cur.parentNode;
+        }
 
-		al = ap.length;
-		bl = bp.length;
+        al = ap.length;
+        bl = bp.length;
 
-		// Start walking down the tree looking for a discrepancy
-		for ( var i = 0; i < al && i < bl; i++ ) {
-			if ( ap[i] !== bp[i] ) {
-				return siblingCheck( ap[i], bp[i] );
-			}
-		}
+        // Start walking down the tree looking for a discrepancy
+        for ( var i = 0; i < al && i < bl; i++ ) {
+            if ( ap[i] !== bp[i] ) {
+                return siblingCheck( ap[i], bp[i] );
+            }
+        }
 
-		// We ended someplace up the tree so do a sibling check
-		return i === al ?
-			siblingCheck( a, bp[i], -1 ) :
-			siblingCheck( ap[i], b, 1 );
-	};
+        // We ended someplace up the tree so do a sibling check
+        return i === al ?
+            siblingCheck( a, bp[i], -1 ) :
+            siblingCheck( ap[i], b, 1 );
+    };
 
-	siblingCheck = function( a, b, ret ) {
-		if ( a === b ) {
-			return ret;
-		}
+    siblingCheck = function( a, b, ret ) {
+        if ( a === b ) {
+            return ret;
+        }
 
-		var cur = a.nextSibling;
+        var cur = a.nextSibling;
 
-		while ( cur ) {
-			if ( cur === b ) {
-				return -1;
-			}
+        while ( cur ) {
+            if ( cur === b ) {
+                return -1;
+            }
 
-			cur = cur.nextSibling;
-		}
+            cur = cur.nextSibling;
+        }
 
-		return 1;
-	};
+        return 1;
+    };
 }
 
 // Check to see if the browser returns elements by name when
 // querying by getElementById (and provide a workaround)
 (function(){
-	// We're going to inject a fake input element with a specified name
-	var form = document.createElement("div"),
-		id = "script" + (new Date()).getTime(),
-		root = document.documentElement;
+    // We're going to inject a fake input element with a specified name
+    var form = document.createElement("div"),
+        id = "script" + (new Date()).getTime(),
+        root = document.documentElement;
 
-	form.innerHTML = "<a name='" + id + "'/>";
+    form.innerHTML = "<a name='" + id + "'/>";
 
-	// Inject it into the root element, check its status, and remove it quickly
-	root.insertBefore( form, root.firstChild );
+    // Inject it into the root element, check its status, and remove it quickly
+    root.insertBefore( form, root.firstChild );
 
-	// The workaround has to do additional checks after a getElementById
-	// Which slows things down for other browsers (hence the branching)
-	if ( document.getElementById( id ) ) {
-		Expr.find.ID = function( match, context, isXML ) {
-			if ( typeof context.getElementById !== "undefined" && !isXML ) {
-				var m = context.getElementById(match[1]);
+    // The workaround has to do additional checks after a getElementById
+    // Which slows things down for other browsers (hence the branching)
+    if ( document.getElementById( id ) ) {
+        Expr.find.ID = function( match, context, isXML ) {
+            if ( typeof context.getElementById !== "undefined" && !isXML ) {
+                var m = context.getElementById(match[1]);
 
-				return m ?
-					m.id === match[1] || typeof m.getAttributeNode !== "undefined" && m.getAttributeNode("id").nodeValue === match[1] ?
-						[m] :
-						undefined :
-					[];
-			}
-		};
+                return m ?
+                    m.id === match[1] || typeof m.getAttributeNode !== "undefined" && m.getAttributeNode("id").nodeValue === match[1] ?
+                        [m] :
+                        undefined :
+                    [];
+            }
+        };
 
-		Expr.filter.ID = function( elem, match ) {
-			var node = typeof elem.getAttributeNode !== "undefined" && elem.getAttributeNode("id");
+        Expr.filter.ID = function( elem, match ) {
+            var node = typeof elem.getAttributeNode !== "undefined" && elem.getAttributeNode("id");
 
-			return elem.nodeType === 1 && node && node.nodeValue === match;
-		};
-	}
+            return elem.nodeType === 1 && node && node.nodeValue === match;
+        };
+    }
 
-	root.removeChild( form );
+    root.removeChild( form );
 
-	// release memory in IE
-	root = form = null;
+    // release memory in IE
+    root = form = null;
 })();
 
 (function(){
-	// Check to see if the browser returns only elements
-	// when doing getElementsByTagName("*")
+    // Check to see if the browser returns only elements
+    // when doing getElementsByTagName("*")
 
-	// Create a fake element
-	var div = document.createElement("div");
-	div.appendChild( document.createComment("") );
+    // Create a fake element
+    var div = document.createElement("div");
+    div.appendChild( document.createComment("") );
 
-	// Make sure no comments are found
-	if ( div.getElementsByTagName("*").length > 0 ) {
-		Expr.find.TAG = function( match, context ) {
-			var results = context.getElementsByTagName( match[1] );
+    // Make sure no comments are found
+    if ( div.getElementsByTagName("*").length > 0 ) {
+        Expr.find.TAG = function( match, context ) {
+            var results = context.getElementsByTagName( match[1] );
 
-			// Filter out possible comments
-			if ( match[1] === "*" ) {
-				var tmp = [];
+            // Filter out possible comments
+            if ( match[1] === "*" ) {
+                var tmp = [];
 
-				for ( var i = 0; results[i]; i++ ) {
-					if ( results[i].nodeType === 1 ) {
-						tmp.push( results[i] );
-					}
-				}
+                for ( var i = 0; results[i]; i++ ) {
+                    if ( results[i].nodeType === 1 ) {
+                        tmp.push( results[i] );
+                    }
+                }
 
-				results = tmp;
-			}
+                results = tmp;
+            }
 
-			return results;
-		};
-	}
+            return results;
+        };
+    }
 
-	// Check to see if an attribute returns normalized href attributes
-	div.innerHTML = "<a href='#'></a>";
+    // Check to see if an attribute returns normalized href attributes
+    div.innerHTML = "<a href='#'></a>";
 
-	if ( div.firstChild && typeof div.firstChild.getAttribute !== "undefined" &&
-			div.firstChild.getAttribute("href") !== "#" ) {
+    if ( div.firstChild && typeof div.firstChild.getAttribute !== "undefined" &&
+            div.firstChild.getAttribute("href") !== "#" ) {
 
-		Expr.attrHandle.href = function( elem ) {
-			return elem.getAttribute( "href", 2 );
-		};
-	}
+        Expr.attrHandle.href = function( elem ) {
+            return elem.getAttribute( "href", 2 );
+        };
+    }
 
-	// release memory in IE
-	div = null;
+    // release memory in IE
+    div = null;
 })();
 
 if ( document.querySelectorAll ) {
-	(function(){
-		var oldSizzle = Sizzle,
-			div = document.createElement("div"),
-			id = "__sizzle__";
+    (function(){
+        var oldSizzle = Sizzle,
+            div = document.createElement("div"),
+            id = "__sizzle__";
 
-		div.innerHTML = "<p class='TEST'></p>";
+        div.innerHTML = "<p class='TEST'></p>";
 
-		// Safari can't handle uppercase or unicode characters when
-		// in quirks mode.
-		if ( div.querySelectorAll && div.querySelectorAll(".TEST").length === 0 ) {
-			return;
-		}
-	
-		Sizzle = function( query, context, extra, seed ) {
-			context = context || document;
+        // Safari can't handle uppercase or unicode characters when
+        // in quirks mode.
+        if ( div.querySelectorAll && div.querySelectorAll(".TEST").length === 0 ) {
+            return;
+        }
+    
+        Sizzle = function( query, context, extra, seed ) {
+            context = context || document;
 
-			// Only use querySelectorAll on non-XML documents
-			// (ID selectors don't work in non-HTML documents)
-			if ( !seed && !Sizzle.isXML(context) ) {
-				// See if we find a selector to speed up
-				var match = /^(\w+$)|^\.([\w\-]+$)|^#([\w\-]+$)/.exec( query );
-				
-				if ( match && (context.nodeType === 1 || context.nodeType === 9) ) {
-					// Speed-up: Sizzle("TAG")
-					if ( match[1] ) {
-						return makeArray( context.getElementsByTagName( query ), extra );
-					
-					// Speed-up: Sizzle(".CLASS")
-					} else if ( match[2] && Expr.find.CLASS && context.getElementsByClassName ) {
-						return makeArray( context.getElementsByClassName( match[2] ), extra );
-					}
-				}
-				
-				if ( context.nodeType === 9 ) {
-					// Speed-up: Sizzle("body")
-					// The body element only exists once, optimize finding it
-					if ( query === "body" && context.body ) {
-						return makeArray( [ context.body ], extra );
-						
-					// Speed-up: Sizzle("#ID")
-					} else if ( match && match[3] ) {
-						var elem = context.getElementById( match[3] );
+            // Only use querySelectorAll on non-XML documents
+            // (ID selectors don't work in non-HTML documents)
+            if ( !seed && !Sizzle.isXML(context) ) {
+                // See if we find a selector to speed up
+                var match = /^(\w+$)|^\.([\w\-]+$)|^#([\w\-]+$)/.exec( query );
+                
+                if ( match && (context.nodeType === 1 || context.nodeType === 9) ) {
+                    // Speed-up: Sizzle("TAG")
+                    if ( match[1] ) {
+                        return makeArray( context.getElementsByTagName( query ), extra );
+                    
+                    // Speed-up: Sizzle(".CLASS")
+                    } else if ( match[2] && Expr.find.CLASS && context.getElementsByClassName ) {
+                        return makeArray( context.getElementsByClassName( match[2] ), extra );
+                    }
+                }
+                
+                if ( context.nodeType === 9 ) {
+                    // Speed-up: Sizzle("body")
+                    // The body element only exists once, optimize finding it
+                    if ( query === "body" && context.body ) {
+                        return makeArray( [ context.body ], extra );
+                        
+                    // Speed-up: Sizzle("#ID")
+                    } else if ( match && match[3] ) {
+                        var elem = context.getElementById( match[3] );
 
-						// Check parentNode to catch when Blackberry 4.6 returns
-						// nodes that are no longer in the document #6963
-						if ( elem && elem.parentNode ) {
-							// Handle the case where IE and Opera return items
-							// by name instead of ID
-							if ( elem.id === match[3] ) {
-								return makeArray( [ elem ], extra );
-							}
-							
-						} else {
-							return makeArray( [], extra );
-						}
-					}
-					
-					try {
-						return makeArray( context.querySelectorAll(query), extra );
-					} catch(qsaError) {}
+                        // Check parentNode to catch when Blackberry 4.6 returns
+                        // nodes that are no longer in the document #6963
+                        if ( elem && elem.parentNode ) {
+                            // Handle the case where IE and Opera return items
+                            // by name instead of ID
+                            if ( elem.id === match[3] ) {
+                                return makeArray( [ elem ], extra );
+                            }
+                            
+                        } else {
+                            return makeArray( [], extra );
+                        }
+                    }
+                    
+                    try {
+                        return makeArray( context.querySelectorAll(query), extra );
+                    } catch(qsaError) {}
 
-				// qSA works strangely on Element-rooted queries
-				// We can work around this by specifying an extra ID on the root
-				// and working up from there (Thanks to Andrew Dupont for the technique)
-				// IE 8 doesn't work on object elements
-				} else if ( context.nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
-					var oldContext = context,
-						old = context.getAttribute( "id" ),
-						nid = old || id,
-						hasParent = context.parentNode,
-						relativeHierarchySelector = /^\s*[+~]/.test( query );
+                // qSA works strangely on Element-rooted queries
+                // We can work around this by specifying an extra ID on the root
+                // and working up from there (Thanks to Andrew Dupont for the technique)
+                // IE 8 doesn't work on object elements
+                } else if ( context.nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
+                    var oldContext = context,
+                        old = context.getAttribute( "id" ),
+                        nid = old || id,
+                        hasParent = context.parentNode,
+                        relativeHierarchySelector = /^\s*[+~]/.test( query );
 
-					if ( !old ) {
-						context.setAttribute( "id", nid );
-					} else {
-						nid = nid.replace( /'/g, "\\$&" );
-					}
-					if ( relativeHierarchySelector && hasParent ) {
-						context = context.parentNode;
-					}
+                    if ( !old ) {
+                        context.setAttribute( "id", nid );
+                    } else {
+                        nid = nid.replace( /'/g, "\\$&" );
+                    }
+                    if ( relativeHierarchySelector && hasParent ) {
+                        context = context.parentNode;
+                    }
 
-					try {
-						if ( !relativeHierarchySelector || hasParent ) {
-							return makeArray( context.querySelectorAll( "[id='" + nid + "'] " + query ), extra );
-						}
+                    try {
+                        if ( !relativeHierarchySelector || hasParent ) {
+                            return makeArray( context.querySelectorAll( "[id='" + nid + "'] " + query ), extra );
+                        }
 
-					} catch(pseudoError) {
-					} finally {
-						if ( !old ) {
-							oldContext.removeAttribute( "id" );
-						}
-					}
-				}
-			}
-		
-			return oldSizzle(query, context, extra, seed);
-		};
+                    } catch(pseudoError) {
+                    } finally {
+                        if ( !old ) {
+                            oldContext.removeAttribute( "id" );
+                        }
+                    }
+                }
+            }
+        
+            return oldSizzle(query, context, extra, seed);
+        };
 
-		for ( var prop in oldSizzle ) {
-			Sizzle[ prop ] = oldSizzle[ prop ];
-		}
+        for ( var prop in oldSizzle ) {
+            Sizzle[ prop ] = oldSizzle[ prop ];
+        }
 
-		// release memory in IE
-		div = null;
-	})();
+        // release memory in IE
+        div = null;
+    })();
 }
 
 (function(){
-	var html = document.documentElement,
-		matches = html.matchesSelector || html.mozMatchesSelector || html.webkitMatchesSelector || html.msMatchesSelector;
+    var html = document.documentElement,
+        matches = html.matchesSelector || html.mozMatchesSelector || html.webkitMatchesSelector || html.msMatchesSelector;
 
-	if ( matches ) {
-		// Check to see if it's possible to do matchesSelector
-		// on a disconnected node (IE 9 fails this)
-		var disconnectedMatch = !matches.call( document.createElement( "div" ), "div" ),
-			pseudoWorks = false;
+    if ( matches ) {
+        // Check to see if it's possible to do matchesSelector
+        // on a disconnected node (IE 9 fails this)
+        var disconnectedMatch = !matches.call( document.createElement( "div" ), "div" ),
+            pseudoWorks = false;
 
-		try {
-			// This should fail with an exception
-			// Gecko does not error, returns false instead
-			matches.call( document.documentElement, "[test!='']:sizzle" );
-	
-		} catch( pseudoError ) {
-			pseudoWorks = true;
-		}
+        try {
+            // This should fail with an exception
+            // Gecko does not error, returns false instead
+            matches.call( document.documentElement, "[test!='']:sizzle" );
+    
+        } catch( pseudoError ) {
+            pseudoWorks = true;
+        }
 
-		Sizzle.matchesSelector = function( node, expr ) {
-			// Make sure that attribute selectors are quoted
-			expr = expr.replace(/\=\s*([^'"\]]*)\s*\]/g, "='$1']");
+        Sizzle.matchesSelector = function( node, expr ) {
+            // Make sure that attribute selectors are quoted
+            expr = expr.replace(/\=\s*([^'"\]]*)\s*\]/g, "='$1']");
 
-			if ( !Sizzle.isXML( node ) ) {
-				try { 
-					if ( pseudoWorks || !Expr.match.PSEUDO.test( expr ) && !/!=/.test( expr ) ) {
-						var ret = matches.call( node, expr );
+            if ( !Sizzle.isXML( node ) ) {
+                try { 
+                    if ( pseudoWorks || !Expr.match.PSEUDO.test( expr ) && !/!=/.test( expr ) ) {
+                        var ret = matches.call( node, expr );
 
-						// IE 9's matchesSelector returns false on disconnected nodes
-						if ( ret || !disconnectedMatch ||
-								// As well, disconnected nodes are said to be in a document
-								// fragment in IE 9, so check for that
-								node.document && node.document.nodeType !== 11 ) {
-							return ret;
-						}
-					}
-				} catch(e) {}
-			}
+                        // IE 9's matchesSelector returns false on disconnected nodes
+                        if ( ret || !disconnectedMatch ||
+                                // As well, disconnected nodes are said to be in a document
+                                // fragment in IE 9, so check for that
+                                node.document && node.document.nodeType !== 11 ) {
+                            return ret;
+                        }
+                    }
+                } catch(e) {}
+            }
 
-			return Sizzle(expr, null, null, [node]).length > 0;
-		};
-	}
+            return Sizzle(expr, null, null, [node]).length > 0;
+        };
+    }
 })();
 
 (function(){
-	var div = document.createElement("div");
+    var div = document.createElement("div");
 
-	div.innerHTML = "<div class='test e'></div><div class='test'></div>";
+    div.innerHTML = "<div class='test e'></div><div class='test'></div>";
 
-	// Opera can't find a second classname (in 9.6)
-	// Also, make sure that getElementsByClassName actually exists
-	if ( !div.getElementsByClassName || div.getElementsByClassName("e").length === 0 ) {
-		return;
-	}
+    // Opera can't find a second classname (in 9.6)
+    // Also, make sure that getElementsByClassName actually exists
+    if ( !div.getElementsByClassName || div.getElementsByClassName("e").length === 0 ) {
+        return;
+    }
 
-	// Safari caches class attributes, doesn't catch changes (in 3.2)
-	div.lastChild.className = "e";
+    // Safari caches class attributes, doesn't catch changes (in 3.2)
+    div.lastChild.className = "e";
 
-	if ( div.getElementsByClassName("e").length === 1 ) {
-		return;
-	}
-	
-	Expr.order.splice(1, 0, "CLASS");
-	Expr.find.CLASS = function( match, context, isXML ) {
-		if ( typeof context.getElementsByClassName !== "undefined" && !isXML ) {
-			return context.getElementsByClassName(match[1]);
-		}
-	};
+    if ( div.getElementsByClassName("e").length === 1 ) {
+        return;
+    }
+    
+    Expr.order.splice(1, 0, "CLASS");
+    Expr.find.CLASS = function( match, context, isXML ) {
+        if ( typeof context.getElementsByClassName !== "undefined" && !isXML ) {
+            return context.getElementsByClassName(match[1]);
+        }
+    };
 
-	// release memory in IE
-	div = null;
+    // release memory in IE
+    div = null;
 })();
 
 function dirNodeCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
-	for ( var i = 0, l = checkSet.length; i < l; i++ ) {
-		var elem = checkSet[i];
+    for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+        var elem = checkSet[i];
 
-		if ( elem ) {
-			var match = false;
+        if ( elem ) {
+            var match = false;
 
-			elem = elem[dir];
+            elem = elem[dir];
 
-			while ( elem ) {
-				if ( elem[ expando ] === doneName ) {
-					match = checkSet[elem.sizset];
-					break;
-				}
+            while ( elem ) {
+                if ( elem[ expando ] === doneName ) {
+                    match = checkSet[elem.sizset];
+                    break;
+                }
 
-				if ( elem.nodeType === 1 && !isXML ){
-					elem[ expando ] = doneName;
-					elem.sizset = i;
-				}
+                if ( elem.nodeType === 1 && !isXML ){
+                    elem[ expando ] = doneName;
+                    elem.sizset = i;
+                }
 
-				if ( elem.nodeName.toLowerCase() === cur ) {
-					match = elem;
-					break;
-				}
+                if ( elem.nodeName.toLowerCase() === cur ) {
+                    match = elem;
+                    break;
+                }
 
-				elem = elem[dir];
-			}
+                elem = elem[dir];
+            }
 
-			checkSet[i] = match;
-		}
-	}
+            checkSet[i] = match;
+        }
+    }
 }
 
 function dirCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
-	for ( var i = 0, l = checkSet.length; i < l; i++ ) {
-		var elem = checkSet[i];
+    for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+        var elem = checkSet[i];
 
-		if ( elem ) {
-			var match = false;
-			
-			elem = elem[dir];
+        if ( elem ) {
+            var match = false;
+            
+            elem = elem[dir];
 
-			while ( elem ) {
-				if ( elem[ expando ] === doneName ) {
-					match = checkSet[elem.sizset];
-					break;
-				}
+            while ( elem ) {
+                if ( elem[ expando ] === doneName ) {
+                    match = checkSet[elem.sizset];
+                    break;
+                }
 
-				if ( elem.nodeType === 1 ) {
-					if ( !isXML ) {
-						elem[ expando ] = doneName;
-						elem.sizset = i;
-					}
+                if ( elem.nodeType === 1 ) {
+                    if ( !isXML ) {
+                        elem[ expando ] = doneName;
+                        elem.sizset = i;
+                    }
 
-					if ( typeof cur !== "string" ) {
-						if ( elem === cur ) {
-							match = true;
-							break;
-						}
+                    if ( typeof cur !== "string" ) {
+                        if ( elem === cur ) {
+                            match = true;
+                            break;
+                        }
 
-					} else if ( Sizzle.filter( cur, [elem] ).length > 0 ) {
-						match = elem;
-						break;
-					}
-				}
+                    } else if ( Sizzle.filter( cur, [elem] ).length > 0 ) {
+                        match = elem;
+                        break;
+                    }
+                }
 
-				elem = elem[dir];
-			}
+                elem = elem[dir];
+            }
 
-			checkSet[i] = match;
-		}
-	}
+            checkSet[i] = match;
+        }
+    }
 }
 
 if ( document.documentElement.contains ) {
-	Sizzle.contains = function( a, b ) {
-		return a !== b && (a.contains ? a.contains(b) : true);
-	};
+    Sizzle.contains = function( a, b ) {
+        return a !== b && (a.contains ? a.contains(b) : true);
+    };
 
 } else if ( document.documentElement.compareDocumentPosition ) {
-	Sizzle.contains = function( a, b ) {
-		return !!(a.compareDocumentPosition(b) & 16);
-	};
+    Sizzle.contains = function( a, b ) {
+        return !!(a.compareDocumentPosition(b) & 16);
+    };
 
 } else {
-	Sizzle.contains = function() {
-		return false;
-	};
+    Sizzle.contains = function() {
+        return false;
+    };
 }
 
 Sizzle.isXML = function( elem ) {
-	// documentElement is verified for cases where it doesn't yet exist
-	// (such as loading iframes in IE - #4833) 
-	var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
+    // documentElement is verified for cases where it doesn't yet exist
+    // (such as loading iframes in IE - #4833) 
+    var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
 
-	return documentElement ? documentElement.nodeName !== "HTML" : false;
+    return documentElement ? documentElement.nodeName !== "HTML" : false;
 };
 
 var posProcess = function( selector, context, seed ) {
-	var match,
-		tmpSet = [],
-		later = "",
-		root = context.nodeType ? [context] : context;
+    var match,
+        tmpSet = [],
+        later = "",
+        root = context.nodeType ? [context] : context;
 
-	// Position selectors must be done after the filter
-	// And so must :not(positional) so we move all PSEUDOs to the end
-	while ( (match = Expr.match.PSEUDO.exec( selector )) ) {
-		later += match[0];
-		selector = selector.replace( Expr.match.PSEUDO, "" );
-	}
+    // Position selectors must be done after the filter
+    // And so must :not(positional) so we move all PSEUDOs to the end
+    while ( (match = Expr.match.PSEUDO.exec( selector )) ) {
+        later += match[0];
+        selector = selector.replace( Expr.match.PSEUDO, "" );
+    }
 
-	selector = Expr.relative[selector] ? selector + "*" : selector;
+    selector = Expr.relative[selector] ? selector + "*" : selector;
 
-	for ( var i = 0, l = root.length; i < l; i++ ) {
-		Sizzle( selector, root[i], tmpSet, seed );
-	}
+    for ( var i = 0, l = root.length; i < l; i++ ) {
+        Sizzle( selector, root[i], tmpSet, seed );
+    }
 
-	return Sizzle.filter( later, tmpSet );
+    return Sizzle.filter( later, tmpSet );
 };
 
 // EXPOSE
@@ -15996,7 +16394,7 @@ setStyles : function ( styles) {
     }
 
     return element;
-}	
+}    
 });
 /// Tangram 1.x Code End
 
@@ -16161,8 +16559,8 @@ baidu.dom.setBorderBoxHeight = function (element, height) {
  * @function
  * @grammar baidu.dom.setBorderBoxWidth(element, width)
  * 
- * @param {HTMLElement|string} 	element DOM元素或元素的id
- * @param {number|string} 		width 	要设置的width
+ * @param {HTMLElement|string}     element DOM元素或元素的id
+ * @param {number|string}         width     要设置的width
  *
  * @return {HTMLElement}  设置好的元素
  * @see baidu.dom.setBorderBoxHeight, baidu.dom.setBorderBoxSize
@@ -16356,12 +16754,12 @@ baidu.dom.resizable = /**@function*/function(element,options) {
      * @return void
      */
     function start(e){
-		isResizabled && stop();
+        isResizabled && stop();
         var ele = baidu.event.getTarget(e),
             key = ele.key;
         currentEle = ele;
-		isResizabled = true;
-		
+        isResizabled = true;
+        
         if (ele.setCapture) {
             ele.setCapture();
         } else if (window.captureEvents) {
@@ -16418,7 +16816,7 @@ baidu.dom.resizable = /**@function*/function(element,options) {
         clearInterval(timer);
         baidu.dom.setStyle(document.body, 'cursor',orgCursor);
         currentEle = null;
-		isResizabled = false;
+        isResizabled = false;
         baidu.isFunction(op.onresizeend) && op.onresizeend();
     }
 
@@ -16570,7 +16968,7 @@ baidu.dom.extend({
         return function(value){
             value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollLeft');
             if(this.size()<=0){
-            	return value === undefined ? 0 : this;
+                return value === undefined ? 0 : this;
             };
             return value === undefined ? ret.get(this[0])
                 : ret.set(this[0], value) || this;
@@ -16604,7 +17002,7 @@ baidu.dom.extend({
         return function(value){
             value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollTop');
             if(this.size()<=0){
-            	return value === undefined ? 0 : this;
+                return value === undefined ? 0 : this;
             };
             return value === undefined ? ret.get(this[0])
                 : ret.set(this[0], value) || this;
@@ -16660,13 +17058,13 @@ baidu.dom.extend({
 /**
  * 给元素样式（比如width）赋值时，如果是数字则添加单位(px)，如果是其它值直接赋
  * @grammar baidu.dom.setPixel(el, style, n)
- * @param	{HTMLElement}	el 		DOM元素
- * @param 	{String}		style 	样式属性名
- * @param	{Number|String} n 		被赋的值
+ * @param    {HTMLElement}    el         DOM元素
+ * @param     {String}        style     样式属性名
+ * @param    {Number|String} n         被赋的值
  */
 baidu.dom.setPixel = function (el, style, n) {
-	typeof n != "undefined" &&
-	(baidu.dom.g(el).style[style] = n +(!isNaN(n) ? "px" : ""));
+    typeof n != "undefined" &&
+    (baidu.dom.g(el).style[style] = n +(!isNaN(n) ? "px" : ""));
 };
 /// support magic - Tangram 1.x Code End
 
@@ -16693,8 +17091,8 @@ baidu.dom.setPixel = function (el, style, n) {
  * @function
  * @grammar baidu.dom.setPosition(element, position)
  * 
- * @param {HTMLElement|string}	element 	目标元素或目标元素的id
- * @param {object} 				position 	位置对象 {top: {number}, left : {number}}
+ * @param {HTMLElement|string}    element     目标元素或目标元素的id
+ * @param {object}                 position     位置对象 {top: {number}, left : {number}}
  *
  * @return {HTMLElement}  进行设置的元素
  */
@@ -16937,7 +17335,7 @@ baidu.dom.toggle = function (element) {
 
 baidu.dom.extend({
     toggleClass: function(value,status){
-    	var type = typeof value;
+        var type = typeof value;
         var status = (typeof status === 'undefined')? status : Boolean(status);
 
         if(arguments.length <= 0 ){
@@ -17046,208 +17444,208 @@ baidu.dom.toggleClass = function (element, className) {
  */
 
 baidu.dom.extend({
-	trigger: function(){
+    trigger: function(){
 
-		var eb = baidu._util_.eventBase;
+        var eb = baidu._util_.eventBase;
 
-		var ie = /msie/i.test(navigator.userAgent);
+        var ie = /msie/i.test(navigator.userAgent);
 
-		var keys = { keydown: 1, keyup: 1, keypress: 1 };
-		var mouses = { click: 1, dblclick: 1, mousedown: 1, mousemove: 1, mouseup: 1, mouseover: 1, mouseout: 1, mouseenter: 1, mouseleave: 1, contextmenu: 1 };
-		var htmls = { abort: 1, blur: 1, change: 1, error: 1, focus: 1, focusin: 1, focusout: 1, load: 1, unload: 1, reset: 1, resize: 1, scroll: 1, select: 1, submit: 1 };
-		
-		var bubblesEvents = { scroll : 1, resize : 1, reset : 1, submit : 1, change : 1, select : 1, error : 1, abort : 1 };
+        var keys = { keydown: 1, keyup: 1, keypress: 1 };
+        var mouses = { click: 1, dblclick: 1, mousedown: 1, mousemove: 1, mouseup: 1, mouseover: 1, mouseout: 1, mouseenter: 1, mouseleave: 1, contextmenu: 1 };
+        var htmls = { abort: 1, blur: 1, change: 1, error: 1, focus: 1, focusin: 1, focusout: 1, load: 1, unload: 1, reset: 1, resize: 1, scroll: 1, select: 1, submit: 1 };
+        
+        var bubblesEvents = { scroll : 1, resize : 1, reset : 1, submit : 1, change : 1, select : 1, error : 1, abort : 1 };
 
-		var triggerEvents = { submit: 1 };
+        var triggerEvents = { submit: 1 };
 
-		var parameters = {
-			"KeyEvents": ["bubbles", "cancelable", "view", "ctrlKey", "altKey", "shiftKey", "metaKey", "keyCode", "charCode"],
-			"MouseEvents": ["bubbles", "cancelable", "view", "detail", "screenX", "screenY", "clientX", "clientY", "ctrlKey", "altKey", "shiftKey", "metaKey", "button", "relatedTarget"],
-			"HTMLEvents": ["bubbles", "cancelable"],
-			"UIEvents": ["bubbles", "cancelable", "view", "detail"],
-			"Events": ["bubbles", "cancelable"]
-		};
+        var parameters = {
+            "KeyEvents": ["bubbles", "cancelable", "view", "ctrlKey", "altKey", "shiftKey", "metaKey", "keyCode", "charCode"],
+            "MouseEvents": ["bubbles", "cancelable", "view", "detail", "screenX", "screenY", "clientX", "clientY", "ctrlKey", "altKey", "shiftKey", "metaKey", "button", "relatedTarget"],
+            "HTMLEvents": ["bubbles", "cancelable"],
+            "UIEvents": ["bubbles", "cancelable", "view", "detail"],
+            "Events": ["bubbles", "cancelable"]
+        };
 
-		baidu.extend( bubblesEvents, keys );
-		baidu.extend( bubblesEvents, mouses );
+        baidu.extend( bubblesEvents, keys );
+        baidu.extend( bubblesEvents, mouses );
 
-		var upp = function( str ){
-		    return str.replace( /^\w/, function( s ){
-		        return s.toUpperCase();
-		    } );
-		};
+        var upp = function( str ){
+            return str.replace( /^\w/, function( s ){
+                return s.toUpperCase();
+            } );
+        };
 
-		var values = function(source) {
-			var result = [], resultLen = 0, k;
-			for (k in source) {
-				if (source.hasOwnProperty(k)) {
-					result[resultLen++] = source[k];
-				}
-			}
-			return result;
-		};
+        var values = function(source) {
+            var result = [], resultLen = 0, k;
+            for (k in source) {
+                if (source.hasOwnProperty(k)) {
+                    result[resultLen++] = source[k];
+                }
+            }
+            return result;
+        };
 
-		var parse = function(array, source) {
-			var i = 0, size = array.length, obj = {};
-			for (; i < size; i++) {
-				obj[array[i]] = source[array[i]];
-				delete source[array[i]];
-			}
-			return obj;
-		};
+        var parse = function(array, source) {
+            var i = 0, size = array.length, obj = {};
+            for (; i < size; i++) {
+                obj[array[i]] = source[array[i]];
+                delete source[array[i]];
+            }
+            return obj;
+        };
 
-		var eventsHelper = function(type, eventType, options) {
-			options = baidu.extend({}, options);
+        var eventsHelper = function(type, eventType, options) {
+            options = baidu.extend({}, options);
 
-			var param = values(parse(parameters[eventType], options)),
-				evnt = document.createEvent(eventType);
+            var param = values(parse(parameters[eventType], options)),
+                evnt = document.createEvent(eventType);
 
-			param.unshift(type);
+            param.unshift(type);
 
-			switch(eventType){
-			    case "KeyEvents":
-			    	evnt.initKeyEvent.apply(evnt, param);	
-			    	break;
-			    case "MouseEvents":
-			    	evnt.initMouseEvent.apply(evnt, param);
-			    	break;
-			    case "UIEvents":
-			    	evnt.initUIEvent.apply(evnt, param);
-			    	break;
-			    default:
-			    	evnt.initEvent.apply(evnt, param);	
-			    	break;
-			}
+            switch(eventType){
+                case "KeyEvents":
+                    evnt.initKeyEvent.apply(evnt, param);    
+                    break;
+                case "MouseEvents":
+                    evnt.initMouseEvent.apply(evnt, param);
+                    break;
+                case "UIEvents":
+                    evnt.initUIEvent.apply(evnt, param);
+                    break;
+                default:
+                    evnt.initEvent.apply(evnt, param);    
+                    break;
+            }
 
-			if(options.triggerData)
-			    evnt.triggerData = options.triggerData;
+            if(options.triggerData)
+                evnt.triggerData = options.triggerData;
 
-			baidu.extend(evnt, options);
-			return evnt;
-		};
+            baidu.extend(evnt, options);
+            return evnt;
+        };
 
-		var eventObject = function(options){
-			var evnt;
-			if(document.createEventObject){
-				evnt = document.createEventObject();
-				baidu.extend(evnt, options);
-			}
-			return evnt;
-		};
+        var eventObject = function(options){
+            var evnt;
+            if(document.createEventObject){
+                evnt = document.createEventObject();
+                baidu.extend(evnt, options);
+            }
+            return evnt;
+        };
 
-		var keyEvents = function( type, options ){
-			options = parse( parameters["KeyEvents"], options );
-			var evnt;
-			if( document.createEvent ){
-				try{
-					evnt = eventsHelper( type, "KeyEvents", options );
-				}catch(e){
-					try{
-						evnt = eventsHelper( type, "Events", options );
-					}catch(e){
-						evnt = eventsHelper( type, "UIEvents", options );
-					}
-				}
-			}else{
-				options.keyCode = options.charCode > 0 ? options.charCode : options.keyCode;
-				evnt = eventObject( options );
-			}
-			return evnt;
-		};
+        var keyEvents = function( type, options ){
+            options = parse( parameters["KeyEvents"], options );
+            var evnt;
+            if( document.createEvent ){
+                try{
+                    evnt = eventsHelper( type, "KeyEvents", options );
+                }catch(e){
+                    try{
+                        evnt = eventsHelper( type, "Events", options );
+                    }catch(e){
+                        evnt = eventsHelper( type, "UIEvents", options );
+                    }
+                }
+            }else{
+                options.keyCode = options.charCode > 0 ? options.charCode : options.keyCode;
+                evnt = eventObject( options );
+            }
+            return evnt;
+        };
 
-		var mouseEvents = function( type, options ){
-			options = parse( parameters["MouseEvents"], options );
-			var evnt;
-			if( document.createEvent ){
-				evnt = eventsHelper( type, "MouseEvents", options );
-				if( options.relatedTarget && !evnt.relatedTarget ){
-					if("mouseout" == type.toLowerCase()){
-						evnt.toElement = options.relatedTarget;
-					}else if("mouseover" == type.toLowerCase()){
-						evnt.fromElement = options.relatedTarget;
-					}
-				}
-			}else{
-				options.button = options.button == 0 ? 1 : options.button == 1 ? 4 : baidu.lang.isNumber(options.button) ? options.button : 0;
-				evnt = eventObject(options);
-			}
-			return evnt;
-		};
+        var mouseEvents = function( type, options ){
+            options = parse( parameters["MouseEvents"], options );
+            var evnt;
+            if( document.createEvent ){
+                evnt = eventsHelper( type, "MouseEvents", options );
+                if( options.relatedTarget && !evnt.relatedTarget ){
+                    if("mouseout" == type.toLowerCase()){
+                        evnt.toElement = options.relatedTarget;
+                    }else if("mouseover" == type.toLowerCase()){
+                        evnt.fromElement = options.relatedTarget;
+                    }
+                }
+            }else{
+                options.button = options.button == 0 ? 1 : options.button == 1 ? 4 : baidu.lang.isNumber(options.button) ? options.button : 0;
+                evnt = eventObject(options);
+            }
+            return evnt;
+        };
 
-		var htmlEvents = function(type, options){
-			options.bubbles = bubblesEvents.hasOwnProperty( type );
-			options = parse( parameters["HTMLEvents"], options );
-			
-			var evnt;
-			if(document.createEvent){
-				try{
-					evnt = eventsHelper( type, "HTMLEvents", options );
-				}catch(e){
-					try{
-						evnt = eventsHelper( type, "UIEvents", options );
-					}catch(e){
-						evnt = eventsHelper( type, "Events", options );
-					}
-				}
-			}else{
-				evnt = eventObject(options);
-			}
+        var htmlEvents = function(type, options){
+            options.bubbles = bubblesEvents.hasOwnProperty( type );
+            options = parse( parameters["HTMLEvents"], options );
+            
+            var evnt;
+            if(document.createEvent){
+                try{
+                    evnt = eventsHelper( type, "HTMLEvents", options );
+                }catch(e){
+                    try{
+                        evnt = eventsHelper( type, "UIEvents", options );
+                    }catch(e){
+                        evnt = eventsHelper( type, "Events", options );
+                    }
+                }
+            }else{
+                evnt = eventObject(options);
+            }
 
-			return evnt;
-		};
+            return evnt;
+        };
 
-		var fire = function( element, type, triggerData ){
-			var evnt;
+        var fire = function( element, type, triggerData ){
+            var evnt;
 
-			var evnt = {
-				bubbles: true, cancelable: true,
-				view: window,
-				detail: 1,
-				screenX: 0, screenY: 0,
-				clientX: 0, clientY: 0,
-				ctrlKey: false, altKey: false, shiftKey: false, metaKey: false,
-				keyCode: 0, charCode: 0,
-				button: 0,
-				relatedTarget: null
-			};
+            var evnt = {
+                bubbles: true, cancelable: true,
+                view: window,
+                detail: 1,
+                screenX: 0, screenY: 0,
+                clientX: 0, clientY: 0,
+                ctrlKey: false, altKey: false, shiftKey: false, metaKey: false,
+                keyCode: 0, charCode: 0,
+                button: 0,
+                relatedTarget: null
+            };
 
-			if( keys[type] )
-				evnt = keyEvents( type, evnt );
-			else if( mouses[type] )
-				evnt = mouseEvents( type, evnt );
-			else if( htmls[type] )
-				evnt = htmlEvents( type, evnt );
-			else
-			    return baidu( element ).triggerHandler( type, triggerData );
+            if( keys[type] )
+                evnt = keyEvents( type, evnt );
+            else if( mouses[type] )
+                evnt = mouseEvents( type, evnt );
+            else if( htmls[type] )
+                evnt = htmlEvents( type, evnt );
+            else
+                return baidu( element ).triggerHandler( type, triggerData );
 
-			if( evnt ){
-				if( triggerData )
-				    evnt.triggerData = triggerData;
+            if( evnt ){
+                if( triggerData )
+                    evnt.triggerData = triggerData;
 
-				var eventReturn;
-				if( element.dispatchEvent )
-					eventReturn = element.dispatchEvent( evnt );
-				else if( element.fireEvent )
-					eventReturn = element.fireEvent( "on" + type, evnt );
+                var eventReturn;
+                if( element.dispatchEvent )
+                    eventReturn = element.dispatchEvent( evnt );
+                else if( element.fireEvent )
+                    eventReturn = element.fireEvent( "on" + type, evnt );
 
-				if( eventReturn !== false && triggerEvents[type] )
-				    try{
-				    	if( element[type] )
-				    	    element[type]();
-				    	else if( type = upp( type ), element[type] )
-				    		element[type]();
-				    }catch(e){
-				    }
-			}
-		};
+                if( eventReturn !== false && triggerEvents[type] )
+                    try{
+                        if( element[type] )
+                            element[type]();
+                        else if( type = upp( type ), element[type] )
+                            element[type]();
+                    }catch(e){
+                    }
+            }
+        };
 
-	    return function( type, triggerData ){
-			this.each(function(){
-				fire( this, type, triggerData );
-			});
-			return this;
-		}
-	}()
+        return function( type, triggerData ){
+            this.each(function(){
+                fire( this, type, triggerData );
+            });
+            return this;
+        }
+    }()
 });
 /**
  * @author dron
@@ -17266,9 +17664,9 @@ baidu.dom.extend({
  */
 
 baidu.dom.extend({
-	unbind: function(type, fn){
-		return this.off(type, fn);
-	}
+    unbind: function(type, fn){
+        return this.off(type, fn);
+    }
 });
 /**
  * @author dron
@@ -17289,9 +17687,9 @@ baidu.dom.extend({
  */
 
 baidu.dom.extend({
-	undelegate: function(selector, type, fn){
-    	return this.off(type, selector, fn);
-	}
+    undelegate: function(selector, type, fn){
+        return this.off(type, selector, fn);
+    }
 });
 
 
@@ -17501,15 +17899,15 @@ baidu.dom._styleFixer.opacity = baidu.browser.ie ? {
 baidu.dom._styleFixer.width = baidu.dom._styleFixer.height = {
     get: function(element, key, value) {
         var key = key.replace(/^[a-z]/, function($1){
-	            return $1.toUpperCase();
-	        }),
-        	val = element['client' + key] || element['offset' + key];
+                return $1.toUpperCase();
+            }),
+            val = element['client' + key] || element['offset' + key];
 
         return val > 0 ? val + 'px' : !value || value == 'auto' ? 0 + 'px' : val;
     },
 
     set: function(element, value, key){
-    	element.style[key] = value;
+        element.style[key] = value;
     }
 };
 /// Tangram 1.x Code End
@@ -17648,36 +18046,36 @@ baidu.dom._styleFixer.textOverflow = (function () {
     }
 
     return {
-		get: function (element) {
+        get: function (element) {
             var browser = baidu.browser,
                 getStyle = dom.getStyle;
-			return (browser.opera ?
+            return (browser.opera ?
                         getStyle("OTextOverflow") :
                         browser.firefox ?
                             element._baiduOverflow :
                             getStyle("textOverflow")) ||
                    "clip";
-		},
+        },
 
-		set: function (element, value) {
+        set: function (element, value) {
             var browser = baidu.browser;
-			if (element.tagName == "TD" || element.tagName == "TH" || browser.firefox) {
-				element._baiduHTML && (element.innerHTML = element._baiduHTML);
+            if (element.tagName == "TD" || element.tagName == "TH" || browser.firefox) {
+                element._baiduHTML && (element.innerHTML = element._baiduHTML);
 
-				if (value == "ellipsis") {
-					element._baiduHTML = element.innerHTML;
-					var o = document.createElement("div"), width = element.appendChild(o).offsetWidth;
-					element.removeChild(o);
-					count(element, width);
-				}
-				else {
-					element._baiduHTML = "";
-				}
-			}
+                if (value == "ellipsis") {
+                    element._baiduHTML = element.innerHTML;
+                    var o = document.createElement("div"), width = element.appendChild(o).offsetWidth;
+                    element.removeChild(o);
+                    count(element, width);
+                }
+                else {
+                    element._baiduHTML = "";
+                }
+            }
 
-			o = element.style;
-			browser.opera ? (o.OTextOverflow = value) : browser.firefox ? (element._baiduOverflow = value) : (o.textOverflow = value);
-		}
+            o = element.style;
+            browser.opera ? (o.OTextOverflow = value) : browser.firefox ? (element._baiduOverflow = value) : (o.textOverflow = value);
+        }
     };
 })();
 /// Tangram 1.x Code End
@@ -17769,15 +18167,15 @@ baidu.lang.toArray = function (source) {
  * @name baidu.fn.methodize
  * @function
  * @grammar baidu.fn.methodize(func[, attr])
- * @param {Function}	func	要方法化的函数
- * @param {string}		[attr]	属性
+ * @param {Function}    func    要方法化的函数
+ * @param {string}        [attr]    属性
  * @version 1.3
  * @return {Function} 已方法化的函数
  */
 
 baidu.fn.extend({
     methodize : function (attr) {
-    	var fn = this.fn ;
+        var fn = this.fn ;
         return function(){
             return fn.apply(this, [(attr ? this[attr] : this)].concat([].slice.call(arguments)));
         };
@@ -17953,7 +18351,7 @@ baidu.element.Element = function(node){
      * @type {Array.<Node>}
      */
     this._dom = (node.tagName || '').toLowerCase() == 'select' ? 
-    	[node] : baidu.lang.toArray(node);
+        [node] : baidu.lang.toArray(node);
 };
 
 /**
@@ -18126,7 +18524,7 @@ baidu.element.extend = function(json){
  * @class
  * @grammar baidu.event.EventArg(event[, win])
  * @param {Event}   event   事件对象
- * @param {Window}  [win]	窗口对象，默认为window
+ * @param {Window}  [win]    窗口对象，默认为window
  * @meta standard
  * @remark 1.1.0开始支持
  * @see baidu.event.get
@@ -18283,7 +18681,7 @@ baidu.lang.isNumber = baidu.isNumber;
  * @param {HTMLElement|string|window} element 目标元素或目标元素id
  * @param {string} type 事件类型
  * @param {Object} options 触发的选项
-				
+                
  * @param {Boolean} options.bubbles 是否冒泡
  * @param {Boolean} options.cancelable 是否可以阻止事件的默认操作
  * @param {window|null} options.view 指定 Event 的 AbstractView
@@ -18839,12 +19237,12 @@ baidu.createChain("form",
 
 // 执行方法
 function(form){
-	return typeof form === 'undefined'? new baidu.form.$Form():new baidu.form.$Form(form);
+    return typeof form === 'undefined'? new baidu.form.$Form():new baidu.form.$Form(form);
 },
 
 // constructor
 function(form){
-	this.form = form;
+    this.form = form;
 });
 /// Tangram 1.x Code End
 
@@ -19063,7 +19461,7 @@ baidu.fx = baidu.fx || {} ;
 使subClass继承superClass的prototype，因此subClass的实例能够使用superClass的prototype中定义的所有属性和方法。<br>
 这个函数实际上是建立了subClass和superClass的原型链集成，并对subClass进行了constructor修正。<br>
 <strong>注意：如果要继承构造函数，需要在subClass里面call一下，具体见下面的demo例子</strong>
-	
+    
  * @shortcut inherits
  * @meta standard
  * @see baidu.lang.Class
@@ -19300,7 +19698,7 @@ baidu.fx.create = function(element, options, fxName) {
      * 打扫dom元素上的痕迹，删除元素自定义属性
      */
     timeline["\x06clean"] = function(e) {
-    	var me = this, guid;
+        var me = this, guid;
         if (e = me.element) {
             e.removeAttribute(me.attribName);
             guid = e.getAttribute(catt);
@@ -19883,48 +20281,48 @@ Transitions: {
 
 Fx.Transitions.extend({
 
-	Pow: function(p, x){
-		return Math.pow(p, x[0] || 6);
-	},
+    Pow: function(p, x){
+        return Math.pow(p, x[0] || 6);
+    },
 
-	Expo: function(p){
-		return Math.pow(2, 8 * (p - 1));
-	},
+    Expo: function(p){
+        return Math.pow(2, 8 * (p - 1));
+    },
 
-	Circ: function(p){
-		return 1 - Math.sin(Math.acos(p));
-	},
+    Circ: function(p){
+        return 1 - Math.sin(Math.acos(p));
+    },
 
-	Sine: function(p){
-		return 1 - Math.sin((1 - p) * Math.PI / 2);
-	},
+    Sine: function(p){
+        return 1 - Math.sin((1 - p) * Math.PI / 2);
+    },
 
-	Back: function(p, x){
-		x = x[0] || 1.618;
-		return Math.pow(p, 2) * ((x + 1) * p - x);
-	},
+    Back: function(p, x){
+        x = x[0] || 1.618;
+        return Math.pow(p, 2) * ((x + 1) * p - x);
+    },
 
-	Bounce: function(p){
-		var value;
-		for (var a = 0, b = 1; 1; a += b, b /= 2){
-			if (p >= (7 - 4 * a) / 11){
-				value = b * b - Math.pow((11 - 6 * a - 11 * p) / 4, 2);
-				break;
-			}
-		}
-		return value;
-	},
+    Bounce: function(p){
+        var value;
+        for (var a = 0, b = 1; 1; a += b, b /= 2){
+            if (p >= (7 - 4 * a) / 11){
+                value = b * b - Math.pow((11 - 6 * a - 11 * p) / 4, 2);
+                break;
+            }
+        }
+        return value;
+    },
 
-	Elastic: function(p, x){
-		return Math.pow(2, 10 * --p) * Math.cos(20 * p * Math.PI * (x[0] || 1) / 3);
-	}
+    Elastic: function(p, x){
+        return Math.pow(2, 10 * --p) * Math.cos(20 * p * Math.PI * (x[0] || 1) / 3);
+    }
 
 });
 
 ['Quad', 'Cubic', 'Quart', 'Quint'].each(function(transition, i){
-	Fx.Transitions[transition] = new Fx.Transition(function(p){
-		return Math.pow(p, [i + 2]);
-	});
+    Fx.Transitions[transition] = new Fx.Transition(function(p){
+        return Math.pow(p, [i + 2]);
+    });
 });
 
 
@@ -20907,7 +21305,7 @@ baidu.fx.shake = function(element, offset, options) {
             if (baidu.dom.getStyle(e, "position") == "static") {
                 e.style.position = "relative";
             }
-			var original = this['\x06original'];
+            var original = this['\x06original'];
             this.originX = parseInt(original.left|| 0);
             this.originY = parseInt(original.top || 0);
             this.offsetX = tt(offset[0], offset.x, 16);
@@ -21077,16 +21475,16 @@ baidu.global.set = function(key, value, overwrite){
 /**
  * @namespace baidu.global.getZIndex 全局统一管理 z-index。
  *
- * @param   {String}    key 	信息对应的 key 值(popup | dialog)
- * @param   {Number}    step 	z-index 增长的步长
+ * @param   {String}    key     信息对应的 key 值(popup | dialog)
+ * @param   {Number}    step     z-index 增长的步长
  * @return  {Number}            z-index
  */
 baidu.global.getZIndex = function(key, step) {
-	var zi = baidu.global.get("zIndex");
-	if (key) {
-		zi[key] = zi[key] + (step || 1);
-	}
-	return zi[key];
+    var zi = baidu.global.get("zIndex");
+    if (key) {
+        zi[key] = zi[key] + (step || 1);
+    }
+    return zi[key];
 };
 baidu.global.set("zIndex", {popup : 50000, dialog : 1000}, true);
 /// support magic - Tangram 1.x Code End
@@ -21720,8 +22118,8 @@ baidu.json.encode = baidu.json.stringify;
 /**
  * 添加多个自定义事件。
  * @grammar obj.addEventListeners(events, fn)
- * @param 	{object}   events       json对象，key为事件名称，value为事件被触发时应该调用的回调函数
- * @param 	{Function} fn	        要挂载的函数
+ * @param     {object}   events       json对象，key为事件名称，value为事件被触发时应该调用的回调函数
+ * @param     {Function} fn            要挂载的函数
  * @version 1.3
  */
 /* addEventListeners("onmyevent,onmyotherevent", fn);
@@ -21893,10 +22291,10 @@ baidu.lang.eventCenter = baidu.lang.eventCenter || baidu.lang.createSingle();
  * @name baidu.lang.eventCenter.addEventListener
  * @function
  * @grammar baidu.lang.eventCenter.addEventListener(type, handler[, key])
- * @param 	{string}   type         自定义事件的名称
- * @param 	{Function} handler      自定义事件被触发时应该调用的回调函数
- * @param 	{string}   [key]		为事件监听函数指定的名称，可在移除时使用。如果不提供，方法会默认为它生成一个全局唯一的key。
- * @remark 	事件类型区分大小写。如果自定义事件名称不是以小写"on"开头，该方法会给它加上"on"再进行判断，即"click"和"onclick"会被认为是同一种事件。 
+ * @param     {string}   type         自定义事件的名称
+ * @param     {Function} handler      自定义事件被触发时应该调用的回调函数
+ * @param     {string}   [key]        为事件监听函数指定的名称，可在移除时使用。如果不提供，方法会默认为它生成一个全局唯一的key。
+ * @remark     事件类型区分大小写。如果自定义事件名称不是以小写"on"开头，该方法会给它加上"on"再进行判断，即"click"和"onclick"会被认为是同一种事件。 
  */
 
 /**
@@ -21906,7 +22304,7 @@ baidu.lang.eventCenter = baidu.lang.eventCenter || baidu.lang.createSingle();
  * @function
  * @param {string}   type     事件类型
  * @param {Function|string} handler  要移除的事件监听函数或者监听函数的key
- * @remark 	如果第二个参数handler没有被绑定到对应的自定义事件中，什么也不做。
+ * @remark     如果第二个参数handler没有被绑定到对应的自定义事件中，什么也不做。
  */
 
 /**
@@ -21914,8 +22312,8 @@ baidu.lang.eventCenter = baidu.lang.eventCenter || baidu.lang.createSingle();
  * @name baidu.lang.eventCenter.dispatchEvent
  * @grammar baidu.lang.eventCenter.dispatchEvent(event, options)
  * @function
- * @param {baidu.lang.Event|String} event 	Event对象，或事件名称(1.1.1起支持)
- * @param {Object} 					options 扩展参数,所含属性键值会扩展到Event对象上(1.2起支持)
+ * @param {baidu.lang.Event|String} event     Event对象，或事件名称(1.1.1起支持)
+ * @param {Object}                     options 扩展参数,所含属性键值会扩展到Event对象上(1.2起支持)
  */
 
 /// Tangram 1.x Code End
@@ -22171,9 +22569,9 @@ baidu.lang.module = function(name, module, owner) {
  * @name baidu.lang.register
  * @function
  * @grammar baidu.lang.register(Class, constructorHook, methods)
- * @param   {Class}     Class   		接受注册的载体 类
+ * @param   {Class}     Class           接受注册的载体 类
  * @param   {Function}  constructorHook 运行在载体类构造器里钩子函数
- * @param	{Object}  methods   挂载到载体类原型链上的方法集，可选
+ * @param    {Object}  methods   挂载到载体类原型链上的方法集，可选
  * @meta standard
  *             
  */
@@ -22182,12 +22580,12 @@ baidu.lang.register = function (Class, constructorHook, methods) {
     reg[reg.length] = constructorHook;
 
     for (var method in methods) {
-    	Class.prototype[method] = methods[method];
+        Class.prototype[method] = methods[method];
     }
 };
 
 // 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
-// 20111129	meizz	添加第三个参数，可以直接挂载方法到目标类原型链上
+// 20111129    meizz    添加第三个参数，可以直接挂载方法到目标类原型链上
 /// support magic - Tangram 1.x Code End
 /// Tangram 1.x Code Start
 /*
@@ -22211,7 +22609,7 @@ baidu.lang.register = function (Class, constructorHook, methods) {
 
 baidu.global("_maps_id");
 
-//	[TODO]	meizz	在2012年版本中将删除此模块
+//    [TODO]    meizz    在2012年版本中将删除此模块
 /// Tangram 1.x Code End
 /**
  * @author wangxiao
@@ -22241,7 +22639,7 @@ baidu.global("_maps_id");
 
 baidu.number.extend({
     comma : function (length) {
-    	var source = this;
+        var source = this;
         if (!length || length < 1) {
             length = 3;
         }
@@ -22249,7 +22647,7 @@ baidu.number.extend({
         source = String(source).split(".");
         source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{'+length+'})+$)','ig'),"$1,");
         return source.join(".");
-    }	
+    }    
 });
 
 /**
@@ -22370,9 +22768,9 @@ baidu.object.keys = function (source) {
  * @function
  * @grammar baidu.object.map(source, iterator)
  * 
- * @param 	{Array}    source   需要遍历的object
- * @param 	{Function} iterator 对每个object元素进行处理的函数
- * @return 	{Array} 			map后的object
+ * @param     {Array}    source   需要遍历的object
+ * @param     {Function} iterator 对每个object元素进行处理的函数
+ * @return     {Array}             map后的object
  */
 baidu.object.map = function (source, iterator) {
     var results = {};
@@ -22599,9 +22997,9 @@ baidu.page.getHeight = function () {
  * @return {number} 页面视觉区域高度
  */
 baidu.page.getViewHeight = function () {
-	var de = document.documentElement.clientHeight,
-	    db = document.body.clientHeight;
-	return Math.min(de||db, db);
+    var de = document.documentElement.clientHeight,
+        db = document.body.clientHeight;
+    return Math.min(de||db, db);
 };
 /// support magic - Tangram 1.x Code End
 
@@ -23039,16 +23437,16 @@ baidu.page.loadJsFile = function (path) {
  * @return  {String}            对象类型字符串，以逗号分隔
  */
 baidu.param = function(arg) {
-	arg = arg || arguments.callee.caller.arguments;
+    arg = arg || arguments.callee.caller.arguments;
 
-	var s = "",
-		n = arg.length;
+    var s = "",
+        n = arg.length;
 
-	for (var i = 0; i < n; i++) {
-		s += "," + baidu.type(arg[i]);
-	}
+    for (var i = 0; i < n; i++) {
+        s += "," + baidu.type(arg[i]);
+    }
 
-	return s ? s.substr(1) : "";
+    return s ? s.substr(1) : "";
 };
 
 // [Notice] meizz callee等操作是一个低性能的处理，因此 arg 参数尽量传过来，尽管不传这个参数本方法也能正确执行
@@ -23243,14 +23641,14 @@ baidu.post = baidu.post || baidu._util_.smartAjax('post');
  * @return {RegExp} 返回一个正则表达式对象
  */
 baidu.regexp = baidu.regexp || function(maps){
-	var modalReg = /[^mig]/;
+    var modalReg = /[^mig]/;
 
     return function(reg, modal){
         var key, result;
 
         if ( baidu.isString(reg) ) {
         
-        	modalReg.test(modal) && (modal = "");
+            modalReg.test(modal) && (modal = "");
             key = reg + "$$" + (modal || "");
             (result = maps[ key ]) || (result = maps[ key ] = new RegExp( reg, modal ));
         
@@ -23266,6 +23664,28 @@ baidu.regexp = baidu.regexp || function(maps){
         return result;
     }
 }( baidu.global("_maps_RegExp") );
+
+
+/*
+ * @description 为当前的新链头对象赋加.getBack()方法
+ * @author meizz
+ * @create 2012-11-19
+ *
+ * @function
+ * @name baidu.setBack
+ * @grammar baidu.setBack(current, oldChain)
+ * @param   {Object}    current     新链头对象
+ * @param   {Object}    oldChain    老链头对象
+ * @return  {Object}                current
+ */
+baidu.setBack = function(current, oldChain) {
+    current._back_ = oldChain;
+    current.getBack = function() {
+        return this._back_;
+    }
+    return current;
+};
+
 /*
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
@@ -23297,7 +23717,7 @@ function(url){
 
 // constructor
 function(url){
-	this.url = url;
+    this.url = url;
 });
 /*
  * Tangram
@@ -23622,123 +24042,123 @@ baidu.sio.extend({
     };
 
 var document = window.document,
-	docElem = document.documentElement,
+    docElem = document.documentElement,
 
-	expando = "sizcache" + (Math.random() + '').replace('.', ''),
-	done = 0,
+    expando = "sizcache" + (Math.random() + '').replace('.', ''),
+    done = 0,
 
-	toString = Object.prototype.toString,
-	strundefined = "undefined",
+    toString = Object.prototype.toString,
+    strundefined = "undefined",
 
-	hasDuplicate = false,
-	baseHasDuplicate = true,
+    hasDuplicate = false,
+    baseHasDuplicate = true,
 
-	// Regex
-	rquickExpr = /^#([\w\-]+$)|^(\w+$)|^\.([\w\-]+$)/,
-	chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
+    // Regex
+    rquickExpr = /^#([\w\-]+$)|^(\w+$)|^\.([\w\-]+$)/,
+    chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
 
-	rbackslash = /\\/g,
-	rnonWord = /\W/,
-	rstartsWithWord = /^\w/,
-	rnonDigit = /\D/,
-	rnth = /(-?)(\d*)(?:n([+\-]?\d*))?/,
-	radjacent = /^\+|\s*/g,
-	rheader = /h\d/i,
-	rinputs = /input|select|textarea|button/i,
-	rtnfr = /[\t\n\f\r]/g,
+    rbackslash = /\\/g,
+    rnonWord = /\W/,
+    rstartsWithWord = /^\w/,
+    rnonDigit = /\D/,
+    rnth = /(-?)(\d*)(?:n([+\-]?\d*))?/,
+    radjacent = /^\+|\s*/g,
+    rheader = /h\d/i,
+    rinputs = /input|select|textarea|button/i,
+    rtnfr = /[\t\n\f\r]/g,
 
-	characterEncoding = "(?:[-\\w]|[^\\x00-\\xa0]|\\\\.)",
-	matchExpr = {
-		ID: new RegExp("#(" + characterEncoding + "+)"),
-		CLASS: new RegExp("\\.(" + characterEncoding + "+)"),
-		NAME: new RegExp("\\[name=['\"]*(" + characterEncoding + "+)['\"]*\\]"),
-		TAG: new RegExp("^(" + characterEncoding.replace( "[-", "[-\\*" ) + "+)"),
-		ATTR: new RegExp("\\[\\s*(" + characterEncoding + "+)\\s*(?:(\\S?=)\\s*(?:(['\"])(.*?)\\3|(#?" + characterEncoding + "*)|)|)\\s*\\]"),
-		PSEUDO: new RegExp(":(" + characterEncoding + "+)(?:\\((['\"]?)((?:\\([^\\)]+\\)|[^\\(\\)]*)+)\\2\\))?"),
-		CHILD: /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
-		POS: /:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/
-	},
+    characterEncoding = "(?:[-\\w]|[^\\x00-\\xa0]|\\\\.)",
+    matchExpr = {
+        ID: new RegExp("#(" + characterEncoding + "+)"),
+        CLASS: new RegExp("\\.(" + characterEncoding + "+)"),
+        NAME: new RegExp("\\[name=['\"]*(" + characterEncoding + "+)['\"]*\\]"),
+        TAG: new RegExp("^(" + characterEncoding.replace( "[-", "[-\\*" ) + "+)"),
+        ATTR: new RegExp("\\[\\s*(" + characterEncoding + "+)\\s*(?:(\\S?=)\\s*(?:(['\"])(.*?)\\3|(#?" + characterEncoding + "*)|)|)\\s*\\]"),
+        PSEUDO: new RegExp(":(" + characterEncoding + "+)(?:\\((['\"]?)((?:\\([^\\)]+\\)|[^\\(\\)]*)+)\\2\\))?"),
+        CHILD: /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
+        POS: /:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/
+    },
 
-	origPOS = matchExpr.POS,
+    origPOS = matchExpr.POS,
 
-	leftMatchExpr = (function() {
-		var type,
-			// Increments parenthetical references
-			// for leftMatch creation
-			fescape = function( all, num ) {
-				return "\\" + ( num - 0 + 1 );
-			},
-			leftMatch = {};
+    leftMatchExpr = (function() {
+        var type,
+            // Increments parenthetical references
+            // for leftMatch creation
+            fescape = function( all, num ) {
+                return "\\" + ( num - 0 + 1 );
+            },
+            leftMatch = {};
 
-		for ( type in matchExpr ) {
-			// Modify the regexes ensuring the matches do not end in brackets/parens
-			matchExpr[ type ] = new RegExp( matchExpr[ type ].source + (/(?![^\[]*\])(?![^\(]*\))/.source) );
-			// Adds a capture group for characters left of the match
-			leftMatch[ type ] = new RegExp( /(^(?:.|\r|\n)*?)/.source + matchExpr[ type ].source.replace( /\\(\d+)/g, fescape ) );
-		}
+        for ( type in matchExpr ) {
+            // Modify the regexes ensuring the matches do not end in brackets/parens
+            matchExpr[ type ] = new RegExp( matchExpr[ type ].source + (/(?![^\[]*\])(?![^\(]*\))/.source) );
+            // Adds a capture group for characters left of the match
+            leftMatch[ type ] = new RegExp( /(^(?:.|\r|\n)*?)/.source + matchExpr[ type ].source.replace( /\\(\d+)/g, fescape ) );
+        }
 
-		// Expose origPOS
-		// "global" as in regardless of relation to brackets/parens
-		matchExpr.globalPOS = origPOS;
+        // Expose origPOS
+        // "global" as in regardless of relation to brackets/parens
+        matchExpr.globalPOS = origPOS;
 
-		return leftMatch;
-	})(),
+        return leftMatch;
+    })(),
 
-	// Used for testing something on an element
-	assert = function( fn ) {
-		var pass = false,
-			div = document.createElement("div");
-		try {
-			pass = fn( div );
-		} catch (e) {}
-		// release memory in IE
-		div = null;
-		return pass;
-	},
+    // Used for testing something on an element
+    assert = function( fn ) {
+        var pass = false,
+            div = document.createElement("div");
+        try {
+            pass = fn( div );
+        } catch (e) {}
+        // release memory in IE
+        div = null;
+        return pass;
+    },
 
-	// Check to see if the browser returns elements by name when
-	// querying by getElementById (and provide a workaround)
-	assertGetIdNotName = assert(function( div ) {
-		var pass = true,
-			id = "script" + (new Date()).getTime();
-		div.innerHTML = "<a name ='" + id + "'/>";
+    // Check to see if the browser returns elements by name when
+    // querying by getElementById (and provide a workaround)
+    assertGetIdNotName = assert(function( div ) {
+        var pass = true,
+            id = "script" + (new Date()).getTime();
+        div.innerHTML = "<a name ='" + id + "'/>";
 
-		// Inject it into the root element, check its status, and remove it quickly
-		docElem.insertBefore( div, docElem.firstChild );
+        // Inject it into the root element, check its status, and remove it quickly
+        docElem.insertBefore( div, docElem.firstChild );
 
-		if ( document.getElementById( id ) ) {
-			pass = false;
-		}
-		docElem.removeChild( div );
-		return pass;
-	}),
+        if ( document.getElementById( id ) ) {
+            pass = false;
+        }
+        docElem.removeChild( div );
+        return pass;
+    }),
 
-	// Check to see if the browser returns only elements
-	// when doing getElementsByTagName("*")
-	assertTagNameNoComments = assert(function( div ) {
-		div.appendChild( document.createComment("") );
-		return div.getElementsByTagName("*").length === 0;
-	}),
+    // Check to see if the browser returns only elements
+    // when doing getElementsByTagName("*")
+    assertTagNameNoComments = assert(function( div ) {
+        div.appendChild( document.createComment("") );
+        return div.getElementsByTagName("*").length === 0;
+    }),
 
-	// Check to see if an attribute returns normalized href attributes
-	assertHrefNotNormalized = assert(function( div ) {
-		div.innerHTML = "<a href='#'></a>";
-		return div.firstChild && typeof div.firstChild.getAttribute !== strundefined &&
-			div.firstChild.getAttribute("href") === "#";
-	}),
+    // Check to see if an attribute returns normalized href attributes
+    assertHrefNotNormalized = assert(function( div ) {
+        div.innerHTML = "<a href='#'></a>";
+        return div.firstChild && typeof div.firstChild.getAttribute !== strundefined &&
+            div.firstChild.getAttribute("href") === "#";
+    }),
 
-	// Determines a buggy getElementsByClassName
-	assertUsableClassName = assert(function( div ) {
-		// Opera can't find a second classname (in 9.6)
-		div.innerHTML = "<div class='test e'></div><div class='test'></div>";
-		if ( !div.getElementsByClassName || div.getElementsByClassName("e").length === 0 ) {
-			return false;
-		}
+    // Determines a buggy getElementsByClassName
+    assertUsableClassName = assert(function( div ) {
+        // Opera can't find a second classname (in 9.6)
+        div.innerHTML = "<div class='test e'></div><div class='test'></div>";
+        if ( !div.getElementsByClassName || div.getElementsByClassName("e").length === 0 ) {
+            return false;
+        }
 
-		// Safari caches class attributes, doesn't catch changes (in 3.2)
-		div.lastChild.className = "e";
-		return div.getElementsByClassName("e").length !== 1;
-	});
+        // Safari caches class attributes, doesn't catch changes (in 3.2)
+        div.lastChild.className = "e";
+        return div.getElementsByClassName("e").length !== 1;
+    });
 
 
 // Check if the JavaScript engine is using some sort of
@@ -23746,208 +24166,208 @@ var document = window.document,
 // function. If that is the case, discard the hasDuplicate value.
 //   Thus far that includes Google Chrome.
 [0, 0].sort(function() {
-	baseHasDuplicate = false;
-	return 0;
+    baseHasDuplicate = false;
+    return 0;
 });
 
 var Sizzle = function( selector, context, results ) {
-	results = results || [];
-	context = context || document;
-	var match, elem, contextXML,
-		nodeType = context.nodeType;
+    results = results || [];
+    context = context || document;
+    var match, elem, contextXML,
+        nodeType = context.nodeType;
 
-	if ( nodeType !== 1 && nodeType !== 9 ) {
-		return [];
-	}
+    if ( nodeType !== 1 && nodeType !== 9 ) {
+        return [];
+    }
 
-	if ( !selector || typeof selector !== "string" ) {
-		return results;
-	}
+    if ( !selector || typeof selector !== "string" ) {
+        return results;
+    }
 
-	contextXML = isXML( context );
+    contextXML = isXML( context );
 
-	if ( !contextXML ) {
-		if ( (match = rquickExpr.exec( selector )) ) {
-			// Speed-up: Sizzle("#ID")
-			if ( match[1] ) {
-				if ( nodeType === 9 ) {
-					elem = context.getElementById( match[1] );
-					// Check parentNode to catch when Blackberry 4.6 returns
-					// nodes that are no longer in the document #6963
-					if ( elem && elem.parentNode ) {
-						// Handle the case where IE, Opera, and Webkit return items
-						// by name instead of ID
-						if ( elem.id === match[1] ) {
-							return makeArray( [ elem ], results );
-						}
-					} else {
-						return makeArray( [], results );
-					}
-				} else {
-					// Context is not a document
-					if ( context.ownerDocument && (elem = context.ownerDocument.getElementById( match[1] )) &&
-						contains( context, elem ) && elem.id === match[1] ) {
-						return makeArray( [ elem ], results );
-					}
-				}
+    if ( !contextXML ) {
+        if ( (match = rquickExpr.exec( selector )) ) {
+            // Speed-up: Sizzle("#ID")
+            if ( match[1] ) {
+                if ( nodeType === 9 ) {
+                    elem = context.getElementById( match[1] );
+                    // Check parentNode to catch when Blackberry 4.6 returns
+                    // nodes that are no longer in the document #6963
+                    if ( elem && elem.parentNode ) {
+                        // Handle the case where IE, Opera, and Webkit return items
+                        // by name instead of ID
+                        if ( elem.id === match[1] ) {
+                            return makeArray( [ elem ], results );
+                        }
+                    } else {
+                        return makeArray( [], results );
+                    }
+                } else {
+                    // Context is not a document
+                    if ( context.ownerDocument && (elem = context.ownerDocument.getElementById( match[1] )) &&
+                        contains( context, elem ) && elem.id === match[1] ) {
+                        return makeArray( [ elem ], results );
+                    }
+                }
 
-			// Speed-up: Sizzle("TAG")
-			} else if ( match[2] ) {
-				// Speed-up: Sizzle("body")
-				if ( selector === "body" && context.body ) {
-					return makeArray( [ context.body ], results );
-				}
-				return makeArray( context.getElementsByTagName( selector ), results );
-			// Speed-up: Sizzle(".CLASS")
-			} else if ( assertUsableClassName && match[3] && context.getElementsByClassName ) {
-				return makeArray( context.getElementsByClassName( match[3] ), results );
-			}
-		}
-	}
+            // Speed-up: Sizzle("TAG")
+            } else if ( match[2] ) {
+                // Speed-up: Sizzle("body")
+                if ( selector === "body" && context.body ) {
+                    return makeArray( [ context.body ], results );
+                }
+                return makeArray( context.getElementsByTagName( selector ), results );
+            // Speed-up: Sizzle(".CLASS")
+            } else if ( assertUsableClassName && match[3] && context.getElementsByClassName ) {
+                return makeArray( context.getElementsByClassName( match[3] ), results );
+            }
+        }
+    }
 
-	// All others
-	return select( selector, context, results, undefined, contextXML );
+    // All others
+    return select( selector, context, results, undefined, contextXML );
 };
 
 var select = function( selector, context, results, seed, contextXML ) {
-	var m, set, checkSet, extra, ret, cur, pop, i,
-		origContext = context,
-		prune = true,
-		parts = [],
-		soFar = selector;
+    var m, set, checkSet, extra, ret, cur, pop, i,
+        origContext = context,
+        prune = true,
+        parts = [],
+        soFar = selector;
 
-	do {
-		// Reset the position of the chunker regexp (start from head)
-		chunker.exec( "" );
-		m = chunker.exec( soFar );
+    do {
+        // Reset the position of the chunker regexp (start from head)
+        chunker.exec( "" );
+        m = chunker.exec( soFar );
 
-		if ( m ) {
-			soFar = m[3];
+        if ( m ) {
+            soFar = m[3];
 
-			parts.push( m[1] );
+            parts.push( m[1] );
 
-			if ( m[2] ) {
-				extra = m[3];
-				break;
-			}
-		}
-	} while ( m );
+            if ( m[2] ) {
+                extra = m[3];
+                break;
+            }
+        }
+    } while ( m );
 
-	if ( parts.length > 1 && origPOS.exec( selector ) ) {
+    if ( parts.length > 1 && origPOS.exec( selector ) ) {
 
-		if ( parts.length === 2 && Expr.relative[ parts[0] ] ) {
-			set = posProcess( parts[0] + parts[1], context, seed, contextXML );
+        if ( parts.length === 2 && Expr.relative[ parts[0] ] ) {
+            set = posProcess( parts[0] + parts[1], context, seed, contextXML );
 
-		} else {
-			set = Expr.relative[ parts[0] ] ?
-				[ context ] :
-				Sizzle( parts.shift(), context );
+        } else {
+            set = Expr.relative[ parts[0] ] ?
+                [ context ] :
+                Sizzle( parts.shift(), context );
 
-			while ( parts.length ) {
-				selector = parts.shift();
+            while ( parts.length ) {
+                selector = parts.shift();
 
-				if ( Expr.relative[ selector ] ) {
-					selector += parts.shift();
-				}
+                if ( Expr.relative[ selector ] ) {
+                    selector += parts.shift();
+                }
 
-				set = posProcess( selector, set, seed, contextXML );
-			}
-		}
+                set = posProcess( selector, set, seed, contextXML );
+            }
+        }
 
-	} else {
-		// Take a shortcut and set the context if the root selector is an ID
-		// (but not if it'll be faster if the inner selector is an ID)
-		if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
-				matchExpr.ID.test( parts[0] ) && !matchExpr.ID.test( parts[parts.length - 1] ) ) {
+    } else {
+        // Take a shortcut and set the context if the root selector is an ID
+        // (but not if it'll be faster if the inner selector is an ID)
+        if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
+                matchExpr.ID.test( parts[0] ) && !matchExpr.ID.test( parts[parts.length - 1] ) ) {
 
-			ret = Sizzle.find( parts.shift(), context, contextXML );
-			context = ret.expr ?
-				Sizzle.filter( ret.expr, ret.set )[0] :
-				ret.set[0];
-		}
+            ret = Sizzle.find( parts.shift(), context, contextXML );
+            context = ret.expr ?
+                Sizzle.filter( ret.expr, ret.set )[0] :
+                ret.set[0];
+        }
 
-		if ( context ) {
-			ret = seed ?
-				{ expr: parts.pop(), set: makeArray( seed ) } :
-				Sizzle.find( parts.pop(), (parts.length >= 1 && (parts[0] === "~" || parts[0] === "+") && context.parentNode) || context, contextXML );
+        if ( context ) {
+            ret = seed ?
+                { expr: parts.pop(), set: makeArray( seed ) } :
+                Sizzle.find( parts.pop(), (parts.length >= 1 && (parts[0] === "~" || parts[0] === "+") && context.parentNode) || context, contextXML );
 
-			set = ret.expr ?
-				Sizzle.filter( ret.expr, ret.set ) :
-				ret.set;
+            set = ret.expr ?
+                Sizzle.filter( ret.expr, ret.set ) :
+                ret.set;
 
-			if ( parts.length > 0 ) {
-				checkSet = makeArray( set );
+            if ( parts.length > 0 ) {
+                checkSet = makeArray( set );
 
-			} else {
-				prune = false;
-			}
+            } else {
+                prune = false;
+            }
 
-			while ( parts.length ) {
-				cur = parts.pop();
-				pop = cur;
+            while ( parts.length ) {
+                cur = parts.pop();
+                pop = cur;
 
-				if ( !Expr.relative[ cur ] ) {
-					cur = "";
-				} else {
-					pop = parts.pop();
-				}
+                if ( !Expr.relative[ cur ] ) {
+                    cur = "";
+                } else {
+                    pop = parts.pop();
+                }
 
-				if ( pop == null ) {
-					pop = context;
-				}
+                if ( pop == null ) {
+                    pop = context;
+                }
 
-				Expr.relative[ cur ]( checkSet, pop, contextXML );
-			}
+                Expr.relative[ cur ]( checkSet, pop, contextXML );
+            }
 
-		} else {
-			checkSet = parts = [];
-		}
-	}
+        } else {
+            checkSet = parts = [];
+        }
+    }
 
-	if ( !checkSet ) {
-		checkSet = set;
-	}
+    if ( !checkSet ) {
+        checkSet = set;
+    }
 
-	if ( !checkSet ) {
-		Sizzle.error( cur || selector );
-	}
+    if ( !checkSet ) {
+        Sizzle.error( cur || selector );
+    }
 
-	if ( toString.call(checkSet) === "[object Array]" ) {
-		if ( !prune ) {
-			results.push.apply( results, checkSet );
+    if ( toString.call(checkSet) === "[object Array]" ) {
+        if ( !prune ) {
+            results.push.apply( results, checkSet );
 
-		} else if ( context && context.nodeType === 1 ) {
-			for ( i = 0; checkSet[i] != null; i++ ) {
-				if ( checkSet[i] && (checkSet[i] === true || checkSet[i].nodeType === 1 && contains( context, checkSet[i] )) ) {
-					results.push( set[i] );
-				}
-			}
+        } else if ( context && context.nodeType === 1 ) {
+            for ( i = 0; checkSet[i] != null; i++ ) {
+                if ( checkSet[i] && (checkSet[i] === true || checkSet[i].nodeType === 1 && contains( context, checkSet[i] )) ) {
+                    results.push( set[i] );
+                }
+            }
 
-		} else {
-			for ( i = 0; checkSet[i] != null; i++ ) {
-				if ( checkSet[i] && checkSet[i].nodeType === 1 ) {
-					results.push( set[i] );
-				}
-			}
-		}
+        } else {
+            for ( i = 0; checkSet[i] != null; i++ ) {
+                if ( checkSet[i] && checkSet[i].nodeType === 1 ) {
+                    results.push( set[i] );
+                }
+            }
+        }
 
-	} else {
-		makeArray( checkSet, results );
-	}
+    } else {
+        makeArray( checkSet, results );
+    }
 
-	if ( extra ) {
-		select( extra, origContext, results, seed, contextXML );
-		uniqueSort( results );
-	}
+    if ( extra ) {
+        select( extra, origContext, results, seed, contextXML );
+        uniqueSort( results );
+    }
 
-	return results;
+    return results;
 };
 
 var isXML = Sizzle.isXML = function( elem ) {
-	// documentElement is verified for cases where it doesn't yet exist
-	// (such as loading iframes in IE - #4833)
-	var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
-	return documentElement ? documentElement.nodeName !== "HTML" : false;
+    // documentElement is verified for cases where it doesn't yet exist
+    // (such as loading iframes in IE - #4833)
+    var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
+    return documentElement ? documentElement.nodeName !== "HTML" : false;
 };
 
 // Slice is no longer used
@@ -23955,193 +24375,193 @@ var isXML = Sizzle.isXML = function( elem ) {
 // Results is expected to be an array or undefined
 // typeof len is checked for if array is a form nodelist containing an element with name "length" (wow)
 var makeArray = function( array, results ) {
-	results = results || [];
-	var i = 0,
-		len = array.length;
-	if ( typeof len === "number" ) {
-		for ( ; i < len; i++ ) {
-			results.push( array[i] );
-		}
-	} else {
-		for ( ; array[i]; i++ ) {
-			results.push( array[i] );
-		}
-	}
-	return results;
+    results = results || [];
+    var i = 0,
+        len = array.length;
+    if ( typeof len === "number" ) {
+        for ( ; i < len; i++ ) {
+            results.push( array[i] );
+        }
+    } else {
+        for ( ; array[i]; i++ ) {
+            results.push( array[i] );
+        }
+    }
+    return results;
 };
 
 var uniqueSort = Sizzle.uniqueSort = function( results ) {
-	if ( sortOrder ) {
-		hasDuplicate = baseHasDuplicate;
-		results.sort( sortOrder );
+    if ( sortOrder ) {
+        hasDuplicate = baseHasDuplicate;
+        results.sort( sortOrder );
 
-		if ( hasDuplicate ) {
-			for ( var i = 1; i < results.length; i++ ) {
-				if ( results[i] === results[ i - 1 ] ) {
-					results.splice( i--, 1 );
-				}
-			}
-		}
-	}
+        if ( hasDuplicate ) {
+            for ( var i = 1; i < results.length; i++ ) {
+                if ( results[i] === results[ i - 1 ] ) {
+                    results.splice( i--, 1 );
+                }
+            }
+        }
+    }
 
-	return results;
+    return results;
 };
 
 // Element contains another
 var contains = Sizzle.contains = docElem.compareDocumentPosition ?
-	function( a, b ) {
-		return !!(a.compareDocumentPosition( b ) & 16);
-	} :
-	docElem.contains ?
-	function( a, b ) {
-		return a !== b && ( a.contains ? a.contains( b ) : false );
-	} :
-	function( a, b ) {
-		while ( (b = b.parentNode) ) {
-			if ( b === a ) {
-				return true;
-			}
-		}
-		return false;
-	};
+    function( a, b ) {
+        return !!(a.compareDocumentPosition( b ) & 16);
+    } :
+    docElem.contains ?
+    function( a, b ) {
+        return a !== b && ( a.contains ? a.contains( b ) : false );
+    } :
+    function( a, b ) {
+        while ( (b = b.parentNode) ) {
+            if ( b === a ) {
+                return true;
+            }
+        }
+        return false;
+    };
 
 Sizzle.matches = function( expr, set ) {
-	return select( expr, document, [], set, isXML( document ) );
+    return select( expr, document, [], set, isXML( document ) );
 };
 
 Sizzle.matchesSelector = function( node, expr ) {
-	return select( expr, document, [], [ node ], isXML( document ) ).length > 0;
+    return select( expr, document, [], [ node ], isXML( document ) ).length > 0;
 };
 
 Sizzle.find = function( expr, context, contextXML ) {
-	var set, i, len, match, type, left;
+    var set, i, len, match, type, left;
 
-	if ( !expr ) {
-		return [];
-	}
+    if ( !expr ) {
+        return [];
+    }
 
-	for ( i = 0, len = Expr.order.length; i < len; i++ ) {
-		type = Expr.order[i];
+    for ( i = 0, len = Expr.order.length; i < len; i++ ) {
+        type = Expr.order[i];
 
-		if ( (match = leftMatchExpr[ type ].exec( expr )) ) {
-			left = match[1];
-			match.splice( 1, 1 );
+        if ( (match = leftMatchExpr[ type ].exec( expr )) ) {
+            left = match[1];
+            match.splice( 1, 1 );
 
-			if ( left.substr( left.length - 1 ) !== "\\" ) {
-				match[1] = (match[1] || "").replace( rbackslash, "" );
-				set = Expr.find[ type ]( match, context, contextXML );
+            if ( left.substr( left.length - 1 ) !== "\\" ) {
+                match[1] = (match[1] || "").replace( rbackslash, "" );
+                set = Expr.find[ type ]( match, context, contextXML );
 
-				if ( set != null ) {
-					expr = expr.replace( matchExpr[ type ], "" );
-					break;
-				}
-			}
-		}
-	}
+                if ( set != null ) {
+                    expr = expr.replace( matchExpr[ type ], "" );
+                    break;
+                }
+            }
+        }
+    }
 
-	if ( !set ) {
-		set = typeof context.getElementsByTagName !== strundefined ?
-			context.getElementsByTagName( "*" ) :
-			[];
-	}
+    if ( !set ) {
+        set = typeof context.getElementsByTagName !== strundefined ?
+            context.getElementsByTagName( "*" ) :
+            [];
+    }
 
-	return { set: set, expr: expr };
+    return { set: set, expr: expr };
 };
 
 Sizzle.filter = function( expr, set, inplace, not ) {
-	var match, anyFound,
-		type, found, item, filter, left,
-		i, pass,
-		old = expr,
-		result = [],
-		curLoop = set,
-		isXMLFilter = set && set[0] && isXML( set[0] );
+    var match, anyFound,
+        type, found, item, filter, left,
+        i, pass,
+        old = expr,
+        result = [],
+        curLoop = set,
+        isXMLFilter = set && set[0] && isXML( set[0] );
 
-	while ( expr && set.length ) {
-		for ( type in Expr.filter ) {
-			if ( (match = leftMatchExpr[ type ].exec( expr )) != null && match[2] ) {
-				filter = Expr.filter[ type ];
-				left = match[1];
+    while ( expr && set.length ) {
+        for ( type in Expr.filter ) {
+            if ( (match = leftMatchExpr[ type ].exec( expr )) != null && match[2] ) {
+                filter = Expr.filter[ type ];
+                left = match[1];
 
-				anyFound = false;
+                anyFound = false;
 
-				match.splice( 1, 1 );
+                match.splice( 1, 1 );
 
-				if ( left.substr( left.length - 1 ) === "\\" ) {
-					continue;
-				}
+                if ( left.substr( left.length - 1 ) === "\\" ) {
+                    continue;
+                }
 
-				if ( curLoop === result ) {
-					result = [];
-				}
+                if ( curLoop === result ) {
+                    result = [];
+                }
 
-				if ( Expr.preFilter[ type ] ) {
-					match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter );
+                if ( Expr.preFilter[ type ] ) {
+                    match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter );
 
-					if ( !match ) {
-						anyFound = found = true;
+                    if ( !match ) {
+                        anyFound = found = true;
 
-					} else if ( match === true ) {
-						continue;
-					}
-				}
+                    } else if ( match === true ) {
+                        continue;
+                    }
+                }
 
-				if ( match ) {
-					for ( i = 0; (item = curLoop[i]) != null; i++ ) {
-						if ( item ) {
-							found = filter( item, match, i, curLoop );
-							pass = not ^ found;
+                if ( match ) {
+                    for ( i = 0; (item = curLoop[i]) != null; i++ ) {
+                        if ( item ) {
+                            found = filter( item, match, i, curLoop );
+                            pass = not ^ found;
 
-							if ( inplace && found != null ) {
-								if ( pass ) {
-									anyFound = true;
+                            if ( inplace && found != null ) {
+                                if ( pass ) {
+                                    anyFound = true;
 
-								} else {
-									curLoop[i] = false;
-								}
+                                } else {
+                                    curLoop[i] = false;
+                                }
 
-							} else if ( pass ) {
-								result.push( item );
-								anyFound = true;
-							}
-						}
-					}
-				}
+                            } else if ( pass ) {
+                                result.push( item );
+                                anyFound = true;
+                            }
+                        }
+                    }
+                }
 
-				if ( found !== undefined ) {
-					if ( !inplace ) {
-						curLoop = result;
-					}
+                if ( found !== undefined ) {
+                    if ( !inplace ) {
+                        curLoop = result;
+                    }
 
-					expr = expr.replace( matchExpr[ type ], "" );
+                    expr = expr.replace( matchExpr[ type ], "" );
 
-					if ( !anyFound ) {
-						return [];
-					}
+                    if ( !anyFound ) {
+                        return [];
+                    }
 
-					break;
-				}
-			}
-		}
+                    break;
+                }
+            }
+        }
 
-		// Improper expression
-		if ( expr === old ) {
-			if ( anyFound == null ) {
-				Sizzle.error( expr );
+        // Improper expression
+        if ( expr === old ) {
+            if ( anyFound == null ) {
+                Sizzle.error( expr );
 
-			} else {
-				break;
-			}
-		}
+            } else {
+                break;
+            }
+        }
 
-		old = expr;
-	}
+        old = expr;
+    }
 
-	return curLoop;
+    return curLoop;
 };
 
 Sizzle.error = function( msg ) {
-	throw new Error( "Syntax error, unrecognized expression: " + msg );
+    throw new Error( "Syntax error, unrecognized expression: " + msg );
 };
 
 /**
@@ -24149,872 +24569,872 @@ Sizzle.error = function( msg ) {
  * @param {Array|Element} elem
  */
 var getText = Sizzle.getText = function( elem ) {
-	var i, node,
-		nodeType = elem.nodeType,
-		ret = "";
+    var i, node,
+        nodeType = elem.nodeType,
+        ret = "";
 
-	if ( nodeType ) {
-		if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
-			// Use textContent for elements
-			// innerText usage removed for consistency of new lines (see #11153)
-			if ( typeof elem.textContent === "string" ) {
-				return elem.textContent;
-			} else {
-				// Traverse it's children
-				for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
-					ret += getText( elem );
-				}
-			}
-		} else if ( nodeType === 3 || nodeType === 4 ) {
-			return elem.nodeValue;
-		}
-	} else {
+    if ( nodeType ) {
+        if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
+            // Use textContent for elements
+            // innerText usage removed for consistency of new lines (see #11153)
+            if ( typeof elem.textContent === "string" ) {
+                return elem.textContent;
+            } else {
+                // Traverse it's children
+                for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
+                    ret += getText( elem );
+                }
+            }
+        } else if ( nodeType === 3 || nodeType === 4 ) {
+            return elem.nodeValue;
+        }
+    } else {
 
-		// If no nodeType, this is expected to be an array
-		for ( i = 0; (node = elem[i]); i++ ) {
-			// Do not traverse comment nodes
-			if ( node.nodeType !== 8 ) {
-				ret += getText( node );
-			}
-		}
-	}
-	return ret;
+        // If no nodeType, this is expected to be an array
+        for ( i = 0; (node = elem[i]); i++ ) {
+            // Do not traverse comment nodes
+            if ( node.nodeType !== 8 ) {
+                ret += getText( node );
+            }
+        }
+    }
+    return ret;
 };
 
 var Expr = Sizzle.selectors = {
 
-	match: matchExpr,
-	leftMatch: leftMatchExpr,
-
-	order: [ "ID", "NAME", "TAG" ],
-
-	attrMap: {
-		"class": "className",
-		"for": "htmlFor"
-	},
-
-	attrHandle: {
-		href: assertHrefNotNormalized ?
-			function( elem ) {
-				return elem.getAttribute( "href" );
-			} :
-			function( elem ) {
-				return elem.getAttribute( "href", 2 );
-			},
-		type: function( elem ) {
-			return elem.getAttribute( "type" );
-		}
-	},
-
-	relative: {
-		"+": function( checkSet, part ) {
-			var isPartStr = typeof part === "string",
-				isTag = isPartStr && !rnonWord.test( part ),
-				isPartStrNotTag = isPartStr && !isTag;
-
-			if ( isTag ) {
-				part = part.toLowerCase();
-			}
-
-			for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
-				if ( (elem = checkSet[i]) ) {
-					while ( (elem = elem.previousSibling) && elem.nodeType !== 1 ) {}
-
-					checkSet[i] = isPartStrNotTag || elem && elem.nodeName.toLowerCase() === part ?
-						elem || false :
-						elem === part;
-				}
-			}
-
-			if ( isPartStrNotTag ) {
-				Sizzle.filter( part, checkSet, true );
-			}
-		},
-
-		">": function( checkSet, part ) {
-			var elem,
-				isPartStr = typeof part === "string",
-				i = 0,
-				l = checkSet.length;
-
-			if ( isPartStr && !rnonWord.test( part ) ) {
-				part = part.toLowerCase();
-
-				for ( ; i < l; i++ ) {
-					elem = checkSet[i];
-
-					if ( elem ) {
-						var parent = elem.parentNode;
-						checkSet[i] = parent.nodeName.toLowerCase() === part ? parent : false;
-					}
-				}
-
-			} else {
-				for ( ; i < l; i++ ) {
-					elem = checkSet[i];
-
-					if ( elem ) {
-						checkSet[i] = isPartStr ?
-							elem.parentNode :
-							elem.parentNode === part;
-					}
-				}
-
-				if ( isPartStr ) {
-					Sizzle.filter( part, checkSet, true );
-				}
-			}
-		},
-
-		"": function( checkSet, part, xml ) {
-			dirCheck( "parentNode", checkSet, part, xml );
-		},
-
-		"~": function( checkSet, part, xml ) {
-			dirCheck( "previousSibling", checkSet, part, xml );
-		}
-	},
-
-	find: {
-		ID: assertGetIdNotName ?
-			function( match, context, xml ) {
-				if ( typeof context.getElementById !== strundefined && !xml ) {
-					var m = context.getElementById( match[1] );
-					// Check parentNode to catch when Blackberry 4.6 returns
-					// nodes that are no longer in the document #6963
-					return m && m.parentNode ? [m] : [];
-				}
-			} :
-			function( match, context, xml ) {
-				if ( typeof context.getElementById !== strundefined && !xml ) {
-					var m = context.getElementById( match[1] );
-
-					return m ?
-						m.id === match[1] || typeof m.getAttributeNode !== strundefined && m.getAttributeNode("id").nodeValue === match[1] ?
-							[m] :
-							undefined :
-						[];
-				}
-			},
-
-		NAME: function( match, context ) {
-			if ( typeof context.getElementsByName !== strundefined ) {
-				var ret = [],
-					results = context.getElementsByName( match[1] ),
-					i = 0,
-					len = results.length;
-
-				for ( ; i < len; i++ ) {
-					if ( results[i].getAttribute("name") === match[1] ) {
-						ret.push( results[i] );
-					}
-				}
-
-				return ret.length === 0 ? null : ret;
-			}
-		},
-
-		TAG: assertTagNameNoComments ?
-			function( match, context ) {
-				if ( typeof context.getElementsByTagName !== strundefined ) {
-					return context.getElementsByTagName( match[1] );
-				}
-			} :
-			function( match, context ) {
-				var results = context.getElementsByTagName( match[1] );
-
-				// Filter out possible comments
-				if ( match[1] === "*" ) {
-					var tmp = [],
-						i = 0;
-
-					for ( ; results[i]; i++ ) {
-						if ( results[i].nodeType === 1 ) {
-							tmp.push( results[i] );
-						}
-					}
-
-					results = tmp;
-				}
-				return results;
-			}
-	},
-
-	preFilter: {
-		CLASS: function( match, curLoop, inplace, result, not, xml ) {
-			match = " " + match[1].replace( rbackslash, "" ) + " ";
-
-			if ( xml ) {
-				return match;
-			}
-
-			for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
-				if ( elem ) {
-					if ( not ^ (elem.className && (" " + elem.className + " ").replace( rtnfr, " " ).indexOf( match ) >= 0) ) {
-						if ( !inplace ) {
-							result.push( elem );
-						}
-
-					} else if ( inplace ) {
-						curLoop[i] = false;
-					}
-				}
-			}
-
-			return false;
-		},
-
-		ID: function( match ) {
-			return match[1].replace( rbackslash, "" );
-		},
-
-		TAG: function( match, curLoop ) {
-			return match[1].replace( rbackslash, "" ).toLowerCase();
-		},
-
-		CHILD: function( match ) {
-			if ( match[1] === "nth" ) {
-				if ( !match[2] ) {
-					Sizzle.error( match[0] );
-				}
-
-				match[2] = match[2].replace( radjacent, "" );
-
-				// parse equations like 'even', 'odd', '5', '2n', '3n+2', '4n-1', '-n+6'
-				var test = rnth.exec(
-					match[2] === "even" && "2n" || match[2] === "odd" && "2n+1" ||
-					!rnonDigit.test( match[2] ) && "0n+" + match[2] || match[2] );
-
-				// calculate the numbers (first)n+(last) including if they are negative
-				match[2] = (test[1] + (test[2] || 1)) - 0;
-				match[3] = test[3] - 0;
-			} else if ( match[2] ) {
-				Sizzle.error( match[0] );
-			}
-
-			// TODO: Move to normal caching system
-			match[0] = done++;
-
-			return match;
-		},
-
-		ATTR: function( match, curLoop, inplace, result, not, xml ) {
-			var name = match[1] = match[1].replace( rbackslash, "" );
-
-			if ( !xml && Expr.attrMap[ name ] ) {
-				match[1] = Expr.attrMap[ name ];
-			}
-
-			// Handle if an un-quoted value was used
-			match[4] = ( match[4] || match[5] || "" ).replace( rbackslash, "" );
-
-			if ( match[2] === "~=" ) {
-				match[4] = " " + match[4] + " ";
-			}
-
-			return match;
-		},
-
-		PSEUDO: function( match, curLoop, inplace, result, not, xml ) {
-			if ( match[1] === "not" ) {
-				// If we're dealing with a complex expression, or a simple one
-				if ( ( chunker.exec( match[3] ) || "" ).length > 1 || rstartsWithWord.test( match[3] ) ) {
-					match[3] = select( match[3], document, [], curLoop, xml );
-
-				} else {
-					var ret = Sizzle.filter( match[3], curLoop, inplace, !not );
-
-					if ( !inplace ) {
-						result.push.apply( result, ret );
-					}
-
-					return false;
-				}
-
-			} else if ( matchExpr.POS.test( match[0] ) || matchExpr.CHILD.test( match[0] ) ) {
-				return true;
-			}
-
-			return match;
-		},
-
-		POS: function( match ) {
-			match.unshift( true );
-
-			return match;
-		}
-	},
-
-	filters: {
-		enabled: function( elem ) {
-			return elem.disabled === false;
-		},
-
-		disabled: function( elem ) {
-			return elem.disabled === true;
-		},
-
-		checked: function( elem ) {
-			// In CSS3, :checked should return both checked and selected elements
-			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-			var nodeName = elem.nodeName.toLowerCase();
-			return (nodeName === "input" && !! elem.checked) || (nodeName === "option" && !!elem.selected);
-		},
-
-		selected: function( elem ) {
-			// Accessing this property makes selected-by-default
-			// options in Safari work properly
-			if ( elem.parentNode ) {
-				elem.parentNode.selectedIndex;
-			}
-
-			return elem.selected === true;
-		},
-
-		parent: function( elem ) {
-			return !!elem.firstChild;
-		},
-
-		empty: function( elem ) {
-			return !elem.firstChild;
-		},
-
-		has: function( elem, i, match ) {
-			return !!Sizzle( match[3], elem ).length;
-		},
-
-		header: function( elem ) {
-			return rheader.test( elem.nodeName );
-		},
-
-		text: function( elem ) {
-			var attr = elem.getAttribute( "type" ), type = elem.type;
-			// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
-			// use getAttribute instead to test this case
-			return elem.nodeName.toLowerCase() === "input" && "text" === type && ( attr === null || attr.toLowerCase() === type );
-		},
-
-		radio: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "radio" === elem.type;
-		},
-
-		checkbox: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "checkbox" === elem.type;
-		},
-
-		file: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "file" === elem.type;
-		},
-
-		password: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "password" === elem.type;
-		},
-
-		submit: function( elem ) {
-			var name = elem.nodeName.toLowerCase();
-			return (name === "input" || name === "button") && "submit" === elem.type;
-		},
-
-		image: function( elem ) {
-			return elem.nodeName.toLowerCase() === "input" && "image" === elem.type;
-		},
-
-		reset: function( elem ) {
-			var name = elem.nodeName.toLowerCase();
-			return (name === "input" || name === "button") && "reset" === elem.type;
-		},
-
-		button: function( elem ) {
-			var name = elem.nodeName.toLowerCase();
-			return name === "input" && "button" === elem.type || name === "button";
-		},
-
-		input: function( elem ) {
-			return rinputs.test( elem.nodeName );
-		},
-
-		focus: function( elem ) {
-			var doc = elem.ownerDocument;
-			return elem === doc.activeElement && (!doc.hasFocus || doc.hasFocus()) && !!(elem.type || elem.href);
-		},
-
-		active: function( elem ) {
-			return elem === elem.ownerDocument.activeElement;
-		},
-
-		contains: function( elem, i, match ) {
-			return ( elem.textContent || elem.innerText || getText( elem ) ).indexOf( match[3] ) >= 0;
-		}
-	},
-
-	setFilters: {
-		first: function( elem, i ) {
-			return i === 0;
-		},
-
-		last: function( elem, i, match, array ) {
-			return i === array.length - 1;
-		},
-
-		even: function( elem, i ) {
-			return i % 2 === 0;
-		},
-
-		odd: function( elem, i ) {
-			return i % 2 === 1;
-		},
-
-		lt: function( elem, i, match ) {
-			return i < match[3] - 0;
-		},
-
-		gt: function( elem, i, match ) {
-			return i > match[3] - 0;
-		},
-
-		nth: function( elem, i, match ) {
-			return match[3] - 0 === i;
-		},
-
-		eq: function( elem, i, match ) {
-			return match[3] - 0 === i;
-		}
-	},
-
-	filter: {
-		PSEUDO: function( elem, match, i, array ) {
-			var name = match[1],
-				filter = Expr.filters[ name ];
-
-			if ( filter ) {
-				return filter( elem, i, match, array );
-
-			} else if ( name === "not" ) {
-				var not = match[3],
-					j = 0,
-					len = not.length;
-
-				for ( ; j < len; j++ ) {
-					if ( not[j] === elem ) {
-						return false;
-					}
-				}
-
-				return true;
-
-			} else {
-				Sizzle.error( name );
-			}
-		},
-
-		CHILD: function( elem, match ) {
-			var first, last,
-				doneName, parent, cache,
-				count, diff,
-				type = match[1],
-				node = elem;
-
-			switch ( type ) {
-				case "only":
-				case "first":
-					while ( (node = node.previousSibling) ) {
-						if ( node.nodeType === 1 ) {
-							return false;
-						}
-					}
-
-					if ( type === "first" ) {
-						return true;
-					}
-
-					node = elem;
-
-					/* falls through */
-				case "last":
-					while ( (node = node.nextSibling) ) {
-						if ( node.nodeType === 1 ) {
-							return false;
-						}
-					}
-
-					return true;
-
-				case "nth":
-					first = match[2];
-					last = match[3];
-
-					if ( first === 1 && last === 0 ) {
-						return true;
-					}
-
-					doneName = match[0];
-					parent = elem.parentNode;
-
-					if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
-						count = 0;
-
-						for ( node = parent.firstChild; node; node = node.nextSibling ) {
-							if ( node.nodeType === 1 ) {
-								node.nodeIndex = ++count;
-							}
-						}
-
-						parent[ expando ] = doneName;
-					}
-
-					diff = elem.nodeIndex - last;
-
-					if ( first === 0 ) {
-						return diff === 0;
-
-					} else {
-						return ( diff % first === 0 && diff / first >= 0 );
-					}
-			}
-		},
-
-		ID: assertGetIdNotName ?
-			function( elem, match ) {
-				return elem.nodeType === 1 && elem.getAttribute("id") === match;
-			} :
-			function( elem, match ) {
-				var node = typeof elem.getAttributeNode !== strundefined && elem.getAttributeNode("id");
-				return elem.nodeType === 1 && node && node.nodeValue === match;
-			},
-
-		TAG: function( elem, match ) {
-			return ( match === "*" && elem.nodeType === 1 ) || !!elem.nodeName && elem.nodeName.toLowerCase() === match;
-		},
-
-		CLASS: function( elem, match ) {
-			return ( " " + ( elem.className || elem.getAttribute("class") ) + " " ).indexOf( match ) > -1;
-		},
-
-		ATTR: function( elem, match ) {
-			var name = match[1],
-				result = Sizzle.attr ?
-					Sizzle.attr( elem, name ) :
-					Expr.attrHandle[ name ] ?
-					Expr.attrHandle[ name ]( elem ) :
-					elem[ name ] != null ?
-						elem[ name ] :
-						elem.getAttribute( name ),
-				value = result + "",
-				type = match[2],
-				check = match[4];
-
-			return result == null ?
-				type === "!=" :
-				!type && Sizzle.attr ?
-				result != null :
-				type === "=" ?
-				value === check :
-				type === "*=" ?
-				value.indexOf( check ) >= 0 :
-				type === "~=" ?
-				( " " + value + " " ).indexOf( check ) >= 0 :
-				!check ?
-				value && result !== false :
-				type === "!=" ?
-				value !== check :
-				type === "^=" ?
-				value.indexOf( check ) === 0 :
-				type === "$=" ?
-				value.substr( value.length - check.length ) === check :
-				type === "|=" ?
-				value === check || value.substr( 0, check.length + 1 ) === check + "-" :
-				false;
-		},
-
-		POS: function( elem, match, i, array ) {
-			var name = match[2],
-				filter = Expr.setFilters[ name ];
-
-			if ( filter ) {
-				return filter( elem, i, match, array );
-			}
-		}
-	}
+    match: matchExpr,
+    leftMatch: leftMatchExpr,
+
+    order: [ "ID", "NAME", "TAG" ],
+
+    attrMap: {
+        "class": "className",
+        "for": "htmlFor"
+    },
+
+    attrHandle: {
+        href: assertHrefNotNormalized ?
+            function( elem ) {
+                return elem.getAttribute( "href" );
+            } :
+            function( elem ) {
+                return elem.getAttribute( "href", 2 );
+            },
+        type: function( elem ) {
+            return elem.getAttribute( "type" );
+        }
+    },
+
+    relative: {
+        "+": function( checkSet, part ) {
+            var isPartStr = typeof part === "string",
+                isTag = isPartStr && !rnonWord.test( part ),
+                isPartStrNotTag = isPartStr && !isTag;
+
+            if ( isTag ) {
+                part = part.toLowerCase();
+            }
+
+            for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
+                if ( (elem = checkSet[i]) ) {
+                    while ( (elem = elem.previousSibling) && elem.nodeType !== 1 ) {}
+
+                    checkSet[i] = isPartStrNotTag || elem && elem.nodeName.toLowerCase() === part ?
+                        elem || false :
+                        elem === part;
+                }
+            }
+
+            if ( isPartStrNotTag ) {
+                Sizzle.filter( part, checkSet, true );
+            }
+        },
+
+        ">": function( checkSet, part ) {
+            var elem,
+                isPartStr = typeof part === "string",
+                i = 0,
+                l = checkSet.length;
+
+            if ( isPartStr && !rnonWord.test( part ) ) {
+                part = part.toLowerCase();
+
+                for ( ; i < l; i++ ) {
+                    elem = checkSet[i];
+
+                    if ( elem ) {
+                        var parent = elem.parentNode;
+                        checkSet[i] = parent.nodeName.toLowerCase() === part ? parent : false;
+                    }
+                }
+
+            } else {
+                for ( ; i < l; i++ ) {
+                    elem = checkSet[i];
+
+                    if ( elem ) {
+                        checkSet[i] = isPartStr ?
+                            elem.parentNode :
+                            elem.parentNode === part;
+                    }
+                }
+
+                if ( isPartStr ) {
+                    Sizzle.filter( part, checkSet, true );
+                }
+            }
+        },
+
+        "": function( checkSet, part, xml ) {
+            dirCheck( "parentNode", checkSet, part, xml );
+        },
+
+        "~": function( checkSet, part, xml ) {
+            dirCheck( "previousSibling", checkSet, part, xml );
+        }
+    },
+
+    find: {
+        ID: assertGetIdNotName ?
+            function( match, context, xml ) {
+                if ( typeof context.getElementById !== strundefined && !xml ) {
+                    var m = context.getElementById( match[1] );
+                    // Check parentNode to catch when Blackberry 4.6 returns
+                    // nodes that are no longer in the document #6963
+                    return m && m.parentNode ? [m] : [];
+                }
+            } :
+            function( match, context, xml ) {
+                if ( typeof context.getElementById !== strundefined && !xml ) {
+                    var m = context.getElementById( match[1] );
+
+                    return m ?
+                        m.id === match[1] || typeof m.getAttributeNode !== strundefined && m.getAttributeNode("id").nodeValue === match[1] ?
+                            [m] :
+                            undefined :
+                        [];
+                }
+            },
+
+        NAME: function( match, context ) {
+            if ( typeof context.getElementsByName !== strundefined ) {
+                var ret = [],
+                    results = context.getElementsByName( match[1] ),
+                    i = 0,
+                    len = results.length;
+
+                for ( ; i < len; i++ ) {
+                    if ( results[i].getAttribute("name") === match[1] ) {
+                        ret.push( results[i] );
+                    }
+                }
+
+                return ret.length === 0 ? null : ret;
+            }
+        },
+
+        TAG: assertTagNameNoComments ?
+            function( match, context ) {
+                if ( typeof context.getElementsByTagName !== strundefined ) {
+                    return context.getElementsByTagName( match[1] );
+                }
+            } :
+            function( match, context ) {
+                var results = context.getElementsByTagName( match[1] );
+
+                // Filter out possible comments
+                if ( match[1] === "*" ) {
+                    var tmp = [],
+                        i = 0;
+
+                    for ( ; results[i]; i++ ) {
+                        if ( results[i].nodeType === 1 ) {
+                            tmp.push( results[i] );
+                        }
+                    }
+
+                    results = tmp;
+                }
+                return results;
+            }
+    },
+
+    preFilter: {
+        CLASS: function( match, curLoop, inplace, result, not, xml ) {
+            match = " " + match[1].replace( rbackslash, "" ) + " ";
+
+            if ( xml ) {
+                return match;
+            }
+
+            for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
+                if ( elem ) {
+                    if ( not ^ (elem.className && (" " + elem.className + " ").replace( rtnfr, " " ).indexOf( match ) >= 0) ) {
+                        if ( !inplace ) {
+                            result.push( elem );
+                        }
+
+                    } else if ( inplace ) {
+                        curLoop[i] = false;
+                    }
+                }
+            }
+
+            return false;
+        },
+
+        ID: function( match ) {
+            return match[1].replace( rbackslash, "" );
+        },
+
+        TAG: function( match, curLoop ) {
+            return match[1].replace( rbackslash, "" ).toLowerCase();
+        },
+
+        CHILD: function( match ) {
+            if ( match[1] === "nth" ) {
+                if ( !match[2] ) {
+                    Sizzle.error( match[0] );
+                }
+
+                match[2] = match[2].replace( radjacent, "" );
+
+                // parse equations like 'even', 'odd', '5', '2n', '3n+2', '4n-1', '-n+6'
+                var test = rnth.exec(
+                    match[2] === "even" && "2n" || match[2] === "odd" && "2n+1" ||
+                    !rnonDigit.test( match[2] ) && "0n+" + match[2] || match[2] );
+
+                // calculate the numbers (first)n+(last) including if they are negative
+                match[2] = (test[1] + (test[2] || 1)) - 0;
+                match[3] = test[3] - 0;
+            } else if ( match[2] ) {
+                Sizzle.error( match[0] );
+            }
+
+            // TODO: Move to normal caching system
+            match[0] = done++;
+
+            return match;
+        },
+
+        ATTR: function( match, curLoop, inplace, result, not, xml ) {
+            var name = match[1] = match[1].replace( rbackslash, "" );
+
+            if ( !xml && Expr.attrMap[ name ] ) {
+                match[1] = Expr.attrMap[ name ];
+            }
+
+            // Handle if an un-quoted value was used
+            match[4] = ( match[4] || match[5] || "" ).replace( rbackslash, "" );
+
+            if ( match[2] === "~=" ) {
+                match[4] = " " + match[4] + " ";
+            }
+
+            return match;
+        },
+
+        PSEUDO: function( match, curLoop, inplace, result, not, xml ) {
+            if ( match[1] === "not" ) {
+                // If we're dealing with a complex expression, or a simple one
+                if ( ( chunker.exec( match[3] ) || "" ).length > 1 || rstartsWithWord.test( match[3] ) ) {
+                    match[3] = select( match[3], document, [], curLoop, xml );
+
+                } else {
+                    var ret = Sizzle.filter( match[3], curLoop, inplace, !not );
+
+                    if ( !inplace ) {
+                        result.push.apply( result, ret );
+                    }
+
+                    return false;
+                }
+
+            } else if ( matchExpr.POS.test( match[0] ) || matchExpr.CHILD.test( match[0] ) ) {
+                return true;
+            }
+
+            return match;
+        },
+
+        POS: function( match ) {
+            match.unshift( true );
+
+            return match;
+        }
+    },
+
+    filters: {
+        enabled: function( elem ) {
+            return elem.disabled === false;
+        },
+
+        disabled: function( elem ) {
+            return elem.disabled === true;
+        },
+
+        checked: function( elem ) {
+            // In CSS3, :checked should return both checked and selected elements
+            // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+            var nodeName = elem.nodeName.toLowerCase();
+            return (nodeName === "input" && !! elem.checked) || (nodeName === "option" && !!elem.selected);
+        },
+
+        selected: function( elem ) {
+            // Accessing this property makes selected-by-default
+            // options in Safari work properly
+            if ( elem.parentNode ) {
+                elem.parentNode.selectedIndex;
+            }
+
+            return elem.selected === true;
+        },
+
+        parent: function( elem ) {
+            return !!elem.firstChild;
+        },
+
+        empty: function( elem ) {
+            return !elem.firstChild;
+        },
+
+        has: function( elem, i, match ) {
+            return !!Sizzle( match[3], elem ).length;
+        },
+
+        header: function( elem ) {
+            return rheader.test( elem.nodeName );
+        },
+
+        text: function( elem ) {
+            var attr = elem.getAttribute( "type" ), type = elem.type;
+            // IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
+            // use getAttribute instead to test this case
+            return elem.nodeName.toLowerCase() === "input" && "text" === type && ( attr === null || attr.toLowerCase() === type );
+        },
+
+        radio: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "radio" === elem.type;
+        },
+
+        checkbox: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "checkbox" === elem.type;
+        },
+
+        file: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "file" === elem.type;
+        },
+
+        password: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "password" === elem.type;
+        },
+
+        submit: function( elem ) {
+            var name = elem.nodeName.toLowerCase();
+            return (name === "input" || name === "button") && "submit" === elem.type;
+        },
+
+        image: function( elem ) {
+            return elem.nodeName.toLowerCase() === "input" && "image" === elem.type;
+        },
+
+        reset: function( elem ) {
+            var name = elem.nodeName.toLowerCase();
+            return (name === "input" || name === "button") && "reset" === elem.type;
+        },
+
+        button: function( elem ) {
+            var name = elem.nodeName.toLowerCase();
+            return name === "input" && "button" === elem.type || name === "button";
+        },
+
+        input: function( elem ) {
+            return rinputs.test( elem.nodeName );
+        },
+
+        focus: function( elem ) {
+            var doc = elem.ownerDocument;
+            return elem === doc.activeElement && (!doc.hasFocus || doc.hasFocus()) && !!(elem.type || elem.href);
+        },
+
+        active: function( elem ) {
+            return elem === elem.ownerDocument.activeElement;
+        },
+
+        contains: function( elem, i, match ) {
+            return ( elem.textContent || elem.innerText || getText( elem ) ).indexOf( match[3] ) >= 0;
+        }
+    },
+
+    setFilters: {
+        first: function( elem, i ) {
+            return i === 0;
+        },
+
+        last: function( elem, i, match, array ) {
+            return i === array.length - 1;
+        },
+
+        even: function( elem, i ) {
+            return i % 2 === 0;
+        },
+
+        odd: function( elem, i ) {
+            return i % 2 === 1;
+        },
+
+        lt: function( elem, i, match ) {
+            return i < match[3] - 0;
+        },
+
+        gt: function( elem, i, match ) {
+            return i > match[3] - 0;
+        },
+
+        nth: function( elem, i, match ) {
+            return match[3] - 0 === i;
+        },
+
+        eq: function( elem, i, match ) {
+            return match[3] - 0 === i;
+        }
+    },
+
+    filter: {
+        PSEUDO: function( elem, match, i, array ) {
+            var name = match[1],
+                filter = Expr.filters[ name ];
+
+            if ( filter ) {
+                return filter( elem, i, match, array );
+
+            } else if ( name === "not" ) {
+                var not = match[3],
+                    j = 0,
+                    len = not.length;
+
+                for ( ; j < len; j++ ) {
+                    if ( not[j] === elem ) {
+                        return false;
+                    }
+                }
+
+                return true;
+
+            } else {
+                Sizzle.error( name );
+            }
+        },
+
+        CHILD: function( elem, match ) {
+            var first, last,
+                doneName, parent, cache,
+                count, diff,
+                type = match[1],
+                node = elem;
+
+            switch ( type ) {
+                case "only":
+                case "first":
+                    while ( (node = node.previousSibling) ) {
+                        if ( node.nodeType === 1 ) {
+                            return false;
+                        }
+                    }
+
+                    if ( type === "first" ) {
+                        return true;
+                    }
+
+                    node = elem;
+
+                    /* falls through */
+                case "last":
+                    while ( (node = node.nextSibling) ) {
+                        if ( node.nodeType === 1 ) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+
+                case "nth":
+                    first = match[2];
+                    last = match[3];
+
+                    if ( first === 1 && last === 0 ) {
+                        return true;
+                    }
+
+                    doneName = match[0];
+                    parent = elem.parentNode;
+
+                    if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
+                        count = 0;
+
+                        for ( node = parent.firstChild; node; node = node.nextSibling ) {
+                            if ( node.nodeType === 1 ) {
+                                node.nodeIndex = ++count;
+                            }
+                        }
+
+                        parent[ expando ] = doneName;
+                    }
+
+                    diff = elem.nodeIndex - last;
+
+                    if ( first === 0 ) {
+                        return diff === 0;
+
+                    } else {
+                        return ( diff % first === 0 && diff / first >= 0 );
+                    }
+            }
+        },
+
+        ID: assertGetIdNotName ?
+            function( elem, match ) {
+                return elem.nodeType === 1 && elem.getAttribute("id") === match;
+            } :
+            function( elem, match ) {
+                var node = typeof elem.getAttributeNode !== strundefined && elem.getAttributeNode("id");
+                return elem.nodeType === 1 && node && node.nodeValue === match;
+            },
+
+        TAG: function( elem, match ) {
+            return ( match === "*" && elem.nodeType === 1 ) || !!elem.nodeName && elem.nodeName.toLowerCase() === match;
+        },
+
+        CLASS: function( elem, match ) {
+            return ( " " + ( elem.className || elem.getAttribute("class") ) + " " ).indexOf( match ) > -1;
+        },
+
+        ATTR: function( elem, match ) {
+            var name = match[1],
+                result = Sizzle.attr ?
+                    Sizzle.attr( elem, name ) :
+                    Expr.attrHandle[ name ] ?
+                    Expr.attrHandle[ name ]( elem ) :
+                    elem[ name ] != null ?
+                        elem[ name ] :
+                        elem.getAttribute( name ),
+                value = result + "",
+                type = match[2],
+                check = match[4];
+
+            return result == null ?
+                type === "!=" :
+                !type && Sizzle.attr ?
+                result != null :
+                type === "=" ?
+                value === check :
+                type === "*=" ?
+                value.indexOf( check ) >= 0 :
+                type === "~=" ?
+                ( " " + value + " " ).indexOf( check ) >= 0 :
+                !check ?
+                value && result !== false :
+                type === "!=" ?
+                value !== check :
+                type === "^=" ?
+                value.indexOf( check ) === 0 :
+                type === "$=" ?
+                value.substr( value.length - check.length ) === check :
+                type === "|=" ?
+                value === check || value.substr( 0, check.length + 1 ) === check + "-" :
+                false;
+        },
+
+        POS: function( elem, match, i, array ) {
+            var name = match[2],
+                filter = Expr.setFilters[ name ];
+
+            if ( filter ) {
+                return filter( elem, i, match, array );
+            }
+        }
+    }
 };
 
 // Add getElementsByClassName if usable
 if ( assertUsableClassName ) {
-	Expr.order.splice( 1, 0, "CLASS" );
-	Expr.find.CLASS = function( match, context, xml ) {
-		if ( typeof context.getElementsByClassName !== strundefined && !xml ) {
-			return context.getElementsByClassName( match[1] );
-		}
-	};
+    Expr.order.splice( 1, 0, "CLASS" );
+    Expr.find.CLASS = function( match, context, xml ) {
+        if ( typeof context.getElementsByClassName !== strundefined && !xml ) {
+            return context.getElementsByClassName( match[1] );
+        }
+    };
 }
 
 var sortOrder, siblingCheck;
 
 if ( docElem.compareDocumentPosition ) {
-	sortOrder = function( a, b ) {
-		if ( a === b ) {
-			hasDuplicate = true;
-			return 0;
-		}
+    sortOrder = function( a, b ) {
+        if ( a === b ) {
+            hasDuplicate = true;
+            return 0;
+        }
 
-		if ( !a.compareDocumentPosition || !b.compareDocumentPosition ) {
-			return a.compareDocumentPosition ? -1 : 1;
-		}
+        if ( !a.compareDocumentPosition || !b.compareDocumentPosition ) {
+            return a.compareDocumentPosition ? -1 : 1;
+        }
 
-		return a.compareDocumentPosition(b) & 4 ? -1 : 1;
-	};
+        return a.compareDocumentPosition(b) & 4 ? -1 : 1;
+    };
 
 } else {
-	sortOrder = function( a, b ) {
-		// The nodes are identical, we can exit early
-		if ( a === b ) {
-			hasDuplicate = true;
-			return 0;
+    sortOrder = function( a, b ) {
+        // The nodes are identical, we can exit early
+        if ( a === b ) {
+            hasDuplicate = true;
+            return 0;
 
-		// Fallback to using sourceIndex (in IE) if it's available on both nodes
-		} else if ( a.sourceIndex && b.sourceIndex ) {
-			return a.sourceIndex - b.sourceIndex;
-		}
+        // Fallback to using sourceIndex (in IE) if it's available on both nodes
+        } else if ( a.sourceIndex && b.sourceIndex ) {
+            return a.sourceIndex - b.sourceIndex;
+        }
 
-		var al, bl,
-			ap = [],
-			bp = [],
-			aup = a.parentNode,
-			bup = b.parentNode,
-			cur = aup;
+        var al, bl,
+            ap = [],
+            bp = [],
+            aup = a.parentNode,
+            bup = b.parentNode,
+            cur = aup;
 
-		// If the nodes are siblings (or identical) we can do a quick check
-		if ( aup === bup ) {
-			return siblingCheck( a, b );
+        // If the nodes are siblings (or identical) we can do a quick check
+        if ( aup === bup ) {
+            return siblingCheck( a, b );
 
-		// If no parents were found then the nodes are disconnected
-		} else if ( !aup ) {
-			return -1;
+        // If no parents were found then the nodes are disconnected
+        } else if ( !aup ) {
+            return -1;
 
-		} else if ( !bup ) {
-			return 1;
-		}
+        } else if ( !bup ) {
+            return 1;
+        }
 
-		// Otherwise they're somewhere else in the tree so we need
-		// to build up a full list of the parentNodes for comparison
-		while ( cur ) {
-			ap.unshift( cur );
-			cur = cur.parentNode;
-		}
+        // Otherwise they're somewhere else in the tree so we need
+        // to build up a full list of the parentNodes for comparison
+        while ( cur ) {
+            ap.unshift( cur );
+            cur = cur.parentNode;
+        }
 
-		cur = bup;
+        cur = bup;
 
-		while ( cur ) {
-			bp.unshift( cur );
-			cur = cur.parentNode;
-		}
+        while ( cur ) {
+            bp.unshift( cur );
+            cur = cur.parentNode;
+        }
 
-		al = ap.length;
-		bl = bp.length;
+        al = ap.length;
+        bl = bp.length;
 
-		// Start walking down the tree looking for a discrepancy
-		for ( var i = 0; i < al && i < bl; i++ ) {
-			if ( ap[i] !== bp[i] ) {
-				return siblingCheck( ap[i], bp[i] );
-			}
-		}
+        // Start walking down the tree looking for a discrepancy
+        for ( var i = 0; i < al && i < bl; i++ ) {
+            if ( ap[i] !== bp[i] ) {
+                return siblingCheck( ap[i], bp[i] );
+            }
+        }
 
-		// We ended someplace up the tree so do a sibling check
-		return i === al ?
-			siblingCheck( a, bp[i], -1 ) :
-			siblingCheck( ap[i], b, 1 );
-	};
+        // We ended someplace up the tree so do a sibling check
+        return i === al ?
+            siblingCheck( a, bp[i], -1 ) :
+            siblingCheck( ap[i], b, 1 );
+    };
 
-	siblingCheck = function( a, b, ret ) {
-		if ( a === b ) {
-			return ret;
-		}
+    siblingCheck = function( a, b, ret ) {
+        if ( a === b ) {
+            return ret;
+        }
 
-		var cur = a.nextSibling;
+        var cur = a.nextSibling;
 
-		while ( cur ) {
-			if ( cur === b ) {
-				return -1;
-			}
+        while ( cur ) {
+            if ( cur === b ) {
+                return -1;
+            }
 
-			cur = cur.nextSibling;
-		}
+            cur = cur.nextSibling;
+        }
 
-		return 1;
-	};
+        return 1;
+    };
 }
 
 if ( document.querySelectorAll ) {
-	(function(){
-		var oldSelect = select,
-			id = "__sizzle__",
-			rrelativeHierarchy = /^\s*[+~]/,
-			rapostrophe = /'/g,
-			// Build QSA regex
-			// Regex strategy adopted from Diego Perini
-			rbuggyQSA = [];
+    (function(){
+        var oldSelect = select,
+            id = "__sizzle__",
+            rrelativeHierarchy = /^\s*[+~]/,
+            rapostrophe = /'/g,
+            // Build QSA regex
+            // Regex strategy adopted from Diego Perini
+            rbuggyQSA = [];
 
-		assert(function( div ) {
-			div.innerHTML = "<select><option selected></option></select>";
+        assert(function( div ) {
+            div.innerHTML = "<select><option selected></option></select>";
 
-			// IE8 - Some boolean attributes are not treated correctly
-			if ( !div.querySelectorAll("[selected]").length ) {
-				rbuggyQSA.push("\\[[\\x20\\t\\n\\r\\f]*(?:checked|disabled|ismap|multiple|readonly|selected|value)");
-			}
+            // IE8 - Some boolean attributes are not treated correctly
+            if ( !div.querySelectorAll("[selected]").length ) {
+                rbuggyQSA.push("\\[[\\x20\\t\\n\\r\\f]*(?:checked|disabled|ismap|multiple|readonly|selected|value)");
+            }
 
-			// Webkit/Opera - :checked should return selected option elements
-			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-			// IE8 throws error here (do not put tests after this one)
-			if ( !div.querySelectorAll(":checked").length ) {
-				rbuggyQSA.push(":checked");
-			}
-		});
+            // Webkit/Opera - :checked should return selected option elements
+            // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+            // IE8 throws error here (do not put tests after this one)
+            if ( !div.querySelectorAll(":checked").length ) {
+                rbuggyQSA.push(":checked");
+            }
+        });
 
-		assert(function( div ) {
+        assert(function( div ) {
 
-			// Opera 10/IE - ^= $= *= and empty values
-			div.innerHTML = "<p class=''></p>";
-			// Should not select anything
-			if ( div.querySelectorAll("[class^='']").length ) {
-				rbuggyQSA.push("[*^$]=[\\x20\\t\\n\\r\\f]*(?:\"\"|'')");
-			}
+            // Opera 10/IE - ^= $= *= and empty values
+            div.innerHTML = "<p class=''></p>";
+            // Should not select anything
+            if ( div.querySelectorAll("[class^='']").length ) {
+                rbuggyQSA.push("[*^$]=[\\x20\\t\\n\\r\\f]*(?:\"\"|'')");
+            }
 
-			// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
-			// IE8 throws error here (do not put tests after this one)
-			div.innerHTML = "<input type='hidden'>";
-			if ( !div.querySelectorAll(":enabled").length ) {
-				rbuggyQSA.push(":enabled", ":disabled");
-			}
-		});
+            // FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
+            // IE8 throws error here (do not put tests after this one)
+            div.innerHTML = "<input type='hidden'>";
+            if ( !div.querySelectorAll(":enabled").length ) {
+                rbuggyQSA.push(":enabled", ":disabled");
+            }
+        });
 
-		rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join("|") );
+        rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join("|") );
 
-		select = function( selector, context, results, seed, contextXML ) {
-			// Only use querySelectorAll when not filtering,
-			// when this is not xml,
-			// and when no QSA bugs apply
-			if ( !seed && !contextXML && (!rbuggyQSA || !rbuggyQSA.test( selector )) ) {
-				if ( context.nodeType === 9 ) {
-					try {
-						return makeArray( context.querySelectorAll( selector ), results );
-					} catch(qsaError) {}
-				// qSA works strangely on Element-rooted queries
-				// We can work around this by specifying an extra ID on the root
-				// and working up from there (Thanks to Andrew Dupont for the technique)
-				// IE 8 doesn't work on object elements
-				} else if ( context.nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
-					var oldContext = context,
-						old = context.getAttribute( "id" ),
-						nid = old || id,
-						parent = context.parentNode,
-						relativeHierarchySelector = rrelativeHierarchy.test( selector );
+        select = function( selector, context, results, seed, contextXML ) {
+            // Only use querySelectorAll when not filtering,
+            // when this is not xml,
+            // and when no QSA bugs apply
+            if ( !seed && !contextXML && (!rbuggyQSA || !rbuggyQSA.test( selector )) ) {
+                if ( context.nodeType === 9 ) {
+                    try {
+                        return makeArray( context.querySelectorAll( selector ), results );
+                    } catch(qsaError) {}
+                // qSA works strangely on Element-rooted queries
+                // We can work around this by specifying an extra ID on the root
+                // and working up from there (Thanks to Andrew Dupont for the technique)
+                // IE 8 doesn't work on object elements
+                } else if ( context.nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
+                    var oldContext = context,
+                        old = context.getAttribute( "id" ),
+                        nid = old || id,
+                        parent = context.parentNode,
+                        relativeHierarchySelector = rrelativeHierarchy.test( selector );
 
-					if ( !old ) {
-						context.setAttribute( "id", nid );
-					} else {
-						nid = nid.replace( rapostrophe, "\\$&" );
-					}
-					if ( relativeHierarchySelector && parent ) {
-						context = parent;
-					}
+                    if ( !old ) {
+                        context.setAttribute( "id", nid );
+                    } else {
+                        nid = nid.replace( rapostrophe, "\\$&" );
+                    }
+                    if ( relativeHierarchySelector && parent ) {
+                        context = parent;
+                    }
 
-					try {
-						if ( !relativeHierarchySelector || parent ) {
-							return makeArray( context.querySelectorAll( "[id='" + nid + "'] " + selector ), results );
-						}
-					} catch(qsaError) {
-					} finally {
-						if ( !old ) {
-							oldContext.removeAttribute( "id" );
-						}
-					}
-				}
-			}
+                    try {
+                        if ( !relativeHierarchySelector || parent ) {
+                            return makeArray( context.querySelectorAll( "[id='" + nid + "'] " + selector ), results );
+                        }
+                    } catch(qsaError) {
+                    } finally {
+                        if ( !old ) {
+                            oldContext.removeAttribute( "id" );
+                        }
+                    }
+                }
+            }
 
-			return oldSelect( selector, context, results, seed, contextXML );
-		};
-	})();
+            return oldSelect( selector, context, results, seed, contextXML );
+        };
+    })();
 }
 
 function dirCheck( dir, checkSet, part, xml ) {
-	var elem, match, isElem, nodeCheck,
-		doneName = done++,
-		i = 0,
-		len = checkSet.length;
+    var elem, match, isElem, nodeCheck,
+        doneName = done++,
+        i = 0,
+        len = checkSet.length;
 
-	if ( typeof part === "string" && !rnonWord.test( part ) ) {
-		part = part.toLowerCase();
-		nodeCheck = part;
-	}
+    if ( typeof part === "string" && !rnonWord.test( part ) ) {
+        part = part.toLowerCase();
+        nodeCheck = part;
+    }
 
-	for ( ; i < len; i++ ) {
-		elem = checkSet[i];
+    for ( ; i < len; i++ ) {
+        elem = checkSet[i];
 
-		if ( elem ) {
-			match = false;
-			elem = elem[ dir ];
+        if ( elem ) {
+            match = false;
+            elem = elem[ dir ];
 
-			while ( elem ) {
-				if ( elem[ expando ] === doneName ) {
-					match = checkSet[ elem.sizset ];
-					break;
-				}
+            while ( elem ) {
+                if ( elem[ expando ] === doneName ) {
+                    match = checkSet[ elem.sizset ];
+                    break;
+                }
 
-				isElem = elem.nodeType === 1;
-				if ( isElem && !xml ) {
-					elem[ expando ] = doneName;
-					elem.sizset = i;
-				}
+                isElem = elem.nodeType === 1;
+                if ( isElem && !xml ) {
+                    elem[ expando ] = doneName;
+                    elem.sizset = i;
+                }
 
-				if ( nodeCheck ) {
-					if ( elem.nodeName.toLowerCase() === part ) {
-						match = elem;
-						break;
-					}
-				} else if ( isElem ) {
-					if ( typeof part !== "string" ) {
-						if ( elem === part ) {
-							match = true;
-							break;
-						}
+                if ( nodeCheck ) {
+                    if ( elem.nodeName.toLowerCase() === part ) {
+                        match = elem;
+                        break;
+                    }
+                } else if ( isElem ) {
+                    if ( typeof part !== "string" ) {
+                        if ( elem === part ) {
+                            match = true;
+                            break;
+                        }
 
-					} else if ( Sizzle.filter( part, [elem] ).length > 0 ) {
-						match = elem;
-						break;
-					}
-				}
+                    } else if ( Sizzle.filter( part, [elem] ).length > 0 ) {
+                        match = elem;
+                        break;
+                    }
+                }
 
-				elem = elem[ dir ];
-			}
+                elem = elem[ dir ];
+            }
 
-			checkSet[i] = match;
-		}
-	}
+            checkSet[i] = match;
+        }
+    }
 }
 
 var posProcess = function( selector, context, seed, contextXML ) {
-	var match,
-		tmpSet = [],
-		later = "",
-		root = context.nodeType ? [ context ] : context,
-		i = 0,
-		len = root.length;
+    var match,
+        tmpSet = [],
+        later = "",
+        root = context.nodeType ? [ context ] : context,
+        i = 0,
+        len = root.length;
 
-	// Position selectors must be done after the filter
-	// And so must :not(positional) so we move all PSEUDOs to the end
-	while ( (match = matchExpr.PSEUDO.exec( selector )) ) {
-		later += match[0];
-		selector = selector.replace( matchExpr.PSEUDO, "" );
-	}
+    // Position selectors must be done after the filter
+    // And so must :not(positional) so we move all PSEUDOs to the end
+    while ( (match = matchExpr.PSEUDO.exec( selector )) ) {
+        later += match[0];
+        selector = selector.replace( matchExpr.PSEUDO, "" );
+    }
 
-	if ( Expr.relative[ selector ] ) {
-		selector += "*";
-	}
+    if ( Expr.relative[ selector ] ) {
+        selector += "*";
+    }
 
-	for ( ; i < len; i++ ) {
-		select( selector, root[i], tmpSet, seed, contextXML );
-	}
+    for ( ; i < len; i++ ) {
+        select( selector, root[i], tmpSet, seed, contextXML );
+    }
 
-	return Sizzle.filter( later, tmpSet );
+    return Sizzle.filter( later, tmpSet );
 };
 
 // EXPOSE
@@ -25133,27 +25553,27 @@ baidu.string.extend({
 baidu.string.filterFormat = function (source, opts) {
     var data = Array.prototype.slice.call(arguments,1), toString = Object.prototype.toString;
     if(data.length){
-	    data = data.length == 1 ? 
-	    	/* ie 下 Object.prototype.toString.call(null) == '[object Object]' */
-	    	(opts !== null && (/\[object Array\]|\[object Object\]/.test(toString.call(opts))) ? opts : data) 
-	    	: data;
-    	return source.replace(/#\{(.+?)\}/g, function (match, key){
-		    var filters, replacer, i, len, func;
-		    if(!data) return '';
-	    	filters = key.split("|");
-	    	replacer = data[filters[0]];
-	    	// chrome 下 typeof /a/ == 'function'
-	    	if('[object Function]' == toString.call(replacer)){
-	    		replacer = replacer(filters[0]/*key*/);
-	    	}
-	    	for(i=1,len = filters.length; i< len; ++i){
-	    		func = baidu.string.filterFormat[filters[i]];
-	    		if('[object Function]' == toString.call(func)){
-	    			replacer = func(replacer);
-	    		}
-	    	}
-	    	return ( ('undefined' == typeof replacer || replacer === null)? '' : replacer);
-    	});
+        data = data.length == 1 ? 
+            /* ie 下 Object.prototype.toString.call(null) == '[object Object]' */
+            (opts !== null && (/\[object Array\]|\[object Object\]/.test(toString.call(opts))) ? opts : data) 
+            : data;
+        return source.replace(/#\{(.+?)\}/g, function (match, key){
+            var filters, replacer, i, len, func;
+            if(!data) return '';
+            filters = key.split("|");
+            replacer = data[filters[0]];
+            // chrome 下 typeof /a/ == 'function'
+            if('[object Function]' == toString.call(replacer)){
+                replacer = replacer(filters[0]/*key*/);
+            }
+            for(i=1,len = filters.length; i< len; ++i){
+                func = baidu.string.filterFormat[filters[i]];
+                if('[object Function]' == toString.call(func)){
+                    replacer = func(replacer);
+                }
+            }
+            return ( ('undefined' == typeof replacer || replacer === null)? '' : replacer);
+        });
     }
     return source;
 };
@@ -25183,17 +25603,17 @@ baidu.string.filterFormat = function (source, opts) {
  * @return {String} 转义之后的字符串
  */
 baidu.string.filterFormat.escapeJs = function(str){
-	if(!str || 'string' != typeof str) return str;
-	var i,len,charCode,ret = [];
-	for(i=0, len=str.length; i < len; ++i){
-		charCode = str.charCodeAt(i);
-		if(charCode > 255){
-			ret.push(str.charAt(i));
-		} else{
-			ret.push('\\x' + charCode.toString(16));
-		}
-	}
-	return ret.join('');
+    if(!str || 'string' != typeof str) return str;
+    var i,len,charCode,ret = [];
+    for(i=0, len=str.length; i < len; ++i){
+        charCode = str.charCodeAt(i);
+        if(charCode > 255){
+            ret.push(str.charAt(i));
+        } else{
+            ret.push('\\x' + charCode.toString(16));
+        }
+    }
+    return ret.join('');
 };
 baidu.string.filterFormat.js = baidu.string.filterFormat.escapeJs;
 /// Tangram 1.x Code End
@@ -25222,10 +25642,10 @@ baidu.string.filterFormat.js = baidu.string.filterFormat.escapeJs;
  * @return {String} 转义之后的字符串
  */
 baidu.string.filterFormat.escapeString = function(str){
-	if(!str || 'string' != typeof str) return str;
-	return str.replace(/["'<>\\\/`]/g, function($0){
-	   return '&#'+ $0.charCodeAt(0) +';';
-	});
+    if(!str || 'string' != typeof str) return str;
+    return str.replace(/["'<>\\\/`]/g, function($0){
+       return '&#'+ $0.charCodeAt(0) +';';
+    });
 };
 
 baidu.string.filterFormat.e = baidu.string.filterFormat.escapeString;
@@ -25255,7 +25675,7 @@ baidu.string.filterFormat.e = baidu.string.filterFormat.escapeString;
  * @return {Number} 转义之后的数字
  */
 baidu.string.filterFormat.toInt = function(str){
-	return parseInt(str, 10) || 0;
+    return parseInt(str, 10) || 0;
 };
 baidu.string.filterFormat.i = baidu.string.filterFormat.toInt;
 /// Tangram 1.x Code End
@@ -25292,21 +25712,21 @@ baidu.string.filterFormat.i = baidu.string.filterFormat.toInt;
 //format(a,a,d,f,c,d,g,c);
 baidu.string.extend({
     format : function (opts) {
-    	var source = this.valueOf(),
+        var source = this.valueOf(),
             data = Array.prototype.slice.call(arguments,0), toString = Object.prototype.toString;
         if(data.length){
-    	    data = data.length == 1 ? 
-    	    	/* ie 下 Object.prototype.toString.call(null) == '[object Object]' */
-    	    	(opts !== null && (/\[object Array\]|\[object Object\]/.test(toString.call(opts))) ? opts : data) 
-    	    	: data;
-        	return source.replace(/#\{(.+?)\}/g, function (match, key){
-    	    	var replacer = data[key];
-    	    	// chrome 下 typeof /a/ == 'function'
-    	    	if('[object Function]' == toString.call(replacer)){
-    	    		replacer = replacer(key);
-    	    	}
-    	    	return ('undefined' == typeof replacer ? '' : replacer);
-        	});
+            data = data.length == 1 ? 
+                /* ie 下 Object.prototype.toString.call(null) == '[object Object]' */
+                (opts !== null && (/\[object Array\]|\[object Object\]/.test(toString.call(opts))) ? opts : data) 
+                : data;
+            return source.replace(/#\{(.+?)\}/g, function (match, key){
+                var replacer = data[key];
+                // chrome 下 typeof /a/ == 'function'
+                if('[object Function]' == toString.call(replacer)){
+                    replacer = replacer(key);
+                }
+                return ('undefined' == typeof replacer ? '' : replacer);
+            });
         }
         return source;
     }
@@ -25660,30 +26080,30 @@ baidu.swf.version = (function () {
  * @function
  * @grammar baidu.swf.createHTML(options)
  * 
- * @param {Object} 	options 					创建flash的选项参数
- * @param {string} 	options.id 					要创建的flash的标识
- * @param {string} 	options.url 				flash文件的url
- * @param {String} 	options.errorMessage 		未安装flash player或flash player版本号过低时的提示
- * @param {string} 	options.ver 				最低需要的flash player版本号
- * @param {string} 	options.width 				flash的宽度
- * @param {string} 	options.height 				flash的高度
- * @param {string} 	options.align 				flash的对齐方式，允许值：middle/left/right/top/bottom
- * @param {string} 	options.base 				设置用于解析swf文件中的所有相对路径语句的基本目录或URL
- * @param {string} 	options.bgcolor 			swf文件的背景色
- * @param {string} 	options.salign 				设置缩放的swf文件在由width和height设置定义的区域内的位置。允许值：l/r/t/b/tl/tr/bl/br
- * @param {boolean} options.menu 				是否显示右键菜单，允许值：true/false
- * @param {boolean} options.loop 				播放到最后一帧时是否重新播放，允许值： true/false
- * @param {boolean} options.play 				flash是否在浏览器加载时就开始播放。允许值：true/false
- * @param {string} 	options.quality 			设置flash播放的画质，允许值：low/medium/high/autolow/autohigh/best
- * @param {string} 	options.scale 				设置flash内容如何缩放来适应设置的宽高。允许值：showall/noborder/exactfit
- * @param {string} 	options.wmode 				设置flash的显示模式。允许值：window/opaque/transparent
- * @param {string} 	options.allowscriptaccess 	设置flash与页面的通信权限。允许值：always/never/sameDomain
- * @param {string} 	options.allownetworking 	设置swf文件中允许使用的网络API。允许值：all/internal/none
- * @param {boolean} options.allowfullscreen 	是否允许flash全屏。允许值：true/false
- * @param {boolean} options.seamlesstabbing 	允许设置执行无缝跳格，从而使用户能跳出flash应用程序。该参数只能在安装Flash7及更高版本的Windows中使用。允许值：true/false
- * @param {boolean} options.devicefont 			设置静态文本对象是否以设备字体呈现。允许值：true/false
- * @param {boolean} options.swliveconnect 		第一次加载flash时浏览器是否应启动Java。允许值：true/false
- * @param {Object} 	options.vars 				要传递给flash的参数，支持JSON或string类型。
+ * @param {Object}     options                     创建flash的选项参数
+ * @param {string}     options.id                     要创建的flash的标识
+ * @param {string}     options.url                 flash文件的url
+ * @param {String}     options.errorMessage         未安装flash player或flash player版本号过低时的提示
+ * @param {string}     options.ver                 最低需要的flash player版本号
+ * @param {string}     options.width                 flash的宽度
+ * @param {string}     options.height                 flash的高度
+ * @param {string}     options.align                 flash的对齐方式，允许值：middle/left/right/top/bottom
+ * @param {string}     options.base                 设置用于解析swf文件中的所有相对路径语句的基本目录或URL
+ * @param {string}     options.bgcolor             swf文件的背景色
+ * @param {string}     options.salign                 设置缩放的swf文件在由width和height设置定义的区域内的位置。允许值：l/r/t/b/tl/tr/bl/br
+ * @param {boolean} options.menu                 是否显示右键菜单，允许值：true/false
+ * @param {boolean} options.loop                 播放到最后一帧时是否重新播放，允许值： true/false
+ * @param {boolean} options.play                 flash是否在浏览器加载时就开始播放。允许值：true/false
+ * @param {string}     options.quality             设置flash播放的画质，允许值：low/medium/high/autolow/autohigh/best
+ * @param {string}     options.scale                 设置flash内容如何缩放来适应设置的宽高。允许值：showall/noborder/exactfit
+ * @param {string}     options.wmode                 设置flash的显示模式。允许值：window/opaque/transparent
+ * @param {string}     options.allowscriptaccess     设置flash与页面的通信权限。允许值：always/never/sameDomain
+ * @param {string}     options.allownetworking     设置swf文件中允许使用的网络API。允许值：all/internal/none
+ * @param {boolean} options.allowfullscreen     是否允许flash全屏。允许值：true/false
+ * @param {boolean} options.seamlesstabbing     允许设置执行无缝跳格，从而使用户能跳出flash应用程序。该参数只能在安装Flash7及更高版本的Windows中使用。允许值：true/false
+ * @param {boolean} options.devicefont             设置静态文本对象是否以设备字体呈现。允许值：true/false
+ * @param {boolean} options.swliveconnect         第一次加载flash时浏览器是否应启动Java。允许值：true/false
+ * @param {Object}     options.vars                 要传递给flash的参数，支持JSON或string类型。
  * 
  * @see baidu.swf.create
  * @meta standard
@@ -25832,32 +26252,32 @@ baidu.swf.createHTML = function (options) {
  * @function
  * @grammar baidu.swf.create(options[, container])
  * 
- * @param {Object} 	options 					创建flash的选项参数
- * @param {string} 	options.id 					要创建的flash的标识
- * @param {string} 	options.url 				flash文件的url
- * @param {String} 	options.errorMessage 		未安装flash player或flash player版本号过低时的提示
- * @param {string} 	options.ver 				最低需要的flash player版本号
- * @param {string} 	options.width 				flash的宽度
- * @param {string} 	options.height 				flash的高度
- * @param {string} 	options.align 				flash的对齐方式，允许值：middle/left/right/top/bottom
- * @param {string} 	options.base 				设置用于解析swf文件中的所有相对路径语句的基本目录或URL
- * @param {string} 	options.bgcolor 			swf文件的背景色
- * @param {string} 	options.salign 				设置缩放的swf文件在由width和height设置定义的区域内的位置。允许值：l/r/t/b/tl/tr/bl/br
- * @param {boolean} options.menu 				是否显示右键菜单，允许值：true/false
- * @param {boolean} options.loop 				播放到最后一帧时是否重新播放，允许值： true/false
- * @param {boolean} options.play 				flash是否在浏览器加载时就开始播放。允许值：true/false
- * @param {string} 	options.quality 			设置flash播放的画质，允许值：low/medium/high/autolow/autohigh/best
- * @param {string} 	options.scale 				设置flash内容如何缩放来适应设置的宽高。允许值：showall/noborder/exactfit
- * @param {string} 	options.wmode 				设置flash的显示模式。允许值：window/opaque/transparent
- * @param {string} 	options.allowscriptaccess 	设置flash与页面的通信权限。允许值：always/never/sameDomain
- * @param {string} 	options.allownetworking 	设置swf文件中允许使用的网络API。允许值：all/internal/none
- * @param {boolean} options.allowfullscreen 	是否允许flash全屏。允许值：true/false
- * @param {boolean} options.seamlesstabbing 	允许设置执行无缝跳格，从而使用户能跳出flash应用程序。该参数只能在安装Flash7及更高版本的Windows中使用。允许值：true/false
- * @param {boolean} options.devicefont 			设置静态文本对象是否以设备字体呈现。允许值：true/false
- * @param {boolean} options.swliveconnect 		第一次加载flash时浏览器是否应启动Java。允许值：true/false
- * @param {Object} 	options.vars 				要传递给flash的参数，支持JSON或string类型。
+ * @param {Object}     options                     创建flash的选项参数
+ * @param {string}     options.id                     要创建的flash的标识
+ * @param {string}     options.url                 flash文件的url
+ * @param {String}     options.errorMessage         未安装flash player或flash player版本号过低时的提示
+ * @param {string}     options.ver                 最低需要的flash player版本号
+ * @param {string}     options.width                 flash的宽度
+ * @param {string}     options.height                 flash的高度
+ * @param {string}     options.align                 flash的对齐方式，允许值：middle/left/right/top/bottom
+ * @param {string}     options.base                 设置用于解析swf文件中的所有相对路径语句的基本目录或URL
+ * @param {string}     options.bgcolor             swf文件的背景色
+ * @param {string}     options.salign                 设置缩放的swf文件在由width和height设置定义的区域内的位置。允许值：l/r/t/b/tl/tr/bl/br
+ * @param {boolean} options.menu                 是否显示右键菜单，允许值：true/false
+ * @param {boolean} options.loop                 播放到最后一帧时是否重新播放，允许值： true/false
+ * @param {boolean} options.play                 flash是否在浏览器加载时就开始播放。允许值：true/false
+ * @param {string}     options.quality             设置flash播放的画质，允许值：low/medium/high/autolow/autohigh/best
+ * @param {string}     options.scale                 设置flash内容如何缩放来适应设置的宽高。允许值：showall/noborder/exactfit
+ * @param {string}     options.wmode                 设置flash的显示模式。允许值：window/opaque/transparent
+ * @param {string}     options.allowscriptaccess     设置flash与页面的通信权限。允许值：always/never/sameDomain
+ * @param {string}     options.allownetworking     设置swf文件中允许使用的网络API。允许值：all/internal/none
+ * @param {boolean} options.allowfullscreen     是否允许flash全屏。允许值：true/false
+ * @param {boolean} options.seamlesstabbing     允许设置执行无缝跳格，从而使用户能跳出flash应用程序。该参数只能在安装Flash7及更高版本的Windows中使用。允许值：true/false
+ * @param {boolean} options.devicefont             设置静态文本对象是否以设备字体呈现。允许值：true/false
+ * @param {boolean} options.swliveconnect         第一次加载flash时浏览器是否应启动Java。允许值：true/false
+ * @param {Object}     options.vars                 要传递给flash的参数，支持JSON或string类型。
  * 
- * @param {HTMLElement|string} [container] 		flash对象的父容器元素，不传递该参数时在当前代码位置创建flash对象。
+ * @param {HTMLElement|string} [container]         flash对象的父容器元素，不传递该参数时在当前代码位置创建flash对象。
  * @meta standard
  * @see baidu.swf.createHTML,baidu.swf.getMovie
  */
@@ -25898,16 +26318,16 @@ baidu.swf.create = function (options, target) {
  * @return {HTMLElement} flash对象的实例
  */
 baidu.swf.getMovie = function (name) {
-	//ie9下, Object标签和embed标签嵌套的方式生成flash时,
-	//会导致document[name]多返回一个Object元素,而起作用的只有embed标签
-	var movie = document[name], ret;
+    //ie9下, Object标签和embed标签嵌套的方式生成flash时,
+    //会导致document[name]多返回一个Object元素,而起作用的只有embed标签
+    var movie = document[name], ret;
     return baidu.browser.ie == 9 ?
-    	movie && movie.length ? 
-    		(ret = baidu.array.remove(baidu.lang.toArray(movie),function(item){
-    			return item.tagName.toLowerCase() != "embed";
-    		})).length == 1 ? ret[0] : ret
-    		: movie
-    	: movie || window[name];
+        movie && movie.length ? 
+            (ret = baidu.array.remove(baidu.lang.toArray(movie),function(item){
+                return item.tagName.toLowerCase() != "embed";
+            })).length == 1 ? ret[0] : ret
+            : movie
+        : movie || window[name];
 };
 
 /*
