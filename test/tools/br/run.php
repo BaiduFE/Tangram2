@@ -8,7 +8,7 @@ if(!array_key_exists('quirk', $_GET)){
 require_once "case.class.php";
 $c = new Kiss('../../../', $_GET['case']);
 if($c->fileunexist){
-	echo '该接口无用例';
+	echo '该接口无用例<script type="text/javascript">parent.testDoneCallBack({});</script>';
 	return;
 }
 $title = $c->name;

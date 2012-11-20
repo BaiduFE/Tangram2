@@ -31,8 +31,11 @@
     }
 
     var autoNext = (function(){
-        var i = -1;
+        var i = -1,
+            timer;
         return function(){
+
+            timer && clearTimeout(timer);
 
             // 跑完了
             if(++i >= flattenedTreeDates.length){
@@ -56,7 +59,12 @@
                 autoNext();
             }else{
                 currentNode = node;
-                currentCheck !== "docPreview" && runCheck(currentCheck, node);
+                node.focus();
+                runCheck(currentCheck, node);
+
+                timer = setTimeout(function(){
+                    autoNext();
+                }, 10000);
             }
             
         }
@@ -198,8 +206,10 @@
         $("#J_unitTestFrame").attr('src', unitUrl);
         var interval = setInterval(function(){
             try{
-                $("#J_unitTestFrame").css('height', J_unitTestFrame.$(J_unitTestFrame.document.body).height() + 'px');    
-            }catch(e){}
+                $("#J_unitTestFrame").css('height', J_unitTestFrame.$(J_unitTestFrame.document.body).height() + 'px');
+            }catch(e){
+                $("#J_unitTestFrame").css('height', '50px');
+            }
         }, 50);
     }
 
@@ -244,6 +254,15 @@
             $("#J_docPreview")[0].innerHTML = doc;
             SyntaxHighlighter.highlight();
         });
+    }
+
+    window.testDoneCallBack = function(info){
+        if(info.failed){
+            currentNode.el.css('color', '#FF0000');
+        }else{
+            autoRuning && hideOnPass && currentNode.el.hide();
+        }
+        autoRuning && autoNext();
     }
 
     window.app = {
