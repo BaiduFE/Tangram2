@@ -7,6 +7,10 @@ if(!array_key_exists('quirk', $_GET)){
 };
 require_once "case.class.php";
 $c = new Kiss('../../../', $_GET['case']);
+if($c->fileunexist){
+	echo '该接口无用例';
+	return;
+}
 $title = $c->name;
 $cov = array_key_exists('cov', $_GET);
 $release = array_key_exists('release', $_GET);

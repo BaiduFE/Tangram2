@@ -235,9 +235,13 @@
 
         $.getJSON('./doc.php?file=' + node.data.dir, function(data){
             $("#J_docPreview").html('');
+            var doc = '';
             data.forEach(function(item){
-                $("#J_docPreview")[0].innerHTML += Mustache.render(docTpl, item, true);
+                doc += Mustache.render(docTpl, item, true);
             });
+
+            (doc == '') && (doc = '该文件无文档');
+            $("#J_docPreview")[0].innerHTML = doc;
             SyntaxHighlighter.highlight();
         });
     }
