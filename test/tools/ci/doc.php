@@ -22,11 +22,11 @@
                 $data['shortgrammar'] = $shortgrammar[count($shortgrammar) - 1];
             }elseif(preg_match('/@param/', $value)){
                 !$data['param'] && $data['param'] = array();
-                preg_match('/param\s(.*?)\s(.*?)\s(.*)\r/', $value, $matches);
+                preg_match('/param\s*([^\s]*)\s*([^\s]*)\s*(.*)\r/', $value, $matches);
                 $data['param'][] = array('type' => $matches[1], 'name' => $matches[2], 'desc' => $matches[3]);
                 $data['hasparam'] = true;
             }elseif(preg_match('/@return/', $value)){
-                preg_match('/return\s(.*?)\s(.*)\r/', $value, $matches);
+                preg_match('/return\s*([^\s]*)\s*(.*)\r/', $value, $matches);
                 $data['return'] = array('type' => $matches[1], 'desc' => $matches[2]);
             }elseif(preg_match('/@example/', $value)){
                 $data['example'] = array();

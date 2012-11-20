@@ -4,7 +4,7 @@
         autoFixed = false,
         hideOnPass = false,
         autoRuning = false,
-        currentCheck = 'staticCheck',
+        currentCheck = 'unitTest',
         currentNode,
         testCaseTpl = '<h1 class="test-header">{{file}}</h1>' +
                             '<ul class="test-cases">' +
@@ -56,7 +56,7 @@
                 autoNext();
             }else{
                 currentNode = node;
-                currentCheck == "syntaxCheck" ? runCheck('syntaxCheck', node) : runCheck('staticCheck', node);
+                currentCheck !== "docPreview" && runCheck(currentCheck, node);
             }
             
         }
@@ -77,15 +77,24 @@
                 currentNode = node;
 
                 // 处于自动测试时，不响应
+                if(autoRuning){
+                    return;
+                }
                 switch(currentCheck){
-                    case "syntaxCheck":
-                        !autoRuning && runCheck('syntaxCheck', currentNode);
+                    case "unitTest":
+                        runCheck('unitTest', currentNode);
                         break;
-                    case "doc":
-                        docPreview(node);
+                    case "staticCheck":
+                        runCheck('staticCheck', currentNode);
+                        break;
+                    case "syntaxCheck":
+                        runCheck('syntaxCheck', currentNode);
+                        break;
+                    case "docPreview":
+                        runCheck('docPreview', currentNode);
                         break;
                     default:
-                        !autoRuning && runCheck('staticCheck', currentNode);
+                        return;
                 }
             }
         });
@@ -96,6 +105,11 @@
     // 初始化tab
     function initTab(){
         $(".tabs li").click(function(){
+            // 如果当前没有选中的树节点，或者正处于批量测试过程中，不响应点击
+            if(!currentNode || autoRuning){
+                return;
+            }
+
             $(".tabs li").removeClass("current");
             $(this).addClass("current");
             var tabId = $(this).attr('id');
@@ -103,19 +117,9 @@
             $('.tab-item').removeClass("current");
             $('#' + tabItemId).addClass("current");
 
-            switch(this.id){
-                case "J_syntaxCheckTab":
-                    currentCheck = "syntaxCheck";
-                    currentNode && !autoRuning && runCheck('syntaxCheck', currentNode);
-                    break;
-                case "J_docTab":
-                    currentCheck = "doc";
-                    currentNode && runCheck('docPreview', currentNode);
-                    break;
-                default:
-                    currentCheck = "staticCheck";
-                    currentNode && !autoRuning && runCheck('staticCheck', currentNode);
-            }
+            var checkType = this.id.replace('J_', '').replace('Tab', '');
+            currentCheck = checkType;
+            runCheck(checkType, currentNode);
         });
     }
 
@@ -123,7 +127,7 @@
     function initToolbar(){
         // 批量测试
         $('#J_autoRun').click(function(){
-            if(currentCheck == 'doc'){
+            if(currentCheck == 'docPreview'){
                 alert("只有静态检查和语法检查支持批量测试！");
                 return;
             }
@@ -169,6 +173,12 @@
         $("#J_appDesc").hide();
         $(".tabs").show();
         switch(type){
+            case "unitTest":
+                unitTest(node);
+                break;
+            case "staticCheck":
+                staticCheck(node);
+                break;
             case "syntaxCheck":
                 syntaxCheck(node);
                 break;
@@ -176,8 +186,21 @@
                 docPreview(node);
                 break;
             default:
-                staticCheck(node);
+                return;
         }
+    }
+    
+    // 单元测试
+    function unitTest(node){
+        var api = node.data.dir.replace('../../../src/', '').replace('.js', ''),
+            unitUrl = location.href + '../br/run.php?case=' + api;
+        
+        $("#J_unitTestFrame").attr('src', unitUrl);
+        var interval = setInterval(function(){
+            try{
+                $("#J_unitTestFrame").css('height', J_unitTestFrame.$(J_unitTestFrame.document.body).height() + 'px');    
+            }catch(e){}
+        }, 50);
     }
 
     // 静态检查
@@ -211,9 +234,9 @@
         if(!docTpl) return;
 
         $.getJSON('./doc.php?file=' + node.data.dir, function(data){
-            $("#J_doc").html('');
+            $("#J_docPreview").html('');
             data.forEach(function(item){
-                $("#J_doc")[0].innerHTML += Mustache.render(docTpl, item, true);
+                $("#J_docPreview")[0].innerHTML += Mustache.render(docTpl, item, true);
             });
             SyntaxHighlighter.highlight();
         });

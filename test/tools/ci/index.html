@@ -41,14 +41,16 @@
                     <!-- tab: 静态检查、语法检查、文档预览 -->
                     <div class="tabs">
                         <ul>
-                            <li id="J_staticCheckTab" class="current">静态检查</li>
+                            <li id="J_unitTestTab" class="current">单元测试</li>
+                            <li id="J_staticCheckTab">静态检查</li>
                             <li id="J_syntaxCheckTab">语法检查</li>
-                            <li id="J_docTab">文档预览</li>
+                            <li id="J_docPreviewTab">文档预览</li>
                         </ul>
                     </div>
-                    <div id="J_staticCheck" class="testcase-wrap tab-item current"></div>
+                    <div id="J_unitTest" class="tab-item current"><iframe id="J_unitTestFrame" src="" frameborder="1" scrolling="auto" ></iframe></div>
+                    <div id="J_staticCheck" class="testcase-wrap tab-item"></div>
                     <div id="J_syntaxCheck" class="tab-item">开发中...</div>
-                    <div id="J_doc" class="doc-wrap tab-item"></div>
+                    <div id="J_docPreview" class="doc-wrap tab-item"></div>
                 </div>
             </div>
         </div>

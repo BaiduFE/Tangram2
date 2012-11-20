@@ -237,6 +237,11 @@ header {
 .tab-item.current {
 	display: block;
 }
+.tab-item iframe {
+	width: 710px;
+	height: 0px;
+	border: none;
+}
 .test-header {
 	color: #8699A4;
 	background-color: #F6F6F6;
