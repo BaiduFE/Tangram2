@@ -53,7 +53,7 @@
  * @description 设置全局的AJAX请求默认选项
  * @function 
  * @name baidu.ajax.setup
- * @grammar baiud.ajax.setup(options)
+ * @grammar baidu.ajax.setup(options)
  * @param {Object} options 用于设置AJAX的全局参数, 参见baidu.ajax()
  * @return {Object} 最终的options结果
  */
