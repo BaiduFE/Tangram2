@@ -40,7 +40,7 @@
                 return;
             }
             me.children = [];
-            me.data.children.forEach(function(item){
+            $(me.data.children).each(function(index, item){
                 me.addChild(item);
             });
         },
@@ -93,7 +93,8 @@
             !me.childrenRended && me.renderChildren();
             me.expended = true;
             me.el.addClass("expended");
-            me.el.find('.node-item').show();
+            me.el.find('.node-item').show(); // 在隐藏测试通过的文件时有用
+            $($(this).parents('.node-item').find('.node-children')[0]).css('display', 'block');
         },
 
         /**
@@ -104,6 +105,7 @@
 
             me.expended = false;
             me.el.removeClass("expended");
+            $($(this).parents('.node-item').find('.node-children')[0]).css('display', 'none');
         },
 
         bind: function(){
@@ -121,7 +123,7 @@
                 me.focus();
                 $(me.treeInstance).trigger('hitareaclick', me);
                 if(me.expended){
-                    me.collapse();
+                    me.collapse();                    
                 }else{
                     me.expend();
                 }
@@ -174,7 +176,7 @@
 
             me.children = [];
 
-            me.data.children.forEach(function(item){
+            $(me.data.children).each(function(index, item){
                 var nodeItem = new node(item, me.container);
 
                 nodeItem.parent = me;

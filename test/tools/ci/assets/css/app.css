@@ -23,7 +23,7 @@ ul, li {
 	background: none;
 }
 .node-row {
-	border: 1px solid transparent;
+	border: 1px solid #F6F6F6;
 	white-space: nowrap;
 	position: relative;
 	height: 20px;
@@ -104,7 +104,7 @@ body {
 	text-align: center;
 	background: #FCFCFC url(../img/header.gif) repeat-x 0 0;
 }
-header {
+.hd {
 	width: 950px;
 	height: 127px;
 	margin: auto;
@@ -218,6 +218,7 @@ header {
 	border-bottom: 4px solid #6BA5F5;
 	padding-left: 40px;
 	display: none;
+	overflow: visible;
 }
 .tabs li {
 	display: inline-block;
@@ -225,6 +226,9 @@ header {
 	cursor: pointer;
 	padding: 0 10px;
 	margin-top: -2px;
+	*width: 60px;
+	*float: left;
+	_margin-top: 5px;
 }
 .tabs li.current {
  	border: 2px solid #6BA5F5;

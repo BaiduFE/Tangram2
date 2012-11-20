@@ -13,14 +13,14 @@
                                 '<li class="{{tabCheck.status}}"><span>文件缩进检查：{{tabCheck.status}}</span></li>' +
                                 '<li class="{{testCaseCheck.status}}">' +
                                     '<span>关联用例检查：{{testCaseCheck.status}}；</span>' +
-                                    '<span>文件最后修改时间：{{testCaseCheck.msg.srcLastModify}}；</span>' +
+                                    '<span>源码最后修改时间：{{testCaseCheck.msg.srcLastModify}}；</span>' +
                                     '<span>用例最后修改时间：{{testCaseCheck.msg.testCaseLastModify}}</span>' +
                                 '</li>' +
                             '</ul>',
         docTpl = '';
 
     function flatteningTreeDates(node){
-        node.children.forEach(function(child){
+        $(node.children).each(function(index, child){
             flattenedTreeDates.push(child);
             if((child.data && child.data.type == 'folder') || child.type == 'folder'){
                 child.expend();
@@ -206,7 +206,11 @@
         $("#J_unitTestFrame").attr('src', unitUrl);
         var interval = setInterval(function(){
             try{
-                $("#J_unitTestFrame").css('height', J_unitTestFrame.$(J_unitTestFrame.document.body).height() + 'px');
+                if(J_unitTestFrame.contentWindow)
+                    $("#J_unitTestFrame").css('height', $(J_unitTestFrame.contentWindow.document.body).height() + 'px');
+                else{
+                    $("#J_unitTestFrame").css('height', $(J_unitTestFrame.document.body).height() + 'px');
+                }
             }catch(e){
                 $("#J_unitTestFrame").css('height', '50px');
             }
@@ -246,7 +250,7 @@
         $.getJSON('./doc.php?file=' + node.data.dir, function(data){
             $("#J_docPreview").html('');
             var doc = '';
-            data.forEach(function(item){
+            $(data).each(function(index, item){
                 doc += Mustache.render(docTpl, item, true);
             });
 

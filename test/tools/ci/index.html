@@ -13,7 +13,7 @@
         <script type="text/javascript" src="./assets/js/shBrushJScript.js"></script>
     </head>
     <body>
-        <header class="hd">
+        <div class="hd">
             <div class="logo"></div>
             <div class="toolbar">
                 <div class="options">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="actions"><button id="J_autoRun">批量测试</button></div>
             </div>
-        </header>
+        </div>
         <div class="content">
             <div class="col-sub">
                 <div id="J_tree" class="tree" onselectstart="return false;"></div>
@@ -41,6 +41,7 @@
                         <p>文档预览用于在本地查看代码注释的正确性。</p>
                     </div>
                     <!-- tab: 静态检查、语法检查、文档预览 -->
+                    <br />
                     <div class="tabs">
                         <ul>
                             <li id="J_unitTestTab" class="current">单元测试</li>
@@ -49,7 +50,7 @@
                             <li id="J_docPreviewTab">文档预览</li>
                         </ul>
                     </div>
-                    <div id="J_unitTest" class="tab-item current"><iframe id="J_unitTestFrame" src="" frameborder="1" scrolling="auto" ></iframe></div>
+                    <div id="J_unitTest" class="tab-item current"><iframe id="J_unitTestFrame" src="" frameborder="no" scrolling="auto" ></iframe></div>
                     <div id="J_staticCheck" class="testcase-wrap tab-item"></div>
                     <div id="J_syntaxCheck" class="tab-item">开发中...</div>
                     <div id="J_docPreview" class="doc-wrap tab-item"></div>
