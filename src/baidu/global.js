@@ -1,6 +1,6 @@
 ///import baidu;
 
-/*
+/**
  * @description 在页面全局读取或写入指定值
  * @author meizz
  * @create 2012-07-25
