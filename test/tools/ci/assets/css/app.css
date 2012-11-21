@@ -18,6 +18,7 @@ ul, li {
 }
 .node-item {
 	background: url(../img/treeview-default-line.gif) repeat-y 0 -176px;
+	zoom: 1;
 }
 .node-item.last {
 	background: none;
@@ -28,6 +29,7 @@ ul, li {
 	position: relative;
 	height: 20px;
 	background: url(../img/treeview-default-line.gif) repeat-y -1px -177px;
+	zoom: 1;
 }
 .node-row:hover {
 	-webkit-border-radius: 2px;
@@ -246,6 +248,9 @@ body {
 	height: 0px;
 	border: none;
 }
+.testcase-wrap {
+	padding: 8px;
+}
 .test-header {
 	color: #8699A4;
 	background-color: #F6F6F6;
@@ -329,4 +334,22 @@ hr {
 }
 .syntaxhighlighter .toolbar {
 	display: none;
+}
+.syntax-wrap {
+	padding: 8px;
+}
+.syntax-wrap .line {
+	color: #4183C4;
+}
+.syntax-wrap .code {
+	background-color: #FEE9CC;
+	color: rgba(0, 0, 0, 0.75);
+}
+.syntax-wrap li {
+	padding: 10px 0 10px 25px;
+	font-size: 14px;
+	background-color: #F8FAFB;
+	border-bottom: 1px solid white;
+	text-shadow: 0 1px 0 rgba(243, 222, 222, 0.5);
+	font-family: "PT Sans", Helvetica, Arial, Sans-Serif;
 }

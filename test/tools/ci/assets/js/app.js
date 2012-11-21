@@ -66,7 +66,6 @@
                     autoNext();
                 }, 10000);
             }
-            
         }
     })();
 
@@ -207,9 +206,9 @@
         var interval = setInterval(function(){
             try{
                 if(J_unitTestFrame.contentWindow)
-                    $("#J_unitTestFrame").css('height', $(J_unitTestFrame.contentWindow.document.body).height() + 'px');
+                    $("#J_unitTestFrame").css('height', $(J_unitTestFrame.contentWindow.document).height() + 'px');
                 else{
-                    $("#J_unitTestFrame").css('height', $(J_unitTestFrame.document.body).height() + 'px');
+                    $("#J_unitTestFrame").css('height', $(J_unitTestFrame.document).height() + 'px');
                 }
             }catch(e){
                 $("#J_unitTestFrame").css('height', '50px');
@@ -238,9 +237,39 @@
                     });
     }
 
-    //动态检查
+    //语法检查
     function syntaxCheck(node){
+        $.get('./jshint.php?file=' + node.data.dir, function(content){
+            $("#J_syntaxCheck").html('');
+            var filename = node.data.dir.replace('../../../src/', '');
+            var html = '<h1 class="test-header">' + filename + '</h1><ul>';
 
+            if(!JSHINT(content, {
+                boss: true,
+                eqnull: true,
+                evil: true,
+                tangram: true,
+                magic: true,
+                laxbreak: true,
+                loopfunc: true,
+                nonew: true,
+                undef: true
+            })){
+                $(JSHINT.errors).each(function(index, item){
+                    if(!item) return;
+                    html += '<li><p><span class="line">Line ' + item.line + '</span>:<span class="code">' + item.evidence + '</span></p>'+
+                            '<p>' + item.reason + '</p></li>';
+                });
+                // 在节点上标出检查结果
+                node.el.css('color', '#FF0000');
+            }else{
+                html = '没有发现语法错误';
+                autoRuning && hideOnPass && node.el.hide();
+            }            
+
+            $("#J_syntaxCheck")[0].innerHTML = html;
+            autoRuning && autoNext();
+        });
     }
 
     //文档预览
