@@ -1301,7 +1301,7 @@ function(){});
 
 
 
-/*
+/**
  * @description 在页面全局读取或写入指定值
  * @author meizz
  * @create 2012-07-25
@@ -14791,7 +14791,7 @@ baidu._util_.smartAjax = baidu._util_.smartAjax || function(method){
         });
     };
 }
-///import baidu._util_.smartAjax;
+
 /**
  * @description 通过服务器HTTP GET请求加载数据
  * @function 
@@ -16011,7 +16011,7 @@ baidu.platform.isX11 = /x11/i.test(navigator.userAgent);
  */
 //baidu.platform.isX11 = /x11/i.test(navigator.userAgent);
 
-///import baidu._util_.smartAjax;
+
 /**
  * @description 通过服务器HTTP GET请求加载数据
  * @function 
@@ -16043,6 +16043,7 @@ baidu.post = baidu.post || baidu._util_.smartAjax('post');
  * @return {RegExp} 返回一个正则表达式对象
  */
 /**
+ * @description 将所有的正则表达式对象进行预编译处理，存储到全局对象中，以便重复调用
  * @function 
  * @name baidu.regexp
  * @grammar baidu.regexp(reg)
