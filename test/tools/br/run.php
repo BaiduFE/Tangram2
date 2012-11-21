@@ -8,7 +8,7 @@ if(!array_key_exists('quirk', $_GET)){
 require_once "case.class.php";
 $c = new Kiss('../../../', $_GET['case']);
 if($c->fileunexist){
-	echo '该接口无用例<script type="text/javascript">parent.testDoneCallBack({});</script>';
+	echo '该接口无用例<script type="text/javascript">if(parent && parent.testDoneCallBack){parent.testDoneCallBack({});}</script>';
 	return;
 }
 $title = $c->name;
@@ -20,79 +20,12 @@ $release = array_key_exists('release', $_GET);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php print("run case $title");?></title>
 <?php $c->print_js($cov, $release); ?>
-<link rel="stylesheet" type="text/css" href="../qa/Public/tools/CodeMirror-2.24/lib/codemirror.css">
-<link rel="stylesheet" type="text/css" href="../qa/Public/tools/CodeMirror-2.24/theme/blackboard.css">
-
-<script type="text/javascript" src="../qa/Public/tools/CodeMirror-2.24/lib/codemirror.js"></script>
-<script src="../qa/Public/tools/CodeMirror-2.24/mode/javascript/javascript.js"></script>
 </head>
 <body>
-<h1 id="qunit-header"><span><a onclick="toggleSource()">切换显示用例源码</a></span><?php print($c->name);?></h1>
+<h1 id="qunit-header"><span><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];?>" target="_blank">新窗口打开</a></span><?php print($c->name);?></h1>
 <h2 id="qunit-banner"></h2>
 <h2 id="qunit-userAgent"></h2>
 <div id="source" class="wrap-testing-src"></div>
 <ol id="qunit-tests"></ol>
-<script type="text/javascript">
-	void function(){
-		var p, f, s = 0;
-		if( ( p = window.parent ) && ( f = p.document.getElementById("test-frame") ) )
-			setInterval(function(){
-				if(s != document.documentElement.scrollHeight){
-					s = document.documentElement.scrollHeight;
-				 	f.style.height = s + "px";   
-				}
-			}, 100);
-	}();
-
-	var testsLayer = document.getElementById("qunit-tests");
-	var sourceLayer = document.getElementById("source");
-
-	sourceCode = CodeMirror(sourceLayer, {
-		mode: "javascript",
-		value: "",
-		theme: "blackboard",
-		lineNumbers: true,
-		readOnly: true
-	});
-
-	function toggleSource(){
-		if(!toggleSource.view){
-			testsLayer.style.display = "none";
-			sourceLayer.style.display = "block";
-			loadSource();
-		}else{
-		    testsLayer.style.display = "block";
-		    sourceLayer.style.display = "none";
-		}
-		
-		toggleSource.view = ! toggleSource.view;
-	}
-
-	function loadSource(){
-	    if(loadSource.loaded)return ;
-	    loadSource.loaded = true;
-	    request("../qa/?a=getSrc&api=<?php print($c->name);?>", function(text){
-	        sourceCode.setValue(text);
-	    });
-	}
-
-	function request(url, callback){
-		var xhr = request.xhr;
-		if(!request.xhr){
-			if(window.XMLHttpRequest){
-				xhr = request.xhr = new XMLHttpRequest();
-			}else{
-				xhr = request.xhr = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-		}
-		xhr.open("GET", url, true);
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				callback(xhr.responseText);
-			}
-		};
-		xhr.send(null);
-	}
-</script>
 </body>
 </html>

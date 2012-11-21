@@ -243,6 +243,7 @@
                             node.el.css('color', '#FF0000');
                         }else{
                             autoRuning && hideOnPass && node.el.hide();
+                            node.el.css('color', '');
                         }
                         
                         autoRuning && autoNext();
@@ -277,6 +278,7 @@
             }else{
                 html = '没有发现语法错误';
                 autoRuning && hideOnPass && node.el.hide();
+                node.el.css('color', '');
             }            
 
             $("#J_syntaxCheck")[0].innerHTML = html;
@@ -326,9 +328,22 @@
             currentNode.el.css('color', '#FF0000');
         }else{
             autoRuning && hideOnPass && currentNode.el.hide();
+            currentNode.el.css('color', '');
         }
         autoRuning && autoNext();
     }
+
+    var toolbar = {
+        'init': function(){
+
+        },
+        'disable': function(id){
+
+        },
+        'enable':function(){
+
+        }
+    };
 
     window.App = {
         run: function(){
