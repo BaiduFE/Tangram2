@@ -16,6 +16,7 @@
  * @return {RegExp} 返回一个正则表达式对象
  */
 /**
+ * @description 将所有的正则表达式对象进行预编译处理，存储到全局对象中，以便重复调用
  * @function 
  * @name baidu.regexp
  * @grammar baidu.regexp(reg)
