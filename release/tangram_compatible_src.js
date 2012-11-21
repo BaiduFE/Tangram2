@@ -1301,7 +1301,7 @@ function(){});
 
 
 
-/*
+/**
  * @description 在页面全局读取或写入指定值
  * @author meizz
  * @create 2012-07-25
@@ -21395,7 +21395,7 @@ baidu._util_.smartAjax = baidu._util_.smartAjax || function(method){
         });
     };
 }
-///import baidu._util_.smartAjax;
+
 /**
  * @description 通过服务器HTTP GET请求加载数据
  * @function 
@@ -21409,7 +21409,7 @@ baidu._util_.smartAjax = baidu._util_.smartAjax || function(method){
  */
 baidu.get = baidu.get || baidu._util_.smartAjax('get');
 /// Tangram 1.x Code Start
-///import baidu.ajax.get;
+
 /// Tangram 1.x Code End
 /// support magic - Tangram 1.x Code Start
 /*
@@ -23600,7 +23600,7 @@ baidu.platform.isX11 = /x11/i.test(navigator.userAgent);
  */
 //baidu.platform.isX11 = /x11/i.test(navigator.userAgent);
 
-///import baidu._util_.smartAjax;
+
 /**
  * @description 通过服务器HTTP GET请求加载数据
  * @function 
@@ -23614,7 +23614,7 @@ baidu.platform.isX11 = /x11/i.test(navigator.userAgent);
  */
 baidu.post = baidu.post || baidu._util_.smartAjax('post');
 /// Tangram 1.x Code Start
-///import baidu.ajax.post;
+
 /// Tangram 1.x Code End
 
 
