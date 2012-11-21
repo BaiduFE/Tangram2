@@ -100,6 +100,12 @@
                     case "docPreview":
                         runCheck('docPreview', currentNode);
                         break;
+                    case "src":
+                        runCheck('src', currentNode);
+                        break;
+                    case "unit":
+                        runCheck('unit', currentNode);
+                        break;
                     default:
                         return;
                 }
@@ -134,7 +140,7 @@
     function initToolbar(){
         // 批量测试
         $('#J_autoRun').click(function(){
-            if(currentCheck == 'docPreview'){
+            if(currentCheck != 'staticCheck' || currentCheck != 'syntaxCheck'){
                 alert("只有静态检查和语法检查支持批量测试！");
                 return;
             }
@@ -192,6 +198,12 @@
             case "docPreview":
                 docPreview(node);
                 break;
+            case "src":
+                showSrc(node);
+                break;
+            case "unit":
+                showUnit(node);
+                break;
             default:
                 return;
         }
@@ -239,7 +251,7 @@
 
     //语法检查
     function syntaxCheck(node){
-        $.get('./jshint.php?file=' + node.data.dir, function(content){
+        $.get('./getFileContent.php?file=' + node.data.dir, function(content){
             $("#J_syntaxCheck").html('');
             var filename = node.data.dir.replace('../../../src/', '');
             var html = '<h1 class="test-header">' + filename + '</h1><ul>';
@@ -289,6 +301,26 @@
         });
     }
 
+    //显示源代码
+    function showSrc(node){
+        $.get('./getFileContent.php?file=' + node.data.dir, function(content){
+            $("#J_src").html('<pre class="brush: js">' + content + '</pre>');
+            SyntaxHighlighter.highlight();
+        });
+    }
+
+    //显示用例
+    function showUnit(node){
+        $.get('./getFileContent.php?file=' + node.data.dir.replace('src', 'test'), function(content){
+            if(content === ''){
+                $("#J_unit").html('该接口无用例');
+                return;
+            }
+            $("#J_unit").html('<pre class="brush: js">' + content + '</pre>');
+            SyntaxHighlighter.highlight();
+        });
+    }
+
     window.testDoneCallBack = function(info){
         if(info.failed){
             currentNode.el.css('color', '#FF0000');
@@ -298,7 +330,7 @@
         autoRuning && autoNext();
     }
 
-    window.app = {
+    window.App = {
         run: function(){
             $.get('./docTpl.html', function(tpl){
                         docTpl = tpl;
