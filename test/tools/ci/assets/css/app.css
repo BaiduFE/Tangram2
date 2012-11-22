@@ -112,10 +112,15 @@ body {
 	margin: auto;
 	text-align: left;
 }
-.logo {
+.tangram_logo {
 	width: 177px;
 	height: 90px;
-	background: url(../img/logo.gif) no-repeat center center;
+	background: url(../img/logo_tangram.gif) no-repeat center center;
+}
+.magic_logo {
+	width: 177px;
+	height: 90px;
+	background: url(../img/logo_magic.png) no-repeat center center;
 }
 .toolbar {
 	height: 36px;

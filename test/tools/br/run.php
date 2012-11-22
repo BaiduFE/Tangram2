@@ -25,7 +25,6 @@ $release = array_key_exists('release', $_GET);
 <h1 id="qunit-header"><span><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];?>" target="_blank">新窗口打开</a></span><?php print($c->name);?></h1>
 <h2 id="qunit-banner"></h2>
 <h2 id="qunit-userAgent"></h2>
-<div id="source" class="wrap-testing-src"></div>
 <ol id="qunit-tests"></ol>
 </body>
 </html>
