@@ -1,0 +1,44 @@
+<div class="api-block">
+    <h3>{{shortgrammar}}</h3>
+    <!--每一个语法的描述-->
+    <p class="desc">
+        <span class="sig">{{grammar}} : </span>{{description}}
+    </p>
+    <!--参数-->
+    {{#hasparam}}
+    <h4>参数</h4>         
+        <table class="api-table">
+            <tr>
+                <th width="30%">参数名</th>
+                <th width="10%">类型</th>
+                <th>描述</th>
+            </tr>
+    {{/hasparam}}
+    {{#param}}
+            <tr>
+                <td class="sig">{{name}}</td>
+                <td class="jstype">{{type}}</td>
+                <td>{{desc}}</td>
+            </tr>
+    {{/param}}
+    {{#hasparam}}
+        </table>
+    {{/hasparam}}
+    {{#return}}
+        <h4>返回值</h4>
+        <p><span class="jstype">{{type}}</span>  {{desc}}</p>
+    {{/return}}
+    {{#example}}
+        <h4>说明</h4>
+        <div class="api-detail">
+            <p>{{{desc}}}</p>
+        </div>
+        {{#code}}
+        <h4>示例</h4>
+        <div class="api-example">
+            <pre class="brush: js">{{code}}</pre>
+        </div>
+        {{/code}}
+    {{/example}}
+</div>
+<hr />
