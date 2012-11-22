@@ -94,7 +94,7 @@
             me.expended = true;
             me.el.addClass("expended");
             me.el.find('.node-item').show(); // 在隐藏测试通过的文件时有用
-            $($(this).parents('.node-item').find('.node-children')[0]).css('display', 'block');
+            $($(me.el).find('.node-children')[0]).css('display', 'block');
         },
 
         /**
@@ -105,7 +105,7 @@
 
             me.expended = false;
             me.el.removeClass("expended");
-            $($(this).parents('.node-item').find('.node-children')[0]).css('display', 'none');
+            $($(me.el).find('.node-children')[0]).css('display', 'none');
         },
 
         bind: function(){

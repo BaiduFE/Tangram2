@@ -140,8 +140,8 @@
     function initToolbar(){
         // 批量测试
         $('#J_autoRun').click(function(){
-            if(currentCheck != 'staticCheck' || currentCheck != 'syntaxCheck'){
-                alert("只有静态检查和语法检查支持批量测试！");
+            if(currentCheck != 'unitTest' && currentCheck != 'staticCheck' && currentCheck != 'syntaxCheck'){
+                alert("只有单元测试、静态检查和语法检查支持批量测试！");
                 return;
             }
             $('#J_autoRun').attr('disabled', 'disabled');
@@ -306,7 +306,8 @@
     //显示源代码
     function showSrc(node){
         $.get('./getFileContent.php?file=' + node.data.dir, function(content){
-            $("#J_src").html('<pre class="brush: js">' + content + '</pre>');
+            $("#J_src").html('<pre class="brush: js"></pre>');
+            $("#J_src").find('pre').text(content);
             SyntaxHighlighter.highlight();
         });
     }
@@ -318,7 +319,8 @@
                 $("#J_unit").html('该接口无用例');
                 return;
             }
-            $("#J_unit").html('<pre class="brush: js">' + content + '</pre>');
+            $("#J_unit").html('<pre class="brush: js"></pre>');
+            $("#J_unit").find('pre').text(content);
             SyntaxHighlighter.highlight();
         });
     }
