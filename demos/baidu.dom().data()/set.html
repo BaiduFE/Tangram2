@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().data() 示例" />
+		<title>baidu.dom().data() 示例-先设置 DOM 对象上存储数据，然后再取出存储的数据</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().data()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>先设置 DOM 对象上存储数据，然后再取出存储的数据</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+                        点击下面的按钮，先用 baidu.dom().data() 方法设置该按钮的存储数据(“sex”：“男”)，然后再用 baidu.dom().data() 方法取出存储的数据 <br>
+						<span class="button" id="demo_btn">点击按钮
+					</div>
+					<div class="pannel-content-part">
+
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+			baidu('#demo_btn').on('click',function(e){
+                baidu('#demo_btn').data('sex','男');
+                baidu('#demo_execute_result').html(baidu(this).data('sex'));
+			});
+		</script>
+	</body>
+</html>
