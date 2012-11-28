@@ -123,6 +123,9 @@
                 return;
             }
 
+            // 清除当前节点的状态
+            currentNode.el.css('color', '');
+
             $(".tabs li").removeClass("current");
             $(this).addClass("current");
             var tabId = $(this).attr('id');

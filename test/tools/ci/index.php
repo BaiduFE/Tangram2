@@ -2,7 +2,15 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Tangram集成测试工具</title>
+        <?php
+            if(preg_match('/magic/i', $_SERVER["REQUEST_URI"])){
+                $project = 'Magic';
+                echo '<title>Magic集成测试工具</title>';
+            }else{
+                $project = 'Tangram';
+                echo '<title>Tangram集成测试工具</title>';
+            }
+        ?>
         <link rel="stylesheet" type="text/css" href="./assets/css/app.css" />
         <link type="text/css" rel="stylesheet" href="./assets/css/shCoreDefault.css"/>
         <script type="text/javascript" src="./assets/js/jQuery-1.8.2.js"></script>
@@ -15,7 +23,13 @@
     </head>
     <body>
         <div class="hd">
-            <div class="logo"></div>
+            <?php
+                if(preg_match('/magic/i', $_SERVER["REQUEST_URI"])){
+                    echo '<div class="magic_logo"></div>';
+                }else{
+                    echo '<div class="tangram_logo"></div>';
+                }
+            ?>
             <div class="toolbar">
                 <div class="options">
                     <input type="checkbox" id="J_autoFixed" /><label for="J_autoFixed">发现错误时自动修复</label>
@@ -31,9 +45,9 @@
             <div class="col-main">
                 <div class="main-wrap">
                     <div id="J_appDesc" class="app-desc">
-                        <h2>欢迎使用 Tangram 集成测试工具</h2>
+                        <h2>欢迎使用 <?php echo $project;?> 集成测试工具</h2>
                         <h3>单元测试</h3>
-                        <p>针对 Tangram2 接口的单元测试。</p>
+                        <p>针对 <?php echo $project;?> 接口的单元测试。</p>
                         <h3>静态检查</h3>
                         <p>静态检查主要对文件编码、Bomb 头、缩进符进行检查。</p>
                         <h3>语法检查</h3>
@@ -63,7 +77,9 @@
             </div>
         </div>
         <script type="text/javascript">
-            App.run();
+            (function(){
+                App.run();
+            })();
         </script>
     </body>
 </html>

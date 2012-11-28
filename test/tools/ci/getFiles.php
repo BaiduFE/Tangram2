@@ -2,10 +2,17 @@
     header('Content-Type:text/javascript');
     $src_dir = '../../../src';
 
-    $treeDates = array('children' => array(
+    if(preg_match('/magic/i', $_SERVER["REQUEST_URI"])){
+        $treeDates = array('children' => array(
+                    array('children' => array(), 'name' => 'magic', 'type' => 'folder', 'dir' => $src_dir.'/magic'),
+                    array('children' => array(), 'name' => 'magic.js', 'type' => 'file', 'dir' => $src_dir.'/magic.js')
+                ));
+    }else{
+        $treeDates = array('children' => array(
                     array('children' => array(), 'name' => 'baidu', 'type' => 'folder', 'dir' => $src_dir.'/baidu'),
                     array('children' => array(), 'name' => 'baidu.js', 'type' => 'file', 'dir' => $src_dir.'/baidu.js')
                 ));
+    }
     
     function getSubFolders($dir, &$node){
         $handler = opendir($dir);
