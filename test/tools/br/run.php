@@ -25,7 +25,18 @@ $release = array_key_exists('release', $_GET);
 <h1 id="qunit-header"><span><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];?>" target="_blank">新窗口打开</a></span><?php print($c->name);?></h1>
 <h2 id="qunit-banner"></h2>
 <h2 id="qunit-userAgent"></h2>
-<div id="source" class="wrap-testing-src"></div>
 <ol id="qunit-tests"></ol>
+<script type="text/javascript">
+    void function(){
+        var p, f, s = 0;
+        if( ( p = window.parent ) && ( f = p.document.getElementById("test-frame") ) )
+            setInterval(function(){
+                if(s != document.documentElement.scrollHeight){
+                    s = document.documentElement.scrollHeight;
+                    f.style.height = s + "px";   
+                }
+            }, 100);
+    }();
+</script>
 </body>
 </html>
