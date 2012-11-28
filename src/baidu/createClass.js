@@ -10,7 +10,6 @@
  * @grammar baidu.createClass(constructor[, options])
  * @remark
             使用createClass能方便的创建一个带有继承关系的类。同时会为返回的类对象添加extend方法，使用obj.extend({});可以方便的扩展原型链上的方法和属性
- * @see baidu.lang.Class,baidu.lang.inherits
  *             
  * @param {Function} constructor 类的构造器函数
  * @param {String}   type        [可选]类的名字

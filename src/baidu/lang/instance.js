@@ -10,7 +10,6 @@
  */
 
 ///import baidu.lang;
-///import baidu.global;
 
 /**
  * @description 根据参数(guid)的指定，返回对应的实例对象引用
@@ -21,13 +20,9 @@
  * @meta standard
  * @return {Object|null} 如果存在的话，返回;否则返回null。
  */
-baidu.lang.instance = function(){
-    var maps = baidu.global("_maps_id");
-
-    return function (guid) {
-        return maps[ guid ] || null;
-    };
-}();
+baidu.lang.instance = function(guid){
+    return baidu._global_._instances_[ guid ] || null
+};
 
 
 /// Tangram 1.x Code End
