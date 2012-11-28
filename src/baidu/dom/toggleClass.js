@@ -87,13 +87,12 @@
 
  */
 
-///import baidu;
 ///import baidu.dom;
 ///import baidu.forEach;
 
 baidu.dom.extend({
     toggleClass: function(value,status){
-        var type = typeof value;
+    	var type = typeof value;
         var status = (typeof status === 'undefined')? status : Boolean(status);
 
         if(arguments.length <= 0 ){
@@ -114,16 +113,16 @@ baidu.dom.extend({
                     for(var i = 0;i<arr.length;i++){
 
                         //有这个className
-                        if(((' '+str+' ').indexOf(' '+arr[i]+' ') > -1)&&(typeof status === 'undefined')){
+                        if((~(' '+str+' ').indexOf(' '+arr[i]+' '))&&(typeof status === 'undefined')){
                             str = (' '+str+' ').replace(' '+arr[i]+' ',' ');
                             
-                        }else if(((' '+str+' ').indexOf(' '+arr[i]+' ') === -1)&&(typeof status === 'undefined')){
+                        }else if((!~(' '+str+' ').indexOf(' '+arr[i]+' '))&&(typeof status === 'undefined')){
                             str += ' '+arr[i];
 
-                        }else if(((' '+str+' ').indexOf(' '+arr[i]+' ') === -1)&&(status === true)){
+                        }else if((!~(' '+str+' ').indexOf(' '+arr[i]+' '))&&(status === true)){
                             str += ' '+arr[i];
 
-                        }else if(((' '+str+' ').indexOf(' '+arr[i]+' ') > -1)&&(status === false)){
+                        }else if((~(' '+str+' ').indexOf(' '+arr[i]+' '))&&(status === false)){
                             str = str.replace(arr[i],'');
                         };
                     };
@@ -142,6 +141,11 @@ baidu.dom.extend({
         return this;
     }
 });
+
+
+///import baidu.dom.addClass;
+///import baidu.dom.removeClass;
+///import baidu.dom.hasClass;
 
 /// Tangram 1.x Code Start
 //兼容老接口
@@ -168,11 +172,6 @@ baidu.dom.extend({
  * 
  * 传入多个class时，只要其中有一个class不在当前元素中，则添加所有class，否则删除所有class。
  */
-
-
-///import baidu.dom.addClass;
-///import baidu.dom.removeClass;
-///import baidu.dom.hasClass;
 baidu.dom.toggleClass = function (element, className) {
     if(baidu.dom.hasClass(element, className)){
         baidu.dom.removeClass(element, className);

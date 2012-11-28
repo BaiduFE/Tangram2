@@ -1,21 +1,21 @@
 ﻿module('baidu.dom.setPosition');
 
 test('老接口：基础用例', function() {
-
-    var div = document.createElement('div');
-
-    document.body.appendChild(div);
-    div.style.position = 'absolute';
-    div.style.marginLeft = '200px';
-    div.style.marginTop = '200px'; 
-
-    baidu.dom.setPosition(div, {
-        top : 100,
-        left : 100
-    });
-
-    equal(baidu.dom.getStyle(div, "left"), '-100px', "应该减去margin-left的偏移");
-    equal(baidu.dom.getStyle(div, "top"), '-100px', "应该减去margin-top的偏移");
+    stop();
+    ua.importsrc('baidu.dom.getStyle', function(){
+        var div = document.createElement('div');
+        document.body.appendChild(div);
+        div.style.position = 'absolute';
+        div.style.marginLeft = '200px';
+        div.style.marginTop = '200px';
+        baidu.dom.setPosition(div, {
+            top : 100,
+            left : 100
+        });
+        equal(baidu.dom.getStyle(div, "left"), '-100px', "应该减去margin-left的偏移");
+        equal(baidu.dom.getStyle(div, "top"), '-100px', "应该减去margin-top的偏移");
+        start();
+    }, 'baidu.dom.getStyle', 'baidu.dom.setPosition');
 });
     
 test('老接口：not set marginLeft value', function() {

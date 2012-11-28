@@ -27,13 +27,19 @@ function diff( el, number ){
 	el = create( el );
 	el.style.margin = el.style.padding = "10px";
 	el[el.tagName.toLowerCase() === 'input' ? 'value' : 'innerHTML'] = '&nbsp';
-	
 	equal(baidu.dom(el).height(number).height(),
-	   el.offsetHeight - style(el, 'borderTopWidth') - style(el, 'borderBottomWidth') - style(el, 'paddingTop') - style(el, 'paddingBottom'),
+	   (el.offsetHeight || getCurrentStyle(el, 'height')) - style(el, 'borderTopWidth') - style(el, 'borderBottomWidth') - style(el, 'paddingTop') - style(el, 'paddingBottom'),
 	   "针对 " + el.tagName + " 节点设置(" + number + ")和取得 height");
 	
     if( el !== document.body && el !== window && el !== document )
     	el.parentNode.removeChild( el );
+}
+
+function getCurrentStyle(ele, key){
+	var css = document.documentElement.currentStyle ?
+            function(element, propName){return element.currentStyle ? element.currentStyle[propName] : element.style[propName];}
+                : function(element, propName){return element.getComputedStyle(propName);};
+    return parseInt(css(ele, key));
 }
 
 function create( tag ){
@@ -69,8 +75,6 @@ function style(el, key){
     }
     return parseInt(result) || 0;
 }
-
-
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").height("wangxiao");
     ok(result);

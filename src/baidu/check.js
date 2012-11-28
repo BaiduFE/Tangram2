@@ -34,7 +34,7 @@ baidu.check = function(){
             throw new Error("Arguments error on baidu.check!");
         }
         var rs = regString;
-        rs.indexOf("^") != 0 && (rs = "^" + rs);
+        rs.indexOf("^") && (rs = "^" + rs);
         rs.indexOf("$") != rs.length - 1 && (rs += "$");
 
         var caller, arg, i, n,

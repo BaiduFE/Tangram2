@@ -1,3 +1,5 @@
+///import baidu.fx;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,10 +9,6 @@
  * @create: 2010-07-15
  * @namespace: baidu.fx.getTransition
  */
-
-///import baidu.fx;
-
-
 /**
  * 获取线型函数
  * @function

@@ -76,6 +76,7 @@ void function(global, tree){
 	        runTest(id),
 	        autoTimeouter = setTimeout( autoNext, 10000 );
 	    else
+	    	alert("已经奔跑完成！"),
 	        autoRunning = false;
 	}
 

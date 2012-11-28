@@ -1,3 +1,6 @@
+///import baidu.url;
+///import baidu.lang.isArray;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,10 +11,6 @@
  * version: 1.1.0
  * date: 2009/11/16
  */
-
-///import baidu.url;
-///import baidu.lang.isArray;
-
 /**
  * @description 解析目标URL中的参数成json对象
  * @name baidu.url.queryToJson

@@ -1,14 +1,13 @@
+///import baidu.object.extend;
+///import baidu.async._isDeferred;
+///import baidu.fn.blank;
+
+
 /// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
-
-///import baidu.async;
-///import baidu.object.extend;
-///import baidu.async._isDeferred;
-///import baidu.fn.blank;
-
 /**
  * @description 用于支持异步处理, 使同步异步的调用风格统一.
  * @class

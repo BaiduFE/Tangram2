@@ -96,7 +96,7 @@ test("老接口：no cache async", function() {
 	baidu.ajax.request(ajax_request_baseurl + "?type=cache", {
 		noCache : true,
 		onsuccess : function(xhr, text) {
-			ok(/=1dog/i.test(text), 'match');
+			ok(/=\d+dog/i.test(text), 'match');
 			start();
 		}
 	});
@@ -119,7 +119,7 @@ test("老接口：no cache sync", function() {
 	baidu.ajax.request(ajax_request_baseurl + "?type=cache", {
 		noCache : true,
 		onsuccess : function(xhr, text) {
-			ok(/=1dog/i.test(text), 'match');
+			ok(/=\d+dog/i.test(text), 'match');
 			start();
 		},
 		async : false

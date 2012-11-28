@@ -1,3 +1,6 @@
+///import baidu.fx.zoomOut;
+///import baidu.object.extend;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +11,6 @@
  * @create: 2010-07-14
  * @version: 2010-07-14
  */
-
-///import baidu.fx.zoomOut;
-///import baidu.object.extend;
 /**
  * 将DOM元素放大，关逐渐透明消失。
  * @function

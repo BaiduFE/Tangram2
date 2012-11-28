@@ -1,3 +1,9 @@
+///import baidu.dom.g;
+///import baidu.dom.show;
+///import baidu.browser.ie;
+///import baidu.object.extend;
+///import baidu.fx.create;
+
 /// Tangram 1.x Code Start
 /*
  * JavaScript framework: mz
@@ -7,15 +13,6 @@
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software
  */
-
-///import baidu.dom.g;
-///import baidu.dom.show;
-///import baidu.browser.ie;
-///import baidu.object.extend;
-
-///import baidu.fx.create;
-
- 
 /**
  * 控制元素的透明度 渐变
  * @function

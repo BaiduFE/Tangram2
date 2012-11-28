@@ -1,9 +1,10 @@
+///import baidu.ajax.request;
+
 /// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
-///import baidu.ajax.request;
 /**
  * @description 发送一个post请求
  * @function 

@@ -28,6 +28,6 @@
 
 baidu.array.extend({
     contains : function (item) {
-        return this.indexOf(item) > -1;
+        return !!~this.indexOf(item);
     }
 });

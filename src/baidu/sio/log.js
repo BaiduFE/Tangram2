@@ -23,7 +23,7 @@
  
 baidu.sio.extend({
   log : function() {
-    url = this.url ;
+    var url = this.url ;
     var img = new Image(),
         key = 'tangram_sio_log_' + Math.floor(Math.random() *
               2147483648).toString(36);

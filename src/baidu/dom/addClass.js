@@ -60,43 +60,34 @@
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.forEach;
+///import baidu.string.trim;
 
 baidu.dom.extend({
-    addClass: function(value){
-        
-        //异常处理
-        if(arguments.length <= 0 ){
+    addClass: function( value ){
+
+        if( !arguments.length )
             return this;
-        };
 
-        switch(typeof value){
-            case 'string':
+        var t = typeof value, b = " ";
 
-                //对输入进行处理
-                value = value.replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
+        if( t == "string" ){
+            value = baidu.string.trim(value);
+            
+            var arr = value.split(" ");
+
+            baidu.forEach( this, function(item, index){
+                var str = item.className;
                 
-                var arr = value.split(' ');
-                baidu.forEach(this, function(item, index){
-                    var str = '';
-                    if(item.className){
-                        str = item.className;
-                    };
-                    for(var i = 0; i<arr.length; i++){
-                        if((' '+str+' ').indexOf(' '+arr[i]+' ') == -1){
-                            str += (' '+arr[i]);
-                        };
-                    };
-                    item.className = str.replace(/^\s+/g,'') ;
-                });
-
-            break;
-            case 'function':
-                baidu.forEach(this, function(item, index){
-                    baidu.dom(item).addClass(value.call(item, index, item.className));
-                });
-
-            break;
-        };
+                for(var i = 0; i < arr.length; i ++)
+                    if(!~(b + str + b).indexOf(b + arr[i] + b))
+                        str += " " + arr[i];
+                
+                item.className = str.replace(/^\s+/g, "");
+            } );
+        }else if( t == "function" )
+            baidu.forEach(this, function(item, index){
+                baidu.dom(item).addClass(value.call(item, index, item.className));
+            });
 
         return this;
     }

@@ -1,3 +1,6 @@
+///import baidu.dom.one;
+///import baidu.dom._g;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,10 +11,6 @@
  * version: 1.1.0
  * date: 2010/10/29
  */
-
-///import baidu.dom.one;
-///import baidu.dom._g;
-
 /**
  * 为目标元素添加一次事件绑定
  * @name baidu.event.once

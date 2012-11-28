@@ -39,6 +39,8 @@ test("老接口：base", function() {
 	check({
 		width : 50,
 		padding : 10,
+		borderColor: 'red',
+		borderStyle: 'solid',
 		borderWidth : 10
 	}, {
 		width : 10
@@ -55,6 +57,8 @@ test("老接口：base", function() {
 	check({
 		width : 50,
 		padding : 0,
+		borderColor: 'red',
+        borderStyle: 'solid',
 		borderWidth : 10
 	}, {
 		width : 30
@@ -71,6 +75,8 @@ test("老接口：base", function() {
 	check({
 		width : 50,
 		padding : 0,
+		borderLeftColor: 'red',
+        borderLeftStyle: 'solid',
 		borderLeftWidth : 10
 	}, {
 		width : 40

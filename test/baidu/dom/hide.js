@@ -3,7 +3,7 @@ module("baidu.dom.hide",{});
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.dom.show,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.append,baidu.dom.show,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.css,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');

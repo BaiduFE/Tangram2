@@ -1,3 +1,7 @@
+///import baidu.fx.fadeOut;
+///import baidu.dom.remove;
+///import baidu.object.extend;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,13 +11,6 @@
  * @namespace: baidu.fx.remove
  * @version: 2010-01-23
  */
-
-///import baidu.fx.fadeOut;
-
-///import baidu.dom.remove;
-///import baidu.object.extend;
-
- 
 /**
  * 删除元素的时候使用fadeOut效果
  * @function

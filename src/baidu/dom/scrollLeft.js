@@ -24,7 +24,7 @@ baidu.dom.extend({
         return function(value){
             value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollLeft');
             if(this.size()<=0){
-                return value === undefined ? 0 : this;
+            	return value === undefined ? 0 : this;
             };
             return value === undefined ? ret.get(this[0])
                 : ret.set(this[0], value) || this;

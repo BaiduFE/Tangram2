@@ -25,7 +25,7 @@ Elements.prototype.dispose = function(){
 test('prepareTest',function(){
   expect(1);
   stop();
-  ua.importsrc("baidu.browser", function(){
+  ua.importsrc("baidu.browser,baidu._util_.eventBase.shortcut", function(){
     start();
     ok(true,'ok');
     ie = baidu.browser.ie;
@@ -121,7 +121,7 @@ test('div insert to span', function(){
         span = document.createElement('span');
     document.body.appendChild(span);
     span.appendChild(c.get());
-    baidu.dom(span).on('click', 'div', function(){
+    baidu.dom(span).on('click', 'div', function(e){
         ok(true, 'div event trigger');
     });
     ua.fireMouseEvent(c.get(), 'click');
@@ -129,6 +129,7 @@ test('div insert to span', function(){
 });
 
 test('mouseenter, mouseleave', function(){
+    expect(6);
     stop();
     ua.importsrc('baidu.dom.trigger', function(){
         // expect(2);
@@ -137,10 +138,11 @@ test('mouseenter, mouseleave', function(){
             innerDiv = new Elements('div', true);
         div.get().appendChild(span.get());
         span.get().appendChild(innerDiv.get());
-        
+
         baidu.dom(div.get()).on('mouseenter, mouseleave', function(evt){
-            ok(~'mouseenter|mouseleave', 'event is: ' + evt.type);
+            ok(~'mouseenter|mouseleave'.indexOf(evt.type), 'event is: ' + evt.type);
         });
+
         ua.fireMouseEvent(innerDiv.get(), 'mouseover');
         ua.fireMouseEvent(innerDiv.get(), 'mouseout');
         ua.fireMouseEvent(span.get(), 'mouseover');

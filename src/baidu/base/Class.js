@@ -89,7 +89,7 @@ baidu.extend(baidu.base.Class.prototype, {
         event.target = event.target || this;
         event.currentTarget = this;
 
-        type.indexOf("on") != 0 && (type = "on" + type);
+        type.indexOf("on") && (type = "on" + type);
 
         baidu.isFunction(this[type]) && this[type].apply(this, argu);
         (i=this._options) && baidu.isFunction(i[type]) && i[type].apply(this, argu);
@@ -123,7 +123,7 @@ baidu.extend(baidu.base.Class.prototype, {
         var list, t = this._listeners_;
         !t && (t = this._listeners_ = {});
 
-        type.indexOf("on") != 0 && (type = "on" + type);
+        type.indexOf("on") && (type = "on" + type);
 
         !baidu.isArray(list = t[type]) && (list = t[type] = []);
         if (once) {

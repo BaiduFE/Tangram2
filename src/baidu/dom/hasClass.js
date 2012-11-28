@@ -53,7 +53,7 @@ baidu.dom.extend({
         baidu.forEach(this, function(item){
             var str = item.className;
             for(var i = 0;i<arr.length;i++){
-                if((' '+str+' ').indexOf(' '+arr[i]+' ') == -1){
+                if(!~(' '+str+' ').indexOf(' '+arr[i]+' ')){
                     //有一个不含有
                     result = false;
                     return;

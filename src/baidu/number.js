@@ -15,7 +15,7 @@
 
 baidu.createChain('number', function(number){
     var nan = parseFloat(number),
-        val = isNaN(nan) ? nan : number;
+        val = isNaN(nan) ? nan : number,
         clazz = typeof val === 'number' ? Number : String,
         pro = clazz.prototype;
     val = new clazz(val);

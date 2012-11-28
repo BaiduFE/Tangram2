@@ -26,7 +26,7 @@
  //todo:考虑以后去掉下划线支持？
 baidu.string.extend({
     toCamelCase : function () {
-        var source = this.valueOf();
+    	var source = this.valueOf();
         //提前判断，提高getStyle等的效率 thanks xianwei
         if (source.indexOf('-') < 0 && source.indexOf('_') < 0) {
             return source;

@@ -1,3 +1,5 @@
+///import baidu.lang;
+
 /// Tangram 1.x Code Start
 /*
  * tangram
@@ -8,9 +10,6 @@
  * version: 1.1.0
  * date: 2011/04/29
  */
-
-///import baidu.lang;
-
 /**
  * @description 根据变量名或者命名空间来查找对象
  * @function

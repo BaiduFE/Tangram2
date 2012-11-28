@@ -19,7 +19,7 @@ baidu.platform = baidu.platform || function(){
 
     baidu.forEach("Android iPad iPhone Linux Macintosh Windows X11".split(" "), function(item ) {
         var key = item.charAt(0).toUpperCase() + item.toLowerCase().substr( 1 );
-        baidu[ "is" + key ] = result[ "is" + key ] = ua.indexOf( item ) > -1;//) && (result = item);
+        baidu[ "is" + key ] = result[ "is" + key ] = ~ua.indexOf( item );//) && (result = item);
     });
 
     return result;

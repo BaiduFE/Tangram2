@@ -1,3 +1,5 @@
+///import baidu.event;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +10,6 @@
  * version: 1.6.0
  * date: 2011/12/08
  */
-
-///import baidu.event;
-
 /**
  * 获取事件对象
  * @name baidu.event.getEvent

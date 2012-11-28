@@ -1,3 +1,5 @@
+///import baidu.dom;
+
 /// Tangram 1.x Code Start
 /**
  * @author wangxiao
@@ -20,11 +22,6 @@
  * @param {String} attributeName 要查找的属性名
  * @return {Boolean} 是否包含此属性
  */
-
-
-///import baidu;
-///import baidu.dom;
-
 baidu.dom.extend({
     hasAttr : function (name){
         element = this[0];

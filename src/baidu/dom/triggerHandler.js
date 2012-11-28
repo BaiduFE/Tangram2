@@ -2,7 +2,7 @@
  * @author dron
  */
 
-///import baidu._util_.eventBase;
+///import baidu._util_.eventBase.queue;
 
 /**
  * @description 对指定的 TangramDom 集合派发指定的事件函数，不触发事件默认行为
@@ -14,14 +14,19 @@
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
  */
 
-baidu.dom.extend({
-    triggerHandler: function(type, triggerData){
-        var eb = baidu._util_.eventBase;
+void function( base ){
+	var queue = base.queue;
 
-        baidu.forEach(this, function(item){
-            eb.fireHandler(item, type, triggerData);
-        });
+	baidu.dom.extend({
+		triggerHandler: function( type, triggerData, _e ){
+			if( _e && !_e.triggerData )
+				_e.triggerData = triggerData;
 
-        return this;
-    }
-});
+			baidu.forEach(this, function(item){
+			    queue.call( item, type, undefined, _e );
+			});
+			return this;
+		}
+	});
+
+}( baidu._util_.eventBase );

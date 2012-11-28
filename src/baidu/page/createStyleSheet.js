@@ -1,3 +1,7 @@
+///import baidu.browser.ie;
+///import baidu.dom.insertHTML;
+///import baidu.page;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,11 +11,6 @@
  * @namespace: baidu.page.createStyleSheet
  * @version: 2010-06-12
  */
-
-///import baidu.browser.ie;
-///import baidu.dom.insertHTML;
-///import baidu.page;
-
 /**
  * @description 在页面中创建样式表对象
  * @name baidu.page.createStyleSheet

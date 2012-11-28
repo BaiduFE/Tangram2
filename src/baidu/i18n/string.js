@@ -1,9 +1,10 @@
+///import baidu.i18n;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  */
-///import baidu.i18n;
 /**
  * string
  * @name baidu.i18n.string

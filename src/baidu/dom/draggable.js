@@ -1,10 +1,3 @@
-/// Tangram 1.x Code Start
-//为兼容Tangram1.x的magic增加的接口
-/*
- * Tangram
- * Copyright 2010 Baidu Inc. All rights reserved.
- */
-
 ///import baidu.dom.g;
 ///import baidu.dom.drag;
 ///import baidu.dom.getStyle;
@@ -13,11 +6,15 @@
 ///import baidu.event.un;
 ///import baidu.event.preventDefault;
 ///import baidu.object.extend;
-
 ///import baidu.lang.isFunction;
 ///import baidu.lang.Class;
 
-
+/// Tangram 1.x Code Start
+//为兼容Tangram1.x的magic增加的接口
+/*
+ * Tangram
+ * Copyright 2010 Baidu Inc. All rights reserved.
+ */
 /**
  * 让一个DOM元素可拖拽
  * @name baidu.dom.draggable

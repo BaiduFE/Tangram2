@@ -1,3 +1,6 @@
+///import baidu.dom.g;
+///import baidu.fx.opacity;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,11 +10,6 @@
  * @namespace: baidu.fx.fadeIn
  * @version: 2010-01-23
  */
-
-///import baidu.dom.g;
-///import baidu.fx.opacity;
-
- 
 /**
  * 渐现渐变效果。注意，如果元素的visibility属性如果为hidden，效果将表现不出来。
  * @function

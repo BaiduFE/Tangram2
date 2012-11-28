@@ -3,7 +3,7 @@ module("baidu.dom.show",{});
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.dom.hide,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.append,baidu.dom.hide,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.css,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');
@@ -25,7 +25,6 @@ test('prepareTest',function(){
 test("show()", function() {
 	//expect(26);
 	var hiddendiv = baidu.dom(".hidden");
-
 	hiddendiv.hide().show();
 
 	equal( hiddendiv.css("display"), "block", "Make sure a pre-hidden div is visible." );
@@ -37,7 +36,6 @@ test("show()", function() {
 	equal( div.css("display"), "block", "Make sure pre-hidden divs show" );
 
 	prepareTest();
-
 	hiddendiv = baidu("div.hidden").hide();
 
 	equal(baidu(hiddendiv[0]).css("display"), "none", "hiddendiv is display: none");

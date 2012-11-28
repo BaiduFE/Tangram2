@@ -1,11 +1,10 @@
+///import baidu.createChain;
+
 /// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
-
-///import baidu.createChain;
-
 /**
  * @description 对form的操作，解决表单数据问题
  * @function
@@ -19,11 +18,11 @@ baidu.createChain("form",
 
 // 执行方法
 function(form){
-    return typeof form === 'undefined'? new baidu.form.$Form():new baidu.form.$Form(form);
+	return typeof form === 'undefined'? new baidu.form.$Form():new baidu.form.$Form(form);
 },
 
 // constructor
 function(form){
-    this.form = form;
+	this.form = form;
 });
 /// Tangram 1.x Code End

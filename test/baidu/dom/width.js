@@ -37,6 +37,13 @@ function testGet( el ){
     diff( el, NaN );
 }
 
+function getCurrentStyle(ele, key){
+	var css = document.documentElement.currentStyle ?
+            function(element, propName){return element.currentStyle ? element.currentStyle[propName] : element.style[propName];}
+                : function(element, propName){return element.getComputedStyle(propName);};
+    return parseInt(css(ele, key));
+}
+
 function diff( el, number ){
     var tagName = el.toLowerCase(),
         prop = tagName === 'input' ? 'value' : 'innerHTML';
@@ -44,7 +51,7 @@ function diff( el, number ){
 	el.style.margin = el.style.padding = "10px";
 	!~'body'.indexOf(tagName) && (el[prop] = '&nbsp');
 	equal( baidu.dom( el ).width( number ).width(),
-	   el.offsetWidth - style(el, 'borderLeftWidth') - style(el, 'borderRightWidth') - style(el, 'paddingLeft') - style(el, 'paddingRight'),
+	   (el.offsetWidth || getCurrentStyle(el, 'width')) - style(el, 'borderLeftWidth') - style(el, 'borderRightWidth') - style(el, 'paddingLeft') - style(el, 'paddingRight'),
 	   "针对 " + el.tagName + " 节点设置(" + number + ")和取得 width");
 	
 	

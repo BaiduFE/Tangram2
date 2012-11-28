@@ -16,7 +16,7 @@
 } */
 
 baidu.dom.extend({
-    bind: function(type, data, fn){
-        return this.on(type, undefined, data, fn);
-    }
+	bind: function( type, data, fn ){
+		return this.on( type, undefined, data, fn );
+	}
 });

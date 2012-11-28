@@ -8,7 +8,7 @@ var manipulationFunctionReturningObj = function(value) { return (function() { re
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.appendTo,baidu.dom.trigger,baidu.dom.find,baidu.dom.removeData,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.appendTo,baidu.dom.trigger,baidu.dom.find,baidu.dom.removeData,baidu.dom.removeAttr,baidu.dom.val,baidu.dom.text,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');
