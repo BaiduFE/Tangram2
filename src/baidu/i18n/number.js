@@ -1,9 +1,10 @@
+///import baidu.i18n;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  */
-///import baidu.i18n;
 /**
  * number
  * @name baidu.i18n.number
@@ -28,10 +29,10 @@ baidu.i18n.number = baidu.i18n.number || /**@lends baidu.i18n.number.prototype*/
 
         if(typeof number === 'string'){
             
-            if(number.indexOf(sOpt.negative) > -1){
+            if(~number.indexOf(sOpt.negative)){
                 isNegative = true;
                 number = number.replace(sOpt.negative, "");   
-            }else if(number.indexOf(sOpt.positive) > -1){
+            }else if(~number.indexOf(sOpt.positive)){
                 number = number.replace(sOpt.positive, "");
             }
             number = number.replace(new RegExp(sOpt.group,'g'), "");

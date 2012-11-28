@@ -12,21 +12,19 @@ test('老接口：prepareTest',function(){
 });
 
 test("老接口：set styles",function(){
-
-	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
 	expect(4);
 	var div = document.createElement('div');
 	var img = document.createElement('img');
 	document.body.appendChild(div);
 	div.appendChild(img);
 	img.id = 'img_id';
-	baidu.dom(img).setStyles({color:"red",float:'left',display:"", opacity:"0.2"});
+	baidu.dom.setStyles(img, {color:"red", 'float': 'left', display:"", opacity:"0.2"});
 	
 	var color = $.trim(img.style.color.toLowerCase());
 	ok(color=='red'||color=='rgb(255,0,0)'||color=='#ff0000','color red');
 	equal(img.style.display,"",'get img display style');
 	equal($(img).css('float'),'left','get img float');
-	ok(img.style.opacity=='0.2'||img.filters.alpha.opacity== 20,'get img opacity');
+	ok(img.style.opacity=='0.2'||img.filters['dximagetransform.microsoft.Alpha'].opacity== 20,'get img opacity');
 	document.body.removeChild(div);
 });
 
@@ -37,33 +35,31 @@ test("老接口：shortcut",function(){
 	document.body.appendChild(div);
 	div.appendChild(img);
 	img.id = 'img_id';
-	baidu(img).setStyles({color:"red",float:'left',display:"", opacity:"0.2"});
+	baidu(img).setStyles({color: "red", 'float': 'left', display: "", opacity: "0.2"});
 	
 	var color = $.trim(img.style.color.toLowerCase());
 	ok(color=='red'||color=='rgb(255,0,0)'||color=='#ff0000','color red');
 	equal(img.style.display,"",'get img display style');
 	equal($(img).css('float'),'left','get img float');
-	ok(img.style.opacity=='0.2'||img.filters.alpha.opacity== 20,'get img opacity');
+	ok(img.style.opacity=='0.2'||img.filters['dximagetransform.microsoft.Alpha'].opacity== 20,'get img opacity');
 	document.body.removeChild(div);
 });
 
 //老用例
 test("老接口：set styles",function(){
-
-	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
 	expect(4);
 	var div = document.createElement('div');
 	var img = document.createElement('img');
 	document.body.appendChild(div);
 	div.appendChild(img);
 	img.id = 'img_id';
-	baidu.dom.setStyles(img,{color:"red",float:'left',display:"", opacity:"0.2"});
+	baidu.dom.setStyles(img,{color:"red",'float':'left',display:"", opacity:"0.2"});
 	
 	var color = $.trim(img.style.color.toLowerCase());
 	ok(color=='red'||color=='rgb(255,0,0)'||color=='#ff0000','color red');
 	equal(img.style.display,"",'get img display style');
 	equal($(img).css('float'),'left','get img float');
-	ok(img.style.opacity=='0.2'||img.filters.alpha.opacity== 20,'get img opacity');
+	ok(img.style.opacity=='0.2'||img.filters['dximagetransform.microsoft.Alpha'].opacity== 20,'get img opacity');
 	document.body.removeChild(div);
 });
 
@@ -74,13 +70,13 @@ test("老接口：shortcut",function(){
 	document.body.appendChild(div);
 	div.appendChild(img);
 	img.id = 'img_id';
-	baidu.setStyles(img,{color:"red",float:'left',display:"", opacity:"0.2"});
+	baidu.setStyles(img,{color:"red",'float':'left',display:"", opacity:"0.2"});
 	
 	var color = $.trim(img.style.color.toLowerCase());
 	ok(color=='red'||color=='rgb(255,0,0)'||color=='#ff0000','color red');
 	equal(img.style.display,"",'get img display style');
 	equal($(img).css('float'),'left','get img float');
-	ok(img.style.opacity=='0.2'||img.filters.alpha.opacity== 20,'get img opacity');
+	ok(img.style.opacity=='0.2'||img.filters['dximagetransform.microsoft.Alpha'].opacity== 20,'get img opacity');
 	document.body.removeChild(div);
 });
 

@@ -19,30 +19,7 @@
  */
 
 baidu.dom.extend({
-    one: function( type, data, fn ){
-        var me = this;
-
-        if( typeof data == "function" )
-            fn = data,
-            data = undefined;
-
-        if( typeof type == "object" && type ){
-            baidu.forEach( type, function( fn, type ){
-                this.one( type, data, fn );
-            }, this );
-            return this;
-        }
-
-        var newfn = function(){
-            baidu.dom( this ).off( type, newfn );
-            return fn.apply( me, arguments );
-        };
-
-        this.each( function(){
-            var id = baidu.id( this );
-            fn[ "_" + id + "_" + type ] = newfn;
-        } );
-
-        return this.on( type, data, newfn );
+    one: function( types, selector, data, fn  ){
+        return this.on( types, selector, data, fn, 1 );
     }
 });

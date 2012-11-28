@@ -1,3 +1,8 @@
+///import baidu.dom.g;
+///import baidu.fx.move;
+///import baidu.object.extend;
+///import baidu.dom.getStyle;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,14 +12,6 @@
  * @namespace: baidu.fx.moveBy
  * @version: 2010-06-04
  */
-
-
-///import baidu.dom.g;
-///import baidu.fx.move;
-///import baidu.object.extend;
-///import baidu.dom.getStyle;
-
- 
 /**
  * 移动渐变效果。这个效果会使目标元素移动指定的距离。注意: 对static定位的DOM元素无效。
  * @function

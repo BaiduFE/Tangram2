@@ -1,3 +1,7 @@
+///import baidu.dom.g;
+///import baidu.object.extend;
+///import baidu.fx.scale;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,13 +11,6 @@
  * @namespace: baidu.fx.zoomIn
  * @version: 2010-06-07
  */
-
-///import baidu.dom.g;
-///import baidu.object.extend;
-
-///import baidu.fx.scale;
-
- 
 /**
  * 将元素放大的展现效果。
  * @function

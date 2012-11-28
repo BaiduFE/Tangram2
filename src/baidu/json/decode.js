@@ -1,3 +1,5 @@
+///import baidu.json.parse;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +10,6 @@
  * version: 1.3.4
  * date: 2010/12/23
  */
-
-///import baidu.json.parse;
-
 /**
  * @description 将字符串解析成json对象，为过时接口，今后会被baidu.json.parse代替
  * @name baidu.json.decode

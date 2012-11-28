@@ -1,3 +1,5 @@
+///import baidu.event;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,8 +10,6 @@
  * version: 1.1.0
  * date: 2009/11/23
  */
-
-///import baidu.event;
 /**
  * 获取键盘事件的键值
  * @name baidu.event.getKeyCode

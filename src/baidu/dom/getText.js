@@ -1,3 +1,5 @@
+///import baidu.dom;
+
 /// Tangram 1.x Code Start
 /**
  * @author wangxiao
@@ -20,7 +22,6 @@
  * @param {Null} null 不传入任何函数
  * @return {String} 元素中文本的内容。
  */
-///import baidu.dom._g;
 baidu.dom.extend({
     getText : function () {
         var ret = "", childs, i=0, l;

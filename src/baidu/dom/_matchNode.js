@@ -1,3 +1,5 @@
+///import baidu.dom.g;
+
 /// Tangram 1.x Code Start
 //为兼容Tangram1.x的magic增加的接口
 /*
@@ -9,10 +11,6 @@
  * version: 1.1.0
  * date: 2009/11/18
  */
-
-///import baidu.dom;
-///import baidu.dom.g;
-
 /**
  * 从目标元素指定的方向搜索元素
  *

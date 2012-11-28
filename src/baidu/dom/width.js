@@ -71,7 +71,7 @@
  */
 baidu.dom.extend({
     width: function(value){
-        return baidu._util_.access.call(this, 'width', value, function(ele, key, val){
+        return baidu._util_.access(this, 'width', value, function(ele, key, val){
             var hasValue = val !== undefined,
                 parseValue = hasValue && parseFloat(val),
                 type = ele != null && ele == ele.window ? 'window'

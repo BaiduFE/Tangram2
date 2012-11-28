@@ -10,6 +10,7 @@
  */
 
 ///import baidu.page;
+///import baidu.browser.ie;
 
 /**
  * @description 获取页面视觉区域高度
@@ -21,8 +22,11 @@
  * @return {number} 页面视觉区域高度
  */
 baidu.page.getViewHeight = function () {
-    var de = document.documentElement.clientHeight,
-        db = document.body.clientHeight;
-    return Math.min(de||db, db);
+    var doc = document,
+        ie = baidu.browser.ie || 1;
+        client = doc.compatMode === 'BackCompat'
+            && ie < 9 ? doc.body : doc.documentElement;
+        //ie9浏览器需要取得documentElement才能取得到正确的高度
+    return client.clientHeight;
 };
 /// support magic - Tangram 1.x Code End

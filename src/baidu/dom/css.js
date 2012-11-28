@@ -60,9 +60,9 @@
 
  //设置css
  baidu("div").css({
-     "background-color":"red",
-     "left":"30px",
-     "right":"40px"
+ 	"background-color":"red",
+ 	"left":"30px",
+ 	"right":"40px"
  });
  
  */
@@ -101,7 +101,7 @@
 baidu.dom.extend({
     css: function(key, value){
         baidu.check('^(?:(?:string(?:,(?:number|string|function))?)|object)$', 'baidu.dom.css');
-        return baidu._util_.access.call(this, key, value, function(ele, key, val){
+        return baidu._util_.access(this, key, value, function(ele, key, val){
             var styleFixer = baidu.dom.styleFixer;
             return styleFixer ? styleFixer(ele, key, val)
                 : (val === undefined ? this.getCurrentStyle(key) : ele.style[key] = val);

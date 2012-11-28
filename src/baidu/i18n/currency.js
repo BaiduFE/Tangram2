@@ -1,12 +1,11 @@
+///import baidu.i18n.number;
+///import baidu.i18n.cultures;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  */
-
-///import baidu.i18n;
-///import baidu.i18n.number;
-///import baidu.i18n.cultures;
 /**
  * currency
  * @name baidu.i18n.currency

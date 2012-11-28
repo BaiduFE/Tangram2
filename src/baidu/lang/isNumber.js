@@ -1,13 +1,12 @@
+///import baidu.lang;
+///import baidu.type;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  * modify: 2012/6/29 mz
  */
-
-///import baidu.lang;
-///import baidu.type;
-
 /**
  * @description 判断目标参数是否number类型或Number对象
  * @name baidu.lang.isNumber

@@ -1,3 +1,6 @@
+///import baidu.lang;
+///import baidu.type;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -9,10 +12,6 @@
  * date: 2010/10/12
  * modify: 2012/6/29 mz
  */
-
-///import baidu.lang;
-///import baidu.type;
-
 /**
  * @description 判断目标参数是否Boolean对象
  * @name baidu.lang.isBoolean

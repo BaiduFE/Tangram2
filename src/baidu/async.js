@@ -1,11 +1,10 @@
+///import baidu.createChain;
+
 /// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
-
-///import baidu.createChain;
-
 /**
  * @description 对异步调用的封装
  * @name baidu.async
@@ -19,12 +18,12 @@ baidu.createChain("async",
 
 // 执行方法
 function(url){
-    return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
+	return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
 },
 
 // constructor
 function(url){
-    this.url = url;
+	this.url = url;
 });
 
 /// Tangram 1.x Code End

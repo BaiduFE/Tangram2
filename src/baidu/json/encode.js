@@ -1,3 +1,5 @@
+///import baidu.json.stringify;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +10,6 @@
  * version: 1.3.4
  * date: 2010/12/23
  */
-
-///import baidu.json.stringify;
-
 /**
  * @description 将json对象序列化，为过时接口，今后会被baidu.json.stringify代替
  * @name baidu.json.encode

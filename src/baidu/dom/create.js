@@ -1,5 +1,6 @@
-/// Tangram 1.x Code Start
 ///import baidu.dom.setAttr;
+
+/// Tangram 1.x Code Start
 /**
  * 创建 Element 对象。
  * @author berg

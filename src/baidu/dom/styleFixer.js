@@ -5,7 +5,7 @@
 ///import baidu.dom.getCurrentStyle;
 ///import baidu.extend;
 ///import baidu.forEach;
-///import baidu.support;
+///import baidu._util_.support;
 ///import baidu._util_.getWidthOrHeight;
 ///import baidu.type;
 ///import baidu.string.toCamelCase;
@@ -14,8 +14,9 @@ baidu.dom.styleFixer = function(){
     var alpha = /alpha\s*\(\s*opacity\s*=\s*(\d{1,3})/i,
         nonpx = /^-?(?:\d*\.)?\d+(?!px)[^\d\s]+$/i,
         cssNumber = 'fillOpacity,fontWeight,opacity,orphans,widows,zIndex,zoom',
+        anchor = baidu._util_.support.dom.a,
         cssProps = {
-            'float': baidu.support.cssFloat ? 'cssFloat' : 'styleFloat'
+            'float': !!anchor.style.cssFloat ? 'cssFloat' : 'styleFloat'
         },
         cssMapping = {
             fontWeight: {normal: 400, bold: 700, bolder: 700, lighter: 100}
@@ -34,7 +35,7 @@ baidu.dom.styleFixer = function(){
         style = {
             set: function(ele, key, val){ele.style[key] = val;}
         };
-    baidu.extend(cssHooks.opacity, baidu.support.opacity ? {
+    baidu.extend(cssHooks.opacity, /^0.5/.test(anchor.style.opacity) ? {
         get: function(ele, key){
             var ret = baidu.dom(ele).getCurrentStyle(key);
             return ret === '' ? '1' : ret;

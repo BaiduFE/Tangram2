@@ -6,42 +6,13 @@ var functionReturningObj = function(value) { return (function() { return value; 
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.each,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.removePorp,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.append,baidu.each,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.attr,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.removePorp,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');
 	}, "baidu.dom.contents", "baidu.dom.prop");
 });
 
-test("baidu.propFix integrity test", function() {
-	expect(12);
-
-	//  This must be maintained and equal baidu.attrFix when appropriate
-	//  Ensure that accidental or erroneous property
-	//  overwrites don't occur
-	//  This is simply for better code coverage and future proofing.
-	var props = {
-		"tabindex": "tabIndex",
-		"readonly": "readOnly",
-		"for": "htmlFor",
-		"class": "className",
-		"maxlength": "maxLength",
-		"cellspacing": "cellSpacing",
-		"cellpadding": "cellPadding",
-		"rowspan": "rowSpan",
-		"colspan": "colSpan",
-		"usemap": "useMap",
-		"frameborder": "frameBorder",
-		"contenteditable": "contentEditable"
-	};
-
-	if ( !baidu.support.enctype ) {
-		props.enctype = "encoding";
-	}
-	for(key in props){
-		equal(props[key], baidu._util_.propFix[key], "baidu.propFix passes integrity check");
-	}
-});
 
 test("attr(String, Function)", function() {
 	expect(2);
@@ -151,7 +122,7 @@ test("prop(String, Object)", function() {
 	equal( baidu("#select2").prop("selectedIndex"), 3, "Check for selectedIndex attribute" );
 	equal( baidu("#foo").prop("nodeName").toUpperCase(), "DIV", "Check for nodeName attribute" );
 	equal( baidu("#foo").prop("tagName").toUpperCase(), "DIV", "Check for tagName attribute" );
-	equal( baidu("<option/>").prop("selected"), false, "Check selected attribute on disconnected element." );
+	equal( baidu("<option/>").prop("selected"), false, "Check selected attribute on disconnected element." );	
 	equal( baidu("#listWithTabIndex").prop("tabindex"), 5, "Check retrieving tabindex" );
 	baidu("#text1").prop("readonly", true);
 	equal( document.getElementById("text1").readOnly, true, "Check setting readOnly property with 'readonly'" );
@@ -194,7 +165,7 @@ test("prop(String, Object)", function() {
 		textNode = document.createTextNode("some text"),
 		obj = {};
 	baidu.each( [document, attributeNode, commentNode, textNode, obj, "#firstp"], function(  ele,i ) {
-		strictEqual( baidu(ele).prop("nonexisting"), undefined, "prop works correctly for non existing attributes (bug #7500)." );
+		strictEqual( typeof baidu(ele).prop("nonexisting").prop, 'function', "prop works correctly for non existing attributes (bug #7500)." );
 	});
 
 	obj = {};
@@ -267,7 +238,7 @@ test("prop('tabindex', value)", function() {
 
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").prop('type');
-    equal(result,undefined,'get方法');
+    equal(typeof result.prop, 'function','get方法');
     var result = baidu("#baidujsxiaozu").prop('type','wlkafjl');
     ok(result,'有东西就行');
 });

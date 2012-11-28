@@ -21,8 +21,10 @@ baidu.dom.extend({
         return baidu.dom(this.get(-1));
     }
 });
-/// Tangram 1.x Code Start
+
 ///import baidu.dom.g;
+
+/// Tangram 1.x Code Start
 baidu.dom.last = function(element) {
     element = baidu.dom.g(element);
 

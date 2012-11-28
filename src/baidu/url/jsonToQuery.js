@@ -1,3 +1,7 @@
+///import baidu.url.escapeSymbol;
+///import baidu.object.each;
+///import baidu.lang.isArray;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,11 +12,6 @@
  * version: 1.1.0
  * date: 2009/11/16
  */
-
-///import baidu.url.escapeSymbol;
-///import baidu.object.each;
-///import baidu.lang.isArray;
-
 /**
  * @description 将json对象解析成query字符串
  * @name baidu.url.jsonToQuery

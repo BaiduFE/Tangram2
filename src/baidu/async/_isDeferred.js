@@ -1,11 +1,11 @@
+///import baidu.async;
+///import baidu.lang.isFunction;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  */
-
-///import baidu.async;
-///import baidu.lang.isFunction;
 /**
  * 判断给定object是否包含Deferred主要特征.
  * @param {Object} obj 待判定object.

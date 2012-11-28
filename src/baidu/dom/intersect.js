@@ -1,3 +1,6 @@
+///import baidu.dom.g;
+///import baidu.dom.getPosition;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,10 +11,6 @@
  * version: 1.1.0
  * date: 2009/12/02
  */
-
-///import baidu.dom.g;
-///import baidu.dom.getPosition;
-
 /**
  * 检查两个元素是否相交
  * @name baidu.dom.intersect

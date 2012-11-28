@@ -1,7 +1,7 @@
-/// Tangram 1.x Code Start
 ///import baidu.dom.g;
 ///import baidu.browser.ie;
 
+/// Tangram 1.x Code Start
 /**
  * 设置HTML元素的不透明性，跨浏览器种类兼容处理
  * 

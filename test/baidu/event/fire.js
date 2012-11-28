@@ -13,12 +13,19 @@ module('baidu.event.fire');
 		} : op, eName = op.eName.indexOf('on') == 0 ? op.eName
 				: 'on' + op.eName, obj = op.obj
 				|| document.body.appendChild(document.createElement('div')), options = op.options || {};
+
 		obj[eName] = function(event) {
+			event = event || window.event;
+
 			ok(true, 'event fired : ' + eName);
 			if (op.callback) {
 				op.callback(event);
 			}
+
+			event.preventDefault && event.preventDefault();
+			return event.returnValue = false;
 		};
+
 		if (op.options)
 			baidu.event.fire(obj, eName, op.options);
 		else{
@@ -33,6 +40,7 @@ module('baidu.event.fire');
 		} : op, eName = op.eName.indexOf('on') == 0 ? op.eName
 				: 'on' + op.eName, obj = op.obj
 				|| document.body.appendChild(document.createElement('div')), options = op.options || {};
+			
 		if(eName=='onabort'||eName=='onerror'){
 			var div = document.createElement('div');
 			var img = document.createElement('img');
@@ -54,6 +62,7 @@ module('baidu.event.fire');
 			var form = document.createElement('form');
 			document.body.appendChild(form);
 			obj = form;
+			obj.action = "http://www.baidu.com";
 		}
 		else if(eName=='onselect'){
 			var div = document.createElement('div');
@@ -63,10 +72,12 @@ module('baidu.event.fire');
 			obj = input;
 		}
 		obj[eName] = function(event) {
+			event = event || window.event;
 			ok(true, 'event fired : ' + eName);
 			if (op.callback) {
 				op.callback(event);
 			}
+			return event.returnValue = false;
 		};
 		if (op.options)
 			baidu.event.fire(obj, eName, op.options);
@@ -127,7 +138,7 @@ module('baidu.event.fire');
 	 * keyboard event options
 	 */
 	test('老接口：options of keyboard', function() {
-		if(ua.browser.ie || ua.browser.ff)
+		if( /msie|firefox/i.test(navigator.userAgent) )
 		check( {
 			eName : 'keypress',
 			callback : function(e) {
@@ -147,11 +158,14 @@ module('baidu.event.fire');
 		var div1 = document.body.appendChild(document.createElement('div'));
 		$(div1).css('width', 50).css('height', 50).css('background-color','blue');
 		var options = {
-			relatedTarget : div1,
-			callback : function() {
-                ok(true,"from div move to div1");
-			}	
+			relatedTarget : div1
 		};
+
+		div.onmouseout = function( e ){
+		    e = e || event;
+		    ok( e.relatedTarget == div1, "relatedTarget is div1" );
+		};
+
 		baidu.event.fire(div, "mouseout",options);
 
 	});

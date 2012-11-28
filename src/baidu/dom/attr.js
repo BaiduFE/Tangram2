@@ -1,6 +1,5 @@
 /*
- * @author wangxiao
- * @email  1988wangxiao@gmail.com
+ * @author wangxiao, linlingyu
  */
 
 /**
@@ -100,156 +99,13 @@
     }
  });
  */
-
-///import baidu;
 ///import baidu.dom;
-///import baidu.forEach;
-///import baidu.support;
-
-///import baidu._util_.attrHooks;
-
-///import baidu.dom.prop;
-///import baidu.dom.val;
-///import baidu.dom.css;
-///import baidu.dom.html;
-///import baidu.dom.text;
-///import baidu.dom.width;
-///import baidu.dom.height;
-///import baidu.dom.offset;
-///import baidu._util_.isXML;
-///import baidu.dom.removeAttr;
-
+///import baidu._util_.access;
+///import baidu._util_.attr;
 baidu.dom.extend({
-    attr:function(name,value){
-
-        //异常处理
-        if(arguments.length <= 0 || typeof name === 'function'){
-            return this;
-        };
-
-        //返回结果
-        var result,
-            me = this,
-            isSet = false;
-
-        //当dom选择器为空时
-        if(this.size()<=0){
-            if(name&&value){
-                return me;
-            }else if(name&&!value){
-                return undefined;
-            }else{
-                return me;
-            }
-        }
-
-        baidu.forEach(this, function(item, index){
-
-            if(result){
-                return;
-            };
-
-            var ret, 
-                hooks, 
-                notxml,
-                bd = baidu.dom,
-                bu = baidu._util_,
-                nType = item.nodeType;
-
-            // don't get/set properties on text, comment and attribute nodes
-            if ( !item || nType === 3 || nType === 8 || nType === 2 ) {
-                return;
-            };
-
-            // Fallback to prop when attributes are not supported
-            if ( typeof item.getAttribute === "undefined" ) {
-                var ele = bd(item); 
-                result = ele.prop( name, value );
-                
-            };
-
-            switch(typeof name){
-                case 'string':
-                    notxml = nType !== 1 || !baidu._util_.isXML( item );
-
-                    // All attributes are lowercase
-                    // Grab necessary hook if one is defined
-                    if ( notxml ) {
-                        name = name.toLowerCase();
-                        hooks = bu.attrHooks[ name ] || ( bu.rboolean.test( name ) ? bu.boolHook : bu.nodeHook );
-                    };
-
-                    if( typeof value === 'undefined' ){
-                        
-                        //get first
-                        if ( hooks && "get" in hooks && notxml && (ret = hooks.get( item, name )) !== null ) {
-                            //return ret;
-                            result = ret;
-                        } else {
-
-                            ret = item.getAttribute( name );
-
-                            // Non-existent attributes return null, we normalize to undefined
-                            //return ret === null ? undefined : ret;
-                            result = ret === null ? undefined : ret;
-                        };
-
-                    }else if( typeof value === 'function' ){
-
-                        isSet = true;
-                        var ele = bd(item);
-                        ele.attr(name,value.call(item, index, ele.attr(name)));
-                    
-                    }else{
-                        
-                        //set all
-                        isSet = true;
-                        var attrFn = {
-                            val: true,
-                            css: true,
-                            html: true,
-                            text: true,
-                            //data: true,
-                            width: true,
-                            height: true,
-                            offset: true
-                        };
-
-                        if ( name in attrFn ) {
-                            result = bd( item )[ name ]( value );
-                            return;
-                        };
-
-                        if ( value === null ) {
-                            bd(item).removeAttr( name );
-                            return;
-
-                        } else if ( hooks && "set" in hooks && notxml && (ret = hooks.set( item, value, name )) !== undefined ) {
-                            return ret;
-
-                        } else {
-                            item.setAttribute( name, "" + value );
-                            return value;
-                        };
-                    };
-
-                break;
-                case 'object':
-
-                    //set all
-                    isSet = true;
-                    var ele = bd(item);
-                    for(key in name){
-                        ele.attr(key,name[key]);
-                    };
-
-                break;
-                default:
-                    result = me;
-                break;
-            };
+    attr: function(key, value){
+        return baidu._util_.access(this, key, value, function(ele, key, val, pass){
+            return baidu._util_.attr(ele, key, val, pass);
         });
-    
-        return isSet?this:result;
     }
 });

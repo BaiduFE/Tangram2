@@ -1,3 +1,7 @@
+///import baidu.dom.g;
+///import baidu.string.trim;
+///import baidu.string.escapeReg;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,11 +12,6 @@
  * version: 1.1.0
  * date: 2009/12/02
  */
-
-///import baidu.dom.g;
-///import baidu.string.trim;
-///import baidu.string.escapeReg;
-
 /**
  * 通过className获取元素
  * @name baidu.dom.q

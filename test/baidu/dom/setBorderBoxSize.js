@@ -19,8 +19,8 @@ test("老接口：base", function() {
 			var div = document.body.appendChild(document.createElement("div"));
 			div.id = "div_" + id++;
 			$(div).css("backgroundColor", "red");
-			for ( var style in styles) {
-				$(div).css(style, styles[style]);
+			for(var key in styles){
+			    $(div).css(key, styles[key]);
 			}
 			baidu.dom.setBorderBoxSize(div, styles);
 			for ( var expect in expects) {
@@ -45,17 +45,17 @@ test("老接口：base", function() {
 		height : 50,
 		width : 50,
 		padding : 10,
-		borderWidth : 10
+		border : 'red solid 10px'
 	}, {
 		height : 10,
 		width : 10
 	});
-
+    
 	check({
 		height : 50,
 		width : 50,
 		padding : 0,
-		borderWidth : 10
+		border : 'red solid 10px'
 	}, {
 		height : 30,
 		width : 30
@@ -78,6 +78,8 @@ test("老接口：base", function() {
 		height : 50,
 		width : 50,
 		padding : 0,
+		borderColor: 'red',
+		borderStyle: 'solid',
 		borderLeftWidth : 10,
 		borderRightWidth : 0,
 		borderTopWidth : 10,

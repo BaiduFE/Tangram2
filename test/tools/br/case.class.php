@@ -56,10 +56,6 @@ class Kiss{
 		}
 
 		$this->path = $this->projroot.'test/'.$path.'.js';
-		if(!is_file($this->path)){
-			$this->fileunexist = true;
-			return;
-		}
 		if(filesize($this->path)<20){
 			$this->empty = true;
 			return;

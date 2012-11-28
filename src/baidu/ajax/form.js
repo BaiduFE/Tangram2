@@ -1,3 +1,6 @@
+///import baidu.ajax.request;
+///import baidu.url.escapeSymbol;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,11 +11,6 @@
  * version: 1.1.0
  * date: 2009/12/02
  */
-
-///import baidu.ajax;
-///import baidu.ajax.request;
-///import baidu.url.escapeSymbol;
-
 /**
  * @description 将一个表单用ajax方式提交
  * @function 

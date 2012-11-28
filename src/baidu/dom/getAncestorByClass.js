@@ -1,3 +1,6 @@
+///import baidu.dom.g;
+///import baidu.string.trim;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,10 +11,6 @@
  * version: 1.1.0
  * date: 2009/12/02
  */
-
-///import baidu.dom.g;
-///import baidu.string.trim;
-
 /**
  * 获取目标元素指定元素className最近的祖先元素
  * @name baidu.dom.getAncestorByClass

@@ -1,3 +1,6 @@
+///import baidu.lang;
+///import baidu.global;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,10 +11,6 @@
  * version: 1.1.0
  * $date$
  */
-
-///import baidu.lang;
-///import baidu.global;
-
 /**
  * @description 解除instance中对指定类实例的引用关系。
  * @name baidu.lang.decontrol

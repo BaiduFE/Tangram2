@@ -43,7 +43,7 @@ test("老接口：base", function() {
 	check({
 		height : 50,
 		padding : 10,
-		border : 10
+		border : 'red solid 10px'
 	}, {
 		height : 10
 	});
@@ -60,7 +60,7 @@ test("老接口：base", function() {
 		height : 50,
 		margin : 0,
 		padding : 0,
-		border : 10
+		border : 'red solid 10px'
 	}, {
 		height : 30
 	});
@@ -78,6 +78,8 @@ test("老接口：base", function() {
 		height : 50,
 		padding : 0,
 		margin : 0,
+		borderTopColor: 'red',
+		borderTopStyle: 'solid',
 		borderTopWidth : 10
 	}, {
 		height : 40

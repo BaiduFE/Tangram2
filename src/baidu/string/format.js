@@ -30,21 +30,21 @@
 //format(a,a,d,f,c,d,g,c);
 baidu.string.extend({
     format : function (opts) {
-        var source = this.valueOf(),
+    	var source = this.valueOf(),
             data = Array.prototype.slice.call(arguments,0), toString = Object.prototype.toString;
         if(data.length){
-            data = data.length == 1 ? 
-                /* ie 下 Object.prototype.toString.call(null) == '[object Object]' */
-                (opts !== null && (/\[object Array\]|\[object Object\]/.test(toString.call(opts))) ? opts : data) 
-                : data;
-            return source.replace(/#\{(.+?)\}/g, function (match, key){
-                var replacer = data[key];
-                // chrome 下 typeof /a/ == 'function'
-                if('[object Function]' == toString.call(replacer)){
-                    replacer = replacer(key);
-                }
-                return ('undefined' == typeof replacer ? '' : replacer);
-            });
+    	    data = data.length == 1 ? 
+    	    	/* ie 下 Object.prototype.toString.call(null) == '[object Object]' */
+    	    	(opts !== null && (/\[object Array\]|\[object Object\]/.test(toString.call(opts))) ? opts : data) 
+    	    	: data;
+        	return source.replace(/#\{(.+?)\}/g, function (match, key){
+    	    	var replacer = data[key];
+    	    	// chrome 下 typeof /a/ == 'function'
+    	    	if('[object Function]' == toString.call(replacer)){
+    	    		replacer = replacer(key);
+    	    	}
+    	    	return ('undefined' == typeof replacer ? '' : replacer);
+        	});
         }
         return source;
     }

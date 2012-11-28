@@ -1,6 +1,5 @@
 /**
- * @author wangxiao
- * @email  1988wangxiao@gmail.com
+ * @author wangxiao, linlingyu
  */
 
 /**
@@ -27,34 +26,18 @@
 
 */
 
-///import baidu;
 ///import baidu.dom;
-///import baidu.forEach;
-///import baidu.support;
-///import baidu._util_.propHooks;
-
+///import baidu._util_.propFixer;
 baidu.dom.extend({
-    removeProp: function(value){
-
-        //异常处理
-        if(arguments.length <= 0 || !value || typeof value !== 'string'){
-            return this;
-        };
-
-        var bd = baidu.dom,
-            bu = baidu._util_;
-
-        value = bu.propFix[ value ] || value;
-        baidu.forEach(this, function(item){
+    removeProp: function(key){
+        key = baidu._util_.propFixer[key] || key;
+        this.each(function(index, item){
             // try/catch handles cases where IE balks (such as removing a property on window)
-            try {
-                item[ value ] = undefined;
-                delete item[ value ];
-            } catch( e ) {
-
-            };
+            try{
+                item[key] = undefined;
+                delete item[key];
+            }catch(e){}
         });
-
         return this;
     }
 });

@@ -55,8 +55,9 @@ baidu.dom.extend({
     }
 });
 
-/// Tangram 1.x Code Start
 ///import baidu.dom._g;
+
+/// Tangram 1.x Code Start
 /**
  * @description 将目标元素添加到基准元素之后
  * @function 

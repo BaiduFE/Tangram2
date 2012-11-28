@@ -6,7 +6,7 @@ var functionReturningObj = function(value) { return (function() { return value; 
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.appendTo,baidu.dom.trigger,baidu.dom.find,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents,baidu.dom.val", function(){
+	ua.importsrc("baidu.dom.append,baidu.dom.each,baidu.dom.appendTo,baidu.dom.trigger,baidu.dom.find,baidu.dom.attr,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents,baidu.dom.val", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');
@@ -40,7 +40,6 @@ test("val()", function() {
 
 	baidu("#select3").val("");
 	//deepEqual( baidu("#select3").val(), [""], "Call val() on a multiple=\"multiple\" select" );
-
 	deepEqual( baidu("#select4").val(), [], "Call val() on multiple=\"multiple\" select with all disabled options" );
 
 	$("#select4 optgroup").add("#select4 > [disabled]").attr("disabled", false);
@@ -48,6 +47,7 @@ test("val()", function() {
 
 	baidu("#select4").attr("disabled", true);
 	deepEqual( baidu("#select4").val(), ["2", "3"], "Call val() on disabled multiple=\"multiple\" select" );
+
 
 	equal( baidu("#select5").val(), "3", "Check value on ambiguous select." );
 	baidu("#select5").val(1);

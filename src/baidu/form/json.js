@@ -1,12 +1,11 @@
+///import baidu.form;
+///import baidu.url.escapeSymbol;
+
 /// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
-
-///import baidu.form;
-///import baidu.url.escapeSymbol;
-
 /**
  * @description josn化表单数据
  * @function

@@ -1,12 +1,11 @@
+///import baidu.async._isDeferred;
+///import baidu.async.Deferred;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  */
-
-///import baidu.async;
-///import baidu.async._isDeferred;
-///import baidu.async.Deferred;
 /**
  * @description 保证onResolve或onReject可以按序执行. 若第一个参数为deferred,则deferred完成后执行.否则立即执行onResolve,并传入第一个参数.
  * @name baidu.async.when

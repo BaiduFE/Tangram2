@@ -1,3 +1,5 @@
+///import baidu.lang;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +10,6 @@
  * version: 1.1.0
  * date: 2009/12/1
  */
-
-///import baidu.lang;
-
 /**
  * @description 根据参数(guid)的指定，返回对应的实例对象引用
  * @name baidu.lang.instance

@@ -1,3 +1,7 @@
+///import baidu.dom.g;
+///import baidu.dom.hide;
+///import baidu.fx.opacity;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,12 +11,6 @@
  * @namespace: baidu.fx.fadeOut
  * @version: 2010-01-23
  */
-
-///import baidu.dom.g;
-///import baidu.dom.hide;
-///import baidu.fx.opacity;
-
- 
 /**
  * 渐隐渐变效果，效果执行结束后会将元素完全隐藏起来。
  * @function

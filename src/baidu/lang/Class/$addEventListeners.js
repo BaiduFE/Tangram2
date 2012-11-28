@@ -1,3 +1,6 @@
+///import baidu.lang.Event;
+///import baidu.string.trim;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,15 +11,11 @@
  * version: 1.0
  * date: 2010-07-05
  */
-
-///import baidu.lang.Event;
-///import baidu.string.trim;
-
 /**
  * 添加多个自定义事件。
  * @grammar obj.addEventListeners(events, fn)
- * @param     {object}   events       json对象，key为事件名称，value为事件被触发时应该调用的回调函数
- * @param     {Function} fn            要挂载的函数
+ * @param 	{object}   events       json对象，key为事件名称，value为事件被触发时应该调用的回调函数
+ * @param 	{Function} fn	        要挂载的函数
  * @version 1.3
  */
 /* addEventListeners("onmyevent,onmyotherevent", fn);

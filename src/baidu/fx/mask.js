@@ -1,3 +1,7 @@
+///import baidu.dom.getStyle;
+///import baidu.object.extend;
+///import baidu.fx.create;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,13 +11,6 @@
  * @namespace: baidu.fx.mask
  * @version: 2010-05-20
  */
-
-///import baidu.dom.getStyle;
-///import baidu.object.extend;
-
-///import baidu.fx.create;
-
-
 /**
  * 面具遮罩效果。注意：只适用于绝对定位的DOM元素.
  * @function

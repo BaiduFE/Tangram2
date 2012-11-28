@@ -1,3 +1,7 @@
+///import baidu.lang.createSingle;
+///import baidu.lang.Event;
+///import baidu.lang.Class.$removeEventListener;
+
 /// Tangram 1.x Code Start
 //为兼容Tangram1.x的magic增加的接口
 /*
@@ -9,10 +13,6 @@
  * version: 1.4.0
  * date: 2010/10/14
  */
-
-///import baidu.lang.createSingle;
-///import baidu.lang.Event;
-///import baidu.lang.Class.$removeEventListener;
 /**
  * 拖曳管理器
  * @function

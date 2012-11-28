@@ -1,11 +1,10 @@
+///import baidu.lang;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  */
-
-///import baidu.lang;
-
 /**
  * @description 增加自定义模块扩展,默认创建在当前作用域
  * @author erik, berg

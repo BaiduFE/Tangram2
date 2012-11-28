@@ -17,12 +17,11 @@ test('老接口：基础测试',
 		function() {
 			expect(3);
 			var div = document.createElement('div');
-			baidu.dom(div).setAttr('title', "div_getAttri");
-			baidu.dom(div).setAttr('className', "test_div") || baidu.dom(div).setAttr('class', "test_div");
-			equal(div.getAttribute("rel"), null, "div gets no rel attribute");
-			equal(div.getAttribute("title"), "div_getAttri",
-					"div gets title attribute");
-			equal(div.className, "test_div", "div gets class attribute");
+			baidu.dom.setAttr(div, 'title', 'div_getAttri');
+			baidu.dom.setAttr(div, 'class', 'test_div');
+			equal(div.getAttribute('rel'), null, 'div gets no rel attribute');
+			equal(div.getAttribute('title'), 'div_getAttri', 'div gets title attribute');
+			equal(div.className, 'test_div', 'div gets class attribute');
 		});
 
 /**
@@ -36,15 +35,15 @@ test(
 			expect(eleNames.length * 2);
 			for(var i = 0; i < eleNames.length; i ++){
 				var ele = document.createElement(eleNames[i]);
-				baidu.dom(ele).setAttr('id', ele.tagName + "_ele");
+				baidu.dom.setAttr(ele, 'id', ele.tagName + "_ele");
 				equal(ele.getAttribute('id'), ele.tagName + "_ele", ele.tagName
 						+ " gets id attribute");
 				if(baidu.ie==8){
-					baidu.dom(ele).setAttr('data', ele.tagName + "_data");
+					baidu.dom.setAttr(ele, 'data', ele.tagName + "_data");
 					equal(ele.getAttribute('data'), ele.tagName + "_data",ele.tagName);
 				}
 				else {
-					baidu.dom(ele).setAttr('test', ele.tagName + "_test");
+					baidu.dom.setAttr(ele, 'test', ele.tagName + "_test");
 					equal(ele.getAttribute('test'), ele.tagName + "_test",ele.tagName);
 				}		
 			}
@@ -59,8 +58,8 @@ test(
 		function() {
 			expect(2);
 			var input = document.createElement('input');
-			baidu.dom(input).setAttr('type', 'button');// shortcut
-			baidu.dom(input).setAttr('name', 'buttonName');
+			baidu.dom.setAttr(input, 'type', 'button');// shortcut
+			baidu.dom.setAttr(input, 'name', 'buttonName');
 			equal(input.getAttribute("type"), 'button',
 					"input gets type attribute");
 			equal(input.getAttribute("name"), "buttonName",
@@ -75,7 +74,7 @@ test('老接口：针对大写情况下的属性进行判定', function() {
 	expect(1);
 	// TODO 该情况需要在其他Attribute用例中补充
 		var div = document.createElement('div');
-		baidu.dom(div).setAttr("NEW_ATTRIBUTE", "newAttribute");
+		baidu.dom.setAttr(div, "NEW_ATTRIBUTE", "newAttribute");
 		equal(div.getAttribute("NEW_ATTRIBUTE"), "newAttribute",
 				"new attribute of Uppercase ");
 	})
@@ -94,10 +93,10 @@ test('老接口：针对大写情况下的属性进行判定', function() {
 test('老接口：针对特定的默认属性进行测试', function() {
 	expect(3);
 	var li = document.createElement('li');
-	baidu.dom(li).setAttr('className', "li_className");
-	baidu.dom(li).setAttr('id', 'li_id');
-	baidu.dom(li).setAttr('title', 'li_title');
-	baidu.dom(li).setAttr('style', 'color:blue');
+	baidu.dom.setAttr(li, 'className', "li_className");
+	baidu.dom.setAttr(li, 'id', 'li_id');
+	baidu.dom.setAttr(li, 'title', 'li_title');
+	baidu.dom.setAttr(li, 'style', 'color:blue');
 	equal(li.getAttribute("id"), 'li_id', "li gets id attribute");
 	// equal(baidu.string.trim(li.getAttribute("style")).toLowerCase(),baidu.browser.ie?"color:
 	// blue":"color: blue;","li gets style attribute");
@@ -110,11 +109,11 @@ test('老接口：针对特定的默认属性进行测试', function() {
 test('老接口：特定标签的特定属性测试', function() {
 	expect(5);
 	var a = document.createElement('a');
-	baidu.dom(a).setAttr('charset', 'utf-8');
-	baidu.dom(a).setAttr('href', 'http://www.baidu.com');
-	baidu.dom(a).setAttr('name', 'baidu');
-	baidu.dom(a).setAttr('target', '_self');
-	baidu.dom(a).setAttr('shape', 'default');
+	baidu.dom.setAttr(a, 'charset', 'utf-8');
+	baidu.dom.setAttr(a, 'href', 'http://www.baidu.com');
+	baidu.dom.setAttr(a, 'name', 'baidu');
+	baidu.dom.setAttr(a, 'target', '_self');
+	baidu.dom.setAttr(a, 'shape', 'default');
 	equal(a.getAttribute('charset'), 'utf-8', "charset testing");
 	/* IE下为'http://www.baidu.com',chrome下为'http://www.baidu.com/' */
 	equal(a.getAttribute('href'), "http://www.baidu.com"
