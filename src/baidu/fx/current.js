@@ -38,7 +38,7 @@ baidu.fx.current = function(element) {
         for (var i=0; i<a.length; i++) {
             reg.test(a[i]);
 //            a[i] = window[baidu.guid]._instances[RegExp["\x241"]];
-            a[i] = baidu.lang.instance(RegExp["\x241"]);
+            a[i] = baidu._global_._instances_[RegExp["\x241"]];
         }
     }
     return a;

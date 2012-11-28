@@ -16,14 +16,13 @@
  * @remark baidu.base.Class和它的子类的实例均包含一个全局唯一的标识guid。guid是在构造函数中生成的，因此，继承自baidu.base.Class的类应该直接或者间接调用它的构造函数。<br>baidu.base.Class的构造函数中产生guid的方式可以保证guid的唯一性，及每个实例都有一个全局唯一的guid。
  */
 baidu.base.Class = (function() {
-    baidu._global_ = window[ baidu.guid ];
-    var instances = baidu._global_._instances_;
-    !instances && (instances = baidu._global_._instances_ = {});
+    var instances = (baidu._global_ = window[baidu.guid])._instances_;
+    instances || (instances = baidu._global_._instances_ = {});
 
     // constructor
     return function() {
         this.guid = baidu.id();
-        !this._decontrol_ && (instances[this.guid] = this);
+        this._decontrol_ || (instances[this.guid] = this);
     }
 })();
 

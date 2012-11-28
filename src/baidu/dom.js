@@ -161,6 +161,7 @@ function(context) {
         return this.length;
     }
 
+    // 2012.11.27 mz 拥有 .length 和 .splice() 方法，console.log() 就认为该对象是 ArrayLike
     ,splice : function(){}
 
     /**
@@ -171,8 +172,7 @@ function(context) {
      * @param   {Number}    index   序号
      * @return  {Array}     TangramDom对象里DOM元素
      */
-    ,
-    get: function(index) {
+    ,get: function(index) {
 
         if ( typeof index == "number" ) {
             return index < 0 ? this[this.length + index] : this[index];
@@ -181,6 +181,7 @@ function(context) {
         return Array.prototype.slice.call(this, 0);
     }
 
+    // 将 $DOM 转换成 Array(dom, dom, ...) 返回
     ,toArray: function(){
         return this.get();
     }
