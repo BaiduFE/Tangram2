@@ -10451,11 +10451,24 @@ baidu.dom.create = function(tagName, opt_attributes) {
  */
 
 /**
- * 在 DOM 对象上存储数据
- * @grammar TangramDom.data([key[, value]])
- * @param
+ * @description 设置 DOM 对象上存储数据
+ * @function
+ * @name baidu.dom().data()
+ * @grammar baidu.dom().data(key, value)
+ * @param {String} key 数据的键值
+ * @param {String|Number} value 数据的值
  * @return
  */
+
+/**
+ * @description 取出在 DOM 对象上存储数据，也可以取出以“data-”开头的自定义属性
+ * @function
+ * @name baidu.dom().data()
+ * @grammar baidu.dom().data(key)
+ * @param {String} key 数据的键值
+ * @return {String|Object} 取出的数据
+ */
+
 baidu.dom.extend({
     data : function () {
         var   guid = baidu.key
@@ -10470,8 +10483,16 @@ baidu.dom.extend({
 
                 // get first
                 if ( typeof value == "undefined" ) {
-                    var data;
-                    return this[0] && (data = maps[ this[0][guid] ]) && data[ key ];
+                    var data,result;
+                    result = this[0] && (data = maps[ this[0][guid] ]) && data[ key ];
+                    if(result){
+                        return result;
+                    }else{
+
+                        //取得自定义属性
+                        var attr = this[0].getAttribute('data-'+key);
+                        return (String(attr).indexOf('{') == -1)?attr:Function("return "+attr)();
+                    }
                 }
 
                 // set all
@@ -10479,8 +10500,8 @@ baidu.dom.extend({
                     var data = maps[ dom[ guid ] ] = maps[ dom[ guid ] ] || {};
                     data[ key ] = value;
                 });
-            
-            // jsonp
+
+            // json
             } else if ( baidu.type(key) == "object") {
 
                 // set all
