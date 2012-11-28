@@ -26,5 +26,17 @@ $release = array_key_exists('release', $_GET);
 <h2 id="qunit-banner"></h2>
 <h2 id="qunit-userAgent"></h2>
 <ol id="qunit-tests"></ol>
+<script type="text/javascript">
+    void function(){
+        var p, f, s = 0;
+        if( ( p = window.parent ) && ( f = p.document.getElementById("test-frame") ) )
+            setInterval(function(){
+                if(s != document.documentElement.scrollHeight){
+                    s = document.documentElement.scrollHeight;
+                    f.style.height = s + "px";   
+                }
+            }, 100);
+    }();
+</script>
 </body>
 </html>
