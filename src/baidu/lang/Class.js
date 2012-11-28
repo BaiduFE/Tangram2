@@ -22,10 +22,16 @@
  * @remark baidu.lang.Class和它的子类的实例均包含一个全局唯一的标识guid。guid是在构造函数中生成的，因此，继承自baidu.lang.Class的类应该直接或者间接调用它的构造函数。<br>baidu.lang.Class的构造函数中产生guid的方式可以保证guid的唯一性，及每个实例都有一个全局唯一的guid。
  * @see baidu.lang.inherits,baidu.lang.Event
  */
-baidu.lang.Class = function() {
-    this.guid = baidu.id( this );
-};
+baidu.lang.Class = (function() {
+    var instances = (baidu._global_ = window[baidu.guid])._instances_;
+    instances || (instances = baidu._global_._instances_ = {});
 
+    // constructor
+    return function() {
+        this.guid = baidu.id();
+        this._decontrol_ || (instances[this.guid] = this);
+    }
+})();
 /**
  * @description 释放对象所持有的资源，主要是自定义事件。
  * @name obj.dispose
@@ -34,7 +40,7 @@ baidu.lang.Class = function() {
  * TODO: 将_listeners中绑定的事件剔除掉
  */
 baidu.lang.Class.prototype.dispose = function(){
-    baidu.id( this.guid, "delete" );
+    delete baidu._global_._instances_[this.guid];
 
     // this.__listeners && (for (var i in this.__listeners) delete this.__listeners[i]);
 
@@ -60,7 +66,7 @@ baidu.lang.Class.prototype.toString = function(){
  * @return  {object}            实例对象
  */
  window["baiduInstance"] = function(guid) {
-     return baidu.id( guid );
+     return baidu._global_._instances_[ guid ];
  }
 
 //  2011.11.23  meizz   添加 baiduInstance 这个全局方法，可以快速地通过guid得到实例对象

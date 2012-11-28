@@ -45,7 +45,7 @@ baidu.fx.create = function(element, options, fxName) {
 
         if (!me.overlapping) {
             (guid = me.element.getAttribute(me.attribName)) 
-                && window[baidu.guid]._instances[guid].cancel();
+                && baiduInstance(guid).cancel();
 
             //在DOM元素上记录当前效果的guid
             me.element.setAttribute(me.attribName, me.guid, 0);
