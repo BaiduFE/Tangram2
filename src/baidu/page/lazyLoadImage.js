@@ -1,9 +1,3 @@
-/// Tangram 1.x Code Start
-/*
- * Tangram
- * Copyright 2010 Baidu Inc. All rights reserved.
- */
-
 ///import baidu.page.getScrollTop;
 ///import baidu.page.getViewHeight;
 ///import baidu.dom.getPosition;
@@ -13,7 +7,11 @@
 ///import baidu.dom.off;
 ///import baidu.lang.isFunction;
 
-
+/// Tangram 1.x Code Start
+/*
+ * Tangram
+ * Copyright 2010 Baidu Inc. All rights reserved.
+ */
 /**
  * @description 延迟加载图片. 默认只加载可见高度以上的图片, 随着窗口滚动加载剩余图片.注意: 仅支持垂直方向.
  * @name baidu.page.lazyLoadImage

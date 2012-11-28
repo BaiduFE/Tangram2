@@ -1,3 +1,6 @@
+///import baidu.url;
+///import baidu.string.escapeReg;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,10 +11,6 @@
  * version: 1.1.0
  * date: 2009/11/16
  */
-
-///import baidu.url;
-///import baidu.string.escapeReg;
-
 /**
  * @description 根据参数名从目标URL中获取参数值
  * @name baidu.url.getQueryValue

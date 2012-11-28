@@ -1,3 +1,7 @@
+///import baidu.dom.g;
+///import baidu.object.extend;
+///import baidu.fx.create;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,13 +11,6 @@
  * @namespace: baidu.fx.pulsate
  * @version: 2010-01-23
  */
-
-///import baidu.dom.g;
-///import baidu.object.extend;
-
-///import baidu.fx.create;
-
- 
 /**
  * 心跳闪现效果。
  * @function

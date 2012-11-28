@@ -12,16 +12,15 @@ test('老接口：prepareTest',function(){
 	}, "baidu.trim", "baidu.dom.setStyle");
 });
 test("老接口：set style",function(){
-	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
 	expect(3);
 	var div = document.createElement('div');
 	var img = document.createElement('img');
 	document.body.appendChild(div);
 	div.appendChild(img);
 	img.id = 'img_id';
-	baidu.dom(img).setStyle('width','20px');
-	baidu.dom(img).setStyle('height','10px');
-	baidu.dom('#img_id').setStyle('float','left');
+	baidu.dom.setStyle(img, 'width', '20px');
+	baidu.dom.setStyle(img, 'height','10px');
+	baidu.dom.setStyle(img, 'float','left');
 	
 	equal(img.style.height,'10px',"get img height style");
 	equal(img.style.width,'20px','get img width style');
@@ -36,9 +35,9 @@ test('老接口：short cut',function(){
 	document.body.appendChild(div);
 	div.appendChild(img);
 	img.id = 'img_id';
-	baidu(img).setStyle('width','20px');
-	baidu(img).setStyle('height','10px');
-	baidu('#img_id').setStyle('float','left');
+	baidu.setStyle(img, 'width','20px');
+	baidu.setStyle(img, 'height','10px');
+	baidu.setStyle('img_id', 'float','left');
 	
 	equal(img.style.height,'10px',"get img height style by shortcut");
 	equal(img.style.width,'20px','get img width style by shortcut');
@@ -60,7 +59,6 @@ test('老接口：prepareTest',function(){
 	}, "baidu.trim", "baidu.dom.setStyle");
 });
 test("老接口：set style",function(){
-	baidu.dom._styleFixer["float"] = ua.browser.ie ? "styleFloat" : "cssFloat";
 	expect(3);
 	var div = document.createElement('div');
 	var img = document.createElement('img');

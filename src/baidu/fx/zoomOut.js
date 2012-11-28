@@ -1,3 +1,8 @@
+///import baidu.dom.g;
+///import baidu.dom.hide;
+///import baidu.object.extend;
+///import baidu.fx.scale;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,14 +12,6 @@
  * @namespace: baidu.fx.zoomOut
  * @version: 2010-06-07
  */
-
-///import baidu.dom.g;
-///import baidu.dom.hide;
-///import baidu.object.extend;
-
-///import baidu.fx.scale;
-
- 
 /**
  * 将元素缩小的消失效果。
  * @function

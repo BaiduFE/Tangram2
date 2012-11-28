@@ -76,16 +76,12 @@ test("get style from css file", function() {
 });
 
 test("get style from fixer", function() {
-	stop();
-	ua.importsrc('baidu.dom._styleFixer.display', function() {
-		var div = document.createElement('div');
-		document.body.appendChild(div);
-		var img = document.createElement('img');
-		div.appendChild(img);
-		equal(baidu.dom(img).getCurrentStyle('display'), 'inline');
-		document.body.removeChild(div);
-		start();
-	}, 'baidu.dom._styleFixer.display', 'baidu.dom.getCurrentStyle');
+	var div = document.createElement('div');
+    document.body.appendChild(div);
+    var img = document.createElement('img');
+    div.appendChild(img);
+    equal(baidu.dom(img).getCurrentStyle('display'), $(img).css('display'));
+    document.body.removeChild(div);
 });
 
 //老接口
@@ -136,7 +132,6 @@ test("get style from css file", function() {
 	$(div1).prop('className', 'content');
 	$(img).prop('className', 'content');
 	$(p).prop('className', 'pid');
-
 	ua.loadcss(upath + 'style.css', function() {
 		/** IE的float属性叫styleFloat，firefox则是cssFloat * */
 		var a = ua.browser.ie ? 'styleFloat' : 'float';
@@ -161,14 +156,10 @@ test("get style from css file", function() {
 });
 
 test("get style from fixer", function() {
-	stop();
-	ua.importsrc('baidu.dom._styleFixer.display', function() {
-		var div = document.createElement('div');
-		document.body.appendChild(div);
-		var img = document.createElement('img');
-		div.appendChild(img);
-		equal(baidu.dom.getCurrentStyle(img, 'display'), 'inline');
-		document.body.removeChild(div);
-		start();
-	}, 'baidu.dom._styleFixer.display', 'baidu.dom.getCurrentStyle');
+	var div = document.createElement('div');
+    document.body.appendChild(div);
+    var img = document.createElement('img');
+    div.appendChild(img);
+    equal(baidu.dom.getCurrentStyle(img, 'display'), $(img).css('display'));
+    document.body.removeChild(div);
 });

@@ -1,3 +1,5 @@
+///import baidu.page;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +10,6 @@
  * version: 1.1.0
  * date: 2009/11/20
  */
-
-///import baidu.page;
-
 /**
  * @description 动态在页面上加载一个外部js文件
  * @name baidu.page.loadJsFile

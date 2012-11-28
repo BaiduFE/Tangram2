@@ -23,14 +23,14 @@
  * @return {HTMLElement} flash对象的实例
  */
 baidu.swf.getMovie = function (name) {
-    //ie9下, Object标签和embed标签嵌套的方式生成flash时,
-    //会导致document[name]多返回一个Object元素,而起作用的只有embed标签
-    var movie = document[name], ret;
+	//ie9下, Object标签和embed标签嵌套的方式生成flash时,
+	//会导致document[name]多返回一个Object元素,而起作用的只有embed标签
+	var movie = document[name], ret;
     return baidu.browser.ie == 9 ?
-        movie && movie.length ? 
-            (ret = baidu.array.remove(baidu.lang.toArray(movie),function(item){
-                return item.tagName.toLowerCase() != "embed";
-            })).length == 1 ? ret[0] : ret
-            : movie
-        : movie || window[name];
+    	movie && movie.length ? 
+    		(ret = baidu.array.remove(baidu.lang.toArray(movie),function(item){
+    			return item.tagName.toLowerCase() != "embed";
+    		})).length == 1 ? ret[0] : ret
+    		: movie
+    	: movie || window[name];
 };

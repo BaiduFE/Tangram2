@@ -1,8 +1,7 @@
+///import baidu.dom.g;
+///import baidu.dom.attr;
+
 /// Tangram 1.x Code Start
-/**
- * @author wangxiao
- * @email  1988wangxiao@gmail.com
- */
 /**
  * @description 设置目标元素的attribute值
  * @function 
@@ -22,22 +21,7 @@
  * @param {String} value 要设置的attribute值
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
-///import baidu;
-///import baidu.dom._NAME_ATTRS;
-
- 
-baidu.dom.extend({
-    setAttr : function (key, value) {
-        var element = this[0];
-        if ('style' == key){
-            element.style.cssText = value;
-        } else {
-            key = baidu.dom._NAME_ATTRS[key] || key;
-            element.setAttribute(key, value);
-        }
-    
-        return element;
-    }
-});
-
+baidu.dom.setAttr = function (element, key, value) {
+    return baidu.dom(baidu.dom.g(element)).attr(key, value).get(0);
+};
 /// Tangram 1.x Code End

@@ -3,10 +3,11 @@
  */
 
 ///import baidu.dom.map;
-///import baidu.support;
 ///import baidu.id;
-///import baidu._util_.eventBase;
+///import baidu._util_.eventBase.core;
+///import baidu._util_.eventBase.queue;
 ///import baidu._util_.isXML;
+///import baidu._util_.support;
 /**
  * @description 对匹配元素进行深度克隆
  * @function 
@@ -60,7 +61,16 @@
 
 baidu.dom.extend({
     clone: function(){
-        var event = baidu._util_.eventBase;
+        var util = baidu._util_,
+            eventCore = util.eventBase.core,
+            eventQueue = util.eventBase.queue,
+            div = util.support.dom.div,
+            noCloneChecked = util.support.dom.input.cloneNode(true).checked,//用于判断ie是否支持clone属性
+            noCloneEvent = true;
+        if (!div.addEventListener && div.attachEvent && div.fireEvent){
+            div.attachEvent('onclick', function(){noCloneEvent = false;});
+            div.cloneNode(true).fireEvent('onclick');
+        }
         //
         function getAll(ele){
             return ele.getElementsByTagName ? ele.getElementsByTagName('*')
@@ -93,20 +103,20 @@ baidu.dom.extend({
         }
         //
         function cloneCopyEvent(src, dest){
-            if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
-            var defaultEvents = event.get(src);
-            for(var i in defaultEvents){
-                for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
-                    event.add(dest, i, handler);
-                }
-            }
+        	if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
+        	var defaultEvents = eventQueue.get(src);
+        	for(var i in defaultEvents){
+        	    for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
+        	        eventCore.add(dest, i, handler);
+        	    }
+        	}
         }
         //
         function clone(ele, dataAndEvents, deepDataAndEvents){
             var cloneNode = ele.cloneNode(true),
                 srcElements, destElements, len;
             //IE
-            if((!baidu.support.noCloneEvent || !baidu.support.noCloneChecked)
+            if((!noCloneEvent || !noCloneChecked)
                 && (ele.nodeType === 1 || ele.nodeType === 11) && !baidu._util_.isXML(ele)){
                     cloneFixAttributes(ele, cloneNode);
                     srcElements = getAll( ele );
@@ -123,7 +133,7 @@ baidu.dom.extend({
                     destElements = getAll( cloneNode );
                     len = srcElements.length;
                     for(var i = 0; i < len; i++){
-                        cloneCopyEvent(srcElements[i], destElements[i]);
+                    	cloneCopyEvent(srcElements[i], destElements[i]);
                     }
                 }
             }

@@ -1,3 +1,5 @@
+///import baidu.event;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +10,6 @@
  * version: 1.1.0
  * date: 2009/12/16
  */
-
-///import baidu.event;
-
 /**
  * 获取鼠标事件的鼠标y坐标
  * @name baidu.event.getPageY

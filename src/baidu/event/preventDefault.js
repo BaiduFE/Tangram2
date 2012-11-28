@@ -21,11 +21,6 @@
  * @see baidu.event.stop,baidu.event.stopPropagation
  */
 baidu.event.preventDefault = function (event) {
-    event.originalEvent && (event = event.originalEvent);
-    if (event.preventDefault) {
-        event.preventDefault();
-    } else {
-        event.returnValue = false;
-    }
+    return new baidu.event(event).preventDefault();
 };
 /// support magic - Tangram 1.x Code End

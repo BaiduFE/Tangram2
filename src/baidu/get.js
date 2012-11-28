@@ -11,6 +11,4 @@
  * @return {tangramAjax} 一个tangramAjax对象
  */
 baidu.get = baidu.get || baidu._util_.smartAjax('get');
-/// Tangram 1.x Code Start
 ///import baidu.ajax.get;
-/// Tangram 1.x Code End

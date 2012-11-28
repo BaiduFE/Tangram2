@@ -1,3 +1,9 @@
+///import baidu.fx.create;
+///import baidu.dom.g;
+///import baidu.dom.getStyle;
+///import baidu.object.extend;
+///import baidu.string.formatColor;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,15 +14,6 @@
  * @create: 2010-01-23
  * @version: 2010-07-07
  */
-
-///import baidu.fx.create;
-
-///import baidu.dom.g;
-///import baidu.dom.getStyle;
-///import baidu.object.extend;
-///import baidu.string.formatColor;
-
- 
 /**
  * 这个方法改变DOM元素的背景色，实现高亮的效果。
  * @function

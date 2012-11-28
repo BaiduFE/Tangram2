@@ -9,6 +9,7 @@
  */
 
 ///import baidu.dom;
+///import baidu._util_.contains;
 
 /**
  * @description 判断一个元素是否包含另一个元素
@@ -25,29 +26,17 @@
  
 baidu.dom.extend({
     contains : function(contained) {
-        contained = baidu.dom(contained);
-        if(this.size() <= 0
-            || contained.size() <= 0){
-            return false;
-        }
         var container = this[0];
-        contained = contained[0];
-        //fixme: 无法处理文本节点的情况(IE)
-        return container.contains
-            ? container != contained && container.contains(contained)
-            : !!(container.compareDocumentPosition(contained) & 16);
-    }    
+            contained = baidu.dom(contained)[0];
+        if(!container || !contained){return false;}
+        return baidu._util_.contains(container, contained);
+    }	
 });
-/// Tangram 1.x Code Start
 ///import baidu.dom._g;
+
+/// Tangram 1.x Code Start
 baidu.dom.contains = function (container, contained) {
     var g = baidu.dom._g;
-    container = g(container);
-    contained = g(contained);
-
-    //fixme: 无法处理文本节点的情况(IE)
-    return container.contains
-        ? container != contained && container.contains(contained)
-        : !!(container.compareDocumentPosition(contained) & 16);
+    return baidu._util_.contains(g(container), g(contained));
 };
 /// Tangram 1.x Code End

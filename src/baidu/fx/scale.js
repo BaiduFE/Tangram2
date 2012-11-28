@@ -1,3 +1,10 @@
+///import baidu.dom.g;
+///import baidu.dom.show;
+///import baidu.browser.ie;
+///import baidu.dom.getStyle;
+///import baidu.object.extend;
+///import baidu.fx.create;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,16 +14,6 @@
  * @namespace: baidu.fx.scale
  * @version: 2010-06-07
  */
-
-///import baidu.dom.g;
-///import baidu.dom.show;
-///import baidu.browser.ie;
-///import baidu.dom.getStyle;
-///import baidu.object.extend;
-
-///import baidu.fx.create;
-
-
 /**
  * 将元素放大或缩小的效果。
  * @function

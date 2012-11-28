@@ -25,40 +25,46 @@ function addEvent(ele, evt, handler){
     // }
 }
 
-
-
-
 test('div trigger event', function(){
     expect(3);
-    var c = new Div(),
+    stop();
+
+    ua.importsrc("baidu.dom.on,baidu._util_.eventBase.shortcut", function(){
+
+        var c = new Div(),
+            div = c.get();
+
+        function handler(){
+            ok(true, 'click event trigger');
+        }
+        
+        div.onclick = handler;
+        baidu.dom(div).trigger('click');
+        div.addEventListener && div.addEventListener('mouseup', handler, false);
+        div.attachEvent && div.attachEvent('onmouseup', handler);
+        baidu.dom(div).trigger('mouseup');
+        c.dispose();
+        div = null;
+        
+        //
+        c = new Div();
         div = c.get();
-    function handler(){
-        ok(true, 'click event trigger');
-    }
-    div.onclick = handler;
-    baidu.dom(div).trigger('click');
-    div.addEventListener && div.addEventListener('mouseup', handler, false);
-    div.attachEvent && div.attachEvent('onmouseup', handler);
-    baidu.dom(div).trigger('mouseup');
-    c.dispose();
-    div = null;
-    
-    //
-    c = new Div();
-    div = c.get();
-    baidu(div).click(function(evt, arg0, arg1, arg2){
-        equal(arg0 + arg1 + arg2, 'ABC', 'data pass to event');
-    });
-    baidu.dom(div).trigger('click', ['A', 'B', 'C']);
-    div = null;
-    c.dispose();
-    
+        baidu(div).click(function(evt, arg0, arg1, arg2){
+            equal(arg0 + arg1 + arg2, 'ABC', 'data pass to event');
+        });
+        baidu.dom(div).trigger('click', ['A', 'B', 'C']);
+        div = null;
+        c.dispose();
+
+        start();
+    });    
     //
     
 });
 
 test('custom event', function(){
-    stop()
+    stop();
+    expect(1);
     ua.importsrc('baidu.dom.bind', function(){
         var c = new Div(),
             div = c.get();

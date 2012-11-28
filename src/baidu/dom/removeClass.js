@@ -60,35 +60,35 @@
 ///import baidu;
 ///import baidu.dom;
 ///import baidu.forEach;
+///import baidu.string.trim;
 
 baidu.dom.extend({
     removeClass: function(value){
-        if(arguments.length <= 0 ){
+
+        var type = typeof value, b = " ";
+
+        if( !arguments.length )
             baidu.forEach(this, function(item){
-                item.className = '';
+                item.className = "";
             });
-        };
-        switch(typeof value){
-            case 'string':
-                //对输入进行处理
-                value = String(value).replace(/^\s+/g,'').replace(/\s+$/g,'').replace(/\s+/g,' ');
-                var arr = value.split(' ');
-                baidu.forEach(this, function(item){
-                    var str = item.className ;
-                    for(var i = 0;i<arr.length;i++){
-                        while((' '+str+' ').indexOf(' '+arr[i]+' ') >= 0){
-                           str = (' '+str+' ').replace(' '+arr[i]+' ',' ');
-                        };
-                    };
-                    item.className = str.replace(/^\s+/g,'').replace(/\s+$/g,'');
-                });
-            break;
-            case 'function':
-                baidu.forEach(this, function(item, index ,className){
-                    baidu.dom(item).removeClass(value.call(item, index, item.className));
-                });
-            break;
-        };
+
+        if( type == "string" ){
+            value = baidu.string.trim(value);
+            var arr = value.split(" ");
+
+            baidu.forEach(this, function(item){
+                var str = item.className ;
+                for(var i = 0; i < arr.length; i ++)
+                    while(~(b + str + b).indexOf(b + arr[i] + b))
+                       str = (b + str + b).replace(b + arr[i] + b, b);
+                item.className = baidu.string.trim(str);
+            });
+
+        }else if(type == "function"){
+            baidu.forEach(this, function(item, index ,className){
+                baidu.dom(item).removeClass(value.call(item, index, item.className));
+            }); 
+        }
 
         return this;
     }

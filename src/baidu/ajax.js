@@ -6,7 +6,7 @@
 ///import baidu.deferred;
 ///import baidu.callbacks;
 ///import baidu.id;
-///import baidu.support;
+///import baidu._util_.support;
 ///import baidu.dom.on;
 
 /**
@@ -662,6 +662,7 @@ void function(){
             hasCallback = opts.jsonp !== false,
             replaceInUrl = hasCallback && rjsonp.test(url),
             replaceInData = hasCallback && !replaceInUrl && baidu.type(data) === 'string'
+                // && !~(opts.contentType || '').indexOf('application/x-www-form-urlencoded')
                 && !(opts.contentType || '').indexOf('application/x-www-form-urlencoded')
                 && rjsonp.test(data);
         if(opts.dataTypes[0] === 'jsonp' || replaceInUrl || replaceInData){
@@ -769,15 +770,15 @@ void function(){
     } : createStandardXHR;
     
     void function(xhr){
-        baidu.extend(baidu.support, {
+        baidu.extend(baidu._util_.support, {
             ajax: !!xhr,
             cors: !!xhr && ('withCredentials' in xhr)
         });
     }(baidu.ajax.settings.xhr());
     
-    if(baidu.support.ajax){
+    if(baidu._util_.support.ajax){
         baidu.ajax.transport(function(opts){
-            if(!opts.crossDomain || baidu.support.cors){
+            if(!opts.crossDomain || baidu._util_.support.cors){
                 var callback;
                 return {
                     send: function(headers, complete){

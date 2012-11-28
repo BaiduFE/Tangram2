@@ -204,8 +204,8 @@ test('老接口：context', function() {
 	equals(baidu.dom.query('.test_class_a', p)[0], link, '.note');
 	
 	equals(baidu.dom.query('#test_a',document).length, 1, '#title');
-//	equals(baidu.dom.query('#test_a',document.body).length, 1, '#title');
-	equals(baidu.dom.query('#test_a',document.body).length, 2, '#title');
+	equals(baidu.dom.query('#test_a',document.body).length, 1, '#title');
+	// equals(baidu.dom.query('#test_a',document.body).length, 2, '#title');
 	equals(baidu.dom.query('#test_a',document.body)[0], link, '#title');
 	equals(baidu.dom.query('.test_class_a', document).length, 2, '.note');
 	equals(baidu.dom.query('.test_class_a', document.body).length, 2, '.note');

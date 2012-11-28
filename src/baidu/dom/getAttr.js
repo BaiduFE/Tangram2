@@ -21,19 +21,9 @@
  * @return {string|null} 目标元素的attribute值，获取不到时返回null
  */
 
-///import baidu;
-///import baidu.dom;
-///import baidu.dom._NAME_ATTRS;
-
-baidu.dom.extend({
-    getAttr: function (key) {
-        element = this[0];
-        if ('style' == key){
-            return element.style.cssText;
-        };
-        key = baidu.dom._NAME_ATTRS[key] || key;
-        return element.getAttribute(key);
-    }
-});
-
+///import baidu.dom.g;
+///import baidu.dom.attr;
+baidu.dom.getAttr = function(element, key){
+    return baidu.dom(baidu.dom.g(element)).attr(key);
+}
 /// support magic - Tangram 1.x Code End

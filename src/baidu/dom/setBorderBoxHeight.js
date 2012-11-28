@@ -1,12 +1,10 @@
+///import baidu.dom.setBorderBoxSize;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
  */
-
-///import baidu.dom;
-///import baidu.dom.setBorderBoxSize;
-
 /**
  * 按照border-box模型设置元素的height值
  * 

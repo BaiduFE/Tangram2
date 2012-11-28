@@ -87,20 +87,16 @@ test("get style from css file", function() {
 });
 
 test("get style from fixer", function() {
-	if (ua.browser.ie) {
-		ok(true, "IE not supportted");
-		return;
-	}
-	stop();
-	ua.importsrc('baidu.dom._styleFixer.opacity', function() {
-		var div = document.createElement('div');
-		document.body.appendChild(div);
-		var img = document.createElement('img');
-		div.appendChild(img);
-		equal(baidu.dom.getComputedStyle(img, 'opacity'), '1');
-		document.body.removeChild(div);
-		start();
-	}, 'baidu.dom._styleFixer.opacity', 'baidu.dom.getComputedStyle');
+    if (ua.browser.ie) {
+        ok(true, "IE not supportted");
+        return;
+    }
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    var img = document.createElement('img');
+    div.appendChild(img);
+    equal(baidu.dom.getComputedStyle(img, 'opacity'), '1');
+    document.body.removeChild(div);
 });
 
 test("get empty style in IE", function() {
@@ -108,7 +104,7 @@ test("get empty style in IE", function() {
 		stop();
 		var div = document.createElement('div');
 		div.style.width = '100px';
-		equal(baidu.dom.getComputedStyle(div, 'width'), '','empty style');
+		equal(baidu.dom.getComputedStyle(div, 'width'), '100px','empty style');
 		start();
 	}
 });
@@ -190,27 +186,14 @@ test("get style from css file", function() {
 });
 
 test("get style from fixer", function() {
-	if (ua.browser.ie) {
-		ok(true, "IE not supportted");
-		return;
-	}
-	stop();
-	ua.importsrc('baidu.dom._styleFixer.opacity', function() {
-		var div = document.createElement('div');
-		document.body.appendChild(div);
-		var img = document.createElement('img');
-		div.appendChild(img);
-		equal(baidu.dom.getComputedStyle(img, 'opacity'), '1');
-		document.body.removeChild(div);
-		start();
-	}, 'baidu.dom._styleFixer.opacity', 'baidu.dom.getComputedStyle');
-});
-test("get empty style in IE", function() {
-	if (ie < 9 ) {
-		stop();
-		var div = document.createElement('div');
-		div.style.width = '100px';
-		equal(baidu.dom.getComputedStyle(div, 'width'), '','empty style');
-		start();
-	}
+    if (ua.browser.ie) {
+        ok(true, "IE not supportted");
+        return;
+    }
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    var img = document.createElement('img');
+    div.appendChild(img);
+    equal(baidu.dom.getComputedStyle(img, 'opacity'), '1');
+    document.body.removeChild(div);
 });

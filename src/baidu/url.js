@@ -1,3 +1,5 @@
+///import baidu;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,8 +10,6 @@
  * version: 1.1.0
  * date: 2009/11/16
  */
-
-///import baidu;
 /**
  * @description 操作url的方法
  * @namespace 

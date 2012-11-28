@@ -24,5 +24,5 @@ function(fn){
 
 // constructor
 function(fn){
-    this.fn = fn;
+	this.fn = fn;
 });

@@ -1,3 +1,6 @@
+
+///import baidu.dom.g;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +11,6 @@
  * version: 1.1.0
  * date: 2009/11/17
  */
-
-///import baidu.dom.g;
-
 /**
  * 改变目标元素的显示/隐藏状态
  * @name baidu.dom.toggle

@@ -1,3 +1,5 @@
+///import baidu.dom.g;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +10,6 @@
  * version: 1.1.0
  * date: 2009/12/02
  */
-
-///import baidu.dom.g;
-
 /**
  * 获取目标元素符合条件的最近的祖先元素
  * @name baidu.dom.getAncestorBy

@@ -1,3 +1,6 @@
+///import baidu.lang.Class.$removeEventListener;
+///import baidu.lang.Event;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,12 +11,6 @@
  * version: 1.1.2
  * date: 2010-05-13
  */
-
-///import baidu.lang;
-///import baidu.lang.Class;
-///import baidu.lang.Class.$removeEventListener;
-///import baidu.lang.Event;
-
 /**
  * @description 创建一个baidu.lang.Class的单例实例
  * @name baidu.lang.createSingle

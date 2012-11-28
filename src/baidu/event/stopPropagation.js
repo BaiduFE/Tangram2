@@ -1,3 +1,5 @@
+///import baidu.event;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +10,6 @@
  * version: 1.1.0
  * date: 2009/11/23
  */
-
-///import baidu.event;
-
 /**
  * 阻止事件传播
  * @name baidu.event.stopPropagation
@@ -20,11 +19,6 @@
  * @see baidu.event.stop,baidu.event.preventDefault
  */
 baidu.event.stopPropagation = function (event) {
-    event.originalEvent && (event = event.originalEvent);
-    if (event.stopPropagation) {
-        event.stopPropagation();
-    } else {
-        event.cancelBubble = true;
-    }
+    return new baidu.event(event).stopPropagation();
 };
 /// Tangram 1.x Code End

@@ -36,8 +36,8 @@ test('div uninstall event', function(){
         var c = new Div(),
             div = c.get();
         function handler(){ok(true, 'event bind');}
-        baidu.dom(div).on('click', handler);
-        ua.fireMouseEvent(div, 'click');
+        baidu.dom(div).on('click', handler); 
+        ua.fireMouseEvent(div, 'click'); // 1
         baidu.dom(div).off('click', handler);
         ua.fireMouseEvent(div, 'click');
         div = null;
@@ -47,18 +47,18 @@ test('div uninstall event', function(){
         c = new Div();
         div = c.get();
         baidu.dom(div).on('click', function(){
-            ok(true, 'first event');
+            ok(true, 'first event'); // 2
         }).on('click', function(){
-            ok(true, 'second event');
+            ok(true, 'second event'); // 3
         }).on('click', function(){
-            ok(true, 'third event');
+            ok(true, 'third event'); // 4
         });
         ua.fireMouseEvent(div, 'click');
         baidu.dom(div).off('click');
         ua.fireMouseEvent(div, 'click');
         div = null;
         c.dispose();
-        //
+        // //
         
         var map = {
             click: function(){ok(true, 'map first event');},
@@ -77,7 +77,7 @@ test('div uninstall event', function(){
         ua.fireMouseEvent(div, 'mouseout');
         div = null;
         c.dispose();
-        //
+        // //
         
         c = new Div();
         div = c.get();
@@ -92,7 +92,7 @@ test('div uninstall event', function(){
         div = null;
         c.dispose();
         
-        //
+        // //
         c = new Div();
         div = c.get();
         function handler(){ok(true, 'double bind');}

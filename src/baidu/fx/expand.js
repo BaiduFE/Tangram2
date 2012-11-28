@@ -1,3 +1,12 @@
+///import baidu.fx.create;
+///import baidu.dom.g;
+///import baidu.dom.show;
+///import baidu.object.extend;
+///import baidu.array.each;
+///import baidu.dom.getStyle;
+///import baidu.lang.isNumber;
+///import baidu.forEach;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -7,18 +16,6 @@
  * @namespace: baidu.fx.expand
  * @version: 2010-01-23
  */
-
-///import baidu.fx.create;
-
-///import baidu.dom.g;
-///import baidu.dom.show;
-///import baidu.object.extend;
-///import baidu.array.each;
-///import baidu.dom.getStyle;
-///import baidu.lang.isNumber;
-///import baidu.forEach;
-
- 
 /**
  * 自上而下展开DOM元素的效果。
  * @function

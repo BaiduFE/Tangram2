@@ -31,7 +31,7 @@ test("老接口：null height ", function() {
 	document.body.appendChild(img);
 	check(null, {
 		style : 'height',
-		value : '10px'
+		value : '25px'
 	});
 
 });
@@ -39,21 +39,16 @@ test("老接口：null height ", function() {
 test("老接口：style src null", function() {
 	var img = document.createElement('img');
 	document.body.appendChild(img);
-	check(img, {
-		style : 'src',
-		value : ''
-	});
-
+	img.style['src'] = '';
+	equal(!baidu.dom.getStyle(img, 'src'), true);
 });
 // 2
 test("老接口：img height、float", function() {
 	var img = document.createElement('img');
 	document.body.appendChild(img);
 	if (ua.browser['firefox'] || ua.browser['ie']) {
-		check(img, {
-			style : 'height',
-			value : 'auto'
-		});
+	    img.style.height = 'auto';
+	    ok(baidu.dom.getStyle(img, 'height'), img.offsetHeight + 'px');
 	} else
 		check(img, {
 			style : 'height',
@@ -69,15 +64,15 @@ test("老接口：img height,width by id", function() {
 	var img = document.createElement('img');
 	img.id = 'img_id';
 	document.body.appendChild(img);
+	//注意该处设置高度，由于img没有内容，在ff下即使设置高度，高度依然保持是21px的实际高度，是正确现象
 	check('img_id', {
-		style : 'height',
-		value : '10px'
-	});
-	check('img_id', {
-		style : 'width',
-		value : '20px'
-	});
-
+        style : 'height',
+        value : '21px'
+    });
+    check('img_id', {
+        style : 'width',
+        value : '21px'
+    });
 });
 // 4
 test("老接口：float,color,display", function() {
@@ -86,18 +81,23 @@ test("老接口：float,color,display", function() {
 	var a = document.createElement('a');
 	var img = document.createElement('img');
 	document.body.appendChild(div);
+	div.innerHTML = '<div style="float:left;"></div>';
 	div.appendChild(a);
 	div.appendChild(img);
 	div.id = 'div_id';
 	a.id = 'a_id';
 	div.style.color = 'red';
-	check(div, {
-		style : 'float',
-		value : 'left'
-	});
+	equal(baidu.dom.getStyle(div.getElementsByTagName('div')[0], 'float'), 'left');
+	
+	
+//	check(div, {
+//		style : 'float',
+//		value : 'left'
+//	});
+	
+	
 	var color = baidu.dom.getStyle(div, 'color').toLowerCase();
-	ok(color == '#ff0000' || color == 'red' || color == 'rgb(255,0,0)',
-			'color red');
+	ok(color === '#ff0000' || color === 'red' || color === 'rgb(255, 0, 0)', 'color red');
 	check(img, {
 		style : 'display',
 		value : 'block'
@@ -171,15 +171,11 @@ test("老接口：get style from css file", function() {
 });
 
 test("老接口：null style ", function() {
-	stop();
-	ua.importsrc("baidu.dom._styleFixer.size", function(){
-		var div = document.createElement('div');
-		document.body.appendChild(div);
-		var div1 = document.createElement('div');
-		$(div1).css("height", "10px").css("width", "10px");
-		div.appendChild(div1);
-		equals(baidu.dom.getStyle(div, "height"), div.offsetHeight + "px", "The height is right");//IE下不会返回auto
-		equals(baidu.dom.getStyle(div, "width"), document.body.offsetWidth + "px", "The width is right");//IE下不会返回auto
-		start();
-	}, "baidu.dom._styleFixer.width", "baidu.dom.getStyle")
+	var div = document.createElement('div');
+    document.body.appendChild(div);
+    var div1 = document.createElement('div');
+    $(div1).css("height", "10px").css("width", "10px");
+    div.appendChild(div1);
+    equals(baidu.dom.getStyle(div, "height"), div.offsetHeight + "px", "The height is right");//IE下不会返回auto
+    equals(baidu.dom.getStyle(div, "width"), document.body.offsetWidth + "px", "The width is right");//IE下不会返回auto
 });

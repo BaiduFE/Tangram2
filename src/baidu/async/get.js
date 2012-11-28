@@ -1,12 +1,11 @@
+///import baidu.ajax.request;
+///import baidu.async.Deferred;
+
 /// Tangram 1.x Code Start
 /**
  * @author wangxiao
  * @email  1988wangxiao@gmail.com
  */
-
-///import baidu.ajax.request;
-///import baidu.async.Deferred;
-
 /**
  * @description 支持异步的ajax.get封装
  * @function

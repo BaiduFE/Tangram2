@@ -41,10 +41,10 @@ test('老接口：基础测试', function() {
 	var div = document.createElement('div');
 	div.setAttribute('title',"div_getAttri");
 	div.setAttribute('className',"test_div")||div.setAttribute('class',"test_div");
-	equal(baidu.dom(div).getAttr("rel"),null,"div gets no rel attribute");
-	equal(baidu.dom(div).getAttr("title"),"div_getAttri","div gets title attribute");
+	equal(baidu.dom.getAttr(div, "rel"),null,"div gets no rel attribute");
+	equal(baidu.dom.getAttr(div, "title"),"div_getAttri","div gets title attribute");
 	/*IE下使用class,chrome,FF使用className*/
-	equal(baidu.dom(div).getAttr("class")||baidu.dom(div).getAttr("className"),"test_div","div gets class attribute");
+	equal(baidu.dom.getAttr(div, "class")||baidu.dom.getAttr(div, "className"),"test_div","div gets class attribute");
 });
 
 /**
@@ -59,7 +59,7 @@ test('老接口：遍历所有元素类型', function() {
 	for(var i = 0; i < eleNames.length; i ++){
 		var ele = document.createElement(eleNames[i]);
 		ele.setAttribute('id',ele.tagName+"_ele");
-		equal(baidu.dom(ele).getAttr('id'),ele.tagName+"_ele",ele.tagName+" gets id attribute");
+		equal(baidu.dom.getAttr(ele, 'id'),ele.tagName+"_ele",ele.tagName+" gets id attribute");
 	}
 });
 
@@ -79,8 +79,8 @@ test('老接口：针对一个元素的多个属性进行的判断', function() 
 		input.name = 'buttonName';
 	}
 	input.type = "button";
-	equal(baidu.dom(input).getAttr("type"),'button',"input gets type attribute");
-	equal(baidu.dom(input).getAttr("name"),"buttonName","input gets name attribute");
+	equal(baidu.dom.getAttr(input, "type"),'button',"input gets type attribute");
+	equal(baidu.dom.getAttr(input, "name"),"buttonName","input gets name attribute");
 });
 
 /**
@@ -92,7 +92,7 @@ test('老接口：针对大写情况下的属性进行判定', function() {
 	// TODO 该情况需要在其他Attribute用例中补充
 	var div = document.createElement('div');
 	div.setAttribute("NEW_ATTRIBUTE","newAttribute");
-	equal(baidu.dom(div).getAttr("NEW_ATTRIBUTE"),"newAttribute","new attribute of Uppercase ");
+	equal(baidu.dom.getAttr(div, "NEW_ATTRIBUTE"),"newAttribute","new attribute of Uppercase ");
 });
 
 /**
@@ -113,11 +113,11 @@ test('老接口：针对特定的默认属性进行测试', function() {
 	li.id = 'li_id';
 	li.style.color = "blue";
 	li.title = "li_title";
-	equal(baidu.dom(li).getAttr("id"),'li_id',"li gets id attribute");
-	var style = $.trim(baidu.dom(li).getAttr("style")).toLowerCase();
+	equal(baidu.dom.getAttr(li, "id"),'li_id',"li gets id attribute");
+	var style = $.trim(baidu.dom.getAttr(li, "style")).toLowerCase();
 	
 	ok(style=="color: blue"||style=="color: blue;"||style=="color: #0000ff","li gets style attribute : " + style);
-	equal(baidu.dom(li).getAttr("title"),"li_title","li gets title attribute");
+	equal(baidu.dom.getAttr(li, "title"),"li_title","li gets title attribute");
 });
 
 
@@ -129,13 +129,13 @@ test('老接口：特定标签的特定属性测试', function() {
 	a.name = "baidu";
 	a.target = "_self";
 	a.shape = "default";
-	ok(baidu.dom(a).getAttr('charset') == 'utf-8', "charset testing");
+	ok(baidu.dom.getAttr(a, 'charset') == 'utf-8', "charset testing");
 	/* IE下为'http://www.baidu.com',chrome下为'http://www.baidu.com/' */
-	ok(baidu.dom(a).getAttr('href') == "http://www.baidu.com"
+	ok(baidu.dom.getAttr(a, 'href') == "http://www.baidu.com"
 			|| "http://www.baidu.com/", "href testing");
-	ok(baidu.dom(a).getAttr('name') == 'baidu', "name testing");
-	ok(baidu.dom(a).getAttr('target') == '_self', "target testing");
-	ok(baidu.dom(a).getAttr('shape') == 'default', 'shape testing');
+	ok(baidu.dom.getAttr(a, 'name') == 'baidu', "name testing");
+	ok(baidu.dom.getAttr(a, 'target') == '_self', "target testing");
+	ok(baidu.dom.getAttr(a, 'shape') == 'default', 'shape testing');
 });
 
 /**
@@ -147,8 +147,8 @@ test(
 		function() {
 			expect(2);
 			var div = document.createElement('div');
-			ok(baidu.dom(div).getAttr("id")==""||baidu.dom(div).getAttr("id")==null,"no name attribute");
-			equal(baidu.dom(div).getAttr("name"),null,"no name attribute");
+			ok(baidu.dom.getAttr(div, "id")==""||baidu.dom.getAttr(div, "id")==null,"no name attribute");
+			equal(baidu.dom.getAttr(div, "name"),null,"no name attribute");
 });
 
 

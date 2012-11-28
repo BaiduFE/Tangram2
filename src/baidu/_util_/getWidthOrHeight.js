@@ -8,7 +8,8 @@
 
 baidu._util_.getWidthOrHeight = function(){
     var ret = {},
-        cssShow = {position: 'absolute', visibility: 'hidden', display: 'block'};
+        cssShow = {position: 'absolute', visibility: 'hidden', display: 'block'},
+        rdisplayswap = /^(none|table(?!-c[ea]).+)/;
     function swap(ele, options){
         var defaultVal = {};
         for(var i in options){
@@ -21,10 +22,11 @@ baidu._util_.getWidthOrHeight = function(){
         var cssExpand = {Width: ['Right', 'Left'], Height: ['Top', 'Bottom']}[item];
         ret['get' + item] = function(ele, extra){
             var tang = baidu.dom(ele),
-                rect = ele['offset' + item],
-                defaultValue = rect === 0 && swap(ele, cssShow),
+                defaultValue = ele.offsetWidth === 0
+                    && rdisplayswap.test(tang.getCurrentStyle('display'))
+                    && (swap(ele, cssShow)),
+                rect = ele['offset' + item] || parseInt(tang.getCurrentStyle(item.toLowerCase())),
                 delString = 'padding|border';
-            defaultValue && (rect = ele['offset' + item]);
             extra && baidu.forEach(extra.split('|'), function(val){
                 if(!~delString.indexOf(val)){//if val is margin
                     rect += parseFloat(tang.getCurrentStyle(val + cssExpand[0])) || 0;

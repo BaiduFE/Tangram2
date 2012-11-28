@@ -1,3 +1,5 @@
+///import baidu.dom._g;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,9 +10,6 @@
  * version: 1.0.0
  * date: 2010/12/02
  */
-
-///import baidu.dom._g;
-
 /**
  * 获得元素的父节点
  * @name baidu.dom.getParent

@@ -1,3 +1,6 @@
+///import baidu.dom._g;
+///import baidu.string.toCamelCase;
+
 /// Tangram 1.x Code Start
 /*
  * Tangram
@@ -8,10 +11,6 @@
  * version: 1.0.1
  * date: 2010/9/10
  */
-
-///import baidu.dom._g;
-///import baidu.string.toCamelCase;
-
 /**
  * 删除元素的某个样式
  * @name baidu.dom.removeStyle
