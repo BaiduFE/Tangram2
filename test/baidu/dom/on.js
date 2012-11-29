@@ -181,6 +181,25 @@ test('focusin, focusout', function(){
     }, 'baidu.dom.trigger', 'baidu.dom.on');
 });
 
+test('mousewheel', function(){
+    stop();
+    expect(2);
+
+    var div = new Elements('div').get();
+
+    baidu.dom(div).mousewheel(function(e){
+        equal( e.type, "mousewheel", "event is mousewheel" );
+        equal( e.wheelDelta, 120, "wheelDelta is 120" );
+    });
+
+    baidu.dom(div).trigger( "mousewheel", null, {
+        wheelDelta: 120,
+        detail: -3
+    } );
+
+    start();
+});
+
 test('keyEvents', function(){
     expect( keyEvents.length );
     var c = new Elements('input'),
