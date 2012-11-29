@@ -41,13 +41,21 @@ test('ready before onload', function() {
 
 // 老接口
 
-test('页面载入完毕后调用该方法？', function() {
+test('老接口：页面载入完毕后调用该方法？', function() {
 	stop();
 	expect(1);
 	baidu.dom.ready(function() {
 		ok(true);
 		start();
 	});
+});
+test('页面载入完毕后调用该方法？', function() {
+    stop();
+    expect(1);
+    baidu(function() {
+        ok(true);
+        start();
+    });
 });
 
 test('ready before onload', function() {

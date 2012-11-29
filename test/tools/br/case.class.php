@@ -106,7 +106,7 @@ class Kiss{
 			if($cov) $importurl.='&cov=true';
 			print "<script type='text/javascript' src='$importurl' ></script>\n";
 		}else{
-			print "<script type='text/javascript' src='{$this->projroot}release/all_release_src.js'></script>\n";
+			print "<script type='text/javascript' src='{$this->projroot}release/tangram_compatible.js'></script>\n";
 		}
 
 		/* load case and case dependents*/
