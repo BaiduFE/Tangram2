@@ -2,6 +2,7 @@
 ///import baidu.type;
 ///import baidu.id;
 ///import baidu.forEach;
+///import baidu.extend;
 ///import baidu.createChain;
 /*
  * @fileoverview
@@ -53,11 +54,15 @@ baidu.createChain("event",
         this._type_ = "$Event";
 
         if( typeof event == "object" && event.type ){
+
             me.originalEvent = e = event;
 
-            baidu.forEach( "altKey bubbles button buttons cancelable clientX clientY ctrlKey commandKey currentTarget fromElement metaKey screenX screenY shiftKey toElement type view which triggerData".split(" "), function(item){
+            baidu.forEach( "altKey bubbles button buttons cancelable clientX clientY ctrlKey commandKey currentTarget fromElement metaKey screenX screenY shiftKey toElement type view which wheelDelta detail triggerData".split(" "), function(item){
                 me[ item ] = e[ item ];
             });
+
+            if( e.extraData )
+                baidu.extend( me, e.extraData );
 
             me.target = me.srcElement = e.srcElement || (
                 ( t = e.target ) && ( t.nodeType == 3 ? t.parentNode : t )

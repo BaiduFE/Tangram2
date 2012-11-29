@@ -39,7 +39,7 @@ void function( special ){
             return function( e ){ // e instance of baidu.event
                 var oe = e.originalEvent;
                 e.type = "mousewheel";
-                e.wheelDelta = ff ? oe.detail * -40 : oe.wheelDelta;
+                e.wheelDelta = e.wheelDelta || ( ff ? oe.detail * -40 : oe.wheelDelta ) || 0;
                 return fn.apply( this, arguments );
             }
         }

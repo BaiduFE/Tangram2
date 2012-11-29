@@ -37,8 +37,16 @@ void function( base, be ){
 	    	evnt = document.createEventObject(),
 	    	evnt.type = type;
 
+	    var extraData = {};
+
 	   	if( opts )for( var name in opts )
-	   		evnt[ name ] = opts[ name ];
+	   		try{
+	   			evnt[ name ] = opts[ name ];
+	   		}catch(e){
+	   			if( !evnt.extraData )
+	   			    evnt.extraData = extraData;
+	   			extraData[ name ] = opts[ name ];
+	   		}
 
 	    return evnt;
 	};
