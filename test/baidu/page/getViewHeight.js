@@ -58,3 +58,13 @@ test("老接口：有滚动条", function() {
 		}
 	});
 });
+
+test('老接口：当body高度小于页面高度时', function(){
+    ua.frameExt(function(w, f){
+        f.style.height = '200px';
+        f.style.border = 'red solid 1px';
+        w.document.body.style.height = '25px';
+        equals(w.baidu.page.getViewHeight(), 200, 'window height is');
+        this.finish();
+    });
+});
