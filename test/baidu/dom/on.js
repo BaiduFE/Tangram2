@@ -25,7 +25,7 @@ Elements.prototype.dispose = function(){
 test('prepareTest',function(){
   expect(1);
   stop();
-  ua.importsrc("baidu.browser,baidu._util_.eventBase.shortcut", function(){
+  ua.importsrc("baidu.browser,baidu.event.shortcut", function(){
     start();
     ok(true,'ok');
     ie = baidu.browser.ie;

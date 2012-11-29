@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().mousewheel() 示例" />
+		<title>baidu.dom().mousewheel()</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<!-- <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script> -->
+		<script type="text/javascript" src="http://hosting/Tangram2%20Developing/release/tangram_base_src.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+
+	</head>
+	<body>
+		<style>
+			#demo_text{
+				padding:10px;
+				border:1px dotted #ccc;
+				cursor:pointer;
+			}
+			.emphasize{
+				color:red;
+				background:yellow;
+			}
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().mousewheel()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>监听 mousewheel 事件</span>
+				</div>
+				<div class="pannel-content">
+					<div class="pannel-content-part">
+						<p>请在以下区域内滚动鼠标中键</p>
+						<!--DemoViewStart-->
+						<div id="demo-area" style="width: 300px; height: 100px; border: 1px solid #ccc;">baidu(dom).mousewheel(fn(event))</div>
+						<div id="demo-area2" style="width: 300px; height: 100px; border: 1px solid #ccc; margin-top: 10px;">baidu(dom).on("mousewheel",fn(event))</div>
+						<div class="pannel-show">
+							event.wheelDelt：<span id="demo_execute_result">0</span>
+						</div>
+						<!--DemoViewEnd-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var result = baidu("#demo_execute_result");
+			baidu("#demo-area").mousewheel(function(event){
+			   	result.html(event.wheelDelta);
+			});
+			baidu("#demo-area2").on("mousewheel", function(event){
+			    result.html(event.wheelDelta);
+			});
+		</script>
+	</body>
+</html>

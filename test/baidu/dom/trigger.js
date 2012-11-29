@@ -29,7 +29,7 @@ test('div trigger event', function(){
     expect(3);
     stop();
 
-    ua.importsrc("baidu.dom.on,baidu._util_.eventBase.shortcut", function(){
+    ua.importsrc("baidu.dom.on,baidu.event.shortcut", function(){
 
         var c = new Div(),
             div = c.get();
