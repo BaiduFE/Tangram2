@@ -1,6 +1,6 @@
 module("baidu.global.set");
 
-test("老接口：common",function(){
+test("common",function(){
 	expect(4);
 	var a = baidu.global.set('id', 'value1');
 	equals(a, 'value1', 'common');
@@ -12,13 +12,13 @@ test("老接口：common",function(){
 	equals(a, 'value4', 'protected_=false');
 });
 
-test("老接口：''",function(){
+test("''",function(){
 	expect(1);
 	var a = baidu.global.set('id1', '');
 	equals(a, '', 'common');
 });
 
-test("老接口：iframe",function(){
+test("iframe",function(){
 	expect(1);
 	stop();
 	ua.frameExt(function(w, f) {

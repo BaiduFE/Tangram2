@@ -1,6 +1,6 @@
 module("baidu.page.getScrollLeft");
 
-test("老接口：滚动条检测", function() {
+test("滚动条检测", function() {
 	ua.frameExt( {
 		ontest : function(w) {
 			var op = this;
@@ -10,7 +10,7 @@ test("老接口：滚动条检测", function() {
 	});
 });
 
-test("老接口：有滚动", function() {
+test("有滚动", function() {
 	ua.frameExt( {
 		onafterstart : function(f) {
 			$(f).css('width', 200);
@@ -31,7 +31,7 @@ test("老接口：有滚动", function() {
  * firefox下，必须设置frame的display block才能保证iframe不自适应宽度和高度
  * 
  */
-test("老接口：滚动200", function() {
+test("滚动200", function() {
 	ua.frameExt( {
 		onafterstart : function(f) {
 			$(f).css('width', 200).css('height', 100).css('display', 'block');

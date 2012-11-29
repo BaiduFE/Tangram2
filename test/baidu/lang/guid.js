@@ -1,6 +1,6 @@
 module("baidu.lang.guid");
 
-test("老接口：guid is unique", function(){
+test("guid is unique", function(){
 	var a = baidu.lang.guid();
 	var b = baidu.lang.guid();
 	var c = baidu.lang.guid();

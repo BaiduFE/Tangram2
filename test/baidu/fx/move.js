@@ -1,6 +1,6 @@
 module('baidu.fx.move');
 
-test('老接口：dom', function() {
+test('dom', function() {
 	expect(3);
 	var t = te.dom[0];
 	$(t).css('height', '100px');
@@ -23,11 +23,11 @@ test('老接口：dom', function() {
 	stop();
 });
 
-test('老接口：position static', function() {
+test('position static', function() {
 	equals(baidu.fx.move(te.dom[0]), null, 'unsupported for position static');
 });
 
-test('老接口：id', function() {
+test('id', function() {
 	var t = te.dom[0];
 	$(t).css('height', '100px');
 	$(t).css('color', 'red');

@@ -60,7 +60,7 @@ module('baidu.dom.drag');
 /**
  * ondragstart ondragend ondrag
  */
-test('老接口：base and events', function() {
+test('base and events', function() {
 	expect(5);
 	QUnit.stop();
 	ua.importsrc("baidu.dom.getPosition", function(){
@@ -92,7 +92,7 @@ test('老接口：base and events', function() {
 	}, "baidu.dom.getPosition", "baidu.dom.drag");
 });
 
-test('老接口：update', function() {
+test('update', function() {
 	var dc = window.drag_check({
 		autoStop : false,
 		ondragend : function() {
@@ -117,7 +117,7 @@ test('老接口：update', function() {
 	}).add(QUnit.start, 50).next();
 });
 
-test('老接口：range and update range', function() {
+test('range and update range', function() {
 	var dc = window.drag_check({
 		range : [ 0, 100, 100, 0 ]
 	// 上右下左
@@ -158,7 +158,7 @@ test('老接口：range and update range', function() {
 
 });
 
-test('老接口：margin', function() {
+test('margin', function() {
 	stop();
 	var div = document.createElement("div");
 	div.id = 'test_margin_div';
@@ -189,7 +189,7 @@ test('老接口：margin', function() {
 	}, 20);
 });
 
-test('老接口：margin autoStop', function() {
+test('margin autoStop', function() {
 	stop();
 	var div = document.createElement("div");
 	div.id = 'test_margin_div';
@@ -220,7 +220,7 @@ test('老接口：margin autoStop', function() {
 	}, 20);
 });
 
-test('老接口：no margin', function() {
+test('no margin', function() {
 	stop();
 	var div = document.createElement("div");
 	div.id = 'test_margin_div';
@@ -251,7 +251,7 @@ test('老接口：no margin', function() {
 	}, 20);
 });
 
-test('老接口：border', function() {
+test('border', function() {
 	stop();
 	ua.importsrc("baidu.dom.getPosition", function(){
 		var div = document.createElement("div");

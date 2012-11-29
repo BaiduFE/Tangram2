@@ -1,7 +1,7 @@
 module("baidu.fx.Timeline");
 
 // test default params
-test('老接口：test default params', function() {
+test('test default params', function() {
 	stop();
 	ua.importsrc("baidu.lang.Class.$removeEventListener", function(){
 		var option = {};
@@ -15,7 +15,7 @@ test('老接口：test default params', function() {
 });
 
 // test options
-test('老接口：test options', function() {
+test('test options', function() {
 	var option = {
 		interval : 24,
 		duration : 200,
@@ -30,7 +30,7 @@ test('老接口：test options', function() {
 /**
  * 事件校验，onbeforestart，onbeforeupdate，onafterupdate，oncancel，onafterfinish
  */
-test('老接口：test events', function() {
+test('test events', function() {
 	stop();
 	var timeline = new baidu.fx.Timeline();
 	var es = 'onbeforestart,onbeforeupdate,'
