@@ -1,5 +1,5 @@
 module("baidu.dom.setPixel");
-test("老接口：set pixel",function(){
+test("set pixel",function(){
 	expect(2);
 	var div = document.createElement('div');
 	document.body.appendChild(div);

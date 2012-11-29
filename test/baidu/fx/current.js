@@ -3,7 +3,7 @@ module('baidu.fx.current');
 /**
  * 载入两个特效，并通过方法判定是否正确获得特效列表
  */
-test('老接口：get fx', function() {
+test('get fx', function() {
 	var t = te.dom[0];
 	$(t).css('height', '100px');
 	$(t).css('color', 'red');

@@ -120,7 +120,7 @@ module("baidu.lang.Class");
 
 	// Start test ...
 
-	test("老接口：dispose", function() {
+	test("dispose", function() {
 		expect(3);
 		function myClass() {
 			this.name = "myclass";
@@ -139,7 +139,7 @@ module("baidu.lang.Class");
 
 		});
 	
-	test("老接口：toString", function() {
+	test("toString", function() {
 		function myClass() {
 			this.name = "myclass";
 		}

@@ -1,6 +1,6 @@
 module("baidu.lang.inherits");
 //加载快捷方式
-test('老接口：prepareTest',function(){
+test('prepareTest',function(){
 	expect(1);
 	stop();
 
@@ -59,7 +59,7 @@ baidu.inherits(flyCar,car);
 baidu.lang.inherits(flyCar,flyMachine);
 
 
-test("老接口：normal inherit case, using inherits interface", function(){
+test("normal inherit case, using inherits interface", function(){
 	carA = new car("Prime", "GE");
 	
 	equals(carA.name, "Prime", 'carA.name = "Prime"');
@@ -69,7 +69,7 @@ test("老接口：normal inherit case, using inherits interface", function(){
 	equals(carA.usage, "land", 'carA.usage = "land"');
 });
 
-test("老接口：normal inherit case,do not call baseclass constructor, using inherits interface", function(){
+test("normal inherit case,do not call baseclass constructor, using inherits interface", function(){
 	truckA = new truck("volve");
 	equals(truckA.name, undefined, 'truckA.name = undefined');
 	equals(truckA.brand, "volve", 'truckA.brand = "volve"');
@@ -78,7 +78,7 @@ test("老接口：normal inherit case,do not call baseclass constructor, using i
 	equals(truckA.usage, "land", 'truckA.usage = "land"');
 });
 
-test("老接口：normal inherit case, without using inherits interface", function(){
+test("normal inherit case, without using inherits interface", function(){
 	busA = new bus("volve");
 	equals(busA.name, "volvo bus", 'busA.name = "volvo bus"');
 	equals(busA.brand, "volve", 'busA.brand = "volve"');
@@ -87,7 +87,7 @@ test("老接口：normal inherit case, without using inherits interface", functi
 	equals(busA.usage, undefined, 'busA.usage = undefined');
 });
 
-test("老接口：complex normal inherit case, using inherits interface", function(){
+test("complex normal inherit case, using inherits interface", function(){
 	raceCarA = new raceCar(300, "911", "Porsche");
 	
 	equals(raceCarA.name, "911", 'raceCarA.name = "911"');
@@ -98,7 +98,7 @@ test("老接口：complex normal inherit case, using inherits interface", functi
 	equals(raceCarA.usage, "land", 'raceCarA.usage = "land"');
 });
 
-test("老接口：extend", function(){
+test("extend", function(){
 	carA = new car("Prime", "GE");
 	car.extend({
 		newP: 'newP',

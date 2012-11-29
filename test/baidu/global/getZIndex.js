@@ -1,6 +1,6 @@
 module("baidu.global.getZIndex");
 
-test("老接口：common", function(){
+test("common", function(){
 	expect(6);
 	equals(baidu.global.get('zIndex')['dialog'], 1000, "The base dialog zIndex is right");
 	equals(baidu.global.get('zIndex')['popup'], 50000, "The base popup zIndex is right");
