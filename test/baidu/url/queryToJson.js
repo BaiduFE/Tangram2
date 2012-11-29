@@ -47,7 +47,7 @@ test("老接口：两个异常case", function(){
 	same(baidu.url.queryToJson("&a=1"), {a:"1"},  '');
 });
 
-test('当没有参数时返回null', function(){
+test('老接口：当没有参数时返回null', function(){
     ok(baidu.url.queryToJson('http://www.baidu.com') === null, '没有参数时返回null');
 });
 
