@@ -215,7 +215,7 @@
     // 单元测试
     function unitTest(node){
         var api = node.data.dir.replace('../../../src/', '').replace('.js', ''),
-            unitUrl = location.href + '../br/run.php?case=' + api;
+            unitUrl = location.href.replace('index.php', '') + '../br/run.php?case=' + api;
         
         $("#J_unitTestFrame").attr('src', unitUrl);
         var interval = setInterval(function(){
