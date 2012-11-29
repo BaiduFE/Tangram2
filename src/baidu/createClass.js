@@ -1,4 +1,6 @@
 ///import baidu.extend;
+///import baidu.isString;
+///import baidu.isFunction;
 ///import baidu.base.Class;
 
 /**
@@ -17,7 +19,8 @@
  * @return {Function}            类的最终构造器
  */
 baidu.createClass = /**@function*/function(constructor, type, options) {
-    options = options || {};
+    constructor = baidu.isFunction(constructor) ? constructor : function(){};
+    options = typeof type == "object" ? type : options || {};
 
     // 创建新类的真构造器函数
     var fn = function(){
@@ -62,12 +65,12 @@ baidu.createClass = /**@function*/function(constructor, type, options) {
             methods && baidu.extend(fn.prototype, methods);
             return fn;
         }
-        ,extend: function(json){baidu.extend(fn, json); return fn;}
+        ,extend: function(json){baidu.extend(fn.prototype, json); return fn;}
     });
 
-    type = type || options.className || options.type;
-    typeof type == "string" && (constructor.prototype._type_ = type);
-    typeof fn.superClass == "function" && fn.inherits(fn.superClass);
+    type = baidu.isString(type) ? type : options.className || options.type;
+    baidu.isString(type) && (constructor.prototype._type_ = type);
+    baidu.isFunction(fn.superClass) && fn.inherits(fn.superClass);
 
     return fn;
 };

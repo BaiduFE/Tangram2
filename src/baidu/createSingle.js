@@ -1,3 +1,5 @@
+///import baidu.extend;
+///import baidu.isString;
 ///import baidu.base.Class;
 
 /**
@@ -6,15 +8,13 @@
  * @create 2010-05-13
  * @name baidu.createSingle
  * @function
- * @grammar baidu.createSingle(json)
- * @param {Object} json 直接挂载到这个单例里的预定属性/方法
+ * @grammar baidu.createSingle(methods[, type])
+ * @param {Object} methods 直接挂载到这个单例里的预定属性/方法
+ * @param {String} type [可选]指定实例类名
  * @return {Object} 一个实例
  */
-baidu.createSingle = function (json) {
-    var c = new baidu.base.Class();
-
-    for (var key in json) {
-        c[key] = json[key];
-    }
-    return c;
+baidu.createSingle = function (methods, type) {
+    var me = new baidu.base.Class();
+    baidu.isString(type) && ( me._type_ = type );
+    return baidu.extend(me, methods);
 };

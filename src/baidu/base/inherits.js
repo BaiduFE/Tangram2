@@ -8,8 +8,8 @@
  * @create 2005.02.28
  *
  * @function
- * @name baidu.inherits
- * @grammar baidu.base.Class(subClass, superClass[, type])
+ * @name baidu.base.inherits
+ * @grammar baidu.base.inherits(subClass, superClass[, type])
  * @param {Function}    subClass    子类构造器
  * @param {Function}    superClass  父类构造器
  * @param {string}      type        类名标识
