@@ -873,7 +873,7 @@ var UserAction =
 		/**
 		 * 支持release分之，此处应该直接返回
 		 */
-		if (location.search.indexOf("release=true") >= 0) {
+		if (location.search.indexOf("release=true") >= 0 && location.search.indexOf("compatible=true") >= 0) {
 			if (callback && typeof callback == "function")
 				callback();
 			return;
