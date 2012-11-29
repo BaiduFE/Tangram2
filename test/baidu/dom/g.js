@@ -13,7 +13,7 @@ test('prepareTest',function(){
 });
 
 
-test('老接口：参数不是string',function(){
+test('参数不是string',function(){
 	var test = 1;
 	expect(2);
 	equal(baidu.dom.g(test),null,"get 1 from 1");
@@ -21,7 +21,7 @@ test('老接口：参数不是string',function(){
 })
 
 
-test('老接口：id或element',function(){
+test('id或element',function(){
 	expect(5);
 	var div = document.createElement('div');//单层,body的儿子
 	var img = document.createElement('img');//多层,div的儿子
@@ -37,7 +37,7 @@ test('老接口：id或element',function(){
 	document.body.removeChild(div);
 })
 
-test('老接口：特殊参数',function(){
+test('特殊参数',function(){
 	expect(3);
 	var strObj = new String("str_test");//string object
 	equal(baidu.dom.g(document),document,"get document");//get document
@@ -45,7 +45,7 @@ test('老接口：特殊参数',function(){
 	equal(baidu.g(strObj),null,"get string object");//将string obj看做string而不是obj
 })
 
-test('老接口：异常用例',function(){
+test('异常用例',function(){
 	expect(3);
 	var undefinedPara;
 	equal(baidu.g(),null,"get none para");
@@ -53,7 +53,7 @@ test('老接口：异常用例',function(){
 	equal(baidu.g(null),null,"get null para");
 })
 
-test('老接口：baidu.dom.g(baidu.dom.g("***"))',function(){
+test('baidu.dom.g(baidu.dom.g("***"))',function(){
 	expect(3);
 	equal(baidu.g(null),null,"get null para");
 	equal(baidu.g("***"),null,"get not exist para");

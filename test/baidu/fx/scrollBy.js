@@ -1,7 +1,7 @@
 module("baidu.fx.scrollBy");
 //TODO
 //test id
-test('老接口：test id', function(){
+test('test id', function(){
 	var dis = new Object();
 		
 	stop();
@@ -15,7 +15,7 @@ test('老接口：test id', function(){
 });
 
 //test dom
-test('老接口：test dom', function(){
+test('test dom', function(){
 	var c, t;
 	t = te.dom[1];
 	var dis = new Object();
@@ -31,7 +31,7 @@ test('老接口：test dom', function(){
 });
 
 // test default params
-test('老接口：test default params', function() {
+test('test default params', function() {
 	var c, dis;
 	dis = new Array(100, 100);
 
@@ -50,7 +50,7 @@ test('老接口：test default params', function() {
 });
 
 // test distance(Array)
-test('老接口：test distance(Array)', function(){
+test('test distance(Array)', function(){
 	var dis = new Array(100, 100);
 	var t = te.dom[1];
 		t.scrollLeft = 0;
@@ -67,7 +67,7 @@ test('老接口：test distance(Array)', function(){
 });
 
 //test distance(JSON)
-test('老接口：test distance(JSON)', function(){
+test('test distance(JSON)', function(){
 	var dis = {x: 10, y: 10};
 	var t = te.dom[1];
 		t.scrollLeft = 0;

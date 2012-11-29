@@ -2554,14 +2554,14 @@ void function(){
 	    ,off: function(type, handler) {
 	        var i, list,
 	            t = this._listeners_;
-	        if (!t) return;
+	        if (!t) return this;
 	
 	        // remove all event listener
 	        if (typeof type == "undefined") {
 	            for (i in t) {
 	                delete t[i];
 	            }
-	            return;
+	            return this;
 	        }
 	
 	        type.indexOf("on") && (type = "on" + type);
@@ -2755,7 +2755,8 @@ void function(){
 	};
 	
 	baidu.createClass = function(constructor, type, options) {
-	    options = options || {};
+	    constructor = baidu.isFunction(constructor) ? constructor : function(){};
+	    options = typeof type == "object" ? type : options || {};
 	
 	    // 创建新类的真构造器函数
 	    var fn = function(){
@@ -2800,12 +2801,12 @@ void function(){
 	            methods && baidu.extend(fn.prototype, methods);
 	            return fn;
 	        }
-	        ,extend: function(json){baidu.extend(fn, json); return fn;}
+	        ,extend: function(json){baidu.extend(fn.prototype, json); return fn;}
 	    });
 	
-	    type = type || options.className || options.type;
-	    typeof type == "string" && (constructor.prototype._type_ = type);
-	    typeof fn.superClass == "function" && fn.inherits(fn.superClass);
+	    type = baidu.isString(type) ? type : options.className || options.type;
+	    baidu.isString(type) && (constructor.prototype._type_ = type);
+	    baidu.isFunction(fn.superClass) && fn.inherits(fn.superClass);
 	
 	    return fn;
 	};
@@ -2813,13 +2814,10 @@ void function(){
 	// 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
 	// 20121105 meizz   给类添加了几个静态属性方法：.options .superClass .inherits() .extend() .register()
 	
-	baidu.createSingle = function (json) {
-	    var c = new baidu.base.Class();
-	
-	    for (var key in json) {
-	        c[key] = json[key];
-	    }
-	    return c;
+	baidu.createSingle = function (methods, type) {
+	    var me = new baidu.base.Class();
+	    baidu.isString(type) && ( me._type_ = type );
+	    return baidu.extend(me, methods);
 	};
 	
 	baidu.date = baidu.date || {};
@@ -7833,6 +7831,63 @@ void function(){
 	    }
 	};
 	/// support magic -  Tangram 1.x Code End
+	
+	baidu.isDate = function( unknow ) {
+	    return baidu.type(unknow) == "date" && unknow.toString() != 'Invalid Date' && !isNaN(unknow);
+	};
+	
+	baidu.isDocument = function( unknow ) {
+	    return baidu.type( unknow ) == "Document";
+	};
+	
+	baidu.isElement = function( unknow ) {
+	    return baidu.type(unknow) == "HTMLElement";
+	};
+	
+	// 20120818 mz 检查对象是否可被枚举，对象可以是：Array NodeList HTMLCollection $DOM
+	baidu.isEnumerable = function( unknow ){
+	    return unknow != null
+	        && typeof unknow == "object"
+	        &&(typeof unknow.length == "number"
+	        || typeof unknow.byteLength == "number"     //ArrayBuffer
+	        || typeof unknow[0] != "undefined");
+	};
+	
+	baidu.isNumber = function( unknow ) {
+	    return baidu.type( unknow ) == "number" && isFinite( unknow );
+	};
+	
+	baidu.isObject = function( unknow ) {
+	    return typeof unknow === "function" || ( typeof unknow === "object" && unknow != null );
+	};
+	
+	// 20120903 mz 检查对象是否为一个简单对象 {}
+	baidu.isPlainObject = function(unknow) {
+	    var key,
+	        hasOwnProperty = Object.prototype.hasOwnProperty;
+	
+	    if ( baidu.type(unknow) != "object" ) {
+	        return false;
+	    }
+	
+	    //判断new fn()自定义对象的情况
+	    //constructor不是继承自原型链的
+	    //并且原型中有isPrototypeOf方法才是Object
+	    if ( unknow.constructor &&
+	        !hasOwnProperty.call(unknow, "constructor") &&
+	        !hasOwnProperty.call(unknow.constructor.prototype, "isPrototypeOf") ) {
+	        return false;
+	    }
+	    //判断有继承的情况
+	    //如果有一项是继承过来的，那么一定不是字面量Object
+	    //OwnProperty会首先被遍历，为了加速遍历过程，直接看最后一项
+	    for ( key in unknow ) {}
+	    return key === undefined || hasOwnProperty.call( unknow, key );
+	};
+	
+	baidu.isWindow = function( unknow ) {
+	    return baidu.type( unknow ) == "Window";
+	};
 	
 	baidu.json = baidu.json || {};
 	

@@ -8,7 +8,7 @@ function getObjectSize(obj){
     return size;
 }
 
-test("老接口：common",function(){
+test("common",function(){
 	expect(4);
 	stop();
 	ua.importsrc("baidu.global.set", function(){
@@ -28,14 +28,14 @@ test("老接口：common",function(){
 	}, "baidu.global.set", "baidu.global.get");
 });
 
-test("老接口：''",function(){
+test("''",function(){
 	expect(1);
 	baidu.global.set('id1', '');
 	var a = baidu.global.get('id1');
 	equals(a, '', 'common');
 });
 
-test("老接口：iframe",function(){
+test("iframe",function(){
 	expect(3);
 	stop();
 	ua.frameExt(function(w, f) {
