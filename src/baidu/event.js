@@ -57,9 +57,9 @@ baidu.createChain("event",
 
             me.originalEvent = e = event;
 
-            baidu.forEach( "altKey bubbles button buttons cancelable clientX clientY ctrlKey commandKey currentTarget fromElement metaKey screenX screenY shiftKey toElement type view which wheelDelta detail triggerData".split(" "), function(item){
-                me[ item ] = e[ item ];
-            });
+            for( var name in e )
+                if( typeof e[name] != "function" )
+                    me[ name ] = e[ name ];
 
             if( e.extraData )
                 baidu.extend( me, e.extraData );
