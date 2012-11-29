@@ -114,7 +114,7 @@ var T, baidu = T = baidu || function(q, c) { return baidu.dom ? baidu.dom(q, c) 
 if( !window.baidu )
 	window.baidu = window.T = T;
 
-baidu.version = "2.0.0.3";
+baidu.version = "2.0.1.0";
 baidu.guid = "$BAIDU$";
 baidu.key = "tangram_guid";
 
