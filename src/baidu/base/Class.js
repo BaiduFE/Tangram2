@@ -153,14 +153,14 @@ baidu.extend(baidu.base.Class.prototype, {
     ,off: function(type, handler) {
         var i, list,
             t = this._listeners_;
-        if (!t) return;
+        if (!t) return this;
 
         // remove all event listener
         if (typeof type == "undefined") {
             for (i in t) {
                 delete t[i];
             }
-            return;
+            return this;
         }
 
         type.indexOf("on") && (type = "on" + type);
