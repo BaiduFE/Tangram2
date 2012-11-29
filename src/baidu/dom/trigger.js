@@ -7,7 +7,7 @@
 ///import baidu.event;
 ///import baidu._util_.eventBase;
 ///import baidu._util_.eventBase.queue;
-///import baidu._util_.eventBase.simulate;
+///import baidu.event.simulate;
 ///import baidu.dom.triggerHandler;
 
 /**
