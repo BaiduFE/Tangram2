@@ -56,6 +56,10 @@ class Kiss{
 		}
 
 		$this->path = $this->projroot.'test/'.$path.'.js';
+		if(!is_file($this->path)){
+			$this->fileunexist = true;
+			return;
+		}
 		if(filesize($this->path)<20){
 			$this->empty = true;
 			return;
@@ -93,7 +97,7 @@ class Kiss{
 		print '<script type="text/javascript" src="js/ext_qunit.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/UserAction.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/tools.js"></script>'."\n";
-		
+
 		print '<link media="screen" href="css/qunit.css" type="text/css" rel="stylesheet" />'."\n";
 
 		if($release == 0){
