@@ -37,7 +37,7 @@ test('toLocaleDate', function(){
 	utc = localTime + localOffset; //utc即GMT时间
 	offset = -5; //-5区 美国时间
 	us = utc + (3600000*offset);
-	date_5 = new Date(us); 
+	date_5 = new Date(us);
 	baidu.i18n.currentLocale = 'zh-CN';
 	var newtoen = baidu.i18n.date.toLocaleDate(date, undefined, 'en-US');
 	equals(newtoen.toString() ,date_5.toString(), 'Convert to en-US time');
