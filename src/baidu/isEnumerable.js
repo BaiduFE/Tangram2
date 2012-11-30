@@ -15,10 +15,10 @@
  */
 
 // 20120818 mz 检查对象是否可被枚举，对象可以是：Array NodeList HTMLCollection $DOM
-baidu.isEnumerable = function( unknow ){
-    return unknow != null
-        && typeof unknow == "object"
-        &&(typeof unknow.length == "number"
-        || typeof unknow.byteLength == "number"     //ArrayBuffer
-        || typeof unknow[0] != "undefined");
-};
+// baidu.isEnumerable = function( unknow ){
+//     return unknow != null
+//         && (typeof unknow == "object" || ~toString.call( unknow ).indexOf( "NodeList" ))
+//         &&(typeof unknow.length == "number"
+//         || typeof unknow.byteLength == "number"     //ArrayBuffer
+//         || typeof unknow[0] != "undefined");
+// };

@@ -45,10 +45,14 @@ test('test baidu.event properties', function(){
         
         baidu.dom(c.get()).on('mouseup', function(event){
             var defaultEvent = event.originalEvent,
-                map = defaultEvent.which !== undefined ? {'0': 1, '1': 2, '2': 3}
-                    : {'1': 1, '4': 2, '2': 3};
-            equal(event.which, map[event.originalEvent.button], 'event which is');
+                defaultMap = {'0': 1, '1': 2, '2': 3},
+                map = defaultEvent.which === undefined
+                    && ua.browser.ie < 9 ? {'1': 1, '4': 2, '2': 3}
+                        : {'0': 1, '1': 2, '2': 3};
+            alert(event.which);
+            equal(event.which, map[defaultEvent.button], 'event which is');
         });
+        
         $.each([0, 1, 2], function(index, item){
             ua.fireMouseEvent(span, 'mouseup', {
                 button: item
@@ -67,7 +71,7 @@ test('event preventDefault', function(){
     baidu.dom(a).on('click', function(event){
         event.preventDefault();
     });
-    a.click();
+    ua.fireMouseEvent(a, 'click');
     ok(true, 'event preventDefault');
     document.body.removeChild(a);
 });
