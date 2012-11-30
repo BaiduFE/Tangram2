@@ -15,7 +15,6 @@ test("类的继承", function(){
         });
 
         var c = new Class();
-        console.log(c)
 
         equal(c.name, "mm", "类");
         equal(typeof c.dispose, "function", "继承父类成功");

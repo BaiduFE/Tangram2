@@ -70,7 +70,7 @@
 
 
 void function(){
-    var ajaxLocation = location.href,
+    var ajaxLocation = document.URL,
         rlocalProtocol = /^(?:about|app|app\-storage|.+\-extension|file|res|widget):$/,
         rprotocol = /^\/\//,
         rurl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
