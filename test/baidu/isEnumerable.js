@@ -12,7 +12,7 @@ test("Enumerable", function(x){
     ok(baidu.isEnumerable(new Array()), "Array");
     ok(baidu.isEnumerable(document.getElementsByTagName("*")), "NodeList");
 
-    if (ArrayBuffer) {
+    if (window.ArrayBuffer) {
         ok(baidu.isEnumerable(new ArrayBuffer()), "ArrayBuffer");
     }
 });
