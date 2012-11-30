@@ -26,9 +26,8 @@
 ///import baidu.dom;
 ///import baidu.dom.eq;
 ///import baidu.dom.offset;
-///import baidu.dom.css;
-///import baidu.dom.width;
-///import baidu.dom.height;
+///import baidu.dom.outerWidth;
+///import baidu.dom.outerHeight;
 
 baidu.dom.extend({
     isCover : function(selector,strict){
@@ -40,23 +39,22 @@ baidu.dom.extend({
         var me = this,
             ele = baidu.dom(selector).eq(0),
             p = ele.offset(),
-            bW = Number(ele.css('border-width').replace('px','')),
-            w = ele.width(),
-            h = ele.height(),
+            w = ele.outerWidth(),
+            h = ele.outerHeight(),
 
             //检测算子，传入四个值比较，strict（是否严格）
             check = function(top,right,bottom,left,strict){
                 if(strict){
 
                     //严格模式，一定要在容器内
-                    if((p.top>=top)&&((p.top+h+bW+bW)<=bottom)&&(p.left>=left)&&((p.left+w+bW+bW)<=right)){
+                    if((p.top>=top)&&((p.top+h)<=bottom)&&(p.left>=left)&&((p.left+w)<=right)){
                         return true;
                     };
 
                 }else{
 
                     //非严格模式，有碰撞或交集即可
-                    if(((p.top+bW+bW+h)>=top)&&(p.top<=bottom)&&((p.left+bW+bW+w)>=left)&&(p.left<=right)){
+                    if(((p.top+h)>=top)&&(p.top<=bottom)&&((p.left+w)>=left)&&(p.left<=right)){
                         return true;
                     };
                 };
@@ -65,11 +63,10 @@ baidu.dom.extend({
         for(var i = 0; i < me.size(); i++ ){
             var _ele = me.eq(i),
                 _p = _ele.offset(),
-                _bW = Number(ele.css('border-width').replace('px','')),
-                _w = _ele.eq(i).width(),
-                _h = _ele.eq(i).height();
+                _w = _ele.eq(i).outerWidth(),
+                _h = _ele.eq(i).outerHeight();
 
-            if(check(_p.top,_p.left+_w+_bW+_bW,_p.top+_h+_bW+_bW,_p.left,strict)){
+            if(check(_p.top,_p.left+_w,_p.top+_h,_p.left,strict)){
                 return true;
             };
         };

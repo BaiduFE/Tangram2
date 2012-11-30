@@ -93,9 +93,8 @@
 ///import baidu.dom.off;
 ///import baidu.dom.eq;
 ///import baidu.dom.trigger;
-///import baidu.dom.css;
-///import baidu.dom.width;
-///import baidu.dom.height;
+///import baidu.dom.outerWidth;
+///import baidu.dom.outerHeight;
 ///import baidu.dom.offset;
 ///import plugin._util_;
 
@@ -124,13 +123,13 @@ baidu.plugin._util_.drag = function(selector){
                 //优化超速移动鼠标的变态情况，兼容有border的情况完美展现
                 if(x<_range.left){
                     x = _range.left;
-                }else if( (x + _range.w + _range.bW + _range.bW) > _range.right ){
-                    x = _range.right - _range.w - _range.bW - _range.bW;
+                }else if( (x + _range.w) > _range.right ){
+                    x = _range.right - _range.w;
                 };
                 if(y<_range.top){
                     y = _range.top;
-                }else if( (y + _range.h + _range.bW + _range.bW) > _range.bottom ){
-                    y = _range.bottom - _range.h - _range.bW - _range.bW;
+                }else if( (y + _range.h ) > _range.bottom ){
+                    y = _range.bottom - _range.h;
                 };
             };
 
@@ -189,13 +188,10 @@ baidu.plugin._util_.drag = function(selector){
 
                 //传入selector
                 case 1:
-                    var _ele = baidu.dom(value).eq(0),
-                        borderWidth = Number(_ele.css('border-width').replace('px',''));
+                    var _ele = baidu.dom(value).eq(0);
                     _range = _ele.offset();
-                    _range.left = _range.left + borderWidth;
-                    _range.top = _range.top + borderWidth;
-                    _range.right = _range.left + _ele.width();
-                    _range.bottom = _range.top + _ele.height();
+                    _range.right = _range.left + _ele.outerWidth();
+                    _range.bottom = _range.top + _ele.outerHeight();
                 break;
 
                 //传入top,right,bottom,left
@@ -205,9 +201,8 @@ baidu.plugin._util_.drag = function(selector){
             };
 
             //元素自身的宽和高
-            _range.w = ele.width();
-            _range.h = ele.height();
-            _range.bW = Number(ele.css('border-width').replace('px',''));
+            _range.w = ele.outerWidth();
+            _range.h = ele.outerHeight();
         },
         cancel:function(){
             ele.offset({'left':_o.left,'top':_o.top});

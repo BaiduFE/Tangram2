@@ -223,6 +223,7 @@
 ///import baidu.dom.contains;
 ///import baidu.createSingle;
 ///import baidu.dom.find;
+///import baidu.dom.css;
 ///import plugin._util_.drag;
 ///import plugin._util_.isCover;
 
@@ -291,14 +292,13 @@ baidu.dom.extend({
 
                                 //endOf的范围是Object,{'top':123,'right':123,'bottom',123,'left':123}
                                 if(dragEle.w){
-                                    dragEle.w = dragEle.width();
-                                    dragEle.h = dragEle.height();
-                                    dragEle.bW = Number(dragEle.css('border-width').replace('px',''));
+                                    dragEle.w = dragEle.outerWidth();
+                                    dragEle.h = dragEle.outerHeight();
                                 };
                                 var o = dragEle.offset(),
                                     eo = opt.endOf;
                                 
-                                if((o.top+dragEle.bw+dragEle.bw+dragEle.h<eo.top)||(o.top>eo.bottom)||(o.left+dragEle.bw+dragEle.bw+dragEle.w<eo.left)||(o.left>eo.right)){
+                                if((o.top+dragEle.h<eo.top)||(o.top>eo.bottom)||(o.left+dragEle.w<eo.left)||(o.left>eo.right)){
                                     draggable.cancel();
                                 };
                             }else{
