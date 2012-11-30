@@ -49,7 +49,6 @@ test('test baidu.event properties', function(){
                 map = defaultEvent.which === undefined
                     && ua.browser.ie < 9 ? {'1': 1, '4': 2, '2': 3}
                         : {'0': 1, '1': 2, '2': 3};
-            alert(event.which);
             equal(event.which, map[defaultEvent.button], 'event which is');
         });
         
