@@ -32,6 +32,11 @@ baidu.isPlainObject = function(unknow) {
     //判断有继承的情况
     //如果有一项是继承过来的，那么一定不是字面量Object
     //OwnProperty会首先被遍历，为了加速遍历过程，直接看最后一项
-    for ( key in unknow ) {}
+    for ( key in unknow ) break;
+
+    // nodelist for ie
+    if( unknow.item && typeof unknow.length == "number" )
+        return false;
+
     return key === undefined || hasOwnProperty.call( unknow, key );
 };

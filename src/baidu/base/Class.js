@@ -33,7 +33,7 @@ baidu.extend(baidu.base.Class.prototype, {
      * 20111219 meizz 为支持老版本的className属性，以后统一改成 _type_
      * @return {string} 对象的String表示形式
      */
-    toString: function(){
+    toString: baidu.base.Class.prototype.toString = function(){
         return "[object " + ( this._type_ || "Object" ) + "]";
     }
 
@@ -178,6 +178,7 @@ baidu.extend(baidu.base.Class.prototype, {
         return this;
     }
 });
+
 
 /*
  * 按唯一标识guid字符串取得实例对象
