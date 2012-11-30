@@ -1,6 +1,4 @@
 void function(){
-	
-	
 	// Copyright (c) 2009-2012, Baidu Inc. All rights reserved.
 	//
 	// Licensed under the BSD License
@@ -33,27 +31,8 @@ void function(){
 	// 20120709 mz 添加参数类型检查器，对参数做类型检测保护
 	baidu.check = baidu.check || function(){};
 	
-	baidu._util_ = baidu._util_ || {};
-	
-	baidu.merge = function(first, second) {
-	    var i = first.length,
-	        j = 0;
-	
-	    if ( typeof second.length === "number" ) {
-	        for ( var l = second.length; j < l; j++ ) {
-	            first[ i++ ] = second[ j ];
-	        }
-	
-	    } else {
-	        while ( second[j] !== undefined ) {
-	            first[ i++ ] = second[ j++ ];
-	        }
-	    }
-	
-	    first.length = i;
-	
-	    return first;
-	};
+	 
+	baidu.lang = baidu.lang || {};
 	
 	 
 	baidu.forEach = function( enumerable, iterator, context ) {
@@ -99,9 +78,6 @@ void function(){
 	
 	    return enumerable;
 	};
-	
-	 
-	baidu.lang = baidu.lang || {};
 	
 	baidu.type = (function() {
 	    var objectType = {},
@@ -272,1087 +248,6 @@ void function(){
 		return Class;
 	};
 	
-	baidu.createChain("array", function(array){
-	    var pro = baidu.array.$Array.prototype
-	        ,ap = Array.prototype
-	        ,key;
-	
-	    baidu.type( array ) != "array" && ( array = [] );
-	
-	    for ( key in pro ) {
-	        ap[key] || (array[key] = pro[key]);
-	    }
-	
-	    return array;
-	});
-	
-	// 对系统方法新产生的 array 对象注入自定义方法，支持完美的链式语法
-	baidu.overwrite(baidu.array.$Array, "concat slice".split(" "), function(key) {
-		return function() {
-			return baidu.array( Array.prototype[key].apply(this, arguments) );
-		}
-	});
-	
-	baidu.array.extend({
-	    unique : function (fn) {
-	        var len = this.length,
-	            result = this.slice(0),
-	            i, datum;
-	            
-	        if ('function' != typeof fn) {
-	            fn = function (item1, item2) {
-	                return item1 === item2;
-	            };
-	        }
-	        
-	        // 从后往前双重循环比较
-	        // 如果两个元素相同，删除后一个
-	        while (--len > 0) {
-	            datum = result[len];
-	            i = len;
-	            while (i--) {
-	                if (fn(datum, result[i])) {
-	                    result.splice(len, 1);
-	                    break;
-	                }
-	            }
-	        }
-	
-	        len = this.length = result.length;
-	        for ( i=0; i<len; i++ ) {
-	            this[ i ] = result[ i ];
-	        }
-	
-	        return this;
-	    }
-	});
-	
-	baidu.query = baidu.query || function(){
-	    var rId = /^(\w*)#([\w\-\$]+)$/
-	       ,rId0= /^#([\w\-\$]+)$/
-	       ,rTag = /^\w+$/
-	       ,rClass = /^(\w*)\.([\w\-\$]+)$/
-	       ,rComboClass = /^(\.[\w\-\$]+)+$/
-	       ,rDivider = /\s*,\s*/
-	       ,rSpace = /\s+/g
-	       ,slice = Array.prototype.slice;
-	
-	    // selector: #id, .className, tagName, *
-	    function query(selector, context) {
-	        var t, x, id, dom, tagName, className, arr, list, array = [];
-	
-	        // tag#id
-	        if (rId.test(selector)) {
-	            id = RegExp.$2;
-	            tagName = RegExp.$1 || "*";
-	
-	            // 本段代码效率很差，不过极少流程会走到这段
-	            baidu.forEach(context.getElementsByTagName(tagName), function(dom) {
-	                dom.id == id && array.push(dom);
-	            });
-	
-	        // tagName or *
-	        } else if (rTag.test(selector) || selector == "*") {
-	            baidu.merge(array, context.getElementsByTagName(selector));
-	
-	        // .className
-	        } else if (rClass.test(selector)) {
-	            arr = [];
-	            tagName = RegExp.$1;
-	            className = RegExp.$2;
-	            t = " " + className + " ";
-	            // bug: className: .a.b
-	
-	            if (context.getElementsByClassName) {
-	                arr = context.getElementsByClassName(className);
-	            } else {
-	                baidu.forEach(context.getElementsByTagName("*"), function(dom) {
-	                    dom.className && ~(" " + dom.className + " ").indexOf(t) && (arr.push(dom));
-	                });
-	            }
-	
-	            if (tagName && (tagName = tagName.toUpperCase())) {
-	                baidu.forEach(arr, function(dom) {
-	                    dom.tagName.toUpperCase() === tagName && array.push(dom);
-	                });
-	            } else {
-	                baidu.merge(array, arr);
-	            }
-	        
-	        // IE 6 7 8 里组合样式名(.a.b)
-	        } else if (rComboClass.test(selector)) {
-	            list = selector.substr(1).split(".");
-	
-	            baidu.forEach(context.getElementsByTagName("*"), function(dom) {
-	                if (dom.className) {
-	                    t = " " + dom.className + " ";
-	                    x = true;
-	
-	                    baidu.forEach(list, function(item){
-	                        ~t.indexOf(" "+ item +" ") || (x = false);
-	                    });
-	
-	                    x && array.push(dom);
-	                }
-	            });
-	        }
-	
-	        return array;
-	    }
-	
-	    // selector 还可以是上述四种情况的组合，以空格分隔
-	    // @return ArrayLike
-	    function queryCombo(selector, context) {
-	        var a, s = selector, id = "__tangram__", array = [];
-	
-	        // 在 #id 且没有 context 时取 getSingle，其它时 getAll
-	        if (!context && rId0.test(s) && (a=document.getElementById(s.substr(1)))) {
-	            return [a];
-	        }
-	
-	        context = context || document;
-	
-	        // 用 querySelectorAll 时若取 #id 这种唯一值时会多选
-	        if (context.querySelectorAll) {
-	            // 在使用 querySelectorAll 时，若 context 无id将貌似 document 而出错
-	            if (context.nodeType == 1 && !context.id) {
-	                context.id = id;
-	                a = context.querySelectorAll("#" + id + " " + s);
-	                context.id = "";
-	            } else {
-	                a = context.querySelectorAll(s);
-	            }
-	            return a;
-	        } else {
-	            if (!~s.indexOf(" ")) {
-	                return query(s, context);
-	            }
-	
-	            baidu.forEach(query(s.substr(0, s.indexOf(" ")), context), function(dom) { // 递归
-	                baidu.merge(array, queryCombo(s.substr(s.indexOf(" ") + 1), dom));
-	            });
-	        }
-	
-	        return array;
-	    }
-	
-	    return function(selector, context, results) {
-	        if (!selector || typeof selector != "string") {
-	            return results || [];
-	        }
-	
-	        var arr = [];
-	        selector = selector.replace(rSpace, " ");
-	        results && baidu.merge(arr, results) && (results.length = 0);
-	
-	        baidu.forEach(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(item) {
-	            baidu.merge(arr, queryCombo(item, context));
-	        });
-	
-	        return baidu.merge(results || [], baidu.array(arr).unique());
-	    };
-	}();
-	
-	baidu.createChain("dom",
-	
-	// method function
-	
-	function(selector, context) {
-	    var e, me = new baidu.dom.$DOM(context);
-	
-	    // Handle $(""), $(null), or $(undefined)
-	    if (!selector) {
-	        return me;
-	    }
-	
-	    // Handle $($DOM)
-	    if (selector._type_ == "$DOM") {
-	        return selector;
-	
-	    // Handle $(DOMElement)
-	    } else if (selector.nodeType || selector == selector.window) {
-	        me[0] = selector;
-	        me.length = 1;
-	        return me;
-	
-	    // Handle $(Array) or $(Collection) or $(NodeList)
-	    } else if (selector.length && me.toString.call(selector) != "[object String]") {
-	        return baidu.merge(me, selector);
-	
-	    } else if (typeof selector == "string") {
-	        // HTMLString
-	        if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 2) {
-	            if ( baidu.dom.createElements ) {
-	                baidu.merge( me, baidu.dom.createElements( selector ) );
-	            }
-	
-	        // baidu.query
-	        } else {
-	            baidu.query(selector, context, me);
-	        }
-	    
-	    // document.ready
-	    } else if (typeof selector == "function") {
-	        return me.ready ? me.ready(selector) : me;
-	    }
-	
-	    return me;
-	},
-	
-	// constructor
-	function(context) {
-	    this.length = 0;
-	    this._type_ = "$DOM";
-	    this.context = context || document;
-	}
-	
-	).extend({
-	
-	    
-	    size: function() {
-	        return this.length;
-	    }
-	
-	    // 2012.11.27 mz 拥有 .length 和 .splice() 方法，console.log() 就认为该对象是 ArrayLike
-	    ,splice : function(){}
-	
-	    
-	    ,get: function(index) {
-	
-	        if ( typeof index == "number" ) {
-	            return index < 0 ? this[this.length + index] : this[index];
-	        }
-	
-	        return Array.prototype.slice.call(this, 0);
-	    }
-	
-	    // 将 $DOM 转换成 Array(dom, dom, ...) 返回
-	    ,toArray: function(){
-	        return this.get();
-	    }
-	
-	});
-	
-	baidu.dom.extend({
-	    each : function (iterator) {
-	        baidu.check("function", "baidu.dom.each");
-	        var i, result,
-	            n = this.length;
-	
-	        for (i=0; i<n; i++) {
-	            result = iterator.call( this[i], i, this[i], this );
-	
-	            if ( result === false || result == "break" ) { break;}
-	        }
-	
-	        return this;
-	    }
-	});
-	
-	baidu._util_.access = function(tang, key, value, callback, pass){
-	    if(tang.size() <= 0){return tang;}
-	    switch(baidu.type(key)){
-	        case 'string': //高频
-	            if(value === undefined){
-	                return callback.call(tang, tang[0], key);
-	            }else{
-	                tang.each(function(index, item){
-	                    callback.call(tang, item, key,
-	                        (baidu.type(value) === 'function' ? value.call(item, index, callback.call(tang, item, key)) : value),
-	                        pass);
-	                });
-	            }
-	            break;
-	        case 'object':
-	            for(var i in key){
-	                baidu._util_.access(tang, i, key[i], callback, value);
-	            }
-	            break;
-	    }
-	    return tang;
-	};
-	baidu._util_.nodeName = function(ele, nodeName){
-	    return ele.nodeName && ele.nodeName.toLowerCase() === nodeName.toLowerCase();
-	};
-	
-	baidu._util_.propFixer = {
-	    tabindex: 'tabIndex',
-	    readonly: 'readOnly',
-	    'for': 'htmlFor',
-	    'class': 'className',
-	    'classname': 'className',
-	    maxlength: 'maxLength',
-	    cellspacing: 'cellSpacing',
-	    cellpadding: 'cellPadding',
-	    rowspan: 'rowSpan',
-	    colspan: 'colSpan',
-	    usemap: 'useMap',
-	    frameborder: 'frameBorder',
-	    contenteditable: 'contentEditable',
-	    
-	    
-	    //rboolean在baidu._util_.removeAttr 和 baidu._util_.attr中需要被共同使用
-	    rboolean: /^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i
-	};
-	// IE6/7 call enctype encoding
-	!document.createElement('form').enctype
-	    && (baidu._util_.propFixer.enctype = 'encoding');
-	//Sizzle.isXML
-	
-	baidu._util_.isXML = function(ele) {
-	    var docElem = (ele ? ele.ownerDocument || ele : 0).documentElement;
-	    return docElem ? docElem.nodeName !== 'HTML' : false;
-	};
-	
-	baidu._util_.prop = function(){
-	    var rfocusable = /^(?:button|input|object|select|textarea)$/i,
-	        rclickable = /^a(?:rea|)$/i,
-	        select = document.createElement('select'),
-	        opt = select.appendChild(document.createElement('option')),
-	        propHooks = {
-	            tabIndex: {
-	                get: function(ele){
-	                    var attrNode = ele.getAttributeNode('tabindex');
-	                    return attrNode && attrNode.specified ? parseInt(attrNode.value, 10)
-	                        : rfocusable.test(ele.nodeName) || rclickable.test(ele.nodeName)
-	                            && ele.href ? 0 : undefined;
-	                }
-	            }
-	        };
-	        !opt.selected && (propHooks.selected = {
-	            get: function(ele){
-	                var par = ele.parentNode;
-	                if(par){
-	                    par.selectedIndex;
-	                    par.parentNode && par.parentNode.selectedIndex;
-	                }
-	                return null;
-	            }
-	        });
-	        select = opt = null;
-	    
-	    return function(ele, key, val){
-	        var nType = ele.nodeType,
-	            hooks, ret;
-	        if(!ele || ~'238'.indexOf(nType)){return;}
-	        if(nType !== 1 || !baidu._util_.isXML(ele)){
-	            key = baidu._util_.propFixer[key] || key;
-	            hooks = propHooks[key] || {};
-	        }
-	        if(val !== undefined){
-	            if(hooks.set && (ret = hooks.set(ele, key, val)) !== undefined){
-	                return ret;
-	            }else{
-	                return (ele[key] = val);
-	            }
-	        }else{
-	            if(hooks.get && (ret = hooks.get(ele, key)) !== null){
-	                return ret;
-	            }else{
-	                return ele[key];
-	            }
-	        }
-	    }
-	}();
-	
-	baidu._util_.support = baidu._util_.support || function(){
-	    var div = document.createElement('div'),
-	        baseSupport, a, input, select, opt;
-	    div.setAttribute('className', 't');
-	    div.innerHTML = ' <link/><table></table><a href="/a">a</a><input type="checkbox"/>';
-	    a = div.getElementsByTagName('A')[0];
-	    a.style.cssText = 'top:1px;float:left;opacity:.5';
-	    select = document.createElement('select');
-	    opt = select.appendChild(document.createElement('option'));
-	    input = div.getElementsByTagName('input')[0];
-	    input.checked = true;
-	    
-	    baseSupport = {
-	        dom: {
-	            div: div,
-	            a: a,
-	            select: select,
-	            opt: opt,
-	            input: input
-	        }
-	//        radioValue: only import by baidu._util.attr
-	//        hrefNormalized: only import by baidu._util.attr
-	//        style: only import by baidu._util.attr
-	//        optDisabled: only import by baidu.dom.val
-	//        checkOn: only import by baidu.dom.val
-	//        noCloneEvent: only import by baidu.dom.clone
-	//        noCloneChecked: only import by baidu.dom.clone
-	//        cssFloat: only import baidu.dom.styleFixer
-	//        htmlSerialize: only import baidu.dom.html
-	//        leadingWhitespace: only import baidu.dom.html
-	    };
-	    return baseSupport;
-	}();
-	baidu._util_.support.getSetAttribute = baidu._util_.support.dom.div.className !== 't';
-	baidu._util_.nodeHook = function(){
-	    if(baidu._util_.support.getSetAttribute){return;}
-	    var fixSpecified = {};
-	    fixSpecified.name = fixSpecified.id = fixSpecified.coords = true;
-	    return {
-	        get: function(ele, key){
-	            var ret = ele.getAttributeNode(key);
-	            return ret && (fixSpecified[key] ? ret.value !== '' : ret.specified) ?
-	                 ret.value : undefined;
-	        },
-	        set: function(ele, key, val){
-	            // Set the existing or create a new attribute node
-	            var ret = ele.getAttributeNode(key);
-	            if(!ret){
-	                ret = document.createAttribute(key);
-	                ele.setAttributeNode(ret);
-	            }
-	            return (ret.value = val + '');
-	        }
-	    };
-	}();
-	
-	baidu._util_.removeAttr = function(){
-	    var propFixer = baidu._util_.propFixer,
-	        core_rspace = /\s+/,
-	        getSetAttribute = baidu._util_.support.getSetAttribute;
-	    return function(ele, key){
-	        if(!key || ele.nodeType !==1){return;}
-	        var array = key.split(core_rspace),
-	            propName, isBool;
-	        for(var i = 0, attrName; attrName = array[i]; i++){
-	            propName = propFixer[attrName] || attrName;
-	            isBool = propFixer.rboolean.test(attrName);
-	            !isBool && baidu._util_.attr(ele, attrName, '');
-	            ele.removeAttribute(getSetAttribute ? attrName : propName);
-	            isBool && (propName in ele) && (ele[propName] = false);
-	        }
-	    }
-	}();
-	
-	baidu._util_.attr = function(){
-	    var util = baidu._util_,
-	        rtype = /^(?:button|input)$/i,
-	        supportDom = util.support.dom,
-	        radioValue = supportDom.input.value === 't',
-	        hrefNormalized = supportDom.a.getAttribute('href') === '/a',
-	        style = /top/.test(supportDom.a.getAttribute('style')),
-	        nodeHook = util.nodeHook,
-	        attrFixer = {
-	            className: 'class'
-	        },
-	        boolHook = {//处理对属性值是布尔值的情况
-	            get: function(ele, key){
-	                var val = util.prop(ele, key), attrNode;
-	                return val === true || typeof val !== 'boolean'
-	                    && (attrNode = ele.getAttributeNode(key))
-	                    && attrNode.nodeValue !== false ? key.toLowerCase() : undefined;
-	            },
-	            set: function(ele, key, val){
-	                if(val === false){
-	                    util.removeAttr(ele, key);
-	                }else{
-	                    var propName = util.propFixer[key] || key;
-	                    (propName in ele) && (ele[propName] = true);
-	                    ele.setAttribute(key, key.toLowerCase());
-	                }
-	                return key;
-	            }
-	        },
-	        attrHooks = {
-	            type: {
-	                set: function(ele, key, val){
-	                    // We can't allow the type property to be changed (since it causes problems in IE)
-	                    if(rtype.test(ele.nodeName) && ele.parentNode){return val;}
-	                    if(!radioValue && val === 'radio' && util.nodeName(ele, 'input')){
-	                        var v = ele.value;
-	                        ele.setAttribute('type', val);
-	                        v && (ele.value = v);
-	                        return val;
-	                    }
-	                }
-	            },
-	            value: {
-	                get: function(ele, key){
-	                    if(nodeHook && util.nodeName(ele, 'button')){
-	                        return nodeHook.get(ele, key);
-	                    }
-	                    return key in ele ? ele.value : null;
-	                },
-	                set: function(ele, key, val){
-	                    if(nodeHook && util.nodeName(ele, 'button')){
-	                        return nodeHook.set(ele, key, val);
-	                    }
-	                    ele.value = val;
-	                }
-	            }
-	        };
-	    // Set width and height to auto instead of 0 on empty string
-	    // This is for removals
-	    if(!util.support.getSetAttribute){//
-	        baidu.forEach(['width', 'height'], function(item){
-	            attrHooks[item] = {
-	                set: function(ele, key, val){
-	                    if(val === ''){
-	                        ele.setAttribute(key, 'auto');
-	                        return val;
-	                    }
-	                }
-	            };
-	        });
-	        attrHooks.contenteditable = {
-	            get: nodeHook.get,
-	            set: function(ele, key, val){
-	                val === '' && (val = false);
-	                nodeHook.set(ele, key, val);
-	            }
-	        };
-	    }
-	    // Some attributes require a special call on IE
-	    if(!hrefNormalized){
-	        [ "href", "src", "width", "height" ]
-	        baidu.forEach(['href', 'src', 'width', 'height'], function(item){
-	            attrHooks[item] = {
-	                get: function(ele, key){
-	                    var ret = ele.getAttribute(key, 2);
-	                    return ret === null ? undefined : ret;
-	                }
-	            };
-	        });
-	    }
-	    if(!style){
-	        attrHooks.style = {
-	            get: function(ele){return ele.style.cssText.toLowerCase() || undefined;},
-	            set: function(ele, key, val){return (ele.style.cssText = val + '');}
-	        };
-	    }
-	    //attr
-	    return function(ele, key, val, pass){
-	        var nType = ele.nodeType,
-	            notxml = nType !== 1 || !util.isXML(ele),
-	            hooks, ret;
-	        if(!ele || ~'238'.indexOf(nType)){return;}
-	        if(pass && baidu.dom.fn[key]){
-	            return baidu.dom(ele)[key](val);
-	        }
-	        //if getAttribute is undefined, use prop interface
-	        if(notxml){
-	            key = attrFixer[key] || key.toLowerCase();
-	            hooks = attrHooks[key] || (util.propFixer.rboolean.test(key) ? boolHook : nodeHook);
-	        }
-	        if(val!== undefined){
-	            if(val === null){
-	                util.removeAttr(ele, key);
-	                return
-	            }else if(notxml && hooks && hooks.set && (ret = hooks.set(ele, key, val)) !== undefined){
-	                return ret;
-	            }else{
-	                ele.setAttribute(key, val + '');
-	                return val;
-	            }
-	        }else if(notxml && hooks && hooks.get && (ret = hooks.get(ele, key)) !== null){
-	            return ret;
-	        }else{
-	            ret = ele.getAttribute(key);
-	            return ret === null ? undefined : ret;
-	        }
-	   }
-	}();
-	
-	baidu.global = baidu.global || (function() {
-	    var me = baidu._global_ = window[ baidu.guid ],
-	        // 20121116 mz 在多个tangram同时加载时有互相覆写的风险
-	        global = me._ = me._ || {};
-	
-	    return function( key, value, overwrite ) {
-	        if ( typeof value != "undefined" ) {
-	            overwrite || ( value = typeof global[ key ] == "undefined" ? value : global[ key ] );
-	            global[ key ] =  value;
-	
-	        } else if (key && typeof global[ key ] == "undefined" ) {
-	            global[ key ] = {};
-	        }
-	
-	        return global[ key ];
-	    }
-	})();
-	
-	baidu.browser = baidu.browser || function(){
-	    var ua = navigator.userAgent;
-	    
-	    var result = {
-	        isStrict : document.compatMode == "CSS1Compat"
-	        ,isGecko : /gecko/i.test(ua) && !/like gecko/i.test(ua)
-	        ,isWebkit: /webkit/i.test(ua)
-	    };
-	
-	    try{/(\d+\.\d+)/.test(external.max_version) && (result.maxthon = + RegExp['\x241'])} catch (e){};
-	
-	    // 蛋疼 你懂的
-	    switch (true) {
-	        case /msie (\d+\.\d+)/i.test(ua) :
-	            result.ie = document.documentMode || + RegExp['\x241'];
-	            break;
-	        case /chrome\/(\d+\.\d+)/i.test(ua) :
-	            result.chrome = + RegExp['\x241'];
-	            break;
-	        case /(\d+\.\d)?(?:\.\d)?\s+safari\/?(\d+\.\d+)?/i.test(ua) && !/chrome/i.test(ua) :
-	            result.safari = + (RegExp['\x241'] || RegExp['\x242']);
-	            break;
-	        case /firefox\/(\d+\.\d+)/i.test(ua) : 
-	            result.firefox = + RegExp['\x241'];
-	            break;
-	        
-	        case /opera(?:\/| )(\d+(?:\.\d+)?)(.+?(version\/(\d+(?:\.\d+)?)))?/i.test(ua) :
-	            result.opera = + ( RegExp["\x244"] || RegExp["\x241"] );
-	            break;
-	    }
-	           
-	    baidu.extend(baidu, result);
-	
-	    return result;
-	}();
-	
-	baidu.id = function() {
-	    var maps = baidu.global("_maps_id")
-	        ,key = baidu.key;
-	
-	    baidu.global("_counter", 1, true);
-	
-	    return function( object, command ) {
-	        var e
-	            ,str_1= baidu.isString( object )
-	            ,obj_1= baidu.isObject( object )
-	            ,id = obj_1 ? object[ key ] : str_1 ? object : "";
-	
-	        // 第二个参数为 String
-	        if ( baidu.isString( command ) ) {
-	            switch ( command ) {
-	            case "get" :
-	                return obj_1 ? id : maps[id];
-	            break;
-	            case "remove" :
-	            case "delete" :
-	                if ( e = maps[id] ) {
-	                    // 20120827 mz IE低版本给 element[key] 赋值时会写入DOM树，因此在移除的时候需要使用remove
-	                    if (baidu.isElement(e) && baidu.browser.ie < 7) {
-	                        e.removeAttribute(key);
-	                    } else {
-	                        delete e[ key ];
-	                    }
-	                    delete maps[ id ];
-	                }
-	                return id;
-	            break;
-	            case "decontrol" : 
-	                !(e = maps[id]) && obj_1 && ( object[ key ] = id = baidu.id() );
-	                id && delete maps[ id ];
-	                return id;
-	            break;
-	            default :
-	                if ( str_1 ) {
-	                    (e = maps[ id ]) && delete maps[ id ];
-	                    e && ( maps[ e[ key ] = command ] = e );
-	                } else if ( obj_1 ) {
-	                    id && delete maps[ id ];
-	                    maps[ object[ key ] = command ] = object;
-	                }
-	                return command;
-	            }
-	        }
-	
-	        // 第一个参数不为空
-	        if ( obj_1 ) {
-	            !id && (maps[ object[ key ] = id = baidu.id() ] = object);
-	            return id;
-	        } else if ( str_1 ) {
-	            return maps[ object ];
-	        }
-	
-	        return "TANGRAM__" + baidu._global_._._counter ++;
-	    };
-	}();
-	
-	baidu.id.key = "tangram_guid";
-	
-	//TODO: mz 20120827 在低版本IE做delete操作时直接 delete e[key] 可能出错，这里需要重新评估，重写
-	
-	baidu.createChain("event",
-	
-	    // method
-	    function(){
-	        var lastEvt = {};
-	        return function( event, json ){
-	            switch( baidu.type( event ) ){
-	                // event
-	                case "object":
-	                    return lastEvt.originalEvent === event ? 
-	                        lastEvt : lastEvt = new baidu.event.$Event( event );
-	
-	                case "$Event":
-	                    return event;
-	
-	                // event type
-	                case "string" :
-	                    var e = new baidu.event.$Event( event );
-	                    if( typeof json == "object" ) 
-	                        baidu.forEach( e, json );
-	                    return e;
-	            }
-	        }
-	    }(),
-	
-	    // constructor
-	    function( event ){
-	        var e, t, f;
-	        var me = this;
-	
-	        this._type_ = "$Event";
-	
-	        if( typeof event == "object" && event.type ){
-	
-	            me.originalEvent = e = event;
-	
-	            for( var name in e )
-	                if( typeof e[name] != "function" )
-	                    me[ name ] = e[ name ];
-	
-	            if( e.extraData )
-	                baidu.extend( me, e.extraData );
-	
-	            me.target = me.srcElement = e.srcElement || (
-	                ( t = e.target ) && ( t.nodeType == 3 ? t.parentNode : t )
-	            );
-	
-	            me.relatedTarget = e.relatedTarget || (
-	                ( t = e.fromElement ) && ( t === me.target ? e.toElement : t )
-	            );
-	
-	            me.keyCode = me.which = e.keyCode || e.which;
-	
-	            // Add which for click: 1 === left; 2 === middle; 3 === right
-	            if( !me.which && e.button !== undefined )
-	                me.which = e.button & 1 ? 1 : ( e.button & 2 ? 3 : ( e.button & 4 ? 2 : 0 ) );
-	
-	            var doc = document.documentElement, body = document.body;
-	
-	            me.pageX = e.pageX || (
-	                e.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0)
-	            );
-	
-	            me.pageY = e.pageY || (
-	                e.clientY + (doc && doc.scrollTop  || body && body.scrollTop  || 0) - (doc && doc.clientTop  || body && body.clientTop  || 0)
-	            );
-	
-	            me.data;
-	        }
-	
-	        // event.type
-	        if( typeof event == "string" )
-	            this.type = event;
-	
-	        // event.timeStamp
-	        this.timeStamp = new Date().getTime();
-	    }
-	
-	).extend({
-	    stopPropagation : function() {
-	        var e = this.originalEvent;
-	        e && ( e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true );
-	    },
-	
-	    preventDefault : function() {
-	        var e = this.originalEvent;
-	        e && ( e.preventDefault ? e.preventDefault() : e.returnValue = false );
-	    }
-	});
-	
-	baidu._util_.eventBase = {};
-	
-	void function( base, listener ){
-		listener = base.listener = {};
-		
-		if( window.addEventListener )
-		    listener.add = function( target, name, fn ){
-		        target.addEventListener( name, fn, false );
-		    };
-		else if( window.attachEvent )
-			listener.add = function( target, name, fn ){
-		        target.attachEvent( "on" + name, fn );
-		    };
-	}( baidu._util_.eventBase );
-	
-	void function( base, be ){
-		var I = baidu.id;
-		var queue = base.queue = {};
-		var attaCache = queue.attaCache = baidu.global( "eventQueueCache" );
-	    var listener = base.listener;
-	
-	    queue.get = function( target, type, bindType, attachElements ){
-	        var id = I( target ), c;
-	
-	        if( !attaCache[id] )
-	            attaCache[id] = {};
-	
-	        c = attaCache[id];
-	
-	        if( type ){
-	            if( !c[type] ){
-	                this.setupCall( target, type, bindType, c[ type ] = [], attachElements );
-	            }
-	            return c[type];
-	        }else return c;
-	    };
-	
-	    queue.add = function( target, type, bindType, item, attachElements ){
-	    	this.get( target, type, bindType, attachElements ).push( item );
-	    };
-	
-	    queue.remove = function( target, type, fn ){
-	        var arr, c;
-	        if( type ){
-	            var arr = this.get( target, type );
-	            if( fn ){
-	                for(var i = arr.length - 1; i >= 0; i --)
-	                	if( arr[i].orig == fn )
-	                		arr.splice( i, 1 );
-	            }else{
-	                arr.length = 0;
-	            }
-	        }else{
-	            var c = this.get( target );
-	            for(var i in c)
-	            	c[i].length = 0;
-	        }
-	    };
-	
-	    queue.call = function( target, type, fnAry, e ){
-	        if( fnAry ){
-	            if( !fnAry.length )
-	                return ;
-	
-	            var args = [].slice.call( arguments, 1 ), one = [];
-	                args.unshift( e = baidu.event( e || type ) );          
-	                e.type = type;
-	
-	            if( !e.currentTarget )
-	                e.currentTarget = target;
-	
-	            for( var i = 0, r, l = fnAry.length; i < l; i ++ )
-	                if(r = fnAry[i]){
-	                    r.pkg.apply( target, args );
-	                    if( r.one )
-	                        one.unshift( i );
-	                }
-	
-	            if( one.length )
-	                for(var i = 0, l = one.length; i < l; i ++)
-	                    this.remove( target, type, fnAry[i].fn );
-	                
-	        }else{
-	            fnAry = this.get( target, type );
-	            this.call( target, type, fnAry, e );
-	        }
-	    };
-	
-	    queue.setupCall = function(){
-	        var add = function( target, type, bindType, fnAry ){
-	            listener.add( target, bindType, function( e ){
-	                queue.call( target, type, fnAry, e );
-	            } );
-	        };
-	        return function( target, type, bindType, fnAry, attachElements ){
-	            if( !attachElements )
-	                add( target, type, bindType, fnAry );
-	            else{
-	                target = baidu.dom( attachElements, target );
-	                for(var i = 0, l = target.length; i < l; i ++)
-	                    add( target[i], type, bindType, fnAry );
-	            }
-	        };
-	    }();
-	
-	}( baidu._util_.eventBase, baidu.event );
-	
-	baidu._util_.cleanData = function(array){
-	    var tangId;
-	    for(var i = 0, ele; ele = array[i]; i++){
-	        tangId = baidu.id(ele, 'get');
-	        if(!tangId){continue;}
-	        baidu._util_.eventBase.queue.remove(ele);
-	        baidu.id(ele, 'remove');
-	    }
-	}
-	baidu._util_.contains = document.compareDocumentPosition ?
-	    function(container, contained){
-	        return !!(container.compareDocumentPosition( contained ) & 16);
-	    } : document.contains ? function(container, contained){
-	        return container != contained
-	            && (container.contains ? container.contains( contained ) : false)
-	    } : function(container, contained){
-	        while(contained = contained.parentNode){
-	            if(contained === container){return true;}
-	        }
-	        return false;
-	    };
-	
-	void function( base, be ){
-	    var queue = base.queue;
-	    var core = base.core = {};
-	    var special = be.special = {};
-	    var push = [].push;
-	
-	    var findVestedEl = function( target, parents ){
-	        for( var i = 0, l = parents.length; i < l; i ++ )
-	        	if( parents.get(i).contains( target ) )
-	        		return parents[i];
-	    };
-	
-	    core.build = function( target, name, fn, selector, data ){
-	
-	    	var bindElements;
-	    	if( selector )
-	    	    bindElements = baidu.dom( selector, target );
-	
-	        if( ( name in special ) && special[name].pack )
-	            fn = special[name].pack( fn );
-	
-	        return function( e ){ // e is instance of baidu.event()
-	            var t = baidu.dom( e.target ), args = [ e ], bindElement;
-	
-	            if( data && !e.data ) 
-	                e.data = data;
-	            if( e.triggerData )
-	                push.apply( args, e.triggerData );
-	
-	            if( !bindElements )
-	                return e.result = fn.apply( target, args );
-	
-	            for(var i = 0; i < 2; i ++){
-	            	if( bindElement = findVestedEl( e.target, bindElements ) )
-	            	    return e.result = fn.apply( bindElement, args );
-	            	bindElements = baidu.dom( selector, target );
-	            }
-	        };
-	    };
-	
-	    core.add = function( target, type, fn, selector, data, one ){
-			var pkg = this.build( target, type, fn, selector, data ), attachElements, bindType;
-	        bindType = type;
-	        if(type in special)
-	            attachElements = special[type].attachElements,
-	            bindType = special[type].bindType || type;
-			queue.add( target, type, bindType, { type: type, pkg: pkg, orig: fn, one: one }, attachElements );
-	    };
-	
-	    core.remove = function( target, type, fn, selector ){
-	        queue.remove( target, type, fn, selector );
-	    };
-	
-	}( baidu._util_.eventBase, baidu.event );
-	
-	baidu.dom.extend({
-	    getComputedStyle: function(key){
-	        var defaultView = this[0].ownerDocument.defaultView,
-	            computedStyle = defaultView && defaultView.getComputedStyle
-	                && defaultView.getComputedStyle(this[0], null),
-	            val = computedStyle ? (computedStyle.getPropertyValue(key) || computedStyle[key]) : '';
-	        return val || this[0].style[key];
-	    }
-	});
-	
-	baidu.dom.extend({
-	    getCurrentStyle: function(){
-	        var css = document.documentElement.currentStyle ?
-	            function(key){return this[0].currentStyle ? this[0].currentStyle[key] : this[0].style[key];}
-	                : function(key){return this.getComputedStyle(key);}
-	        return function(key){
-	            return css.call(this, key);
-	        }
-	    }()
-	});
-	
-	baidu._util_.getWidthOrHeight = function(){
-	    var ret = {},
-	        cssShow = {position: 'absolute', visibility: 'hidden', display: 'block'},
-	        rdisplayswap = /^(none|table(?!-c[ea]).+)/;
-	    function swap(ele, options){
-	        var defaultVal = {};
-	        for(var i in options){
-	            defaultVal[i] = ele.style[i];
-	            ele.style[i] = options[i];
-	        }
-	        return defaultVal;
-	    }
-	    baidu.forEach(['Width', 'Height'], function(item){
-	        var cssExpand = {Width: ['Right', 'Left'], Height: ['Top', 'Bottom']}[item];
-	        ret['get' + item] = function(ele, extra){
-	            var tang = baidu.dom(ele),
-	                defaultValue = ele.offsetWidth === 0
-	                    && rdisplayswap.test(tang.getCurrentStyle('display'))
-	                    && (swap(ele, cssShow)),
-	                rect = ele['offset' + item] || parseInt(tang.getCurrentStyle(item.toLowerCase())),
-	                delString = 'padding|border';
-	            extra && baidu.forEach(extra.split('|'), function(val){
-	                if(!~delString.indexOf(val)){//if val is margin
-	                    rect += parseFloat(tang.getCurrentStyle(val + cssExpand[0])) || 0;
-	                    rect += parseFloat(tang.getCurrentStyle(val + cssExpand[1])) || 0;
-	                }else{//val is border or padding
-	                    delString = delString.replace(new RegExp('\\|?' + val + '\\|?'), '');
-	                }
-	            });
-	            delString && baidu.forEach(delString.split('|'), function(val){
-	                rect -= parseFloat(tang.getCurrentStyle(val + cssExpand[0] + (val === 'border' ? 'Width' : ''))) || 0;
-	                rect -= parseFloat(tang.getCurrentStyle(val + cssExpand[1] + (val === 'border' ? 'Width' : ''))) || 0;
-	            });
-	            defaultValue && swap(ele, defaultValue);
-	            return rect;
-	        }
-	    });
-	    //
-	    return function(ele, key, extra){
-	        return ret[key === 'width' ? 'getWidth' : 'getHeight'](ele, extra);
-	    }
-	}();
-	
-	//baidu.browser.isStrict = document.compatMode == "CSS1Compat";
-	
-	baidu._util_.getWindowOrDocumentWidthOrHeight = baidu._util_.getWindowOrDocumentWidthOrHeight || function(){
-	    var ret = {'window': {}, 'document': {}};
-	    baidu.forEach(['Width', 'Height'], function(item){
-	        var clientProp = 'client' + item,
-	            offsetProp = 'offset' + item,
-	            scrollProp = 'scroll' + item;
-	        ret['window']['get' + item] = function(ele){
-	            var doc = ele.document,
-	                rectValue = doc.documentElement[clientProp];
-	            return baidu.browser.isStrict && rectValue
-	                || doc.body && doc.body[clientProp] || rectValue;
-	        };
-	        ret['document']['get' + item] = function(ele){
-	            var doc = ele.documentElement;
-	            return doc[clientProp] >= doc[scrollProp] ? doc[clientProp]
-	                : Math.max(ele.body[scrollProp], doc[scrollProp], ele.body[offsetProp], doc[offsetProp]);
-	        }
-	    });
-	    return function(ele, type, key){
-	        return ret[type][key === 'width' ? 'getWidth' : 'getHeight'](ele);
-	    }
-	}();
-	baidu._util_.inArray = function(ele, array, index){
-	    if(!array){return -1;}
-	    var indexOf = Array.prototype.indexOf,
-	        len;
-	    if(indexOf){return indexOf.call(array, ele, index);}
-	    len = array.length;
-	    index = index ? index < 0 ? Math.max(0, len + index) : index : 0;
-	    for(; index < len; index++){
-	        if(index in array && array[index] === ele){
-	            return index;
-	        }
-	    }
-	    return -1;
-	};
-	
 	baidu.object = baidu.object || {};
 	
 	baidu.object.isPlain  = baidu.isPlainObject;
@@ -1377,6 +272,27 @@ void function(){
 	            return this.replace(trimer, '');
 	        }
 	    }()
+	});
+	
+	baidu.createChain("array", function(array){
+	    var pro = baidu.array.$Array.prototype
+	        ,ap = Array.prototype
+	        ,key;
+	
+	    baidu.type( array ) != "array" && ( array = [] );
+	
+	    for ( key in pro ) {
+	        ap[key] || (array[key] = pro[key]);
+	    }
+	
+	    return array;
+	});
+	
+	// 对系统方法新产生的 array 对象注入自定义方法，支持完美的链式语法
+	baidu.overwrite(baidu.array.$Array, "concat slice".split(" "), function(key) {
+		return function() {
+			return baidu.array( Array.prototype[key].apply(this, arguments) );
+		}
 	});
 	
 	baidu.array.extend({
@@ -1724,6 +640,687 @@ void function(){
 	// constructor
 	function(){});
 	
+	baidu.global = baidu.global || (function() {
+	    var me = baidu._global_ = window[ baidu.guid ],
+	        // 20121116 mz 在多个tangram同时加载时有互相覆写的风险
+	        global = me._ = me._ || {};
+	
+	    return function( key, value, overwrite ) {
+	        if ( typeof value != "undefined" ) {
+	            overwrite || ( value = typeof global[ key ] == "undefined" ? value : global[ key ] );
+	            global[ key ] =  value;
+	
+	        } else if (key && typeof global[ key ] == "undefined" ) {
+	            global[ key ] = {};
+	        }
+	
+	        return global[ key ];
+	    }
+	})();
+	
+	baidu.browser = baidu.browser || function(){
+	    var ua = navigator.userAgent;
+	    
+	    var result = {
+	        isStrict : document.compatMode == "CSS1Compat"
+	        ,isGecko : /gecko/i.test(ua) && !/like gecko/i.test(ua)
+	        ,isWebkit: /webkit/i.test(ua)
+	    };
+	
+	    try{/(\d+\.\d+)/.test(external.max_version) && (result.maxthon = + RegExp['\x241'])} catch (e){};
+	
+	    // 蛋疼 你懂的
+	    switch (true) {
+	        case /msie (\d+\.\d+)/i.test(ua) :
+	            result.ie = document.documentMode || + RegExp['\x241'];
+	            break;
+	        case /chrome\/(\d+\.\d+)/i.test(ua) :
+	            result.chrome = + RegExp['\x241'];
+	            break;
+	        case /(\d+\.\d)?(?:\.\d)?\s+safari\/?(\d+\.\d+)?/i.test(ua) && !/chrome/i.test(ua) :
+	            result.safari = + (RegExp['\x241'] || RegExp['\x242']);
+	            break;
+	        case /firefox\/(\d+\.\d+)/i.test(ua) : 
+	            result.firefox = + RegExp['\x241'];
+	            break;
+	        
+	        case /opera(?:\/| )(\d+(?:\.\d+)?)(.+?(version\/(\d+(?:\.\d+)?)))?/i.test(ua) :
+	            result.opera = + ( RegExp["\x244"] || RegExp["\x241"] );
+	            break;
+	    }
+	           
+	    baidu.extend(baidu, result);
+	
+	    return result;
+	}();
+	
+	baidu.id = function() {
+	    var maps = baidu.global("_maps_id")
+	        ,key = baidu.key;
+	
+	    baidu.global("_counter", 1, true);
+	
+	    return function( object, command ) {
+	        var e
+	            ,str_1= baidu.isString( object )
+	            ,obj_1= baidu.isObject( object )
+	            ,id = obj_1 ? object[ key ] : str_1 ? object : "";
+	
+	        // 第二个参数为 String
+	        if ( baidu.isString( command ) ) {
+	            switch ( command ) {
+	            case "get" :
+	                return obj_1 ? id : maps[id];
+	            break;
+	            case "remove" :
+	            case "delete" :
+	                if ( e = maps[id] ) {
+	                    // 20120827 mz IE低版本给 element[key] 赋值时会写入DOM树，因此在移除的时候需要使用remove
+	                    if (baidu.isElement(e) && baidu.browser.ie < 7) {
+	                        e.removeAttribute(key);
+	                    } else {
+	                        delete e[ key ];
+	                    }
+	                    delete maps[ id ];
+	                }
+	                return id;
+	            break;
+	            case "decontrol" : 
+	                !(e = maps[id]) && obj_1 && ( object[ key ] = id = baidu.id() );
+	                id && delete maps[ id ];
+	                return id;
+	            break;
+	            default :
+	                if ( str_1 ) {
+	                    (e = maps[ id ]) && delete maps[ id ];
+	                    e && ( maps[ e[ key ] = command ] = e );
+	                } else if ( obj_1 ) {
+	                    id && delete maps[ id ];
+	                    maps[ object[ key ] = command ] = object;
+	                }
+	                return command;
+	            }
+	        }
+	
+	        // 第一个参数不为空
+	        if ( obj_1 ) {
+	            !id && (maps[ object[ key ] = id = baidu.id() ] = object);
+	            return id;
+	        } else if ( str_1 ) {
+	            return maps[ object ];
+	        }
+	
+	        return "TANGRAM__" + baidu._global_._._counter ++;
+	    };
+	}();
+	
+	baidu.id.key = "tangram_guid";
+	
+	//TODO: mz 20120827 在低版本IE做delete操作时直接 delete e[key] 可能出错，这里需要重新评估，重写
+	
+	baidu._util_ = baidu._util_ || {};
+	baidu._util_.support = baidu._util_.support || function(){
+	    var div = document.createElement('div'),
+	        baseSupport, a, input, select, opt;
+	    div.setAttribute('className', 't');
+	    div.innerHTML = ' <link/><table></table><a href="/a">a</a><input type="checkbox"/>';
+	    a = div.getElementsByTagName('A')[0];
+	    a.style.cssText = 'top:1px;float:left;opacity:.5';
+	    select = document.createElement('select');
+	    opt = select.appendChild(document.createElement('option'));
+	    input = div.getElementsByTagName('input')[0];
+	    input.checked = true;
+	    
+	    baseSupport = {
+	        dom: {
+	            div: div,
+	            a: a,
+	            select: select,
+	            opt: opt,
+	            input: input
+	        }
+	//        radioValue: only import by baidu._util.attr
+	//        hrefNormalized: only import by baidu._util.attr
+	//        style: only import by baidu._util.attr
+	//        optDisabled: only import by baidu.dom.val
+	//        checkOn: only import by baidu.dom.val
+	//        noCloneEvent: only import by baidu.dom.clone
+	//        noCloneChecked: only import by baidu.dom.clone
+	//        cssFloat: only import baidu.dom.styleFixer
+	//        htmlSerialize: only import baidu.dom.html
+	//        leadingWhitespace: only import baidu.dom.html
+	    };
+	    return baseSupport;
+	}();
+	
+	baidu.createChain("event",
+	
+	    // method
+	    function(){
+	        var lastEvt = {};
+	        return function( event, json ){
+	            switch( baidu.type( event ) ){
+	                // event
+	                case "object":
+	                    return lastEvt.originalEvent === event ? 
+	                        lastEvt : lastEvt = new baidu.event.$Event( event );
+	
+	                case "$Event":
+	                    return event;
+	
+	                // event type
+	                case "string" :
+	                    var e = new baidu.event.$Event( event );
+	                    if( typeof json == "object" ) 
+	                        baidu.forEach( e, json );
+	                    return e;
+	            }
+	        }
+	    }(),
+	
+	    // constructor
+	    function( event ){
+	        var e, t, f;
+	        var me = this;
+	
+	        this._type_ = "$Event";
+	
+	        if( typeof event == "object" && event.type ){
+	
+	            me.originalEvent = e = event;
+	
+	            for( var name in e )
+	                if( typeof e[name] != "function" )
+	                    me[ name ] = e[ name ];
+	
+	            if( e.extraData )
+	                baidu.extend( me, e.extraData );
+	
+	            me.target = me.srcElement = e.srcElement || (
+	                ( t = e.target ) && ( t.nodeType == 3 ? t.parentNode : t )
+	            );
+	
+	            me.relatedTarget = e.relatedTarget || (
+	                ( t = e.fromElement ) && ( t === me.target ? e.toElement : t )
+	            );
+	
+	            me.keyCode = me.which = e.keyCode || e.which;
+	
+	            // Add which for click: 1 === left; 2 === middle; 3 === right
+	            if( !me.which && e.button !== undefined )
+	                me.which = e.button & 1 ? 1 : ( e.button & 2 ? 3 : ( e.button & 4 ? 2 : 0 ) );
+	
+	            var doc = document.documentElement, body = document.body;
+	
+	            me.pageX = e.pageX || (
+	                e.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0)
+	            );
+	
+	            me.pageY = e.pageY || (
+	                e.clientY + (doc && doc.scrollTop  || body && body.scrollTop  || 0) - (doc && doc.clientTop  || body && body.clientTop  || 0)
+	            );
+	
+	            me.data;
+	        }
+	
+	        // event.type
+	        if( typeof event == "string" )
+	            this.type = event;
+	
+	        // event.timeStamp
+	        this.timeStamp = new Date().getTime();
+	    }
+	
+	).extend({
+	    stopPropagation : function() {
+	        var e = this.originalEvent;
+	        e && ( e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true );
+	    },
+	
+	    preventDefault : function() {
+	        var e = this.originalEvent;
+	        e && ( e.preventDefault ? e.preventDefault() : e.returnValue = false );
+	    }
+	});
+	
+	baidu.merge = function(first, second) {
+	    var i = first.length,
+	        j = 0;
+	
+	    if ( typeof second.length === "number" ) {
+	        for ( var l = second.length; j < l; j++ ) {
+	            first[ i++ ] = second[ j ];
+	        }
+	
+	    } else {
+	        while ( second[j] !== undefined ) {
+	            first[ i++ ] = second[ j++ ];
+	        }
+	    }
+	
+	    first.length = i;
+	
+	    return first;
+	};
+	
+	baidu.array.extend({
+	    unique : function (fn) {
+	        var len = this.length,
+	            result = this.slice(0),
+	            i, datum;
+	            
+	        if ('function' != typeof fn) {
+	            fn = function (item1, item2) {
+	                return item1 === item2;
+	            };
+	        }
+	        
+	        // 从后往前双重循环比较
+	        // 如果两个元素相同，删除后一个
+	        while (--len > 0) {
+	            datum = result[len];
+	            i = len;
+	            while (i--) {
+	                if (fn(datum, result[i])) {
+	                    result.splice(len, 1);
+	                    break;
+	                }
+	            }
+	        }
+	
+	        len = this.length = result.length;
+	        for ( i=0; i<len; i++ ) {
+	            this[ i ] = result[ i ];
+	        }
+	
+	        return this;
+	    }
+	});
+	
+	baidu.query = baidu.query || function(){
+	    var rId = /^(\w*)#([\w\-\$]+)$/
+	       ,rId0= /^#([\w\-\$]+)$/
+	       ,rTag = /^\w+$/
+	       ,rClass = /^(\w*)\.([\w\-\$]+)$/
+	       ,rComboClass = /^(\.[\w\-\$]+)+$/
+	       ,rDivider = /\s*,\s*/
+	       ,rSpace = /\s+/g
+	       ,slice = Array.prototype.slice;
+	
+	    // selector: #id, .className, tagName, *
+	    function query(selector, context) {
+	        var t, x, id, dom, tagName, className, arr, list, array = [];
+	
+	        // tag#id
+	        if (rId.test(selector)) {
+	            id = RegExp.$2;
+	            tagName = RegExp.$1 || "*";
+	
+	            // 本段代码效率很差，不过极少流程会走到这段
+	            baidu.forEach(context.getElementsByTagName(tagName), function(dom) {
+	                dom.id == id && array.push(dom);
+	            });
+	
+	        // tagName or *
+	        } else if (rTag.test(selector) || selector == "*") {
+	            baidu.merge(array, context.getElementsByTagName(selector));
+	
+	        // .className
+	        } else if (rClass.test(selector)) {
+	            arr = [];
+	            tagName = RegExp.$1;
+	            className = RegExp.$2;
+	            t = " " + className + " ";
+	            // bug: className: .a.b
+	
+	            if (context.getElementsByClassName) {
+	                arr = context.getElementsByClassName(className);
+	            } else {
+	                baidu.forEach(context.getElementsByTagName("*"), function(dom) {
+	                    dom.className && ~(" " + dom.className + " ").indexOf(t) && (arr.push(dom));
+	                });
+	            }
+	
+	            if (tagName && (tagName = tagName.toUpperCase())) {
+	                baidu.forEach(arr, function(dom) {
+	                    dom.tagName.toUpperCase() === tagName && array.push(dom);
+	                });
+	            } else {
+	                baidu.merge(array, arr);
+	            }
+	        
+	        // IE 6 7 8 里组合样式名(.a.b)
+	        } else if (rComboClass.test(selector)) {
+	            list = selector.substr(1).split(".");
+	
+	            baidu.forEach(context.getElementsByTagName("*"), function(dom) {
+	                if (dom.className) {
+	                    t = " " + dom.className + " ";
+	                    x = true;
+	
+	                    baidu.forEach(list, function(item){
+	                        ~t.indexOf(" "+ item +" ") || (x = false);
+	                    });
+	
+	                    x && array.push(dom);
+	                }
+	            });
+	        }
+	
+	        return array;
+	    }
+	
+	    // selector 还可以是上述四种情况的组合，以空格分隔
+	    // @return ArrayLike
+	    function queryCombo(selector, context) {
+	        var a, s = selector, id = "__tangram__", array = [];
+	
+	        // 在 #id 且没有 context 时取 getSingle，其它时 getAll
+	        if (!context && rId0.test(s) && (a=document.getElementById(s.substr(1)))) {
+	            return [a];
+	        }
+	
+	        context = context || document;
+	
+	        // 用 querySelectorAll 时若取 #id 这种唯一值时会多选
+	        if (context.querySelectorAll) {
+	            // 在使用 querySelectorAll 时，若 context 无id将貌似 document 而出错
+	            if (context.nodeType == 1 && !context.id) {
+	                context.id = id;
+	                a = context.querySelectorAll("#" + id + " " + s);
+	                context.id = "";
+	            } else {
+	                a = context.querySelectorAll(s);
+	            }
+	            return a;
+	        } else {
+	            if (!~s.indexOf(" ")) {
+	                return query(s, context);
+	            }
+	
+	            baidu.forEach(query(s.substr(0, s.indexOf(" ")), context), function(dom) { // 递归
+	                baidu.merge(array, queryCombo(s.substr(s.indexOf(" ") + 1), dom));
+	            });
+	        }
+	
+	        return array;
+	    }
+	
+	    return function(selector, context, results) {
+	        if (!selector || typeof selector != "string") {
+	            return results || [];
+	        }
+	
+	        var arr = [];
+	        selector = selector.replace(rSpace, " ");
+	        results && baidu.merge(arr, results) && (results.length = 0);
+	
+	        baidu.forEach(selector.indexOf(",") > 0 ? selector.split(rDivider) : [selector], function(item) {
+	            baidu.merge(arr, queryCombo(item, context));
+	        });
+	
+	        return baidu.merge(results || [], baidu.array(arr).unique());
+	    };
+	}();
+	
+	baidu.createChain("dom",
+	
+	// method function
+	
+	function(selector, context) {
+	    var e, me = new baidu.dom.$DOM(context);
+	
+	    // Handle $(""), $(null), or $(undefined)
+	    if (!selector) {
+	        return me;
+	    }
+	
+	    // Handle $($DOM)
+	    if (selector._type_ == "$DOM") {
+	        return selector;
+	
+	    // Handle $(DOMElement)
+	    } else if (selector.nodeType || selector == selector.window) {
+	        me[0] = selector;
+	        me.length = 1;
+	        return me;
+	
+	    // Handle $(Array) or $(Collection) or $(NodeList)
+	    } else if (selector.length && me.toString.call(selector) != "[object String]") {
+	        return baidu.merge(me, selector);
+	
+	    } else if (typeof selector == "string") {
+	        // HTMLString
+	        if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 2) {
+	            if ( baidu.dom.createElements ) {
+	                baidu.merge( me, baidu.dom.createElements( selector ) );
+	            }
+	
+	        // baidu.query
+	        } else {
+	            baidu.query(selector, context, me);
+	        }
+	    
+	    // document.ready
+	    } else if (typeof selector == "function") {
+	        return me.ready ? me.ready(selector) : me;
+	    }
+	
+	    return me;
+	},
+	
+	// constructor
+	function(context) {
+	    this.length = 0;
+	    this._type_ = "$DOM";
+	    this.context = context || document;
+	}
+	
+	).extend({
+	
+	    
+	    size: function() {
+	        return this.length;
+	    }
+	
+	    // 2012.11.27 mz 拥有 .length 和 .splice() 方法，console.log() 就认为该对象是 ArrayLike
+	    ,splice : function(){}
+	
+	    
+	    ,get: function(index) {
+	
+	        if ( typeof index == "number" ) {
+	            return index < 0 ? this[this.length + index] : this[index];
+	        }
+	
+	        return Array.prototype.slice.call(this, 0);
+	    }
+	
+	    // 将 $DOM 转换成 Array(dom, dom, ...) 返回
+	    ,toArray: function(){
+	        return this.get();
+	    }
+	
+	});
+	
+	baidu.dom.extend({
+	    each : function (iterator) {
+	        baidu.check("function", "baidu.dom.each");
+	        var i, result,
+	            n = this.length;
+	
+	        for (i=0; i<n; i++) {
+	            result = iterator.call( this[i], i, this[i], this );
+	
+	            if ( result === false || result == "break" ) { break;}
+	        }
+	
+	        return this;
+	    }
+	});
+	
+	baidu._util_.eventBase = {};
+	
+	void function( base, listener ){
+		listener = base.listener = {};
+		
+		if( window.addEventListener )
+		    listener.add = function( target, name, fn ){
+		        target.addEventListener( name, fn, false );
+		    };
+		else if( window.attachEvent )
+			listener.add = function( target, name, fn ){
+		        target.attachEvent( "on" + name, fn );
+		    };
+	}( baidu._util_.eventBase );
+	
+	void function( base, be ){
+		var I = baidu.id;
+		var queue = base.queue = {};
+		var attaCache = queue.attaCache = baidu.global( "eventQueueCache" );
+	    var listener = base.listener;
+	
+	    queue.get = function( target, type, bindType, attachElements ){
+	        var id = I( target ), c;
+	
+	        if( !attaCache[id] )
+	            attaCache[id] = {};
+	
+	        c = attaCache[id];
+	
+	        if( type ){
+	            if( !c[type] ){
+	                this.setupCall( target, type, bindType, c[ type ] = [], attachElements );
+	            }
+	            return c[type];
+	        }else return c;
+	    };
+	
+	    queue.add = function( target, type, bindType, item, attachElements ){
+	    	this.get( target, type, bindType, attachElements ).push( item );
+	    };
+	
+	    queue.remove = function( target, type, fn ){
+	        var arr, c;
+	        if( type ){
+	            var arr = this.get( target, type );
+	            if( fn ){
+	                for(var i = arr.length - 1; i >= 0; i --)
+	                	if( arr[i].orig == fn )
+	                		arr.splice( i, 1 );
+	            }else{
+	                arr.length = 0;
+	            }
+	        }else{
+	            var c = this.get( target );
+	            for(var i in c)
+	            	c[i].length = 0;
+	        }
+	    };
+	
+	    queue.call = function( target, type, fnAry, e ){
+	        if( fnAry ){
+	            if( !fnAry.length )
+	                return ;
+	
+	            var args = [].slice.call( arguments, 1 ), one = [];
+	                args.unshift( e = baidu.event( e || type ) );          
+	                e.type = type;
+	
+	            if( !e.currentTarget )
+	                e.currentTarget = target;
+	
+	            for( var i = 0, r, l = fnAry.length; i < l; i ++ )
+	                if(r = fnAry[i]){
+	                    r.pkg.apply( target, args );
+	                    if( r.one )
+	                        one.unshift( i );
+	                }
+	
+	            if( one.length )
+	                for(var i = 0, l = one.length; i < l; i ++)
+	                    this.remove( target, type, fnAry[i].fn );
+	                
+	        }else{
+	            fnAry = this.get( target, type );
+	            this.call( target, type, fnAry, e );
+	        }
+	    };
+	
+	    queue.setupCall = function(){
+	        var add = function( target, type, bindType, fnAry ){
+	            listener.add( target, bindType, function( e ){
+	                queue.call( target, type, fnAry, e );
+	            } );
+	        };
+	        return function( target, type, bindType, fnAry, attachElements ){
+	            if( !attachElements )
+	                add( target, type, bindType, fnAry );
+	            else{
+	                target = baidu.dom( attachElements, target );
+	                for(var i = 0, l = target.length; i < l; i ++)
+	                    add( target[i], type, bindType, fnAry );
+	            }
+	        };
+	    }();
+	
+	}( baidu._util_.eventBase, baidu.event );
+	
+	void function( base, be ){
+	    var queue = base.queue;
+	    var core = base.core = {};
+	    var special = be.special = {};
+	    var push = [].push;
+	
+	    var findVestedEl = function( target, parents ){
+	        for( var i = 0, l = parents.length; i < l; i ++ )
+	        	if( parents.get(i).contains( target ) )
+	        		return parents[i];
+	    };
+	
+	    core.build = function( target, name, fn, selector, data ){
+	
+	    	var bindElements;
+	    	if( selector )
+	    	    bindElements = baidu.dom( selector, target );
+	
+	        if( ( name in special ) && special[name].pack )
+	            fn = special[name].pack( fn );
+	
+	        return function( e ){ // e is instance of baidu.event()
+	            var t = baidu.dom( e.target ), args = [ e ], bindElement;
+	
+	            if( data && !e.data ) 
+	                e.data = data;
+	            if( e.triggerData )
+	                push.apply( args, e.triggerData );
+	
+	            if( !bindElements )
+	                return e.result = fn.apply( target, args );
+	
+	            for(var i = 0; i < 2; i ++){
+	            	if( bindElement = findVestedEl( e.target, bindElements ) )
+	            	    return e.result = fn.apply( bindElement, args );
+	            	bindElements = baidu.dom( selector, target );
+	            }
+	        };
+	    };
+	
+	    core.add = function( target, type, fn, selector, data, one ){
+			var pkg = this.build( target, type, fn, selector, data ), attachElements, bindType;
+	        bindType = type;
+	        if(type in special)
+	            attachElements = special[type].attachElements,
+	            bindType = special[type].bindType || type;
+			queue.add( target, type, bindType, { type: type, pkg: pkg, orig: fn, one: one }, attachElements );
+	    };
+	
+	    core.remove = function( target, type, fn, selector ){
+	        queue.remove( target, type, fn, selector );
+	    };
+	
+	}( baidu._util_.eventBase, baidu.event );
+	
 	baidu.dom.extend({
 	    on: function( events, selector, data, fn, _one ){
 	        var eb = baidu._util_.eventBase.core;
@@ -1797,7 +1394,7 @@ void function(){
 	 
 	
 	void function(){
-	    var ajaxLocation = location.href,
+	    var ajaxLocation = document.URL,
 	        rlocalProtocol = /^(?:about|app|app\-storage|.+\-extension|file|res|widget):$/,
 	        rprotocol = /^\/\//,
 	        rurl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
@@ -2597,456 +2194,6 @@ void function(){
 	    }
 	}();
 	
-	baidu._util_.smartAjax = baidu._util_.smartAjax || function(method){
-	    return function(url, data, callback, type){
-	        if(baidu.type(data) === 'function'){
-	            type = type || callback;
-	            callback = data;
-	            data = undefined;
-	        }
-	        baidu.ajax({
-	            type: method,
-	            url: url,
-	            data: data,
-	            success: callback,
-	            dataType: type
-	        });
-	    };
-	}
-	
-	baidu.dom.createElements = function() {
-	    var tagReg  = /<(\w+)/i,
-	        rhtml = /<|&#?\w+;/,
-	        tagMap  = {
-	            area    : [1, "<map>", "</map>"],
-	            col     : [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
-	            legend  : [1, "<fieldset>", "</fieldset>"],
-	            option  : [1, "<select multiple='multiple'>", "</select>"],
-	            td      : [3, "<table><tbody><tr>", "</tr></tbody></table>"],
-	            thead   : [1, "<table>", "</table>"],
-	            tr      : [2, "<table><tbody>", "</tbody></table>"],
-	            _default: [0, "", ""]
-	        };
-	
-	    // 建立映射
-	    tagMap.optgroup = tagMap.option;
-	    tagMap.tbody = tagMap.tfoot = tagMap.colgroup = tagMap.caption = tagMap.thead;
-	    tagMap.th = tagMap.td;
-	
-	    // 将<script>解析成正常可执行代码
-	    function parseScript ( box, doc ) {
-	        var list = box.getElementsByTagName("SCRIPT"),
-	            i, script, item;
-	
-	        for ( i=list.length-1; i>=0; i-- ) {
-	            item = list[ i ];
-	            script = doc.createElement( "SCRIPT" );
-	
-	            item.id && (script.id = item.id);
-	            item.src && (script.src = item.src);
-	            item.type && (script.type = item.type);
-	            script[ item.text ? "text" : "textContent" ] = item.text || item.textContent;
-	
-	            item.parentNode.replaceChild( script, item );
-	        }
-	    }
-	
-	    return function( htmlstring, doc ) {
-	        baidu.isNumber( htmlstring ) && ( htmlstring = htmlstring.toString() );
-	        doc = doc || document;
-	
-	        var wrap, depth, box,
-	            hs  = htmlstring,
-	            n   = hs.length,
-	            div = doc.createElement("div"),
-	            df  = doc.createDocumentFragment(),
-	            result = [];
-	
-	        if ( baidu.isString( hs ) ) {
-	            if(!rhtml.test(hs)){// TextNode
-	                result.push( doc.createTextNode( hs ) );
-	            }else {//htmlString
-	                wrap = tagMap[ hs.match( tagReg )[1].toLowerCase() ] || tagMap._default;
-	
-	                div.innerHTML = "<i>mz</i>" + wrap[1] + hs + wrap[2];
-	                div.removeChild( div.firstChild );  // for ie (<script> <style>)
-	                parseScript(div, doc);
-	
-	                depth = wrap[0];
-	                box = div;
-	                while ( depth -- ) { box = box.firstChild; };
-	
-	                baidu.merge( result, box.childNodes );
-	
-	                // 去除 item.parentNode
-	                baidu.forEach( result, function (dom) {
-	                    df.appendChild( dom );
-	                } );
-	
-	                div = box = null;
-	            }
-	        }
-	
-	        div = null;
-	
-	        return result;
-	    };
-	}();
-	
-	baidu.dom.extend({
-	    getDocument: function(){
-	    	if(this.size()<=0){return undefined;}
-	        var ele = this[0];
-	        return ele.nodeType == 9 ? ele : ele.ownerDocument || ele.document;
-	    }
-	});
-	
-	 
-	 
-	
-	baidu.dom.extend({
-	    empty: function(){
-	        for(var i = 0, item; item = this[i]; i++){
-	            item.nodeType === 1 && baidu._util_.cleanData(item.getElementsByTagName('*'));
-	            while(item.firstChild){
-	                item.removeChild(item.firstChild);
-	            }
-	        }
-	        return this;
-	    }
-	});
-	
-	
-	
-	
-	
-	baidu.dom.extend({
-	    append: function(){
-	        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.append');
-	        baidu._util_.smartInsert(this, arguments, function(child){
-	            this.nodeType === 1 && this.appendChild(child);
-	        });
-	        return this;
-	    }
-	});
-	
-	baidu.dom.extend({
-	    html: function(value){
-	
-	        var bd = baidu.dom,
-	            bt = baidu._util_,
-	            me = this,
-	            isSet = false,
-	            htmlSerialize = !!bt.support.dom.div.getElementsByTagName('link').length,
-	            leadingWhitespace = (bt.support.dom.div.firstChild.nodeType === 3),
-	            result;
-	
-	        //当dom选择器为空时
-	        if( !this.size() )
-	            switch(typeof value){
-	                case 'undefined':
-	                    return undefined;
-	                break;
-	                default:
-	                    return me;
-	                break;
-	            }
-	        
-	        var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
-	        "header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
-	            rnoInnerhtml = /<(?:script|style|link)/i,
-	            rnoshimcache = new RegExp("<(?:" + nodeNames + ")[\\s/>]", "i"),
-	            rleadingWhitespace = /^\s+/,
-	            rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi,
-	            rtagName = /<([\w:]+)/,
-	            wrapMap = {
-	                option: [ 1, "<select multiple='multiple'>", "</select>" ],
-	                legend: [ 1, "<fieldset>", "</fieldset>" ],
-	                thead: [ 1, "<table>", "</table>" ],
-	                tr: [ 2, "<table><tbody>", "</tbody></table>" ],
-	                td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
-	                col: [ 2, "<table><tbody></tbody><colgroup>", "</colgroup></table>" ],
-	                area: [ 1, "<map>", "</map>" ],
-	                _default: [ 0, "", "" ]
-	            };
-	        wrapMap.optgroup = wrapMap.option;
-	        wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
-	        wrapMap.th = wrapMap.td;
-	
-	        // IE6-8 can't serialize link, script, style, or any html5 (NoScope) tags,
-	        // unless wrapped in a div with non-breaking characters in front of it.
-	        if ( !htmlSerialize )
-	            wrapMap._default = [ 1, "X<div>", "</div>" ];
-	
-	        baidu.forEach( me, function( elem, index ){
-	            
-	            if( result )
-	                return;
-	
-	            var tangramDom = bd(elem);
-	
-	            switch( typeof value ){
-	                case 'undefined':
-	                    result = ( elem.nodeType === 1 ? elem.innerHTML : undefined );
-	                    return ;
-	                break;
-	
-	                case 'number':
-	                    value = String(value);
-	
-	                case 'string':
-	                    isSet = true;
-	
-	                    // See if we can take a shortcut and just use innerHTML
-	                    if ( !rnoInnerhtml.test( value ) &&
-	                        ( htmlSerialize || !rnoshimcache.test( value )  ) &&
-	                        ( leadingWhitespace || !rleadingWhitespace.test( value ) ) &&
-	                        !wrapMap[ ( rtagName.exec( value ) || ["", ""] )[1].toLowerCase() ] ) {
-	
-	                        value = value.replace( rxhtmlTag, "<$1></$2>" );
-	
-	                        try {
-	
-	                            // Remove element nodes and prevent memory leaks
-	                            if ( elem.nodeType === 1 ) {
-	                                tangramDom.empty();
-	                                elem.innerHTML = value;
-	                            }
-	
-	                            elem = 0;
-	
-	                        // If using innerHTML throws an exception, use the fallback method
-	                        } catch(e) {}
-	                    }
-	
-	                    if ( elem ) {
-	                        me.empty().append( value );
-	                    }
-	
-	                break;
-	
-	                case 'function':
-	                    isSet = true;
-	                    tangramDom.html(value.call(elem, index, tangramDom.html()));
-	                break;
-	            };
-	        });
-	        
-	        return isSet ? me : result;
-	    }
-	});
-	
-	baidu._util_.smartInsert = function(tang, args, callback){
-	    if(args.length <= 0 || tang.size() <= 0){return;}
-	    if(baidu.type(args[0]) === 'function'){
-	        var fn = args[0],
-	            tangItem;
-	        return baidu.forEach(tang, function(item, index){
-	            tangItem = baidu.dom(item);
-	            args[0] = fn.call(item, index, tangItem.html());
-	            baidu._util_.smartInsert(tangItem, args, callback);
-	        });
-	    }
-	    var doc = tang.getDocument() || document,
-	        fragment = doc.createDocumentFragment(),
-	        len = tang.length - 1,
-	        firstChild;
-	    for(var i = 0, item; item = args[i]; i++){
-	        if(item.nodeType){
-	            fragment.appendChild(item);
-	        }else{
-	            baidu.forEach(~'string|number'.indexOf(baidu.type(item)) ?
-	                baidu.dom.createElements(item, doc)
-	                    : item, function(ele){
-	                        fragment.appendChild(ele);
-	                    });
-	        }
-	    }
-	    if(!(firstChild = fragment.firstChild)){return;}
-	    baidu.forEach(tang, function(item, index){
-	        callback.call(item.nodeName.toLowerCase() === 'table'
-	            && firstChild.nodeName.toLowerCase() === 'tr' ?
-	                item.tBodies[0] || item.appendChild(item.ownerDocument.createElement('tbody'))
-	                    : item, index < len ? fragment.cloneNode(true) : fragment);
-	    });
-	};
-	
-	baidu.dom.extend({
-	    map : function (iterator) {
-	        baidu.check("function","baidu.dom.map");
-	        var me = this,
-	            td = baidu.dom();
-	
-	        baidu.forEach(this, function( dom, index ){
-	            td[td.length ++] = iterator.call( dom, index, dom, dom );
-	        });
-	
-	        return td;
-	    }
-	});
-	
-	baidu.dom.extend({
-	    clone: function(){
-	        var util = baidu._util_,
-	            eventCore = util.eventBase.core,
-	            eventQueue = util.eventBase.queue,
-	            div = util.support.dom.div,
-	            noCloneChecked = util.support.dom.input.cloneNode(true).checked,//用于判断ie是否支持clone属性
-	            noCloneEvent = true;
-	        if (!div.addEventListener && div.attachEvent && div.fireEvent){
-	            div.attachEvent('onclick', function(){noCloneEvent = false;});
-	            div.cloneNode(true).fireEvent('onclick');
-	        }
-	        //
-	        function getAll(ele){
-	            return ele.getElementsByTagName ? ele.getElementsByTagName('*')
-	                : (ele.querySelectorAll ? ele.querySelectorAll('*') : []);
-	        }
-	        //
-	        function cloneFixAttributes(src, dest){
-	            dest.clearAttributes && dest.clearAttributes();
-	            dest.mergeAttributes && dest.mergeAttributes(src);
-	            switch(dest.nodeName.toLowerCase()){
-	                case 'object':
-	                    dest.outerHTML = src.outerHTML;
-	                    break;
-	                case 'textarea':
-	                case 'input':
-	                    if(~'checked|radio'.indexOf(src.type)){
-	                        src.checked && (dest.defaultChecked = dest.checked = src.checked);
-	                        dest.value !== src.value && (dest.value = src.value);
-	                    }
-	                    dest.defaultValue = src.defaultValue;
-	                    break;
-	                case 'options':
-	                    dest.selected = src.defaultSelected;
-	                    break;
-	                case 'script':
-	                    dest.text !== src.text && (dest.text = src.text);
-	                    break;
-	            }
-	            dest[baidu.key] && dest.removeAttribute(baidu.key);
-	        }
-	        //
-	        function cloneCopyEvent(src, dest){
-	        	if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
-	        	var defaultEvents = eventQueue.get(src);
-	        	for(var i in defaultEvents){
-	        	    for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
-	        	        eventCore.add(dest, i, handler);
-	        	    }
-	        	}
-	        }
-	        //
-	        function clone(ele, dataAndEvents, deepDataAndEvents){
-	            var cloneNode = ele.cloneNode(true),
-	                srcElements, destElements, len;
-	            //IE
-	            if((!noCloneEvent || !noCloneChecked)
-	                && (ele.nodeType === 1 || ele.nodeType === 11) && !baidu._util_.isXML(ele)){
-	                    cloneFixAttributes(ele, cloneNode);
-	                    srcElements = getAll( ele );
-	                    destElements = getAll( cloneNode );
-	                    len = srcElements.length;
-	                    for(var i = 0; i < len; i++){
-	                        destElements[i] && cloneFixAttributes(srcElements[i], destElements[i]);
-	                    }
-	            }
-	            if(dataAndEvents){
-	                cloneCopyEvent(ele, cloneNode);
-	                if(deepDataAndEvents){
-	                    srcElements = getAll( ele );
-	                    destElements = getAll( cloneNode );
-	                    len = srcElements.length;
-	                    for(var i = 0; i < len; i++){
-	                    	cloneCopyEvent(srcElements[i], destElements[i]);
-	                    }
-	                }
-	            }
-	            return cloneNode;
-	        }
-	        //
-	        return function(dataAndEvents, deepDataAndEvents){
-	            dataAndEvents = !!dataAndEvents;
-	            deepDataAndEvents = !!deepDataAndEvents;
-	            return this.map(function(){
-	                return clone(this, dataAndEvents, deepDataAndEvents);
-	            });
-	        }
-	    }()
-	});
-	
-	 
-	baidu.dom.extend({
-	    contains : function(contained) {
-	        var container = this[0];
-	            contained = baidu.dom(contained)[0];
-	        if(!container || !contained){return false;}
-	        return baidu._util_.contains(container, contained);
-	    }	
-	});
-	
-	
-	
-	baidu.dom._g = function(id){
-	    return baidu.type(id) === 'string' ? document.getElementById(id) : id;
-	}
-	
-	
-	
-	baidu.dom.contains = function (container, contained) {
-	    var g = baidu.dom._g;
-	    return baidu._util_.contains(g(container), g(contained));
-	};
-	
-	
-	baidu._util_.smartInsertTo = function(tang, target, callback, orie){
-	    var insert = baidu.dom(target),
-	        first = insert[0],
-	        tangDom;
-	        
-	    if(orie && first && (!first.parentNode || first.parentNode.nodeType === 11)){
-	        orie = orie === 'before';
-	        tangDom = baidu.merge(orie ? tang : insert, !orie ? tang : insert);
-	        if(tang !== tangDom){
-	            tang.length = 0;
-	            baidu.merge(tang, tangDom);
-	        }
-	    }else{
-	        for(var i = 0, item; item = insert[i]; i++){
-	            baidu._util_.smartInsert(baidu.dom(item), i > 0 ? tang.clone(true) : tang, callback);
-	        }
-	    }
-	};
-	
-	baidu._util_.smartScroll = function(axis){
-	    var orie = {scrollLeft: 'pageXOffset', scrollTop: 'pageYOffset'}[axis],
-	        is = axis === 'scrollLeft',
-	        ret = {};
-	    function isDocument(ele){
-	        return ele && ele.nodeType === 9;
-	    }
-	    function getWindow(ele){
-	        return baidu.type(ele) == "Window" ? ele
-	            : isDocument(ele) ? ele.defaultView || ele.parentWindow : false;
-	    }
-	    return {
-	        get: function(ele){
-	            var win = getWindow(ele);
-	            return win ? (orie in win) ? win[orie]
-	                : baidu.browser.isStrict && win.document.documentElement[axis]
-	                    || win.document.body[axis] : ele[axis];
-	        },
-	        
-	        set: function(ele, val){
-	            if(!ele){return;}
-	            var win = getWindow(ele);
-	            win ? win.scrollTo(is ? val : this.get(ele), !is ? val : this.get(ele))
-	                : ele[axis] = val;
-	        }
-	    };
-	};
-	
 	
 	
 	 
@@ -3461,6 +2608,17 @@ void function(){
 	};
 	
 	
+	//baidu.object.extend = function (target, source) {
+	//    for (var p in source) {
+	//        if (source.hasOwnProperty(p)) {
+	//            target[p] = source[p];
+	//        }
+	//    }
+	//    
+	//    return target;
+	//};
+	baidu.object.extend = baidu.extend;
+	
 	
 	
 	baidu.createChain("async",
@@ -3491,17 +2649,6 @@ void function(){
 	        && isFn(obj.fail) && isFn(obj.cancel);
 	};
 	
-	
-	//baidu.object.extend = function (target, source) {
-	//    for (var p in source) {
-	//        if (source.hasOwnProperty(p)) {
-	//            target[p] = source[p];
-	//        }
-	//    }
-	//    
-	//    return target;
-	//};
-	baidu.object.extend = baidu.extend;
 	
 	baidu.createChain("fn",
 	
@@ -3687,7 +2834,7 @@ void function(){
 	
 	baidu.extend(baidu.base.Class.prototype, {
 	    
-	    toString: function(){
+	    toString: baidu.base.Class.prototype.toString = function(){
 	        return "[object " + ( this._type_ || "Object" ) + "]";
 	    }
 	
@@ -3871,6 +3018,8 @@ void function(){
 	
 	//baidu.browser.isGecko = /gecko/i.test(navigator.userAgent) && !/like gecko/i.test(navigator.userAgent);
 	
+	//baidu.browser.isStrict = document.compatMode == "CSS1Compat";
+	
 	//baidu.browser.isWebkit = /webkit/i.test(navigator.userAgent);
 	
 	//try {
@@ -4021,11 +3170,13 @@ void function(){
 	
 	            return fn;
 	        }
+	
 	        ,register: function(hook, methods) {
 	            (fn._reg_ || (fn._reg_ = [])).push( hook );
 	            methods && baidu.extend(fn.prototype, methods);
 	            return fn;
 	        }
+	        
 	        ,extend: function(json){baidu.extend(fn.prototype, json); return fn;}
 	    });
 	
@@ -4133,21 +3284,84 @@ void function(){
 	    return new Date();
 	};
 	
+	baidu.dom.createElements = function() {
+	    var tagReg  = /<(\w+)/i,
+	        rhtml = /<|&#?\w+;/,
+	        tagMap  = {
+	            area    : [1, "<map>", "</map>"],
+	            col     : [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
+	            legend  : [1, "<fieldset>", "</fieldset>"],
+	            option  : [1, "<select multiple='multiple'>", "</select>"],
+	            td      : [3, "<table><tbody><tr>", "</tr></tbody></table>"],
+	            thead   : [1, "<table>", "</table>"],
+	            tr      : [2, "<table><tbody>", "</tbody></table>"],
+	            _default: [0, "", ""]
+	        };
 	
-	//为兼容Tangram1.x的magic增加的接口
+	    // 建立映射
+	    tagMap.optgroup = tagMap.option;
+	    tagMap.tbody = tagMap.tfoot = tagMap.colgroup = tagMap.caption = tagMap.thead;
+	    tagMap.th = tagMap.td;
 	
-	baidu.dom._matchNode = function (element, direction, start) {
-	    element = baidu.dom.g(element);
+	    // 将<script>解析成正常可执行代码
+	    function parseScript ( box, doc ) {
+	        var list = box.getElementsByTagName("SCRIPT"),
+	            i, script, item;
 	
-	    for (var node = element[start]; node; node = node[direction]) {
-	        if (node.nodeType == 1) {
-	            return node;
+	        for ( i=list.length-1; i>=0; i-- ) {
+	            item = list[ i ];
+	            script = doc.createElement( "SCRIPT" );
+	
+	            item.id && (script.id = item.id);
+	            item.src && (script.src = item.src);
+	            item.type && (script.type = item.type);
+	            script[ item.text ? "text" : "textContent" ] = item.text || item.textContent;
+	
+	            item.parentNode.replaceChild( script, item );
 	        }
 	    }
 	
-	    return null;
-	};
+	    return function( htmlstring, doc ) {
+	        baidu.isNumber( htmlstring ) && ( htmlstring = htmlstring.toString() );
+	        doc = doc || document;
 	
+	        var wrap, depth, box,
+	            hs  = htmlstring,
+	            n   = hs.length,
+	            div = doc.createElement("div"),
+	            df  = doc.createDocumentFragment(),
+	            result = [];
+	
+	        if ( baidu.isString( hs ) ) {
+	            if(!rhtml.test(hs)){// TextNode
+	                result.push( doc.createTextNode( hs ) );
+	            }else {//htmlString
+	                wrap = tagMap[ hs.match( tagReg )[1].toLowerCase() ] || tagMap._default;
+	
+	                div.innerHTML = "<i>mz</i>" + wrap[1] + hs + wrap[2];
+	                div.removeChild( div.firstChild );  // for ie (<script> <style>)
+	                parseScript(div, doc);
+	
+	                depth = wrap[0];
+	                box = div;
+	                while ( depth -- ) { box = box.firstChild; };
+	
+	                baidu.merge( result, box.childNodes );
+	
+	                // 去除 item.parentNode
+	                baidu.forEach( result, function (dom) {
+	                    df.appendChild( dom );
+	                } );
+	
+	                div = box = null;
+	            }
+	        }
+	
+	        div = null;
+	
+	        return result;
+	    };
+	}();
 	
 	baidu.dom.extend({
 	    add : function (object, context) {
@@ -4211,6 +3425,194 @@ void function(){
 	});
 	
 	baidu.dom.extend({
+	    getDocument: function(){
+	    	if(this.size()<=0){return undefined;}
+	        var ele = this[0];
+	        return ele.nodeType == 9 ? ele : ele.ownerDocument || ele.document;
+	    }
+	});
+	
+	 
+	 
+	
+	baidu._util_.cleanData = function(array){
+	    var tangId;
+	    for(var i = 0, ele; ele = array[i]; i++){
+	        tangId = baidu.id(ele, 'get');
+	        if(!tangId){continue;}
+	        baidu._util_.eventBase.queue.remove(ele);
+	        baidu.id(ele, 'remove');
+	    }
+	}
+	
+	baidu.dom.extend({
+	    empty: function(){
+	        for(var i = 0, item; item = this[i]; i++){
+	            item.nodeType === 1 && baidu._util_.cleanData(item.getElementsByTagName('*'));
+	            while(item.firstChild){
+	                item.removeChild(item.firstChild);
+	            }
+	        }
+	        return this;
+	    }
+	});
+	
+	
+	
+	
+	
+	baidu.dom.extend({
+	    append: function(){
+	        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.append');
+	        baidu._util_.smartInsert(this, arguments, function(child){
+	            this.nodeType === 1 && this.appendChild(child);
+	        });
+	        return this;
+	    }
+	});
+	
+	baidu.dom.extend({
+	    html: function(value){
+	
+	        var bd = baidu.dom,
+	            bt = baidu._util_,
+	            me = this,
+	            isSet = false,
+	            htmlSerialize = !!bt.support.dom.div.getElementsByTagName('link').length,
+	            leadingWhitespace = (bt.support.dom.div.firstChild.nodeType === 3),
+	            result;
+	
+	        //当dom选择器为空时
+	        if( !this.size() )
+	            switch(typeof value){
+	                case 'undefined':
+	                    return undefined;
+	                break;
+	                default:
+	                    return me;
+	                break;
+	            }
+	        
+	        var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
+	        "header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
+	            rnoInnerhtml = /<(?:script|style|link)/i,
+	            rnoshimcache = new RegExp("<(?:" + nodeNames + ")[\\s/>]", "i"),
+	            rleadingWhitespace = /^\s+/,
+	            rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi,
+	            rtagName = /<([\w:]+)/,
+	            wrapMap = {
+	                option: [ 1, "<select multiple='multiple'>", "</select>" ],
+	                legend: [ 1, "<fieldset>", "</fieldset>" ],
+	                thead: [ 1, "<table>", "</table>" ],
+	                tr: [ 2, "<table><tbody>", "</tbody></table>" ],
+	                td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
+	                col: [ 2, "<table><tbody></tbody><colgroup>", "</colgroup></table>" ],
+	                area: [ 1, "<map>", "</map>" ],
+	                _default: [ 0, "", "" ]
+	            };
+	        wrapMap.optgroup = wrapMap.option;
+	        wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
+	        wrapMap.th = wrapMap.td;
+	
+	        // IE6-8 can't serialize link, script, style, or any html5 (NoScope) tags,
+	        // unless wrapped in a div with non-breaking characters in front of it.
+	        if ( !htmlSerialize )
+	            wrapMap._default = [ 1, "X<div>", "</div>" ];
+	
+	        baidu.forEach( me, function( elem, index ){
+	            
+	            if( result )
+	                return;
+	
+	            var tangramDom = bd(elem);
+	
+	            switch( typeof value ){
+	                case 'undefined':
+	                    result = ( elem.nodeType === 1 ? elem.innerHTML : undefined );
+	                    return ;
+	                break;
+	
+	                case 'number':
+	                    value = String(value);
+	
+	                case 'string':
+	                    isSet = true;
+	
+	                    // See if we can take a shortcut and just use innerHTML
+	                    if ( !rnoInnerhtml.test( value ) &&
+	                        ( htmlSerialize || !rnoshimcache.test( value )  ) &&
+	                        ( leadingWhitespace || !rleadingWhitespace.test( value ) ) &&
+	                        !wrapMap[ ( rtagName.exec( value ) || ["", ""] )[1].toLowerCase() ] ) {
+	
+	                        value = value.replace( rxhtmlTag, "<$1></$2>" );
+	
+	                        try {
+	
+	                            // Remove element nodes and prevent memory leaks
+	                            if ( elem.nodeType === 1 ) {
+	                                tangramDom.empty();
+	                                elem.innerHTML = value;
+	                            }
+	
+	                            elem = 0;
+	
+	                        // If using innerHTML throws an exception, use the fallback method
+	                        } catch(e) {}
+	                    }
+	
+	                    if ( elem ) {
+	                        me.empty().append( value );
+	                    }
+	
+	                break;
+	
+	                case 'function':
+	                    isSet = true;
+	                    tangramDom.html(value.call(elem, index, tangramDom.html()));
+	                break;
+	            };
+	        });
+	        
+	        return isSet ? me : result;
+	    }
+	});
+	
+	baidu._util_.smartInsert = function(tang, args, callback){
+	    if(args.length <= 0 || tang.size() <= 0){return;}
+	    if(baidu.type(args[0]) === 'function'){
+	        var fn = args[0],
+	            tangItem;
+	        return baidu.forEach(tang, function(item, index){
+	            tangItem = baidu.dom(item);
+	            args[0] = fn.call(item, index, tangItem.html());
+	            baidu._util_.smartInsert(tangItem, args, callback);
+	        });
+	    }
+	    var doc = tang.getDocument() || document,
+	        fragment = doc.createDocumentFragment(),
+	        len = tang.length - 1,
+	        firstChild;
+	    for(var i = 0, item; item = args[i]; i++){
+	        if(item.nodeType){
+	            fragment.appendChild(item);
+	        }else{
+	            baidu.forEach(~'string|number'.indexOf(baidu.type(item)) ?
+	                baidu.dom.createElements(item, doc)
+	                    : item, function(ele){
+	                        fragment.appendChild(ele);
+	                    });
+	        }
+	    }
+	    if(!(firstChild = fragment.firstChild)){return;}
+	    baidu.forEach(tang, function(item, index){
+	        callback.call(item.nodeName.toLowerCase() === 'table'
+	            && firstChild.nodeName.toLowerCase() === 'tr' ?
+	                item.tBodies[0] || item.appendChild(item.ownerDocument.createElement('tbody'))
+	                    : item, index < len ? fragment.cloneNode(true) : fragment);
+	    });
+	};
+	
+	baidu.dom.extend({
 	    after: function(){
 	        baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.after');
 	        var parentNode = this[0] && this[0].parentNode,
@@ -4225,6 +3627,174 @@ void function(){
 	});
 	
 	baidu.dom.extend({
+	    map : function (iterator) {
+	        baidu.check("function","baidu.dom.map");
+	        var me = this,
+	            td = baidu.dom();
+	
+	        baidu.forEach(this, function( dom, index ){
+	            td[td.length ++] = iterator.call( dom, index, dom, dom );
+	        });
+	
+	        return td;
+	    }
+	});
+	
+	//Sizzle.isXML
+	
+	baidu._util_.isXML = function(ele) {
+	    var docElem = (ele ? ele.ownerDocument || ele : 0).documentElement;
+	    return docElem ? docElem.nodeName !== 'HTML' : false;
+	};
+	
+	baidu.dom.extend({
+	    clone: function(){
+	        var util = baidu._util_,
+	            eventCore = util.eventBase.core,
+	            eventQueue = util.eventBase.queue,
+	            div = util.support.dom.div,
+	            noCloneChecked = util.support.dom.input.cloneNode(true).checked,//用于判断ie是否支持clone属性
+	            noCloneEvent = true;
+	        if (!div.addEventListener && div.attachEvent && div.fireEvent){
+	            div.attachEvent('onclick', function(){noCloneEvent = false;});
+	            div.cloneNode(true).fireEvent('onclick');
+	        }
+	        //
+	        function getAll(ele){
+	            return ele.getElementsByTagName ? ele.getElementsByTagName('*')
+	                : (ele.querySelectorAll ? ele.querySelectorAll('*') : []);
+	        }
+	        //
+	        function cloneFixAttributes(src, dest){
+	            dest.clearAttributes && dest.clearAttributes();
+	            dest.mergeAttributes && dest.mergeAttributes(src);
+	            switch(dest.nodeName.toLowerCase()){
+	                case 'object':
+	                    dest.outerHTML = src.outerHTML;
+	                    break;
+	                case 'textarea':
+	                case 'input':
+	                    if(~'checked|radio'.indexOf(src.type)){
+	                        src.checked && (dest.defaultChecked = dest.checked = src.checked);
+	                        dest.value !== src.value && (dest.value = src.value);
+	                    }
+	                    dest.defaultValue = src.defaultValue;
+	                    break;
+	                case 'options':
+	                    dest.selected = src.defaultSelected;
+	                    break;
+	                case 'script':
+	                    dest.text !== src.text && (dest.text = src.text);
+	                    break;
+	            }
+	            dest[baidu.key] && dest.removeAttribute(baidu.key);
+	        }
+	        //
+	        function cloneCopyEvent(src, dest){
+	        	if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
+	        	var defaultEvents = eventQueue.get(src);
+	        	for(var i in defaultEvents){
+	        	    for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
+	        	        eventCore.add(dest, i, handler);
+	        	    }
+	        	}
+	        }
+	        //
+	        function clone(ele, dataAndEvents, deepDataAndEvents){
+	            var cloneNode = ele.cloneNode(true),
+	                srcElements, destElements, len;
+	            //IE
+	            if((!noCloneEvent || !noCloneChecked)
+	                && (ele.nodeType === 1 || ele.nodeType === 11) && !baidu._util_.isXML(ele)){
+	                    cloneFixAttributes(ele, cloneNode);
+	                    srcElements = getAll( ele );
+	                    destElements = getAll( cloneNode );
+	                    len = srcElements.length;
+	                    for(var i = 0; i < len; i++){
+	                        destElements[i] && cloneFixAttributes(srcElements[i], destElements[i]);
+	                    }
+	            }
+	            if(dataAndEvents){
+	                cloneCopyEvent(ele, cloneNode);
+	                if(deepDataAndEvents){
+	                    srcElements = getAll( ele );
+	                    destElements = getAll( cloneNode );
+	                    len = srcElements.length;
+	                    for(var i = 0; i < len; i++){
+	                    	cloneCopyEvent(srcElements[i], destElements[i]);
+	                    }
+	                }
+	            }
+	            return cloneNode;
+	        }
+	        //
+	        return function(dataAndEvents, deepDataAndEvents){
+	            dataAndEvents = !!dataAndEvents;
+	            deepDataAndEvents = !!deepDataAndEvents;
+	            return this.map(function(){
+	                return clone(this, dataAndEvents, deepDataAndEvents);
+	            });
+	        }
+	    }()
+	});
+	
+	baidu._util_.contains = document.compareDocumentPosition ?
+	    function(container, contained){
+	        return !!(container.compareDocumentPosition( contained ) & 16);
+	    } : document.contains ? function(container, contained){
+	        return container != contained
+	            && (container.contains ? container.contains( contained ) : false)
+	    } : function(container, contained){
+	        while(contained = contained.parentNode){
+	            if(contained === container){return true;}
+	        }
+	        return false;
+	    };
+	
+	 
+	baidu.dom.extend({
+	    contains : function(contained) {
+	        var container = this[0];
+	            contained = baidu.dom(contained)[0];
+	        if(!container || !contained){return false;}
+	        return baidu._util_.contains(container, contained);
+	    }	
+	});
+	
+	
+	
+	baidu.dom._g = function(id){
+	    return baidu.type(id) === 'string' ? document.getElementById(id) : id;
+	}
+	
+	
+	
+	baidu.dom.contains = function (container, contained) {
+	    var g = baidu.dom._g;
+	    return baidu._util_.contains(g(container), g(contained));
+	};
+	
+	
+	baidu._util_.smartInsertTo = function(tang, target, callback, orie){
+	    var insert = baidu.dom(target),
+	        first = insert[0],
+	        tangDom;
+	        
+	    if(orie && first && (!first.parentNode || first.parentNode.nodeType === 11)){
+	        orie = orie === 'before';
+	        tangDom = baidu.merge(orie ? tang : insert, !orie ? tang : insert);
+	        if(tang !== tangDom){
+	            tang.length = 0;
+	            baidu.merge(tang, tangDom);
+	        }
+	    }else{
+	        for(var i = 0, item; item = insert[i]; i++){
+	            baidu._util_.smartInsert(baidu.dom(item), i > 0 ? tang.clone(true) : tang, callback);
+	        }
+	    }
+	};
+	
+	baidu.dom.extend({
 	    appendTo: function(target){
 	        baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.appendTo');
 	        baidu._util_.smartInsertTo(this, target, function(child){
@@ -4236,6 +3806,276 @@ void function(){
 	
 	 
 	
+	baidu._util_.access = function(tang, key, value, callback, pass){
+	    if(tang.size() <= 0){return tang;}
+	    switch(baidu.type(key)){
+	        case 'string': //高频
+	            if(value === undefined){
+	                return callback.call(tang, tang[0], key);
+	            }else{
+	                tang.each(function(index, item){
+	                    callback.call(tang, item, key,
+	                        (baidu.type(value) === 'function' ? value.call(item, index, callback.call(tang, item, key)) : value),
+	                        pass);
+	                });
+	            }
+	            break;
+	        case 'object':
+	            for(var i in key){
+	                baidu._util_.access(tang, i, key[i], callback, value);
+	            }
+	            break;
+	    }
+	    return tang;
+	};
+	
+	baidu._util_.nodeName = function(ele, nodeName){
+	    return ele.nodeName && ele.nodeName.toLowerCase() === nodeName.toLowerCase();
+	};
+	
+	baidu._util_.propFixer = {
+	    tabindex: 'tabIndex',
+	    readonly: 'readOnly',
+	    'for': 'htmlFor',
+	    'class': 'className',
+	    'classname': 'className',
+	    maxlength: 'maxLength',
+	    cellspacing: 'cellSpacing',
+	    cellpadding: 'cellPadding',
+	    rowspan: 'rowSpan',
+	    colspan: 'colSpan',
+	    usemap: 'useMap',
+	    frameborder: 'frameBorder',
+	    contenteditable: 'contentEditable',
+	    
+	    
+	    //rboolean在baidu._util_.removeAttr 和 baidu._util_.attr中需要被共同使用
+	    rboolean: /^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i
+	};
+	// IE6/7 call enctype encoding
+	!document.createElement('form').enctype
+	    && (baidu._util_.propFixer.enctype = 'encoding');
+	
+	baidu._util_.prop = function(){
+	    var rfocusable = /^(?:button|input|object|select|textarea)$/i,
+	        rclickable = /^a(?:rea|)$/i,
+	        select = document.createElement('select'),
+	        opt = select.appendChild(document.createElement('option')),
+	        propHooks = {
+	            tabIndex: {
+	                get: function(ele){
+	                    var attrNode = ele.getAttributeNode('tabindex');
+	                    return attrNode && attrNode.specified ? parseInt(attrNode.value, 10)
+	                        : rfocusable.test(ele.nodeName) || rclickable.test(ele.nodeName)
+	                            && ele.href ? 0 : undefined;
+	                }
+	            }
+	        };
+	        !opt.selected && (propHooks.selected = {
+	            get: function(ele){
+	                var par = ele.parentNode;
+	                if(par){
+	                    par.selectedIndex;
+	                    par.parentNode && par.parentNode.selectedIndex;
+	                }
+	                return null;
+	            }
+	        });
+	        select = opt = null;
+	    
+	    return function(ele, key, val){
+	        var nType = ele.nodeType,
+	            hooks, ret;
+	        if(!ele || ~'238'.indexOf(nType)){return;}
+	        if(nType !== 1 || !baidu._util_.isXML(ele)){
+	            key = baidu._util_.propFixer[key] || key;
+	            hooks = propHooks[key] || {};
+	        }
+	        if(val !== undefined){
+	            if(hooks.set && (ret = hooks.set(ele, key, val)) !== undefined){
+	                return ret;
+	            }else{
+	                return (ele[key] = val);
+	            }
+	        }else{
+	            if(hooks.get && (ret = hooks.get(ele, key)) !== null){
+	                return ret;
+	            }else{
+	                return ele[key];
+	            }
+	        }
+	    }
+	}();
+	
+	baidu._util_.support.getSetAttribute = baidu._util_.support.dom.div.className !== 't';
+	baidu._util_.nodeHook = function(){
+	    if(baidu._util_.support.getSetAttribute){return;}
+	    var fixSpecified = {};
+	    fixSpecified.name = fixSpecified.id = fixSpecified.coords = true;
+	    return {
+	        get: function(ele, key){
+	            var ret = ele.getAttributeNode(key);
+	            return ret && (fixSpecified[key] ? ret.value !== '' : ret.specified) ?
+	                 ret.value : undefined;
+	        },
+	        set: function(ele, key, val){
+	            // Set the existing or create a new attribute node
+	            var ret = ele.getAttributeNode(key);
+	            if(!ret){
+	                ret = document.createAttribute(key);
+	                ele.setAttributeNode(ret);
+	            }
+	            return (ret.value = val + '');
+	        }
+	    };
+	}();
+	
+	baidu._util_.removeAttr = function(){
+	    var propFixer = baidu._util_.propFixer,
+	        core_rspace = /\s+/,
+	        getSetAttribute = baidu._util_.support.getSetAttribute;
+	    return function(ele, key){
+	        if(!key || ele.nodeType !==1){return;}
+	        var array = key.split(core_rspace),
+	            propName, isBool;
+	        for(var i = 0, attrName; attrName = array[i]; i++){
+	            propName = propFixer[attrName] || attrName;
+	            isBool = propFixer.rboolean.test(attrName);
+	            !isBool && baidu._util_.attr(ele, attrName, '');
+	            ele.removeAttribute(getSetAttribute ? attrName : propName);
+	            isBool && (propName in ele) && (ele[propName] = false);
+	        }
+	    }
+	}();
+	
+	baidu._util_.attr = function(){
+	    var util = baidu._util_,
+	        rtype = /^(?:button|input)$/i,
+	        supportDom = util.support.dom,
+	        radioValue = supportDom.input.value === 't',
+	        hrefNormalized = supportDom.a.getAttribute('href') === '/a',
+	        style = /top/.test(supportDom.a.getAttribute('style')),
+	        nodeHook = util.nodeHook,
+	        attrFixer = {
+	            className: 'class'
+	        },
+	        boolHook = {//处理对属性值是布尔值的情况
+	            get: function(ele, key){
+	                var val = util.prop(ele, key), attrNode;
+	                return val === true || typeof val !== 'boolean'
+	                    && (attrNode = ele.getAttributeNode(key))
+	                    && attrNode.nodeValue !== false ? key.toLowerCase() : undefined;
+	            },
+	            set: function(ele, key, val){
+	                if(val === false){
+	                    util.removeAttr(ele, key);
+	                }else{
+	                    var propName = util.propFixer[key] || key;
+	                    (propName in ele) && (ele[propName] = true);
+	                    ele.setAttribute(key, key.toLowerCase());
+	                }
+	                return key;
+	            }
+	        },
+	        attrHooks = {
+	            type: {
+	                set: function(ele, key, val){
+	                    // We can't allow the type property to be changed (since it causes problems in IE)
+	                    if(rtype.test(ele.nodeName) && ele.parentNode){return val;}
+	                    if(!radioValue && val === 'radio' && util.nodeName(ele, 'input')){
+	                        var v = ele.value;
+	                        ele.setAttribute('type', val);
+	                        v && (ele.value = v);
+	                        return val;
+	                    }
+	                }
+	            },
+	            value: {
+	                get: function(ele, key){
+	                    if(nodeHook && util.nodeName(ele, 'button')){
+	                        return nodeHook.get(ele, key);
+	                    }
+	                    return key in ele ? ele.value : null;
+	                },
+	                set: function(ele, key, val){
+	                    if(nodeHook && util.nodeName(ele, 'button')){
+	                        return nodeHook.set(ele, key, val);
+	                    }
+	                    ele.value = val;
+	                }
+	            }
+	        };
+	    // Set width and height to auto instead of 0 on empty string
+	    // This is for removals
+	    if(!util.support.getSetAttribute){//
+	        baidu.forEach(['width', 'height'], function(item){
+	            attrHooks[item] = {
+	                set: function(ele, key, val){
+	                    if(val === ''){
+	                        ele.setAttribute(key, 'auto');
+	                        return val;
+	                    }
+	                }
+	            };
+	        });
+	        attrHooks.contenteditable = {
+	            get: nodeHook.get,
+	            set: function(ele, key, val){
+	                val === '' && (val = false);
+	                nodeHook.set(ele, key, val);
+	            }
+	        };
+	    }
+	    // Some attributes require a special call on IE
+	    if(!hrefNormalized){
+	        [ "href", "src", "width", "height" ]
+	        baidu.forEach(['href', 'src', 'width', 'height'], function(item){
+	            attrHooks[item] = {
+	                get: function(ele, key){
+	                    var ret = ele.getAttribute(key, 2);
+	                    return ret === null ? undefined : ret;
+	                }
+	            };
+	        });
+	    }
+	    if(!style){
+	        attrHooks.style = {
+	            get: function(ele){return ele.style.cssText.toLowerCase() || undefined;},
+	            set: function(ele, key, val){return (ele.style.cssText = val + '');}
+	        };
+	    }
+	    //attr
+	    return function(ele, key, val, pass){
+	        var nType = ele.nodeType,
+	            notxml = nType !== 1 || !util.isXML(ele),
+	            hooks, ret;
+	        if(!ele || ~'238'.indexOf(nType)){return;}
+	        if(pass && baidu.dom.fn[key]){
+	            return baidu.dom(ele)[key](val);
+	        }
+	        //if getAttribute is undefined, use prop interface
+	        if(notxml){
+	            key = attrFixer[key] || key.toLowerCase();
+	            hooks = attrHooks[key] || (util.propFixer.rboolean.test(key) ? boolHook : nodeHook);
+	        }
+	        if(val!== undefined){
+	            if(val === null){
+	                util.removeAttr(ele, key);
+	                return
+	            }else if(notxml && hooks && hooks.set && (ret = hooks.set(ele, key, val)) !== undefined){
+	                return ret;
+	            }else{
+	                ele.setAttribute(key, val + '');
+	                return val;
+	            }
+	        }else if(notxml && hooks && hooks.get && (ret = hooks.get(ele, key)) !== null){
+	            return ret;
+	        }else{
+	            ret = ele.getAttribute(key);
+	            return ret === null ? undefined : ret;
+	        }
+	   }
+	}();
 	baidu.dom.extend({
 	    attr: function(key, value){
 	        return baidu._util_.access(this, key, value, function(ele, key, val, pass){
@@ -4430,6 +4270,70 @@ void function(){
 	    return el;
 	};
 	
+	
+	baidu.dom.extend({
+	    getComputedStyle: function(key){
+	        var defaultView = this[0].ownerDocument.defaultView,
+	            computedStyle = defaultView && defaultView.getComputedStyle
+	                && defaultView.getComputedStyle(this[0], null),
+	            val = computedStyle ? (computedStyle.getPropertyValue(key) || computedStyle[key]) : '';
+	        return val || this[0].style[key];
+	    }
+	});
+	
+	baidu.dom.extend({
+	    getCurrentStyle: function(){
+	        var css = document.documentElement.currentStyle ?
+	            function(key){return this[0].currentStyle ? this[0].currentStyle[key] : this[0].style[key];}
+	                : function(key){return this.getComputedStyle(key);}
+	        return function(key){
+	            return css.call(this, key);
+	        }
+	    }()
+	});
+	
+	baidu._util_.getWidthOrHeight = function(){
+	    var ret = {},
+	        cssShow = {position: 'absolute', visibility: 'hidden', display: 'block'},
+	        rdisplayswap = /^(none|table(?!-c[ea]).+)/;
+	    function swap(ele, options){
+	        var defaultVal = {};
+	        for(var i in options){
+	            defaultVal[i] = ele.style[i];
+	            ele.style[i] = options[i];
+	        }
+	        return defaultVal;
+	    }
+	    baidu.forEach(['Width', 'Height'], function(item){
+	        var cssExpand = {Width: ['Right', 'Left'], Height: ['Top', 'Bottom']}[item];
+	        ret['get' + item] = function(ele, extra){
+	            var tang = baidu.dom(ele),
+	                defaultValue = ele.offsetWidth === 0
+	                    && rdisplayswap.test(tang.getCurrentStyle('display'))
+	                    && (swap(ele, cssShow)),
+	                rect = ele['offset' + item] || parseInt(tang.getCurrentStyle(item.toLowerCase())),
+	                delString = 'padding|border';
+	            extra && baidu.forEach(extra.split('|'), function(val){
+	                if(!~delString.indexOf(val)){//if val is margin
+	                    rect += parseFloat(tang.getCurrentStyle(val + cssExpand[0])) || 0;
+	                    rect += parseFloat(tang.getCurrentStyle(val + cssExpand[1])) || 0;
+	                }else{//val is border or padding
+	                    delString = delString.replace(new RegExp('\\|?' + val + '\\|?'), '');
+	                }
+	            });
+	            delString && baidu.forEach(delString.split('|'), function(val){
+	                rect -= parseFloat(tang.getCurrentStyle(val + cssExpand[0] + (val === 'border' ? 'Width' : ''))) || 0;
+	                rect -= parseFloat(tang.getCurrentStyle(val + cssExpand[1] + (val === 'border' ? 'Width' : ''))) || 0;
+	            });
+	            defaultValue && swap(ele, defaultValue);
+	            return rect;
+	        }
+	    });
+	    //
+	    return function(ele, key, extra){
+	        return ret[key === 'width' ? 'getWidth' : 'getHeight'](ele, extra);
+	    }
+	}();
 	
 	 //支持单词以“-_”分隔
 	 //todo:考虑以后去掉下划线支持？
@@ -5390,6 +5294,28 @@ void function(){
 	    }
 	});
 	
+	baidu._util_.getWindowOrDocumentWidthOrHeight = baidu._util_.getWindowOrDocumentWidthOrHeight || function(){
+	    var ret = {'window': {}, 'document': {}};
+	    baidu.forEach(['Width', 'Height'], function(item){
+	        var clientProp = 'client' + item,
+	            offsetProp = 'offset' + item,
+	            scrollProp = 'scroll' + item;
+	        ret['window']['get' + item] = function(ele){
+	            var doc = ele.document,
+	                rectValue = doc.documentElement[clientProp];
+	            return baidu.browser.isStrict && rectValue
+	                || doc.body && doc.body[clientProp] || rectValue;
+	        };
+	        ret['document']['get' + item] = function(ele){
+	            var doc = ele.documentElement;
+	            return doc[clientProp] >= doc[scrollProp] ? doc[clientProp]
+	                : Math.max(ele.body[scrollProp], doc[scrollProp], ele.body[offsetProp], doc[offsetProp]);
+	        }
+	    });
+	    return function(ele, type, key){
+	        return ret[type][key === 'width' ? 'getWidth' : 'getHeight'](ele);
+	    }
+	}();
 	 
 	
 	baidu.dom.extend({
@@ -7530,6 +7456,34 @@ void function(){
 	}();
 	
 	
+	baidu._util_.smartScroll = function(axis){
+	    var orie = {scrollLeft: 'pageXOffset', scrollTop: 'pageYOffset'}[axis],
+	        is = axis === 'scrollLeft',
+	        ret = {};
+	    function isDocument(ele){
+	        return ele && ele.nodeType === 9;
+	    }
+	    function getWindow(ele){
+	        return baidu.type(ele) == "Window" ? ele
+	            : isDocument(ele) ? ele.defaultView || ele.parentWindow : false;
+	    }
+	    return {
+	        get: function(ele){
+	            var win = getWindow(ele);
+	            return win ? (orie in win) ? win[orie]
+	                : baidu.browser.isStrict && win.document.documentElement[axis]
+	                    || win.document.body[axis] : ele[axis];
+	        },
+	        
+	        set: function(ele, val){
+	            if(!ele){return;}
+	            var win = getWindow(ele);
+	            win ? win.scrollTo(is ? val : this.get(ele), !is ? val : this.get(ele))
+	                : ele[axis] = val;
+	        }
+	    };
+	};
+	
 	baidu.dom.extend({
 	    scrollLeft: function(){
 	        var ret = baidu._util_.smartScroll('scrollLeft');
@@ -8058,6 +8012,21 @@ void function(){
 	    }
 	});
 	
+	baidu._util_.inArray = function(ele, array, index){
+	    if(!array){return -1;}
+	    var indexOf = Array.prototype.indexOf,
+	        len;
+	    if(indexOf){return indexOf.call(array, ele, index);}
+	    len = array.length;
+	    index = index ? index < 0 ? Math.max(0, len + index) : index : 0;
+	    for(; index < len; index++){
+	        if(index in array && array[index] === ele){
+	            return index;
+	        }
+	    }
+	    return -1;
+	};
+	
 	baidu.dom.extend({
 	    val: function(){
 	        baidu._util_.support.dom.select.disabled = true;
@@ -8167,6 +8136,22 @@ void function(){
 	        });
 	    }
 	});
+	
+	
+	//为兼容Tangram1.x的magic增加的接口
+	
+	baidu.dom._matchNode = function (element, direction, start) {
+	    element = baidu.dom.g(element);
+	
+	    for (var node = element[start]; node; node = node[direction]) {
+	        if (node.nodeType == 1) {
+	            return node;
+	        }
+	    }
+	
+	    return null;
+	};
+	
 	
 	
 	
@@ -9469,6 +9454,23 @@ void function(){
 	
 	
 	
+	baidu._util_.smartAjax = baidu._util_.smartAjax || function(method){
+	    return function(url, data, callback, type){
+	        if(baidu.type(data) === 'function'){
+	            type = type || callback;
+	            callback = data;
+	            data = undefined;
+	        }
+	        baidu.ajax({
+	            type: method,
+	            url: url,
+	            data: data,
+	            success: callback,
+	            dataType: type
+	        });
+	    };
+	}
+	
 	baidu.get = baidu.get || baidu._util_.smartAjax('get');
 	/// support magic - Tangram 1.x Code Start
 	
@@ -9800,7 +9802,12 @@ void function(){
 	    //判断有继承的情况
 	    //如果有一项是继承过来的，那么一定不是字面量Object
 	    //OwnProperty会首先被遍历，为了加速遍历过程，直接看最后一项
-	    for ( key in unknow ) {}
+	    for ( key in unknow ) break;
+	
+	    // nodelist for ie
+	    if( unknow.item && typeof unknow.length == "number" )
+	        return false;
+	
 	    return key === undefined || hasOwnProperty.call( unknow, key );
 	};
 	
@@ -9948,13 +9955,6 @@ void function(){
 	
 	baidu.json.encode = baidu.json.stringify;
 	
-	
-	
-	
-	
-	baidu.global("_maps_id");
-	
-	//	[TODO]	meizz	在2012年版本中将删除此模块
 	
 	
 	
@@ -10179,6 +10179,13 @@ void function(){
 	
 	    return [].slice.call(source);
 	};
+	
+	
+	
+	baidu.global("_maps_id");
+	
+	//	[TODO]	meizz	在2012年版本中将删除此模块
+	
 	
 	baidu.number.extend({
 	    comma : function (length) {
