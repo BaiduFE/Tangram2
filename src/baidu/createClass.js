@@ -60,11 +60,13 @@ baidu.createClass = /**@function*/function(constructor, type, options) {
 
             return fn;
         }
+
         ,register: function(hook, methods) {
             (fn._reg_ || (fn._reg_ = [])).push( hook );
             methods && baidu.extend(fn.prototype, methods);
             return fn;
         }
+        
         ,extend: function(json){baidu.extend(fn.prototype, json); return fn;}
     });
 
