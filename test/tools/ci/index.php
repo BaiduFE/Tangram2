@@ -32,7 +32,7 @@
             ?>
             <div class="toolbar">
                 <div class="options">
-                    <input type="checkbox" id="J_autoFixed" /><label for="J_autoFixed">发现错误时自动修复</label>
+                    <!-- <input type="checkbox" id="J_autoFixed" /><label for="J_autoFixed">发现错误时自动修复</label> -->
                     <input type="checkbox" id="J_hideOnPass" /><label for="J_hideOnPass">隐藏测试通过的文件</label>
                 </div>
                 <div class="actions"><button id="J_autoRun">批量测试</button></div>

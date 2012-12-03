@@ -254,6 +254,16 @@
                     });
     }
 
+    // 编码HTML
+    function encodeHTML(source) {
+        return String(source)
+                    .replace(/&/g,'&amp;')
+                    .replace(/</g,'&lt;')
+                    .replace(/>/g,'&gt;')
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#39;");
+    };
+
     //语法检查
     function syntaxCheck(node){
         $.get('./getFileContent.php?file=' + node.data.dir, function(content){
@@ -272,7 +282,8 @@
                 laxbreak: true,
                 loopfunc: true,
                 nonew: true,
-                undef: true
+                undef: true,
+                maxerr: 200
             });
 
             
@@ -280,7 +291,7 @@
                 if(!item){return};
                 if(/(debugger|Extra\scomma|is\snot\sdefined)/.test(item.reason) && !/nodeType/.test(item.evidence)){
                     errors++;
-                    html += '<li><p><span class="line">Line ' + item.line + '</span>:<span class="code">' + item.evidence + '</span></p>'+
+                    html += '<li><p><span class="line">Line ' + item.line + '</span>:<span class="code">' + encodeHTML(item.evidence) + '</span></p>'+
                         '<p>' + item.reason + '</p></li>';
                 }
             });
