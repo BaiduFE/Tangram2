@@ -40,7 +40,7 @@
 
 baidu.dom.extend({
     insertHTML: function ( position, html) {
-        element = this[0];
+        var element = this[0];
         var range,begin;
     
         //在opera中insertAdjacentHTML方法实现不标准，如果DOMNodeInserted方法被监听则无法一次插入多element

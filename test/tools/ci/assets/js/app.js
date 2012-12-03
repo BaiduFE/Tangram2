@@ -259,23 +259,32 @@
             $("#J_syntaxCheck").html('');
             var filename = node.data.dir.replace('../../../src/', '');
             var html = '<h1 class="test-header">' + filename + '</h1><ul>';
+            var errors = 0;
 
-            if(!JSHINT(content, {
+            JSHINT(content, {
                 boss: true,
                 eqnull: true,
                 evil: true,
+                browser: true,
                 tangram: true,
                 magic: true,
                 laxbreak: true,
                 loopfunc: true,
                 nonew: true,
                 undef: true
-            })){
-                $(JSHINT.errors).each(function(index, item){
-                    if(!item) return;
+            });
+
+            
+            $(JSHINT.errors).each(function(index, item){
+                if(!item){return};
+                if(/(debugger|Extra\scomma|is\snot\sdefined)/.test(item.reason) && !/nodeType/.test(item.evidence)){
+                    errors++;
                     html += '<li><p><span class="line">Line ' + item.line + '</span>:<span class="code">' + item.evidence + '</span></p>'+
-                            '<p>' + item.reason + '</p></li>';
-                });
+                        '<p>' + item.reason + '</p></li>';
+                }
+            });
+
+            if(errors > 0){
                 // 在节点上标出检查结果
                 node.el.css('color', '#FF0000');
             }else{

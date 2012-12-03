@@ -24,7 +24,7 @@
  */
 baidu.dom.extend({
     getText : function () {
-        var ret = "", childs, i=0, l;
+        var ret = "", childs, i=0, l,
         element = this[0];
         //  text 和 CDATA 节点，取nodeValue
         if ( element.nodeType === 3 || element.nodeType === 4 ) {
