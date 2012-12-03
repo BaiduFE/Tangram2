@@ -11,6 +11,7 @@
                                 '<li class="{{encodingCheck.status}}"><span>文件编码检查：{{encodingCheck.status}}；当前文件编码：{{encodingCheck.msg}}</span></li>' +
                                 '<li class="{{BombCheck.status}}"><span>文件Bomb头检查：{{BombCheck.status}}</span></li>' +
                                 '<li class="{{tabCheck.status}}"><span>文件缩进检查：{{tabCheck.status}}</span></li>' +
+                                '<li class="{{conflictCheck.status}}"><span>文件冲突检查：{{conflictCheck.status}}</span></li>' +
                                 '<li class="{{testCaseCheck.status}}">' +
                                     '<span>关联用例检查：{{testCaseCheck.status}}；</span>' +
                                     '<span>源码最后修改时间：{{testCaseCheck.msg.srcLastModify}}；</span>' +
