@@ -18,7 +18,7 @@
  * @param {Selector|TangramDom|htmlElement} options.focus 拖拽时关注的元素，传入一个selector，当拖拽元素到focus的元素上时，会触发'enter'事件，离开时会触发'leave'事件。
  * @param {Function} options.onstart 当拖拽开启时，实例会触发“start”内部事件，并且会出发onstart方法。
  * @param {Function} options.onend 当拖拽结束时，实例会触发“end”内部事件，并且会出发onend方法。
- * @param {Function} options.ondragging 当拖拽时，实例会触发“dragging”内部事件，并且会出发ondragging方法。
+ * @param {Function} options.ondragging 当拖拽时，实例会触发“dragging”内部事件，并且会出发ondragging方法，当前被拖拽的元素此时会默认加一个className名为“tang-draggable-dragging”。
  * @param {Function} options.onenter 当拖拽元素到options.focus匹配的元素上时，实例会触发“enter”内部事件，并且在参数e.target中可以取得当前移入到了哪个元素。
  * @param {Function} options.onleave 当拖拽元素离开options.focus匹配的元素时，实例会触发“leave”内部事件，并且在参数e.target中可以取得当前离开了哪个元素。
  * @return {Draggable} 返回Draggable的一个实例，实例的options属性中可以取到所有配置。
@@ -221,6 +221,8 @@
 ///import baidu.type;
 ///import baidu.id;
 ///import baidu.dom.contains;
+///import baidu.dom.addClass;
+///import baidu.dom.removeClass;
 ///import baidu.createSingle;
 ///import baidu.dom.find;
 ///import baidu.dom.css;
@@ -418,7 +420,8 @@ baidu.dom.extend({
                 if(opt.endOf){
                     draggable.endOf();
                 };
-                drag.disable();
+                dragEle.removeClass('tang-draggable-dragging');
+                drag.dispose();
                 doc.off('mouseup',disHandle);
                 doc.off('dragging',ingHandle);
                 draggable.fire('end');
@@ -426,6 +429,7 @@ baidu.dom.extend({
 
             //拖拽中
             ingHandle = function(e){
+                dragEle.addClass('tang-draggable-dragging');
                 draggable.fire('dragging');
                 enterAndLeave();
             },

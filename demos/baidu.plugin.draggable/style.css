@@ -19,3 +19,7 @@
     position:absolute;
     left:10px;
 }
+
+.tang-draggable-dragging{
+    background-color: #0FF;
+}

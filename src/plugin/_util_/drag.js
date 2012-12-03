@@ -206,6 +206,18 @@ baidu.plugin._util_.drag = function(selector){
         },
         cancel:function(){
             ele.offset({'left':_o.left,'top':_o.top});
+        },
+
+        //析构函数
+        dispose:function(){
+            doc.trigger('dragend');
+            doc.off('mousemove',handle);
+            doc.off('selectstart',unselect);
+            _w = _h = doc = ele = _o = _range = null;
+            for(var k in this){
+                this[k] = null;
+            };
+            return null;
         }
     }
 };
