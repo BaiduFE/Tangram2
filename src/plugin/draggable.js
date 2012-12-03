@@ -12,15 +12,15 @@
  * @param {Selector|TangramDom|htmlElement} selector 拖拽元素上面触发拖拽功能的部分，只有当鼠标在匹配元素上触发，被拖拽元素才能被拖拽
  * @param {Object} options 相关配置参数
  * @param {Boolean} options.enable 当前的draggable实例是否可以被拖拽
- * @param {Selector|TangramDom|htmlElement|Object} options.range 当前拖拽的范围，可以限制在某一个元素内，传入selector只会取出第一个。传入Object要符合{'top':123,'right':123,'bottom',123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
- * @param {Selector|TangramDom|htmlElement|Object} options.endOf 拖拽元素想要拖拽到的范围，可以限制在某些元素内，传入selector，限制用户必须拖拽到其中任意一个匹配元素内。传入Object要符合{'top':123,'right':123,'bottom',123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
+ * @param {Selector|TangramDom|htmlElement|Object} options.range 当前拖拽的范围，可以限制在某一个元素内，传入selector只会取出第一个。传入Object要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
+ * @param {Selector|TangramDom|htmlElement|Object} options.endOf 拖拽元素想要拖拽到的范围，可以限制在某些元素内，传入selector，限制用户必须拖拽到其中任意一个匹配元素内。传入Object要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
  * @param {Numeber} options.zIndex 拖拽元素的显示层级
  * @param {Selector|TangramDom|htmlElement} options.focus 拖拽时关注的元素，传入一个selector，当拖拽元素到focus的元素上时，会触发'enter'事件，离开时会触发'leave'事件。
- * @param {Function} options.onstart 当拖拽开启时，实例会触发“start”内部事件，并且会出发onstart方法。
- * @param {Function} options.onend 当拖拽结束时，实例会触发“end”内部事件，并且会出发onend方法。
- * @param {Function} options.ondragging 当拖拽时，实例会触发“dragging”内部事件，并且会出发ondragging方法，当前被拖拽的元素此时会默认加一个className名为“tang-draggable-dragging”。
- * @param {Function} options.onenter 当拖拽元素到options.focus匹配的元素上时，实例会触发“enter”内部事件，并且在参数e.target中可以取得当前移入到了哪个元素。
- * @param {Function} options.onleave 当拖拽元素离开options.focus匹配的元素时，实例会触发“leave”内部事件，并且在参数e.target中可以取得当前离开了哪个元素。
+ * @param {Function} options.onstart 当拖拽开启时，实例会触发“start”内部事件，并且会触发onstart方法。
+ * @param {Function} options.onend 当拖拽结束时，实例会触发“end”内部事件，并且会触发onend方法。
+ * @param {Function} options.ondragging 当拖拽时，实例会触发“dragging”内部事件，并且会触发ondragging方法，当前被拖拽的元素此时会默认加一个className名为“tang-draggable-dragging”。
+ * @param {Function} options.onenter 当拖拽元素到options.focus匹配的元素上时，实例会触发‘enter’内部事件，并且在参数e.target中可以取得当前移入到了哪个元素。
+ * @param {Function} options.onleave 当拖拽元素离开options.focus匹配的元素时，实例会触发‘leave’内部事件，并且在参数e.target中可以取得当前离开了哪个元素。
  * @return {Draggable} 返回Draggable的一个实例，实例的options属性中可以取到所有配置。
 */
 
@@ -29,7 +29,7 @@
  * @function 
  * @name baidu.dom().draggable().range()
  * @grammar baidu.dom(args).draggable().range(value)
- * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom',123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
+ * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
  * @return {Draggable|Selector|TangramDom|htmlElement|Object} 返回Draggable的一个实例，或者是取出当前range的值。
 */
 
@@ -38,7 +38,7 @@
  * @function 
  * @name baidu.dom().draggable().endOf()
  * @grammar baidu.dom(args).draggable().endOf(value)
- * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，限定拖拽元素只能拖拽至当前selector匹配的任意个元素内。也可以传入一个Object，要符合{'top':123,'right':123,'bottom',123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
+ * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，限定拖拽元素只能拖拽至当前selector匹配的任意个元素内。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
  * @return {Draggable|Selector|TangramDom|htmlElement|Object} 返回Draggable的一个实例，或者返回endOf当前的值。
 */
 
@@ -124,8 +124,8 @@
  ‘start’：drag开始时触发；
  ‘end’：drag结束时触发；
  ‘dragging’：drag正在进行时触发；
- ’enter‘：移入到options.focus匹配的元素上；
- ’leave‘：移出options.focus匹配的元素；
+ ‘enter’：移入到options.focus匹配的元素上；
+ ‘leave’：移出options.focus匹配的元素；
 
  示例代码：
  //HTML代码片段
@@ -157,8 +157,8 @@
  ‘start’：drag开始时触发；
  ‘end’：drag结束时触发；
  ‘dragging’：drag正在进行时触发；
- ’enter‘：移入到options.focus匹配的元素上；
- ’leave‘：移出options.focus匹配的元素；
+ ‘enter’：移入到options.focus匹配的元素上；
+ ‘leave’：移出options.focus匹配的元素；
 
  示例代码：
  //HTML代码片段
@@ -189,8 +189,8 @@
  ‘start’：drag开始时触发；
  ‘end’：drag结束时触发；
  ‘dragging’：drag正在进行时触发；
- ’enter‘：移入到options.focus匹配的元素上；
- ’leave‘：移出options.focus匹配的元素；
+ ‘enter’：移入到options.focus匹配的元素上；
+ ‘leave’：移出options.focus匹配的元素；
 
  示例代码：
  //HTML代码片段
@@ -216,16 +216,15 @@
  },1000);
 */
 
-///import baidu;
-///import baidu.setBack;
-///import baidu.type;
 ///import baidu.id;
+///import baidu.type;
+///import baidu.setBack;
+///import baidu.createSingle;
+///import baidu.dom.css;
+///import baidu.dom.find;
 ///import baidu.dom.contains;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
-///import baidu.createSingle;
-///import baidu.dom.find;
-///import baidu.dom.css;
 ///import plugin._util_.drag;
 ///import plugin._util_.isCover;
 
@@ -265,7 +264,7 @@ baidu.dom.extend({
                     ondragging:undefined
                 },
 
-                //可拖拽的范围，传入Object要符合{'top':123,'right':123,'bottom',123,'left':123}
+                //可拖拽的范围，传入Object要符合{'top':123,'right':123,'bottom':123,'left':123}
                 range:function(value){
                     switch(arguments.length){
                         
@@ -292,7 +291,7 @@ baidu.dom.extend({
                         case 0:
                             if(baidu.type(opt.endOf)=='object'){
 
-                                //endOf的范围是Object,{'top':123,'right':123,'bottom',123,'left':123}
+                                //endOf的范围是Object,{'top':123,'right':123,'bottom':123,'left':123}
                                 if(dragEle.w){
                                     dragEle.w = dragEle.outerWidth();
                                     dragEle.h = dragEle.outerHeight();

@@ -4,7 +4,7 @@
  */
 
 /**
- * @description 判断传入的元素是否在当前元素的区域内
+ * @description 判断传入的元素是否和当前元素的区域有交集
  * @function 
  * @name baidu.dom().isCover()
  * @grammar baidu.dom(args).isCover(selector)
@@ -13,7 +13,7 @@
 */
 
 /**
- * @description 判断传入的元素是否在当前元素的区域内
+ * @description 判断传入的元素是否严格的在当前任意一个匹配的元素内
  * @function 
  * @name baidu.dom().isCover()
  * @grammar baidu.dom(args).isCover(selector,strict)
@@ -22,8 +22,6 @@
  * @return {Boolean} 新传入元素如果在前匹配元素组中的任何一个之内（包括边缘完全对齐），则返回true；没在任何一个内，则返回false。
 */
 
-///import baidu;
-///import baidu.dom;
 ///import baidu.dom.eq;
 ///import baidu.dom.offset;
 ///import baidu.dom.outerWidth;
@@ -38,35 +36,36 @@ baidu.dom.extend({
         //传入的元素，get first
         var me = this,
             ele = baidu.dom(selector).eq(0),
-            p = ele.offset(),
+            o = ele.offset(),
             w = ele.outerWidth(),
-            h = ele.outerHeight(),
+            h = ele.outerHeight()
+            num = me.size(),
 
             //检测算子，传入四个值比较，strict（是否严格）
             check = function(top,right,bottom,left,strict){
                 if(strict){
 
                     //严格模式，一定要在容器内
-                    if((p.top>=top)&&((p.top+h)<=bottom)&&(p.left>=left)&&((p.left+w)<=right)){
+                    if((o.top>=top)&&((o.top+h)<=bottom)&&(o.left>=left)&&((o.left+w)<=right)){
                         return true;
                     };
 
                 }else{
 
                     //非严格模式，有碰撞或交集即可
-                    if(((p.top+h)>=top)&&(p.top<=bottom)&&((p.left+w)>=left)&&(p.left<=right)){
+                    if(((o.top+h)>=top)&&(o.top<=bottom)&&((o.left+w)>=left)&&(o.left<=right)){
                         return true;
                     };
                 };
             };
 
-        for(var i = 0; i < me.size(); i++ ){
+        for(var i = 0; i < num; i++ ){
             var _ele = me.eq(i),
-                _p = _ele.offset(),
+                _o = _ele.offset(),
                 _w = _ele.eq(i).outerWidth(),
                 _h = _ele.eq(i).outerHeight();
 
-            if(check(_p.top,_p.left+_w,_p.top+_h,_p.left,strict)){
+            if(check(_o.top,_o.left+_w,_o.top+_h,_o.left,strict)){
                 return true;
             };
         };

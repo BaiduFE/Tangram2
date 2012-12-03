@@ -87,8 +87,6 @@
  * @return {Null}
  */
 
-///import baidu;
-///import baidu.dom;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
 ///import baidu.dom.eq;
@@ -204,6 +202,8 @@ baidu.plugin._util_.drag = function(selector){
             _range.w = ele.outerWidth();
             _range.h = ele.outerHeight();
         },
+
+        //取消上一次拖拽
         cancel:function(){
             ele.offset({'left':_o.left,'top':_o.top});
         },
