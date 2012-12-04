@@ -1,6 +1,6 @@
 module("baidu.global.set");
 
-test("common",function(){
+test("兼容Magic接口：common",function(){
 	expect(4);
 	var a = baidu.global.set('id', 'value1');
 	equals(a, 'value1', 'common');
@@ -12,13 +12,13 @@ test("common",function(){
 	equals(a, 'value4', 'protected_=false');
 });
 
-test("''",function(){
+test("兼容Magic接口：''",function(){
 	expect(1);
 	var a = baidu.global.set('id1', '');
 	equals(a, '', 'common');
 });
 
-test("iframe",function(){
+test("兼容Magic接口：iframe",function(){
 	expect(1);
 	stop();
 	ua.frameExt(function(w, f) {
