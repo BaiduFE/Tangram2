@@ -30,7 +30,7 @@
  * @name baidu.plugin._util_.drag().disable()
  * @grammar baidu.plugin._util_.drag(selector).disable()
  * @param {Null}
- * @return {Null}
+ * @return {Object} 返回相关实例方法的对象
  * @example 
  执行drag实例的disable()方法，会立刻停止拖拽效果。
 */
@@ -41,7 +41,7 @@
  * @name baidu.plugin._util_.drag().enable()
  * @grammar baidu.plugin._util_.drag(selector).enable()
  * @param {Null}
- * @return {Null}
+ * @return {Object} 返回相关实例方法的对象
  * @example 
  执行drag实例的enable()方法，会立刻执行之前的拖拽效果。
  */
@@ -52,7 +52,7 @@
  * @name baidu.plugin._util_.drag().cancel()
  * @grammar baidu.plugin._util_.drag(selector).cancel()
  * @param {Null}
- * @return {Null}
+ * @return {Object} 返回相关实例方法的对象
  * @example 
  执行drag实例的cancel()方法，设置拖拽元素回到起始的位置。
  */
@@ -72,19 +72,16 @@
  * @name baidu.plugin._util_.drag().range()
  * @grammar baidu.plugin._util_.drag(selector).range(selector)
  * @param {String|HTMLString|HTMLElement} selector 限定在selector匹配的元素内，如果是多个匹配第一个。
- * @return {Null}
+ * @return {Object} 返回相关实例方法的对象
  */
 
 /**
  * @description 限制拖拽范围
  * @function 
  * @name baidu.plugin._util_.drag().range()
- * @grammar baidu.plugin._util_.drag(selector).range(top,right,bottom,left)
- * @param {Number} top 距离屏幕上方的距离
- * @param {Number} right 距离屏幕左方最大可移动到的距离
- * @param {Number} bottom 距离屏幕上方最大可移动到的距离
- * @param {Number} left 距离屏幕左侧的距离
- * @return {Null}
+ * @grammar baidu.plugin._util_.drag(selector).range(obj)
+ * @param {Object} obj 要满足{top:123,right:123,bottom:123,left:123}的形式。top 距离屏幕上方的距离，right 距离屏幕左方最大可移动到的距离，bottom 距离屏幕上方最大可移动到的距离，left 距离屏幕左侧的距离
+ * @return {Object} 返回相关实例方法的对象
  */
 
 /**
@@ -94,6 +91,8 @@
  * @grammar baidu.plugin._util_.drag(selector).dispose()
  * @param {Null}
  * @return {Null}
+ * @example
+ 执行完毕后，会在原实例上面挂在唯一项，{dispose:true}
 */
 
 ///import baidu.dom.on;
@@ -182,11 +181,13 @@ baidu.plugin._util_.drag = function(selector){
             _w = _h = null;
             doc.off('mousemove',handle);
             doc.off('selectstart',unselect);
+            return this;
         },
         enable:function(){
             doc.trigger('dragstart');
             doc.on('selectstart',unselect);
             doc.on('mousemove',handle);
+            return this;
         },
         range:function(value){
             switch(arguments.length){
@@ -212,11 +213,13 @@ baidu.plugin._util_.drag = function(selector){
             //元素自身的宽和高
             _range.w = ele.outerWidth();
             _range.h = ele.outerHeight();
+            return this;
         },
 
         //取消上一次拖拽
         cancel:function(){
             ele.offset({'left':_o.left,'top':_o.top});
+            return this;
         },
 
         //析构函数

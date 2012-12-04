@@ -97,7 +97,9 @@
  * @grammar baidu.dom(args).draggable().dispose()
  * @param {Null}
  * @return {Null}
-*/
+ * @example
+ 执行完毕后，会在原实例上面挂在唯一项，{dispose:true}
+ */
 
 /**
  * @description 重新获取当前元素的tangramDom链头，使其可以使用tangram的Dom操作方法
@@ -354,22 +356,30 @@ baidu.dom.extend({
 
                 //关闭拖拽
                 disable:function(){
-                    if(baidu.type(value)!='object'){
-                        me.find(value).css('cursor','default');
-                    }else{
-                        me.css('cursor','default');
+                    if(opt.enable){
+                        opt.enable = false;
+                        if(baidu.type(value)!='object'){
+                            me.find(value).css('cursor','default');
+                        }else{
+                            me.css('cursor','default');
+                        };
+                        doc.off('mouseup',endHandle);
+                        doc.off('dragging',ingHandle);                    
                     };
-                    opt.enable = false;
                     return draggable;
                 },
 
                 //开启拖拽
                 enable:function(){
-                    opt.enable = true;
-                    if(baidu.type(value)!='object'){
-                        baidu.dom(value).css('cursor','move');
-                    }else{
-                        me.css('cursor','move');
+                    if(!opt.enable){
+                        opt.enable = true;
+                        if(baidu.type(value)!='object'){
+                            baidu.dom(value).css('cursor','move');
+                        }else{
+                            me.css('cursor','move');
+                        };
+                        doc.on('mouseup',endHandle);
+                        doc.on('dragging',ingHandle);
                     };
                     return draggable;
                 },
@@ -377,7 +387,7 @@ baidu.dom.extend({
                 //析构函数
                 dispose:function(){
                     draggable.disable();
-                    if(drag){
+                    if(!drag.dispose){
                         drag.dispose();
                     };
 
@@ -388,6 +398,7 @@ baidu.dom.extend({
                     for(var k in draggable){
                         delete draggable[k];
                     };
+                    draggable.dispose = true;
                     return null;
                 }
             },
@@ -430,8 +441,8 @@ baidu.dom.extend({
                 };
 
                 doc.on('mouseup',endHandle);
-                draggable.fire('start',{target:dragEle});
                 doc.on('dragging',ingHandle);
+                draggable.fire('start',{target:dragEle});
             },
 
             //拖拽停止
