@@ -324,15 +324,13 @@ baidu.dom.extend({
 
                 //显示层级
                 zIndex:function(value){
-                    if(drag && value){
-                        drag.target.css('z-index',value);
-                        return draggable;
-                    }else if(drag && !value){
-                        return drag.target.css('z-index');
-                    }else if (!drag && value) {
+                    if(value){
                         opt.zIndex = value;
+                        draggable.getBack().css('z-index',value);
                         return draggable;
-                    };    
+                    }else{
+                        return opt.zIndex;
+                    };
                 },
 
                 //取消拖拽，回到上一次
@@ -471,7 +469,7 @@ baidu.dom.extend({
                 if(opt.zIndex){
                     draggable.zIndex(opt.zIndex);
                 };
-                bindEvent();        
+                bindEvent();   
             },
 
             //实现draggable中的'enter'和‘leave’事件
