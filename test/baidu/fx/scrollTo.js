@@ -1,7 +1,7 @@
 module("baidu.fx.scrollTo");
 //TODO
 //test id
-test('test id', function(){
+test('兼容Magic接口：test id', function(){
 	var op = new Object();
 		
 	stop();
@@ -15,7 +15,7 @@ test('test id', function(){
 });
 
 //test dom
-test('test dom', function(){
+test('兼容Magic接口：test dom', function(){
 	var op = new Object();
 	var t = te.dom[1];
 		
@@ -30,7 +30,7 @@ test('test dom', function(){
 });
 
 //test default params
-test('test default params', function() {
+test('兼容Magic接口：test default params', function() {
 	var c, op;
 	op = new Array(10, 10);
 
@@ -49,7 +49,7 @@ test('test default params', function() {
 });
 
 // test option(Array)
-test('test option(Array)', function(){
+test('兼容Magic接口：test option(Array)', function(){
 	var op = new Array(10, 10);
 	var t = te.dom[1];
 		t.scrollLeft = 0;
@@ -66,7 +66,7 @@ test('test option(Array)', function(){
 });
 
 //test option(JSON)
-test('test option(JSON)', function(){
+test('兼容Magic接口：test option(JSON)', function(){
 	var op = {x: 10, y: 10};
 	var t = te.dom[1];
 		t.scrollLeft = 0;

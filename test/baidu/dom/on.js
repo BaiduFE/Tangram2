@@ -22,7 +22,7 @@ Elements.prototype.dispose = function(){
     ele = this._ele = null;
 }
 
-test('prepareTest',function(){
+test('兼容Magic接口：prepareTest',function(){
   expect(1);
   stop();
   ua.importsrc("baidu.browser,baidu.event.shortcut", function(){
@@ -32,7 +32,7 @@ test('prepareTest',function(){
   }, "baidu.browser", "baidu.dom.css");
 });
 
-test('bind event to div', function(){
+test('兼容Magic接口：bind event to div', function(){
     expect( 10 );
     var c = new Elements(),
         array = [];
@@ -92,7 +92,7 @@ test('bind event to div', function(){
     equal(array.join(''), 'ABBCDEFFF', 'array is in order');//10
 });
 
-test('selector event', function(){
+test('兼容Magic接口：selector event', function(){
     expect(2);
     var c = new Elements(),
         span = document.createElement('span');
@@ -115,7 +115,7 @@ test('selector event', function(){
     c.dispose();
 });
 
-test('div insert to span', function(){
+test('兼容Magic接口：div insert to span', function(){
     expect(1);
     var c = new Elements('div', true),
         span = document.createElement('span');
@@ -128,7 +128,7 @@ test('div insert to span', function(){
     document.body.removeChild(span);
 });
 
-test('mouseenter, mouseleave', function(){
+test('兼容Magic接口：mouseenter, mouseleave', function(){
     expect(6);
     stop();
     ua.importsrc('baidu.dom.trigger', function(){
@@ -157,7 +157,7 @@ test('mouseenter, mouseleave', function(){
     }, 'baidu.dom.trigger', 'baidu.dom.on');
 });
 
-test('focusin, focusout', function(){
+test('兼容Magic接口：focusin, focusout', function(){
     stop();
     ua.importsrc('baidu.dom.trigger', function(){
         expect(4);
@@ -181,7 +181,7 @@ test('focusin, focusout', function(){
     }, 'baidu.dom.trigger', 'baidu.dom.on');
 });
 
-test('mousewheel', function(){
+test('兼容Magic接口：mousewheel', function(){
     stop();
     expect(2);
 
@@ -200,7 +200,7 @@ test('mousewheel', function(){
     start();
 });
 
-test('keyEvents', function(){
+test('兼容Magic接口：keyEvents', function(){
     expect( keyEvents.length );
     var c = new Elements('input'),
         input = c.get();
@@ -215,7 +215,7 @@ test('keyEvents', function(){
     c.dispose();
 });
 
-test('mouseEvents', function(){
+test('兼容Magic接口：mouseEvents', function(){
     expect( mouseEvents.length );
     var c = new Elements('input'),
         input = c.get();
@@ -230,7 +230,7 @@ test('mouseEvents', function(){
     c.dispose();
 });
 
-test('uiEvents', function(){
+test('兼容Magic接口：uiEvents', function(){
     expect( uiEvents.length );
     var c = new Elements('input'),
         input = c.get();
@@ -249,7 +249,7 @@ test('uiEvents', function(){
     c.dispose();
 });
 
-test('etcEvents', function(){
+test('兼容Magic接口：etcEvents', function(){
     expect( etcEvents.length - ( ( ie < 9 ) ? 2 : 0 ) ); // ie 下 error 和 scroll 事件不知如何触发
     var c = new Elements('input'),
         input = c.get();
