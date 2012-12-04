@@ -70,7 +70,7 @@
  * @description 限制拖拽范围
  * @function 
  * @name baidu.plugin._util_.drag().range()
- * @grammar baidu.plugin._util_.drag(selector).(selector)
+ * @grammar baidu.plugin._util_.drag(selector).range(selector)
  * @param {String|HTMLString|HTMLElement} selector 限定在selector匹配的元素内，如果是多个匹配第一个。
  * @return {Null}
  */
@@ -79,7 +79,7 @@
  * @description 限制拖拽范围
  * @function 
  * @name baidu.plugin._util_.drag().range()
- * @grammar baidu.plugin._util_.drag(selector).(top,right,bottom,left)
+ * @grammar baidu.plugin._util_.drag(selector).range(top,right,bottom,left)
  * @param {Number} top 距离屏幕上方的距离
  * @param {Number} right 距离屏幕左方最大可移动到的距离
  * @param {Number} bottom 距离屏幕上方最大可移动到的距离
@@ -149,9 +149,12 @@ baidu.plugin._util_.drag = function(selector){
                 var x = e.pageX - _w,
                     y = e.pageY - _h;
                 move(ele,x,y);
+
+            //这里是因为我喜欢3这个数字，所以用3毫秒。   
             },3);
         },
 
+        //防止拖拽过程中选择上文字
         unselect = function (e) {
             return e.preventDefault();
         };
@@ -176,7 +179,7 @@ baidu.plugin._util_.drag = function(selector){
             doc.on('selectstart',unselect);
             doc.on('mousemove',handle);
         },
-        range:function(value,value2,value3,value4){
+        range:function(value){
             switch(arguments.length){
                 
                 //get方法
@@ -184,17 +187,16 @@ baidu.plugin._util_.drag = function(selector){
                     return _range;
                 break;
 
-                //传入selector
                 case 1:
-                    var _ele = baidu.dom(value).eq(0);
-                    _range = _ele.offset();
-                    _range.right = _range.left + _ele.outerWidth();
-                    _range.bottom = _range.top + _ele.outerHeight();
-                break;
-
-                //传入top,right,bottom,left
-                case 4:
-                    _range = {'top':value,'right':value2,'bottom':value3,'left':value4};
+                    if(baidu.type(value)=='Object'){
+                        _range = value;
+                    }else{
+                        //传入selector
+                        var _ele = baidu.dom(value).eq(0);
+                        _range = _ele.offset();
+                        _range.right = _range.left + _ele.outerWidth();
+                        _range.bottom = _range.top + _ele.outerHeight();
+                    }
                 break;
             };
 
@@ -215,7 +217,7 @@ baidu.plugin._util_.drag = function(selector){
             doc.off('selectstart',unselect);
             _w = _h = doc = ele = _o = _range = null;
             for(var k in this){
-                this[k] = null;
+                delete this[k];
             };
             return null;
         }

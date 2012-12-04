@@ -367,9 +367,16 @@ baidu.dom.extend({
 
                 //析构函数
                 dispose:function(){
-                    baidu.dom(value).css('cursor','default');
-                    draggable.dispose();
-                    return draggable;
+                    draggable.disable();
+
+                    //此处删除所有事件，如果用户有其他事件可能会一起删除。
+                    //TODO：后续修改下。
+                    me.off('mousedown','**');
+                    drag = dragEle = focusEle = doc = opt = null;
+                    for(var k in draggable){
+                        delete draggable[k];
+                    };
+                    return null;
                 }
             },
             doc = baidu.dom(document),
@@ -397,7 +404,7 @@ baidu.dom.extend({
                         break;
                         case 'object':
                             var or = opt.range;
-                            drag.range(or.top,or.right,or.bottom,or.left);
+                            drag.range(or);
                         break;
                     };
                 };
@@ -461,6 +468,9 @@ baidu.dom.extend({
                 if(opt.focus){
                     focusEle = baidu.dom(opt.focus);
                 };
+                if(opt.zIndex){
+                    draggable.zIndex(opt.zIndex);
+                };
                 bindEvent();        
             },
 
@@ -479,6 +489,7 @@ baidu.dom.extend({
 
                         if( _e.isCover(dragEle) ){
 
+                            //观察对象的改变来触发
                             if(!dragEnter[id]){
                                 dragEnter[id] = _e.get(0);
                                 draggable.fire('enter',{'target':dragEnter[id]});
