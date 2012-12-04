@@ -1,5 +1,30 @@
 module('baidu.dom.toggle')
 
+//新接口
+test('新接口：显示或隐藏',function(){
+
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+
+	equal(div.style.display,"","default to display;")
+
+	baidu.dom(div).toggle();
+	equal(div.style.display,"none","not to display");
+
+	baidu.dom(div).toggle();
+	var dis = div.style.display;
+	ok(dis!='none',"change to display");
+
+	baidu.dom(div).toggle();
+	equal(div.style.display,"none","not to display");
+
+	baidu.dom(div).toggle();
+	ok(dis!='none',"change to display");
+
+	document.body.removeChild(div);
+})
+
+//老接口
 test('老接口：element',function(){
 	var div = document.createElement('div');
 	document.body.appendChild(div);

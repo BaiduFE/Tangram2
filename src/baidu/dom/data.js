@@ -13,11 +13,24 @@
  */
 
 /**
- * 在 DOM 对象上存储数据
- * @grammar TangramDom.data([key[, value]])
- * @param
+ * @description 设置 DOM 对象上存储数据
+ * @function
+ * @name baidu.dom().data()
+ * @grammar baidu.dom().data(key, value)
+ * @param {String} key 数据的键值
+ * @param {String|Number} value 数据的值 
  * @return
  */
+
+/**
+ * @description 取出在 DOM 对象上存储数据，也可以取出以“data-”开头的自定义属性
+ * @function
+ * @name baidu.dom().data()
+ * @grammar baidu.dom().data(key)
+ * @param {String} key 数据的键值
+ * @return {String|Object} 取出的数据
+ */
+ 
 baidu.dom.extend({
     data : function () {
         var   guid = baidu.key
