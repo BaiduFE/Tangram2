@@ -20,7 +20,7 @@
  */
 baidu.dom.extend({
 setStyles : function ( styles) {
-    element = this[0];
+    var element = this[0];
 
     for (var key in styles) {
         baidu.dom.setStyle(element, key, styles[key]);
