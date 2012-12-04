@@ -1,6 +1,6 @@
 module("baidu.lang.isElement");
 
-test("Element对象", function(){
+test("兼容Magic接口：Element对象", function(){
 	
 	var oDiv = document.createElement("div"); // create div
 	oDiv.id="erikElement";
@@ -11,36 +11,36 @@ test("Element对象", function(){
 	oDiv.parentNode.removeChild(oDiv); // remove div
 });
 
-test("document", function(){
+test("兼容Magic接口：document", function(){
 	equals(baidu.lang.isElement(document), false, 'baidu.lang.isElement(document) is false');
 });
 
-test("Object参数", function(){
+test("兼容Magic接口：Object参数", function(){
 	equals(baidu.lang.isElement({}), false, 'baidu.lang.isElement({}) is false');
 });
 
-test("Function类型", function(){
+test("兼容Magic接口：Function类型", function(){
 	equals(baidu.lang.isElement(new Function()), false, 'baidu.lang.isElement(new Function()) is false');
 });
 
-test("string类型", function(){
+test("兼容Magic接口：string类型", function(){
 	equals(baidu.lang.isElement("test"), false, 'baidu.lang.isElement("test") is false');
 });
 
-test("number类型", function(){
+test("兼容Magic接口：number类型", function(){
 	equals(baidu.lang.isElement(1), false, 'baidu.lang.isElement(1) is false');
 });
 
-test("boolean类型", function(){
+test("兼容Magic接口：boolean类型", function(){
 	equals(baidu.lang.isElement(true), false, 'baidu.lang.isElement(true) is false');
 	equals(baidu.lang.isElement(false), false, 'baidu.lang.isElement(false) is false');
 });
 
-test("null参数", function(){
+test("兼容Magic接口：null参数", function(){
 	equals(baidu.lang.isElement(null), false, 'baidu.lang.isElement(null) is false');
 });
 
-test("undefined参数", function(){
+test("兼容Magic接口：undefined参数", function(){
 	equals(baidu.lang.isElement(void(0)), false, 'baidu.lang.isElement(void(0)) is false');
 });
 
