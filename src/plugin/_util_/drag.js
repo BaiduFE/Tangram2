@@ -17,8 +17,8 @@
 
 /**
  * @description 获得当前拖拽元素
- * @name baidu.plugin._util_.drag().ele
- * @grammar baidu.plugin._util_.drag(selector).ele
+ * @name baidu.plugin._util_.drag().target
+ * @grammar baidu.plugin._util_.drag(selector).target
  * @return {TangramDom} 当前拖拽元素的tangramDom对象
  * @example 
  直接返回一个tangramDom对象，可以直接链式操作。
@@ -86,6 +86,15 @@
  * @param {Number} left 距离屏幕左侧的距离
  * @return {Null}
  */
+
+/**
+ * @description 析构方法，清除一切资源
+ * @function 
+ * @name baidu.plugin._util_.drag().dispose()
+ * @grammar baidu.plugin._util_.drag(selector).dispose()
+ * @param {Null}
+ * @return {Null}
+*/
 
 ///import baidu.dom.on;
 ///import baidu.dom.off;

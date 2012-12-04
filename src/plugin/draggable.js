@@ -220,6 +220,7 @@
 ///import baidu.type;
 ///import baidu.setBack;
 ///import baidu.createSingle;
+///import baidu.dom.not;
 ///import baidu.dom.css;
 ///import baidu.dom.find;
 ///import baidu.dom.contains;
@@ -366,6 +367,9 @@ baidu.dom.extend({
                 //析构函数
                 dispose:function(){
                     draggable.disable();
+                    if(drag){
+                        drag.dispose();
+                    };
 
                     //此处删除所有事件，如果用户有其他事件可能会一起删除。
                     //TODO：后续修改下。
@@ -415,13 +419,13 @@ baidu.dom.extend({
                     draggable.zIndex(opt.zIndex);
                 };
 
-                doc.on('mouseup',disHandle);
+                doc.on('mouseup',endHandle);
                 draggable.fire('start',{target:dragEle});
                 doc.on('dragging',ingHandle);
             },
 
             //拖拽停止
-            disHandle = function(e){
+            endHandle = function(e){
 
                 //是否到达拖拽目的地
                 if(opt.endOf){
@@ -429,7 +433,7 @@ baidu.dom.extend({
                 };
                 dragEle.removeClass('tang-draggable-dragging');
                 drag.disable();
-                doc.off('mouseup',disHandle);
+                doc.off('mouseup',endHandle);
                 doc.off('dragging',ingHandle);
                 draggable.fire('end');
             },
@@ -467,7 +471,9 @@ baidu.dom.extend({
                     opt[k] = opts[k];
                 };
                 if(opt.focus){
-                    focusEle = baidu.dom(opt.focus);
+
+                    //要去掉自己本身
+                    focusEle = baidu.dom(opt.focus).not(me);
                 };
                 if(opt.zIndex){
                     draggable.zIndex(opt.zIndex);
@@ -483,7 +489,7 @@ baidu.dom.extend({
                     //存储当前enter的元素
                     var _dragEnter = {};
 
-                    for(var i = 0; i < focusEle.size(); i++){
+                    for(var i = 0,num = focusEle.size(); i < num; i++){
                         
                         var _e = focusEle.eq(i);
                         var id = baidu.id(_e.get(0));
