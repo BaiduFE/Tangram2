@@ -22,6 +22,16 @@
  * @param {Function} options.onenter 当拖拽元素到options.focus匹配的元素上时，实例会触发‘enter’内部事件，并且在参数e.target中可以取得当前移入到了哪个元素。
  * @param {Function} options.onleave 当拖拽元素离开options.focus匹配的元素时，实例会触发‘leave’内部事件，并且在参数e.target中可以取得当前离开了哪个元素。
  * @return {Draggable} 返回Draggable的一个实例，实例的options属性中可以取到所有配置。
+ * @example
+    该方法会产生一个draggable实例，你可以通过配置，或者后期调用的方式来控制该实例的功能。
+    当元素被拖拽的时候，默认会被加上一个名字为“tang-draggable-dragging”的className，方便用户改变正在拖动元素的样式，或者对该元素做操作。
+
+ 示例代码：
+ //HTML代码片段
+ <div>
+    <h1>test1</h1>
+    <h2>test2</h2>
+ </div>
 */
 
 /**
