@@ -1,6 +1,6 @@
 module("baidu.i18n.date");
 
-test('getDaysInMonth', function(){
+test('兼容Magic接口：getDaysInMonth', function(){
 	stop();
 	ua.importsrc('baidu.i18n.cultures.en-US,baidu.i18n.cultures.zh-CN', function(){
 		equals(baidu.i18n.date.getDaysInMonth(2011, 0), 31, '2011.1');
@@ -23,14 +23,14 @@ test('getDaysInMonth', function(){
 	}, 'baidu.i18n.cultures.en-US','baidu.i18n.date');
 });
 
-test('isLeapYear', function(){
+test('兼容Magic接口：isLeapYear', function(){
 	ok(baidu.i18n.date.isLeapYear(2000), '2000');
 	ok(baidu.i18n.date.isLeapYear(2004), '2004');
 	ok(!baidu.i18n.date.isLeapYear(1900), '1900');
 	ok(!baidu.i18n.date.isLeapYear(2010), '2010');
 });
 
-test('toLocaleDate', function(){
+test('兼容Magic接口：toLocaleDate', function(){
 	var date = new Date();
 	localTime = date.getTime();
 	localOffset=date.getTimezoneOffset()*60000; //获得当地时间偏移的毫秒数
@@ -53,7 +53,7 @@ test('toLocaleDate', function(){
 	equals(newentozh.toString(), date.toString(), 'Convert to zh-CN time');
 });
 
-test('custom language', function(){
+test('兼容Magic接口：custom language', function(){
 	var date = new Date();
 	localTime = date.getTime();
 	localOffset=date.getTimezoneOffset()*60000; //获得当地时间偏移的毫秒数
