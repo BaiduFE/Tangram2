@@ -85,6 +85,10 @@ var QUnit = {
 			callback = function(){
 			}
 		}
+		if(window.location.href.indexOf("release=true") > -1 && window.location.href.indexOf("nsmagic=true") > -1 && testName.indexOf("兼容Magic接口") > -1){
+			callback = function(){
+			}
+		}
 			
 		// is 2nd argument a testEnvironment?
 		if ( expected && typeof expected === 'object') {

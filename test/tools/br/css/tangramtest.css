@@ -154,9 +154,19 @@ a.button:active span {
 	height: 99%;
 }
 
-.runningframe {
+.runningframe{
 	height: 99.99%;
 	width: 99.99%;
+}
+
+.downloadframe{
+	height: 99.99%;
+	width: 99.99%;
+	border: 1px solid;
+}
+.downloadarea{
+	height: 400px;
+	border: 1px solid;
 }
 
 .runningstatus {
