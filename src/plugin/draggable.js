@@ -250,18 +250,18 @@ baidu.dom.extend({
 
                 //默认参数及初始值
                 options:{
-                    enable:true, 
-                    range:undefined,
-                    endOf:undefined,
-                    zIndex:undefined,
-                    focus:undefined,
+                    enable:true 
+                    // range:undefined,
+                    // endOf:undefined,
+                    // zIndex:undefined,
+                    // focus:undefined,
 
-                    //事件相关
-                    onstart:undefined,
-                    onend:undefined,
-                    onenter:undefined,
-                    onleave:undefined,
-                    ondragging:undefined
+                    // //事件相关
+                    // onstart:undefined,
+                    // onend:undefined,
+                    // onenter:undefined,
+                    // onleave:undefined,
+                    // ondragging:undefined
                 },
 
                 //可拖拽的范围，传入Object要符合{'top':123,'right':123,'bottom':123,'left':123}
@@ -391,6 +391,9 @@ baidu.dom.extend({
                 if(!opt.enable){return};
 
                 //实例一个drag
+                if(drag){
+                    drag.dispose();
+                };
                 drag = baidu.plugin._util_.drag(e.currentTarget);
                 dragEle = drag.target;
 
@@ -425,7 +428,7 @@ baidu.dom.extend({
                     draggable.endOf();
                 };
                 dragEle.removeClass('tang-draggable-dragging');
-                drag.dispose();
+                drag.disable();
                 doc.off('mouseup',disHandle);
                 doc.off('dragging',ingHandle);
                 draggable.fire('end');

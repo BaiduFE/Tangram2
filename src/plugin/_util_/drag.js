@@ -212,13 +212,13 @@ baidu.plugin._util_.drag = function(selector){
 
         //析构函数
         dispose:function(){
-            doc.trigger('dragend');
             doc.off('mousemove',handle);
             doc.off('selectstart',unselect);
             _w = _h = doc = ele = _o = _range = null;
             for(var k in this){
                 delete this[k];
             };
+            this.dispose = true;
             return null;
         }
     }
