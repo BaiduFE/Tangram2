@@ -170,6 +170,11 @@ baidu.dom.extend({
                         selectable.on( evts[ i ] ,opt[ 'on'+evts[i] ] );
                     };
                 };
+
+                //支持多选功能
+                selectable.on('end',function(){
+                    item.removeClass('tang-selectable-selecting');
+                });
             },
 
             handle = function(){
@@ -179,6 +184,8 @@ baidu.dom.extend({
                 timer = setTimeout(function(){
 
                     if(!keydown){
+
+                        //只能选择一次
                         for(var i = 0 , num = item.size(); i < num; i ++){
                             var _ele = item.eq(i);
                             if(_ele.isCover(rubberSelect.target)){
@@ -195,12 +202,16 @@ baidu.dom.extend({
                         };
                     }else{
 
-                        //按下了ctrl 或 command 键
+                        //按下了ctrl 或 command 键，可以多次选择
+
                         for(var i = 0 , num = item.size(); i < num; i ++){
                             var _ele = item.eq(i);
 
                             //只对选了的做判断
-                            if(_ele.isCover(rubberSelect.target)){
+                            if(_ele.isCover(rubberSelect.target) && !_ele.hasClass('tang-selectable-selecting')){
+
+                                //支持可以多次选择，判断此次碰撞是否已经选择了
+                                _ele.addClass('tang-selectable-selecting');                              
                                 if (!_ele.hasClass('tang-selectable-selected')) {
                                     _ele.addClass('tang-selectable-selected');
                                 }else{
@@ -216,9 +227,9 @@ baidu.dom.extend({
             },
 
             keyDownHandle = function(e){
-
+                    
                     //Win下Ctrl 和 Mac下 command 键
-                    if(e.keyCode == 17 || e.keyCode == 91){
+                    if(e.ctrlKey || e.keyCode == 91){
                         keydown = true;
                     };
             },
@@ -226,8 +237,9 @@ baidu.dom.extend({
             keyUpHandle = function(e){
 
                     //Win下Ctrl 和 Mac下 command 键
-                    if(e.keyCode == 17 || e.keyCode == 91){
+                    if(e.ctrlKey || e.keyCode == 91){
                         keydown = false;
+                        item.removeClass('tang-selectable-selecting');
                     };
             },
 
