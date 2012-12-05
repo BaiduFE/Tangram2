@@ -111,7 +111,7 @@ class Kiss{
 					$file_name = "tangram_base";
 				else
 					$file_name = "tangram_compatible";
-				print "<script type='text/javascript' src='{$this->projroot}release/$file_name.js'></script>\n";
+				print "<script type='text/javascript' src='{$this->projroot}release/tangram.js'></script>\n";
 			}
 		}
 

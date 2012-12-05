@@ -33,7 +33,7 @@ if(!$quirk){?>
 		onclick="$('div#id_downloadarea').slideToggle('slow');">展开download区域</span> </a>
 	<div style="height:1px; clear: both"></div>
 	<div id="id_downloadarea" class="downloadarea"
-		style="display: block"></div>
+		style="display: none"></div>
 		
 	<a id="id_testlist_status" class="button"><span
 		onclick="$('div#id_testlist').slideToggle('slow');">折叠用例</span> </a>

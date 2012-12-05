@@ -31,4 +31,13 @@ else{
 </head>
 <body>
 </body>
+<script>
+(function(){debugger;
+	if(top.location.href.search("[?&,]download=[0-9]") > 0){
+		if(top.apicontent){
+			$("body").append('<script type="text/javascript">' + top.apicontent + '<\/script>');
+		}
+	}
+})();
+</script>
 </html>

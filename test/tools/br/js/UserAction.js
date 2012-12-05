@@ -880,6 +880,11 @@ var UserAction =
 				callback();
 			return;
 		}
+		if (location.search.indexOf("download=") >= 0) {
+			if (callback && typeof callback == "function")
+				callback();
+			return;
+		}
 
 		win = win || window;
 		var doc = win.document;
