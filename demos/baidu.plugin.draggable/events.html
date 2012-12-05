@@ -8,7 +8,7 @@
     <script type="text/javascript" src="../../demos/tangram2.0.1.0-min.js"></script>
     <script type="text/javascript" src="../../src/import.php?f=plugin.draggable"></script>
     <style type="text/css">
-        #wrapper {
+        #draggable {
             width: 600px;
             height: 600px;
             border: 2px dashed #ccc;
@@ -51,7 +51,7 @@
             color: red;
         }
 
-        #demo .tang-draggable-dragging {
+        #draggable .tang-draggable-dragging {
             background-color: #0FF;
         }
     </style>
@@ -69,7 +69,7 @@
             <div class="pannel-content-tool">
             </div>
             <div class="pannel-content-part">
-                <div id="wrapper">
+                <div id="draggable">   
                     <div id="draggable1" class="dragElement">
                         <ol>
                             <li>仅灰色背景区域可拖拽</li>
@@ -79,7 +79,7 @@
                     <div id="draggable2" class="dragElement">
                         <ol>
                             <li>整个区域都能拖拽</li>
-                            <li>拖不出灰色虚线框</li>
+                            <li>能拖出灰色虚线框，但是拖拽到的范围仍然是灰色虚线框内</li>
                         </ol>
                         <p></p>
                     </div>
@@ -91,7 +91,7 @@
 </div>
 <script type="text/javascript">
     baidu( '#draggable1' ).draggable( 'ol', {
-        range:'#wrapper',
+        range:'#draggable',
         zIndex:3,
         focus:'#draggable2',
         onenter:function () {
@@ -102,7 +102,8 @@
         }
     } );
     baidu( '#draggable2' ).draggable( {
-        range:'#wrapper',
+        range:'.pannel',
+        endOf:'#draggable',
         zIndex:10,
         focus:'#draggable1',
         onenter:function () {
