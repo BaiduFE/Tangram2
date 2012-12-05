@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu.dom().draggable() 示例"/>
+    <title>方法相关</title>
+    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+    <script type="text/javascript" src="../../demos/tangram2.0.1.0-min.js"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.draggable"></script>
+    <style type="text/css">
+        #draggable {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            padding: 10px;
+            background: #ccc;
+        }
+
+        #draggable p {
+            text-align: center;
+            font-size: 12px;
+            color: red;
+        }
+
+        #outer {
+            position: absolute;
+            right: 20px;
+            top: 90px;
+            width: 200px;
+            height: 200px;
+            border: 2px solid #000;
+        }
+
+        #butArea {
+            list-style: none;
+        }
+
+        #demo .tang-draggable-dragging {
+            background: #0FF;
+        }
+
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu.dom().draggable()</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>将元素拖进黑色边框区域内，然后点击下列按钮</span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div class="pannel-content-tool">
+            </div>
+            <div class="pannel-content-part">
+                <div id="draggable">
+                    <p>
+                        拖我进黑色边框内
+                    </p>
+                    <strong></strong>
+                </div>
+                <div id="outer">
+                </div>
+                <ul id="butArea">
+                    <li><input type="button" value="取出或设置当前拖拽元素层级" id="zIndex"></li>
+                    <li><input type="button" value="取消本次拖拽" id="cancel"></li>
+                    <li><input type="button" value="使当前拖拽元素无法拖拽" id="disable"></li>
+                    <li><input type="button" value="重新开启当前拖拽元素" id="enable"></li>
+                    <li><input type="button" value="限定在 class 为 pannel-content-part 的容器内拖拽" id="range"></li>
+                    <li><input type="button" value="限定拖拽元素一定要到达的黑色边框区域内" id="endOf"></li>
+                </ul>
+            </div>
+        </div>
+        <!--DemoViewEnd-->
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    var a = baidu( '#draggable' ).draggable( {
+        range:'.pannel',
+        zIndex:10
+    } );
+    //取出或设置当前拖拽元素层级
+    baidu( '#zIndex' ).click( function () {
+        baidu( '#draggable strong' ).html( '当前拖拽元素层级：' + a.zIndex() );
+    } )
+    //取消本次拖拽
+    baidu( '#cancel' ).click( function () {
+        a.cancel();
+    } )
+    //使当前拖拽元素无法拖拽
+    baidu( '#disable' ).click( function () {
+        a.disable();
+    } )
+    //重新开启当前拖拽元素
+    baidu( '#enable' ).click( function () {
+        a.enable();
+    } )
+    //限定拖拽元素可以活动的范围
+    baidu( '#range' ).click( function () {
+        a.range('.pannel-content-part');
+    } )
+    //限定拖拽元素一定要到达的黑色边框区域内
+    baidu( '#endOf' ).click( function () {
+        a.endOf( '#outer' );
+    } )
+</script>
+</body>
+</html>

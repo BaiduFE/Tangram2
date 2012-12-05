@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu.dom().draggable() 示例"/>
+    <title>基本事件</title>
+    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+    <script type="text/javascript" src="../../demos/tangram2.0.1.0-min.js"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.draggable"></script>
+    <style type="text/css">
+        #draggable {
+            width: 200px;
+            height: 160px;
+            border: 2px solid #ccc;
+            padding: 10px;
+        }
+
+        #draggable p {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        #events li {
+            margin: 10px 0;
+            padding: 5px 10px;
+            border: 1px solid #000;
+            background: #cacaca;
+            list-style: none;
+        }
+
+        #events span {
+            background-image: url("ico.png");
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        #eventStart span {
+            background-position: 0 -160px;
+        }
+
+        #eventDragging span {
+            background-position: 0 -80px;
+        }
+
+        #eventEnd span {
+            background-position: -96px -160px;
+        }
+
+        #events .hightLight {
+            border: 1px solid yellow;
+        }
+
+        #demo .tang-draggable-dragging {
+            background: #0FF;
+        }
+
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu.dom().draggable()</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>触发 start、dragging、end 其中某个事件时，相对应边框颜色变黄</span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div class="pannel-content-tool">
+            </div>
+            <div class="pannel-content-part">
+                <div id="draggable">
+                    <p>拖拽我触发的事件</p>
+                    <ul id="events">
+                        <li id="eventStart"><span></span>"start" invoked <strong>0</strong>x</li>
+                        <li id="eventDragging"><span></span>"dragging" invoked <strong>0</strong>x</li>
+                        <li id="eventEnd"><span></span>"end" invoked <strong>0</strong>x</li>
+                    </ul>
+                </div>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    baidu( function () {
+        var startBox = baidu( "#eventStart" ),
+            draggingBox = baidu( "#eventDragging" ),
+            endBox = baidu( "#eventEnd" ),
+            num = [ 0, 0, 0 ];
+
+        baidu( "#draggable" ).draggable( {
+            range:'.pannel',
+            onstart:function () {
+                num[ 0 ]++;
+                updateNum( startBox, num[ 0 ] );
+            },
+            ondragging:function () {
+                num[ 1 ]++;
+                updateNum( draggingBox, num[ 1 ] );
+            },
+            onend:function () {
+                num[ 2 ]++;
+                updateNum( endBox, num[ 2 ] );
+            }
+        } );
+
+        function updateNum( eventBox, numCount ) {
+            if ( !eventBox.hasClass( "hightLight" ) ) {
+                eventBox.addClass( "hightLight" ).siblings().removeClass( "hightLight" );
+            }
+            baidu( 'strong', eventBox.get( 0 ) ).html( numCount );
+        }
+    } );
+</script>
+</body>
+</html>

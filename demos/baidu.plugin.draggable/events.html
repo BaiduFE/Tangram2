@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu.dom().draggable() 示例"/>
+    <title>事件相关</title>
+    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+    <script type="text/javascript" src="../../demos/tangram2.0.1.0-min.js"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.draggable"></script>
+    <style type="text/css">
+        #wrapper {
+            width: 600px;
+            height: 600px;
+            border: 2px dashed #ccc;
+            padding: 10px;
+        }
+
+        .dragElement {
+            width: 200px;
+            height: 150px;
+            padding: 10px;
+            float: left;
+            margin: 10px 40px 10px 0;
+            border: 1px solid #ccc;
+            font-size: 12px;
+        }
+
+        #draggable1 ol {
+            border: 1px solid #aaa;
+            background: #cacaca;
+            padding: 10px;
+            color: #000;
+            list-style-position: inside;
+        }
+
+        .dragElement ol li {
+            line-height: 22px;
+        }
+
+        #draggable2 ol {
+            padding: 10px;
+            color: #000;
+            list-style-position: inside;
+        }
+
+        #draggable2 {
+            background: yellow;
+        }
+
+        #draggable2 p {
+            color: red;
+        }
+
+        #demo .tang-draggable-dragging {
+            background-color: #0FF;
+        }
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu.dom().draggable()</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>事件相关</span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div class="pannel-content-tool">
+            </div>
+            <div class="pannel-content-part">
+                <div id="wrapper">
+                    <div id="draggable1" class="dragElement">
+                        <ol>
+                            <li>仅灰色背景区域可拖拽</li>
+                            <li>拖不出灰色虚线框</li>
+                        </ol>
+                    </div>
+                    <div id="draggable2" class="dragElement">
+                        <ol>
+                            <li>整个区域都能拖拽</li>
+                            <li>拖不出灰色虚线框</li>
+                        </ol>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    baidu( '#draggable1' ).draggable( 'ol', {
+        range:'#wrapper',
+        zIndex:3,
+        focus:'#draggable2',
+        onenter:function () {
+            baidu( '.pannel-title' ).html( '两个元素开始相交' );
+        },
+        onleave:function () {
+            baidu( '.pannel-title' ).html( '两个元素无相交' );
+        }
+    } );
+    baidu( '#draggable2' ).draggable( {
+        range:'#wrapper',
+        zIndex:10,
+        focus:'#draggable1',
+        onenter:function () {
+            baidu( '.pannel-title' ).html( '两个元素开始相交' );
+        },
+        onleave:function () {
+            baidu( '.pannel-title' ).html( '两个元素无相交' );
+        }
+    } );
+</script>
+</body>
+</html>
