@@ -112,7 +112,6 @@ baidu.plugin._util_.rubberSelect = function(options){
 			rangeFlag = true;
 			doc.on('mousemove',ingHandle);
 			mask.width(0).height(0).show().offset({left:x1,top:y1});
-			
 			doc.trigger('rubberselectstart');
 			
 			//为了兼容快速点击的情况

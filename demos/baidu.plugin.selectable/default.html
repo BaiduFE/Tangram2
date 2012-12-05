@@ -24,8 +24,8 @@
     <script type="text/javascript">
         //var s = baidu('.group').selectable('.select');
         //var s = baidu.plugin._util_.rubberSelect().range('#wrapper');
-        var s = baidu('.group').selectable('.select',{
-            range:'#wrapper',
+        var s = baidu('.group').selectable({
+            //range:'#wrapper',
             onstart:function(){console.log('start');},
             onchange:function(e){
                 console.log('change');
