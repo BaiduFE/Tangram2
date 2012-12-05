@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="baidu.dom().draggable() 示例" />
+        <title>draggable组件</title>
+        <link rel="stylesheet" href="style.css" type="text/css" /> 
+        <script type="text/javascript" src="../../src/import.php?f=plugin.draggable" ></script>
+    </head>
+    <body>
+        <div id='wrapper'>
+            <div id='test-a' class="wrap" style="background-color:#ff0;">
+                <div class="item" style="top:10px;"></div>
+                <div class="item" style="bottom:10px;"></div>
+            </div>
+
+            <div id='test-b' class="wrap">
+                <div class="item" style="top:10px;"></div>
+                <div class="item" style="bottom:10px;"></div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+    var a = baidu('#test-a').draggable({
+        range:'#wrapper',
+        zIndex:2,
+        onstart:function(){console.log('wangxiao');}
+    });
+    var b = baidu('#test-b').draggable('.item',{
+        endOf:'#wrapper',
+        focus:'div',
+        onenter:function(e){
+            console.log('ender');
+            console.log(e.target);
+        },
+        onleave:function(e){
+            console.log('leave');
+            console.log(e.target);
+        }
+    });
+    //a.range('#wrapper');
+
+    // var c = baidu.plugin._util_.drag('#test-b');
+    // c.range('#wrapper');
+    </script>
+</html>
