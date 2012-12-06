@@ -467,7 +467,7 @@ baidu.dom.extend({
             keyUpHandle = function(e){
 
                     //Win下Ctrl 和 Mac下 command 键
-                    if(e.ctrlKey || e.keyCode == 91){
+                    if(!e.ctrlKey || e.keyCode == 91){
                         keydown = false;
                         item.removeClass('tang-selectable-selecting');
                     };
