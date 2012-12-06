@@ -81,7 +81,11 @@ var QUnit = {
 			expected = null;
 		}
 		
-		if(window.location.href.indexOf("download=1") > -1 && (testName.indexOf("老接口") > -1 || testName.indexOf("兼容Magic接口") > -1)){
+		if((window.location.href.indexOf("download=1") > -1 || window.location.href.indexOf("download=2") > -1) && (testName.indexOf("老接口") > -1 || testName.indexOf("兼容Magic接口") > -1)){
+			callback = function(){
+			}
+		}
+		if(window.location.href.indexOf("download=4") > -1 && testName.indexOf("老接口") > -1){
 			callback = function(){
 			}
 		}
@@ -89,11 +93,7 @@ var QUnit = {
 			callback = function(){
 			}
 		}
-		if(window.location.href.indexOf("release=true") > -1 && window.location.href.indexOf("nsmagic=true") > -1 && testName.indexOf("兼容Magic接口") > -1){
-			callback = function(){
-			}
-		}
-			
+		
 		// is 2nd argument a testEnvironment?
 		if ( expected && typeof expected === 'object') {
 			testEnvironmentArg =  expected;

@@ -8,11 +8,19 @@ $(document).ready(
 					'<iframe id="' + fid + '" src="' + url
 							+ '" class="downloadframe"></iframe>');
 			window.$("#" + fid).one('load', function(e) {
+				var count1, count2;
 				top.apicontent = "";
 				var win = e.target.contentWindow;
 				win.postMessage(fid.split("_")[3],"*");
+				win.postMessage("apiCount","*");
 				window.onmessage = function(e){
-					top.apicontent = e.data;
+					if(e.data.length == 2){
+						top.apicontent = e.data[0];
+						top.count2 = e.data[1];
+					}
+					else{
+						top.count1 = e.data;
+					}
 				}
 			});
 			top.flag = false;
