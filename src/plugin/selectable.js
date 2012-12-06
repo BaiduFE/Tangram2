@@ -4,34 +4,264 @@
  */
 
 /**
- * @description 实例化当前的选择
+ * @description 实例化当前的选择列表（selectable）功能
  * @function 
- * @name baidu.dom().draggable()
- * @grammar baidu.dom(args).draggable([selector][,options])
- * @param {Selector|TangramDom|htmlElement} args 传入当前要被拖拽的容器或者选择器
- * @param {Selector|TangramDom|htmlElement} selector 拖拽元素上面触发拖拽功能的部分，只有当鼠标在匹配元素上触发，被拖拽元素才能被拖拽
+ * @name baidu().seletable()
+ * @grammar baidu(args).selectable([selector][,options])
+ * @param {Selector|TangramDom|htmlElement} args 传入当前要被实例化为选择列表（selectable）的容器或者CSS选择器
+ * @param {Selector|TangramDom|htmlElement} selector 可选参数，可以是CSS选择器或者是HTML元素，当前选择列表（selectable）中，可以被选择的项。
  * @param {Object} options 相关配置参数
- * @param {Boolean} options.enable 当前的draggable实例是否可以被拖拽
- * @param {Selector|TangramDom|htmlElement|Object} options.range 当前拖拽的范围，可以限制在某一个元素内，传入selector只会取出第一个。传入Object要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
- * @param {Selector|TangramDom|htmlElement|Object} options.endOf 拖拽元素想要拖拽到的范围，可以限制在某些元素内，传入selector，限制用户必须拖拽到其中任意一个匹配元素内。传入Object要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
- * @param {Numeber} options.zIndex 拖拽元素的显示层级
- * @param {Selector|TangramDom|htmlElement} options.focus 拖拽时关注的元素，传入一个selector，当拖拽元素到focus的元素上时，会触发'enter'事件，离开时会触发'leave'事件。
- * @param {Function} options.onstart 当拖拽开启时，实例会触发“start”内部事件，并且会触发onstart方法。
- * @param {Function} options.onend 当拖拽结束时，实例会触发“end”内部事件，并且会触发onend方法。
- * @param {Function} options.ondragging 当拖拽时，实例会触发“dragging”内部事件，并且会触发ondragging方法，当前被拖拽的元素此时会默认加一个className名为“tang-draggable-dragging”。
- * @param {Function} options.onenter 当拖拽元素到options.focus匹配的元素上时，实例会触发‘enter’内部事件，并且在参数e.target中可以取得当前移入到了哪个元素。
- * @param {Function} options.onleave 当拖拽元素离开options.focus匹配的元素时，实例会触发‘leave’内部事件，并且在参数e.target中可以取得当前离开了哪个元素。
- * @return {Draggable} 返回Draggable的一个实例，实例的options属性中可以取到所有配置。
+ * @param {Boolean} options.enable 当前的选择列表（selectable）实例是否可使用。
+ * @param {Selector|TangramDom|htmlElement|Object} options.range 当前选择列表（selectable）激活的范围，可以是CSS选择器或者HTML元素（如果是多个，只会取出第一个），限制范围在某一个元素内。传入Object要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
+ * @param {Function} options.onstart 当用户框选操作开始时，实例会触发“start”内部事件，并且会触发onstart方法。
+ * @param {Function} options.onend 当用户框选操作结束时，实例会触发“end”内部事件，并且会触发onend方法。
+ * @param {Function} options.ondragging 当用户正在拖拽选框来选择时，实例会触发“dragging”内部事件，并且会触发ondragging方法。
+ * @param {Function} options.onchange 当选择列表（selectable）中的选择项发生变化时，会触发“change”内部事件，并且会触发onchange方法，在参数e.target中可以取得当前是哪一个元素改变了。所有被选择的元素都会默认被加上名为“tang-selectable-selected”的className。
+ * @return {selectable} 返回选择列表（selectable）的一个实例，实例的默认配置可以直接通过options属性取到。
  * @example
-    该方法会产生一个draggable实例，你可以通过配置，或者后期调用的方式来控制该实例的功能。
-    当元素被拖拽的时候，默认会被加上一个名字为“tang-draggable-dragging”的className，方便用户改变正在拖动元素的样式，或者对该元素做操作。
+    该方法会产生一个选择列表（selectable）实例，你可以通过配置，或者后期调用的方式来控制该实例的功能。
+    选择列表（selectable）中所有被选择的元素都会默认被加上名为“tang-selectable-selected”的className，方便用户改变被选中的元素样式，或者对该元素做操作。
+
+ 示例代码：
+ //baidu.plugin.selectable 相关CSS
+
+ // @description 橡皮筋框选rubber select的框选层默认样式
+ .tang-rubberSelect{
+    border: 1px dotted #888;
+    background-color: #FFF;
+    filter:alpha(opacity=80);
+    -moz-opacity:0.8;
+    opacity: 0.8;
+ }
+
+ // selectable 默认样式
+ // @description selectable 中被选中的元素默认样式
+ .tang-selectable-selected{
+    background-color: #888;
+ }
+
+ //HTML代码片段
+ <ul class='group'>
+    <li class='select'></li>
+    <li class='select'></li>
+    <li></li>
+    <li></li>
+ </ul>
+
+ //js部分
+ 
+ //最简单的直接使用
+ var selectable = baidu('.group').selectable(); //此时grop的直接子元素均可以被选择，当前被选择都会默认加上名为“tang-selectable-selected”的className。
+
+ //设置可以被选择的元素
+ var selectable = baidu('.group').selectable('.select'); //此时grop元素中，有className为“.select”的子元素才可以被选择。
+
+*/
+
+/**
+ * @description 设置当前选择列表（selectable）激活的范围
+ * @function 
+ * @name baidu().selectable().range()
+ * @grammar baidu(args).selectable().range(value)
+ * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
+ * @return {Selectable|Selector|TangramDom|htmlElement|Object} 返回Setectable的一个实例，或者是取出当前range的值。
+*/
+
+/**
+ * @description 取消选择，恢复为一个都没选
+ * @function 
+ * @name baidu().selectable().cancel()
+ * @grammar baidu(args).selectable().cancel()
+ * @param {Null}
+ * @return {Selectable} 返回Setectable的一个实例。
+*/
+
+/**
+ * @description 关闭当前这个选择列表（selectable）的功能
+ * @function 
+ * @name baidu().selectable().disable()
+ * @grammar baidu(args).selectable().disable()
+ * @param {Null}
+ * @return {Selectable} 返回Setectable的一个实例。
+*/
+
+/**
+ * @description 开启当前这个选择列表（selectable）的功能
+ * @function 
+ * @name baidu().selectable().enable()
+ * @grammar baidu(args).selectable().enable()
+ * @param {Null}
+ * @return {Selectable} 返回Setectable的一个实例。
+ * @example
+ 该方法与disable()方法结合使用，初始化selectable时，默认是enable的状态，无需手动触发enable方法。
+*/
+
+/**
+ * @description 析构函数，清除所有调用资源
+ * @function 
+ * @name baidu().selectable().dispose()
+ * @grammar baidu(args).selectable().dispose()
+ * @param {Null}
+ * @return {Null} 被析构后，当前的Selectable实例只会有一个元素{dispose:true}
+*/
+
+/**
+ * @description 取得当前被选择的元素
+ * @function 
+ * @name baidu().selectable().selected()
+ * @grammar baidu(args).selectable().selected()
+ * @param {Null}
+ * @return {TangramDom} 直接返回当前被选择元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法，当前被选择时都会默认被加上名为“tang-selectable-selected”的className。
+*/
+
+/**
+ * @description 取得当前没有被选择的元素
+ * @function 
+ * @name baidu().selectable().unselected()
+ * @grammar baidu(args).selectable().unselected()
+ * @param {Null}
+ * @return {TangramDom} 直接返回当前没有被选择元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法。
+*/
+
+/**
+ * @description 取得当前选择列表（selectable）中所有可以被选择的元素
+ * @function 
+ * @name baidu().selectable().item()
+ * @grammar baidu(args).selectable().item()
+ * @param {Null}
+ * @return {TangramDom} 直接返回当前选择列表（selectable）中所有可以被选择的元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法。
+*/
+
+/**
+ * @description 重新获取当前元素的tangramDom链头，使其可以使用tangram的Dom操作方法
+ * @function 
+ * @name baidu().selectable().getBack()
+ * @grammar baidu(args).selectable().getBack()
+ * @param {Null}
+ * @return {TangramDom} 返回当前拖拽元素的tangramDom对象，可以继续使用tangram的Dom操作方法
+ * @example
+ 调用该方法可以继续使用tangram的Dom操作方法，如：
 
  示例代码：
  //HTML代码片段
- <div>
-    <h1>test1</h1>
-    <h2>test2</h2>
- </div>
+ <ul class='group'>
+    <li class='select'></li>
+    <li class='select'></li>
+    <li></li>
+    <li></li>
+ </ul>
+
+ //js部分
+ var selectable = baidu('.group').selectable();
+ selectable.getBack().css('border','1px solid #F00');
+*/
+
+/**
+ * @description 监听当前selectable实例中的内部事件
+ * @function 
+ * @name baidu().selectable().on()
+ * @grammar baidu(args).selectable().on(name,fun)
+ * @param {String} name 私有事件的名称
+ * @param {Function} fun 当此事件被触发时执行的方法
+ * @return {Selectable} 返回Selectable的一个实例
+ * @example
+ 目前selectable实例中的私有事件有:
+ ‘start’：用户框选开始时触发；
+ ‘end’：用户框选结束时触发；
+ ‘dragging’：每次框选框改变时触发；
+ ‘change’：当前被框选元素改变时触发；
+
+ 示例代码：
+ //HTML代码片段
+ <ul class='group'>
+    <li class='select'></li>
+    <li class='select'></li>
+    <li></li>
+    <li></li>
+ </ul>
+
+ //js部分
+ var selectable = baidu('.group').selectable();
+
+ var fn = function(){
+    alert('started!');    
+ };
+
+ selectable.on('start',fn);
+*/
+
+/**
+ * @description 移除当前selectable实例中对内部事件的监听
+ * @function 
+ * @name baidu().selectable().off()
+ * @grammar baidu(args).selectable().off(name,fun)
+ * @param {String} name 私有事件的名称
+ * @param {Function} fun 要移除的方法
+ * @return {Selectable} 返回Selectable的一个实例
+ * @example
+ 目前selectable实例中的私有事件有:
+ ‘start’：用户框选开始时触发；
+ ‘end’：用户框选结束时触发；
+ ‘dragging’：每次框选框改变时触发；
+ ‘change’：当前被框选元素改变时触发；
+
+ 示例代码：
+ //HTML代码片段
+ <ul class='group'>
+    <li class='select'></li>
+    <li class='select'></li>
+    <li></li>
+    <li></li>
+ </ul>
+
+ //js部分
+ var selectable = baidu('.group').selectable();
+
+ var fn = function(){
+    alert('started!');    
+ };
+
+ selectable.off('start',fn);
+*/
+
+/**
+ * @description 触发一个selectable实例中对内部事件
+ * @function 
+ * @name baidu().selectable().fire()
+ * @grammar baidu(args).selectable().fire(name,options)
+ * @param {String} name 私有事件的名称
+ * @param {Object} options 扩展参数，所含属性键值会扩展到Event对象上 
+ * @example
+ 目前selectable实例中的私有事件有:
+ ‘start’：用户框选开始时触发；
+ ‘end’：用户框选结束时触发；
+ ‘dragging’：每次框选框改变时触发；
+ ‘change’：当前被框选元素改变时触发；
+
+ 示例代码：
+ //HTML代码片段
+ <ul class='group'>
+    <li class='select'></li>
+    <li class='select'></li>
+    <li></li>
+    <li></li>
+ </ul>
+
+ //js部分
+ var selectable = baidu('.group').selectable();
+
+ //如：监听living事件
+ selectable.on('living',function(){
+    alert('selectable is living!');    
+ });
+
+ setTimeout(function(){
+     if(selectable){
+
+         //触发living事件
+        selectable.fire('living');
+     };    
+ },1000);
 */
 
 ///import baidu.type;

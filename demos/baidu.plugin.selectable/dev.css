@@ -27,5 +27,5 @@ li.item{
 /* selectable 默认样式 */
 /* selectable 中被选中的元素默认样式 */
 .tang-selectable-selected{
-    background-color: #03b;
+    background-color: #888;
 }

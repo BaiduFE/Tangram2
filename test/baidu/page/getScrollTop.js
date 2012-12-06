@@ -1,6 +1,6 @@
 module("baidu.page.getScrollTop");
 
-test("滚动条检测", function() {
+test("兼容Magic接口：滚动条检测", function() {
 	ua.frameExt( {
 		ontest : function(w) {
 			var op = this;
@@ -10,7 +10,7 @@ test("滚动条检测", function() {
 	});
 });
 
-test("有滚动", function() {
+test("兼容Magic接口：有滚动", function() {
 	ua.frameExt( {
 		onafterstart : function(f) {
 			$(f).css('height', 200);
@@ -27,7 +27,7 @@ test("有滚动", function() {
 	});
 });
 
-test("滚动200", function() {
+test("兼容Magic接口：滚动200", function() {
 	ua.frameExt( {
 		onafterstart : function(f) {
 			$(f).css('height', 200);

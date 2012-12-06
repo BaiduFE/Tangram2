@@ -21,7 +21,7 @@ module("baidu.lang.Class.$removeEventListener");
 	};
 })();
 
-test("removeEventListener", function() {
+test("兼容Magic接口：removeEventListener", function() {
 	stop();
 	ua.importsrc("baidu.lang.Event", function(){
 		function myClass() {
@@ -43,7 +43,7 @@ test("removeEventListener", function() {
 	}, "baidu.lang.Event", "baidu.lang.Class.$removeEventListener");
 });
 
-test("removeEventListener - no key", function() {
+test("兼容Magic接口：removeEventListener - no key", function() {
 	function myClass() {
 		this.name = "myclass";
 	}
@@ -64,7 +64,7 @@ test("removeEventListener - no key", function() {
 
 	});
 
-test("removeEventListener - no handler", function () {  // 2011-2-26, 无handler参数时移除所有事件
+test("兼容Magic接口：removeEventListener - no handler", function () {  // 2011-2-26, 无handler参数时移除所有事件
 	function myClass() {
 		this.name = "myclass";
 	}
@@ -86,7 +86,7 @@ test("removeEventListener - no handler", function () {  // 2011-2-26, 无handler
 		ok(true, "listner is removed");   
 });
 
-test("removeEventListener - default params", function () {
+test("兼容Magic接口：removeEventListener - default params", function () {
 	function myClass() {
 		this.name = "myclass";
 	}
