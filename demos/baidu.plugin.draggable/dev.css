@@ -21,5 +21,8 @@
 }
 
 .tang-draggable-dragging{
+    filter:alpha(opacity=60);
+    -moz-opacity:0.6;
+    opacity: 0.6;    
     background-color: #0FF;
 }

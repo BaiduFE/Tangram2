@@ -4,13 +4,13 @@
  */
 
 /**
- * @description 实例化当前的拖拽组件
+ * @description 实例化当前的拖拽（draggable）组件
  * @function 
- * @name baidu.dom().draggable()
- * @grammar baidu.dom(args).draggable([selector][,options])
+ * @name baidu().draggable()
+ * @grammar baidu(args).draggable([selector][,options])
  * @param {Selector|TangramDom|htmlElement} args 传入当前要被拖拽的容器或者选择器
- * @param {Selector|TangramDom|htmlElement} selector 拖拽元素上面触发拖拽功能的部分，只有当鼠标在匹配元素上触发，被拖拽元素才能被拖拽
- * @param {Object} options 相关配置参数
+ * @param {Selector|TangramDom|htmlElement} selector 可选参数，拖拽元素上面触发拖拽功能的部分，只有当鼠标在匹配元素上触发，被拖拽元素才能被拖拽
+ * @param {Object} options 可选参数，相关配置参数
  * @param {Boolean} options.enable 当前的draggable实例是否可以被拖拽
  * @param {Selector|TangramDom|htmlElement|Object} options.range 当前拖拽的范围，可以限制在某一个元素内，传入selector只会取出第一个。传入Object要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
  * @param {Selector|TangramDom|htmlElement|Object} options.endOf 拖拽元素想要拖拽到的范围，可以限制在某些元素内，传入selector，限制用户必须拖拽到其中任意一个匹配元素内。传入Object要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
@@ -27,54 +27,35 @@
     当元素被拖拽的时候，默认会被加上一个名字为“tang-draggable-dragging”的className，方便用户改变正在拖动元素的样式，或者对该元素做操作。
 
  示例代码：
+ 相关CSS说明：
+ //@description 该className会在用户拖拽某一元素时被添加到该元素上，可以方便用户添加拖拽元素的样式。
+ .tang-draggable-dragging{
+    filter:alpha(opacity=80);
+    -moz-opacity:0.8;
+    opacity: 0.8;
+ }
+
  //HTML代码片段
  <div>
     <h1>test1</h1>
     <h2>test2</h2>
  </div>
-*/
 
-/**
- * @description 限定拖拽元素可以活动的范围
- * @function 
- * @name baidu.dom().draggable().range()
- * @grammar baidu.dom(args).draggable().range(value)
- * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
- * @return {Draggable|Selector|TangramDom|htmlElement|Object} 返回Draggable的一个实例，或者是取出当前range的值。
-*/
+ //js部分
+ 
+ //最简单的直接使用
+ var draggable = baidu('div').draggable(); //此时div元素都可以被拖拽了
 
-/**
- * @description 限定拖拽元素一定要到达的范围
- * @function 
- * @name baidu.dom().draggable().endOf()
- * @grammar baidu.dom(args).draggable().endOf(value)
- * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，限定拖拽元素只能拖拽至当前selector匹配的任意个元素内。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
- * @return {Draggable|Selector|TangramDom|htmlElement|Object} 返回Draggable的一个实例，或者返回endOf当前的值。
-*/
+ //设置拖拽把手
+ var draggable = baidu('div').draggable('h1'); //此时div元素都可以被拖拽了，但是鼠标必须点击h1上，才能拖拽div 
 
-/**
- * @description 取出或设置当前拖拽元素层级
- * @function 
- * @name baidu.dom().draggable().zIndex()
- * @grammar baidu.dom(args).draggable().zIndex(value)
- * @param {Number|Null} value 可以对当前拖拽元素设置层级，如果不传参数，则为获取当前层级。
- * @return {Draggable|Number} 返回Draggable的一个实例，或者返回当前的zIndex值。
-*/
-
-/**
- * @description 取消本次拖拽动作
- * @function 
- * @name baidu.dom().draggable().cancel()
- * @grammar baidu.dom(args).draggable().cancel()
- * @param {Null}
- * @return {Draggable} 返回Draggable的一个实例
 */
 
 /**
  * @description 使当前拖拽元素无法拖拽
  * @function 
- * @name baidu.dom().draggable().disable()
- * @grammar baidu.dom(args).draggable().disable()
+ * @name baidu().draggable().disable()
+ * @grammar baidu(args).draggable().disable()
  * @param {Null}
  * @return {Draggable} 返回Draggable的一个实例
 */
@@ -82,8 +63,8 @@
 /**
  * @description 重新开启当前拖拽元素，使其可以拖拽
  * @function 
- * @name baidu.dom().draggable().enable()
- * @grammar baidu.dom(args).draggable().enable()
+ * @name baidu().draggable().enable()
+ * @grammar baidu(args).draggable().enable()
  * @param {Null}
  * @return {Draggable} 返回Draggable的一个实例
  * @example
@@ -91,10 +72,46 @@
 */
 
 /**
+ * @description 取出或设置当前拖拽元素层级
+ * @function 
+ * @name baidu().draggable().zIndex()
+ * @grammar baidu(args).draggable().zIndex(value)
+ * @param {Number|Null} value 可以对当前拖拽元素设置层级，如果不传参数，则为获取当前层级。
+ * @return {Draggable|Number} 返回Draggable的一个实例，或者返回当前的zIndex值。
+*/
+
+/**
+ * @description 取消本次拖拽动作
+ * @function 
+ * @name baidu().draggable().cancel()
+ * @grammar baidu(args).draggable().cancel()
+ * @param {Null}
+ * @return {Draggable} 返回Draggable的一个实例
+*/
+
+/**
+ * @description 限定拖拽元素可以活动的范围
+ * @function 
+ * @name baidu().draggable().range()
+ * @grammar baidu(args).draggable().range(value)
+ * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
+ * @return {Draggable|Selector|TangramDom|htmlElement|Object} 返回Draggable的一个实例，或者是取出当前range的值。
+*/
+
+/**
+ * @description 限定拖拽元素一定要到达的范围
+ * @function 
+ * @name baidu().draggable().endOf()
+ * @grammar baidu(args).draggable().endOf(value)
+ * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，限定拖拽元素只能拖拽至当前selector匹配的任意个元素内。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
+ * @return {Draggable|Selector|TangramDom|htmlElement|Object} 返回Draggable的一个实例，或者返回endOf当前的值。
+*/
+
+/**
  * @description 析构函数
  * @function 
- * @name baidu.dom().draggable().dispose()
- * @grammar baidu.dom(args).draggable().dispose()
+ * @name baidu().draggable().dispose()
+ * @grammar baidu(args).draggable().dispose()
  * @param {Null}
  * @return {Null}
  * @example
@@ -104,8 +121,8 @@
 /**
  * @description 重新获取当前元素的tangramDom链头，使其可以使用tangram的Dom操作方法
  * @function 
- * @name baidu.dom().draggable().getBack()
- * @grammar baidu.dom(args).draggable().getBack()
+ * @name baidu().draggable().getBack()
+ * @grammar baidu(args).draggable().getBack()
  * @param {Null}
  * @return {TangramDom} 返回当前拖拽元素的tangramDom对象，可以继续使用tangram的Dom操作方法
  * @example
@@ -126,8 +143,8 @@
 /**
  * @description 监听当前draggable实例中的内部事件
  * @function 
- * @name baidu.dom().draggable().on()
- * @grammar baidu.dom(args).draggable().on(name,fun)
+ * @name baidu().draggable().on()
+ * @grammar baidu(args).draggable().on(name,fun)
  * @param {String} name 私有事件的名称
  * @param {Function} fun 当此事件被触发时执行的方法
  * @return {Draggable} 返回Draggable的一个实例
@@ -159,8 +176,8 @@
 /**
  * @description 移除当前draggable实例中对内部事件的监听
  * @function 
- * @name baidu.dom().draggable().off()
- * @grammar baidu.dom(args).draggable().off(name,fun)
+ * @name baidu().draggable().off()
+ * @grammar baidu(args).draggable().off(name,fun)
  * @param {String} name 私有事件的名称
  * @param {Function} fun 要移除的方法
  * @return {Draggable} 返回Draggable的一个实例
@@ -192,8 +209,8 @@
 /**
  * @description 触发一个draggable实例中对内部事件
  * @function 
- * @name baidu.dom().draggable().fire()
- * @grammar baidu.dom(args).draggable().fire(name,options)
+ * @name baidu().draggable().fire()
+ * @grammar baidu(args).draggable().fire(name,options)
  * @param {String} name 私有事件的名称
  * @param {Object} options 扩展参数，所含属性键值会扩展到Event对象上 
  * @example
