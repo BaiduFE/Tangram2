@@ -21,8 +21,11 @@ else{
 			$file_name = "tangram_base";
 		else
 			$file_name = "tangram_compatible";
-		print "<script type='text/javascript' src='../../../release/$download.js'></script>";
+		print "<script type='text/javascript' src='../../../release/$file_name.js'></script>";
 	}
+}
+if($download !=0 ){
+	print '<script type="text/javascript" src="../br/js/download_check.js"></script>'."\n";
 }
 ?>
 <script type="text/javascript">
@@ -32,12 +35,5 @@ else{
 <body>
 </body>
 <script>
-(function(){debugger;
-	if(top.location.href.search("[?&,]download=[0-9]") > 0){
-		if(top.apicontent){
-			$("body").append('<script type="text/javascript">' + top.apicontent + '<\/script>');
-		}
-	}
-})();
 </script>
 </html>

@@ -21,7 +21,6 @@ $download = array_key_exists('download', $_GET);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php print("run case $title");?></title>
-
 <?php $c->print_js($cov, $release, $compatible, $download); ?>
 
 </head>
@@ -30,24 +29,7 @@ $download = array_key_exists('download', $_GET);
 <h2 id="qunit-banner"></h2>
 <h2 id="qunit-userAgent"></h2>
 <ol id="qunit-tests"></ol>
-<script>
-(function(){
-	if(location.href.search("[?&,]download=[0-9]") > 0){
-		if(top.apicontent){
-			$("body").append('<script type="text/javascript">' + top.apicontent + '<\/script>');
-		}
-		else{
-			var h = setInterval(function(){
-				if(top.apicontent){
-					$("body").append("<div></div>");
-	    			$("body").append('<script type="text/javascript">' + top.apicontent + '<\/script>');
-					clearInterval(h);
-				}
-			}, 100);
-		}
-	}
-})();
-</script>
+
 <script type="text/javascript">
     void function(){
         var p, f, s = 0;

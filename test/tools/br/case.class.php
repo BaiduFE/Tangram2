@@ -111,10 +111,12 @@ class Kiss{
 					$file_name = "tangram_base";
 				else
 					$file_name = "tangram_compatible";
-				print "<script type='text/javascript' src='{$this->projroot}release/tangram.js'></script>\n";
+				print "<script type='text/javascript' src='{$this->projroot}release/$file_name.js'></script>\n";
 			}
 		}
-
+		if($download !=0 ){
+			print '<script type="text/javascript" src="js/download_check.js"></script>'."\n";
+		}
 
 		/* load case and case dependents*/
 		$ps = explode('.', $this->name);

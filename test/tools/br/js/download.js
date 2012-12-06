@@ -10,10 +10,11 @@ $(document).ready(
 			window.$("#" + fid).one('load', function(e) {
 				top.apicontent = "";
 				var win = e.target.contentWindow;
-				win.postMessage("1","*");
+				win.postMessage(fid.split("_")[3],"*");
 				window.onmessage = function(e){
 					top.apicontent = e.data;
 				}
 			});
+			top.flag = false;
 		}
 	});

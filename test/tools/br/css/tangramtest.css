@@ -181,3 +181,12 @@ a.button:active span {
 	max-height: 200px;
 	overflow-y: scroll;
 }
+
+.correct{
+	padding-left: 20px;
+	color: green;
+	}
+.wrong{
+	padding-left: 20px;
+	color: red;
+	}
