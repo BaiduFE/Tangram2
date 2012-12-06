@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu.dom().selectable() 示例"/>
+    <title>方法相关</title>
+    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+    <!--<script type="text/javascript" src="../../demos/tangram2.0.1.0-min.js"></script>-->
+    <script type="text/javascript" src="../../src/import.php?f=plugin.selectable"></script>
+    <style type="text/css">
+        #selectable {
+            padding: 10px 0 50px 0;
+        }
+
+        #selectable ul {
+            list-style: none;
+            width: 30%;
+        }
+
+        #selectable li {
+            margin: 3px;
+            padding: 8px;
+            font-size: 12px;
+            height: 18px;
+            border: 1px solid #ccc;
+        }
+
+        .tang-rubberSelect {
+            border: 1px dotted #888;
+            background-color: #FFF;
+            filter: alpha(opacity = 80);
+            -moz-opacity: 0.8;
+            opacity: 0.8;
+        }
+
+        #selectable .tang-selectable-selected {
+            background: #F39814;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu.dom().selectable()</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span></span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div id="selectable">
+                <ul>
+                    <li class='item select'>Item 1</li>
+                    <li class='item select'>Item 2</li>
+                    <li class='item'>Item 3</li>
+                    <li class='item'>Item 4</li>
+                    <li class='item select'>Item 5</li>
+                    <li class='item'>Item 6</li>
+                    <li class='item'>Item 7</li>
+                    <li class='item select'>Item 8</li>
+                </ul>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var s = baidu( '#selectable ul' ).selectable();
+</script>
+</body>
+</html>
