@@ -1,3 +1,9 @@
+
+///import baidu.dom.getCurrentStyle;
+///import baidu.dom.getDocument;
+///import baidu._util_.contains;
+///import baidu.dom.each;
+
 /**
  * @description 显示匹配的元素
  * @function 
@@ -15,10 +21,7 @@
  baidu("div").show();
 
  */
-///import baidu.dom.getCurrentStyle;
-///import baidu.dom.getDocument;
-///import baidu._util_.contains;
-///import baidu.dom.each;
+
 baidu.dom.extend({
     show: function(){
         var valMap = {};

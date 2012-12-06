@@ -1,6 +1,6 @@
 module("baidu.page.getHeight");
 
-test("老接口：高度检测", function() {
+test("兼容Magic接口：高度检测", function() {
 	ua.frameExt( {
 		ontest : function(w, f) {
 			var doc = w.document;

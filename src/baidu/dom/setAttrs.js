@@ -17,7 +17,7 @@
  */
 baidu.dom.extend({
     setAttrs : function (attributes) {
-        element = this[0];
+        var element = this[0];
     
         for (var key in attributes) {
             baidu.dom.setAttr(element, key, attributes[key]);
