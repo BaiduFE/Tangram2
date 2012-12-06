@@ -10,6 +10,56 @@
 ///import baidu._util_.support.getSetAttribute;
 ///import baidu.array.map;
 
+/**
+ * @description 获取匹配的元素集合中第一个元素的当前值。
+ * @function 
+ * @name baidu.dom().val()
+ * @grammar baidu.dom(args).val()
+ * @return {String|Number|Undefined} 获取匹配的元素集合中第一个元素的当前值。
+ * @example
+ .val()方法主要用于获取表单元素的值，下拉框（select）和复选框（checkbox），
+ 你也可以使用:selected和:checked选择器来获取值，举个例子：
+
+ baidu('select.foo option:selected').val();    // 从下拉框中获取值
+ baidu('select.foo').val();                    // 从一个或更多的下拉框中获取值
+ baidu('input:checkbox:checked').val();        // 从选中的复选框中获取值
+ baidu('input:radio[name=bar]:checked').val(); // 从单选选框中获取值
+
+ 示例代码：
+ //HTML代码片段
+ <input type='text' value='baidu'>
+
+ //获取value
+ baidu('input').val();
+
+ */
+/**
+ * @description 设置匹配的元素集合中每个元素的value值。
+ * @function 
+ * @name baidu.dom().val()
+ * @grammar baidu.dom(args).val(value)
+ * @param {String} value 一个文本字符串来设定每个匹配元素的值。
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example
+ 这个方法通常是用来设置表单域的值。
+
+ 示例代码：
+ //HTML代码片段
+ <input type='text' value='google'>
+
+ //获取value
+ baidu('input').val('baidu');
+
+ */
+/**
+ * @description 设置匹配的元素集合中每个元素的value值。
+ * @function 
+ * @name baidu.dom().val()
+ * @grammar baidu.dom(args).val(fn)
+ * @param {Function} fn 一个用来返回设置value值的函数。接收元素的索引位置和元素旧的value值作为参数。
+ * @return {TangramDom} 返回之前匹配元素的TangramDom对象
+ * @example baidu.dom("<div>").val(function(index, value){});
+ */
 
 baidu.dom.extend({
     val: function(){

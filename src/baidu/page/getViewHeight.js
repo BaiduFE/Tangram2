@@ -23,7 +23,7 @@
  */
 baidu.page.getViewHeight = function () {
     var doc = document,
-        ie = baidu.browser.ie || 1;
+        ie = baidu.browser.ie || 1,
         client = doc.compatMode === 'BackCompat'
             && ie < 9 ? doc.body : doc.documentElement;
         //ie9浏览器需要取得documentElement才能取得到正确的高度
