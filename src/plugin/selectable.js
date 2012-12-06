@@ -68,10 +68,19 @@
 */
 
 /**
- * @description 取消选择，恢复为一个都没选
+ * @description 取消本次选择，恢复为上次选项
  * @function 
  * @name baidu().selectable().cancel()
  * @grammar baidu(args).selectable().cancel()
+ * @param {Null}
+ * @return {Selectable} 返回Setectable的一个实例。
+*/
+
+/**
+ * @description 重置选择，恢复为一个都没选
+ * @function 
+ * @name baidu().selectable().reset()
+ * @grammar baidu(args).selectable().reset()
  * @param {Null}
  * @return {Selectable} 返回Setectable的一个实例。
 */
@@ -316,12 +325,24 @@ baidu.dom.extend({
                     };
                 },
 
-                //取消选择，恢复为一个都没选
+                //取消选择，恢复上次选择的结果
                 cancel:function(){
-                    item.removeClass('tang-selectable-selected');
+                    if(lastSelected){
+                        item.removeClass('tang-selectable-selected');
+                        lastSelected.addClass('tang-selectable-selected');
+                    }else{
+                        selectable.reset();
+                    }
                     return selectable;
                 },
 
+                //取消选择，恢复为一个都没选
+                reset:function(){
+                    lastSelected = me.find('.tang-selectable-selected');
+                    item.removeClass('tang-selectable-selected');
+                    return selectable;
+                },
+                
                 //关闭选择功能
                 disable:function(){
                     if(opt.enable){
@@ -364,7 +385,7 @@ baidu.dom.extend({
 
                 //取得没有选中的值
                 unselected:function(){
-                    return item.not('.tang-selectable-selected');
+                    return me.not('.tang-selectable-selected');
                 },
 
                 //取得当前所有元素
@@ -386,10 +407,13 @@ baidu.dom.extend({
             //selectable的item
             item,
 
+            //存储上一次选择的项，cancel方法中用来还原
+            lastSelected,
+
             //函数节流计时器
             timer,
 
-            //按键多选
+            //按键多选的标志量，可以多选为true
             keydown = false,
 
             //初始化事件相关绑定
@@ -405,6 +429,11 @@ baidu.dom.extend({
                 selectable.on('end',function(){
                     item.removeClass('tang-selectable-selecting');
                 });
+
+                //支持多选功能
+                selectable.on('start',function(){
+                    lastSelected = me.find('.tang-selectable-selected');
+                });
             },
 
             handle = function(){
@@ -412,7 +441,7 @@ baidu.dom.extend({
                 //增加函数节流，防止事件频繁触发函数，影响性能
                 clearTimeout(timer);
                 timer = setTimeout(function(){
-
+                    selectable.fire('dragging');
                     if(!keydown){
 
                         //只能选择一次
@@ -420,13 +449,13 @@ baidu.dom.extend({
                             var _ele = item.eq(i);
                             if(_ele.isCover(rubberSelect.target)){
                                 if (!_ele.hasClass('tang-selectable-selected')) {
-                                    _ele.addClass('tang-selectable-selected');
                                     selectable.fire('change',{target:_ele});
+                                    _ele.addClass('tang-selectable-selected');
                                 };
                             }else{
                                 if(_ele.hasClass('tang-selectable-selected')){
-                                    _ele.removeClass('tang-selectable-selected');
                                     selectable.fire('change',{target:_ele});
+                                    _ele.removeClass('tang-selectable-selected');
                                 };
                             };
                         };
@@ -439,6 +468,7 @@ baidu.dom.extend({
 
                             //只对选了的做判断
                             if(_ele.isCover(rubberSelect.target) && !_ele.hasClass('tang-selectable-selecting')){
+                                selectable.fire('change',{target:_ele});
 
                                 //支持可以多次选择，判断此次碰撞是否已经选择了
                                 _ele.addClass('tang-selectable-selecting');                              
@@ -447,12 +477,10 @@ baidu.dom.extend({
                                 }else{
                                     _ele.removeClass('tang-selectable-selected');
                                 };
-                                selectable.fire('change',{target:_ele});
                             };
                         };
                     };
 
-                    selectable.fire('dragging');
                 },3);
             },
 
@@ -489,6 +517,7 @@ baidu.dom.extend({
                 doc.on('rubberselectend',fireEnd);
             },
 
+            //统一的解绑事件
             offDocEvent = function(){
                 doc.off('keydown',keyDownHandle);
                 doc.off('keyup',keyUpHandle);
@@ -516,7 +545,6 @@ baidu.dom.extend({
                     if(opt.range){
                         selectable.range(opt.range);
                     };
-                    bindEvent();
                 }else{
 
                     //此时是selector
@@ -532,9 +560,9 @@ baidu.dom.extend({
                 if(opt.range){
                     selectable.range(opt.range);
                 };
-                bindEvent();                
             break;
         };
+        bindEvent();
         bindDocEvent();
         
         //暴露getBack()方法，返回上一级TangramDom链头

@@ -27,6 +27,7 @@
         var s = baidu('.group').selectable({
             //range:'#wrapper',
             onstart:function(){console.log('start');},
+            ondragging:function(){console.log('dragging');},
             onchange:function(e){
                 console.log('change');
                 console.log(e.target);
