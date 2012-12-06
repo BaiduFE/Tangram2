@@ -82,8 +82,7 @@ test('test', function(){
     baidu.dom(span).delegate('a', 'click', function(){
         ok(true, 'delegate');
     });
-    
-    a.click();
+    ua.fireMouseEvent(a, 'click');
     c.dispose();
     span = div = a = null;
 });

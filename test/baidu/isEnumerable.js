@@ -11,6 +11,8 @@ test("Enumerable", function(x){
     ok(baidu.isEnumerable(arguments), "Arguments");
     ok(baidu.isEnumerable(new Array()), "Array");
     ok(baidu.isEnumerable(document.getElementsByTagName("*")), "NodeList");
+    // ok(!baidu.isEnumerable(window), "window");
+    // ok(!baidu.isEnumerable(document), "document");
 
     if (window.ArrayBuffer) {
         ok(baidu.isEnumerable(new ArrayBuffer()), "ArrayBuffer");

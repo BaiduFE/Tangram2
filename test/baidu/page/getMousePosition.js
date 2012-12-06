@@ -1,6 +1,6 @@
 module("baidu.page.getMousePosition");
 
-test("get mouse position", function() {
+test("兼容Magic接口：get mouse position", function() {
 	var p = baidu.page.getMousePosition;
 	equals(p().x, 0);
 	equals(p().y, 0);

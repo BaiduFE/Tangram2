@@ -14,12 +14,13 @@ if($c->fileunexist){
 $title = $c->name;
 $cov = array_key_exists('cov', $_GET);
 $release = array_key_exists('release', $_GET);
+$compatible = array_key_exists('compatible', $_GET);
 ?>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php print("run case $title");?></title>
-<?php $c->print_js($cov, $release); ?>
+<?php $c->print_js($cov, $release, $compatible); ?>
 </head>
 <body>
 <h1 id="qunit-header"><span><a href="<?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];?>" target="_blank">新窗口打开</a></span><?php print($c->name);?></h1>

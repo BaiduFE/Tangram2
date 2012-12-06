@@ -60,7 +60,7 @@ module('baidu.dom.drag');
 /**
  * ondragstart ondragend ondrag
  */
-test('base and events', function() {
+test('兼容Magic接口：base and events', function() {
 	expect(5);
 	QUnit.stop();
 	ua.importsrc("baidu.dom.getPosition", function(){
@@ -92,7 +92,7 @@ test('base and events', function() {
 	}, "baidu.dom.getPosition", "baidu.dom.drag");
 });
 
-test('update', function() {
+test('兼容Magic接口：update', function() {
 	var dc = window.drag_check({
 		autoStop : false,
 		ondragend : function() {
@@ -117,7 +117,7 @@ test('update', function() {
 	}).add(QUnit.start, 50).next();
 });
 
-test('range and update range', function() {
+test('兼容Magic接口：range and update range', function() {
 	var dc = window.drag_check({
 		range : [ 0, 100, 100, 0 ]
 	// 上右下左
@@ -158,7 +158,7 @@ test('range and update range', function() {
 
 });
 
-test('margin', function() {
+test('兼容Magic接口：margin', function() {
 	stop();
 	var div = document.createElement("div");
 	div.id = 'test_margin_div';
@@ -189,7 +189,7 @@ test('margin', function() {
 	}, 20);
 });
 
-test('margin autoStop', function() {
+test('兼容Magic接口：margin autoStop', function() {
 	stop();
 	var div = document.createElement("div");
 	div.id = 'test_margin_div';
@@ -220,7 +220,7 @@ test('margin autoStop', function() {
 	}, 20);
 });
 
-test('no margin', function() {
+test('兼容Magic接口：no margin', function() {
 	stop();
 	var div = document.createElement("div");
 	div.id = 'test_margin_div';
@@ -251,7 +251,7 @@ test('no margin', function() {
 	}, 20);
 });
 
-test('border', function() {
+test('兼容Magic接口：border', function() {
 	stop();
 	ua.importsrc("baidu.dom.getPosition", function(){
 		var div = document.createElement("div");
@@ -281,7 +281,7 @@ test('border', function() {
 	}, "baidu.dom.getPosition", "baidu.dom.drag");
 });
 
-// test('drag with update', function() {
+// test('兼容Magic接口：drag with update', function() {
 // stop();
 // expect(2);
 // var div = document.createElement('div');
@@ -324,7 +324,7 @@ test('border', function() {
 // }, 100);
 // });
 //
-// test('drag', function() {
+// test('兼容Magic接口：drag', function() {
 // stop();
 // // if (ua.browser.opera) {
 // // expect(4);
@@ -365,7 +365,7 @@ test('border', function() {
 // }, 100);
 // });
 //
-// test('drag within range from outside to edge', function() {
+// test('兼容Magic接口：drag within range from outside to edge', function() {
 // stop();
 // expect(4);
 // var div = document.createElement('div');
@@ -404,7 +404,7 @@ test('border', function() {
 // }, 100);
 // });
 //
-// test('drag within range from inside to edge', function() {
+// test('兼容Magic接口：drag within range from inside to edge', function() {
 // stop();
 // expect(4);
 // var div = document.createElement('div');
@@ -442,7 +442,7 @@ test('border', function() {
 // }, 100);
 // });
 //
-// test('drag within range from inside to outside', function() {
+// test('兼容Magic接口：drag within range from inside to outside', function() {
 // stop();
 // expect(4);
 // var div = document.createElement('div');

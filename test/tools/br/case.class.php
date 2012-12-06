@@ -91,7 +91,7 @@ class Kiss{
 		}
 	}
 
-	public function print_js($cov=false, $release=false){
+	public function print_js($cov=false, $release=false, $compatible=false){
 		print '<script type="text/javascript" src="js/jquery-1.7.2.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/testrunner.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/ext_qunit.js"></script>'."\n";
@@ -106,7 +106,11 @@ class Kiss{
 			if($cov) $importurl.='&cov=true';
 			print "<script type='text/javascript' src='$importurl' ></script>\n";
 		}else{
-			print "<script type='text/javascript' src='{$this->projroot}release/tangram_compatible.js'></script>\n";
+			if($compatible == 0)
+				$file_name = "tangram_base";
+			else
+				$file_name = "tangram_compatible";
+			print "<script type='text/javascript' src='{$this->projroot}release/$file_name.js'></script>\n";
 		}
 
 		/* load case and case dependents*/

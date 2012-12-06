@@ -350,7 +350,7 @@ hr {
 	background-color: #FEE9CC;
 	color: rgba(0, 0, 0, 0.75);
 }
-.syntax-wrap li {
+.syntax-wrap .test-case li {
 	padding: 10px 0 10px 25px;
 	font-size: 14px;
 	background-color: #F8FAFB;

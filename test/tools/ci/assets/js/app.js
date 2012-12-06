@@ -32,6 +32,32 @@
                     .replace(/'/g, "&#39;");
     }
 
+    // 显示批量测试的结果
+    function showTestResult(){
+        var html = '',
+            count = 0,
+            _list = {};
+
+        if(failureList.length){
+            $(failureList).each(function(index, item){
+                var api = item.data.dir.replace('../../../src/', '');
+                if(_list[api]){return;};
+                _list[api] = true;
+                count++;
+                html += '<li>' + api + '</li>';
+            });
+            html += '</ul>';
+
+            html = '<p>共有' + count + '个接口检查不通过：<p><ul>' + html;
+        }else{
+            html = '<p>所有文件全部检查通过。</p>';
+        }
+        
+        $('#J_' + currentCheckMode).html(html);
+        window.scrollTo(0, 0);
+        failureList = [];
+    }
+
     var autoNext = (function(){
         var i = -1,
             timer;
@@ -48,20 +74,7 @@
                 currentNode = null;
 
                 // 显示统计结果
-                var html = '';
-                if(failureList.length){
-                    html += '<p>共有' + failureList.length + '个接口检查不通过：<p><ul>';
-                    $(failureList).each(function(index, item){
-                        html += '<li>' + item.data.dir.replace('../../../src/', '') + '</li>';
-                    });
-                    html += '</ul>';
-                }else{
-                    html = '<p>所有文件全部检查通过。</p>';
-                }
-                
-                $('#J_' + currentCheckMode).html(html);
-                window.scrollTo(0, 0);
-                failureList = [];
+                showTestResult();
                 return;
             }
 
@@ -150,7 +163,7 @@
             $.get('./getFileContent.php?file=' + node.data.dir, function(content){
                 $("#J_syntaxCheck").html('');
                 var filename = node.data.dir.replace('../../../src/', '');
-                var html = '<h1 class="test-header">' + filename + '</h1><ul>';
+                var html = '<h1 class="test-header">' + filename + '</h1><ul class="test-case">';
                 var errors = 0;
 
                 JSHINT(content, {
@@ -185,7 +198,7 @@
                     html = '没有发现语法错误';
                     autoRuning && hideOnPass && node.el.hide();
                     node.el.css('color', '');
-                }            
+                }
 
                 $("#J_syntaxCheck")[0].innerHTML = html;
                 autoRuning && autoNext();
@@ -249,9 +262,14 @@
 
                 // 节点是文件类型
                 if(node.data.type == "file"){
+                    // 清除当前节点的状态
+                    currentNode && currentNode.el.css('color', '');
+                    // focus当前节点
                     currentNode && currentNode.el.removeClass('focus');
                     node.el.addClass("focus");
+
                     currentNode = node;
+                    // 执行检查
                     runCheck(currentCheckMode, node);
                 }else{  // 节点是文件夹类型
                     // node.expended ? node.collapse() : node.expend();

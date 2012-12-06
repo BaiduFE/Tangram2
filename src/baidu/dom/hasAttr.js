@@ -24,8 +24,7 @@
  */
 baidu.dom.extend({
     hasAttr : function (name){
-        var element = this[0];
-        var attr = element.attributes.getNamedItem(name);
+        var element = this[0],attr = element.attributes.getNamedItem(name);
         return !!( attr && attr.specified );
     }
 });
