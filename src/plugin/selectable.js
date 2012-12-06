@@ -115,21 +115,21 @@
 */
 
 /**
- * @description 取得当前被选择的元素
+ * @description 取得或设置当前被选择的元素
  * @function 
  * @name baidu().selectable().selected()
- * @grammar baidu(args).selectable().selected()
- * @param {Null}
- * @return {TangramDom} 直接返回当前被选择元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法，当前被选择时都会默认被加上名为“tang-selectable-selected”的className。
+ * @grammar baidu(args).selectable().selected(selector)
+ * @param {Null|Selector|HTMLElement|TangramDom} selector 如果不传参，则为获取当前被选中的元素；传入元素，则设置元素被选中。
+ * @return {TangramDom|Selectable} 不传参，直接返回当前被选择元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法，当前被选择时都会默认被加上名为“tang-selectable-selected”的className；传参则返回一个Selectable实例。
 */
 
 /**
- * @description 取得当前没有被选择的元素
+ * @description 取得或设置元素没有被选择框选中
  * @function 
  * @name baidu().selectable().unselected()
- * @grammar baidu(args).selectable().unselected()
- * @param {Null}
- * @return {TangramDom} 直接返回当前没有被选择元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法。
+ * @grammar baidu(args).selectable().unselected(selector)
+ * @param {Null|Selector|HTMLElement|TangramDom} selector 如果不传参，则为获取当前没被选中的元素；如果传入元素，则设置元素没被选中。
+ * @return {TangramDom|Selectable} 不传参，直接返回当前没被选中元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法；传参则返回一个Selectable实例。
 */
 
 /**
@@ -139,6 +139,15 @@
  * @grammar baidu(args).selectable().item()
  * @param {Null}
  * @return {TangramDom} 直接返回当前选择列表（selectable）中所有可以被选择的元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法。
+*/
+
+/**
+ * @description 取得当前被选择元素的索引，或者通过索引设置被选择项
+ * @function 
+ * @name baidu().selectable().index()
+ * @grammar baidu(args).selectable().index(arr)
+ * @param {Null|Array} arr 如果不传参，则为获取当前被选中元素的索引组成的数组；传入元素，则通过索引数组设置对应元素被选中。
+ * @return {Array|Selectable} 不传参，直接返回当前被选择元素的索引组成的数组，当前被选择时都会默认被加上名为“tang-selectable-selected”的className；传参则返回一个Selectable实例。
 */
 
 /**
@@ -378,20 +387,50 @@ baidu.dom.extend({
                     return null;
                 },
 
-                //取得当前选中的值
-                selected:function(){
-                    return me.find('.tang-selectable-selected');
+                //设置或取得当前选中的项
+                selected:function(value){
+                    if(value){
+                        me.find(value).addClass('tang-selectable-selected');
+                        return selectable;
+                    }else{
+                        return me.find('.tang-selectable-selected');
+                    };
                 },
 
                 //取得没有选中的值
-                unselected:function(){
-                    return me.not('.tang-selectable-selected');
+                unselected:function(value){
+                    if(value){
+                        me.find(value).removeClass('tang-selectable-selected');
+                        return selectable;
+                    }else{
+                        return me.not('.tang-selectable-selected');
+                    };
                 },
 
                 //取得当前所有元素
                 item:function(){
                     return item;
+                },
+
+                //取得当前选择元素的编号，或通过数组设置
+                index:function(value){
+                    if(baidu.type(value)=='array'){
+                        item.removeClass('tang-selectable-selected');
+                        for(var i = 0,num = value.length;i<num;i++){
+                            item.eq(value[i]).addClass('tang-selectable-selected');
+                        };
+                        return selectable;
+                    }else{
+                        var arr = [];
+                        for(var i = 0, num = item.size();i<num;i++){
+                            if(item.eq(i).hasClass('tang-selectable-selected')){
+                                arr.push(i);
+                            };
+                        };
+                        return arr;
+                    };
                 }
+
             },
 
             doc = baidu.dom(document),
