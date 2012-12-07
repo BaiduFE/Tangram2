@@ -68,7 +68,6 @@
 ///import plugin._util_;
 
 baidu.plugin._util_.rubberSelect = function(options){
-
     var doc = baidu.dom(document),
         opts = options || {},
 
@@ -83,7 +82,7 @@ baidu.plugin._util_.rubberSelect = function(options){
         //focus,
 
         //遮罩层虚线，具体样式在CSS中设置
-        mask = baidu.dom('<div class="tang-rubberSelect">'),
+        mask,
 
         //第一次mousedown时的鼠标位置
         x1,y1,
@@ -110,16 +109,16 @@ baidu.plugin._util_.rubberSelect = function(options){
                     return;
                 };
             };
-            rangeFlag = true;
-            doc.on('mousemove',ingHandle);
-            mask.width(0).height(0).show().offset({left:x1,top:y1});
+            rangeFlag = true;            
             doc.trigger('rubberselectstart');
-            
+
             //为了兼容快速点击的情况
             doc.trigger('rubberselecting');
+            doc.on('mousemove',ingHandle);
+            mask.width(0).height(0).show().offset({left:x1,top:y1});
             
             //修正拖曳过程中页面里的文字会被选中
-               doc.on('selectstart',unselect);
+            doc.on('selectstart',unselect);
         },
 
         ingHandle = function(e){
@@ -127,6 +126,7 @@ baidu.plugin._util_.rubberSelect = function(options){
             //增加函数节流，防止事件频繁触发函数，影响性能
             clearTimeout(timer);
             timer = setTimeout(function(){
+                doc.trigger('rubberselecting');
                 _x2 = e.pageX;
                 _y2 = e.pageY;
 
@@ -164,21 +164,19 @@ baidu.plugin._util_.rubberSelect = function(options){
                 }else if(x1>x2&&y1>y2){
                     mask.width(x1-x2).height(y1-y2).offset({left:x2,top:y2});
                 };
-                
-                doc.trigger('rubberselecting');
 
             //这里是因为我喜欢3这个数字，所以用3毫秒。    
             },3);
         },
 
         endHandle = function(){
-               doc.off('selectstart',unselect);    
+            doc.off('selectstart',unselect);    
             if(rangeFlag){
                 doc.off('mousemove',ingHandle);
                 clearTimeout(delayTimer);
                 delayTimer = setTimeout(function(){
-                    mask.hide();
                     doc.trigger('rubberselectend');
+                    mask.hide();
 
                 //用户选择延时0.15秒，雅虎交互原则。    
                 },150);
@@ -206,11 +204,14 @@ baidu.plugin._util_.rubberSelect = function(options){
         };
 
     //函数主逻辑开始
+    mask = baidu.dom('.tang-rubberSelect');
+    if(!mask.size()){
+        mask = baidu.dom('<div class="tang-rubberSelect">');
+    };
     setRange();
     mask.hide().appendTo(document.body);
     doc.on('mousedown',handle);
     doc.on('mouseup',endHandle);
-
 
     return{
         target:mask,

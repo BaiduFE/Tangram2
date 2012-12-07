@@ -139,11 +139,11 @@ baidu.plugin._util_.drag = function(selector){
                 };
             };
 
-            //相对屏幕设置位置
-            ele.offset({'left':x,'top':y});
-
             //对全局派发事件
             doc.trigger('dragging');
+
+            //相对屏幕设置位置
+            ele.offset({'left':x,'top':y});
         },
 
         handle = function(e){
@@ -167,12 +167,12 @@ baidu.plugin._util_.drag = function(selector){
             return e.preventDefault();
         };
 
+    doc.trigger('dragstart',{target:ele});
+
     doc.on('mousemove',handle);
 
     //修正拖曳过程中页面里的文字会被选中
     doc.on('selectstart',unselect);
-
-    doc.trigger('dragstart',{target:ele});
 
     return {
         target:ele,
@@ -218,7 +218,7 @@ baidu.plugin._util_.drag = function(selector){
 
         //取消上一次拖拽
         cancel:function(){
-            ele.offset({'left':_o.left,'top':_o.top});
+            ele.offset(_o);
             return this;
         },
 

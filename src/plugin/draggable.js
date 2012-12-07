@@ -90,6 +90,15 @@
 */
 
 /**
+ * @description 重置拖拽，恢复到最初
+ * @function 
+ * @name baidu().draggable().reset()
+ * @grammar baidu(args).draggable().reset()
+ * @param {Null}
+ * @return {Draggable} 返回Draggable的一个实例
+*/
+
+/**
  * @description 限定拖拽元素可以活动的范围
  * @function 
  * @name baidu().draggable().range()
@@ -255,6 +264,7 @@
 ///import baidu.dom.contains;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
+///import baidu.dom.data;
 ///import plugin._util_.drag;
 ///import plugin._util_.isCover;
 
@@ -271,9 +281,6 @@ baidu.dom.extend({
 
             //drag enter的元素列表，在drag leave中会监测
             dragEnter = {},
-
-            //opts.focus值取得的tangramDom
-            focusEle,
 
             //初始化设置的值，挂在在实例上
             funs = {
@@ -363,6 +370,15 @@ baidu.dom.extend({
                     };
                 },
 
+                //重置方法，恢复到最初
+                reset:function(){
+                    var o = dragEle.data('offset');
+                    if(o.left){
+                        dragEle.offset(o);
+                    };
+                    return draggable;
+                },
+
                 //取消拖拽，回到上一次
                 cancel:function(){
                     if(drag){
@@ -431,6 +447,7 @@ baidu.dom.extend({
                 
                 //拖拽是否可用
                 if(!opt.enable){return};
+                draggable.fire('start',{target:dragEle});
 
                 //实例一个drag
                 if(drag){
@@ -438,6 +455,9 @@ baidu.dom.extend({
                 };
                 drag = baidu.plugin._util_.drag(e.currentTarget);
                 dragEle = drag.target;
+                if(!dragEle.data('offset')){
+                    dragEle.data('offset',dragEle.offset());
+                };
 
                 //限制了范围
                 if(opt.range){
@@ -459,7 +479,6 @@ baidu.dom.extend({
 
                 doc.on('mouseup',endHandle);
                 doc.on('dragging',ingHandle);
-                draggable.fire('start',{target:dragEle});
             },
 
             //拖拽停止
