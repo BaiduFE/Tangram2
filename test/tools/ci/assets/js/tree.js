@@ -78,6 +78,7 @@
          * 获取焦点
          */
         focus: function(){
+            // TODO 可以在tree实例上挂一个当前focus的节点
             $(this.treeInstance).trigger('nodefocus', this);
         },
 

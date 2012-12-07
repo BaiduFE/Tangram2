@@ -37,9 +37,9 @@ baidu.dom.extend({
     toggle: function(){
         return this.each(function(index, ele){
             if(ele.style && ele.style.display == 'none'){
-            	baidu.dom(ele).show();
+                baidu.dom(ele).show();
             }else{
-            	baidu.dom(ele).hide();
+                baidu.dom(ele).hide();
             };
         });
     }

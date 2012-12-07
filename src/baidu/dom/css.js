@@ -60,9 +60,9 @@
 
  //设置css
  baidu("div").css({
- 	"background-color":"red",
- 	"left":"30px",
- 	"right":"40px"
+     "background-color":"red",
+     "left":"30px",
+     "right":"40px"
  });
  
  */

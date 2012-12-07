@@ -15,16 +15,16 @@
 /**
  * @namespace baidu.global.getZIndex 全局统一管理 z-index。
  *
- * @param   {String}    key 	信息对应的 key 值(popup | dialog)
- * @param   {Number}    step 	z-index 增长的步长
+ * @param   {String}    key     信息对应的 key 值(popup | dialog)
+ * @param   {Number}    step     z-index 增长的步长
  * @return  {Number}            z-index
  */
 baidu.global.getZIndex = function(key, step) {
-	var zi = baidu.global.get("zIndex");
-	if (key) {
-		zi[key] = zi[key] + (step || 1);
-	}
-	return zi[key];
+    var zi = baidu.global.get("zIndex");
+    if (key) {
+        zi[key] = zi[key] + (step || 1);
+    }
+    return zi[key];
 };
 baidu.global.set("zIndex", {popup : 50000, dialog : 1000}, true);
 /// support magic - Tangram 1.x Code End

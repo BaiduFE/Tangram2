@@ -22,17 +22,17 @@
  * @return {String} 转义之后的字符串
  */
 baidu.string.filterFormat.escapeJs = function(str){
-	if(!str || 'string' != typeof str) return str;
-	var i,len,charCode,ret = [];
-	for(i=0, len=str.length; i < len; ++i){
-		charCode = str.charCodeAt(i);
-		if(charCode > 255){
-			ret.push(str.charAt(i));
-		} else{
-			ret.push('\\x' + charCode.toString(16));
-		}
-	}
-	return ret.join('');
+    if(!str || 'string' != typeof str) return str;
+    var i,len,charCode,ret = [];
+    for(i=0, len=str.length; i < len; ++i){
+        charCode = str.charCodeAt(i);
+        if(charCode > 255){
+            ret.push(str.charAt(i));
+        } else{
+            ret.push('\\x' + charCode.toString(16));
+        }
+    }
+    return ret.join('');
 };
 baidu.string.filterFormat.js = baidu.string.filterFormat.escapeJs;
 /// Tangram 1.x Code End
