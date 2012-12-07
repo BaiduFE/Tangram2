@@ -12,24 +12,24 @@ void function( special ){
 
     baidu.each( { mouseenter: "mouseover", mouseleave: "mouseout" }, function( name, fix ){
         special[ name ] = {
-        	bindType: fix,
-        	pack: function( fn ){
-				var contains = baidu.dom.contains;
-				return function( e ){ // e instance of baidu.event
-					var related = e.relatedTarget;
-					e.type = name;
-	                if( !related || ( related !== this && !contains( this, related ) ) )
-	                	return fn.apply( this, arguments );
-				}
-        	}
+            bindType: fix,
+            pack: function( fn ){
+                var contains = baidu.dom.contains;
+                return function( e ){ // e instance of baidu.event
+                    var related = e.relatedTarget;
+                    e.type = name;
+                    if( !related || ( related !== this && !contains( this, related ) ) )
+                        return fn.apply( this, arguments );
+                }
+            }
         }
     } );
 
     if( ff ) // firefox dont support focusin/focusout bubbles
         baidu.each( { focusin: "focus", focusout: "blur" }, function( name, fix ){
             special[ name ] = {
-            	bindType: fix,
-            	attachElements: "textarea,select,input,button,a"
+                bindType: fix,
+                attachElements: "textarea,select,input,button,a"
             }
         } );
 

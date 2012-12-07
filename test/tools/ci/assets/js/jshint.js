@@ -512,7 +512,10 @@ var JSHINT = (function () {
             XPathExpression          :  false,
             XPathNamespace           :  false,
             XPathNSResolver          :  false,
-            XPathResult              :  false
+            XPathResult              :  false,
+            Event                    :  false,  //add by chengyang
+            ActiveXObject            :  false,  //add by chengyang
+            external                 :  false   //add by chengyang
         },
 
         couch = {
@@ -569,7 +572,8 @@ var JSHINT = (function () {
         },
 
         tangram = {
-            "baidu" : false
+            "baidu" : false,
+            "baiduInstance" : false
         },
 
         magic = {

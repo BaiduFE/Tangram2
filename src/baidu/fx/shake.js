@@ -51,7 +51,7 @@ baidu.fx.shake = function(element, offset, options) {
             if (baidu.dom.getStyle(e, "position") == "static") {
                 e.style.position = "relative";
             }
-			var original = this['\x06original'];
+            var original = this['\x06original'];
             this.originX = parseInt(original.left|| 0);
             this.originY = parseInt(original.top || 0);
             this.offsetX = tt(offset[0], offset.x, 16);
