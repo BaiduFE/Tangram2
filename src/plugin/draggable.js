@@ -81,6 +81,15 @@
 */
 
 /**
+ * @description 取得当前正在被拖拽的元素，或者上次被拖拽的元素
+ * @function 
+ * @name baidu().draggable().item()
+ * @grammar baidu(args).draggable().item()
+ * @param {Null}
+ * @return {TangramDom|Undefined} 返回对应元素的tangramDom对象，用户可以直接用tangram2.0的dom方法继续操作下去。
+*/
+
+/**
  * @description 取消本次拖拽动作
  * @function 
  * @name baidu().draggable().cancel()
@@ -359,6 +368,11 @@ baidu.dom.extend({
                     return draggable;
                 },
 
+                //获取当前正在被拖拽的元素，或者上一次被拖拽的元素
+                item:function(){
+                    return dragEle;
+                },
+
                 //显示层级
                 zIndex:function(value){
                     if(value){
@@ -447,7 +461,6 @@ baidu.dom.extend({
                 
                 //拖拽是否可用
                 if(!opt.enable){return};
-                draggable.fire('start',{target:dragEle});
 
                 //实例一个drag
                 if(drag){
@@ -455,6 +468,9 @@ baidu.dom.extend({
                 };
                 drag = baidu.plugin._util_.drag(e.currentTarget);
                 dragEle = drag.target;
+                dragEle.addClass('tang-draggable-dragging');
+                draggable.fire('start',{target:dragEle,pageX:e.pageX,pageY:e.pageY});
+
                 if(!dragEle.data('offset')){
                     dragEle.data('offset',dragEle.offset());
                 };
@@ -497,7 +513,6 @@ baidu.dom.extend({
 
             //拖拽中
             ingHandle = function(e){
-                dragEle.addClass('tang-draggable-dragging');
                 draggable.fire('dragging');
                 enterAndLeave();
             },

@@ -367,6 +367,7 @@ baidu.dom.extend({
                 //开启选择功能
                 enable:function(){
                     if(!opt.enable){
+                        opt.enable = true;
                         if(rubberSelect.dispose){
                             rubberSelect = baidu.plugin._util_.rubberSelect();
                         };
