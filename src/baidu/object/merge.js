@@ -26,50 +26,48 @@
  * @see baidu.object.extend
  * @author berg
  */
-(function() {
-var isPlainObject = function(source) {
+baidu.object.merge = function(){
+    function isPlainObject(source) {
         return baidu.lang.isObject(source) && !baidu.lang.isFunction(source);
     };
-
-function mergeItem(target, source, index, overwrite, recursive) {
-    if (source.hasOwnProperty(index)) {
-        if (recursive && isPlainObject(target[index])) {
-            // 如果需要递归覆盖，就递归调用merge
-            baidu.object.merge(
-                target[index],
-                source[index],
-                {
-                    'overwrite': overwrite,
-                    'recursive': recursive
-                }
-            );
-        } else if (overwrite || !(index in target)) {
-            // 否则只处理overwrite为true，或者在目标对象中没有此属性的情况
-            target[index] = source[index];
+    function mergeItem(target, source, index, overwrite, recursive) {
+        if (source.hasOwnProperty(index)) {
+            if (recursive && isPlainObject(target[index])) {
+                // 如果需要递归覆盖，就递归调用merge
+                baidu.object.merge(
+                    target[index],
+                    source[index],
+                    {
+                        'overwrite': overwrite,
+                        'recursive': recursive
+                    }
+                );
+            } else if (overwrite || !(index in target)) {
+                // 否则只处理overwrite为true，或者在目标对象中没有此属性的情况
+                target[index] = source[index];
+            }
         }
-    }
-}
-
-baidu.object.merge = function(target, source, opt_options) {
-    var i = 0,
-        options = opt_options || {},
-        overwrite = options['overwrite'],
-        whiteList = options['whiteList'],
-        recursive = options['recursive'],
-        len;
-
-    // 只处理在白名单中的属性
-    if (whiteList && whiteList.length) {
-        len = whiteList.length;
-        for (; i < len; ++i) {
-            mergeItem(target, source, whiteList[i], overwrite, recursive);
+    };
+    
+    return function(target, source, opt_options){
+        var i = 0,
+            options = opt_options || {},
+            overwrite = options['overwrite'],
+            whiteList = options['whiteList'],
+            recursive = options['recursive'],
+            len;
+    
+        // 只处理在白名单中的属性
+        if (whiteList && whiteList.length) {
+            len = whiteList.length;
+            for (; i < len; ++i) {
+                mergeItem(target, source, whiteList[i], overwrite, recursive);
+            }
+        } else {
+            for (i in source) {
+                mergeItem(target, source, i, overwrite, recursive);
+            }
         }
-    } else {
-        for (i in source) {
-            mergeItem(target, source, i, overwrite, recursive);
-        }
-    }
-
-    return target;
-};
-})();
+        return target;
+    };
+}();

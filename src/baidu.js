@@ -112,9 +112,9 @@
 var T, baidu = T = baidu || function(q, c) { return baidu.dom ? baidu.dom(q, c) : null; };
 
 if( !this.baidu )
-	this.baidu = this.T = T;
+    this.baidu = this.T = T;
 
-baidu.version = "2.0.1.0";
+baidu.version = '2.0.1.1';
 baidu.guid = "$BAIDU$";
 baidu.key = "tangram_guid";
 

@@ -27,6 +27,12 @@
         $tabCheck = 'failure';
     }
 
+    # 检查文件冲突
+    $conflictCheck = 'pass';
+    if(preg_match('/(<<<<<<\sHEAD|>>>>>>>)/', $fileContent)){
+        $conflictCheck = 'failure';
+    }
+
     # 检查关联用例是否修改
     $srcLastModifyTime = date("Y-m-d H:i:s", filemtime($file));
     $testfile = preg_replace('/src/', 'test', $file);
@@ -46,6 +52,7 @@
     $result['encodingCheck'] = array('status' => $fileencodingCheck, 'msg' => $fileencoding);
     $result['BombCheck'] = array('status' => $bombCheck);
     $result['tabCheck'] = array('status' => $tabCheck);
+    $result['conflictCheck'] = array('status' => $conflictCheck);
     $result['testCaseCheck'] = array('status' => $testCaseCheck, 'msg' => array('srcLastModify' => $srcLastModifyTime, 'testCaseLastModify' => $testLastModifyTime));
     
     echo json_encode($result);
