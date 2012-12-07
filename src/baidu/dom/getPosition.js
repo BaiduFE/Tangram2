@@ -14,5 +14,5 @@
  */
 baidu.dom.getPosition = function(element){
     return baidu.dom(baidu.dom.g(element)).offset();
-}
+};
 /// Tangram 1.x Code End

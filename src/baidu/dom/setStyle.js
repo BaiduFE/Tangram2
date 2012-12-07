@@ -28,5 +28,5 @@ baidu.dom._styleFixer和baidu.dom._styleFilter可以为本模块提供支持。<
  */
 baidu.dom.setStyle = function(element, key, val){
     return baidu.dom(baidu.dom.g(element)).css(key, val).get(0);
-}
+};
 /// Tangram 1.x Code End
