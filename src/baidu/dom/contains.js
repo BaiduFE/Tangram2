@@ -30,7 +30,7 @@ baidu.dom.extend({
             contained = baidu.dom(contained)[0];
         if(!container || !contained){return false;}
         return baidu._util_.contains(container, contained);
-    }	
+    }    
 });
 ///import baidu.dom._g;
 

@@ -73,9 +73,9 @@ baidu.createChain = function(chainName, fn, constructor) {
  * @return  {Function}              自定义的类
  */
 baidu.overwrite = function(Class, list, fn) {
-	for (var i = list.length - 1; i > -1; i--) {
-		Class.prototype[list[i]] = fn(list[i]);
-	}
+    for (var i = list.length - 1; i > -1; i--) {
+        Class.prototype[list[i]] = fn(list[i]);
+    }
 
-	return Class;
+    return Class;
 };

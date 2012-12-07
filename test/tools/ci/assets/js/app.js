@@ -149,7 +149,6 @@
                                 node.el.css('color', '#FF0000');
                             }else{
                                 autoRuning && hideOnPass && node.el.hide();
-                                node.el.css('color', '');
                             }
                             
                             autoRuning && autoNext();
@@ -197,7 +196,6 @@
                 }else{
                     html = '没有发现语法错误';
                     autoRuning && hideOnPass && node.el.hide();
-                    node.el.css('color', '');
                 }
 
                 $("#J_syntaxCheck")[0].innerHTML = html;
@@ -263,7 +261,7 @@
                 // 节点是文件类型
                 if(node.data.type == "file"){
                     // 清除当前节点的状态
-                    currentNode && currentNode.el.css('color', '');
+                    node.el.css('color', '');
                     // focus当前节点
                     currentNode && currentNode.el.removeClass('focus');
                     node.el.addClass("focus");

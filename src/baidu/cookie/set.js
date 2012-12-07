@@ -32,7 +32,7 @@ path:cookie路径<br>
 expires:cookie过期时间，Number型，单位为毫秒。<br>
 domain:cookie域名<br>
 secure:cookie是否安全传输
-		
+        
  * @meta standard
  * @see baidu.cookie.setRaw,baidu.cookie.get
 */

@@ -18,11 +18,11 @@ baidu.createChain("form",
 
 // 执行方法
 function(form){
-	return typeof form === 'undefined'? new baidu.form.$Form():new baidu.form.$Form(form);
+    return typeof form === 'undefined'? new baidu.form.$Form():new baidu.form.$Form(form);
 },
 
 // constructor
 function(form){
-	this.form = form;
+    this.form = form;
 });
 /// Tangram 1.x Code End
