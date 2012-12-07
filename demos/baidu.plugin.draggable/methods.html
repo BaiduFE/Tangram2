@@ -5,27 +5,28 @@
     <meta name="description" content="baidu.dom().draggable() 示例"/>
     <title>方法相关</title>
     <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
-    <script type="text/javascript" src="../../demos/tangram2.0.1.0-min.js"></script>
+    <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
     <script type="text/javascript" src="../../src/import.php?f=plugin.draggable"></script>
     <style type="text/css">
         #draggable {
-            width: 100px;
-            height: 100px;
-            margin: 10px;
-            padding: 10px;
-            background: #ccc;
+            border: 2px dashed #000;
+            padding: 50px;
         }
 
-        #draggable p {
+        #draggable-ele {
+            width: 100px;
+            height: 70px;
             text-align: center;
             font-size: 12px;
             color: red;
+            background:#ccc;
+            padding-top: 30px;
         }
 
         #outer {
             position: absolute;
-            right: 20px;
-            top: 90px;
+            right: 40px;
+            top: 120px;
             width: 200px;
             height: 200px;
             border: 2px solid #000;
@@ -33,6 +34,17 @@
 
         #butArea {
             list-style: none;
+        }
+
+        #butArea li {
+            margin: 5px;
+            padding: 8px;
+            height: 18px;
+        }
+
+        #method-exp {
+            color: red;
+            margin-left: 10px;
         }
 
         #draggable.tang-draggable-dragging {
@@ -47,7 +59,7 @@
 
     <div class="pannel">
         <div class="pannel-title">
-            <span>将元素拖进黑色边框区域内，然后点击下列按钮</span>
+            <span>相关方法说明：</span><span id="method-exp"></span>
         </div>
         <div class="pannel-content">
             <!--DemoViewStart-->
@@ -55,21 +67,21 @@
             </div>
             <div class="pannel-content-part">
                 <div id="draggable">
-                    <p>
+                    <div id="draggable-ele">
                         拖我进黑色边框内
-                    </p>
+                    </div>
                     <strong></strong>
+                    <div id="outer">
+                    </div>
+                    <ul id="butArea">
+                        <li><a class="button" id="zIndex">取出或设置当前拖拽元素层级</a></li>
+                        <li><a class="button" id="cancel">取消本次拖拽</a></li>
+                        <li><a class="button" id="disable">使当前拖拽元素无法拖拽</a></li>
+                        <li><a class="button" id="enable">重新开启当前拖拽元素</a></li>
+                        <li><a class="button" id="range">限定在 class 为 pannel-content-part 的容器内拖拽</a></li>
+                        <li><a class="button" id="endOf">限定拖拽元素一定要到达的黑色边框区域内</a></li>
+                    </ul>
                 </div>
-                <div id="outer">
-                </div>
-                <ul id="butArea">
-                    <li><input type="button" value="取出或设置当前拖拽元素层级" id="zIndex"></li>
-                    <li><input type="button" value="取消本次拖拽" id="cancel"></li>
-                    <li><input type="button" value="使当前拖拽元素无法拖拽" id="disable"></li>
-                    <li><input type="button" value="重新开启当前拖拽元素" id="enable"></li>
-                    <li><input type="button" value="限定在 class 为 pannel-content-part 的容器内拖拽" id="range"></li>
-                    <li><input type="button" value="限定拖拽元素一定要到达的黑色边框区域内" id="endOf"></li>
-                </ul>
             </div>
         </div>
         <!--DemoViewEnd-->
@@ -77,34 +89,50 @@
 </div>
 </div>
 <script type="text/javascript">
-    var a = baidu( '#draggable' ).draggable( {
-        range:'.pannel',
-        zIndex:10
-    } );
-    //取出或设置当前拖拽元素层级
-    baidu( '#zIndex' ).click( function () {
-        baidu( '#draggable strong' ).html( '当前拖拽元素层级：' + a.zIndex() );
-    } )
-    //取消本次拖拽
-    baidu( '#cancel' ).click( function () {
-        a.cancel();
-    } )
-    //使当前拖拽元素无法拖拽
-    baidu( '#disable' ).click( function () {
-        a.disable();
-    } )
-    //重新开启当前拖拽元素
-    baidu( '#enable' ).click( function () {
-        a.enable();
-    } )
-    //限定拖拽元素可以活动的范围
-    baidu( '#range' ).click( function () {
-        a.range('.pannel-content-part');
-    } )
-    //限定拖拽元素一定要到达的黑色边框区域内
-    baidu( '#endOf' ).click( function () {
-        a.endOf( '#outer' );
-    } )
+    (function () {
+        var a = baidu( '#draggable-ele' ).draggable( {
+                range:'#draggable',
+                zIndex:10
+            } ),
+            num,
+            box = baidu( '#method-exp' );
+
+        //取出或设置当前拖拽元素层级
+        baidu( '#zIndex' ).click( function () {
+            box.html( '当前拖拽元素层级：'+ a.zIndex() );
+        } )
+
+        //取消本次拖拽
+        baidu( '#cancel' ).click( function () {
+            a.cancel();
+            box.html( '已取消本次拖拽' );
+        } )
+
+        //使当前拖拽元素无法拖拽
+        baidu( '#disable' ).click( function () {
+            a.disable();
+            box.html( '当前元素无法拖拽了' );
+        } )
+
+        //重新开启当前拖拽元素
+        baidu( '#enable' ).click( function () {
+            a.enable();
+            box.html( '激活了当前元素的拖拽' );
+        } )
+
+        //限定拖拽元素可以活动的范围
+        baidu( '#range' ).click( function () {
+            a.range( '.pannel-content-part' );
+            box.html( '改变了拖拽元素可以活动的范围' );
+        } )
+
+        //限定拖拽元素一定要到达的黑色边框区域内
+        baidu( '#endOf' ).click( function () {
+            a.endOf( '#outer' );
+            box.html( '限定了拖拽元素一定要到达的黑色边框区域内' );
+        } )
+    })();
+
 </script>
 </body>
 </html>

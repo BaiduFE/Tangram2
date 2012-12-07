@@ -5,16 +5,21 @@
     <meta name="description" content="baidu.dom().selectable() 示例"/>
     <title>基本方法</title>
     <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
-    <script type="text/javascript" src="../../demos/tangram2.0.1.0-min.js"></script>
+    <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
     <script type="text/javascript" src="../../src/import.php?f=plugin.selectable"></script>
     <style type="text/css">
         #selectable {
-          padding: 10px 0 50px 0;
+            border: 2px dashed #000;
+            padding: 50px;
+            height: 350px;
         }
 
-        #selectable ul {
+        #selectable ol {
             list-style: none;
             width: 30%;
+            float: left;
+            margin-right: 150px;
+            overflow: hidden;
         }
 
         #selectable li {
@@ -23,6 +28,11 @@
             font-size: 12px;
             height: 18px;
             border: 1px solid #ccc;
+        }
+
+        #method-exp {
+            color: red;
+            margin-left: 10px;
         }
 
         .tang-rubberSelect {
@@ -46,12 +56,12 @@
 
     <div class="pannel">
         <div class="pannel-title">
-            <span>启用DOM元素（或一组元素）是可选的。用光标画一个框，选择项目。按住Ctrl键可选择多个不相邻的选择</span>
+            <span>基本方法说明：</span><span id="method-exp">启用 DOM 元素或一组元素,用光标画一个框(将画框范围限定在 id 为 selectable 的黑色虚线框容器内)，选择项目。按住 Ctrl 键可选择多个不相邻的选择</span>
         </div>
         <div class="pannel-content">
             <!--DemoViewStart-->
             <div id="selectable">
-                <ul>
+                <ol id="selectable1">
                     <li>Item 1</li>
                     <li>Item 2</li>
                     <li>Item 3</li>
@@ -60,14 +70,27 @@
                     <li>Item 6</li>
                     <li>Item 7</li>
                     <li>Item 8</li>
-                </ul>
+                </ol>
+                <ol id="selectable2">
+                    <li class="select">Item 1</li>
+                    <li>忽略我</li>
+                    <li class="select">Item 3</li>
+                    <li class="select">Item 4</li>
+                    <li>忽略我</li>
+                    <li class="select">Item 6</li>
+                    <li>忽略我</li>
+                    <li class="select">Item 8</li>
+                </ol>
             </div>
             <!--DemoViewEnd-->
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    var s = baidu( '#selectable ul' ).selectable();
+    baidu( '#selectable1' ).selectable( {
+        range:'#selectable'
+    } );
+    baidu('#selectable2').selectable('.select');
 </script>
 </body>
 </html>
