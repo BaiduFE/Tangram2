@@ -54,6 +54,15 @@ function download_test(){
 				}
 			}
 			
+			if(download_type == "4"){
+				if(baidu.i18n.cultures["zh-CN"] != undefined && baidu.i18n.cultures["en-US"] == undefined){
+					top.$("#download_report div.correct").append("<p>The zh-CN language package is included, the en-US language package is not included.</p>");
+				}
+				else{
+					top.$("#download_report div.wrong").append("<p>The zh-CN language package is not included or the en-US language package is included.</p>");
+				}
+			}
+			
 			if(download_type == "5"){
 				if(baidu.check.toString().length > 20){
 					top.$("#download_report div.correct").append("<p>baidu.check is included.</p>");

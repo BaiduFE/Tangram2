@@ -97,8 +97,8 @@ test('异常case',function(){
 	document.body.removeChild(div);
 });
 
-//老接口
-test("老接口：父子关系",function(){
+//兼容1.x接口
+test("兼容1.x接口：父子关系",function(){
 	expect(9);
 	var div = document.createElement('div');
 	div.id = "father_div";

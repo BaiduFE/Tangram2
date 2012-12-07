@@ -21,6 +21,12 @@ $(document).ready(
 					else{
 						top.count1 = e.data;
 					}
+					
+					if(fid.split("_")[3] == "5"){
+						run('baidu.dom.each');
+						$('#id_rerun').html('baidu.dom.each');
+						
+					}
 				}
 			});
 			top.flag = false;
