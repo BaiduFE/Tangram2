@@ -65,9 +65,9 @@ baidu.lang.Class.prototype.toString = function(){
  * @param   {String}    guid
  * @return  {object}            实例对象
  */
- window["baiduInstance"] = function(guid) {
-     return baidu._global_._instances_[ guid ];
- }
+window["baiduInstance"] = function(guid) {
+    return baidu._global_._instances_[ guid ];
+};
 
 //  2011.11.23  meizz   添加 baiduInstance 这个全局方法，可以快速地通过guid得到实例对象
 //  2011.11.22  meizz   废除创建类时指定guid的模式，guid只作为只读属性

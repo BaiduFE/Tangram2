@@ -9,4 +9,4 @@ baidu._util_.cleanData = function(array){
         baidu._util_.eventBase.queue.remove(ele);
         baidu.id(ele, 'remove');
     }
-}
+};

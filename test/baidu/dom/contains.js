@@ -1,7 +1,7 @@
 module("baidu.dom.contains")
 
 test("父子关系",function(){
-	expect(9);
+	expect(10);
 	var div = document.createElement('div');
 	div.id = "father_div";
 	var divChild = document.createElement('div');
@@ -15,13 +15,9 @@ test("父子关系",function(){
 	div.appendChild(img);
 	div.appendChild(text);
 	divChild.appendChild(aGrand);
-	
 	ok(baidu.dom(div).contains(divChild),"div contains child div");
 	ok(baidu.dom(div).contains(img),"div contains img");
-	/**
-	 * 不支持textNode，因为在ie下有问题，兼容这个问题需要花费很大的精力，因此不做处理
-	 * ok(baidu.dom.contains(div,text),"div contains text");//text node
-	 */
+	ok(baidu.dom(div).contains(text), "div contains text");//text node
 	ok(baidu.dom(divChild).contains(aGrand),"child div contains a");//grand child
 	ok(baidu.dom('body').contains(div),"body contains div");//body
 	
@@ -99,7 +95,7 @@ test('异常case',function(){
 
 //老接口
 test("老接口：父子关系",function(){
-	expect(9);
+	expect(10);
 	var div = document.createElement('div');
 	div.id = "father_div";
 	var divChild = document.createElement('div');
@@ -116,10 +112,7 @@ test("老接口：父子关系",function(){
 	
 	ok(baidu.dom.contains(div,divChild),"div contains child div");
 	ok(baidu.dom.contains(div,img),"div contains img");
-	/**
-	 * 不支持textNode，因为在ie下有问题，兼容这个问题需要花费很大的精力，因此不做处理
-	 * ok(baidu.dom.contains(div,text),"div contains text");//text node
-	 */
+	ok(baidu.dom.contains(div,text),"div contains text");//text node
 	ok(baidu.dom.contains(divChild,aGrand),"child div contains a");//grand child
 	ok(baidu.dom.contains(document.body,div),"body contains div");//body
 	
