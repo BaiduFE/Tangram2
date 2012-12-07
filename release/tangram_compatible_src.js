@@ -15,10 +15,10 @@ void function(){
 	
 	var T, baidu = T = baidu || function(q, c) { return baidu.dom ? baidu.dom(q, c) : null; };
 	
-	if( !window.baidu )
-		window.baidu = window.T = T;
+	if( !this.baidu )
+	    this.baidu = this.T = T;
 	
-	baidu.version = "2.0.1.0";
+	baidu.version = '2.0.1.1';
 	baidu.guid = "$BAIDU$";
 	baidu.key = "tangram_guid";
 	
@@ -241,11 +241,11 @@ void function(){
 	};
 	
 	baidu.overwrite = function(Class, list, fn) {
-		for (var i = list.length - 1; i > -1; i--) {
-			Class.prototype[list[i]] = fn(list[i]);
-		}
+	    for (var i = list.length - 1; i > -1; i--) {
+	        Class.prototype[list[i]] = fn(list[i]);
+	    }
 	
-		return Class;
+	    return Class;
 	};
 	
 	baidu.object = baidu.object || {};
@@ -290,9 +290,9 @@ void function(){
 	
 	// 对系统方法新产生的 array 对象注入自定义方法，支持完美的链式语法
 	baidu.overwrite(baidu.array.$Array, "concat slice".split(" "), function(key) {
-		return function() {
-			return baidu.array( Array.prototype[key].apply(this, arguments) );
-		}
+	    return function() {
+	        return baidu.array( Array.prototype[key].apply(this, arguments) );
+	    }
 	});
 	
 	baidu.array.extend({
@@ -319,174 +319,174 @@ void function(){
 	// 执行方法
 	function(options){
 	
-		// String to Object options format cache
-		var optionsCache = {};
+	    // String to Object options format cache
+	    var optionsCache = {};
 	
-		// Convert String-formatted options into Object-formatted ones and store in cache
-		function createOptions( options ) {
-			var object = optionsCache[ options ] = {};
-			baidu.forEach( options.split(/\s+/), function( flag, _ ) {
-				object[ flag ] = true;
-			});
-			return object;
-		};
+	    // Convert String-formatted options into Object-formatted ones and store in cache
+	    function createOptions( options ) {
+	        var object = optionsCache[ options ] = {};
+	        baidu.forEach( options.split(/\s+/), function( flag, _ ) {
+	            object[ flag ] = true;
+	        });
+	        return object;
+	    };
 	
-		
-		// Convert options from String-formatted to Object-formatted if needed
-		// (we check in cache first)
-		options = typeof options === "string" ?
-			( optionsCache[ options ] || createOptions( options ) ) :
-			baidu.extend( {}, options );
+	    
+	    // Convert options from String-formatted to Object-formatted if needed
+	    // (we check in cache first)
+	    options = typeof options === "string" ?
+	        ( optionsCache[ options ] || createOptions( options ) ) :
+	        baidu.extend( {}, options );
 	
-		var // Last fire value (for non-forgettable lists)
-			memory,
-			// Flag to know if list was already fired
-			fired,
-			// Flag to know if list is currently firing
-			firing,
-			// First callback to fire (used internally by add and fireWith)
-			firingStart,
-			// End of the loop when firing
-			firingLength,
-			// Index of currently firing callback (modified by remove if needed)
-			firingIndex,
-			// Actual callback list
-			list = [],
-			// Stack of fire calls for repeatable lists
-			stack = !options.once && [],
-			// Fire callbacks
-			fire = function( data ) {
-				memory = options.memory && data;
-				fired = true;
-				firingIndex = firingStart || 0;
-				firingStart = 0;
-				firingLength = list.length;
-				firing = true;
-				for ( ; list && firingIndex < firingLength; firingIndex++ ) {
-					if ( list[ firingIndex ].apply( data[ 0 ], data[ 1 ] ) === false && options.stopOnFalse ) {
-						memory = false; // To prevent further calls using add
-						break;
-					}
-				}
-				firing = false;
-				if ( list ) {
-					if ( stack ) {
-						if ( stack.length ) {
-							fire( stack.shift() );
-						}
-					} else if ( memory ) {
-						list = [];
-					} else {
-						self.disable();
-					}
-				}
-			},
-			// Actual Callbacks object
-			self = {
-				// Add a callback or a collection of callbacks to the list
-				add: function() {
-					if ( list ) {
-						// First, we save the current length
-						var start = list.length;
-						(function add( args ) {
-							baidu.forEach( args, function( arg, _) {
-								if ( (typeof arg === 'function') && ( !options.unique || !self.has( arg ) ) ) {
-									list.push( arg );
-								} else if ( arg && arg.length ) {
-									// Inspect recursively
-									add( arg );
-								}
-							});
-						})( arguments );
-						// Do we need to add the callbacks to the
-						// current firing batch?
-						if ( firing ) {
-							firingLength = list.length;
-						// With memory, if we're not firing then
-						// we should call right away
-						} else if ( memory ) {
-							firingStart = start;
-							fire( memory );
-						}
-					}
-					return this;
-				},
-				// Remove a callback from the list
-				remove: function() {
-					if ( list ) {
-						baidu.forEach( arguments, function( arg, _ ) {
-							var index;
-							while( ( index = baidu.array(list).indexOf(arg,index) ) > -1 ) {
-								list.splice( index, 1 );
-								// Handle firing indexes
-								if ( firing ) {
-									if ( index <= firingLength ) {
-										firingLength--;
-									}
-									if ( index <= firingIndex ) {
-										firingIndex--;
-									}
-								}
-							}
-						});
-					}
-					return this;
-				},
-				// Control if a given callback is in the list
-				has: function( fn ) {
-					return baidu.array(list).indexOf(fn) > -1;
-				},
-				// Remove all callbacks from the list
-				empty: function() {
-					list = [];
-					return this;
-				},
-				// Have the list do nothing anymore
-				disable: function() {
-					list = stack = memory = undefined;
-					return this;
-				},
-				// Is it disabled?
-				disabled: function() {
-					return !list;
-				},
-				// Lock the list in its current state
-				lock: function() {
-					stack = undefined;
-					if ( !memory ) {
-						self.disable();
-					}
-					return this;
-				},
-				// Is it locked?
-				locked: function() {
-					return !stack;
-				},
-				// Call all callbacks with the given context and arguments
-				fireWith: function( context, args ) {
-					args = args || [];
-					args = [ context, args.slice ? args.slice() : args ];
-					if ( list && ( !fired || stack ) ) {
-						if ( firing ) {
-							stack.push( args );
-						} else {
-							fire( args );
-						}
-					}
-					return this;
-				},
-				// Call all the callbacks with the given arguments
-				fire: function() {
-					self.fireWith( this, arguments );
-					return this;
-				},
-				// To know if the callbacks have already been called at least once
-				fired: function() {
-					return !!fired;
-				}
-			};
+	    var // Last fire value (for non-forgettable lists)
+	        memory,
+	        // Flag to know if list was already fired
+	        fired,
+	        // Flag to know if list is currently firing
+	        firing,
+	        // First callback to fire (used internally by add and fireWith)
+	        firingStart,
+	        // End of the loop when firing
+	        firingLength,
+	        // Index of currently firing callback (modified by remove if needed)
+	        firingIndex,
+	        // Actual callback list
+	        list = [],
+	        // Stack of fire calls for repeatable lists
+	        stack = !options.once && [],
+	        // Fire callbacks
+	        fire = function( data ) {
+	            memory = options.memory && data;
+	            fired = true;
+	            firingIndex = firingStart || 0;
+	            firingStart = 0;
+	            firingLength = list.length;
+	            firing = true;
+	            for ( ; list && firingIndex < firingLength; firingIndex++ ) {
+	                if ( list[ firingIndex ].apply( data[ 0 ], data[ 1 ] ) === false && options.stopOnFalse ) {
+	                    memory = false; // To prevent further calls using add
+	                    break;
+	                }
+	            }
+	            firing = false;
+	            if ( list ) {
+	                if ( stack ) {
+	                    if ( stack.length ) {
+	                        fire( stack.shift() );
+	                    }
+	                } else if ( memory ) {
+	                    list = [];
+	                } else {
+	                    self.disable();
+	                }
+	            }
+	        },
+	        // Actual Callbacks object
+	        self = {
+	            // Add a callback or a collection of callbacks to the list
+	            add: function() {
+	                if ( list ) {
+	                    // First, we save the current length
+	                    var start = list.length;
+	                    (function add( args ) {
+	                        baidu.forEach( args, function( arg, _) {
+	                            if ( (typeof arg === 'function') && ( !options.unique || !self.has( arg ) ) ) {
+	                                list.push( arg );
+	                            } else if ( arg && arg.length ) {
+	                                // Inspect recursively
+	                                add( arg );
+	                            }
+	                        });
+	                    })( arguments );
+	                    // Do we need to add the callbacks to the
+	                    // current firing batch?
+	                    if ( firing ) {
+	                        firingLength = list.length;
+	                    // With memory, if we're not firing then
+	                    // we should call right away
+	                    } else if ( memory ) {
+	                        firingStart = start;
+	                        fire( memory );
+	                    }
+	                }
+	                return this;
+	            },
+	            // Remove a callback from the list
+	            remove: function() {
+	                if ( list ) {
+	                    baidu.forEach( arguments, function( arg, _ ) {
+	                        var index;
+	                        while( ( index = baidu.array(list).indexOf(arg,index) ) > -1 ) {
+	                            list.splice( index, 1 );
+	                            // Handle firing indexes
+	                            if ( firing ) {
+	                                if ( index <= firingLength ) {
+	                                    firingLength--;
+	                                }
+	                                if ( index <= firingIndex ) {
+	                                    firingIndex--;
+	                                }
+	                            }
+	                        }
+	                    });
+	                }
+	                return this;
+	            },
+	            // Control if a given callback is in the list
+	            has: function( fn ) {
+	                return baidu.array(list).indexOf(fn) > -1;
+	            },
+	            // Remove all callbacks from the list
+	            empty: function() {
+	                list = [];
+	                return this;
+	            },
+	            // Have the list do nothing anymore
+	            disable: function() {
+	                list = stack = memory = undefined;
+	                return this;
+	            },
+	            // Is it disabled?
+	            disabled: function() {
+	                return !list;
+	            },
+	            // Lock the list in its current state
+	            lock: function() {
+	                stack = undefined;
+	                if ( !memory ) {
+	                    self.disable();
+	                }
+	                return this;
+	            },
+	            // Is it locked?
+	            locked: function() {
+	                return !stack;
+	            },
+	            // Call all callbacks with the given context and arguments
+	            fireWith: function( context, args ) {
+	                args = args || [];
+	                args = [ context, args.slice ? args.slice() : args ];
+	                if ( list && ( !fired || stack ) ) {
+	                    if ( firing ) {
+	                        stack.push( args );
+	                    } else {
+	                        fire( args );
+	                    }
+	                }
+	                return this;
+	            },
+	            // Call all the callbacks with the given arguments
+	            fire: function() {
+	                self.fireWith( this, arguments );
+	                return this;
+	            },
+	            // To know if the callbacks have already been called at least once
+	            fired: function() {
+	                return !!fired;
+	            }
+	        };
 	
-		return self;
+	    return self;
 	},
 	// constructor
 	function(){});
@@ -496,145 +496,145 @@ void function(){
 	
 	// 执行方法
 	function( func ) {
-		var slice = Array.prototype.slice;
-		var tuples = [
-				// action, add listener, listener list, final state
-				[ "resolve", "done", baidu.Callbacks("once memory"), "resolved" ],
-				[ "reject", "fail", baidu.Callbacks("once memory"), "rejected" ],
-				[ "notify", "progress", baidu.Callbacks("memory") ]
-			],
-			state = "pending",
-			promise = {
-				state: function() {
-					return state;
-				},
-				always: function() {
-					deferred.done( arguments ).fail( arguments );
-					return this;
-				},
-				then: function(  ) {
-					var fns = arguments;
-					return baidu.Deferred(function( newDefer ) {
-						baidu.forEach( tuples, function( tuple, i ) {
-							var action = tuple[ 0 ],
-								fn = fns[ i ];
-							// deferred[ done | fail | progress ] for forwarding actions to newDefer
-							deferred[ tuple[1] ]( (typeof fn === 'function') ?
-								function() {
-									var returned = fn.apply( this, arguments );
-									if ( returned && ( typeof returned.promise === 'function') ) {
-										returned.promise()
-											.done( newDefer.resolve )
-											.fail( newDefer.reject )
-											.progress( newDefer.notify );
-									} else {
-										newDefer[ action + "With" ]( this === deferred ? newDefer : this, [ returned ] );
-									}
-								} :
-								newDefer[ action ]
-							);
-						});
-						fns = null;
-					}).promise();
-				},
-				// Get a promise for this deferred
-				// If obj is provided, the promise aspect is added to the object
-				promise: function( obj ) {
-					return typeof obj === "object" ? baidu.extend( obj, promise ) : promise;
-				}
-			},
-			deferred = {};
+	    var slice = Array.prototype.slice;
+	    var tuples = [
+	            // action, add listener, listener list, final state
+	            [ "resolve", "done", baidu.Callbacks("once memory"), "resolved" ],
+	            [ "reject", "fail", baidu.Callbacks("once memory"), "rejected" ],
+	            [ "notify", "progress", baidu.Callbacks("memory") ]
+	        ],
+	        state = "pending",
+	        promise = {
+	            state: function() {
+	                return state;
+	            },
+	            always: function() {
+	                deferred.done( arguments ).fail( arguments );
+	                return this;
+	            },
+	            then: function(  ) {
+	                var fns = arguments;
+	                return baidu.Deferred(function( newDefer ) {
+	                    baidu.forEach( tuples, function( tuple, i ) {
+	                        var action = tuple[ 0 ],
+	                            fn = fns[ i ];
+	                        // deferred[ done | fail | progress ] for forwarding actions to newDefer
+	                        deferred[ tuple[1] ]( (typeof fn === 'function') ?
+	                            function() {
+	                                var returned = fn.apply( this, arguments );
+	                                if ( returned && ( typeof returned.promise === 'function') ) {
+	                                    returned.promise()
+	                                        .done( newDefer.resolve )
+	                                        .fail( newDefer.reject )
+	                                        .progress( newDefer.notify );
+	                                } else {
+	                                    newDefer[ action + "With" ]( this === deferred ? newDefer : this, [ returned ] );
+	                                }
+	                            } :
+	                            newDefer[ action ]
+	                        );
+	                    });
+	                    fns = null;
+	                }).promise();
+	            },
+	            // Get a promise for this deferred
+	            // If obj is provided, the promise aspect is added to the object
+	            promise: function( obj ) {
+	                return typeof obj === "object" ? baidu.extend( obj, promise ) : promise;
+	            }
+	        },
+	        deferred = {};
 	
-		// Keep pipe for back-compat
-		promise.pipe = promise.then;
+	    // Keep pipe for back-compat
+	    promise.pipe = promise.then;
 	
-		// Add list-specific methods
-		baidu.forEach( tuples, function( tuple,i ) {
-			var list = tuple[ 2 ],
-				stateString = tuple[ 3 ];
+	    // Add list-specific methods
+	    baidu.forEach( tuples, function( tuple,i ) {
+	        var list = tuple[ 2 ],
+	            stateString = tuple[ 3 ];
 	
-			// promise[ done | fail | progress ] = list.add
-			promise[ tuple[1] ] = list.add;
+	        // promise[ done | fail | progress ] = list.add
+	        promise[ tuple[1] ] = list.add;
 	
-			// Handle state
-			if ( stateString ) {
-				list.add(function() {
-					// state = [ resolved | rejected ]
-					state = stateString;
+	        // Handle state
+	        if ( stateString ) {
+	            list.add(function() {
+	                // state = [ resolved | rejected ]
+	                state = stateString;
 	
-				// [ reject_list | resolve_list ].disable; progress_list.lock
-				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
-			}
+	            // [ reject_list | resolve_list ].disable; progress_list.lock
+	            }, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
+	        }
 	
-			// deferred[ resolve | reject | notify ] = list.fire
-			deferred[ tuple[0] ] = list.fire;
-			deferred[ tuple[0] + "With" ] = list.fireWith;
-		});
+	        // deferred[ resolve | reject | notify ] = list.fire
+	        deferred[ tuple[0] ] = list.fire;
+	        deferred[ tuple[0] + "With" ] = list.fireWith;
+	    });
 	
-		// Make the deferred a promise
-		promise.promise( deferred );
+	    // Make the deferred a promise
+	    promise.promise( deferred );
 	
-		// Call given func if any
-		if ( func ) {
-			func.call( deferred, deferred );
-		}
+	    // Call given func if any
+	    if ( func ) {
+	        func.call( deferred, deferred );
+	    }
 	
-		baidu.extend(baidu,{
-			// Deferred helper
-			when: function( subordinate  ) {
-				var i = 0,
-					resolveValues = slice.call( arguments ),
-					length = resolveValues.length,
+	    baidu.extend(baidu,{
+	        // Deferred helper
+	        when: function( subordinate  ) {
+	            var i = 0,
+	                resolveValues = slice.call( arguments ),
+	                length = resolveValues.length,
 	
-					// the count of uncompleted subordinates
-					remaining = length !== 1 || ( subordinate && (typeof subordinate.promise === 'function') ) ? length : 0,
+	                // the count of uncompleted subordinates
+	                remaining = length !== 1 || ( subordinate && (typeof subordinate.promise === 'function') ) ? length : 0,
 	
-					// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
-					deferred = remaining === 1 ? subordinate : baidu.Deferred(),
+	                // the master Deferred. If resolveValues consist of only a single Deferred, just use that.
+	                deferred = remaining === 1 ? subordinate : baidu.Deferred(),
 	
-					// Update function for both resolve and progress values
-					updateFunc = function( i, contexts, values ) {
-						return function( value ) {
-							contexts[ i ] = this;
-							values[ i ] = arguments.length > 1 ? slice.call( arguments ) : value;
-							if( values === progressValues ) {
-								deferred.notifyWith( contexts, values );
-							} else if ( !( --remaining ) ) {
-								deferred.resolveWith( contexts, values );
-							}
-						};
-					},
+	                // Update function for both resolve and progress values
+	                updateFunc = function( i, contexts, values ) {
+	                    return function( value ) {
+	                        contexts[ i ] = this;
+	                        values[ i ] = arguments.length > 1 ? slice.call( arguments ) : value;
+	                        if( values === progressValues ) {
+	                            deferred.notifyWith( contexts, values );
+	                        } else if ( !( --remaining ) ) {
+	                            deferred.resolveWith( contexts, values );
+	                        }
+	                    };
+	                },
 	
-					progressValues, progressContexts, resolveContexts;
+	                progressValues, progressContexts, resolveContexts;
 	
-				// add listeners to Deferred subordinates; treat others as resolved
-				if ( length > 1 ) {
-					progressValues = new Array( length );
-					progressContexts = new Array( length );
-					resolveContexts = new Array( length );
-					for ( ; i < length; i++ ) {
-						if ( resolveValues[ i ] && (typeof resolveValues[ i ].promise ==='function') ) {
-							resolveValues[ i ].promise()
-								.done( updateFunc( i, resolveContexts, resolveValues ) )
-								.fail( deferred.reject )
-								.progress( updateFunc( i, progressContexts, progressValues ) );
-						} else {
-							--remaining;
-						}
-					}
-				}
+	            // add listeners to Deferred subordinates; treat others as resolved
+	            if ( length > 1 ) {
+	                progressValues = new Array( length );
+	                progressContexts = new Array( length );
+	                resolveContexts = new Array( length );
+	                for ( ; i < length; i++ ) {
+	                    if ( resolveValues[ i ] && (typeof resolveValues[ i ].promise ==='function') ) {
+	                        resolveValues[ i ].promise()
+	                            .done( updateFunc( i, resolveContexts, resolveValues ) )
+	                            .fail( deferred.reject )
+	                            .progress( updateFunc( i, progressContexts, progressValues ) );
+	                    } else {
+	                        --remaining;
+	                    }
+	                }
+	            }
 	
-				// if we're not waiting on anything, resolve the master
-				if ( !remaining ) {
-					deferred.resolveWith( resolveContexts, resolveValues );
-				}
+	            // if we're not waiting on anything, resolve the master
+	            if ( !remaining ) {
+	                deferred.resolveWith( resolveContexts, resolveValues );
+	            }
 	
-				return deferred.promise();
-			}	
-		});
+	            return deferred.promise();
+	        }    
+	    });
 	
-		// All done!
-		return deferred;
+	    // All done!
+	    return deferred;
 	},
 	
 	// constructor
@@ -698,7 +698,7 @@ void function(){
 	    var maps = baidu.global("_maps_id")
 	        ,key = baidu.key;
 	
-	    baidu.global("_counter", 1, true);
+	    baidu.global("_counter", 1);
 	
 	    return function( object, command ) {
 	        var e
@@ -1162,22 +1162,22 @@ void function(){
 	baidu._util_.eventBase = {};
 	
 	void function( base, listener ){
-		listener = base.listener = {};
-		
-		if( window.addEventListener )
-		    listener.add = function( target, name, fn ){
-		        target.addEventListener( name, fn, false );
-		    };
-		else if( window.attachEvent )
-			listener.add = function( target, name, fn ){
-		        target.attachEvent( "on" + name, fn );
-		    };
+	    listener = base.listener = {};
+	    
+	    if( window.addEventListener )
+	        listener.add = function( target, name, fn ){
+	            target.addEventListener( name, fn, false );
+	        };
+	    else if( window.attachEvent )
+	        listener.add = function( target, name, fn ){
+	            target.attachEvent( "on" + name, fn );
+	        };
 	}( baidu._util_.eventBase );
 	
 	void function( base, be ){
-		var I = baidu.id;
-		var queue = base.queue = {};
-		var attaCache = queue.attaCache = baidu.global( "eventQueueCache" );
+	    var I = baidu.id;
+	    var queue = base.queue = {};
+	    var attaCache = queue.attaCache = baidu.global( "eventQueueCache" );
 	    var listener = base.listener;
 	
 	    queue.get = function( target, type, bindType, attachElements ){
@@ -1197,7 +1197,7 @@ void function(){
 	    };
 	
 	    queue.add = function( target, type, bindType, item, attachElements ){
-	    	this.get( target, type, bindType, attachElements ).push( item );
+	        this.get( target, type, bindType, attachElements ).push( item );
 	    };
 	
 	    queue.remove = function( target, type, fn ){
@@ -1206,15 +1206,15 @@ void function(){
 	            var arr = this.get( target, type );
 	            if( fn ){
 	                for(var i = arr.length - 1; i >= 0; i --)
-	                	if( arr[i].orig == fn )
-	                		arr.splice( i, 1 );
+	                    if( arr[i].orig == fn )
+	                        arr.splice( i, 1 );
 	            }else{
 	                arr.length = 0;
 	            }
 	        }else{
 	            var c = this.get( target );
 	            for(var i in c)
-	            	c[i].length = 0;
+	                c[i].length = 0;
 	        }
 	    };
 	
@@ -1274,15 +1274,15 @@ void function(){
 	
 	    var findVestedEl = function( target, parents ){
 	        for( var i = 0, l = parents.length; i < l; i ++ )
-	        	if( parents.get(i).contains( target ) )
-	        		return parents[i];
+	            if( parents.get(i).contains( target ) )
+	                return parents[i];
 	    };
 	
 	    core.build = function( target, name, fn, selector, data ){
 	
-	    	var bindElements;
-	    	if( selector )
-	    	    bindElements = baidu.dom( selector, target );
+	        var bindElements;
+	        if( selector )
+	            bindElements = baidu.dom( selector, target );
 	
 	        if( ( name in special ) && special[name].pack )
 	            fn = special[name].pack( fn );
@@ -1299,20 +1299,20 @@ void function(){
 	                return e.result = fn.apply( target, args );
 	
 	            for(var i = 0; i < 2; i ++){
-	            	if( bindElement = findVestedEl( e.target, bindElements ) )
-	            	    return e.result = fn.apply( bindElement, args );
-	            	bindElements = baidu.dom( selector, target );
+	                if( bindElement = findVestedEl( e.target, bindElements ) )
+	                    return e.result = fn.apply( bindElement, args );
+	                bindElements = baidu.dom( selector, target );
 	            }
 	        };
 	    };
 	
 	    core.add = function( target, type, fn, selector, data, one ){
-			var pkg = this.build( target, type, fn, selector, data ), attachElements, bindType;
+	        var pkg = this.build( target, type, fn, selector, data ), attachElements, bindType;
 	        bindType = type;
 	        if(type in special)
 	            attachElements = special[type].attachElements,
 	            bindType = special[type].bindType || type;
-			queue.add( target, type, bindType, { type: type, pkg: pkg, orig: fn, one: one }, attachElements );
+	        queue.add( target, type, bindType, { type: type, pkg: pkg, orig: fn, one: one }, attachElements );
 	    };
 	
 	    core.remove = function( target, type, fn, selector ){
@@ -2625,12 +2625,12 @@ void function(){
 	
 	// 执行方法
 	function(url){
-		return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
+	    return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
 	},
 	
 	// constructor
 	function(url){
-		this.url = url;
+	    this.url = url;
 	});
 	
 	
@@ -2659,7 +2659,7 @@ void function(){
 	
 	// constructor
 	function(fn){
-		this.fn = fn;
+	    this.fn = fn;
 	});
 	
 	
@@ -3000,12 +3000,12 @@ void function(){
 	    (Class._reg_ || (Class._reg_ = [])).push( constructorHook );
 	
 	    for (var method in methods) {
-	    	Class.prototype[method] = methods[method];
+	        Class.prototype[method] = methods[method];
 	    }
 	};
 	
 	// 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
-	// 20111129	meizz	添加第三个参数，可以直接挂载方法到目标类原型链上
+	// 20111129    meizz    添加第三个参数，可以直接挂载方法到目标类原型链上
 	
 	//baidu.browser.chrome = /chrome\/(\d+\.\d+)/i.test(navigator.userAgent) ? + RegExp['\x241'] : undefined;
 	
@@ -3212,7 +3212,7 @@ void function(){
 	
 	baidu.number.extend({
 	    pad : function (length) {
-	    	var source = this;
+	        var source = this;
 	        var pre = "",
 	            negative = (source < 0),
 	            string = String(Math.abs(source));
@@ -3426,7 +3426,7 @@ void function(){
 	
 	baidu.dom.extend({
 	    getDocument: function(){
-	    	if(this.size()<=0){return undefined;}
+	        if(this.size()<=0){return undefined;}
 	        var ele = this[0];
 	        return ele.nodeType == 9 ? ele : ele.ownerDocument || ele.document;
 	    }
@@ -3443,7 +3443,7 @@ void function(){
 	        baidu._util_.eventBase.queue.remove(ele);
 	        baidu.id(ele, 'remove');
 	    }
-	}
+	};
 	
 	baidu.dom.extend({
 	    empty: function(){
@@ -3691,13 +3691,13 @@ void function(){
 	        }
 	        //
 	        function cloneCopyEvent(src, dest){
-	        	if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
-	        	var defaultEvents = eventQueue.get(src);
-	        	for(var i in defaultEvents){
-	        	    for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
-	        	        eventCore.add(dest, i, handler);
-	        	    }
-	        	}
+	            if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
+	            var defaultEvents = eventQueue.get(src);
+	            for(var i in defaultEvents){
+	                for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
+	                    eventCore.add(dest, i, handler);
+	                }
+	            }
 	        }
 	        //
 	        function clone(ele, dataAndEvents, deepDataAndEvents){
@@ -3721,7 +3721,7 @@ void function(){
 	                    destElements = getAll( cloneNode );
 	                    len = srcElements.length;
 	                    for(var i = 0; i < len; i++){
-	                    	cloneCopyEvent(srcElements[i], destElements[i]);
+	                        cloneCopyEvent(srcElements[i], destElements[i]);
 	                    }
 	                }
 	            }
@@ -3741,14 +3741,16 @@ void function(){
 	baidu._util_.contains = document.compareDocumentPosition ?
 	    function(container, contained){
 	        return !!(container.compareDocumentPosition( contained ) & 16);
-	    } : document.contains ? function(container, contained){
-	        return container != contained
-	            && (container.contains ? container.contains( contained ) : false)
 	    } : function(container, contained){
-	        while(contained = contained.parentNode){
-	            if(contained === container){return true;}
+	        if(container === contained){return false;}
+	        if(container.contains && contained.contains){
+	            return container.contains(contained);
+	        }else{
+	            while(contained = contained.parentNode){
+	                if(contained === container){return true;}
+	            }
+	            return false;
 	        }
-	        return false;
 	    };
 	
 	 
@@ -3758,14 +3760,14 @@ void function(){
 	            contained = baidu.dom(contained)[0];
 	        if(!container || !contained){return false;}
 	        return baidu._util_.contains(container, contained);
-	    }	
+	    }    
 	});
 	
 	
 	
 	baidu.dom._g = function(id){
 	    return baidu.type(id) === 'string' ? document.getElementById(id) : id;
-	}
+	};
 	
 	
 	
@@ -4104,9 +4106,9 @@ void function(){
 	});
 	
 	baidu.dom.extend({
-		bind: function( type, data, fn ){
-			return this.on( type, undefined, data, fn );
-		}
+	    bind: function( type, data, fn ){
+	        return this.on( type, undefined, data, fn );
+	    }
 	});
 	
 	baidu.dom.match = function(){
@@ -4235,7 +4237,7 @@ void function(){
 	    array.length == null || ~'string|function|regexp'.indexOf(baidu.type(array)) ?
 	        [].push.call(ret, array) : baidu.merge(ret, array);
 	    return ret;
-	}
+	};
 	
 	baidu.dom.extend({
 	    contents: function(){
@@ -4339,7 +4341,7 @@ void function(){
 	 //todo:考虑以后去掉下划线支持？
 	baidu.string.extend({
 	    toCamelCase : function () {
-	    	var source = this.valueOf();
+	        var source = this.valueOf();
 	        //提前判断，提高getStyle等的效率 thanks xianwei
 	        if (source.indexOf('-') < 0 && source.indexOf('_') < 0) {
 	            return source;
@@ -4446,6 +4448,7 @@ void function(){
 	    }
 	});
 	
+	 
 	baidu.dom.extend({
 	    data : function () {
 	        var   guid = baidu.key
@@ -4525,9 +4528,9 @@ void function(){
 	    return "[object " + (this._type_ || this.__type || this._className || "Object") + "]";
 	};
 	
-	 window["baiduInstance"] = function(guid) {
-	     return baidu._global_._instances_[ guid ];
-	 }
+	window["baiduInstance"] = function(guid) {
+	    return baidu._global_._instances_[ guid ];
+	};
 	
 	//  2011.11.23  meizz   添加 baiduInstance 这个全局方法，可以快速地通过guid得到实例对象
 	//  2011.11.22  meizz   废除创建类时指定guid的模式，guid只作为只读属性
@@ -4681,12 +4684,12 @@ void function(){
 	
 	
 	baidu.dom.extend({
-		delegate: function( selector, type, data, fn ){
+	    delegate: function( selector, type, data, fn ){
 	        if( typeof data == "function" )
 	            fn = data,
 	            data = null;
-	    	return this.on( type, selector, data, fn );
-		}
+	        return this.on( type, selector, data, fn );
+	    }
 	});
 	
 	 
@@ -4920,7 +4923,7 @@ void function(){
 	
 	baidu.dom.setStyle = function(element, key, val){
 	    return baidu.dom(baidu.dom.g(element)).css(key, val).get(0);
-	}
+	};
 	
 	
 	/// support maigc - Tangram 1.x Code Start
@@ -5099,7 +5102,7 @@ void function(){
 	
 	baidu.dom.getAttr = function(element, key){
 	    return baidu.dom(baidu.dom.g(element)).attr(key);
-	}
+	};
 	/// support magic - Tangram 1.x Code End
 	
 	
@@ -5211,15 +5214,14 @@ void function(){
 	
 	baidu.dom.getPosition = function(element){
 	    return baidu.dom(baidu.dom.g(element)).offset();
-	}
+	};
 	
 	
 	
 	
 	baidu.dom.extend({
 	    getText : function () {
-	        var ret = "", childs, i=0, l;
-	        element = this[0];
+	        var ret = "", childs, i=0, l,element = this[0];
 	        //  text 和 CDATA 节点，取nodeValue
 	        if ( element.nodeType === 3 || element.nodeType === 4 ) {
 	            ret += element.nodeValue;
@@ -5252,8 +5254,7 @@ void function(){
 	
 	baidu.dom.extend({
 	    hasAttr : function (name){
-	        element = this[0];
-	        var attr = element.attributes.getNamedItem(name);
+	        var element = this[0],attr = element.attributes.getNamedItem(name);
 	        return !!( attr && attr.specified );
 	    }
 	});
@@ -5344,9 +5345,9 @@ void function(){
 	
 	baidu.dom.extend({
 	    innerHeight: function(){
-	    	if(this.size()<=0){
-	    		return 0;
-	    	}
+	        if(this.size()<=0){
+	            return 0;
+	        }
 	        var ele = this[0],
 	            type = ele != null && ele === ele.window ? 'window'
 	                : (ele.nodeType === 9 ? 'document' : false);
@@ -5357,7 +5358,7 @@ void function(){
 	
 	baidu.dom.extend({
 	    innerWidth: function(){
-	    	if(this.size()<=0){return 0;}
+	        if(this.size()<=0){return 0;}
 	        var ele = this[0],
 	            type = ele != null && ele === ele.window ? 'window'
 	                : (ele.nodeType === 9 ? 'document' : false);
@@ -5404,8 +5405,7 @@ void function(){
 	
 	baidu.dom.extend({
 	    insertHTML: function ( position, html) {
-	        element = this[0];
-	        var range,begin;
+	        var range,begin,element = this[0];
 	    
 	        //在opera中insertAdjacentHTML方法实现不标准，如果DOMNodeInserted方法被监听则无法一次插入多element
 	        //by lixiaopeng @ 2011-8-19
@@ -5569,7 +5569,7 @@ void function(){
 	
 	baidu.dom.extend({
 	    outerHeight: function(margin){
-	    	if(this.size()<=0){return 0;}
+	        if(this.size()<=0){return 0;}
 	        var ele = this[0],
 	            type = ele != null && ele === ele.window ? 'window'
 	                : (ele.nodeType === 9 ? 'document' : false);
@@ -5580,7 +5580,7 @@ void function(){
 	
 	baidu.dom.extend({
 	    outerWidth: function(margin){
-	    	if(this.size()<=0){return 0;} 	
+	        if(this.size()<=0){return 0;}     
 	        var ele = this[0],
 	            type = ele != null && ele === ele.window ? 'window'
 	                : (ele.nodeType === 9 ? 'document' : false);
@@ -5799,1401 +5799,1401 @@ void function(){
 	        return baidu.merge( results || [], baidu.sizzle(selector, context) );
 	    };
 	
-		var document = window.document,
-			docElem = document.documentElement,
-	
-			expando = "sizcache" + (Math.random() + '').replace('.', ''),
-			done = 0,
-	
-			toString = Object.prototype.toString,
-			strundefined = "undefined",
-	
-			hasDuplicate = false,
-			baseHasDuplicate = true,
-	
-			// Regex
-			rquickExpr = /^#([\w\-]+$)|^(\w+$)|^\.([\w\-]+$)/,
-			chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
-	
-			rbackslash = /\\/g,
-			rnonWord = /\W/,
-			rstartsWithWord = /^\w/,
-			rnonDigit = /\D/,
-			rnth = /(-?)(\d*)(?:n([+\-]?\d*))?/,
-			radjacent = /^\+|\s*/g,
-			rheader = /h\d/i,
-			rinputs = /input|select|textarea|button/i,
-			rtnfr = /[\t\n\f\r]/g,
-	
-			characterEncoding = "(?:[-\\w]|[^\\x00-\\xa0]|\\\\.)",
-			matchExpr = {
-				ID: new RegExp("#(" + characterEncoding + "+)"),
-				CLASS: new RegExp("\\.(" + characterEncoding + "+)"),
-				NAME: new RegExp("\\[name=['\"]*(" + characterEncoding + "+)['\"]*\\]"),
-				TAG: new RegExp("^(" + characterEncoding.replace( "[-", "[-\\*" ) + "+)"),
-				ATTR: new RegExp("\\[\\s*(" + characterEncoding + "+)\\s*(?:(\\S?=)\\s*(?:(['\"])(.*?)\\3|(#?" + characterEncoding + "*)|)|)\\s*\\]"),
-				PSEUDO: new RegExp(":(" + characterEncoding + "+)(?:\\((['\"]?)((?:\\([^\\)]+\\)|[^\\(\\)]*)+)\\2\\))?"),
-				CHILD: /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
-				POS: /:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/
-			},
-	
-			origPOS = matchExpr.POS,
-	
-			leftMatchExpr = (function() {
-				var type,
-					// Increments parenthetical references
-					// for leftMatch creation
-					fescape = function( all, num ) {
-						return "\\" + ( num - 0 + 1 );
-					},
-					leftMatch = {};
-	
-				for ( type in matchExpr ) {
-					// Modify the regexes ensuring the matches do not end in brackets/parens
-					matchExpr[ type ] = new RegExp( matchExpr[ type ].source + (/(?![^\[]*\])(?![^\(]*\))/.source) );
-					// Adds a capture group for characters left of the match
-					leftMatch[ type ] = new RegExp( /(^(?:.|\r|\n)*?)/.source + matchExpr[ type ].source.replace( /\\(\d+)/g, fescape ) );
-				}
-	
-				// Expose origPOS
-				// "global" as in regardless of relation to brackets/parens
-				matchExpr.globalPOS = origPOS;
-	
-				return leftMatch;
-			})(),
-	
-			// Used for testing something on an element
-			assert = function( fn ) {
-				var pass = false,
-					div = document.createElement("div");
-				try {
-					pass = fn( div );
-				} catch (e) {}
-				// release memory in IE
-				div = null;
-				return pass;
-			},
-	
-			// Check to see if the browser returns elements by name when
-			// querying by getElementById (and provide a workaround)
-			assertGetIdNotName = assert(function( div ) {
-				var pass = true,
-					id = "script" + (new Date()).getTime();
-				div.innerHTML = "<a name ='" + id + "'/>";
-	
-				// Inject it into the root element, check its status, and remove it quickly
-				docElem.insertBefore( div, docElem.firstChild );
-	
-				if ( document.getElementById( id ) ) {
-					pass = false;
-				}
-				docElem.removeChild( div );
-				return pass;
-			}),
-	
-			// Check to see if the browser returns only elements
-			// when doing getElementsByTagName("*")
-			assertTagNameNoComments = assert(function( div ) {
-				div.appendChild( document.createComment("") );
-				return div.getElementsByTagName("*").length === 0;
-			}),
-	
-			// Check to see if an attribute returns normalized href attributes
-			assertHrefNotNormalized = assert(function( div ) {
-				div.innerHTML = "<a href='#'></a>";
-				return div.firstChild && typeof div.firstChild.getAttribute !== strundefined &&
-					div.firstChild.getAttribute("href") === "#";
-			}),
-	
-			// Determines a buggy getElementsByClassName
-			assertUsableClassName = assert(function( div ) {
-				// Opera can't find a second classname (in 9.6)
-				div.innerHTML = "<div class='test e'></div><div class='test'></div>";
-				if ( !div.getElementsByClassName || div.getElementsByClassName("e").length === 0 ) {
-					return false;
-				}
-	
-				// Safari caches class attributes, doesn't catch changes (in 3.2)
-				div.lastChild.className = "e";
-				return div.getElementsByClassName("e").length !== 1;
-			});
-	
-		// Check if the JavaScript engine is using some sort of
-		// optimization where it does not always call our comparision
-		// function. If that is the case, discard the hasDuplicate value.
-		//   Thus far that includes Google Chrome.
-		[0, 0].sort(function() {
-			baseHasDuplicate = false;
-			return 0;
-		});
-	
-		var Sizzle = function( selector, context, results ) {
-			results = results || [];
-			context = context || document;
-			var match, elem, contextXML,
-				nodeType = context.nodeType;
-	
-			if ( nodeType !== 1 && nodeType !== 9 ) {
-				return [];
-			}
-	
-			if ( !selector || typeof selector !== "string" ) {
-				return results;
-			}
-	
-			contextXML = isXML( context );
-	
-			if ( !contextXML ) {
-				if ( (match = rquickExpr.exec( selector )) ) {
-					// Speed-up: Sizzle("#ID")
-					if ( match[1] ) {
-						if ( nodeType === 9 ) {
-							elem = context.getElementById( match[1] );
-							// Check parentNode to catch when Blackberry 4.6 returns
-							// nodes that are no longer in the document #6963
-							if ( elem && elem.parentNode ) {
-								// Handle the case where IE, Opera, and Webkit return items
-								// by name instead of ID
-								if ( elem.id === match[1] ) {
-									return makeArray( [ elem ], results );
-								}
-							} else {
-								return makeArray( [], results );
-							}
-						} else {
-							// Context is not a document
-							if ( context.ownerDocument && (elem = context.ownerDocument.getElementById( match[1] )) &&
-								contains( context, elem ) && elem.id === match[1] ) {
-								return makeArray( [ elem ], results );
-							}
-						}
-	
-					// Speed-up: Sizzle("TAG")
-					} else if ( match[2] ) {
-						// Speed-up: Sizzle("body")
-						if ( selector === "body" && context.body ) {
-							return makeArray( [ context.body ], results );
-						}
-						return makeArray( context.getElementsByTagName( selector ), results );
-					// Speed-up: Sizzle(".CLASS")
-					} else if ( assertUsableClassName && match[3] && context.getElementsByClassName ) {
-						return makeArray( context.getElementsByClassName( match[3] ), results );
-					}
-				}
-			}
-	
-			// All others
-			return select( selector, context, results, undefined, contextXML );
-		};
-	
-		var select = function( selector, context, results, seed, contextXML ) {
-			var m, set, checkSet, extra, ret, cur, pop, i,
-				origContext = context,
-				prune = true,
-				parts = [],
-				soFar = selector;
-	
-			do {
-				// Reset the position of the chunker regexp (start from head)
-				chunker.exec( "" );
-				m = chunker.exec( soFar );
-	
-				if ( m ) {
-					soFar = m[3];
-	
-					parts.push( m[1] );
-	
-					if ( m[2] ) {
-						extra = m[3];
-						break;
-					}
-				}
-			} while ( m );
-	
-			if ( parts.length > 1 && origPOS.exec( selector ) ) {
-	
-				if ( parts.length === 2 && Expr.relative[ parts[0] ] ) {
-					set = posProcess( parts[0] + parts[1], context, seed, contextXML );
-	
-				} else {
-					set = Expr.relative[ parts[0] ] ?
-						[ context ] :
-						Sizzle( parts.shift(), context );
-	
-					while ( parts.length ) {
-						selector = parts.shift();
-	
-						if ( Expr.relative[ selector ] ) {
-							selector += parts.shift();
-						}
-	
-						set = posProcess( selector, set, seed, contextXML );
-					}
-				}
-	
-			} else {
-				// Take a shortcut and set the context if the root selector is an ID
-				// (but not if it'll be faster if the inner selector is an ID)
-				if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
-						matchExpr.ID.test( parts[0] ) && !matchExpr.ID.test( parts[parts.length - 1] ) ) {
-	
-					ret = find( parts.shift(), context, contextXML );
-					context = ret.expr ?
-						filter( ret.expr, ret.set )[0] :
-						ret.set[0];
-				}
-	
-				if ( context ) {
-					ret = seed ?
-						{ expr: parts.pop(), set: makeArray( seed ) } :
-						find( parts.pop(), (parts.length >= 1 && (parts[0] === "~" || parts[0] === "+") && context.parentNode) || context, contextXML );
-	
-					set = ret.expr ?
-						filter( ret.expr, ret.set ) :
-						ret.set;
-	
-					if ( parts.length > 0 ) {
-						checkSet = makeArray( set );
-	
-					} else {
-						prune = false;
-					}
-	
-					while ( parts.length ) {
-						cur = parts.pop();
-						pop = cur;
-	
-						if ( !Expr.relative[ cur ] ) {
-							cur = "";
-						} else {
-							pop = parts.pop();
-						}
-	
-						if ( pop == null ) {
-							pop = context;
-						}
-	
-						Expr.relative[ cur ]( checkSet, pop, contextXML );
-					}
-	
-				} else {
-					checkSet = parts = [];
-				}
-			}
-	
-			if ( !checkSet ) {
-				checkSet = set;
-			}
-	
-			if ( !checkSet ) {
-				error( cur || selector );
-			}
-	
-			if ( toString.call(checkSet) === "[object Array]" ) {
-				if ( !prune ) {
-					results.push.apply( results, checkSet );
-	
-				} else if ( context && context.nodeType === 1 ) {
-					for ( i = 0; checkSet[i] != null; i++ ) {
-						if ( checkSet[i] && (checkSet[i] === true || checkSet[i].nodeType === 1 && contains( context, checkSet[i] )) ) {
-							results.push( set[i] );
-						}
-					}
-	
-				} else {
-					for ( i = 0; checkSet[i] != null; i++ ) {
-						if ( checkSet[i] && checkSet[i].nodeType === 1 ) {
-							results.push( set[i] );
-						}
-					}
-				}
-	
-			} else {
-				makeArray( checkSet, results );
-			}
-	
-			if ( extra ) {
-				select( extra, origContext, results, seed, contextXML );
-				uniqueSort( results );
-			}
-	
-			return results;
-		};
-	
-		var isXML = baidu._util_.isXML;
-		//var isXML = Sizzle.isXML = function( elem ) {
-		//	// documentElement is verified for cases where it doesn't yet exist
-		//	// (such as loading iframes in IE - #4833)
-		//	var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
-		//	return documentElement ? documentElement.nodeName !== "HTML" : false;
-		//};
-	
-		// Slice is no longer used
-		// It is not actually faster
-		// Results is expected to be an array or undefined
-		// typeof len is checked for if array is a form nodelist containing an element with name "length" (wow)
-		//var makeArray = function( array, results ) {
-		//	results = results || [];
-		//	var i = 0,
-		//		len = array.length;
-		//	if ( typeof len === "number" ) {
-		//		for ( ; i < len; i++ ) {
-		//			results.push( array[i] );
-		//		}
-		//	} else {
-		//		for ( ; array[i]; i++ ) {
-		//			results.push( array[i] );
-		//		}
-		//	}
-		//	return results;
-		//};
-		var makeArray = baidu.makeArray;
-	
-		var uniqueSort = function( results ) {
-			if ( sortOrder ) {
-				hasDuplicate = baseHasDuplicate;
-				results.sort( sortOrder );
-	
-				if ( hasDuplicate ) {
-					for ( var i = 1; i < results.length; i++ ) {
-						if ( results[i] === results[ i - 1 ] ) {
-							results.splice( i--, 1 );
-						}
-					}
-				}
-			}
-	
-			return results;
-		};
-	
-		// Element contains another
-		//var contains = Sizzle.contains = docElem.compareDocumentPosition ?
-		//	function( a, b ) {
-		//		return !!(a.compareDocumentPosition( b ) & 16);
-		//	} :
-		//	docElem.contains ?
-		//	function( a, b ) {
-		//		return a !== b && ( a.contains ? a.contains( b ) : false );
-		//	} :
-		//	function( a, b ) {
-		//		while ( (b = b.parentNode) ) {
-		//			if ( b === a ) {
-		//				return true;
-		//			}
-		//		}
-		//		return false;
-		//	};
-		var contains = baidu._util_.contains;
-	
-		// Sizzle.matchesSelector = function( node, expr ) {
-		// 	return select( expr, document, [], [ node ], isXML( document ) ).length > 0;
-		// };
-	
-		var find = function( expr, context, contextXML ) {
-			var set, i, len, match, type, left;
-	
-			if ( !expr ) {
-				return [];
-			}
-	
-			for ( i = 0, len = Expr.order.length; i < len; i++ ) {
-				type = Expr.order[i];
-	
-				if ( (match = leftMatchExpr[ type ].exec( expr )) ) {
-					left = match[1];
-					match.splice( 1, 1 );
-	
-					if ( left.substr( left.length - 1 ) !== "\\" ) {
-						match[1] = (match[1] || "").replace( rbackslash, "" );
-						set = Expr.find[ type ]( match, context, contextXML );
-	
-						if ( set != null ) {
-							expr = expr.replace( matchExpr[ type ], "" );
-							break;
-						}
-					}
-				}
-			}
-	
-			if ( !set ) {
-				set = typeof context.getElementsByTagName !== strundefined ?
-					context.getElementsByTagName( "*" ) :
-					[];
-			}
-	
-			return { set: set, expr: expr };
-		};
-	
-		var filter = function( expr, set, inplace, not ) {
-			var match, anyFound,
-				type, found, item, filter, left,
-				i, pass,
-				old = expr,
-				result = [],
-				curLoop = set,
-				isXMLFilter = set && set[0] && isXML( set[0] );
-	
-			while ( expr && set.length ) {
-				for ( type in Expr.filter ) {
-					if ( (match = leftMatchExpr[ type ].exec( expr )) != null && match[2] ) {
-						filter = Expr.filter[ type ];
-						left = match[1];
-	
-						anyFound = false;
-	
-						match.splice( 1, 1 );
-	
-						if ( left.substr( left.length - 1 ) === "\\" ) {
-							continue;
-						}
-	
-						if ( curLoop === result ) {
-							result = [];
-						}
-	
-						if ( Expr.preFilter[ type ] ) {
-							match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter );
-	
-							if ( !match ) {
-								anyFound = found = true;
-	
-							} else if ( match === true ) {
-								continue;
-							}
-						}
-	
-						if ( match ) {
-							for ( i = 0; (item = curLoop[i]) != null; i++ ) {
-								if ( item ) {
-									found = filter( item, match, i, curLoop );
-									pass = not ^ found;
-	
-									if ( inplace && found != null ) {
-										if ( pass ) {
-											anyFound = true;
-	
-										} else {
-											curLoop[i] = false;
-										}
-	
-									} else if ( pass ) {
-										result.push( item );
-										anyFound = true;
-									}
-								}
-							}
-						}
-	
-						if ( found !== undefined ) {
-							if ( !inplace ) {
-								curLoop = result;
-							}
-	
-							expr = expr.replace( matchExpr[ type ], "" );
-	
-							if ( !anyFound ) {
-								return [];
-							}
-	
-							break;
-						}
-					}
-				}
-	
-				// Improper expression
-				if ( expr === old ) {
-					if ( anyFound == null ) {
-						error( expr );
-	
-					} else {
-						break;
-					}
-				}
-	
-				old = expr;
-			}
-	
-			return curLoop;
-		};
-	
-		var error = function( msg ) {
-			throw new Error( msg );
-		};
-	
-		
-		var getText = function( elem ) {
-			var i, node,
-				nodeType = elem.nodeType,
-				ret = "";
-	
-			if ( nodeType ) {
-				if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
-					// Use textContent for elements
-					// innerText usage removed for consistency of new lines (see #11153)
-					if ( typeof elem.textContent === "string" ) {
-						return elem.textContent;
-					} else {
-						// Traverse it's children
-						for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
-							ret += getText( elem );
-						}
-					}
-				} else if ( nodeType === 3 || nodeType === 4 ) {
-					return elem.nodeValue;
-				}
-			} else {
-	
-				// If no nodeType, this is expected to be an array
-				for ( i = 0; (node = elem[i]); i++ ) {
-					// Do not traverse comment nodes
-					if ( node.nodeType !== 8 ) {
-						ret += getText( node );
-					}
-				}
-			}
-			return ret;
-		};
-	
-		var Expr = {
-	
-			match: matchExpr,
-			leftMatch: leftMatchExpr,
-	
-			order: [ "ID", "NAME", "TAG" ],
-	
-			attrMap: {
-				"class": "className",
-				"for": "htmlFor"
-			},
-	
-			attrHandle: {
-				href: assertHrefNotNormalized ?
-					function( elem ) {
-						return elem.getAttribute( "href" );
-					} :
-					function( elem ) {
-						return elem.getAttribute( "href", 2 );
-					},
-				type: function( elem ) {
-					return elem.getAttribute( "type" );
-				}
-			},
-	
-			relative: {
-				"+": function( checkSet, part ) {
-					var isPartStr = typeof part === "string",
-						isTag = isPartStr && !rnonWord.test( part ),
-						isPartStrNotTag = isPartStr && !isTag;
-	
-					if ( isTag ) {
-						part = part.toLowerCase();
-					}
-	
-					for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
-						if ( (elem = checkSet[i]) ) {
-							while ( (elem = elem.previousSibling) && elem.nodeType !== 1 ) {}
-	
-							checkSet[i] = isPartStrNotTag || elem && elem.nodeName.toLowerCase() === part ?
-								elem || false :
-								elem === part;
-						}
-					}
-	
-					if ( isPartStrNotTag ) {
-						filter( part, checkSet, true );
-					}
-				},
-	
-				">": function( checkSet, part ) {
-					var elem,
-						isPartStr = typeof part === "string",
-						i = 0,
-						l = checkSet.length;
-	
-					if ( isPartStr && !rnonWord.test( part ) ) {
-						part = part.toLowerCase();
-	
-						for ( ; i < l; i++ ) {
-							elem = checkSet[i];
-	
-							if ( elem ) {
-								var parent = elem.parentNode;
-								checkSet[i] = parent.nodeName.toLowerCase() === part ? parent : false;
-							}
-						}
-	
-					} else {
-						for ( ; i < l; i++ ) {
-							elem = checkSet[i];
-	
-							if ( elem ) {
-								checkSet[i] = isPartStr ?
-									elem.parentNode :
-									elem.parentNode === part;
-							}
-						}
-	
-						if ( isPartStr ) {
-							filter( part, checkSet, true );
-						}
-					}
-				},
-	
-				"": function( checkSet, part, xml ) {
-					dirCheck( "parentNode", checkSet, part, xml );
-				},
-	
-				"~": function( checkSet, part, xml ) {
-					dirCheck( "previousSibling", checkSet, part, xml );
-				}
-			},
-	
-			find: {
-				ID: assertGetIdNotName ?
-					function( match, context, xml ) {
-						if ( typeof context.getElementById !== strundefined && !xml ) {
-							var m = context.getElementById( match[1] );
-							// Check parentNode to catch when Blackberry 4.6 returns
-							// nodes that are no longer in the document #6963
-							return m && m.parentNode ? [m] : [];
-						}
-					} :
-					function( match, context, xml ) {
-						if ( typeof context.getElementById !== strundefined && !xml ) {
-							var m = context.getElementById( match[1] );
-	
-							return m ?
-								m.id === match[1] || typeof m.getAttributeNode !== strundefined && m.getAttributeNode("id").nodeValue === match[1] ?
-									[m] :
-									undefined :
-								[];
-						}
-					},
-	
-				NAME: function( match, context ) {
-					if ( typeof context.getElementsByName !== strundefined ) {
-						var ret = [],
-							results = context.getElementsByName( match[1] ),
-							i = 0,
-							len = results.length;
-	
-						for ( ; i < len; i++ ) {
-							if ( results[i].getAttribute("name") === match[1] ) {
-								ret.push( results[i] );
-							}
-						}
-	
-						return ret.length === 0 ? null : ret;
-					}
-				},
-	
-				TAG: assertTagNameNoComments ?
-					function( match, context ) {
-						if ( typeof context.getElementsByTagName !== strundefined ) {
-							return context.getElementsByTagName( match[1] );
-						}
-					} :
-					function( match, context ) {
-						var results = context.getElementsByTagName( match[1] );
-	
-						// Filter out possible comments
-						if ( match[1] === "*" ) {
-							var tmp = [],
-								i = 0;
-	
-							for ( ; results[i]; i++ ) {
-								if ( results[i].nodeType === 1 ) {
-									tmp.push( results[i] );
-								}
-							}
-	
-							results = tmp;
-						}
-						return results;
-					}
-			},
-	
-			preFilter: {
-				CLASS: function( match, curLoop, inplace, result, not, xml ) {
-					match = " " + match[1].replace( rbackslash, "" ) + " ";
-	
-					if ( xml ) {
-						return match;
-					}
-	
-					for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
-						if ( elem ) {
-							if ( not ^ (elem.className && ~(" " + elem.className + " ").replace( rtnfr, " " ).indexOf( match ) ) ) {
-								if ( !inplace ) {
-									result.push( elem );
-								}
-	
-							} else if ( inplace ) {
-								curLoop[i] = false;
-							}
-						}
-					}
-	
-					return false;
-				},
-	
-				ID: function( match ) {
-					return match[1].replace( rbackslash, "" );
-				},
-	
-				TAG: function( match, curLoop ) {
-					return match[1].replace( rbackslash, "" ).toLowerCase();
-				},
-	
-				CHILD: function( match ) {
-					if ( match[1] === "nth" ) {
-						if ( !match[2] ) {
-							error( match[0] );
-						}
-	
-						match[2] = match[2].replace( radjacent, "" );
-	
-						// parse equations like 'even', 'odd', '5', '2n', '3n+2', '4n-1', '-n+6'
-						var test = rnth.exec(
-							match[2] === "even" && "2n" || match[2] === "odd" && "2n+1" ||
-							!rnonDigit.test( match[2] ) && "0n+" + match[2] || match[2] );
-	
-						// calculate the numbers (first)n+(last) including if they are negative
-						match[2] = (test[1] + (test[2] || 1)) - 0;
-						match[3] = test[3] - 0;
-					} else if ( match[2] ) {
-						error( match[0] );
-					}
-	
-					// TODO: Move to normal caching system
-					match[0] = done++;
-	
-					return match;
-				},
-	
-				ATTR: function( match, curLoop, inplace, result, not, xml ) {
-					var name = match[1] = match[1].replace( rbackslash, "" );
-	
-					if ( !xml && Expr.attrMap[ name ] ) {
-						match[1] = Expr.attrMap[ name ];
-					}
-	
-					// Handle if an un-quoted value was used
-					match[4] = ( match[4] || match[5] || "" ).replace( rbackslash, "" );
-	
-					if ( match[2] === "~=" ) {
-						match[4] = " " + match[4] + " ";
-					}
-	
-					return match;
-				},
-	
-				PSEUDO: function( match, curLoop, inplace, result, not, xml ) {
-					if ( match[1] === "not" ) {
-						// If we're dealing with a complex expression, or a simple one
-						if ( ( chunker.exec( match[3] ) || "" ).length > 1 || rstartsWithWord.test( match[3] ) ) {
-							match[3] = select( match[3], document, [], curLoop, xml );
-	
-						} else {
-							var ret = filter( match[3], curLoop, inplace, !not );
-	
-							if ( !inplace ) {
-								result.push.apply( result, ret );
-							}
-	
-							return false;
-						}
-	
-					} else if ( matchExpr.POS.test( match[0] ) || matchExpr.CHILD.test( match[0] ) ) {
-						return true;
-					}
-	
-					return match;
-				},
-	
-				POS: function( match ) {
-					match.unshift( true );
-	
-					return match;
-				}
-			},
-	
-			filters: {
-				enabled: function( elem ) {
-					return elem.disabled === false;
-				},
-	
-				disabled: function( elem ) {
-					return elem.disabled === true;
-				},
-	
-				checked: function( elem ) {
-					// In CSS3, :checked should return both checked and selected elements
-					// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-					var nodeName = elem.nodeName.toLowerCase();
-					return (nodeName === "input" && !! elem.checked) || (nodeName === "option" && !!elem.selected);
-				},
-	
-				selected: function( elem ) {
-					// Accessing this property makes selected-by-default
-					// options in Safari work properly
-					if ( elem.parentNode ) {
-						elem.parentNode.selectedIndex;
-					}
-	
-					return elem.selected === true;
-				},
-	
-				parent: function( elem ) {
-					return !!elem.firstChild;
-				},
-	
-				empty: function( elem ) {
-					return !elem.firstChild;
-				},
-	
-				has: function( elem, i, match ) {
-					return !!Sizzle( match[3], elem ).length;
-				},
-	
-				header: function( elem ) {
-					return rheader.test( elem.nodeName );
-				},
-	
-				text: function( elem ) {
-					var attr = elem.getAttribute( "type" ), type = elem.type;
-					// IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
-					// use getAttribute instead to test this case
-					return elem.nodeName.toLowerCase() === "input" && "text" === type && ( attr === null || attr.toLowerCase() === type );
-				},
-	
-				radio: function( elem ) {
-					return elem.nodeName.toLowerCase() === "input" && "radio" === elem.type;
-				},
-	
-				checkbox: function( elem ) {
-					return elem.nodeName.toLowerCase() === "input" && "checkbox" === elem.type;
-				},
-	
-				file: function( elem ) {
-					return elem.nodeName.toLowerCase() === "input" && "file" === elem.type;
-				},
-	
-				password: function( elem ) {
-					return elem.nodeName.toLowerCase() === "input" && "password" === elem.type;
-				},
-	
-				submit: function( elem ) {
-					var name = elem.nodeName.toLowerCase();
-					return (name === "input" || name === "button") && "submit" === elem.type;
-				},
-	
-				image: function( elem ) {
-					return elem.nodeName.toLowerCase() === "input" && "image" === elem.type;
-				},
-	
-				reset: function( elem ) {
-					var name = elem.nodeName.toLowerCase();
-					return (name === "input" || name === "button") && "reset" === elem.type;
-				},
-	
-				button: function( elem ) {
-					var name = elem.nodeName.toLowerCase();
-					return name === "input" && "button" === elem.type || name === "button";
-				},
-	
-				input: function( elem ) {
-					return rinputs.test( elem.nodeName );
-				},
-	
-				focus: function( elem ) {
-					var doc = elem.ownerDocument;
-					return elem === doc.activeElement && (!doc.hasFocus || doc.hasFocus()) && !!(elem.type || elem.href);
-				},
-	
-				active: function( elem ) {
-					return elem === elem.ownerDocument.activeElement;
-				},
-	
-				contains: function( elem, i, match ) {
-					return ( elem.textContent || elem.innerText || getText( elem ) ).indexOf( match[3] ) >= 0;
-				}
-			},
-	
-			setFilters: {
-				first: function( elem, i ) {
-					return i === 0;
-				},
-	
-				last: function( elem, i, match, array ) {
-					return i === array.length - 1;
-				},
-	
-				even: function( elem, i ) {
-					return i % 2 === 0;
-				},
-	
-				odd: function( elem, i ) {
-					return i % 2 === 1;
-				},
-	
-				lt: function( elem, i, match ) {
-					return i < match[3] - 0;
-				},
-	
-				gt: function( elem, i, match ) {
-					return i > match[3] - 0;
-				},
-	
-				nth: function( elem, i, match ) {
-					return match[3] - 0 === i;
-				},
-	
-				eq: function( elem, i, match ) {
-					return match[3] - 0 === i;
-				}
-			},
-	
-			filter: {
-				PSEUDO: function( elem, match, i, array ) {
-					var name = match[1],
-						filter = Expr.filters[ name ];
-	
-					if ( filter ) {
-						return filter( elem, i, match, array );
-	
-					} else if ( name === "not" ) {
-						var not = match[3],
-							j = 0,
-							len = not.length;
-	
-						for ( ; j < len; j++ ) {
-							if ( not[j] === elem ) {
-								return false;
-							}
-						}
-	
-						return true;
-	
-					} else {
-						error( name );
-					}
-				},
-	
-				CHILD: function( elem, match ) {
-					var first, last,
-						doneName, parent, cache,
-						count, diff,
-						type = match[1],
-						node = elem;
-	
-					switch ( type ) {
-						case "only":
-						case "first":
-							while ( (node = node.previousSibling) ) {
-								if ( node.nodeType === 1 ) {
-									return false;
-								}
-							}
-	
-							if ( type === "first" ) {
-								return true;
-							}
-	
-							node = elem;
-	
-							
-						case "last":
-							while ( (node = node.nextSibling) ) {
-								if ( node.nodeType === 1 ) {
-									return false;
-								}
-							}
-	
-							return true;
-	
-						case "nth":
-							first = match[2];
-							last = match[3];
-	
-							if ( first === 1 && last === 0 ) {
-								return true;
-							}
-	
-							doneName = match[0];
-							parent = elem.parentNode;
-	
-							if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
-								count = 0;
-	
-								for ( node = parent.firstChild; node; node = node.nextSibling ) {
-									if ( node.nodeType === 1 ) {
-										node.nodeIndex = ++count;
-									}
-								}
-	
-								parent[ expando ] = doneName;
-							}
-	
-							diff = elem.nodeIndex - last;
-	
-							if ( first === 0 ) {
-								return diff === 0;
-	
-							} else {
-								return ( diff % first === 0 && diff / first >= 0 );
-							}
-					}
-				},
-	
-				ID: assertGetIdNotName ?
-					function( elem, match ) {
-						return elem.nodeType === 1 && elem.getAttribute("id") === match;
-					} :
-					function( elem, match ) {
-						var node = typeof elem.getAttributeNode !== strundefined && elem.getAttributeNode("id");
-						return elem.nodeType === 1 && node && node.nodeValue === match;
-					},
-	
-				TAG: function( elem, match ) {
-					return ( match === "*" && elem.nodeType === 1 ) || !!elem.nodeName && elem.nodeName.toLowerCase() === match;
-				},
-	
-				CLASS: function( elem, match ) {
-					return ( " " + ( elem.className || elem.getAttribute("class") ) + " " ).indexOf( match ) > -1;
-				},
-	
-				ATTR: function( elem, match ) {
-					var name = match[1],
-						result = Expr.attrHandle[ name ] ?
-							Expr.attrHandle[ name ]( elem ) :
-							elem[ name ] != null ?
-								elem[ name ] :
-								elem.getAttribute( name ),
-						value = result + "",
-						type = match[2],
-						check = match[4];
-	
-					return result == null ?
-						type === "!=" :
-						// !type && Sizzle.attr ?
-						// result != null :
-						type === "=" ?
-						value === check :
-						type === "*=" ?
-						value.indexOf( check ) >= 0 :
-						type === "~=" ?
-						( " " + value + " " ).indexOf( check ) >= 0 :
-						!check ?
-						value && result !== false :
-						type === "!=" ?
-						value !== check :
-						type === "^=" ?
-						value.indexOf( check ) === 0 :
-						type === "$=" ?
-						value.substr( value.length - check.length ) === check :
-						type === "|=" ?
-						value === check || value.substr( 0, check.length + 1 ) === check + "-" :
-						false;
-				},
-	
-				POS: function( elem, match, i, array ) {
-					var name = match[2],
-						filter = Expr.setFilters[ name ];
-	
-					if ( filter ) {
-						return filter( elem, i, match, array );
-					}
-				}
-			}
-		};
-	
-		// Add getElementsByClassName if usable
-		if ( assertUsableClassName ) {
-			Expr.order.splice( 1, 0, "CLASS" );
-			Expr.find.CLASS = function( match, context, xml ) {
-				if ( typeof context.getElementsByClassName !== strundefined && !xml ) {
-					return context.getElementsByClassName( match[1] );
-				}
-			};
-		}
-	
-		var sortOrder, siblingCheck;
-	
-		if ( docElem.compareDocumentPosition ) {
-			sortOrder = function( a, b ) {
-				if ( a === b ) {
-					hasDuplicate = true;
-					return 0;
-				}
-	
-				if ( !a.compareDocumentPosition || !b.compareDocumentPosition ) {
-					return a.compareDocumentPosition ? -1 : 1;
-				}
-	
-				return a.compareDocumentPosition(b) & 4 ? -1 : 1;
-			};
-	
-		} else {
-			sortOrder = function( a, b ) {
-				// The nodes are identical, we can exit early
-				if ( a === b ) {
-					hasDuplicate = true;
-					return 0;
-	
-				// Fallback to using sourceIndex (in IE) if it's available on both nodes
-				} else if ( a.sourceIndex && b.sourceIndex ) {
-					return a.sourceIndex - b.sourceIndex;
-				}
-	
-				var al, bl,
-					ap = [],
-					bp = [],
-					aup = a.parentNode,
-					bup = b.parentNode,
-					cur = aup;
-	
-				// If the nodes are siblings (or identical) we can do a quick check
-				if ( aup === bup ) {
-					return siblingCheck( a, b );
-	
-				// If no parents were found then the nodes are disconnected
-				} else if ( !aup ) {
-					return -1;
-	
-				} else if ( !bup ) {
-					return 1;
-				}
-	
-				// Otherwise they're somewhere else in the tree so we need
-				// to build up a full list of the parentNodes for comparison
-				while ( cur ) {
-					ap.unshift( cur );
-					cur = cur.parentNode;
-				}
-	
-				cur = bup;
-	
-				while ( cur ) {
-					bp.unshift( cur );
-					cur = cur.parentNode;
-				}
-	
-				al = ap.length;
-				bl = bp.length;
-	
-				// Start walking down the tree looking for a discrepancy
-				for ( var i = 0; i < al && i < bl; i++ ) {
-					if ( ap[i] !== bp[i] ) {
-						return siblingCheck( ap[i], bp[i] );
-					}
-				}
-	
-				// We ended someplace up the tree so do a sibling check
-				return i === al ?
-					siblingCheck( a, bp[i], -1 ) :
-					siblingCheck( ap[i], b, 1 );
-			};
-	
-			siblingCheck = function( a, b, ret ) {
-				if ( a === b ) {
-					return ret;
-				}
-	
-				var cur = a.nextSibling;
-	
-				while ( cur ) {
-					if ( cur === b ) {
-						return -1;
-					}
-	
-					cur = cur.nextSibling;
-				}
-	
-				return 1;
-			};
-		}
-	
-		if ( document.querySelectorAll ) {
-			(function(){
-				var oldSelect = select,
-					id = "__sizzle__",
-					rrelativeHierarchy = /^\s*[+~]/,
-					rapostrophe = /'/g,
-					// Build QSA regex
-					// Regex strategy adopted from Diego Perini
-					rbuggyQSA = [];
-	
-				assert(function( div ) {
-					div.innerHTML = "<select><option selected></option></select>";
-	
-					// IE8 - Some boolean attributes are not treated correctly
-					if ( !div.querySelectorAll("[selected]").length ) {
-						rbuggyQSA.push("\\[[\\x20\\t\\n\\r\\f]*(?:checked|disabled|ismap|multiple|readonly|selected|value)");
-					}
-	
-					// Webkit/Opera - :checked should return selected option elements
-					// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-					// IE8 throws error here (do not put tests after this one)
-					if ( !div.querySelectorAll(":checked").length ) {
-						rbuggyQSA.push(":checked");
-					}
-				});
-	
-				assert(function( div ) {
-	
-					// Opera 10/IE - ^= $= *= and empty values
-					div.innerHTML = "<p class=''></p>";
-					// Should not select anything
-					if ( div.querySelectorAll("[class^='']").length ) {
-						rbuggyQSA.push("[*^$]=[\\x20\\t\\n\\r\\f]*(?:\"\"|'')");
-					}
-	
-					// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
-					// IE8 throws error here (do not put tests after this one)
-					div.innerHTML = "<input type='hidden'>";
-					if ( !div.querySelectorAll(":enabled").length ) {
-						rbuggyQSA.push(":enabled", ":disabled");
-					}
-				});
-	
-				rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join("|") );
-	
-				select = function( selector, context, results, seed, contextXML ) {
-					// Only use querySelectorAll when not filtering,
-					// when this is not xml,
-					// and when no QSA bugs apply
-					if ( !seed && !contextXML && (!rbuggyQSA || !rbuggyQSA.test( selector )) ) {
-						if ( context.nodeType === 9 ) {
-							try {
-								return makeArray( context.querySelectorAll( selector ), results );
-							} catch(qsaError) {}
-						// qSA works strangely on Element-rooted queries
-						// We can work around this by specifying an extra ID on the root
-						// and working up from there (Thanks to Andrew Dupont for the technique)
-						// IE 8 doesn't work on object elements
-						} else if ( context.nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
-							var oldContext = context,
-								old = context.getAttribute( "id" ),
-								nid = old || id,
-								parent = context.parentNode,
-								relativeHierarchySelector = rrelativeHierarchy.test( selector );
-	
-							if ( !old ) {
-								context.setAttribute( "id", nid );
-							} else {
-								nid = nid.replace( rapostrophe, "\\$&" );
-							}
-							if ( relativeHierarchySelector && parent ) {
-								context = parent;
-							}
-	
-							try {
-								if ( !relativeHierarchySelector || parent ) {
-									return makeArray( context.querySelectorAll( "[id='" + nid + "'] " + selector ), results );
-								}
-							} catch(qsaError) {
-							} finally {
-								if ( !old ) {
-									oldContext.removeAttribute( "id" );
-								}
-							}
-						}
-					}
-	
-					return oldSelect( selector, context, results, seed, contextXML );
-				};
-			})();
-		}
-	
-		function dirCheck( dir, checkSet, part, xml ) {
-			var elem, match, isElem, nodeCheck,
-				doneName = done++,
-				i = 0,
-				len = checkSet.length;
-	
-			if ( typeof part === "string" && !rnonWord.test( part ) ) {
-				part = part.toLowerCase();
-				nodeCheck = part;
-			}
-	
-			for ( ; i < len; i++ ) {
-				elem = checkSet[i];
-	
-				if ( elem ) {
-					match = false;
-					elem = elem[ dir ];
-	
-					while ( elem ) {
-						if ( elem[ expando ] === doneName ) {
-							match = checkSet[ elem.sizset ];
-							break;
-						}
-	
-						isElem = elem.nodeType === 1;
-						if ( isElem && !xml ) {
-							elem[ expando ] = doneName;
-							elem.sizset = i;
-						}
-	
-						if ( nodeCheck ) {
-							if ( elem.nodeName.toLowerCase() === part ) {
-								match = elem;
-								break;
-							}
-						} else if ( isElem ) {
-							if ( typeof part !== "string" ) {
-								if ( elem === part ) {
-									match = true;
-									break;
-								}
-	
-							} else if ( filter( part, [elem] ).length > 0 ) {
-								match = elem;
-								break;
-							}
-						}
-	
-						elem = elem[ dir ];
-					}
-	
-					checkSet[i] = match;
-				}
-			}
-		}
-	
-		var posProcess = function( selector, context, seed, contextXML ) {
-			var match,
-				tmpSet = [],
-				later = "",
-				root = context.nodeType ? [ context ] : context,
-				i = 0,
-				len = root.length;
-	
-			// Position selectors must be done after the filter
-			// And so must :not(positional) so we move all PSEUDOs to the end
-			while ( (match = matchExpr.PSEUDO.exec( selector )) ) {
-				later += match[0];
-				selector = selector.replace( matchExpr.PSEUDO, "" );
-			}
-	
-			if ( Expr.relative[ selector ] ) {
-				selector += "*";
-			}
-	
-			for ( ; i < len; i++ ) {
-				select( selector, root[i], tmpSet, seed, contextXML );
-			}
-	
-			return filter( later, tmpSet );
-		};
-	
-		// EXPOSE
-	
-		window.Sizzle = baidu.sizzle = Sizzle;
-		baidu.query.matches = function( expr, set ) {
-			return select( expr, document, [], set, isXML( document ) );
-		};
+	    var document = window.document,
+	        docElem = document.documentElement,
+	
+	        expando = "sizcache" + (Math.random() + '').replace('.', ''),
+	        done = 0,
+	
+	        toString = Object.prototype.toString,
+	        strundefined = "undefined",
+	
+	        hasDuplicate = false,
+	        baseHasDuplicate = true,
+	
+	        // Regex
+	        rquickExpr = /^#([\w\-]+$)|^(\w+$)|^\.([\w\-]+$)/,
+	        chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
+	
+	        rbackslash = /\\/g,
+	        rnonWord = /\W/,
+	        rstartsWithWord = /^\w/,
+	        rnonDigit = /\D/,
+	        rnth = /(-?)(\d*)(?:n([+\-]?\d*))?/,
+	        radjacent = /^\+|\s*/g,
+	        rheader = /h\d/i,
+	        rinputs = /input|select|textarea|button/i,
+	        rtnfr = /[\t\n\f\r]/g,
+	
+	        characterEncoding = "(?:[-\\w]|[^\\x00-\\xa0]|\\\\.)",
+	        matchExpr = {
+	            ID: new RegExp("#(" + characterEncoding + "+)"),
+	            CLASS: new RegExp("\\.(" + characterEncoding + "+)"),
+	            NAME: new RegExp("\\[name=['\"]*(" + characterEncoding + "+)['\"]*\\]"),
+	            TAG: new RegExp("^(" + characterEncoding.replace( "[-", "[-\\*" ) + "+)"),
+	            ATTR: new RegExp("\\[\\s*(" + characterEncoding + "+)\\s*(?:(\\S?=)\\s*(?:(['\"])(.*?)\\3|(#?" + characterEncoding + "*)|)|)\\s*\\]"),
+	            PSEUDO: new RegExp(":(" + characterEncoding + "+)(?:\\((['\"]?)((?:\\([^\\)]+\\)|[^\\(\\)]*)+)\\2\\))?"),
+	            CHILD: /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
+	            POS: /:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/
+	        },
+	
+	        origPOS = matchExpr.POS,
+	
+	        leftMatchExpr = (function() {
+	            var type,
+	                // Increments parenthetical references
+	                // for leftMatch creation
+	                fescape = function( all, num ) {
+	                    return "\\" + ( num - 0 + 1 );
+	                },
+	                leftMatch = {};
+	
+	            for ( type in matchExpr ) {
+	                // Modify the regexes ensuring the matches do not end in brackets/parens
+	                matchExpr[ type ] = new RegExp( matchExpr[ type ].source + (/(?![^\[]*\])(?![^\(]*\))/.source) );
+	                // Adds a capture group for characters left of the match
+	                leftMatch[ type ] = new RegExp( /(^(?:.|\r|\n)*?)/.source + matchExpr[ type ].source.replace( /\\(\d+)/g, fescape ) );
+	            }
+	
+	            // Expose origPOS
+	            // "global" as in regardless of relation to brackets/parens
+	            matchExpr.globalPOS = origPOS;
+	
+	            return leftMatch;
+	        })(),
+	
+	        // Used for testing something on an element
+	        assert = function( fn ) {
+	            var pass = false,
+	                div = document.createElement("div");
+	            try {
+	                pass = fn( div );
+	            } catch (e) {}
+	            // release memory in IE
+	            div = null;
+	            return pass;
+	        },
+	
+	        // Check to see if the browser returns elements by name when
+	        // querying by getElementById (and provide a workaround)
+	        assertGetIdNotName = assert(function( div ) {
+	            var pass = true,
+	                id = "script" + (new Date()).getTime();
+	            div.innerHTML = "<a name ='" + id + "'/>";
+	
+	            // Inject it into the root element, check its status, and remove it quickly
+	            docElem.insertBefore( div, docElem.firstChild );
+	
+	            if ( document.getElementById( id ) ) {
+	                pass = false;
+	            }
+	            docElem.removeChild( div );
+	            return pass;
+	        }),
+	
+	        // Check to see if the browser returns only elements
+	        // when doing getElementsByTagName("*")
+	        assertTagNameNoComments = assert(function( div ) {
+	            div.appendChild( document.createComment("") );
+	            return div.getElementsByTagName("*").length === 0;
+	        }),
+	
+	        // Check to see if an attribute returns normalized href attributes
+	        assertHrefNotNormalized = assert(function( div ) {
+	            div.innerHTML = "<a href='#'></a>";
+	            return div.firstChild && typeof div.firstChild.getAttribute !== strundefined &&
+	                div.firstChild.getAttribute("href") === "#";
+	        }),
+	
+	        // Determines a buggy getElementsByClassName
+	        assertUsableClassName = assert(function( div ) {
+	            // Opera can't find a second classname (in 9.6)
+	            div.innerHTML = "<div class='test e'></div><div class='test'></div>";
+	            if ( !div.getElementsByClassName || div.getElementsByClassName("e").length === 0 ) {
+	                return false;
+	            }
+	
+	            // Safari caches class attributes, doesn't catch changes (in 3.2)
+	            div.lastChild.className = "e";
+	            return div.getElementsByClassName("e").length !== 1;
+	        });
+	
+	    // Check if the JavaScript engine is using some sort of
+	    // optimization where it does not always call our comparision
+	    // function. If that is the case, discard the hasDuplicate value.
+	    //   Thus far that includes Google Chrome.
+	    [0, 0].sort(function() {
+	        baseHasDuplicate = false;
+	        return 0;
+	    });
+	
+	    var Sizzle = function( selector, context, results ) {
+	        results = results || [];
+	        context = context || document;
+	        var match, elem, contextXML,
+	            nodeType = context.nodeType;
+	
+	        if ( nodeType !== 1 && nodeType !== 9 ) {
+	            return [];
+	        }
+	
+	        if ( !selector || typeof selector !== "string" ) {
+	            return results;
+	        }
+	
+	        contextXML = isXML( context );
+	
+	        if ( !contextXML ) {
+	            if ( (match = rquickExpr.exec( selector )) ) {
+	                // Speed-up: Sizzle("#ID")
+	                if ( match[1] ) {
+	                    if ( nodeType === 9 ) {
+	                        elem = context.getElementById( match[1] );
+	                        // Check parentNode to catch when Blackberry 4.6 returns
+	                        // nodes that are no longer in the document #6963
+	                        if ( elem && elem.parentNode ) {
+	                            // Handle the case where IE, Opera, and Webkit return items
+	                            // by name instead of ID
+	                            if ( elem.id === match[1] ) {
+	                                return makeArray( [ elem ], results );
+	                            }
+	                        } else {
+	                            return makeArray( [], results );
+	                        }
+	                    } else {
+	                        // Context is not a document
+	                        if ( context.ownerDocument && (elem = context.ownerDocument.getElementById( match[1] )) &&
+	                            contains( context, elem ) && elem.id === match[1] ) {
+	                            return makeArray( [ elem ], results );
+	                        }
+	                    }
+	
+	                // Speed-up: Sizzle("TAG")
+	                } else if ( match[2] ) {
+	                    // Speed-up: Sizzle("body")
+	                    if ( selector === "body" && context.body ) {
+	                        return makeArray( [ context.body ], results );
+	                    }
+	                    return makeArray( context.getElementsByTagName( selector ), results );
+	                // Speed-up: Sizzle(".CLASS")
+	                } else if ( assertUsableClassName && match[3] && context.getElementsByClassName ) {
+	                    return makeArray( context.getElementsByClassName( match[3] ), results );
+	                }
+	            }
+	        }
+	
+	        // All others
+	        return select( selector, context, results, undefined, contextXML );
+	    };
+	
+	    var select = function( selector, context, results, seed, contextXML ) {
+	        var m, set, checkSet, extra, ret, cur, pop, i,
+	            origContext = context,
+	            prune = true,
+	            parts = [],
+	            soFar = selector;
+	
+	        do {
+	            // Reset the position of the chunker regexp (start from head)
+	            chunker.exec( "" );
+	            m = chunker.exec( soFar );
+	
+	            if ( m ) {
+	                soFar = m[3];
+	
+	                parts.push( m[1] );
+	
+	                if ( m[2] ) {
+	                    extra = m[3];
+	                    break;
+	                }
+	            }
+	        } while ( m );
+	
+	        if ( parts.length > 1 && origPOS.exec( selector ) ) {
+	
+	            if ( parts.length === 2 && Expr.relative[ parts[0] ] ) {
+	                set = posProcess( parts[0] + parts[1], context, seed, contextXML );
+	
+	            } else {
+	                set = Expr.relative[ parts[0] ] ?
+	                    [ context ] :
+	                    Sizzle( parts.shift(), context );
+	
+	                while ( parts.length ) {
+	                    selector = parts.shift();
+	
+	                    if ( Expr.relative[ selector ] ) {
+	                        selector += parts.shift();
+	                    }
+	
+	                    set = posProcess( selector, set, seed, contextXML );
+	                }
+	            }
+	
+	        } else {
+	            // Take a shortcut and set the context if the root selector is an ID
+	            // (but not if it'll be faster if the inner selector is an ID)
+	            if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
+	                    matchExpr.ID.test( parts[0] ) && !matchExpr.ID.test( parts[parts.length - 1] ) ) {
+	
+	                ret = find( parts.shift(), context, contextXML );
+	                context = ret.expr ?
+	                    filter( ret.expr, ret.set )[0] :
+	                    ret.set[0];
+	            }
+	
+	            if ( context ) {
+	                ret = seed ?
+	                    { expr: parts.pop(), set: makeArray( seed ) } :
+	                    find( parts.pop(), (parts.length >= 1 && (parts[0] === "~" || parts[0] === "+") && context.parentNode) || context, contextXML );
+	
+	                set = ret.expr ?
+	                    filter( ret.expr, ret.set ) :
+	                    ret.set;
+	
+	                if ( parts.length > 0 ) {
+	                    checkSet = makeArray( set );
+	
+	                } else {
+	                    prune = false;
+	                }
+	
+	                while ( parts.length ) {
+	                    cur = parts.pop();
+	                    pop = cur;
+	
+	                    if ( !Expr.relative[ cur ] ) {
+	                        cur = "";
+	                    } else {
+	                        pop = parts.pop();
+	                    }
+	
+	                    if ( pop == null ) {
+	                        pop = context;
+	                    }
+	
+	                    Expr.relative[ cur ]( checkSet, pop, contextXML );
+	                }
+	
+	            } else {
+	                checkSet = parts = [];
+	            }
+	        }
+	
+	        if ( !checkSet ) {
+	            checkSet = set;
+	        }
+	
+	        if ( !checkSet ) {
+	            error( cur || selector );
+	        }
+	
+	        if ( toString.call(checkSet) === "[object Array]" ) {
+	            if ( !prune ) {
+	                results.push.apply( results, checkSet );
+	
+	            } else if ( context && context.nodeType === 1 ) {
+	                for ( i = 0; checkSet[i] != null; i++ ) {
+	                    if ( checkSet[i] && (checkSet[i] === true || checkSet[i].nodeType === 1 && contains( context, checkSet[i] )) ) {
+	                        results.push( set[i] );
+	                    }
+	                }
+	
+	            } else {
+	                for ( i = 0; checkSet[i] != null; i++ ) {
+	                    if ( checkSet[i] && checkSet[i].nodeType === 1 ) {
+	                        results.push( set[i] );
+	                    }
+	                }
+	            }
+	
+	        } else {
+	            makeArray( checkSet, results );
+	        }
+	
+	        if ( extra ) {
+	            select( extra, origContext, results, seed, contextXML );
+	            uniqueSort( results );
+	        }
+	
+	        return results;
+	    };
+	
+	    var isXML = baidu._util_.isXML;
+	    //var isXML = Sizzle.isXML = function( elem ) {
+	    //    // documentElement is verified for cases where it doesn't yet exist
+	    //    // (such as loading iframes in IE - #4833)
+	    //    var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
+	    //    return documentElement ? documentElement.nodeName !== "HTML" : false;
+	    //};
+	
+	    // Slice is no longer used
+	    // It is not actually faster
+	    // Results is expected to be an array or undefined
+	    // typeof len is checked for if array is a form nodelist containing an element with name "length" (wow)
+	    //var makeArray = function( array, results ) {
+	    //    results = results || [];
+	    //    var i = 0,
+	    //        len = array.length;
+	    //    if ( typeof len === "number" ) {
+	    //        for ( ; i < len; i++ ) {
+	    //            results.push( array[i] );
+	    //        }
+	    //    } else {
+	    //        for ( ; array[i]; i++ ) {
+	    //            results.push( array[i] );
+	    //        }
+	    //    }
+	    //    return results;
+	    //};
+	    var makeArray = baidu.makeArray;
+	
+	    var uniqueSort = function( results ) {
+	        if ( sortOrder ) {
+	            hasDuplicate = baseHasDuplicate;
+	            results.sort( sortOrder );
+	
+	            if ( hasDuplicate ) {
+	                for ( var i = 1; i < results.length; i++ ) {
+	                    if ( results[i] === results[ i - 1 ] ) {
+	                        results.splice( i--, 1 );
+	                    }
+	                }
+	            }
+	        }
+	
+	        return results;
+	    };
+	
+	    // Element contains another
+	    //var contains = Sizzle.contains = docElem.compareDocumentPosition ?
+	    //    function( a, b ) {
+	    //        return !!(a.compareDocumentPosition( b ) & 16);
+	    //    } :
+	    //    docElem.contains ?
+	    //    function( a, b ) {
+	    //        return a !== b && ( a.contains ? a.contains( b ) : false );
+	    //    } :
+	    //    function( a, b ) {
+	    //        while ( (b = b.parentNode) ) {
+	    //            if ( b === a ) {
+	    //                return true;
+	    //            }
+	    //        }
+	    //        return false;
+	    //    };
+	    var contains = baidu._util_.contains;
+	
+	    // Sizzle.matchesSelector = function( node, expr ) {
+	    //     return select( expr, document, [], [ node ], isXML( document ) ).length > 0;
+	    // };
+	
+	    var find = function( expr, context, contextXML ) {
+	        var set, i, len, match, type, left;
+	
+	        if ( !expr ) {
+	            return [];
+	        }
+	
+	        for ( i = 0, len = Expr.order.length; i < len; i++ ) {
+	            type = Expr.order[i];
+	
+	            if ( (match = leftMatchExpr[ type ].exec( expr )) ) {
+	                left = match[1];
+	                match.splice( 1, 1 );
+	
+	                if ( left.substr( left.length - 1 ) !== "\\" ) {
+	                    match[1] = (match[1] || "").replace( rbackslash, "" );
+	                    set = Expr.find[ type ]( match, context, contextXML );
+	
+	                    if ( set != null ) {
+	                        expr = expr.replace( matchExpr[ type ], "" );
+	                        break;
+	                    }
+	                }
+	            }
+	        }
+	
+	        if ( !set ) {
+	            set = typeof context.getElementsByTagName !== strundefined ?
+	                context.getElementsByTagName( "*" ) :
+	                [];
+	        }
+	
+	        return { set: set, expr: expr };
+	    };
+	
+	    var filter = function( expr, set, inplace, not ) {
+	        var match, anyFound,
+	            type, found, item, filter, left,
+	            i, pass,
+	            old = expr,
+	            result = [],
+	            curLoop = set,
+	            isXMLFilter = set && set[0] && isXML( set[0] );
+	
+	        while ( expr && set.length ) {
+	            for ( type in Expr.filter ) {
+	                if ( (match = leftMatchExpr[ type ].exec( expr )) != null && match[2] ) {
+	                    filter = Expr.filter[ type ];
+	                    left = match[1];
+	
+	                    anyFound = false;
+	
+	                    match.splice( 1, 1 );
+	
+	                    if ( left.substr( left.length - 1 ) === "\\" ) {
+	                        continue;
+	                    }
+	
+	                    if ( curLoop === result ) {
+	                        result = [];
+	                    }
+	
+	                    if ( Expr.preFilter[ type ] ) {
+	                        match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter );
+	
+	                        if ( !match ) {
+	                            anyFound = found = true;
+	
+	                        } else if ( match === true ) {
+	                            continue;
+	                        }
+	                    }
+	
+	                    if ( match ) {
+	                        for ( i = 0; (item = curLoop[i]) != null; i++ ) {
+	                            if ( item ) {
+	                                found = filter( item, match, i, curLoop );
+	                                pass = not ^ found;
+	
+	                                if ( inplace && found != null ) {
+	                                    if ( pass ) {
+	                                        anyFound = true;
+	
+	                                    } else {
+	                                        curLoop[i] = false;
+	                                    }
+	
+	                                } else if ( pass ) {
+	                                    result.push( item );
+	                                    anyFound = true;
+	                                }
+	                            }
+	                        }
+	                    }
+	
+	                    if ( found !== undefined ) {
+	                        if ( !inplace ) {
+	                            curLoop = result;
+	                        }
+	
+	                        expr = expr.replace( matchExpr[ type ], "" );
+	
+	                        if ( !anyFound ) {
+	                            return [];
+	                        }
+	
+	                        break;
+	                    }
+	                }
+	            }
+	
+	            // Improper expression
+	            if ( expr === old ) {
+	                if ( anyFound == null ) {
+	                    error( expr );
+	
+	                } else {
+	                    break;
+	                }
+	            }
+	
+	            old = expr;
+	        }
+	
+	        return curLoop;
+	    };
+	
+	    var error = function( msg ) {
+	        throw new Error( msg );
+	    };
+	
+	    
+	    var getText = function( elem ) {
+	        var i, node,
+	            nodeType = elem.nodeType,
+	            ret = "";
+	
+	        if ( nodeType ) {
+	            if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
+	                // Use textContent for elements
+	                // innerText usage removed for consistency of new lines (see #11153)
+	                if ( typeof elem.textContent === "string" ) {
+	                    return elem.textContent;
+	                } else {
+	                    // Traverse it's children
+	                    for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
+	                        ret += getText( elem );
+	                    }
+	                }
+	            } else if ( nodeType === 3 || nodeType === 4 ) {
+	                return elem.nodeValue;
+	            }
+	        } else {
+	
+	            // If no nodeType, this is expected to be an array
+	            for ( i = 0; (node = elem[i]); i++ ) {
+	                // Do not traverse comment nodes
+	                if ( node.nodeType !== 8 ) {
+	                    ret += getText( node );
+	                }
+	            }
+	        }
+	        return ret;
+	    };
+	
+	    var Expr = {
+	
+	        match: matchExpr,
+	        leftMatch: leftMatchExpr,
+	
+	        order: [ "ID", "NAME", "TAG" ],
+	
+	        attrMap: {
+	            "class": "className",
+	            "for": "htmlFor"
+	        },
+	
+	        attrHandle: {
+	            href: assertHrefNotNormalized ?
+	                function( elem ) {
+	                    return elem.getAttribute( "href" );
+	                } :
+	                function( elem ) {
+	                    return elem.getAttribute( "href", 2 );
+	                },
+	            type: function( elem ) {
+	                return elem.getAttribute( "type" );
+	            }
+	        },
+	
+	        relative: {
+	            "+": function( checkSet, part ) {
+	                var isPartStr = typeof part === "string",
+	                    isTag = isPartStr && !rnonWord.test( part ),
+	                    isPartStrNotTag = isPartStr && !isTag;
+	
+	                if ( isTag ) {
+	                    part = part.toLowerCase();
+	                }
+	
+	                for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
+	                    if ( (elem = checkSet[i]) ) {
+	                        while ( (elem = elem.previousSibling) && elem.nodeType !== 1 ) {}
+	
+	                        checkSet[i] = isPartStrNotTag || elem && elem.nodeName.toLowerCase() === part ?
+	                            elem || false :
+	                            elem === part;
+	                    }
+	                }
+	
+	                if ( isPartStrNotTag ) {
+	                    filter( part, checkSet, true );
+	                }
+	            },
+	
+	            ">": function( checkSet, part ) {
+	                var elem,
+	                    isPartStr = typeof part === "string",
+	                    i = 0,
+	                    l = checkSet.length;
+	
+	                if ( isPartStr && !rnonWord.test( part ) ) {
+	                    part = part.toLowerCase();
+	
+	                    for ( ; i < l; i++ ) {
+	                        elem = checkSet[i];
+	
+	                        if ( elem ) {
+	                            var parent = elem.parentNode;
+	                            checkSet[i] = parent.nodeName.toLowerCase() === part ? parent : false;
+	                        }
+	                    }
+	
+	                } else {
+	                    for ( ; i < l; i++ ) {
+	                        elem = checkSet[i];
+	
+	                        if ( elem ) {
+	                            checkSet[i] = isPartStr ?
+	                                elem.parentNode :
+	                                elem.parentNode === part;
+	                        }
+	                    }
+	
+	                    if ( isPartStr ) {
+	                        filter( part, checkSet, true );
+	                    }
+	                }
+	            },
+	
+	            "": function( checkSet, part, xml ) {
+	                dirCheck( "parentNode", checkSet, part, xml );
+	            },
+	
+	            "~": function( checkSet, part, xml ) {
+	                dirCheck( "previousSibling", checkSet, part, xml );
+	            }
+	        },
+	
+	        find: {
+	            ID: assertGetIdNotName ?
+	                function( match, context, xml ) {
+	                    if ( typeof context.getElementById !== strundefined && !xml ) {
+	                        var m = context.getElementById( match[1] );
+	                        // Check parentNode to catch when Blackberry 4.6 returns
+	                        // nodes that are no longer in the document #6963
+	                        return m && m.parentNode ? [m] : [];
+	                    }
+	                } :
+	                function( match, context, xml ) {
+	                    if ( typeof context.getElementById !== strundefined && !xml ) {
+	                        var m = context.getElementById( match[1] );
+	
+	                        return m ?
+	                            m.id === match[1] || typeof m.getAttributeNode !== strundefined && m.getAttributeNode("id").nodeValue === match[1] ?
+	                                [m] :
+	                                undefined :
+	                            [];
+	                    }
+	                },
+	
+	            NAME: function( match, context ) {
+	                if ( typeof context.getElementsByName !== strundefined ) {
+	                    var ret = [],
+	                        results = context.getElementsByName( match[1] ),
+	                        i = 0,
+	                        len = results.length;
+	
+	                    for ( ; i < len; i++ ) {
+	                        if ( results[i].getAttribute("name") === match[1] ) {
+	                            ret.push( results[i] );
+	                        }
+	                    }
+	
+	                    return ret.length === 0 ? null : ret;
+	                }
+	            },
+	
+	            TAG: assertTagNameNoComments ?
+	                function( match, context ) {
+	                    if ( typeof context.getElementsByTagName !== strundefined ) {
+	                        return context.getElementsByTagName( match[1] );
+	                    }
+	                } :
+	                function( match, context ) {
+	                    var results = context.getElementsByTagName( match[1] );
+	
+	                    // Filter out possible comments
+	                    if ( match[1] === "*" ) {
+	                        var tmp = [],
+	                            i = 0;
+	
+	                        for ( ; results[i]; i++ ) {
+	                            if ( results[i].nodeType === 1 ) {
+	                                tmp.push( results[i] );
+	                            }
+	                        }
+	
+	                        results = tmp;
+	                    }
+	                    return results;
+	                }
+	        },
+	
+	        preFilter: {
+	            CLASS: function( match, curLoop, inplace, result, not, xml ) {
+	                match = " " + match[1].replace( rbackslash, "" ) + " ";
+	
+	                if ( xml ) {
+	                    return match;
+	                }
+	
+	                for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
+	                    if ( elem ) {
+	                        if ( not ^ (elem.className && ~(" " + elem.className + " ").replace( rtnfr, " " ).indexOf( match ) ) ) {
+	                            if ( !inplace ) {
+	                                result.push( elem );
+	                            }
+	
+	                        } else if ( inplace ) {
+	                            curLoop[i] = false;
+	                        }
+	                    }
+	                }
+	
+	                return false;
+	            },
+	
+	            ID: function( match ) {
+	                return match[1].replace( rbackslash, "" );
+	            },
+	
+	            TAG: function( match, curLoop ) {
+	                return match[1].replace( rbackslash, "" ).toLowerCase();
+	            },
+	
+	            CHILD: function( match ) {
+	                if ( match[1] === "nth" ) {
+	                    if ( !match[2] ) {
+	                        error( match[0] );
+	                    }
+	
+	                    match[2] = match[2].replace( radjacent, "" );
+	
+	                    // parse equations like 'even', 'odd', '5', '2n', '3n+2', '4n-1', '-n+6'
+	                    var test = rnth.exec(
+	                        match[2] === "even" && "2n" || match[2] === "odd" && "2n+1" ||
+	                        !rnonDigit.test( match[2] ) && "0n+" + match[2] || match[2] );
+	
+	                    // calculate the numbers (first)n+(last) including if they are negative
+	                    match[2] = (test[1] + (test[2] || 1)) - 0;
+	                    match[3] = test[3] - 0;
+	                } else if ( match[2] ) {
+	                    error( match[0] );
+	                }
+	
+	                // TODO: Move to normal caching system
+	                match[0] = done++;
+	
+	                return match;
+	            },
+	
+	            ATTR: function( match, curLoop, inplace, result, not, xml ) {
+	                var name = match[1] = match[1].replace( rbackslash, "" );
+	
+	                if ( !xml && Expr.attrMap[ name ] ) {
+	                    match[1] = Expr.attrMap[ name ];
+	                }
+	
+	                // Handle if an un-quoted value was used
+	                match[4] = ( match[4] || match[5] || "" ).replace( rbackslash, "" );
+	
+	                if ( match[2] === "~=" ) {
+	                    match[4] = " " + match[4] + " ";
+	                }
+	
+	                return match;
+	            },
+	
+	            PSEUDO: function( match, curLoop, inplace, result, not, xml ) {
+	                if ( match[1] === "not" ) {
+	                    // If we're dealing with a complex expression, or a simple one
+	                    if ( ( chunker.exec( match[3] ) || "" ).length > 1 || rstartsWithWord.test( match[3] ) ) {
+	                        match[3] = select( match[3], document, [], curLoop, xml );
+	
+	                    } else {
+	                        var ret = filter( match[3], curLoop, inplace, !not );
+	
+	                        if ( !inplace ) {
+	                            result.push.apply( result, ret );
+	                        }
+	
+	                        return false;
+	                    }
+	
+	                } else if ( matchExpr.POS.test( match[0] ) || matchExpr.CHILD.test( match[0] ) ) {
+	                    return true;
+	                }
+	
+	                return match;
+	            },
+	
+	            POS: function( match ) {
+	                match.unshift( true );
+	
+	                return match;
+	            }
+	        },
+	
+	        filters: {
+	            enabled: function( elem ) {
+	                return elem.disabled === false;
+	            },
+	
+	            disabled: function( elem ) {
+	                return elem.disabled === true;
+	            },
+	
+	            checked: function( elem ) {
+	                // In CSS3, :checked should return both checked and selected elements
+	                // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+	                var nodeName = elem.nodeName.toLowerCase();
+	                return (nodeName === "input" && !! elem.checked) || (nodeName === "option" && !!elem.selected);
+	            },
+	
+	            selected: function( elem ) {
+	                // Accessing this property makes selected-by-default
+	                // options in Safari work properly
+	                if ( elem.parentNode ) {
+	                    elem.parentNode.selectedIndex;
+	                }
+	
+	                return elem.selected === true;
+	            },
+	
+	            parent: function( elem ) {
+	                return !!elem.firstChild;
+	            },
+	
+	            empty: function( elem ) {
+	                return !elem.firstChild;
+	            },
+	
+	            has: function( elem, i, match ) {
+	                return !!Sizzle( match[3], elem ).length;
+	            },
+	
+	            header: function( elem ) {
+	                return rheader.test( elem.nodeName );
+	            },
+	
+	            text: function( elem ) {
+	                var attr = elem.getAttribute( "type" ), type = elem.type;
+	                // IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
+	                // use getAttribute instead to test this case
+	                return elem.nodeName.toLowerCase() === "input" && "text" === type && ( attr === null || attr.toLowerCase() === type );
+	            },
+	
+	            radio: function( elem ) {
+	                return elem.nodeName.toLowerCase() === "input" && "radio" === elem.type;
+	            },
+	
+	            checkbox: function( elem ) {
+	                return elem.nodeName.toLowerCase() === "input" && "checkbox" === elem.type;
+	            },
+	
+	            file: function( elem ) {
+	                return elem.nodeName.toLowerCase() === "input" && "file" === elem.type;
+	            },
+	
+	            password: function( elem ) {
+	                return elem.nodeName.toLowerCase() === "input" && "password" === elem.type;
+	            },
+	
+	            submit: function( elem ) {
+	                var name = elem.nodeName.toLowerCase();
+	                return (name === "input" || name === "button") && "submit" === elem.type;
+	            },
+	
+	            image: function( elem ) {
+	                return elem.nodeName.toLowerCase() === "input" && "image" === elem.type;
+	            },
+	
+	            reset: function( elem ) {
+	                var name = elem.nodeName.toLowerCase();
+	                return (name === "input" || name === "button") && "reset" === elem.type;
+	            },
+	
+	            button: function( elem ) {
+	                var name = elem.nodeName.toLowerCase();
+	                return name === "input" && "button" === elem.type || name === "button";
+	            },
+	
+	            input: function( elem ) {
+	                return rinputs.test( elem.nodeName );
+	            },
+	
+	            focus: function( elem ) {
+	                var doc = elem.ownerDocument;
+	                return elem === doc.activeElement && (!doc.hasFocus || doc.hasFocus()) && !!(elem.type || elem.href);
+	            },
+	
+	            active: function( elem ) {
+	                return elem === elem.ownerDocument.activeElement;
+	            },
+	
+	            contains: function( elem, i, match ) {
+	                return ( elem.textContent || elem.innerText || getText( elem ) ).indexOf( match[3] ) >= 0;
+	            }
+	        },
+	
+	        setFilters: {
+	            first: function( elem, i ) {
+	                return i === 0;
+	            },
+	
+	            last: function( elem, i, match, array ) {
+	                return i === array.length - 1;
+	            },
+	
+	            even: function( elem, i ) {
+	                return i % 2 === 0;
+	            },
+	
+	            odd: function( elem, i ) {
+	                return i % 2 === 1;
+	            },
+	
+	            lt: function( elem, i, match ) {
+	                return i < match[3] - 0;
+	            },
+	
+	            gt: function( elem, i, match ) {
+	                return i > match[3] - 0;
+	            },
+	
+	            nth: function( elem, i, match ) {
+	                return match[3] - 0 === i;
+	            },
+	
+	            eq: function( elem, i, match ) {
+	                return match[3] - 0 === i;
+	            }
+	        },
+	
+	        filter: {
+	            PSEUDO: function( elem, match, i, array ) {
+	                var name = match[1],
+	                    filter = Expr.filters[ name ];
+	
+	                if ( filter ) {
+	                    return filter( elem, i, match, array );
+	
+	                } else if ( name === "not" ) {
+	                    var not = match[3],
+	                        j = 0,
+	                        len = not.length;
+	
+	                    for ( ; j < len; j++ ) {
+	                        if ( not[j] === elem ) {
+	                            return false;
+	                        }
+	                    }
+	
+	                    return true;
+	
+	                } else {
+	                    error( name );
+	                }
+	            },
+	
+	            CHILD: function( elem, match ) {
+	                var first, last,
+	                    doneName, parent, cache,
+	                    count, diff,
+	                    type = match[1],
+	                    node = elem;
+	
+	                switch ( type ) {
+	                    case "only":
+	                    case "first":
+	                        while ( (node = node.previousSibling) ) {
+	                            if ( node.nodeType === 1 ) {
+	                                return false;
+	                            }
+	                        }
+	
+	                        if ( type === "first" ) {
+	                            return true;
+	                        }
+	
+	                        node = elem;
+	
+	                        
+	                    case "last":
+	                        while ( (node = node.nextSibling) ) {
+	                            if ( node.nodeType === 1 ) {
+	                                return false;
+	                            }
+	                        }
+	
+	                        return true;
+	
+	                    case "nth":
+	                        first = match[2];
+	                        last = match[3];
+	
+	                        if ( first === 1 && last === 0 ) {
+	                            return true;
+	                        }
+	
+	                        doneName = match[0];
+	                        parent = elem.parentNode;
+	
+	                        if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
+	                            count = 0;
+	
+	                            for ( node = parent.firstChild; node; node = node.nextSibling ) {
+	                                if ( node.nodeType === 1 ) {
+	                                    node.nodeIndex = ++count;
+	                                }
+	                            }
+	
+	                            parent[ expando ] = doneName;
+	                        }
+	
+	                        diff = elem.nodeIndex - last;
+	
+	                        if ( first === 0 ) {
+	                            return diff === 0;
+	
+	                        } else {
+	                            return ( diff % first === 0 && diff / first >= 0 );
+	                        }
+	                }
+	            },
+	
+	            ID: assertGetIdNotName ?
+	                function( elem, match ) {
+	                    return elem.nodeType === 1 && elem.getAttribute("id") === match;
+	                } :
+	                function( elem, match ) {
+	                    var node = typeof elem.getAttributeNode !== strundefined && elem.getAttributeNode("id");
+	                    return elem.nodeType === 1 && node && node.nodeValue === match;
+	                },
+	
+	            TAG: function( elem, match ) {
+	                return ( match === "*" && elem.nodeType === 1 ) || !!elem.nodeName && elem.nodeName.toLowerCase() === match;
+	            },
+	
+	            CLASS: function( elem, match ) {
+	                return ( " " + ( elem.className || elem.getAttribute("class") ) + " " ).indexOf( match ) > -1;
+	            },
+	
+	            ATTR: function( elem, match ) {
+	                var name = match[1],
+	                    result = Expr.attrHandle[ name ] ?
+	                        Expr.attrHandle[ name ]( elem ) :
+	                        elem[ name ] != null ?
+	                            elem[ name ] :
+	                            elem.getAttribute( name ),
+	                    value = result + "",
+	                    type = match[2],
+	                    check = match[4];
+	
+	                return result == null ?
+	                    type === "!=" :
+	                    // !type && Sizzle.attr ?
+	                    // result != null :
+	                    type === "=" ?
+	                    value === check :
+	                    type === "*=" ?
+	                    value.indexOf( check ) >= 0 :
+	                    type === "~=" ?
+	                    ( " " + value + " " ).indexOf( check ) >= 0 :
+	                    !check ?
+	                    value && result !== false :
+	                    type === "!=" ?
+	                    value !== check :
+	                    type === "^=" ?
+	                    value.indexOf( check ) === 0 :
+	                    type === "$=" ?
+	                    value.substr( value.length - check.length ) === check :
+	                    type === "|=" ?
+	                    value === check || value.substr( 0, check.length + 1 ) === check + "-" :
+	                    false;
+	            },
+	
+	            POS: function( elem, match, i, array ) {
+	                var name = match[2],
+	                    filter = Expr.setFilters[ name ];
+	
+	                if ( filter ) {
+	                    return filter( elem, i, match, array );
+	                }
+	            }
+	        }
+	    };
+	
+	    // Add getElementsByClassName if usable
+	    if ( assertUsableClassName ) {
+	        Expr.order.splice( 1, 0, "CLASS" );
+	        Expr.find.CLASS = function( match, context, xml ) {
+	            if ( typeof context.getElementsByClassName !== strundefined && !xml ) {
+	                return context.getElementsByClassName( match[1] );
+	            }
+	        };
+	    }
+	
+	    var sortOrder, siblingCheck;
+	
+	    if ( docElem.compareDocumentPosition ) {
+	        sortOrder = function( a, b ) {
+	            if ( a === b ) {
+	                hasDuplicate = true;
+	                return 0;
+	            }
+	
+	            if ( !a.compareDocumentPosition || !b.compareDocumentPosition ) {
+	                return a.compareDocumentPosition ? -1 : 1;
+	            }
+	
+	            return a.compareDocumentPosition(b) & 4 ? -1 : 1;
+	        };
+	
+	    } else {
+	        sortOrder = function( a, b ) {
+	            // The nodes are identical, we can exit early
+	            if ( a === b ) {
+	                hasDuplicate = true;
+	                return 0;
+	
+	            // Fallback to using sourceIndex (in IE) if it's available on both nodes
+	            } else if ( a.sourceIndex && b.sourceIndex ) {
+	                return a.sourceIndex - b.sourceIndex;
+	            }
+	
+	            var al, bl,
+	                ap = [],
+	                bp = [],
+	                aup = a.parentNode,
+	                bup = b.parentNode,
+	                cur = aup;
+	
+	            // If the nodes are siblings (or identical) we can do a quick check
+	            if ( aup === bup ) {
+	                return siblingCheck( a, b );
+	
+	            // If no parents were found then the nodes are disconnected
+	            } else if ( !aup ) {
+	                return -1;
+	
+	            } else if ( !bup ) {
+	                return 1;
+	            }
+	
+	            // Otherwise they're somewhere else in the tree so we need
+	            // to build up a full list of the parentNodes for comparison
+	            while ( cur ) {
+	                ap.unshift( cur );
+	                cur = cur.parentNode;
+	            }
+	
+	            cur = bup;
+	
+	            while ( cur ) {
+	                bp.unshift( cur );
+	                cur = cur.parentNode;
+	            }
+	
+	            al = ap.length;
+	            bl = bp.length;
+	
+	            // Start walking down the tree looking for a discrepancy
+	            for ( var i = 0; i < al && i < bl; i++ ) {
+	                if ( ap[i] !== bp[i] ) {
+	                    return siblingCheck( ap[i], bp[i] );
+	                }
+	            }
+	
+	            // We ended someplace up the tree so do a sibling check
+	            return i === al ?
+	                siblingCheck( a, bp[i], -1 ) :
+	                siblingCheck( ap[i], b, 1 );
+	        };
+	
+	        siblingCheck = function( a, b, ret ) {
+	            if ( a === b ) {
+	                return ret;
+	            }
+	
+	            var cur = a.nextSibling;
+	
+	            while ( cur ) {
+	                if ( cur === b ) {
+	                    return -1;
+	                }
+	
+	                cur = cur.nextSibling;
+	            }
+	
+	            return 1;
+	        };
+	    }
+	
+	    if ( document.querySelectorAll ) {
+	        (function(){
+	            var oldSelect = select,
+	                id = "__sizzle__",
+	                rrelativeHierarchy = /^\s*[+~]/,
+	                rapostrophe = /'/g,
+	                // Build QSA regex
+	                // Regex strategy adopted from Diego Perini
+	                rbuggyQSA = [];
+	
+	            assert(function( div ) {
+	                div.innerHTML = "<select><option selected></option></select>";
+	
+	                // IE8 - Some boolean attributes are not treated correctly
+	                if ( !div.querySelectorAll("[selected]").length ) {
+	                    rbuggyQSA.push("\\[[\\x20\\t\\n\\r\\f]*(?:checked|disabled|ismap|multiple|readonly|selected|value)");
+	                }
+	
+	                // Webkit/Opera - :checked should return selected option elements
+	                // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+	                // IE8 throws error here (do not put tests after this one)
+	                if ( !div.querySelectorAll(":checked").length ) {
+	                    rbuggyQSA.push(":checked");
+	                }
+	            });
+	
+	            assert(function( div ) {
+	
+	                // Opera 10/IE - ^= $= *= and empty values
+	                div.innerHTML = "<p class=''></p>";
+	                // Should not select anything
+	                if ( div.querySelectorAll("[class^='']").length ) {
+	                    rbuggyQSA.push("[*^$]=[\\x20\\t\\n\\r\\f]*(?:\"\"|'')");
+	                }
+	
+	                // FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
+	                // IE8 throws error here (do not put tests after this one)
+	                div.innerHTML = "<input type='hidden'>";
+	                if ( !div.querySelectorAll(":enabled").length ) {
+	                    rbuggyQSA.push(":enabled", ":disabled");
+	                }
+	            });
+	
+	            rbuggyQSA = rbuggyQSA.length && new RegExp( rbuggyQSA.join("|") );
+	
+	            select = function( selector, context, results, seed, contextXML ) {
+	                // Only use querySelectorAll when not filtering,
+	                // when this is not xml,
+	                // and when no QSA bugs apply
+	                if ( !seed && !contextXML && (!rbuggyQSA || !rbuggyQSA.test( selector )) ) {
+	                    if ( context.nodeType === 9 ) {
+	                        try {
+	                            return makeArray( context.querySelectorAll( selector ), results );
+	                        } catch(qsaError) {}
+	                    // qSA works strangely on Element-rooted queries
+	                    // We can work around this by specifying an extra ID on the root
+	                    // and working up from there (Thanks to Andrew Dupont for the technique)
+	                    // IE 8 doesn't work on object elements
+	                    } else if ( context.nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
+	                        var oldContext = context,
+	                            old = context.getAttribute( "id" ),
+	                            nid = old || id,
+	                            parent = context.parentNode,
+	                            relativeHierarchySelector = rrelativeHierarchy.test( selector );
+	
+	                        if ( !old ) {
+	                            context.setAttribute( "id", nid );
+	                        } else {
+	                            nid = nid.replace( rapostrophe, "\\$&" );
+	                        }
+	                        if ( relativeHierarchySelector && parent ) {
+	                            context = parent;
+	                        }
+	
+	                        try {
+	                            if ( !relativeHierarchySelector || parent ) {
+	                                return makeArray( context.querySelectorAll( "[id='" + nid + "'] " + selector ), results );
+	                            }
+	                        } catch(qsaError) {
+	                        } finally {
+	                            if ( !old ) {
+	                                oldContext.removeAttribute( "id" );
+	                            }
+	                        }
+	                    }
+	                }
+	
+	                return oldSelect( selector, context, results, seed, contextXML );
+	            };
+	        })();
+	    }
+	
+	    function dirCheck( dir, checkSet, part, xml ) {
+	        var elem, match, isElem, nodeCheck,
+	            doneName = done++,
+	            i = 0,
+	            len = checkSet.length;
+	
+	        if ( typeof part === "string" && !rnonWord.test( part ) ) {
+	            part = part.toLowerCase();
+	            nodeCheck = part;
+	        }
+	
+	        for ( ; i < len; i++ ) {
+	            elem = checkSet[i];
+	
+	            if ( elem ) {
+	                match = false;
+	                elem = elem[ dir ];
+	
+	                while ( elem ) {
+	                    if ( elem[ expando ] === doneName ) {
+	                        match = checkSet[ elem.sizset ];
+	                        break;
+	                    }
+	
+	                    isElem = elem.nodeType === 1;
+	                    if ( isElem && !xml ) {
+	                        elem[ expando ] = doneName;
+	                        elem.sizset = i;
+	                    }
+	
+	                    if ( nodeCheck ) {
+	                        if ( elem.nodeName.toLowerCase() === part ) {
+	                            match = elem;
+	                            break;
+	                        }
+	                    } else if ( isElem ) {
+	                        if ( typeof part !== "string" ) {
+	                            if ( elem === part ) {
+	                                match = true;
+	                                break;
+	                            }
+	
+	                        } else if ( filter( part, [elem] ).length > 0 ) {
+	                            match = elem;
+	                            break;
+	                        }
+	                    }
+	
+	                    elem = elem[ dir ];
+	                }
+	
+	                checkSet[i] = match;
+	            }
+	        }
+	    }
+	
+	    var posProcess = function( selector, context, seed, contextXML ) {
+	        var match,
+	            tmpSet = [],
+	            later = "",
+	            root = context.nodeType ? [ context ] : context,
+	            i = 0,
+	            len = root.length;
+	
+	        // Position selectors must be done after the filter
+	        // And so must :not(positional) so we move all PSEUDOs to the end
+	        while ( (match = matchExpr.PSEUDO.exec( selector )) ) {
+	            later += match[0];
+	            selector = selector.replace( matchExpr.PSEUDO, "" );
+	        }
+	
+	        if ( Expr.relative[ selector ] ) {
+	            selector += "*";
+	        }
+	
+	        for ( ; i < len; i++ ) {
+	            select( selector, root[i], tmpSet, seed, contextXML );
+	        }
+	
+	        return filter( later, tmpSet );
+	    };
+	
+	    // EXPOSE
+	
+	    window.Sizzle = baidu.sizzle = Sizzle;
+	    baidu.query.matches = function( expr, set ) {
+	        return select( expr, document, [], set, isXML( document ) );
+	    };
 	
 	}( window );
 	
@@ -7490,7 +7490,7 @@ void function(){
 	        return function(value){
 	            value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollLeft');
 	            if(this.size()<=0){
-	            	return value === undefined ? 0 : this;
+	                return value === undefined ? 0 : this;
 	            };
 	            return value === undefined ? ret.get(this[0])
 	                : ret.set(this[0], value) || this;
@@ -7504,7 +7504,7 @@ void function(){
 	        return function(value){
 	            value && baidu.check('^(?:number|string)$', 'baidu.dom.scrollTop');
 	            if(this.size()<=0){
-	            	return value === undefined ? 0 : this;
+	                return value === undefined ? 0 : this;
 	            };
 	            return value === undefined ? ret.get(this[0])
 	                : ret.set(this[0], value) || this;
@@ -7516,7 +7516,7 @@ void function(){
 	
 	baidu.dom.extend({
 	    setAttrs : function (attributes) {
-	        element = this[0];
+	        var element = this[0];
 	    
 	        for (var key in attributes) {
 	            baidu.dom.setAttr(element, key, attributes[key]);
@@ -7531,15 +7531,15 @@ void function(){
 	
 	
 	baidu.dom.extend({
-	setStyles : function ( styles) {
-	    element = this[0];
-	
-	    for (var key in styles) {
-	        baidu.dom.setStyle(element, key, styles[key]);
-	    }
-	
-	    return element;
-	}	
+	    setStyles : function ( styles) {
+	        var element = this[0];
+	    
+	        for (var key in styles) {
+	            baidu.dom.setStyle(element, key, styles[key]);
+	        }
+	    
+	        return element;
+	    }    
 	});
 	
 	
@@ -7594,8 +7594,8 @@ void function(){
 	/// support magic - Tangram 1.x Code Start
 	
 	baidu.dom.setPixel = function (el, style, n) {
-		typeof n != "undefined" &&
-		(baidu.dom.g(el).style[style] = n +(!isNaN(n) ? "px" : ""));
+	    typeof n != "undefined" &&
+	    (baidu.dom.g(el).style[style] = n +(!isNaN(n) ? "px" : ""));
 	};
 	/// support magic - Tangram 1.x Code End
 	
@@ -7605,7 +7605,7 @@ void function(){
 	    element = baidu.dom.g(element);
 	    baidu.dom(element).offset(coordinate);
 	    return element;
-	}
+	};
 	
 	
 	baidu.dom.extend({
@@ -7773,6 +7773,18 @@ void function(){
 	    }
 	});
 	
+	baidu.dom.extend({
+	    toggle: function(){
+	        return this.each(function(index, ele){
+	            if(ele.style && ele.style.display == 'none'){
+	                baidu.dom(ele).show();
+	            }else{
+	                baidu.dom(ele).hide();
+	            };
+	        });
+	    }
+	});
+	
 	
 	
 	baidu.dom.toggle = function (element) {
@@ -7785,7 +7797,7 @@ void function(){
 	
 	baidu.dom.extend({
 	    toggleClass: function(value,status){
-	    	var type = typeof value;
+	        var type = typeof value;
 	        var status = (typeof status === 'undefined')? status : Boolean(status);
 	
 	        if(arguments.length <= 0 ){
@@ -7853,24 +7865,24 @@ void function(){
 	
 	    baidu.each( { mouseenter: "mouseover", mouseleave: "mouseout" }, function( name, fix ){
 	        special[ name ] = {
-	        	bindType: fix,
-	        	pack: function( fn ){
-					var contains = baidu.dom.contains;
-					return function( e ){ // e instance of baidu.event
-						var related = e.relatedTarget;
-						e.type = name;
-		                if( !related || ( related !== this && !contains( this, related ) ) )
-		                	return fn.apply( this, arguments );
-					}
-	        	}
+	            bindType: fix,
+	            pack: function( fn ){
+	                var contains = baidu.dom.contains;
+	                return function( e ){ // e instance of baidu.event
+	                    var related = e.relatedTarget;
+	                    e.type = name;
+	                    if( !related || ( related !== this && !contains( this, related ) ) )
+	                        return fn.apply( this, arguments );
+	                }
+	            }
 	        }
 	    } );
 	
 	    if( ff ) // firefox dont support focusin/focusout bubbles
 	        baidu.each( { focusin: "focus", focusout: "blur" }, function( name, fix ){
 	            special[ name ] = {
-	            	bindType: fix,
-	            	attachElements: "textarea,select,input,button,a"
+	                bindType: fix,
+	                attachElements: "textarea,select,input,button,a"
 	            }
 	        } );
 	
@@ -7889,121 +7901,121 @@ void function(){
 	}( baidu.event.special );
 	
 	void function( base ){
-		var queue = base.queue;
+	    var queue = base.queue;
 	
-		baidu.dom.extend({
-			triggerHandler: function( type, triggerData, _e ){
-				if( _e && !_e.triggerData )
-					_e.triggerData = triggerData;
+	    baidu.dom.extend({
+	        triggerHandler: function( type, triggerData, _e ){
+	            if( _e && !_e.triggerData )
+	                _e.triggerData = triggerData;
 	
-				baidu.forEach(this, function(item){
-				    queue.call( item, type, undefined, _e );
-				});
-				return this;
-			}
-		});
+	            baidu.forEach(this, function(item){
+	                queue.call( item, type, undefined, _e );
+	            });
+	            return this;
+	        }
+	    });
 	
 	}( baidu._util_.eventBase );
 	
 	void function( base, be ){
-		var special = be.special;
-		var queue = base.queue;
-		var dom = baidu.dom;
+	    var special = be.special;
+	    var queue = base.queue;
+	    var dom = baidu.dom;
 	
-		var triggerEvents = { submit: 1 };
+	    var triggerEvents = { submit: 1 };
 	
-		var createEvent = function( type, opts ){
-		    var evnt;
+	    var createEvent = function( type, opts ){
+	        var evnt;
 	
-		    if( document.createEvent )
-		        evnt = document.createEvent( "HTMLEvents" ),
-		        evnt.initEvent( type, true, true );
-		    else if( document.createEventObject )
-		    	evnt = document.createEventObject(),
-		    	evnt.type = type;
+	        if( document.createEvent )
+	            evnt = document.createEvent( "HTMLEvents" ),
+	            evnt.initEvent( type, true, true );
+	        else if( document.createEventObject )
+	            evnt = document.createEventObject(),
+	            evnt.type = type;
 	
-		    var extraData = {};
+	        var extraData = {};
 	
-		   	if( opts )for( var name in opts )
-		   		try{
-		   			evnt[ name ] = opts[ name ];
-		   		}catch(e){
-		   			if( !evnt.extraData )
-		   			    evnt.extraData = extraData;
-		   			extraData[ name ] = opts[ name ];
-		   		}
+	           if( opts )for( var name in opts )
+	               try{
+	                   evnt[ name ] = opts[ name ];
+	               }catch(e){
+	                   if( !evnt.extraData )
+	                       evnt.extraData = extraData;
+	                   extraData[ name ] = opts[ name ];
+	               }
 	
-		    return evnt;
-		};
+	        return evnt;
+	    };
 	
-		var dispatchEvent = function( element, type, event ){
-		   	if( element.dispatchEvent )
-		   	    return element.dispatchEvent( event );
-		   	else if( element.fireEvent )
-		   		return element.fireEvent( "on" + type, event );
-		};
+	    var dispatchEvent = function( element, type, event ){
+	           if( element.dispatchEvent )
+	               return element.dispatchEvent( event );
+	           else if( element.fireEvent )
+	               return element.fireEvent( "on" + type, event );
+	    };
 	
-		var upp = function( str ){
-		    return str.replace( /^\w/, function( s ){
-		        return s.toUpperCase();
-		    } );
-		};
+	    var upp = function( str ){
+	        return str.replace( /^\w/, function( s ){
+	            return s.toUpperCase();
+	        } );
+	    };
 	
-		var fire = function( element, type, triggerData, _eventOptions, special ){
-			var evnt, eventReturn;
+	    var fire = function( element, type, triggerData, _eventOptions, special ){
+	        var evnt, eventReturn;
 	
-			if( evnt = createEvent( type, _eventOptions ) ){
-			    if( triggerData )
-			        evnt.triggerData = triggerData;
-			    
-			    if( special )
-			    	queue.call( element, type, null, evnt );
-			    else{
-			    	try{
-			    		eventReturn = dispatchEvent( element, type, evnt );
-			    	}catch(e){
-			    		dom(element).triggerHandler( type, triggerData, evnt );
-			    	}
-			    }
+	        if( evnt = createEvent( type, _eventOptions ) ){
+	            if( triggerData )
+	                evnt.triggerData = triggerData;
+	            
+	            if( special )
+	                queue.call( element, type, null, evnt );
+	            else{
+	                try{
+	                    eventReturn = dispatchEvent( element, type, evnt );
+	                }catch(e){
+	                    dom(element).triggerHandler( type, triggerData, evnt );
+	                }
+	            }
 	
-			    if( eventReturn !== false && triggerEvents[type] ){
-				    try{
-				    	if( element[type] )
-				    	    element[type]();
-				    	else if( type = upp( type ), element[type] )
-				    		element[type]();
-				    }catch(e){
-				    }
-				}
-			}
-		};
+	            if( eventReturn !== false && triggerEvents[type] ){
+	                try{
+	                    if( element[type] )
+	                        element[type]();
+	                    else if( type = upp( type ), element[type] )
+	                        element[type]();
+	                }catch(e){
+	                }
+	            }
+	        }
+	    };
 	
 	    baidu.dom.extend({
-			trigger: function( type, triggerData, _eventOptions ){
-				var sp;
+	        trigger: function( type, triggerData, _eventOptions ){
+	            var sp;
 	
-				if( type in special )
-				    sp = special[type];
+	            if( type in special )
+	                sp = special[type];
 	
-				this.each(function(){
-					fire( this, type, triggerData, _eventOptions, sp );
-				});
+	            this.each(function(){
+	                fire( this, type, triggerData, _eventOptions, sp );
+	            });
 	
-				return this;
-			}
-		});
+	            return this;
+	        }
+	    });
 	}( baidu._util_.eventBase, baidu.event );
 	
 	baidu.dom.extend({
-		unbind: function(type, fn){
-			return this.off(type, fn);
-		}
+	    unbind: function(type, fn){
+	        return this.off(type, fn);
+	    }
 	});
 	
 	baidu.dom.extend({
-		undelegate: function( selector, type, fn ){
-	    	return this.off( type, selector, fn );
-		}
+	    undelegate: function( selector, type, fn ){
+	        return this.off( type, selector, fn );
+	    }
 	});
 	
 	baidu.dom.extend({
@@ -8225,26 +8237,26 @@ void function(){
 	
 	void function(){
 	    var arr = ("blur focus focusin focusout load resize scroll unload click dblclick " +
-		"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave mousewheel " +
-		"change select submit keydown keypress keyup error contextmenu").split(" ");
+	    "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave mousewheel " +
+	    "change select submit keydown keypress keyup error contextmenu").split(" ");
 	
 	    var conf = {};
 	    var create = function( name ){
 	        conf[ name ] = function( data, fn ){
-			    if( fn == null )
-			    	fn = data,
-			    	data = null;
+	            if( fn == null )
+	                fn = data,
+	                data = null;
 	
-			    return arguments.length > 0 ?
-			    	this.on( name, null, data, fn ) :
-			    	this.trigger( name );
-			}
+	            return arguments.length > 0 ?
+	                this.on( name, null, data, fn ) :
+	                this.trigger( name );
+	        }
 	    };
 	
-		for(var i = 0, l = arr.length; i < l; i ++)
-			create( arr[i] );
+	    for(var i = 0, l = arr.length; i < l; i ++)
+	        create( arr[i] );
 	
-		baidu.dom.extend( conf );
+	    baidu.dom.extend( conf );
 	}();
 	
 	
@@ -8279,12 +8291,12 @@ void function(){
 	
 	// 执行方法
 	function(form){
-		return typeof form === 'undefined'? new baidu.form.$Form():new baidu.form.$Form(form);
+	    return typeof form === 'undefined'? new baidu.form.$Form():new baidu.form.$Form(form);
 	},
 	
 	// constructor
 	function(form){
-		this.form = form;
+	    this.form = form;
 	});
 	
 	
@@ -9412,7 +9424,7 @@ void function(){
 	            if (baidu.dom.getStyle(e, "position") == "static") {
 	                e.style.position = "relative";
 	            }
-				var original = this['\x06original'];
+	            var original = this['\x06original'];
 	            this.originX = parseInt(original.left|| 0);
 	            this.originY = parseInt(original.top || 0);
 	            this.offsetX = tt(offset[0], offset.x, 16);
@@ -9469,14 +9481,14 @@ void function(){
 	            dataType: type
 	        });
 	    };
-	}
+	};
 	
 	baidu.get = baidu.get || baidu._util_.smartAjax('get');
 	/// support magic - Tangram 1.x Code Start
 	
 	baidu.global.get = function(key){
 	    return baidu.global(key);
-	}
+	};
 	/// support magic - Tangram 1.x Code End
 	/// support magic - Tangram 1.x Code Start
 	
@@ -9484,15 +9496,15 @@ void function(){
 	
 	baidu.global.set = function(key, value, overwrite){
 	    return baidu.global(key, value, !overwrite);
-	}
+	};
 	/// support magic - Tangram 1.x Code End
 	
 	baidu.global.getZIndex = function(key, step) {
-		var zi = baidu.global.get("zIndex");
-		if (key) {
-			zi[key] = zi[key] + (step || 1);
-		}
-		return zi[key];
+	    var zi = baidu.global.get("zIndex");
+	    if (key) {
+	        zi[key] = zi[key] + (step || 1);
+	    }
+	    return zi[key];
 	};
 	baidu.global.set("zIndex", {popup : 50000, dialog : 1000}, true);
 	/// support magic - Tangram 1.x Code End/// support magic - Tangram 1.x Code Start
@@ -10150,12 +10162,12 @@ void function(){
 	    reg[reg.length] = constructorHook;
 	
 	    for (var method in methods) {
-	    	Class.prototype[method] = methods[method];
+	        Class.prototype[method] = methods[method];
 	    }
 	};
 	
 	// 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
-	// 20111129	meizz	添加第三个参数，可以直接挂载方法到目标类原型链上
+	// 20111129    meizz    添加第三个参数，可以直接挂载方法到目标类原型链上
 	/// support magic - Tangram 1.x Code End
 	
 	baidu.lang.toArray = function (source) {
@@ -10184,12 +10196,12 @@ void function(){
 	
 	baidu.global("_maps_id");
 	
-	//	[TODO]	meizz	在2012年版本中将删除此模块
+	//    [TODO]    meizz    在2012年版本中将删除此模块
 	
 	
 	baidu.number.extend({
 	    comma : function (length) {
-	    	var source = this;
+	        var source = this;
 	        if (!length || length < 1) {
 	            length = 3;
 	        }
@@ -10197,7 +10209,7 @@ void function(){
 	        source = String(source).split(".");
 	        source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{'+length+'})+$)','ig'),"$1,");
 	        return source.join(".");
-	    }	
+	    }    
 	});
 	
 	baidu.number.randomInt = function(min, max){
@@ -10278,53 +10290,51 @@ void function(){
 	    return results;
 	};
 	
-	(function() {
-	var isPlainObject = function(source) {
+	baidu.object.merge = function(){
+	    function isPlainObject(source) {
 	        return baidu.lang.isObject(source) && !baidu.lang.isFunction(source);
 	    };
-	
-	function mergeItem(target, source, index, overwrite, recursive) {
-	    if (source.hasOwnProperty(index)) {
-	        if (recursive && isPlainObject(target[index])) {
-	            // 如果需要递归覆盖，就递归调用merge
-	            baidu.object.merge(
-	                target[index],
-	                source[index],
-	                {
-	                    'overwrite': overwrite,
-	                    'recursive': recursive
-	                }
-	            );
-	        } else if (overwrite || !(index in target)) {
-	            // 否则只处理overwrite为true，或者在目标对象中没有此属性的情况
-	            target[index] = source[index];
+	    function mergeItem(target, source, index, overwrite, recursive) {
+	        if (source.hasOwnProperty(index)) {
+	            if (recursive && isPlainObject(target[index])) {
+	                // 如果需要递归覆盖，就递归调用merge
+	                baidu.object.merge(
+	                    target[index],
+	                    source[index],
+	                    {
+	                        'overwrite': overwrite,
+	                        'recursive': recursive
+	                    }
+	                );
+	            } else if (overwrite || !(index in target)) {
+	                // 否则只处理overwrite为true，或者在目标对象中没有此属性的情况
+	                target[index] = source[index];
+	            }
 	        }
-	    }
-	}
-	
-	baidu.object.merge = function(target, source, opt_options) {
-	    var i = 0,
-	        options = opt_options || {},
-	        overwrite = options['overwrite'],
-	        whiteList = options['whiteList'],
-	        recursive = options['recursive'],
-	        len;
-	
-	    // 只处理在白名单中的属性
-	    if (whiteList && whiteList.length) {
-	        len = whiteList.length;
-	        for (; i < len; ++i) {
-	            mergeItem(target, source, whiteList[i], overwrite, recursive);
+	    };
+	    
+	    return function(target, source, opt_options){
+	        var i = 0,
+	            options = opt_options || {},
+	            overwrite = options['overwrite'],
+	            whiteList = options['whiteList'],
+	            recursive = options['recursive'],
+	            len;
+	    
+	        // 只处理在白名单中的属性
+	        if (whiteList && whiteList.length) {
+	            len = whiteList.length;
+	            for (; i < len; ++i) {
+	                mergeItem(target, source, whiteList[i], overwrite, recursive);
+	            }
+	        } else {
+	            for (i in source) {
+	                mergeItem(target, source, i, overwrite, recursive);
+	            }
 	        }
-	    } else {
-	        for (i in source) {
-	            mergeItem(target, source, i, overwrite, recursive);
-	        }
-	    }
-	
-	    return target;
-	};
-	})();
+	        return target;
+	    };
+	}();
 	
 	baidu.object.values = function (source) {
 	    var result = [], resultLen = 0, k;
@@ -10398,7 +10408,7 @@ void function(){
 	
 	baidu.page.getViewHeight = function () {
 	    var doc = document,
-	        ie = baidu.browser.ie || 1;
+	        ie = baidu.browser.ie || 1,
 	        client = doc.compatMode === 'BackCompat'
 	            && ie < 9 ? doc.body : doc.documentElement;
 	        //ie9浏览器需要取得documentElement才能取得到正确的高度
@@ -10513,16 +10523,16 @@ void function(){
 	
 	
 	baidu.param = function(arg) {
-		arg = arg || arguments.callee.caller.arguments;
+	    arg = arg || arguments.callee.caller.arguments;
 	
-		var s = "",
-			n = arg.length;
+	    var s = "",
+	        n = arg.length;
 	
-		for (var i = 0; i < n; i++) {
-			s += "," + baidu.type(arg[i]);
-		}
+	    for (var i = 0; i < n; i++) {
+	        s += "," + baidu.type(arg[i]);
+	    }
 	
-		return s ? s.substr(1) : "";
+	    return s ? s.substr(1) : "";
 	};
 	
 	// [Notice] meizz callee等操作是一个低性能的处理，因此 arg 参数尽量传过来，尽管不传这个参数本方法也能正确执行
@@ -10534,7 +10544,7 @@ void function(){
 	
 	    baidu.forEach("Android iPad iPhone Linux Macintosh Windows X11".split(" "), function(item ) {
 	        var key = item.charAt(0).toUpperCase() + item.toLowerCase().substr( 1 );
-	        baidu[ "is" + key ] = result[ "is" + key ] = ~ua.indexOf( item );//) && (result = item);
+	        baidu[ "is" + key ] = result[ "is" + key ] = !!~ua.indexOf( item );//) && (result = item);
 	    });
 	
 	    return result;
@@ -10808,23 +10818,23 @@ void function(){
 	
 	    if( dl ){
 	
-		    if( dl == 1 && opts && /Array|Object/.test( _.call( opts ) ) )
-		    	data = opts;
+	        if( dl == 1 && opts && /Array|Object/.test( _.call( opts ) ) )
+	            data = opts;
 	
-	    	return source.replace( /#\{(.+?)\}/g, function ( match, key ){
-			    var fl = key.split("|"), r, i, l, f;
+	        return source.replace( /#\{(.+?)\}/g, function ( match, key ){
+	            var fl = key.split("|"), r, i, l, f;
 	
-			    if( !data ) return "";
+	            if( !data ) return "";
 	
-		    	if( typeof ( r = data[fl[0]] ) == "function" )
-		    		r = r( fl[0] );
-		    	
-		    	for( i = 1, l = fl.length; i < l; ++ i)
-		    		if( typeof ( f = baidu.string.filterFormat[ fl[ i ] ] ) == "function" )
-		    			r = f(r);
+	            if( typeof ( r = data[fl[0]] ) == "function" )
+	                r = r( fl[0] );
+	            
+	            for( i = 1, l = fl.length; i < l; ++ i)
+	                if( typeof ( f = baidu.string.filterFormat[ fl[ i ] ] ) == "function" )
+	                    r = f(r);
 	
-		    	return r == null ? "" : r;
-	    	});
+	            return r == null ? "" : r;
+	        });
 	    }
 	
 	    return source;
@@ -10834,17 +10844,17 @@ void function(){
 	
 	
 	baidu.string.filterFormat.escapeJs = function(str){
-		if(!str || 'string' != typeof str) return str;
-		var i,len,charCode,ret = [];
-		for(i=0, len=str.length; i < len; ++i){
-			charCode = str.charCodeAt(i);
-			if(charCode > 255){
-				ret.push(str.charAt(i));
-			} else{
-				ret.push('\\x' + charCode.toString(16));
-			}
-		}
-		return ret.join('');
+	    if(!str || 'string' != typeof str) return str;
+	    var i,len,charCode,ret = [];
+	    for(i=0, len=str.length; i < len; ++i){
+	        charCode = str.charCodeAt(i);
+	        if(charCode > 255){
+	            ret.push(str.charAt(i));
+	        } else{
+	            ret.push('\\x' + charCode.toString(16));
+	        }
+	    }
+	    return ret.join('');
 	};
 	baidu.string.filterFormat.js = baidu.string.filterFormat.escapeJs;
 	
@@ -10852,10 +10862,10 @@ void function(){
 	
 	
 	baidu.string.filterFormat.escapeString = function(str){
-		if(!str || 'string' != typeof str) return str;
-		return str.replace(/["'<>\\\/`]/g, function($0){
-		   return '&#'+ $0.charCodeAt(0) +';';
-		});
+	    if(!str || 'string' != typeof str) return str;
+	    return str.replace(/["'<>\\\/`]/g, function($0){
+	       return '&#'+ $0.charCodeAt(0) +';';
+	    });
 	};
 	
 	baidu.string.filterFormat.e = baidu.string.filterFormat.escapeString;
@@ -10864,7 +10874,7 @@ void function(){
 	
 	
 	baidu.string.filterFormat.toInt = function(str){
-		return parseInt(str, 10) || 0;
+	    return parseInt(str, 10) || 0;
 	};
 	baidu.string.filterFormat.i = baidu.string.filterFormat.toInt;
 	
@@ -10872,21 +10882,21 @@ void function(){
 	//format(a,a,d,f,c,d,g,c);
 	baidu.string.extend({
 	    format : function (opts) {
-	    	var source = this.valueOf(),
+	        var source = this.valueOf(),
 	            data = Array.prototype.slice.call(arguments,0), toString = Object.prototype.toString;
 	        if(data.length){
-	    	    data = data.length == 1 ? 
-	    	    	
-	    	    	(opts !== null && (/\[object Array\]|\[object Object\]/.test(toString.call(opts))) ? opts : data) 
-	    	    	: data;
-	        	return source.replace(/#\{(.+?)\}/g, function (match, key){
-	    	    	var replacer = data[key];
-	    	    	// chrome 下 typeof /a/ == 'function'
-	    	    	if('[object Function]' == toString.call(replacer)){
-	    	    		replacer = replacer(key);
-	    	    	}
-	    	    	return ('undefined' == typeof replacer ? '' : replacer);
-	        	});
+	            data = data.length == 1 ? 
+	                
+	                (opts !== null && (/\[object Array\]|\[object Object\]/.test(toString.call(opts))) ? opts : data) 
+	                : data;
+	            return source.replace(/#\{(.+?)\}/g, function (match, key){
+	                var replacer = data[key];
+	                // chrome 下 typeof /a/ == 'function'
+	                if('[object Function]' == toString.call(replacer)){
+	                    replacer = replacer(key);
+	                }
+	                return ('undefined' == typeof replacer ? '' : replacer);
+	            });
 	        }
 	        return source;
 	    }
@@ -11099,16 +11109,16 @@ void function(){
 	};
 	
 	baidu.swf.getMovie = function (name) {
-		//ie9下, Object标签和embed标签嵌套的方式生成flash时,
-		//会导致document[name]多返回一个Object元素,而起作用的只有embed标签
-		var movie = document[name], ret;
+	    //ie9下, Object标签和embed标签嵌套的方式生成flash时,
+	    //会导致document[name]多返回一个Object元素,而起作用的只有embed标签
+	    var movie = document[name], ret;
 	    return baidu.browser.ie == 9 ?
-	    	movie && movie.length ? 
-	    		(ret = baidu.array.remove(baidu.lang.toArray(movie),function(item){
-	    			return item.tagName.toLowerCase() != "embed";
-	    		})).length == 1 ? ret[0] : ret
-	    		: movie
-	    	: movie || window[name];
+	        movie && movie.length ? 
+	            (ret = baidu.array.remove(baidu.lang.toArray(movie),function(item){
+	                return item.tagName.toLowerCase() != "embed";
+	            })).length == 1 ? ret[0] : ret
+	            : movie
+	        : movie || window[name];
 	};
 	
 	baidu.swf.Proxy = function(id, property, loadedHandler) {
