@@ -22,7 +22,7 @@ baidu.id = function() {
     var maps = baidu.global("_maps_id")
         ,key = baidu.key;
 
-    baidu.global("_counter", 1, true);
+    baidu.global("_counter", 1);
 
     return function( object, command ) {
         var e
