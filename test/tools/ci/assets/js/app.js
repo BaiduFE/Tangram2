@@ -112,9 +112,9 @@
         unitTest: function(node){
             var api = node.data.dir.replace('../../../src/', '').replace('.js', '').replace(/\//g, '.'),
                 unitUrl = location.href.replace('index.php', '') + '../br/run.php?case=' + api;
-                
+
             if($("#J_unitTestFrame").length === 0){
-                $('J_unitTest').html('<iframe id="J_unitTestFrame" src="" frameborder="no" scrolling="auto" ></iframe>');
+                $('#J_unitTest').html('<iframe id="J_unitTestFrame" src="" frameborder="no" scrolling="auto" ></iframe>');
             }
             $("#J_unitTestFrame").attr('src', unitUrl);
             var interval = setInterval(function(){
