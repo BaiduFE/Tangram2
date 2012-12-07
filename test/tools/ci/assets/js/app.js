@@ -110,9 +110,12 @@
          * 单元测试
          */
         unitTest: function(node){
-            var api = node.data.dir.replace('../../../src/', '').replace('.js', ''),
+            var api = node.data.dir.replace('../../../src/', '').replace('.js', '').replace(/\//g, '.'),
                 unitUrl = location.href.replace('index.php', '') + '../br/run.php?case=' + api;
-            
+
+            if($("#J_unitTestFrame").length === 0){
+                $('#J_unitTest').html('<iframe id="J_unitTestFrame" src="" frameborder="no" scrolling="auto" ></iframe>');
+            }
             $("#J_unitTestFrame").attr('src', unitUrl);
             var interval = setInterval(function(){
                 try{
@@ -395,7 +398,7 @@
      */
     window.testDoneCallBack = function(info){
         if(info.failed){
-            failureList.push(node);
+            failureList.push(currentNode);
             currentNode.el.css('color', '#FF0000');
         }else{
             autoRuning && hideOnPass && currentNode.el.hide();
