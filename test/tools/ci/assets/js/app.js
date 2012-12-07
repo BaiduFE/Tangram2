@@ -395,7 +395,7 @@
      */
     window.testDoneCallBack = function(info){
         if(info.failed){
-            failureList.push(node);
+            failureList.push(currentNode);
             currentNode.el.css('color', '#FF0000');
         }else{
             autoRuning && hideOnPass && currentNode.el.hide();
