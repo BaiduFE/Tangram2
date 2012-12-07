@@ -110,7 +110,7 @@
          * 单元测试
          */
         unitTest: function(node){
-            var api = node.data.dir.replace('../../../src/', '').replace('.js', ''),
+            var api = node.data.dir.replace('../../../src/', '').replace('.js', '').replace('/', '.'),
                 unitUrl = location.href.replace('index.php', '') + '../br/run.php?case=' + api;
             
             $("#J_unitTestFrame").attr('src', unitUrl);
