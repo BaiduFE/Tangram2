@@ -190,6 +190,7 @@ body {
 	border-radius: 4px 0 0 4px;
 	background-color: #F6F6F6;
 	width: 220px;
+	_overflow: hidden;
 }
 .tree {
 	margin: 10px;
