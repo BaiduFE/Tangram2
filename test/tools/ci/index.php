@@ -13,13 +13,7 @@
         ?>
         <link rel="stylesheet" type="text/css" href="./assets/css/app.css" />
         <link type="text/css" rel="stylesheet" href="./assets/css/shCoreDefault.css"/>
-        <script type="text/javascript" src="./assets/js/jQuery-1.8.2.js"></script>
-        <script type="text/javascript" src="./assets/js/mustache.js"></script>
-        <script type="text/javascript" src="./assets/js/tree.js"></script>
-        <script type="text/javascript" src="./assets/js/app.js"></script>
-        <script type="text/javascript" src="./assets/js/shCore.js"></script>
-        <script type="text/javascript" src="./assets/js/shBrushJScript.js"></script>
-        <script type="text/javascript" src="./assets/js/jshint.js"></script>
+        <script type="text/javascript" src="./assets/lib/sea.js"></script>
     </head>
     <body>
         <div class="hd">
@@ -81,7 +75,21 @@
         </div>
         <script type="text/javascript">
             (function(){
-                App.run();
+                seajs.config({
+                    alias: {
+                        'jQuery': '../lib/jQuery-1.8.2.js',
+                        'mustache': '../lib/mustache.js',
+                        'shCore': '../lib/shCore.js',
+                        'shBrushJScript': '../lib/shBrushJScript.js',
+                        'jshint': '../lib/jshint.js'
+                    },
+                    base: './assets/js',
+                    charset: 'utf-8'
+                });
+
+                seajs.use('App', function(app){
+                    app.run();
+                });
             })();
         </script>
     </body>
