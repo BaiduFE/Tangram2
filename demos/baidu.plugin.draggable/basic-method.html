@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu.dom().draggable() 示例"/>
+    <title>基本方法</title>
+    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+    <script type="text/javascript" src="../../demos/tangram2.0.1.0-min.js"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.draggable"></script>
+    <style type="text/css">
+        #draggable {
+            border: 2px dashed #000;
+            padding: 50px;
+        }
+
+        #draggable-ele {
+            width: 100px;
+            height: 70px;
+            text-align: center;
+            font-size: 12px;
+            color: red;
+            background:#ccc;
+            padding-top: 30px;
+        }
+
+        #method-exp {
+            color: red;
+            margin-left: 10px;
+        }
+
+        #draggable-ele.tang-draggable-dragging {
+            background: #0FF;
+        }
+
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu.dom().draggable()</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>基本方法说明：</span><span id="method-exp">将元素拖动到浏览器视口的任何地方(范围限定在 id 为 selectable 的黑色虚线框容器内)拖拽时，当前被拖拽的元素此时会默认加一个 className 名为 “tang-draggable-dragging” (设置 class 样式：background: #0FF)</span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div id="draggable">
+                <div id="draggable-ele">
+                    拖我
+                </div>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    baidu( '#draggable-ele' ).draggable( {
+        range:'#draggable'
+    } );
+</script>
+</body>
+</html>
