@@ -57,7 +57,7 @@ test('.children( selector )重载', function () {
 
 
 //老用例
-test("老接口：Element or id ", function() {
+test("兼容1.x接口：Element or id ", function() {
 	expect(2);
 	var div = document.createElement('div');
 	div.id = "div_id";
@@ -80,7 +80,7 @@ test("老接口：Element or id ", function() {
 		document.body.removeChild(div);
 	});
 
-test("老接口：body", function() {
+test("兼容1.x接口：body", function() {
 	stop();
 	expect(1);
 
@@ -109,7 +109,7 @@ test("老接口：body", function() {
 	$('iframe#test_frame').load(next);
 });
 
-test("老接口：empty childs", function() {
+test("兼容1.x接口：empty childs", function() {
 	expect(2);
 	var div = document.createElement('div');
 	document.body.appendChild(div);

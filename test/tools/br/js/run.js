@@ -1,5 +1,4 @@
 function run(kiss, runnext) {
-
 	window.document.title = kiss;
 	var wb = window.brtest = window.brtest || {};
 
@@ -37,7 +36,7 @@ function run(kiss, runnext) {
 			$(wb).trigger('done', [ new Date().getTime(), {
 				failed : 1,
 				passed : 1
-			}, frames[0].$_jscoverage, 'timeout' ]);
+			}, frames[frames.length - 1].$_jscoverage, 'timeout' ]);
 	}, wb.timeout);
 	/**
 	 * 为当前用例绑定一个一次性事件

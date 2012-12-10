@@ -10,6 +10,7 @@ if(!$quirk){?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Tangram Test Index Page</title>
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="js/download.js"></script>
 <script type="text/javascript" src="js/run.js"></script>
 <link media="screen" href="css/tangramtest.css" type="text/css"
 	rel="stylesheet" />
@@ -27,6 +28,17 @@ if(!$quirk){?>
 			id="id_control_clearstatus" type="button" value="清除用例状态"
 			onclick="$('.testlist a').removeClass('running_case pass_case fail_case');" />
 	</div>
+	<!-- download测试区域  -->
+	<a id="id_download_button" class="button" style="display:none"><span
+		onclick="$('div#id_downloadarea').slideToggle('slow');">展开download区域</span> </a>
+	<div style="height:1px; clear: both"></div>
+	<div id="download_report">
+		<div class="correct"></div>
+		<div class="wrong"></div>
+	</div>
+	<div id="id_downloadarea" class="downloadarea"
+		style="display: none"></div>
+		
 	<a id="id_testlist_status" class="button"><span
 		onclick="$('div#id_testlist').slideToggle('slow');">折叠用例</span> </a>
 	<div id="id_rerun" onclick="run($('#id_rerun').html());return false;"></div>

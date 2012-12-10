@@ -91,7 +91,7 @@ class Kiss{
 		}
 	}
 
-	public function print_js($cov=false, $release=false, $compatible=false){
+	public function print_js($cov=false, $release=false, $compatible=false, $download=false){
 		print '<script type="text/javascript" src="js/jquery-1.7.2.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/testrunner.js"></script>'."\n";
 		print '<script type="text/javascript" src="js/ext_qunit.js"></script>'."\n";
@@ -99,18 +99,23 @@ class Kiss{
 		print '<script type="text/javascript" src="js/tools.js"></script>'."\n";
 
 		print '<link media="screen" href="css/qunit.css" type="text/css" rel="stylesheet" />'."\n";
-
-		if($release == 0){
+		
+		if($release == 0 && $download == 0){
 			/* load case source*/
 			$importurl = "{$this->projroot}test/tools/br/import.php?f=$this->name\n";
 			if($cov) $importurl.='&cov=true';
 			print "<script type='text/javascript' src='$importurl' ></script>\n";
 		}else{
-			if($compatible == 0)
-				$file_name = "tangram_base";
-			else
-				$file_name = "tangram_compatible";
-			print "<script type='text/javascript' src='{$this->projroot}release/$file_name.js'></script>\n";
+			if($download == 0){
+				if($compatible == 0)
+					$file_name = "tangram_base";
+				else
+					$file_name = "tangram_compatible";
+				print "<script type='text/javascript' src='{$this->projroot}release/$file_name.js'></script>\n";
+			}
+		}
+		if($download !=0 ){
+			print '<script type="text/javascript" src="js/download_check.js"></script>'."\n";
 		}
 
 		/* load case and case dependents*/

@@ -1,6 +1,6 @@
 ﻿module("baidu.dom.data");
 
-test("兼容Magic接口：第一个参数为 String ", function () {
+test("第一个参数为 String ", function () {
     var guid = baidu.id.key
         , $dom = baidu.dom(document.body)
         , maps = window[ baidu.guid ]._maps_HTMLElementData;
@@ -20,7 +20,7 @@ test("兼容Magic接口：第一个参数为 String ", function () {
 });
 
 //兼容JQ
-test("兼容Magic接口：获取自定义属性", function () {
+test("获取自定义属性", function () {
     var div1 = document.createElement('div');
     div1.id = 'test-data1';
     div1.setAttribute('data-rayi','{"jiyou":"wangxiao","dashu":"jihu"}');

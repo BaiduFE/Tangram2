@@ -19,8 +19,8 @@ test("基础校验", function(){
     }), false,  "基础校验");
 });
 
-//老接口
-test("老接口：基础校验", function(){
+//兼容1.x接口
+test("兼容1.x接口：基础校验", function(){
     var source = [1,2,3, '4'];
 
     equals(baidu.array.some(source, function(item, i){
@@ -29,7 +29,7 @@ test("老接口：基础校验", function(){
     }), true,  "基础校验");
 });
 
-test("老接口：基础校验", function(){
+test("兼容1.x接口：基础校验", function(){
     var source = [1,2,3];
 
     equals(baidu.array.some(source, function(item, i){
