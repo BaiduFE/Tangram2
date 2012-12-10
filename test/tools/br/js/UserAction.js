@@ -791,6 +791,8 @@ var UserAction =
 			url += '&release=true';
 		if(pw.location.href.indexOf("compatible=true") > -1)
 			url += '&compatible=true';
+		if(pw.location.href.search("download=[0-9]") > 0)
+			url += '&download=' + location.search.match(/download=[0-9]/)[0].split("=")[1];
 		var srcpath = '';
 		if(location.href.indexOf("/run.do") > 0) {
 			srcpath = location.href.replace("run.do","frame.do");
@@ -880,7 +882,6 @@ var UserAction =
 				callback();
 			return;
 		}
-
 		win = win || window;
 		var doc = win.document;
 
