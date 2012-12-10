@@ -275,7 +275,7 @@
 ///import baidu.dom.removeClass;
 ///import baidu.dom.data;
 ///import plugin._util_.drag;
-///import plugin._util_.isCover;
+///import plugin._util_.isCrash;
 
 baidu.dom.extend({
     draggable:function(value,opts){
@@ -351,7 +351,7 @@ baidu.dom.extend({
                             }else{
 
                                 //endOf的范围是selector
-                                if(!baidu.dom(opt.endOf).isCover(drag.target,true)){
+                                if(!baidu.dom(opt.endOf).isCrash(drag.target,true)){
                                     draggable.cancel();
                                 };                                
                             };
@@ -405,7 +405,7 @@ baidu.dom.extend({
                 disable:function(){
                     if(opt.enable){
                         opt.enable = false;
-                        if(baidu.type(value)!='object'){
+                        if(value && baidu.type(value)!='object'){
                             me.find(value).css('cursor','default');
                         }else{
                             me.css('cursor','default');
@@ -420,7 +420,7 @@ baidu.dom.extend({
                 enable:function(){
                     if(!opt.enable){
                         opt.enable = true;
-                        if(baidu.type(value)!='object'){
+                        if(value && baidu.type(value)!='object'){
                             baidu.dom(value).css('cursor','move');
                         }else{
                             me.css('cursor','move');
@@ -566,7 +566,7 @@ baidu.dom.extend({
                         var _e = focusEle.eq(i);
                         var id = baidu.id(_e.get(0));
 
-                        if( _e.isCover(dragEle) ){
+                        if( _e.isCrash(dragEle) ){
 
                             //观察对象的改变来触发
                             if(!dragEnter[id]){

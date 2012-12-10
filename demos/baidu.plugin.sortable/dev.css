@@ -1,0 +1,24 @@
+#wrapper{
+    width: 500px;
+    height: 500px;
+    margin-top: 30px;
+    border: 2px dashed #CC0;
+}
+
+ul.group{
+    list-style-type: none;
+}
+
+li.item{
+    width:180px;
+    height:30px;
+    border:1px solid #c00;
+}
+
+li.a1{
+    background-color: #F00;
+}
+
+li.a2{
+    background-color: #FF0;
+}

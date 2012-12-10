@@ -6,8 +6,8 @@
 /**
  * @description 判断传入的元素是否和当前元素的区域有交集
  * @function 
- * @name baidu.dom().isCover()
- * @grammar baidu.dom(args).isCover(selector)
+ * @name baidu.dom().isCrash()
+ * @grammar baidu.dom(args).isCrash(selector)
  * @param {Selector|TangramDom|htmlElement} selector css选择器字符串、HTML字符串，或者页面Dom元素，只会取得第一个匹配元素
  * @return {Boolean} 如果两元素区域有交集（包括边缘完全对齐），返回true；没有交集，则返回false。
 */
@@ -15,8 +15,8 @@
 /**
  * @description 判断传入的元素是否严格的在当前任意一个匹配的元素内
  * @function 
- * @name baidu.dom().isCover()
- * @grammar baidu.dom(args).isCover(selector,strict)
+ * @name baidu.dom().isCrash()
+ * @grammar baidu.dom(args).isCrash(selector,strict)
  * @param {Selector|TangramDom|htmlElement} selector css选择器字符串、HTML字符串，或者页面Dom元素，只会取得第一个匹配元素
  * @param {Boolean} strict 是否严格的在当前元素的范围内
  * @return {Boolean} 新传入元素如果在前匹配元素组中的任何一个之内（包括边缘完全对齐），则返回true；没在任何一个内，则返回false。
@@ -28,7 +28,7 @@
 ///import baidu.dom.outerHeight;
 
 baidu.dom.extend({
-    isCover : function(selector,strict){
+    isCrash : function(selector,strict){
         if(!arguments.length){ 
             return false; 
         };
@@ -73,3 +73,12 @@ baidu.dom.extend({
         return false;
     }
 });
+
+// //检测两区域是否碰撞
+// check(a1,a2){
+//     if(a1.top>a2.bottom||a1.bottom<a2.top||a1.left>a2.right||a1.right<a2.left){
+//         return false;
+//     }else{
+//         return true;
+//     };
+// };

@@ -148,6 +148,8 @@
  * @grammar baidu(args).selectable().index(arr)
  * @param {Null|Array} arr 如果不传参，则为获取当前被选中元素的索引组成的数组；传入元素，则通过索引数组设置对应元素被选中。
  * @return {Array|Selectable} 不传参，直接返回当前被选择元素的索引组成的数组，当前被选择时都会默认被加上名为“tang-selectable-selected”的className；传参则返回一个Selectable实例。
+ * @example
+ 该方法永远取得和设置当前顺序指定索引，如果元素顺序通过其他方式改变了，则从新计算索引，不会保留原索引。
 */
 
 /**
@@ -294,7 +296,7 @@
 ///import baidu.dom.children;
 ///import baidu.dom.find;
 ///import baidu.dom.not;
-///import plugin._util_.isCover;
+///import plugin._util_.isCrash;
 ///import plugin._util_.rubberSelect;
 
 baidu.dom.extend({
@@ -359,7 +361,7 @@ baidu.dom.extend({
                         if(rubberSelect && !rubberSelect.dispose){
                             rubberSelect.dispose();
                         };
-                        offDocEvent();               
+                        offDocEvent(); 
                     };
                     return selectable;
                 },
@@ -487,7 +489,7 @@ baidu.dom.extend({
                         //只能选择一次
                         for(var i = 0 , num = item.size(); i < num; i ++){
                             var _ele = item.eq(i);
-                            if(_ele.isCover(rubberSelect.target)){
+                            if(_ele.isCrash(rubberSelect.target)){
                                 if (!_ele.hasClass('tang-selectable-selected')) {
                                     selectable.fire('change',{target:_ele});
                                     _ele.addClass('tang-selectable-selected');
@@ -507,7 +509,7 @@ baidu.dom.extend({
                             var _ele = item.eq(i);
 
                             //只对选了的做判断
-                            if(_ele.isCover(rubberSelect.target) && !_ele.hasClass('tang-selectable-selecting')){
+                            if(_ele.isCrash(rubberSelect.target) && !_ele.hasClass('tang-selectable-selecting')){
                                 selectable.fire('change',{target:_ele});
 
                                 //支持可以多次选择，判断此次碰撞是否已经选择了
