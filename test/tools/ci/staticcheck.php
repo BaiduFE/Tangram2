@@ -12,7 +12,7 @@
         $fileencodingCheck = 'pass';
     }else{
         $fileencoding = 'ASCII';
-        $fileencodingCheck = 'failure';
+        $fileencodingCheck = 'attention';
     }
 
     # 检查文件Bomb头

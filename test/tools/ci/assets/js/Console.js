@@ -1,9 +1,35 @@
 define(function(require, exports) {
 
+    var consoleOpened = false;
+
     /**
      * 初始化控制台
      */
     var init = function(){
+        
+        $('#J_consoleBar').click(function(event){
+            if(consoleOpened){
+                $('#J_consoleWrap').removeClass('console-open').addClass('console-close');
+                consoleOpened = false;
+            }else{
+                $('#J_consoleWrap').removeClass('console-close').addClass('console-open');
+                consoleOpened = true;
+            }
+        });
+
+    };
+
+    /**
+     * 显示控制台
+     */
+    var show = function(){
+        
+    };
+
+    /**
+     * 隐藏控制台
+     */
+    var hide = function(){
         
     };
 
@@ -11,7 +37,7 @@ define(function(require, exports) {
      * 清除控制台
      */
     var clear = function() {
-        
+        $('#J_console').html('');
     };
 
     /**
@@ -45,13 +71,13 @@ define(function(require, exports) {
         }
         
         $('#J_' + currentCheckMode).html(html);
-        window.scrollTo(0, 0);
-        failureList = [];
     };
 
     exports = {
         'init': init,
         'clear': clear,
+        'show': show,
+        'hide': hide,
         'log': log,
         'group': group
     };

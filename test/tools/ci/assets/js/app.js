@@ -2,6 +2,7 @@ define(function(require, exports) {
     require('jQuery');
     var Tree = require('Tree').tree;
     var Check = require('Check');
+    var Console = require('Console');
 
     var treeInstance,               // 树的实例
         treeData,                   // 源码目录树
@@ -10,6 +11,11 @@ define(function(require, exports) {
         autoRuning = false,         // 是否处于自动测试状态
         currentCheckMode = 'unitTest',  // 当前检查的模式
         currentNode;                // 当前检查的节点
+
+    // 设置自动运行的状态
+    function setAutoRuningStatus(flag){
+        autoRuning = flag;
+    }
 
     var fileTree = {
         /**
@@ -160,6 +166,13 @@ define(function(require, exports) {
      * 单测用例执行完后的回调
      */
     window.testDoneCallBack = function(info){
+        seajs.use('App', function(app){
+            app._testDoneCallBack(info);
+        });
+    };
+
+    // 解决作用域问题
+    exports._testDoneCallBack = function(info){
         if(info.failed){
             failureList.push(currentNode);
             currentNode.el.css('color', '#FF0000');
@@ -168,23 +181,25 @@ define(function(require, exports) {
             currentNode.el.css('color', '');
         }
         autoRuning && Check.autoNext();
-    }
+    };
 
     /**
      * 初始化应用
      */
     var initApp = function(){
-            //初始化树
+            // 初始化树
             fileTree.init();
-            //将树的数据扁平化
+            // 将树的数据扁平化
             fileTree.flatteningTreeDates();
             Check.setFlatteningTreeDates(flattenedTreeDates);
-            //默认展开树的第一个子节点
+            // 默认展开树的第一个子节点
             treeInstance.children[0].expend();
-            //初始化Tab
+            // 初始化Tab
             tab.init();
-            //初始化Toolbar
+            // 初始化Toolbar
             toolbar.init();
+            // 初始化控制台
+            Console.init();
     };
 
     exports.run = function(){
@@ -196,5 +211,5 @@ define(function(require, exports) {
     };
 
     exports.toolbar = toolbar;
-
+    exports.setAutoRuningStatus = setAutoRuningStatus;
 });

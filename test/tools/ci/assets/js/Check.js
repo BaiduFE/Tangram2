@@ -67,11 +67,18 @@ define(function(require, exports) {
                 toolbar.enable();
                 i = -1;
                 autoRuning = false;
-                currentNode.el.removeClass("focus");
-                currentNode = null;
+
+                seajs.use('App', function(app){
+                    app.setAutoRuningStatus(false);
+                });
+                
+                // currentNode.el.removeClass("focus");
+                // currentNode = null;
+                window.scrollTo(0, 0);
 
                 // 显示统计结果
                 Console.log(failureList);
+                failureList = [];
                 return;
             }
 
@@ -140,7 +147,7 @@ define(function(require, exports) {
                             $("#J_staticCheck").html(Mustache.render(testCaseTpl, data));
 
                             // 在节点上标出检查结果（忽略用例的检查结果）
-                            if(data.encodingCheck.status == 'failure' || 
+                            if(data.conflictCheck.status == 'failure' || 
                                data.BombCheck.status == 'failure' ||
                                data.tabCheck.status == 'failure'){
                                 

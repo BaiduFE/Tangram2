@@ -73,6 +73,30 @@
                 </div>
             </div>
         </div>
+
+        <div class="console-wrap console-close" id="J_consoleWrap">
+            <div class="console-bar" id="J_consoleBar"></div>
+            <div class="console" id="J_console">
+                <p class="log"><span class="level warning">[warning]</span><span class="time">15:03:29</span><span class="type">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.array.contains</span></p>
+                <p class="log"><span class="level warning">[warning]</span><span class="time">15:03:29</span><span class="type">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level warning">[warning]</span><span class="time">15:03:29</span><span class="type">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.array.contains</span></p>
+                <p class="log"><span class="level warning">[warning]</span><span class="time">15:03:29</span><span class="type">用例超时</span><span class="api">baidu.array.contains</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.ajax.get</span></p>
+                <p class="log"><span class="level warning">[warning]</span><span class="time">15:03:29</span><span class="type">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.array.contains</span></p>
+                <p class="log"><span class="level warning">[warning]</span><span class="time">15:03:29</span><span class="type">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level warning">[warning]</span><span class="time">15:03:29</span><span class="type">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.dom.getStyle</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.array.contains</span></p>
+                <p class="log"><span class="level warning">[warning]</span><span class="time">15:03:29</span><span class="type">用例超时</span><span class="api">baidu.array.contains</span></p>
+                <p class="log"><span class="level error">[error]</span><span class="time">15:03:29</span><span class="type">用例失败</span><span class="api">baidu.ajax.get</span></p>
+            </div>
+        </div>
         <script type="text/javascript">
             (function(){
                 seajs.config({

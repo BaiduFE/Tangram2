@@ -22,4 +22,47 @@ define(function(require, exports) {
             return ('undefined' == typeof replacer ? '' : replacer);
         });
     };
+
+    /**
+     * 对目标数字进行0补齐处理
+     */
+    var pad = function (number) {
+        var source = number;
+        var pre = "",
+            string = String(Math.abs(source));
+     
+        if (string.length < 2) {
+            pre = '0';
+        }
+     
+        return pre + string;
+    };
+
+    /**
+     * 格式化日期
+     */
+    exports.dformat = function(date, pattern){
+        if(!date){
+            var date = new Date();
+        }
+
+        if ('string' != typeof pattern) {
+            var pattern = 'HH:mm:ss';
+        }
+     
+        function replacer(patternPart, result) {
+            pattern = pattern.replace(patternPart, result);
+        }
+         
+        var year    = date.getFullYear(),
+            hours   = date.getHours(),
+            minutes = date.getMinutes(),
+            seconds = date.getSeconds();
+     
+        replacer(/HH/g, pad(hours, 2));
+        replacer(/mm/g, pad(minutes, 2));
+        replacer(/ss/g, pad(seconds, 2));
+     
+        return pattern;
+    };
 });
