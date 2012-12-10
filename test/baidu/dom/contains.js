@@ -1,7 +1,7 @@
 module("baidu.dom.contains")
 
 test("父子关系",function(){
-	expect(9);
+	expect(10);
 	var div = document.createElement('div');
 	div.id = "father_div";
 	var divChild = document.createElement('div');
@@ -15,16 +15,12 @@ test("父子关系",function(){
 	div.appendChild(img);
 	div.appendChild(text);
 	divChild.appendChild(aGrand);
-	
 	ok(baidu.dom(div).contains(divChild),"div contains child div");
 	ok(baidu.dom(div).contains(img),"div contains img");
-	/**
-	 * 不支持textNode，因为在ie下有问题，兼容这个问题需要花费很大的精力，因此不做处理
-	 * ok(baidu.dom.contains(div,text),"div contains text");//text node
-	 */
+	ok(baidu.dom(div).contains(text), "div contains text");//text node
 	ok(baidu.dom(divChild).contains(aGrand),"child div contains a");//grand child
 	ok(baidu.dom('body').contains(div),"body contains div");//body
-	
+
 	ok(baidu.dom(div).contains(aGrand),"grandfather contains grandson");
 	ok(baidu.dom('#father_div').contains(aGrand),"grandfather contains grandson-by id");
 	ok(baidu.dom("#father_div").contains(divChild),"div contains child div--father by id");//id
@@ -44,13 +40,13 @@ test("非父子关系",function(){
 	document.body.appendChild(div1);
 	document.body.appendChild(a);
 	div.appendChild(img);
-	
+
 	ok(!baidu.dom(div).contains(div),"can't contains self");//self
 	ok(!baidu.dom(div).contains(div1),"div doesn't contain sibling div");//sibling
 	ok(!baidu.dom(div).contains(a),"div doesn't contain sibling a");//sibling
 	ok(!baidu.dom(div1).contains(img),"div1 doesn't contain relative img");//relative
 	ok(!baidu.dom(a).contains(img),"a doesn't contain relative img");//relative
-	
+
 	document.body.removeChild(div);
 	document.body.removeChild(div1);
 	document.body.removeChild(a);
@@ -97,9 +93,9 @@ test('异常case',function(){
 	document.body.removeChild(div);
 });
 
-//兼容1.x接口
-test("兼容1.x接口：父子关系",function(){
-	expect(9);
+//老接口
+test("老接口：父子关系",function(){
+	expect(10);
 	var div = document.createElement('div');
 	div.id = "father_div";
 	var divChild = document.createElement('div');
@@ -113,16 +109,13 @@ test("兼容1.x接口：父子关系",function(){
 	div.appendChild(img);
 	div.appendChild(text);
 	divChild.appendChild(aGrand);
-	
+
 	ok(baidu.dom.contains(div,divChild),"div contains child div");
 	ok(baidu.dom.contains(div,img),"div contains img");
-	/**
-	 * 不支持textNode，因为在ie下有问题，兼容这个问题需要花费很大的精力，因此不做处理
-	 * ok(baidu.dom.contains(div,text),"div contains text");//text node
-	 */
+	ok(baidu.dom.contains(div,text),"div contains text");//text node
 	ok(baidu.dom.contains(divChild,aGrand),"child div contains a");//grand child
 	ok(baidu.dom.contains(document.body,div),"body contains div");//body
-	
+
 	ok(baidu.dom.contains(div,aGrand),"grandfather contains grandson");
 	ok(baidu.dom.contains('father_div',aGrand),"grandfather contains grandson-by id");
 	ok(baidu.dom.contains("father_div",divChild),"div contains child div--father by id");//id
@@ -142,13 +135,13 @@ test("非父子关系",function(){
 	document.body.appendChild(div1);
 	document.body.appendChild(a);
 	div.appendChild(img);
-	
+
 	ok(!baidu.dom.contains(div,div),"can't contains self");//self
 	ok(!baidu.dom.contains(div,div1),"div doesn't contain sibling div");//sibling
 	ok(!baidu.dom.contains(div,a),"div doesn't contain sibling a");//sibling
 	ok(!baidu.dom.contains(div1,img),"div1 doesn't contain relative img");//relative
 	ok(!baidu.dom.contains(a,img),"a doesn't contain relative img");//relative
-	
+
 	document.body.removeChild(div);
 	document.body.removeChild(div1);
 	document.body.removeChild(a);
@@ -208,4 +201,3 @@ test("dom为空的情况",function(){
 //	ok(!baidu.dom.contains(div,null),"div doesn't contain null");
 //	ok(!baidu.dom.contains(div,undefined),"div doesn't contain undefined");
 //})
-
