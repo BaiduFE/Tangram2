@@ -382,25 +382,32 @@ hr {
 }
 .console {
 	margin-left: 10px;
-	height: 300px;
+	height: 270px;
 	width: 700px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
-.console .log {
+.console .console-item {
 	line-height: 30px;
 	border-bottom: 1px solid #DFDFDF;
 }
-.console .log span {
+.console .log-group {
+	line-height: 30px;
+	border-bottom: 1px solid #DFDFDF;
+}
+.console .log-group .console-item  {
+	margin-left: 20px;
+}
+.console .console-item  span {
 	margin-right: 5px;
 }
-.console .log span.level {
+.console .console-item  span.level {
 	font-weight: bold;
 }
-.console .log span.warning {
-	color: #E2EB13;
+.console .warning span.level {
+	color: #D58309;
 }
-.console .log span.error {
+.console .error span.level {
 	color: #F00;
 }
 .console-close .console {
@@ -411,4 +418,33 @@ hr {
 }
 .console-open .console {
 	display: block;
+}
+.console-filterWrap {
+	height: 30px;
+	background-color: #E2E2E2;
+	border-top: 1px solid #CACACA;
+}
+.console-close .console-filterWrap {
+	display: none;
+}
+.console-open .console-filterWrap {
+	display: block;
+	padding: 5px 10px;
+}
+.console-filterWrap span {
+	display: inline-block;
+	line-height: 20px;
+	margin-right: 5px;
+	padding: 0 8px;
+	cursor: pointer;
+}
+.console-filterWrap .console-filter {
+	font-weight: bold;
+	border-radius: 16px;
+}
+.console-filterWrap .hover {
+	background-color: #CACACA;
+}
+.console-filterWrap .focus {
+	background-color: #A7A7A7;
 }
