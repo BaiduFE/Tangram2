@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="description" content="baidu.dom().data() 示例" />
-		<title>先设置 DOM 对象上存储数据，然后再取出存储的数据</title>
+		<title>取出以“data-”开头的自定义属性</title>
 		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
 		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
 		<script type="text/javascript" src="../../demos/public.js"></script>
@@ -16,13 +16,13 @@
 			<h1 class="ac-h1"><strong>baidu.dom().data()</strong> 示例</h1>
 			<div class="pannel">
 				<div class="pannel-title">
-					<span>先设置 DOM 对象上存储数据，然后再取出存储的数据</span>
+					<span>取出以“data-”开头的自定义属性</span>
 				</div>
 				<div class="pannel-content">
 					<!--DemoViewStart-->
 					<div class="pannel-content-tool">
-                        <p>点击下面的按钮，先用 baidu.dom().data() 方法设置该按钮的存储数据(“sex”：“男”)，然后再用 baidu.dom().data() 方法取出存储的数据</p><br/>
-						<span class="button" id="demo_btn">点击按钮</span>
+                        <p>点击下面的按钮，用 baidu.dom().data() 取出 “data-” 开头的自定义属性</p><br/>
+						<span class="button" id="demo_btn" data-name="myDiv">点击该按钮，取出以 “data-” 开头的自定义属性</span>
 					</div>
 					<div class="pannel-content-part">
 
@@ -36,8 +36,7 @@
 		</div>
 		<script>
 			baidu('#demo_btn').on('click',function(e){
-                baidu('#demo_btn').data('sex','男');
-                baidu('#demo_execute_result').html(baidu(this).data('sex'));
+                baidu('#demo_execute_result').html(baidu(this).data('name'));
 			});
 		</script>
 	</body>
