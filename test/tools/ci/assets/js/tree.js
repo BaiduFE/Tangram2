@@ -1,13 +1,5 @@
-(function(window) {
-    var tools = {
-        sformat: function(source, opt){
-            return source.replace(/#\{(.+?)\}/g, function(match, key){
-                var replacer = opt[key];
-
-                return ('undefined' == typeof replacer ? '' : replacer);
-            });
-        }
-    };
+define(function(require, exports) {
+    var Tools = require('Tools');
     var itemrowTpl = '<div class="node-item"><div class="node-row">' +
                         '<span class="hitarea"></span><p class="node-label type-#{type}" title="#{name}">#{name}</p>' +
                     '</div></div>';
@@ -23,7 +15,7 @@
     node.prototype = {
 
         render: function(){
-            this.el = $(tools.sformat(itemrowTpl, {'name': this.data.name, 'type': this.data.type}));
+            this.el = $(Tools.sformat(itemrowTpl, {'name': this.data.name, 'type': this.data.type}));
             if(this.data.children.length === 0){
                 this.el.addClass('nochildren');
             }
@@ -192,5 +184,5 @@
         }
     };
 
-    window.tree = tree;
-})(window);
+    exports.tree = tree;
+});
