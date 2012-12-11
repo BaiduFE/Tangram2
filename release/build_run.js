@@ -73,7 +73,7 @@ function pack( content ){
     content = content.replace( /(\r?\n){2,}/g, "\r\n\r\n" ); // 多空行到一行
     content = content.replace( /\n/g, "\n\t" );
     content = content.replace(/\/\/\/\sTangram\s1\.x\sCode\s(Start|End)/g, '');//去掉Tangram 1.x Code Start|End
-    return "void function(){\r\n\t" + content + "\r\n}();";
+    return "var T, baidu = T = function(){\r\n\t" + content + "\r\n return baidu;\r\n}();";
 }
 
 
@@ -102,25 +102,18 @@ function pack( content ){
 
     tangramCompatibleContent = pack( tangramCompatibleContent );
     tangramBaseContent = pack( tangramBaseContent );
-
-    fs.open("tangram_compatible_src.js", "w", 0666, function(e, fd){
-        fs.writeSync(fd, tangramCompatibleContent, 0, 'utf8');
-        fs.closeSync(fd);
-    });
-    // fs.open("tangram_compatible_fis.js", "w", 0666, function(e, fd){
-    //     var fisContent = tangramCompatibleContent + "\r\nexports = baidu;\r\n";
-    //     fs.writeSync(fd, fisContent, 0, 'utf8');
-    //     fs.closeSync(fd);
-    // });
-    fs.open("tangram_base_src.js", "w", 0666, function(e, fd){        
-        fs.writeSync(fd, tangramBaseContent, 0, 'utf8');
-        fs.closeSync(fd);
-    });
-    // fs.open("tangram_base_fis.js", "w", 0666, function(e, fd){
-    //     var fisContent = tangramBaseContent + "\r\nexports = baidu;\r\n";
-    //     fs.writeSync(fd, fisContent, 0, 'utf8');
-    //     fs.closeSync(fd);
-    // });
+    
+    fs.writeFileSync('tangram_compatible_src.js', tangramCompatibleContent, 'utf-8');
+    fs.writeFileSync('tangram_base_src.js', tangramBaseContent, 'utf-8');
+    
+    //打包fis
+    fs.writeFileSync('tangram_compatible_fis.js',
+        tangramCompatibleContent + '\r\nexports = baidu;\r\n',
+        'utf-8');
+    //打包fis
+    fs.writeFileSync('tangram_base_fis.js',
+        tangramBaseContent + '\r\nexports = baidu;\r\n',
+        'utf-8');
 
     function uglifyCompress( content, outputFile ){
         var jsp = uglify.parser;
@@ -129,11 +122,7 @@ function pack( content ){
         ast = pro.ast_mangle( ast ); // get a new AST with mangled names
         ast = pro.ast_squeeze( ast ); // get an AST with compression optimizations
         content = pro.gen_code(ast); // compressed code here
-
-        fs.open( outputFile, "w", 0666, function( e, fd ){        
-            fs.writeSync( fd, content, 0, 'utf8' );
-            fs.closeSync( fd );
-        } );
+        fs.writeFileSync(outputFile, content, 'utf-8');
     }
 
     uglifyCompress( tangramCompatibleContent, "tangram_compatible.js" );

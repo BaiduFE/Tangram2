@@ -47,7 +47,7 @@ baidu.dom.extend({
                 if ( typeof value == "undefined" ) {
                     var data,result;
                     result = this[0] && (data = maps[ this[0][guid] ]) && data[ key ];
-                    if(result){
+                    if(typeof result != 'undefined'){
                         return result;
                     }else{
 
