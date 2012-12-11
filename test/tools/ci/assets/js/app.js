@@ -96,7 +96,7 @@ define(function(require, exports) {
                         Console.group('静态检查');
                         break;
                     case 'syntaxCheck':
-                        Console.group('动态检查');
+                        Console.group('语法检查');
                         break;
                 }
                 
