@@ -262,8 +262,13 @@ baidu.dom.extend({
                 dragEle.css({'position':'static',left:'',top:''});
                 dragEleClone.remove();
                 sortable.fire('end');
+            },
+
+            setOpt = function(opts){
+                for(var k in opts){
+                    opt[k] = opts[k];
+                };
             };
-        
         //函数参数逻辑
         switch(arguments.length){
 
@@ -277,11 +282,12 @@ baidu.dom.extend({
                 if( baidu.type(value) == 'object' ){
 
                     //value是options
+                    setOpt(value);
                 }else{
                 
                     //value是selector
                     item = me.find(value).addClass('sortable-item');
-                }
+                };
             break;
 
             //传入selector和options
@@ -289,6 +295,7 @@ baidu.dom.extend({
 
                 //value是selector
                 item = me.find(value).addClass('sortable-item');
+                setOpt(opts);
             break;
         };
         draggable = baidu(item).draggable();

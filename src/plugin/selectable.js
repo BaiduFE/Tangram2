@@ -569,8 +569,8 @@ baidu.dom.extend({
             },
 
             setOpt = function(opts){
-                for(){
-
+                for(var k in opts){
+                    opt[k] = opts[k];
                 };
             };
 
@@ -588,7 +588,7 @@ baidu.dom.extend({
                 if(baidu.type(value) == 'object'){
 
                     //此时value为options
-                    opt = value;
+                    setOpt(value);
                     item = me.children();
                     if(opt.range){
                         selectable.range(opt.range);
@@ -604,7 +604,7 @@ baidu.dom.extend({
             //传入selector和options
             case 2:
                 item = me.find(value);
-                opt = opts;
+                setOpt(opts);
                 if(opt.range){
                     selectable.range(opt.range);
                 };
