@@ -27,6 +27,7 @@
         //var s = baidu.plugin._util_.rubberSelect().range('#wrapper');
         var s = baidu('.group').selectable({
             //range:'#wrapper',
+            enable:false,
             onstart:function(){console.log('start');},
             ondragging:function(){console.log('dragging');},
             onchange:function(e){

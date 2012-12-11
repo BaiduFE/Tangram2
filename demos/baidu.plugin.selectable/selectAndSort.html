@@ -95,9 +95,16 @@
         range:'#behavior'
     } );
     var select = baidu( '#behavior ol' ).selectable( {
-        enable:false,
         range:'#behavior'
     } );
+
+    var timer;
+    sort.getBack().on('mousedown',function(){
+        select.disable();
+    });
+    sort.getBack().on('mouseup',function(){
+        select.enable();
+    });
 
 </script>
 </body>
