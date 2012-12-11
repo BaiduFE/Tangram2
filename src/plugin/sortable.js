@@ -467,10 +467,8 @@ baidu.dom.extend({
                             position = checkCrash(itemAttr[i],dragEleAttr);
                             if(position == 'up'){
                                 itemAttr[i].target.before(dragEleClone);
-                                sortable.fire('change',{target:itemAttr[i].target});
                             }else if(position == 'down'){
                                 itemAttr[i].target.after(dragEleClone);
-                                sortable.fire('change',{target:itemAttr[i].target});
                             }else if(position == 'both'){
                                 //itemAttr[i].target.before(dragEleClone);
                             }else{
@@ -479,7 +477,7 @@ baidu.dom.extend({
                         };
                     };
                     sortable.fire('dragging');
-                },10);
+                },16);
             },
             endHandle = function(){
                 var o = dragEleClone.offset();
@@ -487,10 +485,12 @@ baidu.dom.extend({
                 //克隆的元素在原位
                 if(o.left == dragEleCloneAttr.left && o.top == dragEleCloneAttr.top){
                 }else{
+                    sortable.fire('change');
                     dragEleClone.after(dragEle);
                 };
                 dragEle.css({'position':'static',left:'',top:''});
                 dragEleClone.css('display','none').remove();
+                me.remove(dragEleClone);
                 sortable.fire('end');
             },
 

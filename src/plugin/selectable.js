@@ -327,7 +327,7 @@ baidu.dom.extend({
 
                 //激活选择的范围，传入selector或者Object要符合{'top':123,'right':123,'bottom':123,'left':123}
                 range:function(value){
-                    if(value){
+                    if(value && rubberSelect && rubberSelect.dispose != true){
                         opt.range = value;
                         rubberSelect.range(value);
                         return selectable;

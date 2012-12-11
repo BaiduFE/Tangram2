@@ -93,15 +93,16 @@
 <script type="text/javascript">
     var sort = baidu( '#behavior ol' ).sortable( {
         range:'#behavior'
-    } );
+    });
     var select = baidu( '#behavior ol' ).selectable( {
         range:'#behavior'
-    } );
+    });
 
     var timer;
     sort.getBack().on('mousedown',function(){
         select.disable();
     });
+
     sort.getBack().on('mouseup',function(){
         select.enable();
     });

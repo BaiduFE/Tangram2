@@ -102,19 +102,19 @@
         //设置当前选择列表（selectable）激活的范围为黑色虚线框内
         baidu( '#range' ).mousedown( function () {
             a.range( '#selectable' );
-        } )
+        } );
 
         //关闭当前这个选择列表（selectable）的功能
         baidu( '#disable' ).mousedown( function () {
             a.disable();
             box.html( '关闭了当前选择列表（selectable）的功能' );
-        } )
+        } );
 
         //开启当前这个选择列表（selectable）的功能
         baidu( '#enable' ).mousedown( function () {
             a.enable();
             box.html( '开启了当前选择列表（selectable）的功能' );
-        } )
+        } );
 
         //取得当前被选择元素的索引
         baidu( '#index' ).mousedown( function () {
@@ -124,7 +124,7 @@
             } else {
                 box.html( '您刚才选中的是索引为<em>' + num + '</em>的项' );
             }
-        } )
+        } );
     })();
 </script>
 </body>
