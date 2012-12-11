@@ -190,6 +190,7 @@ body {
 	border-radius: 4px 0 0 4px;
 	background-color: #F6F6F6;
 	width: 220px;
+	_overflow: hidden;
 }
 .tree {
 	margin: 10px;
@@ -279,7 +280,7 @@ body {
 .test-cases li.failure {
 	background-color: #EE5757;
 }
-.test-cases li.attention {
+.test-cases li.warning {
 	background-color: #E2EB13;
 }
 .api-block {
@@ -357,4 +358,98 @@ hr {
 	border-bottom: 1px solid white;
 	text-shadow: 0 1px 0 rgba(243, 222, 222, 0.5);
 	font-family: "PT Sans", Helvetica, Arial, Sans-Serif;
+}
+
+/* 控制台 */
+.console-wrap {
+	position: fixed;
+	_position: absolute;
+	right: 0;
+	height: 300px;
+	bottom: 0;
+	_bottom: auto;
+	border-top: 3px solid #DFDFDF;
+	border-left: 1px solid #DFDFDF;
+	background-color: #FFF;
+	text-align: left;
+}
+.console-wrap .console-bar {
+	position: absolute;
+	left: -29px;
+	top: -3px;
+	height: 91px;
+	width: 28px;
+	background: url('../img/sidebar.png') no-repeat 0px -1px;
+	cursor: pointer;
+}
+.console {
+	margin-left: 10px;
+	height: 270px;
+	width: 700px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.console .console-item {
+	line-height: 30px;
+	border-bottom: 1px solid #DFDFDF;
+}
+.console .log-group {
+	line-height: 30px;
+}
+.console .log-group .console-item  {
+	margin-left: 20px;
+}
+.console .console-item  span {
+	margin-right: 5px;
+}
+.console .console-item  span.level {
+	font-weight: bold;
+}
+.console .pass span.level {
+	color: #00F;
+}
+.console .warning span.level {
+	color: #D58309;
+}
+.console .error span.level {
+	color: #F00;
+}
+.console-close .console {
+	display: none;
+}
+.console-open .console-bar {
+	background-position: -42px -1px;
+}
+.console-open .console {
+	display: block;
+}
+.console-filterWrap {
+	height: 30px;
+	_width: 700px;
+	background-color: #E2E2E2;
+	border-top: 1px solid #CACACA;
+}
+.console-close .console-filterWrap {
+	display: none;
+}
+.console-open .console-filterWrap {
+	display: block;
+	padding: 5px 10px;
+}
+.console-filterWrap span {
+	display: inline-block;
+	line-height: 20px;
+	margin-right: 5px;
+	padding: 0 8px;
+	cursor: pointer;
+}
+.console-filterWrap .console-filter {
+	font-weight: bold;
+	border-radius: 16px;
+}
+.console-filterWrap .hover {
+	background-color: #CACACA;
+}
+.console-filterWrap .focus {
+	background-color: #A7A7A7;
 }

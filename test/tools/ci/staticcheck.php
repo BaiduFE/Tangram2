@@ -12,7 +12,7 @@
         $fileencodingCheck = 'pass';
     }else{
         $fileencoding = 'ASCII';
-        $fileencodingCheck = 'failure';
+        $fileencodingCheck = 'warning';
     }
 
     # 检查文件Bomb头
@@ -39,11 +39,11 @@
     $testCaseCheck = 'pass';
     if(!is_file($testfile)){
         $testLastModifyTime = '-';
-        $testCaseCheck = 'attention';
+        $testCaseCheck = 'warning';
     }else{
         $testLastModifyTime = date("Y-m-d H:i:s", filemtime($testfile));
         if(filemtime($file) > filemtime($testfile)){
-            $testCaseCheck = 'attention';
+            $testCaseCheck = 'warning';
         }
     }
 
