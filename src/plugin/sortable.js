@@ -349,10 +349,8 @@ baidu.dom.extend({
 
                 //关闭拖拽
                 disable:function(){
-                    if(opt.enable){
-                        opt.enable = false;
-                        draggable.disable();
-                    };
+                    opt.enable = false;
+                    draggable.disable();
                     return sortable;
                 },
 
@@ -488,18 +486,20 @@ baidu.dom.extend({
                 
                 //克隆的元素在原位
                 if(o.left == dragEleCloneAttr.left && o.top == dragEleCloneAttr.top){
-                    
                 }else{
                     dragEleClone.after(dragEle);
                 };
                 dragEle.css({'position':'static',left:'',top:''});
-                dragEleClone.remove();
+                dragEleClone.css('display','none').remove();
                 sortable.fire('end');
             },
 
             setOpt = function(opts){
                 for(var k in opts){
                     opt[k] = opts[k];
+                };
+                if(opt.enable == false){
+                    sortable.disable();
                 };
             };
         //函数参数逻辑

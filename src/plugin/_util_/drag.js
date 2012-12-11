@@ -204,15 +204,15 @@ baidu.plugin._util_.drag = function(selector){
                         //传入selector
                         var _ele = baidu.dom(value).eq(0);
                         _range = _ele.offset();
-                        _range.right = _range.left + _ele.outerWidth();
-                        _range.bottom = _range.top + _ele.outerHeight();
+                        _range.right = _range.left + _ele.outerWidth(true);
+                        _range.bottom = _range.top + _ele.outerHeight(true);
                     }
                 break;
             };
 
             //元素自身的宽和高
-            _range.w = ele.outerWidth();
-            _range.h = ele.outerHeight();
+            _range.w = ele.outerWidth(true);
+            _range.h = ele.outerHeight(true);
             return this;
         },
 

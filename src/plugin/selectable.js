@@ -356,12 +356,10 @@ baidu.dom.extend({
                 
                 //关闭选择功能
                 disable:function(){
-                    if(opt.enable){
-                        opt.enable = false;
-                        if(rubberSelect && !rubberSelect.dispose){
-                            rubberSelect.dispose();
-                        };
-                        offDocEvent(); 
+                    opt.enable = false;
+                    if(rubberSelect && rubberSelect.dispose != true){
+                        rubberSelect.dispose();
+                        offDocEvent();
                     };
                     return selectable;
                 },
@@ -572,6 +570,12 @@ baidu.dom.extend({
                 for(var k in opts){
                     opt[k] = opts[k];
                 };
+                if(opt.enable == false){
+                    selectable.disable();
+                };
+                if(opt.range){
+                    selectable.range(opt.range);
+                };
             };
 
         //函数参数逻辑
@@ -588,11 +592,8 @@ baidu.dom.extend({
                 if(baidu.type(value) == 'object'){
 
                     //此时value为options
-                    setOpt(value);
                     item = me.children();
-                    if(opt.range){
-                        selectable.range(opt.range);
-                    };
+                    setOpt(value);
                 }else{
 
                     //此时是selector
@@ -605,9 +606,6 @@ baidu.dom.extend({
             case 2:
                 item = me.find(value);
                 setOpt(opts);
-                if(opt.range){
-                    selectable.range(opt.range);
-                };
             break;
         };
         bindEvent();

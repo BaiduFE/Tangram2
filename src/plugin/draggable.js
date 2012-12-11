@@ -410,8 +410,6 @@ baidu.dom.extend({
                         }else{
                             me.css('cursor','default');
                         };
-                        doc.off('mouseup',endHandle);
-                        doc.off('dragging',ingHandle);                    
                     };
                     return draggable;
                 },
@@ -425,8 +423,6 @@ baidu.dom.extend({
                         }else{
                             me.css('cursor','move');
                         };
-                        doc.on('mouseup',endHandle);
-                        doc.on('dragging',ingHandle);
                     };
                     return draggable;
                 },
@@ -506,9 +502,9 @@ baidu.dom.extend({
                 };
                 dragEle.removeClass('tang-draggable-dragging');
                 drag.disable();
+                draggable.fire('end');
                 doc.off('mouseup',endHandle);
                 doc.off('dragging',ingHandle);
-                draggable.fire('end');
             },
 
             //拖拽中
@@ -549,6 +545,10 @@ baidu.dom.extend({
                 };
                 if(opt.zIndex){
                     draggable.zIndex(opt.zIndex);
+                };
+                if(opt.enable == false){
+                    opt.enable = true;
+                    draggable.disable();
                 };
                 bindEvent();   
             },
@@ -602,8 +602,8 @@ baidu.dom.extend({
                 if( baidu.type(value) == 'object' ){
 
                     //value是options
-                    setOpt(value);
                     me.css('cursor','move').on('mousedown',handle);
+                    setOpt(value);
                 }else{
                 
                     //value是selector
@@ -615,8 +615,8 @@ baidu.dom.extend({
             case 2:
 
                 //value是selector
-                setOpt(opts);
                 setItem();
+                setOpt(opts);
             break;
         };
 
