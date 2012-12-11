@@ -566,6 +566,12 @@ baidu.dom.extend({
                 doc.off('rubberselecting',handle);
                 doc.off('rubberselectstart',fireStart);
                 doc.off('rubberselectend',fireEnd);                    
+            },
+
+            setOpt = function(opts){
+                for(){
+
+                };
             };
 
         //函数参数逻辑

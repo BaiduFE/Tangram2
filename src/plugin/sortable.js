@@ -135,7 +135,7 @@ baidu.dom.extend({
                 //析构函数
                 dispose:function(){
                     draggable.dispose();
-                    doc = opt = me = item = itemAttr = draggable = dragEle = dragEleAttr = dragEleClone = dragEleCloneAttr = timer = null;
+                    doc = opt = me = item = itemAttr = dragEle = dragEleAttr = dragEleClone = dragEleCloneAttr = timer = null;
                     for(var k in sortable){
                         delete sortable[k];
                     };
@@ -236,8 +236,10 @@ baidu.dom.extend({
                             position = checkCrash(itemAttr[i],dragEleAttr);
                             if(position == 'up'){
                                 itemAttr[i].target.before(dragEleClone);
+                                sortable.fire('change',{target:itemAttr[i].target});
                             }else if(position == 'down'){
                                 itemAttr[i].target.after(dragEleClone);
+                                sortable.fire('change',{target:itemAttr[i].target});
                             }else if(position == 'both'){
                                 //itemAttr[i].target.before(dragEleClone);
                             }else{
@@ -268,9 +270,6 @@ baidu.dom.extend({
             //没有传参，默认执行
             case 0:
                 item = me.children().addClass('sortable-item');
-                draggable = baidu(item).draggable();
-                sortable.index('set');
-                bindEvent();
             break;
 
             //传入一个参数
@@ -281,7 +280,7 @@ baidu.dom.extend({
                 }else{
                 
                     //value是selector
-
+                    item = me.find(value).addClass('sortable-item');
                 }
             break;
 
@@ -289,9 +288,12 @@ baidu.dom.extend({
             case 2:
 
                 //value是selector
-
+                item = me.find(value).addClass('sortable-item');
             break;
         };
+        draggable = baidu(item).draggable();
+        sortable.index('set');
+        bindEvent();
 
         //暴露getBack()方法，返回上一级TangramDom链头
         return sortable;

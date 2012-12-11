@@ -434,7 +434,7 @@ baidu.dom.extend({
                 //析构函数
                 dispose:function(){
                     draggable.disable();
-                    if(!drag.dispose){
+                    if(drag && drag.dispose != true){
                         drag.dispose();
                     };
 
