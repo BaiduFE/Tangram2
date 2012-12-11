@@ -1,4 +1,4 @@
-void function(){
+var T, baidu = T = function(){
 	// Copyright (c) 2009-2012, Baidu Inc. All rights reserved.
 	//
 	// Licensed under the BSD License
@@ -15,10 +15,7 @@ void function(){
 	
 	var T, baidu = T = baidu || function(q, c) { return baidu.dom ? baidu.dom(q, c) : null; };
 	
-	if( !this.baidu )
-	    this.baidu = this.T = T;
-	
-	baidu.version = '2.0.1.1';
+	baidu.version = '2.0.1.2';
 	baidu.guid = "$BAIDU$";
 	baidu.key = "tangram_guid";
 	
@@ -4465,7 +4462,7 @@ void function(){
 	                if ( typeof value == "undefined" ) {
 	                    var data,result;
 	                    result = this[0] && (data = maps[ this[0][guid] ]) && data[ key ];
-	                    if(result){
+	                    if(typeof result != 'undefined'){
 	                        return result;
 	                    }else{
 	
@@ -11322,4 +11319,5 @@ void function(){
 	
 	//删除目标字符串两端的空白字符
 	baidu.trim = baidu.string.trim ||{};
+ return baidu;
 }();
