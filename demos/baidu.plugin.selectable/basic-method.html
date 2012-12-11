@@ -16,9 +16,9 @@
 
         #selectable ol {
             list-style: none;
-            width: 30%;
+            width: 200px;
             float: left;
-            margin-right: 150px;
+            margin-right: 100px;
             overflow: hidden;
         }
 
@@ -28,6 +28,16 @@
             font-size: 12px;
             height: 18px;
             border: 1px solid #ccc;
+        }
+
+        #selectable1 li {
+            border: 1px solid #ccc;
+            background: #e6e6e6;
+        }
+
+        #selectable2 li {
+            border: 1px solid #FCEFA1;
+            background: #FBF9EE;
         }
 
         #method-exp {
@@ -90,7 +100,9 @@
     baidu( '#selectable1' ).selectable( {
         range:'#selectable'
     } );
-    baidu('#selectable2').selectable('.select');
+    baidu('#selectable2').selectable('.select',{
+        range:'#selectable'
+    });
 </script>
 </body>
 </html>
