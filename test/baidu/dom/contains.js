@@ -94,7 +94,7 @@ test('异常case',function(){
 });
 
 //老接口
-test("老接口：父子关系",function(){
+test("兼容1.x接口：父子关系",function(){
 	expect(10);
 	var div = document.createElement('div');
 	div.id = "father_div";
