@@ -51,10 +51,10 @@
  //js部分
  
  //最简单的直接使用
- var selectable = baidu('.group').selectable(); //此时grop的直接子元素均可以被选择，当前被选择都会默认加上名为“tang-selectable-selected”的className。
+ var selectable = baidu('.group').selectable(); //此时group的直接子元素均可以被选择，当前被选择都会默认加上名为“tang-selectable-selected”的className。
 
  //设置可以被选择的元素
- var selectable = baidu('.group').selectable('.select'); //此时grop元素中，有className为“.select”的子元素才可以被选择。
+ var selectable = baidu('.group').selectable('.select'); //此时group元素中，有className为“.select”的子元素才可以被选择。
 
 */
 
@@ -62,9 +62,9 @@
  * @description 设置当前选择列表（selectable）激活的范围
  * @function 
  * @name baidu().selectable().range()
- * @grammar baidu(args).selectable().range(value)
- * @param {Selector|TangramDom|htmlElement|Object|Null} value 可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。如果不传入参数，则为获取当前限定的范围。
- * @return {Selectable|Selector|TangramDom|htmlElement|Object} 返回Setectable的一个实例，或者是取出当前range的值。
+ * @grammar baidu(args).selectable().range([value])
+ * @param {Selector|TangramDom|htmlElement|Object|Null} value 如果不传入参数，则为获取当前限定的范围。可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
+ * @return {Selectable|Selector|TangramDom|htmlElement|Object} 返回Selectable的一个实例，或者是取出当前range的值。
 */
 
 /**
@@ -73,7 +73,7 @@
  * @name baidu().selectable().cancel()
  * @grammar baidu(args).selectable().cancel()
  * @param {Null}
- * @return {Selectable} 返回Setectable的一个实例。
+ * @return {Selectable} 返回Selectable的一个实例。
 */
 
 /**
@@ -82,7 +82,7 @@
  * @name baidu().selectable().reset()
  * @grammar baidu(args).selectable().reset()
  * @param {Null}
- * @return {Selectable} 返回Setectable的一个实例。
+ * @return {Selectable} 返回Selectable的一个实例。
 */
 
 /**
@@ -91,7 +91,7 @@
  * @name baidu().selectable().disable()
  * @grammar baidu(args).selectable().disable()
  * @param {Null}
- * @return {Selectable} 返回Setectable的一个实例。
+ * @return {Selectable} 返回Selectable的一个实例。
 */
 
 /**
@@ -100,7 +100,7 @@
  * @name baidu().selectable().enable()
  * @grammar baidu(args).selectable().enable()
  * @param {Null}
- * @return {Selectable} 返回Setectable的一个实例。
+ * @return {Selectable} 返回Selectable的一个实例。
  * @example
  该方法与disable()方法结合使用，初始化selectable时，默认是enable的状态，无需手动触发enable方法。
 */
@@ -118,7 +118,7 @@
  * @description 取得或设置当前被选择的元素
  * @function 
  * @name baidu().selectable().selected()
- * @grammar baidu(args).selectable().selected(selector)
+ * @grammar baidu(args).selectable().selected([selector])
  * @param {Null|Selector|HTMLElement|TangramDom} selector 如果不传参，则为获取当前被选中的元素；传入元素，则设置元素被选中。
  * @return {TangramDom|Selectable} 不传参，直接返回当前被选择元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法，当前被选择时都会默认被加上名为“tang-selectable-selected”的className；传参则返回一个Selectable实例。
 */
@@ -127,7 +127,7 @@
  * @description 取得或设置元素没有被选择框选中
  * @function 
  * @name baidu().selectable().unselected()
- * @grammar baidu(args).selectable().unselected(selector)
+ * @grammar baidu(args).selectable().unselected([selector])
  * @param {Null|Selector|HTMLElement|TangramDom} selector 如果不传参，则为获取当前没被选中的元素；如果传入元素，则设置元素没被选中。
  * @return {TangramDom|Selectable} 不传参，直接返回当前没被选中元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法；传参则返回一个Selectable实例。
 */
@@ -145,7 +145,7 @@
  * @description 取得当前被选择元素的索引，或者通过索引设置被选择项
  * @function 
  * @name baidu().selectable().index()
- * @grammar baidu(args).selectable().index(arr)
+ * @grammar baidu(args).selectable().index([arr])
  * @param {Null|Array} arr 如果不传参，则为获取当前被选中元素的索引组成的数组；传入元素，则通过索引数组设置对应元素被选中。
  * @return {Array|Selectable} 不传参，直接返回当前被选择元素的索引组成的数组，当前被选择时都会默认被加上名为“tang-selectable-selected”的className；传参则返回一个Selectable实例。
  * @example
