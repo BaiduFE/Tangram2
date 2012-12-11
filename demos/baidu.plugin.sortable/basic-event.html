@@ -2,23 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="description" content="baidu.dom().selectable() 示例"/>
+    <meta name="description" content="baidu.dom().sortable() 示例"/>
     <title>基本事件</title>
     <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
     <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
-    <script type="text/javascript" src="../../src/import.php?f=plugin.selectable"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.sortable"></script>
     <style type="text/css">
-        #selectable {
+        #sortable {
             border: 2px dashed #000;
             padding: 50px;
         }
 
-        #selectable ol {
+        #sortable ol {
             list-style: none;
             margin-left: 10px;
         }
 
-        #selectable ol li {
+        #sortable ol li {
             margin: 3px;
             padding: 8px;
             font-size: 12px;
@@ -28,7 +28,7 @@
             width: 300px;
         }
 
-        #selectable ul li {
+        #sortable ul li {
             margin: 10px;
             padding: 5px 10px;
             border: 1px solid #000;
@@ -38,21 +38,30 @@
             list-style: none;
         }
 
-        #selectable ul li strong {
+        #sortable li span {
+            background: url("ico.png") no-repeat -128px -48px;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: bottom;
+        }
+
+        #sortable ul li strong {
             color: red;
             margin-left: 5px;
         }
 
-        #selectable #result {
+        #sortable #result {
             clear: both;
             margin: 0 0 20px 10px;
         }
 
-        #selectable #result strong {
+        #sortable #result strong {
             color: red;
         }
 
-        #selectable ul .hightLight {
+        #sortable ul .hightLight {
             background: yellow;
         }
 
@@ -66,24 +75,15 @@
             margin-left: 10px;
         }
 
-        .tang-rubberSelect {
-            border: 1px dotted #888;
-            background-color: #FFF;
-            filter: alpha(opacity = 80);
-            -moz-opacity: 0.8;
-            opacity: 0.8;
-        }
-
-        #selectable .tang-selectable-selected {
-            background: #F39814;
-            color: white;
+        #sortable li.tang-draggable-dragging {
+            background: #0FF;
         }
 
     </style>
 </head>
 <body>
 <div class="demo" id="demo">
-    <h1 class="ac-h1"><strong>baidu.dom().selectable()</strong> 示例</h1>
+    <h1 class="ac-h1"><strong>baidu.dom().sortable()</strong> 示例</h1>
 
     <div class="pannel">
         <div class="pannel-title">
@@ -91,7 +91,7 @@
         </div>
         <div class="pannel-content">
             <!--DemoViewStart-->
-            <div id="selectable">
+            <div id="sortable">
                 <ul>
                     <li id="event-start">"start" invoked <strong>0</strong></li>
                     <li id="event-change">"change" invoked <strong>0</strong></li>
@@ -100,14 +100,14 @@
                 </ul>
                 <div id="result">选择的结果是 <strong></strong></div>
                 <ol>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                    <li>Item 4</li>
-                    <li>Item 5</li>
-                    <li>Item 6</li>
-                    <li>Item 7</li>
-                    <li>Item 8</li>
+                    <li><span></span>Item 1</li>
+                    <li><span></span>Item 2</li>
+                    <li><span></span>Item 3</li>
+                    <li><span></span>Item 4</li>
+                    <li><span></span>Item 5</li>
+                    <li><span></span>Item 6</li>
+                    <li><span></span>Item 7</li>
+                    <li><span></span>Item 8</li>
                 </ol>
             </div>
             <!--DemoViewEnd-->
@@ -121,8 +121,8 @@
             changeBox = baidu( "#event-change" ),
             endBox = baidu( "#event-end" ),
             num = [ 0, 0, 0, 0 ];
-        baidu( '#selectable ol' ).selectable( {
-            range:'#selectable',
+        baidu( '#sortable ol' ).sortable( {
+            range:'#sortable',
             ondragging:function () {
                 num[ 0 ]++;
                 updateColor( draggingBox, num[ 0 ] );
@@ -132,7 +132,6 @@
                 updateColor( startBox, num[ 1 ] );
             },
             onchange:function () {
-
                 num[ 2 ]++;
                 updateColor( changeBox, num[ 2 ] );
             },
