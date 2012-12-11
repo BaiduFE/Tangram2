@@ -6,7 +6,7 @@
 /**
  * @description 实例化当前的选择列表（selectable）功能
  * @function 
- * @name baidu().seletable()
+ * @name baidu().selectable()
  * @grammar baidu(args).selectable([selector][,options])
  * @param {Selector|TangramDom|htmlElement} args 传入当前要被实例化为选择列表（selectable）的容器或者CSS选择器
  * @param {Selector|TangramDom|htmlElement} selector 可选参数，可以是CSS选择器或者是HTML元素，当前选择列表（selectable）中，可以被选择的项。
