@@ -1,6 +1,6 @@
 (function(){
 	var h = setInterval(function(){
-		if(top.apicontent){
+		if(top.apicontent && top.count1 && top.count2){
 			$("body").append("<div></div>");
 			$("body").append('<script type="text/javascript">' + top.apicontent + '<\/script>');
 			clearInterval(h);
@@ -17,6 +17,20 @@ function download_test(){
 	var t = setInterval(function(){
 		if(typeof baidu != "undefined"){
 			clearInterval(t);
+			
+			var tip;
+			if(download_type == "1")
+				tip = '左侧所有API：';
+			if(download_type == "2")
+				tip = '左侧所有API + 右侧"兼容相关1.*接口"：';
+			if(download_type == "3")
+				tip = '左侧所有API + 右侧"包含所有1.*接口"：';
+			if(download_type == "4")
+				tip = '左侧所有API + 右侧"兼容Magic"：';
+			if(download_type == "5")
+				tip = '左侧"核心" + 右侧" 完整版 Sizzle 选择器" + "YUICompress" + "参数检查" + "语言包"：';
+			
+			top.$("#download_tip").append("<p>" + tip + "</p>");
 			
 			//右侧其他选项
 			if(download_type == "1" || download_type == "2" || download_type == "3" || download_type == "4"){
@@ -112,7 +126,7 @@ function download_test(){
 					top.$("#download_report div.correct").append("<p>The apis are same as apiMap.</p>");
 				}
 				else{
-					top.$("#download_report div.wrong").append("<p>The apis are not same as apiMap.</p>");
+					top.$("#download_report div.wrong").append("<p>The apis are not same as apiMap." + top.count1 + " " + top.count2 + "</p>");
 				}
 			}
 			

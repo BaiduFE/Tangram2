@@ -32,6 +32,8 @@ if(!$quirk){?>
 	<a id="id_download_button" class="button" style="display:none"><span
 		onclick="$('div#id_downloadarea').slideToggle('slow');">展开download区域</span> </a>
 	<div style="height:1px; clear: both"></div>
+	<div id="download_tip">
+	</div>
 	<div id="download_report">
 		<div class="correct"></div>
 		<div class="wrong"></div>
