@@ -375,9 +375,9 @@ baidu.dom.extend({
 
                 //显示层级
                 zIndex:function(value){
-                    if(value){
+                    if(typeof value != 'undefined'){
                         opt.zIndex = value;
-                        draggable.getBack().css('z-index',value);
+                        me.css('z-index',value);
                         return draggable;
                     }else{
                         return opt.zIndex;
@@ -555,7 +555,6 @@ baidu.dom.extend({
 
             //实现draggable中的'enter'和‘leave’事件
             enterAndLeave = function(){
-
                 if( opt.focus  && (opt.onenter||opt.onleave) ){
 
                     //存储当前enter的元素
@@ -563,8 +562,8 @@ baidu.dom.extend({
 
                     for(var i = 0,num = focusEle.size(); i < num; i++){
                         
-                        var _e = focusEle.eq(i);
-                        var id = baidu.id(_e.get(0));
+                        var _e = focusEle.eq(i),
+                            id = baidu.id(_e.get(0));
 
                         if( _e.isCrash(dragEle) ){
 

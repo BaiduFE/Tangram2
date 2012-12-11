@@ -339,7 +339,7 @@ baidu.dom.extend({
 
                 //取消拖拽，回到上一次
                 cancel:function(){
-
+                    
                 },
 
                 //重置拖拽
