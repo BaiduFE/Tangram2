@@ -574,7 +574,7 @@ baidu.dom.extend({
             break;
         };
         item.addClass('tang-sortable-item');
-        draggable = baidu(item).draggable();
+        draggable = baidu(item).draggable().range(opt.range);
         sortable.index('set');
         bindEvent();
 
