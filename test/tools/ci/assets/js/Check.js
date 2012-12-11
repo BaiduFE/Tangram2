@@ -77,8 +77,9 @@ define(function(require, exports) {
                 window.scrollTo(0, 0);
 
                 // 显示统计结果
-                Console.log(failureList);
-                failureList = [];
+                // Console.log(failureList);
+                // failureList = [];
+                Console.groupEnd();
                 return;
             }
 
@@ -96,6 +97,8 @@ define(function(require, exports) {
                 node.focus();
 
                 timer = setTimeout(function(){
+                    // 10秒过后认为用例超时，直接进入下一个API
+                    Console.log();
                     autoNext();
                 }, 10000);
             }
@@ -146,17 +149,33 @@ define(function(require, exports) {
                             data.file = node.data.dir.replace('../../../src/', '');
                             $("#J_staticCheck").html(Mustache.render(testCaseTpl, data));
 
+                            var log = {
+                                'api': node.data.dir.replace('../../../src/', '').replace('.js', '').replace(/\//g, '.')
+                            };
+
                             // 在节点上标出检查结果（忽略用例的检查结果）
                             if(data.conflictCheck.status == 'failure' || 
                                data.BombCheck.status == 'failure' ||
                                data.tabCheck.status == 'failure'){
                                 
                                 failureList.push(node);
-                                node.el.css('color', '#FF0000');
+                                node.el.css('color', '#F00');
+
+                                log.level = 'error';
+                                log.desc = '静态检查不通过';
                             }else{
                                 autoRuning && hideOnPass && node.el.hide();
+                                if(data.encodingCheck.status == 'warning'){
+                                    log.level = 'warning';
+                                    log.desc = '静态检查编码异常';
+                                }else{
+                                    node.el.css('color', '#00F');
+                                    log.level = 'pass';
+                                    log.desc = '静态检查通过';
+                                }
                             }
                             
+                            Console.log(log);
                             autoRuning && autoNext();
                         });
         },
@@ -170,6 +189,10 @@ define(function(require, exports) {
                 var filename = node.data.dir.replace('../../../src/', '');
                 var html = '<h1 class="test-header">' + filename + '</h1><ul class="test-case">';
                 var errors = 0;
+
+                var log = {
+                    'api': node.data.dir.replace('../../../src/', '').replace('.js', '').replace(/\//g, '.')
+                };
 
                 JSHINT(content, {
                     boss: true,
@@ -188,7 +211,8 @@ define(function(require, exports) {
                 
                 $(JSHINT.errors).each(function(index, item){
                     if(!item){return};
-                    if(/(debugger|Extra\scomma|is\snot\sdefined)/.test(item.reason) && !/nodeType/.test(item.evidence)){
+                    // TODO 不能匹配出所有错误
+                    if(/(semicolon|debugger|Extra\scomma|is\snot\sdefined)/.test(item.reason) && !/nodeType/.test(item.evidence)){
                         errors++;
                         failureList.push(node);
                         html += '<li><p><span class="line">Line ' + item.line + '</span>:<span class="code">' + Tools.encodeHTML(item.evidence) + '</span></p>'+
@@ -199,10 +223,17 @@ define(function(require, exports) {
                 if(errors > 0){
                     // 在节点上标出检查结果
                     node.el.css('color', '#FF0000');
+                    log.level = 'error';
+                    log.desc = '语法检查不通过';
                 }else{
+                    node.el.css('color', '#00F');
                     html = '没有发现语法错误';
                     autoRuning && hideOnPass && node.el.hide();
+                    log.level = 'pass';
+                    log.desc = '语法检查通过';
                 }
+
+                Console.log(log);
 
                 $("#J_syntaxCheck")[0].innerHTML = html;
                 autoRuning && autoNext();

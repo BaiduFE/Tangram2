@@ -280,7 +280,7 @@ body {
 .test-cases li.failure {
 	background-color: #EE5757;
 }
-.test-cases li.attention {
+.test-cases li.warning {
 	background-color: #E2EB13;
 }
 .api-block {
@@ -363,9 +363,11 @@ hr {
 /* 控制台 */
 .console-wrap {
 	position: fixed;
+	_position: absolute;
 	right: 0;
 	height: 300px;
 	bottom: 0;
+	_bottom: auto;
 	border-top: 3px solid #DFDFDF;
 	border-left: 1px solid #DFDFDF;
 	background-color: #FFF;
@@ -393,7 +395,6 @@ hr {
 }
 .console .log-group {
 	line-height: 30px;
-	border-bottom: 1px solid #DFDFDF;
 }
 .console .log-group .console-item  {
 	margin-left: 20px;
@@ -403,6 +404,9 @@ hr {
 }
 .console .console-item  span.level {
 	font-weight: bold;
+}
+.console .pass span.level {
+	color: #00F;
 }
 .console .warning span.level {
 	color: #D58309;
@@ -421,6 +425,7 @@ hr {
 }
 .console-filterWrap {
 	height: 30px;
+	_width: 700px;
 	background-color: #E2E2E2;
 	border-top: 1px solid #CACACA;
 }

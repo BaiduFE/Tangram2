@@ -86,7 +86,20 @@ define(function(require, exports) {
                 // 显示对应的tab
                 tab.focus(currentCheckMode);
                 // 清空错误列表
-                failureList = [];
+                // failureList = [];
+
+                switch(currentCheckMode){
+                    case 'unitTest':
+                        Console.group('单元测试');
+                        break;
+                    case 'staticCheck':
+                        Console.group('静态检查');
+                        break;
+                    case 'syntaxCheck':
+                        Console.group('动态检查');
+                        break;
+                }
+                
                 Check.autoNext();
             });
 
@@ -173,13 +186,23 @@ define(function(require, exports) {
 
     // 解决作用域问题
     exports._testDoneCallBack = function(info){
+        var log = {
+            'api': currentNode.data.dir.replace('../../../src/', '').replace('.js', '').replace(/\//g, '.')
+        };
+
         if(info.failed){
-            failureList.push(currentNode);
+            // failureList.push(currentNode);
             currentNode.el.css('color', '#FF0000');
+            log.level = 'error';
+            log.desc = '单元测试不通过';
         }else{
             autoRuning && hideOnPass && currentNode.el.hide();
-            currentNode.el.css('color', '');
+            currentNode.el.css('color', '#00F');
+            log.level = 'pass';
+            log.desc = '单元测试通过';
         }
+
+        Console.log(log);
         autoRuning && Check.autoNext();
     };
 
@@ -187,19 +210,19 @@ define(function(require, exports) {
      * 初始化应用
      */
     var initApp = function(){
-            // 初始化树
-            fileTree.init();
-            // 将树的数据扁平化
-            fileTree.flatteningTreeDates();
-            Check.setFlatteningTreeDates(flattenedTreeDates);
-            // 默认展开树的第一个子节点
-            treeInstance.children[0].expend();
-            // 初始化Tab
-            tab.init();
-            // 初始化Toolbar
-            toolbar.init();
-            // 初始化控制台
-            Console.init();
+        // 初始化树
+        fileTree.init();
+        // 将树的数据扁平化
+        fileTree.flatteningTreeDates();
+        Check.setFlatteningTreeDates(flattenedTreeDates);
+        // 默认展开树的第一个子节点
+        treeInstance.children[0].expend();
+        // 初始化Tab
+        tab.init();
+        // 初始化Toolbar
+        toolbar.init();
+        // 初始化控制台
+        Console.init();
     };
 
     exports.run = function(){

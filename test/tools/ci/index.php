@@ -76,26 +76,7 @@
 
         <div class="console-wrap console-close" id="J_consoleWrap">
             <div class="console-bar" id="J_consoleBar"></div>
-            <div class="console" id="J_console">
-                <p class="console-item pass"><span class="level">[pass]</span><span class="time">15:03:29</span><span class="desc">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
-                <p class="console-item error"><span class="level">[error]</span><span class="time">15:03:29</span><span class="desc">用例失败</span><span class="api">baidu.array.contains</span></p>
-                <p class="console-item warning"><span class="level">[warning]</span><span class="time">15:03:29</span><span class="desc">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
-                <p class="console-item pass"><span class="level">[pass]</span><span class="time">15:03:29</span><span class="desc">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
-                <p class="console-item warning"><span class="level">[warning]</span><span class="time">15:03:29</span><span class="desc">用例失败</span><span class="api">baidu.dom.getStyle</span></p>
-                <p class="console-item pass"><span class="level">[pass]</span><span class="time">15:03:29</span><span class="desc">用例失败</span><span class="api">baidu.dom.getStyle</span></p>
-                <div class="log-group">
-                    <h6>单元测试</h6>
-                    <p class="console-item error"><span class="level">[error]</span><span class="time">15:03:29</span><span class="desc">用例失败</span><span class="api">baidu.ajax.get</span></p>
-                    <p class="console-item pass"><span class="level">[pass]</span><span class="time">15:03:29</span><span class="desc">用例失败</span><span class="api">baidu.ajax.get</span></p>
-                    <p class="console-item error"><span class="level">[error]</span><span class="time">15:03:29</span><span class="desc">用例失败</span><span class="api">baidu.ajax.get</span></p>
-                    <p class="console-item pass"><span class="level">[pass]</span><span class="time">15:03:29</span><span class="desc">用例失败</span><span class="api">baidu.ajax.get</span></p>
-                </div>
-                <p class="console-item warning"><span class="level">[warning]</span><span class="time">15:03:29</span><span class="desc">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
-                <p class="console-item error"><span class="level">[error]</span><span class="time">15:03:29</span><span class="desc">用例失败</span><span class="api">baidu.array.contains</span></p>
-                <p class="console-item warning"><span class="level">[warning]</span><span class="time">15:03:29</span><span class="desc">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
-                <p class="console-item warning"><span class="level">[warning]</span><span class="time">15:03:29</span><span class="desc">用例超时</span><span class="api">baidu.dom.getStyle</span></p>
-                <p class="console-item error"><span class="level">[error]</span><span class="time">15:03:29</span><span class="desc">用例失败</span><span class="api">baidu.dom.getStyle</span></p>
-            </div>
+            <div class="console" id="J_console"></div>
             <div class="console-filterWrap">
                 <span class="console-clear" id="J_clearConsole" title="清除控制台日志">清除</span>
                 <span class="console-filter focus" filter="All">All</span>
