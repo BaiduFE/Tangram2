@@ -33,3 +33,12 @@ test("获取自定义属性", function () {
     document.body.appendChild(div2);
     equal( baidu.dom('#test-data2').data("rayi"), "jiyou", "取得data-开头的自定义属性" );    
 });
+
+test('当传入值是0的时候', function(){
+    var a = document.createElement('A');
+    document.body.appendChild(a);
+    a.href = 'http://www.baidu.com';
+    baidu.dom(a).data('tangram-key', 0);
+    ok(baidu.dom(a).data('tangram-key') === 0, 'get value is 0');
+    document.body.removeChild(a);
+});
