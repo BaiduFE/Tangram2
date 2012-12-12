@@ -712,8 +712,8 @@ var T, baidu = T = function(){
 	            case "remove" :
 	            case "delete" :
 	                if ( e = maps[id] ) {
-	                    // 20120827 mz IE低版本给 element[key] 赋值时会写入DOM树，因此在移除的时候需要使用remove
-	                    if (baidu.isElement(e) && baidu.browser.ie < 7) {
+	                    // 20120827 mz IE低版本(ie6,7)给 element[key] 赋值时会写入DOM树，因此在移除的时候需要使用remove
+	                    if (baidu.isElement(e) && baidu.browser.ie < 8) {
 	                        e.removeAttribute(key);
 	                    } else {
 	                        delete e[ key ];

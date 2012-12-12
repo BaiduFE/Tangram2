@@ -15,7 +15,7 @@ function getScrollBarWidth() {
   outer.style.width = "200px";  
   outer.style.height = "150px";  
   outer.style.overflow = "hidden";  
-  outer.appendChild (inner);  
+  outer.appendChild (inner);
   document.body.appendChild (outer);  
   var w1 = inner.offsetWidth;  
   outer.style.overflow = 'scroll';  
@@ -62,7 +62,7 @@ test("兼容Magic接口：有滚动条", function() {
 test('兼容Magic接口：当body高度小于页面高度时', function(){
     ua.frameExt(function(w, f){
         f.style.height = '200px';
-        f.style.border = 'red solid 1px';
+//        f.style.border = 'red solid 1px';
         w.document.body.style.height = '25px';
         equals(w.baidu.page.getViewHeight(), 200, 'window height is');
         this.finish();
