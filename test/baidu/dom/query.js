@@ -38,12 +38,8 @@ test('老接口：selector', function() {
 	p.className = 'test_class_p'
 	p = document.body.appendChild(p);
 	
-	try{
-		var link = document.createElement('<a name="test_name_a">');
-	}catch(e){
-		var link = document.createElement('a');
-		link.name = 'test_name_a';
-	}
+	var link = document.createElement('a');
+        link.name = 'test_name_a';
 	
 	link.id = 'test_a';
 	link.className = 'test_class_a';
@@ -147,10 +143,11 @@ test('老接口：selector', function() {
 	if(!ua.browser['ie']){
 		equals(baidu.dom.query(':root')[0].tagName.toLowerCase(), 'html', ':root');
 		equals(baidu.dom.query('strong:nth-last-child(2) + span')[0], span, 'strong:nth-last-child(2) + span');
-		equals(baidu.dom.query('a:link:first-child:nth-child(odd)')[0], link, 'a:link:first-child:nth-child(odd)');
-		equals(baidu.dom.query('a:link:first-child:nth-child(odd):last-child').length, 0, 'a:link:first-child:nth-child(odd):lastchild');
+		
+		equals(baidu.dom.query('p>a:link:first-child:nth-child(odd)')[0], link, 'a:link:first-child:nth-child(odd)');
+		equals(baidu.dom.query('p>a:link:first-child:nth-child(odd):last-child').length, 0, 'a:link:first-child:nth-child(odd):lastchild');
 		//equals(baidu.dom.query('span:only-of-type')[0], span, 'a:only-of-type');
-		equals(baidu.dom.query('a:link')[0], link, 'a:link');
+		equals(baidu.dom.query('p>a:link')[0], link, 'a:link');
 		equals(baidu.dom.query('a:visited').length, 0, 'a:visited');
 		//equals(baidu.dom.query('strong:nth-last-child(2)')[0], strong, 'p:nth-last-child(1)');
 		//equals(baidu.dom.query('span:nth-last-child(1):nth-child(1)').length, 0 , 'p:nth-last-child(1):nth-child(1)');
