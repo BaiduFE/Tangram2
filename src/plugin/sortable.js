@@ -54,15 +54,6 @@
 */
 
 /**
- * @description 设置当前排序列表（sortable）可以拖拽的范围
- * @function 
- * @name baidu().sortable().range()
- * @grammar baidu(args).sortable().range(value)
- * @param {Selector|TangramDom|htmlElement|Object|Null} value 如果不传入参数，则为获取当前限定的范围。可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
- * @return {sortable|Selector|TangramDom|htmlElement|Object} 返回Sortable的一个实例，或者是取出当前range的值。
-*/
-
-/**
  * @description 关闭当前这个排序列表（sortable）的功能
  * @function 
  * @name baidu().sortable().disable()
@@ -83,6 +74,15 @@
 */
 
 /**
+ * @description 设置当前排序列表（sortable）可以拖拽的范围
+ * @function 
+ * @name baidu().sortable().range()
+ * @grammar baidu(args).sortable().range(value)
+ * @param {Selector|TangramDom|htmlElement|Object|Null} value 如果不传入参数，则为获取当前限定的范围。可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
+ * @return {sortable|Selector|TangramDom|htmlElement|Object} 返回Sortable的一个实例，或者是取出当前range的值。
+*/
+
+/**
  * @description 析构函数，清除所有调用资源
  * @function 
  * @name baidu().sortable().dispose()
@@ -100,6 +100,35 @@
  * @return {TangramDom} 直接返回当前排序列表（sortable）中所有元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法。
  * @example
  排序列表（sortable）中所有元素都会默认被加上名为“tang-sortable-item”的className，方便用户改变每个元素样式，或者这些元素做操作。
+*/
+
+/**
+ * @description 取得当前排序列表（sortable）的元素索引
+ * @function 
+ * @name baidu().sortable().index()
+ * @grammar baidu(args).sortable().index()
+ * @param {Null}
+ * @return {Array} 返回当前排序列表（sortable）元素的索引组成的数组。
+ * @example
+ 排序列表（sortable）的元素默认会按照当前顺序设置索引，初始化时为[0,1,2....]。当排序之后，顺序变化，再次取出，就可以比对和之前的索引顺序。
+*/
+
+/**
+ * @description 取消本次排序操作，恢复为之前状态
+ * @function 
+ * @name baidu().sortable().cancel()
+ * @grammar baidu(args).sortable().cancel()
+ * @param {Null}
+ * @return {Sortable} 返回Sortable的一个实例。
+*/
+
+/**
+ * @description 重置排序列表（sortable），恢复为初始状态
+ * @function 
+ * @name baidu().sortable().reset()
+ * @grammar baidu(args).sortable().reset()
+ * @param {Null}
+ * @return {Sortable} 返回Sortable的一个实例。
 */
 
 /**
