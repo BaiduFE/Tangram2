@@ -54,15 +54,6 @@
 */
 
 /**
- * @description 设置当前排序列表（sortable）可以拖拽的范围
- * @function 
- * @name baidu().sortable().range()
- * @grammar baidu(args).sortable().range(value)
- * @param {Selector|TangramDom|htmlElement|Object|Null} value 如果不传入参数，则为获取当前限定的范围。可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
- * @return {sortable|Selector|TangramDom|htmlElement|Object} 返回Sortable的一个实例，或者是取出当前range的值。
-*/
-
-/**
  * @description 关闭当前这个排序列表（sortable）的功能
  * @function 
  * @name baidu().sortable().disable()
@@ -80,6 +71,15 @@
  * @return {Sortable} 返回Sortable的一个实例。
  * @example
  该方法与disable()方法结合使用，初始化sortable时，默认是enable的状态，无需手动触发enable方法。
+*/
+
+/**
+ * @description 设置当前排序列表（sortable）可以拖拽的范围
+ * @function 
+ * @name baidu().sortable().range()
+ * @grammar baidu(args).sortable().range(value)
+ * @param {Selector|TangramDom|htmlElement|Object|Null} value 如果不传入参数，则为获取当前限定的范围。可以传入一个selector，如果匹配多个元素，只会取出第一个。限定拖拽元素活动的范围，只能在当前selector元素内活动。也可以传入一个Object，要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
+ * @return {sortable|Selector|TangramDom|htmlElement|Object} 返回Sortable的一个实例，或者是取出当前range的值。
 */
 
 /**

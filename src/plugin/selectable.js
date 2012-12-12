@@ -59,6 +59,26 @@
 */
 
 /**
+ * @description 关闭当前这个选择列表（selectable）的功能
+ * @function 
+ * @name baidu().selectable().disable()
+ * @grammar baidu(args).selectable().disable()
+ * @param {Null}
+ * @return {Selectable} 返回Selectable的一个实例。
+*/
+
+/**
+ * @description 开启当前这个选择列表（selectable）的功能
+ * @function 
+ * @name baidu().selectable().enable()
+ * @grammar baidu(args).selectable().enable()
+ * @param {Null}
+ * @return {Selectable} 返回Selectable的一个实例。
+ * @example
+ 该方法与disable()方法结合使用，初始化selectable时，默认是enable的状态，无需手动触发enable方法。
+*/
+
+/**
  * @description 设置当前选择列表（selectable）激活的范围
  * @function 
  * @name baidu().selectable().range()
@@ -83,26 +103,6 @@
  * @grammar baidu(args).selectable().reset()
  * @param {Null}
  * @return {Selectable} 返回Selectable的一个实例。
-*/
-
-/**
- * @description 关闭当前这个选择列表（selectable）的功能
- * @function 
- * @name baidu().selectable().disable()
- * @grammar baidu(args).selectable().disable()
- * @param {Null}
- * @return {Selectable} 返回Selectable的一个实例。
-*/
-
-/**
- * @description 开启当前这个选择列表（selectable）的功能
- * @function 
- * @name baidu().selectable().enable()
- * @grammar baidu(args).selectable().enable()
- * @param {Null}
- * @return {Selectable} 返回Selectable的一个实例。
- * @example
- 该方法与disable()方法结合使用，初始化selectable时，默认是enable的状态，无需手动触发enable方法。
 */
 
 /**
