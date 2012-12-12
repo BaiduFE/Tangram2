@@ -44,7 +44,7 @@ test("insertAfter HTML", function(){
 	equal(a[2].className, 'A', 'the third element is div');
 });
 
-// 老接口
+// 兼容1.x接口
 
 test("Element",function(){
 	expect(4);
@@ -63,7 +63,7 @@ test("Element",function(){
 	document.body.removeChild(div);
 	document.body.removeChild(a);
 })
-test("老接口：id",function(){
+test("兼容1.x接口：id",function(){
 	expect(4);
 	var div = document.createElement('div');
 	var a = document.createElement('a');

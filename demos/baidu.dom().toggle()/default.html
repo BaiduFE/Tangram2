@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().toggle() 示例" />
+		<title>改变目标元素的显示/隐藏状态</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<style>
+			#toggleArea {
+                width: 200px;
+                height: 100px;
+				border:1px solid #9CC;
+				padding:10px;
+                margin-bottom: 20px;
+			}
+
+            #child {
+                border:1px solid #9CC;
+                padding: 5px;
+            }
+
+            #demo_execute_result {
+                color: red;
+            }
+
+            #btnArea a {
+                margin-right: 10px;
+            }
+
+		</style>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().toggle()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>改变目标元素的显示/隐藏状态</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+                        运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<div class="pannel-content-part">
+                        <div id="toggleArea">
+                            <div id="child">我可以交替显示/隐藏，信吗？点击下面按钮亲自试一试！</div>
+                        </div>
+                        <div id="btnArea"><a class="button" id="hide">隐藏</a><a class="button" id="show">显示</a><a class="button" id="toggle">更改显示/隐藏状态</a></div>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            (function() {
+                var child= baidu('#child' ),
+                    result = baidu('#demo_execute_result');
+                baidu('#hide').on('click',function(){
+                    child.hide();
+                    result.html('已隐藏');
+                });
+                baidu('#show').on('click',function(){
+                    child.show();
+                    result.html('已显示');
+                });
+                baidu('#toggle').on('click',function(){
+                    child.toggle();
+                    result.html('已更改显示/隐藏状态');
+                });
+            })();
+		</script>
+	</body>
+</html>

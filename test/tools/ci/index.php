@@ -13,13 +13,7 @@
         ?>
         <link rel="stylesheet" type="text/css" href="./assets/css/app.css" />
         <link type="text/css" rel="stylesheet" href="./assets/css/shCoreDefault.css"/>
-        <script type="text/javascript" src="./assets/js/jQuery-1.8.2.js"></script>
-        <script type="text/javascript" src="./assets/js/mustache.js"></script>
-        <script type="text/javascript" src="./assets/js/tree.js"></script>
-        <script type="text/javascript" src="./assets/js/app.js"></script>
-        <script type="text/javascript" src="./assets/js/shCore.js"></script>
-        <script type="text/javascript" src="./assets/js/shBrushJScript.js"></script>
-        <script type="text/javascript" src="./assets/js/jshint.js"></script>
+        <script type="text/javascript" src="./assets/lib/sea.js"></script>
     </head>
     <body>
         <div class="hd">
@@ -79,9 +73,35 @@
                 </div>
             </div>
         </div>
+
+        <div class="console-wrap console-close" id="J_consoleWrap">
+            <div class="console-bar" id="J_consoleBar"></div>
+            <div class="console" id="J_console"></div>
+            <div class="console-filterWrap">
+                <span class="console-clear" id="J_clearConsole" title="清除控制台日志">清除</span>
+                <span class="console-filter focus" filter="All">All</span>
+                <span class="console-filter" filter="Pass">Pass</span>
+                <span class="console-filter" filter="Error">Error</span>
+                <span class="console-filter" filter="Warning">Warning</span>
+            </div>
+        </div>
         <script type="text/javascript">
             (function(){
-                App.run();
+                seajs.config({
+                    alias: {
+                        'jQuery': '../lib/jQuery-1.8.2.js',
+                        'mustache': '../lib/mustache.js',
+                        'shCore': '../lib/shCore.js',
+                        'shBrushJScript': '../lib/shBrushJScript.js',
+                        'jshint': '../lib/jshint.js'
+                    },
+                    base: './assets/js',
+                    charset: 'utf-8'
+                });
+
+                seajs.use('App', function(app){
+                    app.run();
+                });
             })();
         </script>
     </body>

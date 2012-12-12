@@ -23,3 +23,9 @@ test("参数为空或不合法时直接返回 id", function(){
     
 });
 
+test('出错验证', function(){
+    try{baidu.check('\\s');}
+    catch(e){ok(true, e);}
+    try{baidu.check(undefined, 'test')}
+    catch(e){ok(true, e);}
+});
