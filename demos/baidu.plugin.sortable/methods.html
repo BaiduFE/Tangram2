@@ -75,7 +75,10 @@
                     <li><a class="button" id="range">设置当前排序列表（sortable）拖拽的范围为黑色虚线框内</a></li>
                     <li><a class="button" id="disable">关闭当前排序列表（sortable）的功能</a></li>
                     <li><a class="button" id="enable">开启当前排序列表（sortable）的功能</a></li>
-                    <li><a class="button" id="index">取得当前排序列表（sortable）中所有元素</a></li>
+                    <li><a class="button" id="element">取得当前排序列表（sortable）中所有元素</a></li>
+                    <li><a class="button" id="index">取得当前被选择元素的索引</a></li>
+                    <li><a class="button" id="cancel">取消上一次拖拽</a></li>
+                    <li><a class="button" id="reset">重置拖拽</a></li>
                 </ul>
                 <ol>
                     <li><span></span>Item 1</li>
@@ -96,38 +99,61 @@
 
     (function () {
         var a = baidu( '#sortable ol' ).sortable(),
-            num,
-            text,
-            arr = [],
-            box = baidu( '#method-exp' );
+                num,
+                text,
+                arr = [],
+                box = baidu( '#method-exp' );
 
         //设置当前排序列表（sortable）拖拽的范围为黑色虚线框内
-        baidu( '#range' ).on('click', function () {
+        baidu( '#range' ).on( 'click', function () {
             a.range( '#sortable' );
             box.html( '设置当前排序列表（sortable）激活的范围为黑色虚线框内' );
         } );
 
         //关闭当前排序列表（sortable）的功能
-        baidu( '#disable' ).on('click', function () {
+        baidu( '#disable' ).on( 'click', function () {
             a.disable();
             box.html( '关闭了当前排序列表（sortable）的功能' );
         } );
 
         //开启当前排序列表（sortable）的功能
-        baidu( '#enable' ).on('click', function () {
+        baidu( '#enable' ).on( 'click', function () {
             a.enable();
             box.html( '开启了当前排序列表（sortable）的功能' );
         } );
 
         //取得当前排序列表（sortable）中所有元素
-        baidu( '#index' ).on('click', function () {
+        baidu( '#element' ).on( 'click', function () {
             num = a.item();
-            for (var i= 0; i<num.length; i++){
-                text =  num.eq( i ).text();
-                arr.push(text)
+            for ( var i = 0; i < num.length; i++ ) {
+                text = num.eq( i ).text();
+                arr.push( text )
             }
-            box.html(arr.join(','));
+            box.html( arr.join( ',' ) );
         } );
+
+        //取得当前被选择元素的索引
+        baidu( '#index' ).on( 'click', function () {
+            num = (a.index()).toString();
+            if ( num.length == 0 ) {
+                box.html( '您还没有选择' );
+            } else {
+                box.html( '您刚才选中的是索引为<em>' + num + '</em>的项' );
+            }
+        } );
+
+        //取消上一次拖拽
+        baidu( '#cancel' ).on( 'click', function () {
+            a.cancel();
+            box.html( '取消了上一次拖拽' );
+        } );
+
+        //重置拖拽
+        baidu( '#reset' ).on( 'click', function () {
+            a.reset();
+            box.html( '重置了上一次拖拽' );
+        } );
+
     })();
 </script>
 </body>
