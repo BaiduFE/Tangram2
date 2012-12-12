@@ -1,0 +1,15 @@
+ /* baidu.plugin.sortable 相关CSS */
+ 
+ /*
+  * @description 每个可以被排序的元素的默认样式
+ */
+ .tang-sortable-item{
+ 
+ }
+
+ /*
+  * @description 正在被拖拽的元素默认样式
+ */
+ .tang-draggable-dragging{
+
+ }

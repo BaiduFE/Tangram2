@@ -103,6 +103,35 @@
 */
 
 /**
+ * @description 取得当前排序列表（sortable）的元素索引
+ * @function 
+ * @name baidu().sortable().index()
+ * @grammar baidu(args).sortable().index()
+ * @param {Null}
+ * @return {Array} 返回当前排序列表（sortable）元素的索引组成的数组。
+ * @example
+ 排序列表（sortable）的元素默认会按照当前顺序设置索引，初始化时为[0,1,2....]。当排序之后，顺序变化，再次取出，就可以比对和之前的索引顺序。
+*/
+
+/**
+ * @description 取消本次排序操作，恢复为之前状态
+ * @function 
+ * @name baidu().sortable().cancel()
+ * @grammar baidu(args).sortable().cancel()
+ * @param {Null}
+ * @return {Sortable} 返回Sortable的一个实例。
+*/
+
+/**
+ * @description 重置排序列表（sortable），恢复为初始状态
+ * @function 
+ * @name baidu().sortable().reset()
+ * @grammar baidu(args).sortable().reset()
+ * @param {Null}
+ * @return {Sortable} 返回Sortable的一个实例。
+*/
+
+/**
  * @description 重新获取当前元素的tangramDom链头，使其可以使用tangram的Dom操作方法
  * @function 
  * @name baidu().sortable().getBack()
