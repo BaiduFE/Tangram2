@@ -74,11 +74,11 @@
                     <div id="outer">
                     </div>
                     <ul id="butArea">
+                        <li><a class="button" id="range">限定拖拽范围为黑色虚线框内</a></li>
                         <li><a class="button" id="zIndex">取出或设置当前拖拽元素层级</a></li>
                         <li><a class="button" id="cancel">取消本次拖拽</a></li>
                         <li><a class="button" id="disable">使当前拖拽元素无法拖拽</a></li>
                         <li><a class="button" id="enable">重新开启当前拖拽元素</a></li>
-                        <li><a class="button" id="range">限定在 class 为 pannel-content-part 的容器内拖拽</a></li>
                         <li><a class="button" id="endOf">限定拖拽元素一定要到达的黑色边框区域内</a></li>
                     </ul>
                 </div>
@@ -91,43 +91,42 @@
 <script type="text/javascript">
     (function () {
         var a = baidu( '#draggable-ele' ).draggable( {
-                range:'#draggable',
                 zIndex:10
             } ),
             num,
             box = baidu( '#method-exp' );
 
+        //限定拖拽范围为黑色虚线框内
+        baidu( '#range' ).on('click', function () {
+            a.range( '.pannel-content-part' );
+            box.html( '设置拖拽范围为黑色虚线框内' );
+        } )
+
         //取出或设置当前拖拽元素层级
-        baidu( '#zIndex' ).click( function () {
-            box.html( '当前拖拽元素层级：'+ a.zIndex() );
+        baidu( '#zIndex' ).on('click', function () {
+            box.html( '取出当前拖拽元素层级：'+ a.zIndex() );
         } )
 
         //取消本次拖拽
-        baidu( '#cancel' ).click( function () {
+        baidu( '#cancel' ).on('click', function () {
             a.cancel();
-            box.html( '已取消本次拖拽' );
+            box.html( '取消了本次拖拽' );
         } )
 
         //使当前拖拽元素无法拖拽
-        baidu( '#disable' ).click( function () {
+        baidu( '#disable' ).on('click', function () {
             a.disable();
             box.html( '当前元素无法拖拽了' );
         } )
 
         //重新开启当前拖拽元素
-        baidu( '#enable' ).click( function () {
+        baidu( '#enable' ).on('click', function () {
             a.enable();
             box.html( '激活了当前元素的拖拽' );
         } )
 
-        //限定拖拽元素可以活动的范围
-        baidu( '#range' ).click( function () {
-            a.range( '.pannel-content-part' );
-            box.html( '改变了拖拽元素可以活动的范围' );
-        } )
-
         //限定拖拽元素一定要到达的黑色边框区域内
-        baidu( '#endOf' ).click( function () {
+        baidu( '#endOf' ).on('click', function () {
             a.endOf( '#outer' );
             box.html( '限定了拖拽元素一定要到达的黑色边框区域内' );
         } )

@@ -100,24 +100,25 @@
             box = baidu( '#method-exp' );
 
         //设置当前选择列表（selectable）激活的范围为黑色虚线框内
-        baidu( '#range' ).mousedown( function () {
+        baidu( '#range' ).on('click', function () {
             a.range( '#selectable' );
+            //box.html( '设置当前排序列表（sortable）激活的范围为黑色虚线框内' );
         } );
 
         //关闭当前这个选择列表（selectable）的功能
-        baidu( '#disable' ).mousedown( function () {
+        baidu( '#disable' ).on('click', function () {
             a.disable();
             box.html( '关闭了当前选择列表（selectable）的功能' );
         } );
 
         //开启当前这个选择列表（selectable）的功能
-        baidu( '#enable' ).mousedown( function () {
+        baidu( '#enable' ).on('click', function () {
             a.enable();
             box.html( '开启了当前选择列表（selectable）的功能' );
         } );
 
         //取得当前被选择元素的索引
-        baidu( '#index' ).mousedown( function () {
+        baidu( '#index' ).on('click', function () {
             num = (a.index()).toString();
             if ( num.length == 0 ) {
                 box.html( '您还没有选择' );
