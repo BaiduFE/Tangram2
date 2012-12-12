@@ -92,7 +92,7 @@ baidu.dom.extend({
                     }
                     dest.defaultValue = src.defaultValue;
                     break;
-                case 'options':
+                case 'option':
                     dest.selected = src.defaultSelected;
                     break;
                 case 'script':

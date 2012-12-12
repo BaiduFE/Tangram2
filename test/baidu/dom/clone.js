@@ -100,3 +100,38 @@ test('clone all', function(){
 //    ua.fireMouseEvent(tang.get(0).firstChild, 'mouseover');
 //    ua.fireMouseEvent(tang.get(0).firstChild.firstChild, 'mouseout');
 });
+
+test('clone object, textarea, radio, option, script', function(){
+    $.each('object,textarea,script'.split(','), function(index, item){
+        var c = new Elements(item),
+            node = c.get();
+        node.id = 'tangId-' + item;
+        var tang = baidu.dom(node).clone(true, true);
+        ok(tang.get(0).id === node.id, 'same id: (' + node.id + ')');
+        ok(tang.get(0) !== node, 'it is a new element: (' + item + ')');
+        c.dispose();
+    });
+    
+    var c = new Elements('input', true),
+        node = c.get(), tang;
+    node.id = 'tangId-radio';
+    node.type = 'radio';
+    node.value = 'defaultValue';
+    document.body.appendChild(node);
+    tang = baidu.dom(node).clone(true, true);
+    ok(tang.get(0).id === node.id, 'same id: (' + node.id + ')');
+    ok(tang.get(0) !== node, 'it is a new element: (radio)');
+    c.dispose();
+    
+    c = new Elements('select');
+    node = c.get();
+    var opt = new Option('hello world', '001');
+    node.options.add(opt);
+    tang = baidu.dom(opt).clone(true, true);
+    //没有办法很好的完全copy option,jq也同样
+//    ok(tang.get(0).text === opt.text, 'same text: (option)');
+    ok(tang.get(0).value === opt.value, 'same value: (option)');
+    ok(tang.get(0) !== opt, 'it is a new element: (option)');
+    opt = null;
+    c.dispose();
+});
