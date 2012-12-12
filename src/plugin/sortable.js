@@ -247,6 +247,7 @@
 ///import baidu.dom.after;
 ///import baidu.dom.data;
 ///import baidu.dom.css;
+///import baidu.dom.html;
 ///import baidu.dom.outerWidth;
 ///import baidu.dom.outerHeight;
 ///import plugin.draggable;
@@ -273,6 +274,13 @@ baidu.dom.extend({
             dragEleClone,
             dragEleCloneAttr = {},
 
+            //当前sortable内的HTML，为了能够完美实现reset方法
+            htmlReset = '',
+
+            //每次变化后sortable内的HTML，为了能够完美实现cancel方法
+            htmlCancel = '',
+            htmlTemp = '',
+ 
             //函数节流计时器
             timer,
 
@@ -318,9 +326,7 @@ baidu.dom.extend({
 
                 //索引
                 index:function(value){
-                    if(baidu.type(value)=='array'){
-
-                    }else if(value == 'set'){
+                    if(value == 'set'){
 
                         //set方法，内部接口
                         for(var i = 0,num = item.size();i<num;i++){
@@ -339,12 +345,16 @@ baidu.dom.extend({
 
                 //取消拖拽，回到上一次
                 cancel:function(){
-                    
+                    me.html(htmlCancel);
+                    init();
+                    return sortable;
                 },
 
                 //重置拖拽
                 reset:function(){
-
+                    me.html(htmlReset);
+                    init();
+                    return sortable;
                 },
 
                 //关闭拖拽
@@ -393,6 +403,7 @@ baidu.dom.extend({
                 draggable.on('start',handle);
                 draggable.on('dragging',ingHandle);
                 draggable.on('end',endHandle);
+                sortable.on('change',changeHandle);
             },
 
             getItemAttr = function(){
@@ -444,6 +455,9 @@ baidu.dom.extend({
 
                 //清除掉draggable附加的className
                 dragEleClone = baidu.dom(dragEle).clone();
+
+                //TODO：以后可以考虑根据需求开放clone这个元素的样式
+                dragEleClone.addClass('tang-sortable-clone');
                 dragEleClone.removeClass('tang-draggable-dragging');
                 dragEle.after(dragEleClone);
                 dragEleClone.css('visibility','hidden');
@@ -451,6 +465,8 @@ baidu.dom.extend({
                 var o = dragEleClone.offset();
                 dragEleCloneAttr.left = o.left;
                 dragEleCloneAttr.top = o.top;
+
+                htmlTemp = me.html();
             },
 
             ingHandle = function(){
@@ -479,6 +495,7 @@ baidu.dom.extend({
                     sortable.fire('dragging');
                 },16);
             },
+
             endHandle = function(){
                 var o = dragEleClone.offset();
                 
@@ -489,9 +506,15 @@ baidu.dom.extend({
                     dragEleClone.after(dragEle);
                 };
                 dragEle.css({'position':'static',left:'',top:''});
+                
+                //此处怀疑remove中的bug，所以使用display处理下，后续可以去掉。
                 dragEleClone.css('display','none').remove();
                 me.remove(dragEleClone);
                 sortable.fire('end');
+            },
+
+            changeHandle = function(){
+                htmlCancel = htmlTemp;
             },
 
             setOpt = function(opts){
@@ -501,41 +524,49 @@ baidu.dom.extend({
                 if(opt.enable == false){
                     sortable.disable();
                 };
-            };
-        //函数参数逻辑
-        switch(arguments.length){
+            },
 
-            //没有传参，默认执行
-            case 0:
-                item = me.children();
-            break;
+            //函数主逻辑
+            init = function(value,opts){
 
-            //传入一个参数
-            case 1:
-                if( baidu.type(value) == 'object' ){
-                    item = me.children();
+                //函数参数逻辑
+                switch(arguments.length){
 
-                    //value是options
-                    setOpt(value);
-                }else{
-                
-                    //value是selector
-                    item = me.find(value);
+                    //没有传参，默认执行
+                    case 0:
+                        item = me.children();
+                    break;
+
+                    //传入一个参数
+                    case 1:
+                        if( baidu.type(value) == 'object' ){
+                            item = me.children();
+
+                            //value是options
+                            setOpt(value);
+                        }else{
+                        
+                            //value是selector
+                            item = me.find(value);
+                        };
+                    break;
+
+                    //传入selector和options
+                    case 2:
+
+                        //value是selector
+                        item = me.find(value);
+                        setOpt(opts);
+                    break;
                 };
-            break;
+                item.addClass('tang-sortable-item');
+                draggable = baidu(item).draggable().range(opt.range);
+                sortable.index('set');
+                bindEvent();
+            };
 
-            //传入selector和options
-            case 2:
-
-                //value是selector
-                item = me.find(value);
-                setOpt(opts);
-            break;
-        };
-        item.addClass('tang-sortable-item');
-        draggable = baidu(item).draggable().range(opt.range);
-        sortable.index('set');
-        bindEvent();
+        init();
+        htmlReset = htmlCancel = me.html();
 
         //暴露getBack()方法，返回上一级TangramDom链头
         return sortable;
