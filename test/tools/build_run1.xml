@@ -35,7 +35,7 @@
 
 	<target name="coverage">
 		<delete dir="${coverage.path}" />
-		<exec executable="jscoverage">
+		<exec executable="/home/tangram/soft/jscoverage/bin/jscoverage">
 			<arg value="--encoding=UTF-8" />
 			<arg value="src" />
 			<arg value="${coverage.path}" />
