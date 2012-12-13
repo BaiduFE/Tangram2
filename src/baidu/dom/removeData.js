@@ -14,10 +14,13 @@
 
 /**
  * 在 DOM 对象上存储数据
- * @grammar TangramDom.data([key[, value]])
- * @param
- * @return
+ * @name baidu.dom().removeData()
+ * @grammar baidu.dom().removeData(key)
+ * @function
+ * @param {String} 数据的索引
+ * @return {TangramDom}
  */
+ 
 baidu.dom.extend({
     removeData : function () {
         var   guid = baidu.key
