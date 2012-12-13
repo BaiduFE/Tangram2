@@ -57,7 +57,8 @@ baidu.extend(baidu.base.Class.prototype, {
             }
 
             for (var pro in this) {
-                typeof this[pro] != "function" && delete this[pro];
+                if ( !baidu.isFunction(this[pro]) ) delete this[pro];
+                else this.[pro] = baidu.base.blank;
             }
 
             this.disposed = true;   //20100716
