@@ -35,7 +35,7 @@ baidu.id = function() {
             switch ( command ) {
             case "get" :
                 return obj_1 ? id : maps[id];
-            break;
+//            break;
             case "remove" :
             case "delete" :
                 if ( e = maps[id] ) {
@@ -48,12 +48,12 @@ baidu.id = function() {
                     delete maps[ id ];
                 }
                 return id;
-            break;
+//            break;
             case "decontrol" : 
                 !(e = maps[id]) && obj_1 && ( object[ key ] = id = baidu.id() );
                 id && delete maps[ id ];
                 return id;
-            break;
+//            break;
             default :
                 if ( str_1 ) {
                     (e = maps[ id ]) && delete maps[ id ];
