@@ -36,10 +36,10 @@
 baidu.dom.extend({
     toggle: function(){
         return this.each(function(index, ele){
-            if(ele.style && ele.style.display == 'none'){
-                baidu.dom(ele).show();
-            }else{
+            if(ele.style && ele.style.display != 'none'){
                 baidu.dom(ele).hide();
+            }else{
+                baidu.dom(ele).show();
             };
         });
     }
