@@ -57,7 +57,8 @@ baidu.extend(baidu.base.Class.prototype, {
             }
 
             for (var pro in this) {
-                typeof this[pro] != "function" && delete this[pro];
+                if ( !baidu.isFunction(this[pro]) ) delete this[pro];
+                else this[pro] = baidu.base.blank;
             }
 
             this.disposed = true;   //20100716
@@ -181,13 +182,15 @@ baidu.extend(baidu.base.Class.prototype, {
 
 
 /*
- * 按唯一标识guid字符串取得实例对象
+ * @description 按唯一标识guid字符串取得实例对象
+ * @modify 2012.12.14 mz 对1.x版本的兼容
  * @function
  * @param   {String}    guid
  * @return  {object}            实例对象
  */
 window["baiduInstance"] = function(guid) {
-    return baidu._global_._instances_[ guid ];
+    var global = window[baidu.guid];
+    return global._instances_[ guid ] || global._instances[ guid ];
 }
 
 
