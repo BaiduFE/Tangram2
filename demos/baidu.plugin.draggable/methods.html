@@ -74,6 +74,7 @@
                     <div id="outer">
                     </div>
                     <ul id="butArea">
+                        <li><a class="button" id="element">元素</a></li>
                         <li><a class="button" id="range">限定拖拽范围为黑色虚线框内</a></li>
                         <li><a class="button" id="zIndex">取出或设置当前拖拽元素层级</a></li>
                         <li><a class="button" id="cancel">取消本次拖拽</a></li>
@@ -95,6 +96,12 @@
             } ),
             num,
             box = baidu( '#method-exp' );
+
+        baidu( '#element' ).on('click', function () {
+            console.log(a.item());
+            box.html( '设置拖拽范围为黑色虚线框内' );
+        } )
+
 
         //限定拖拽范围为黑色虚线框内
         baidu( '#range' ).on('click', function () {
