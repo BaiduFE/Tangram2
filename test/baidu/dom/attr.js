@@ -473,6 +473,18 @@ test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").attr('type','wlkafjl');
     ok(result,'有东西就行');
 });
+
+test("传入空的设置",function(){
+    var dom = baidu("<div>").attr('width','');
+    equal(dom.attr('width'),'','传入空值');
+});
+
+test("设置input",function(){
+    var dom = baidu("<input>");
+    dom.attr('type','radio');
+    equal(dom.attr('type'),'radio','设置为radio');
+});
+
 //end
 
 //准备工序

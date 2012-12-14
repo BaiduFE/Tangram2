@@ -18,9 +18,9 @@
  * @grammar baidu.dom().removeData(key)
  * @function
  * @param {String} 数据的索引
- * @return {TangramDom}
+ * @return {TangramDom} 返回之前的tangramDom对象
  */
- 
+
 baidu.dom.extend({
     removeData : function () {
         var   guid = baidu.key
