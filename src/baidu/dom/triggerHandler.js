@@ -15,18 +15,18 @@
  */
 
 void function( base ){
-	var queue = base.queue;
+    var queue = base.queue;
 
-	baidu.dom.extend({
-		triggerHandler: function( type, triggerData, _e ){
-			if( _e && !_e.triggerData )
-				_e.triggerData = triggerData;
+    baidu.dom.extend({
+        triggerHandler: function( type, triggerData, _e ){
+            if( _e && !_e.triggerData )
+                _e.triggerData = triggerData;
 
-			baidu.forEach(this, function(item){
-			    queue.call( item, type, undefined, _e );
-			});
-			return this;
-		}
-	});
+            baidu.forEach(this, function(item){
+                queue.call( item, type, undefined, _e );
+            });
+            return this;
+        }
+    });
 
 }( baidu._util_.eventBase );

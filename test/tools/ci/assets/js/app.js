@@ -1,368 +1,238 @@
-(function(window){
-    var treeInstance,
-        flattenedTreeDates = [],
-        autoFixed = false,
-        hideOnPass = false,
-        autoRuning = false,
-        currentCheck = 'unitTest',
-        currentNode,
-        testCaseTpl = '<h1 class="test-header">{{file}}</h1>' +
-                            '<ul class="test-cases">' +
-                                '<li class="{{encodingCheck.status}}"><span>文件编码检查：{{encodingCheck.status}}；当前文件编码：{{encodingCheck.msg}}</span></li>' +
-                                '<li class="{{BombCheck.status}}"><span>文件Bomb头检查：{{BombCheck.status}}</span></li>' +
-                                '<li class="{{tabCheck.status}}"><span>文件缩进检查：{{tabCheck.status}}</span></li>' +
-                                '<li class="{{testCaseCheck.status}}">' +
-                                    '<span>关联用例检查：{{testCaseCheck.status}}；</span>' +
-                                    '<span>源码最后修改时间：{{testCaseCheck.msg.srcLastModify}}；</span>' +
-                                    '<span>用例最后修改时间：{{testCaseCheck.msg.testCaseLastModify}}</span>' +
-                                '</li>' +
-                            '</ul>',
-        docTpl = '';
+define(function(require, exports) {
+    require('jQuery');
+    var Tree = require('Tree').tree;
+    var Check = require('Check');
+    var Console = require('Console');
 
-    function flatteningTreeDates(node){
-        $(node.children).each(function(index, child){
-            flattenedTreeDates.push(child);
-            if((child.data && child.data.type == 'folder') || child.type == 'folder'){
-                child.expend();
-                child.collapse();
-                flatteningTreeDates(child);
-            }
-        });
+    var treeInstance,               // 树的实例
+        treeData,                   // 源码目录树
+        flattenedTreeDates = [],    // 扁平化后的树的数据
+        hideOnPass = false,         // 是否隐藏测试通过的节点
+        autoRuning = false,         // 是否处于自动测试状态
+        currentCheckMode = 'unitTest',  // 当前检查的模式
+        currentNode;                // 当前检查的节点
+
+    // 设置自动运行的状态
+    function setAutoRuningStatus(flag){
+        autoRuning = flag;
     }
 
-    var autoNext = (function(){
-        var i = -1,
-            timer;
-        return function(){
+    var fileTree = {
+        /**
+         * 初始化树
+         */
+        init: function(){
+            treeInstance = new Tree(treeData, $('#J_tree'));
 
-            timer && clearTimeout(timer);
+            $(treeInstance).bind('nodefocus', function(e, node){
 
-            // 跑完了
-            if(++i >= flattenedTreeDates.length){
-                $('#J_autoRun').removeAttr('disabled');
-                $('#J_autoFixed').removeAttr('disabled');
-                $('#J_hideOnPass').removeAttr('disabled');
-                i = -1;
-                autoRuning = false;
-                return;
-            }
+                // 节点是文件类型
+                if(node.data.type == "file"){
+                    // 清除当前节点的状态
+                    node.el.css('color', '');
+                    // focus当前节点
+                    currentNode && currentNode.el.removeClass('focus');
+                    node.el.addClass("focus");
 
-            var node = flattenedTreeDates[i];
-
-            // 将节点移动到可视区域
-            if(node.el.offset().top > $(window).scrollTop() + $(window).height()){
-                $(window).scrollTop(node.el.offset().top);
-            }
-            
-            if(node.data.type == 'folder'){
-                node.expend();
-                autoNext();
-            }else{
-                currentNode = node;
-                node.focus();
-                runCheck(currentCheck, node);
-
-                timer = setTimeout(function(){
-                    autoNext();
-                }, 10000);
-            }
-        }
-    })();
-
-    // 初始化文件树
-    function initTree(data){
-        treeInstance = new tree(data, $('#J_tree'));
-
-        $(treeInstance).bind('treerender', function(e, node){
-            node.children[0].expend();
-        });
-
-        $(treeInstance).bind('nodefocus', function(e, node){
-            if(node.data.type == "file"){
-                $('#J_tree').find('.focus').removeClass('focus');
-                node.el.addClass("focus");
-                currentNode = node;
-
-                // 处于自动测试时，不响应
-                if(autoRuning){
-                    return;
+                    currentNode = node;
+                    Check.setCurrentNode(node);
+                    // 执行检查
+                    Check.runCheck(currentCheckMode, node);
+                }else{  // 节点是文件夹类型
+                    // node.expended ? node.collapse() : node.expend();
                 }
-                switch(currentCheck){
-                    case "unitTest":
-                        runCheck('unitTest', currentNode);
-                        break;
-                    case "staticCheck":
-                        runCheck('staticCheck', currentNode);
-                        break;
-                    case "syntaxCheck":
-                        runCheck('syntaxCheck', currentNode);
-                        break;
-                    case "docPreview":
-                        runCheck('docPreview', currentNode);
-                        break;
-                    case "src":
-                        runCheck('src', currentNode);
-                        break;
-                    case "unit":
-                        runCheck('unit', currentNode);
-                        break;
-                    default:
-                        return;
-                }
-            }
-        });
-
-        treeInstance.render();
-    }
-
-    // 初始化tab
-    function initTab(){
-        $(".tabs li").click(function(){
-            // 如果当前没有选中的树节点，或者正处于批量测试过程中，不响应点击
-            if(!currentNode || autoRuning){
-                return;
-            }
-
-            // 清除当前节点的状态
-            currentNode.el.css('color', '');
-
-            $(".tabs li").removeClass("current");
-            $(this).addClass("current");
-            var tabId = $(this).attr('id');
-            var tabItemId = tabId.replace('Tab', '');
-            $('.tab-item').removeClass("current");
-            $('#' + tabItemId).addClass("current");
-
-            var checkType = this.id.replace('J_', '').replace('Tab', '');
-            currentCheck = checkType;
-            runCheck(checkType, currentNode);
-        });
-    }
-
-    // 初始化工具栏
-    function initToolbar(){
-        // 批量测试
-        $('#J_autoRun').click(function(){
-            if(currentCheck != 'unitTest' && currentCheck != 'staticCheck' && currentCheck != 'syntaxCheck'){
-                alert("只有单元测试、静态检查和语法检查支持批量测试！");
-                return;
-            }
-            $('#J_autoRun').attr('disabled', 'disabled');
-            $('#J_autoFixed').attr('disabled', 'disabled');
-            $('#J_hideOnPass').attr('disabled', 'disabled');
-            autoRuning = true;
-
-            // 清除用例状态
-            $('.node-item').css('color', '').css('display', '');
-            autoNext();
-        });
-
-        // 发现错误时自动修复
-        $('#J_autoFixed').click(function(){
-            if(this.checked){
-                autoFixed = true;
-            }else{
-                autoFixed = false;
-            }
-        });
-
-        // 隐藏测试通过的文件
-        $('#J_hideOnPass').click(function(){
-            if(this.checked){
-                hideOnPass = true;
-            }else{
-                hideOnPass = false;
-            }
-        });
-
-        // 保持检查结果在可视范围内
-        // $(window).scroll(function(){
-        //     if($(window).scrollTop() > 137){
-        //         $('.main-wrap').css('padding-top', $(window).scrollTop() - 137);
-        //     }else{
-        //         $('.main-wrap').css('padding-top', 0);
-        //     }
-        // });
-    }
-
-    function runCheck(type, node){
-        $("#J_appDesc").hide();
-        $(".tabs").show();
-        switch(type){
-            case "unitTest":
-                unitTest(node);
-                break;
-            case "staticCheck":
-                staticCheck(node);
-                break;
-            case "syntaxCheck":
-                syntaxCheck(node);
-                break;
-            case "docPreview":
-                docPreview(node);
-                break;
-            case "src":
-                showSrc(node);
-                break;
-            case "unit":
-                showUnit(node);
-                break;
-            default:
-                return;
-        }
-    }
-    
-    // 单元测试
-    function unitTest(node){
-        var api = node.data.dir.replace('../../../src/', '').replace('.js', ''),
-            unitUrl = location.href.replace('index.php', '') + '../br/run.php?case=' + api;
-        
-        $("#J_unitTestFrame").attr('src', unitUrl);
-        var interval = setInterval(function(){
-            try{
-                if(J_unitTestFrame.contentWindow)
-                    $("#J_unitTestFrame").css('height', $(J_unitTestFrame.contentWindow.document).height() + 'px');
-                else{
-                    $("#J_unitTestFrame").css('height', $(J_unitTestFrame.document).height() + 'px');
-                }
-            }catch(e){
-                $("#J_unitTestFrame").css('height', '50px');
-            }
-        }, 50);
-    }
-
-    // 静态检查
-    function staticCheck(node){
-        $("#J_result").html();
-
-        $.getJSON('./staticcheck.php?file=' + node.data.dir + '&autoFixed=' + autoFixed, function(data){
-                        data.file = node.data.dir.replace('../../../src/', '');
-                        $("#J_staticCheck").html(Mustache.render(testCaseTpl, data));
-
-                        // 在节点上标出检查结果（忽略用例的检查结果）
-                        if(data.encodingCheck.status == 'failure' || 
-                           data.BombCheck.status == 'failure' ||
-                           data.tabCheck.status == 'failure'){
-                            node.el.css('color', '#FF0000');
-                        }else{
-                            autoRuning && hideOnPass && node.el.hide();
-                            node.el.css('color', '');
-                        }
-                        
-                        autoRuning && autoNext();
-                    });
-    }
-
-    //语法检查
-    function syntaxCheck(node){
-        $.get('./getFileContent.php?file=' + node.data.dir, function(content){
-            $("#J_syntaxCheck").html('');
-            var filename = node.data.dir.replace('../../../src/', '');
-            var html = '<h1 class="test-header">' + filename + '</h1><ul>';
-
-            if(!JSHINT(content, {
-                boss: true,
-                eqnull: true,
-                evil: true,
-                tangram: true,
-                magic: true,
-                laxbreak: true,
-                loopfunc: true,
-                nonew: true,
-                undef: true
-            })){
-                $(JSHINT.errors).each(function(index, item){
-                    if(!item) return;
-                    html += '<li><p><span class="line">Line ' + item.line + '</span>:<span class="code">' + item.evidence + '</span></p>'+
-                            '<p>' + item.reason + '</p></li>';
-                });
-                // 在节点上标出检查结果
-                node.el.css('color', '#FF0000');
-            }else{
-                html = '没有发现语法错误';
-                autoRuning && hideOnPass && node.el.hide();
-                node.el.css('color', '');
-            }            
-
-            $("#J_syntaxCheck")[0].innerHTML = html;
-            autoRuning && autoNext();
-        });
-    }
-
-    //文档预览
-    function docPreview(node){
-        if(!docTpl) return;
-
-        $.getJSON('./doc.php?file=' + node.data.dir, function(data){
-            $("#J_docPreview").html('');
-            var doc = '';
-            $(data).each(function(index, item){
-                doc += Mustache.render(docTpl, item, true);
             });
 
-            (doc == '') && (doc = '该文件无文档');
-            $("#J_docPreview")[0].innerHTML = doc;
-            SyntaxHighlighter.highlight();
-        });
-    }
+            treeInstance.render();
+        },
 
-    //显示源代码
-    function showSrc(node){
-        $.get('./getFileContent.php?file=' + node.data.dir, function(content){
-            $("#J_src").html('<pre class="brush: js"></pre>');
-            $("#J_src").find('pre').text(content);
-            SyntaxHighlighter.highlight();
-        });
-    }
+        /**
+         * 将树的数据扁平化
+         */
+        flatteningTreeDates: function(node){
+            if(!node) node = treeInstance;
 
-    //显示用例
-    function showUnit(node){
-        $.get('./getFileContent.php?file=' + node.data.dir.replace('src', 'test'), function(content){
-            if(content === ''){
-                $("#J_unit").html('该接口无用例');
-                return;
-            }
-            $("#J_unit").html('<pre class="brush: js"></pre>');
-            $("#J_unit").find('pre').text(content);
-            SyntaxHighlighter.highlight();
-        });
-    }
-
-    window.testDoneCallBack = function(info){
-        if(info.failed){
-            currentNode.el.css('color', '#FF0000');
-        }else{
-            autoRuning && hideOnPass && currentNode.el.hide();
-            currentNode.el.css('color', '');
+            $(node.children).each(function(index, child){
+                flattenedTreeDates.push(child);
+                if((child.data && child.data.type == 'folder') || child.type == 'folder'){
+                    child.expend();
+                    child.collapse();
+                    fileTree.flatteningTreeDates(child);
+                }
+            });
         }
-        autoRuning && autoNext();
-    }
+    };
 
     var toolbar = {
-        'init': function(){
+        /**
+         * 初始化toolbar
+         */
+        init: function(){
+            // 批量单元测试
+            $('.actions button').click(function(){
+                // 从按钮id中分析出当前需要执行的checkMode
+                var id = $(this).attr('id');
+                currentCheckMode = id.replace('J_autoRun', '').replace(/^\w/, function(w){
+                    return w.toLowerCase();
+                });
 
+                toolbar.disable();
+                autoRuning = true;
+                Check.setAutoRuningStatus(true);
+
+                // 清除用例状态
+                $('.node-item').css('color', '').css('display', '');
+
+                // 显示对应的tab
+                tab.focus(currentCheckMode);
+                // 清空错误列表
+                // failureList = [];
+
+                switch(currentCheckMode){
+                    case 'unitTest':
+                        Console.group('单元测试');
+                        break;
+                    case 'staticCheck':
+                        Console.group('静态检查');
+                        break;
+                    case 'syntaxCheck':
+                        Console.group('动态检查');
+                        break;
+                }
+                
+                Check.autoNext();
+            });
+
+            // 隐藏测试通过的文件
+            $('#J_hideOnPass').click(function(){
+                if(this.checked){
+                    hideOnPass = true;
+                    Check.setHideOnPass(true);
+                }else{
+                    hideOnPass = false;
+                    Check.setHideOnPass(false);
+                }
+            });
         },
-        'disable': function(id){
 
+        /**
+         * 禁用toolbar的所有功能
+         */
+        disable: function(){
+            $('#J_autoRunUnitTest').attr('disabled', 'disabled');
+            $('#J_autoRunStaticCheck').attr('disabled', 'disabled');
+            $('#J_autoRunSyntaxCheck').attr('disabled', 'disabled');
+            $('#J_hideOnPass').attr('disabled', 'disabled');
         },
-        'enable':function(){
 
+        /**
+         * 启用toolbar的所有功能
+         */
+        enable: function(){
+            $('#J_autoRunUnitTest').removeAttr('disabled');
+            $('#J_autoRunStaticCheck').removeAttr('disabled');
+            $('#J_autoRunSyntaxCheck').removeAttr('disabled');
+            $('#J_hideOnPass').removeAttr('disabled');
         }
     };
 
-    window.App = {
-        run: function(){
-            $.get('./docTpl.html', function(tpl){
-                        docTpl = tpl;
-                    });
-            $.getJSON('./getFiles.php', function(data){
-                        initTree(data);
-                        initTab();
-                        flatteningTreeDates(treeInstance);
-                        treeInstance.children[0].expend();
-                        initToolbar();
+    var tab = {
+        /**
+         * 初始化Tab
+         */
+        init: function(){
+            $(".tabs li").click(function(){
+                // 如果当前没有选中的树节点，或者正处于批量测试过程中，不响应点击
+                if(!currentNode || autoRuning){
+                    !currentNode && alert("未选择API！");
+                    return;
+                }
 
-                    });
+                var tabId = $(this).attr('id');
+                var tabname = tabId.replace('Tab', '').replace('J_', '');
+                tab.focus(tabname);
+
+                // 执行对应的检查
+                currentCheckMode = tabname;
+                Check.runCheck(currentCheckMode, currentNode);
+
+                // 清除当前节点的状态
+                currentNode.el.css('color', '');
+            });
+        },
+
+        /**
+         * 将当前焦点设置到某个tab上
+         * name => J_(name)Tab => J_(name) => Check.runCheck(name, node)
+         */
+        focus: function(name){
+
+            $(".tabs li").removeClass("current");
+            $("#J_" + name + "Tab").addClass("current");
+            
+            $('.tab-item').removeClass("current");
+            $('#J_' + name).addClass("current");
         }
     };
-})(window);
+
+    /**
+     * 单测用例执行完后的回调
+     */
+    window.testDoneCallBack = function(info){
+        seajs.use('App', function(app){
+            app._testDoneCallBack(info);
+        });
+    };
+
+    // 解决作用域问题
+    exports._testDoneCallBack = function(info){
+        var log = {
+            'api': currentNode.data.dir.replace('../../../src/', '').replace('.js', '').replace(/\//g, '.')
+        };
+
+        if(info.failed){
+            // failureList.push(currentNode);
+            currentNode.el.css('color', '#FF0000');
+            log.level = 'error';
+            log.desc = '单元测试不通过';
+        }else{
+            autoRuning && hideOnPass && currentNode.el.hide();
+            currentNode.el.css('color', '#00F');
+            log.level = 'pass';
+            log.desc = '单元测试通过';
+        }
+
+        Console.log(log);
+        autoRuning && Check.autoNext();
+    };
+
+    /**
+     * 初始化应用
+     */
+    var initApp = function(){
+        // 初始化树
+        fileTree.init();
+        // 将树的数据扁平化
+        fileTree.flatteningTreeDates();
+        Check.setFlatteningTreeDates(flattenedTreeDates);
+        // 默认展开树的第一个子节点
+        treeInstance.children[0].expend();
+        // 初始化Tab
+        tab.init();
+        // 初始化Toolbar
+        toolbar.init();
+        // 初始化控制台
+        Console.init();
+    };
+
+    exports.run = function(){
+        // 获取源码目录树
+        $.getJSON('./getFiles.php', function(data){
+                    treeData = data;
+                    initApp();
+                });
+    };
+
+    exports.toolbar = toolbar;
+    exports.setAutoRuningStatus = setAutoRuningStatus;
+});

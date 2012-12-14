@@ -18,4 +18,4 @@ baidu.makeArray = function(array, results){
     array.length == null || ~'string|function|regexp'.indexOf(baidu.type(array)) ?
         [].push.call(ret, array) : baidu.merge(ret, array);
     return ret;
-}
+};

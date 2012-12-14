@@ -38,23 +38,23 @@ baidu.string.filterFormat = function( source, opts ){
 
     if( dl ){
 
-	    if( dl == 1 && opts && /Array|Object/.test( _.call( opts ) ) )
-	    	data = opts;
+        if( dl == 1 && opts && /Array|Object/.test( _.call( opts ) ) )
+            data = opts;
 
-    	return source.replace( /#\{(.+?)\}/g, function ( match, key ){
-		    var fl = key.split("|"), r, i, l, f;
+        return source.replace( /#\{(.+?)\}/g, function ( match, key ){
+            var fl = key.split("|"), r, i, l, f;
 
-		    if( !data ) return "";
+            if( !data ) return "";
 
-	    	if( typeof ( r = data[fl[0]] ) == "function" )
-	    		r = r( fl[0] );
-	    	
-	    	for( i = 1, l = fl.length; i < l; ++ i)
-	    		if( typeof ( f = baidu.string.filterFormat[ fl[ i ] ] ) == "function" )
-	    			r = f(r);
+            if( typeof ( r = data[fl[0]] ) == "function" )
+                r = r( fl[0] );
+            
+            for( i = 1, l = fl.length; i < l; ++ i)
+                if( typeof ( f = baidu.string.filterFormat[ fl[ i ] ] ) == "function" )
+                    r = f(r);
 
-	    	return r == null ? "" : r;
-    	});
+            return r == null ? "" : r;
+        });
     }
 
     return source;

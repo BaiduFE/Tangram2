@@ -57,7 +57,6 @@
 
  */
 
-///import baidu;
 ///import baidu.dom;
 ///import baidu.forEach;
 ///import baidu.string.trim;

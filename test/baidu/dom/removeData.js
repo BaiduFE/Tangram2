@@ -25,3 +25,7 @@ test("第一个参数为 String ", function () {
 
 });
 
+test('第一个参数为array', function(){
+    ok(false, 'baidu.dom.data是否支持第一参数是array? removeData接口支持删除第一参数是array')
+});
+

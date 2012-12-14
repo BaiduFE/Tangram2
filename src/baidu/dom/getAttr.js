@@ -25,5 +25,5 @@
 ///import baidu.dom.attr;
 baidu.dom.getAttr = function(element, key){
     return baidu.dom(baidu.dom.g(element)).attr(key);
-}
+};
 /// support magic - Tangram 1.x Code End

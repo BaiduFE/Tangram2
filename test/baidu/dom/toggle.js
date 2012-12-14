@@ -24,8 +24,8 @@ test('新接口：显示或隐藏',function(){
 	document.body.removeChild(div);
 })
 
-//老接口
-test('老接口：element',function(){
+//兼容1.x接口
+test('兼容1.x接口：element',function(){
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	equal(div.style.display,"","default to display;")
@@ -36,7 +36,7 @@ test('老接口：element',function(){
 	document.body.removeChild(div);
 })
 
-test('老接口：id',function(){
+test('兼容1.x接口：id',function(){
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	div.id = 'div_id';

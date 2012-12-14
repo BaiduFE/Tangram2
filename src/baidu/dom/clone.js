@@ -92,7 +92,7 @@ baidu.dom.extend({
                     }
                     dest.defaultValue = src.defaultValue;
                     break;
-                case 'options':
+                case 'option':
                     dest.selected = src.defaultSelected;
                     break;
                 case 'script':
@@ -103,13 +103,13 @@ baidu.dom.extend({
         }
         //
         function cloneCopyEvent(src, dest){
-        	if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
-        	var defaultEvents = eventQueue.get(src);
-        	for(var i in defaultEvents){
-        	    for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
-        	        eventCore.add(dest, i, handler);
-        	    }
-        	}
+            if(dest.nodeType !== 1 || !baidu.id(src, 'get')){return;}
+            var defaultEvents = eventQueue.get(src);
+            for(var i in defaultEvents){
+                for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
+                    eventCore.add(dest, i, handler);
+                }
+            }
         }
         //
         function clone(ele, dataAndEvents, deepDataAndEvents){
@@ -133,7 +133,7 @@ baidu.dom.extend({
                     destElements = getAll( cloneNode );
                     len = srcElements.length;
                     for(var i = 0; i < len; i++){
-                    	cloneCopyEvent(srcElements[i], destElements[i]);
+                        cloneCopyEvent(srcElements[i], destElements[i]);
                     }
                 }
             }

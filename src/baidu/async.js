@@ -18,12 +18,12 @@ baidu.createChain("async",
 
 // 执行方法
 function(url){
-	return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
+    return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
 },
 
 // constructor
 function(url){
-	this.url = url;
+    this.url = url;
 });
 
 /// Tangram 1.x Code End

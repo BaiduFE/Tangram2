@@ -13,7 +13,7 @@
  */
 baidu.dom.extend({
     innerWidth: function(){
-    	if(this.size()<=0){return 0;}
+        if(this.size()<=0){return 0;}
         var ele = this[0],
             type = ele != null && ele === ele.window ? 'window'
                 : (ele.nodeType === 9 ? 'document' : false);

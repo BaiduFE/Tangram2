@@ -83,8 +83,8 @@ test("baidu.dom().scrollTop( n.n )", function(){
 });
 //
 function delay(callback){
-    //ie6 对于 innerHTML会有延迟
-    if(ua.browser.ie === 6){
+    //ie6、7 对于 innerHTML会有延迟
+    if(ua.browser.ie < 8){
         stop();
         setTimeout(function(){
             callback();

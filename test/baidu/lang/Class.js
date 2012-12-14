@@ -1,8 +1,8 @@
 module("baidu.lang.Class");
-(function() {
+test("prepareTest",function(){
 	if(baidu.lang.Class){
 		/* 引入_inherits */
-		var _inherits = function(subClass, superClass, className) {
+		_inherits = function(subClass, superClass, className) {
 			var key, proto, selfProps = subClass.prototype, clazz = new Function();
 
 			clazz.prototype = superClass.prototype;
@@ -116,40 +116,40 @@ module("baidu.lang.Class");
 			}
 			return false;
 		}
+		ok(_inherits, "_inherits is defined");
 	}
+});
 
-	// Start test ...
+// Start test ...
 
-	test("dispose", function() {
-		expect(3);
-		function myClass() {
-			this.name = "myclass";
-			this.method = function() {
-				ok(true, "method is called");
-			}
+test("dispose", function() {
+	expect(3);
+	function myClass() {
+		this.name = "myclass";
+		this.method = function() {
+			ok(true, "method is called");
 		}
-		_inherits(myClass, baidu.lang.Class);
-		// 通过继承baidu.lang.Class来获取dispose方法
-			var obj = new myClass();
-			obj.dispose();
+	}
+	_inherits(myClass, baidu.lang.Class);
+	// 通过继承baidu.lang.Class来获取dispose方法
+		var obj = new myClass();
+		obj.dispose();
 
-			ok(obj.disposed, "disposed is set to true");
-			equal(obj.name, undefined, "name is disposed");// name返回:undefined
-			obj.method();
+		ok(obj.disposed, "disposed is set to true");
+		equal(obj.name, undefined, "name is disposed");// name返回:undefined
+		obj.method();
 
-		});
-	
-	test("toString", function() {
-		function myClass() {
-			this.name = "myclass";
-		}
-		_inherits(myClass, baidu.lang.Class,"myclass");
-		// 通过继承baidu.lang.Class来获取dispose方法
-			var obj = new myClass();
-			equal(obj.toString(),"[object myclass]", "check toString : ");// name返回:undefined
-		});
-	
-})();
+	});
+
+test("toString", function() {
+	function myClass() {
+		this.name = "myclass";
+	}
+	_inherits(myClass, baidu.lang.Class,"myclass");
+	// 通过继承baidu.lang.Class来获取dispose方法
+		var obj = new myClass();
+		equal(obj.toString(),"[object myclass]", "check toString : ");// name返回:undefined
+	});
 
 //
 //

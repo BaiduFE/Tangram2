@@ -1,6 +1,6 @@
 ﻿module("baidu.dom.data");
 
-test("兼容Magic接口：第一个参数为 String ", function () {
+test("第一个参数为 String ", function () {
     var guid = baidu.id.key
         , $dom = baidu.dom(document.body)
         , maps = window[ baidu.guid ]._maps_HTMLElementData;
@@ -20,7 +20,7 @@ test("兼容Magic接口：第一个参数为 String ", function () {
 });
 
 //兼容JQ
-test("兼容Magic接口：获取自定义属性", function () {
+test("获取自定义属性", function () {
     var div1 = document.createElement('div');
     div1.id = 'test-data1';
     div1.setAttribute('data-rayi','{"jiyou":"wangxiao","dashu":"jihu"}');
@@ -32,4 +32,13 @@ test("兼容Magic接口：获取自定义属性", function () {
     div2.setAttribute('data-rayi','jiyou');
     document.body.appendChild(div2);
     equal( baidu.dom('#test-data2').data("rayi"), "jiyou", "取得data-开头的自定义属性" );    
+});
+
+test('当传入值是0的时候', function(){
+    var a = document.createElement('A');
+    document.body.appendChild(a);
+    a.href = 'http://www.baidu.com';
+    baidu.dom(a).data('tangram-key', 0);
+    ok(baidu.dom(a).data('tangram-key') === 0, 'get value is 0');
+    document.body.removeChild(a);
 });

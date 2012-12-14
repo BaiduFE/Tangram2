@@ -13,13 +13,7 @@
         ?>
         <link rel="stylesheet" type="text/css" href="./assets/css/app.css" />
         <link type="text/css" rel="stylesheet" href="./assets/css/shCoreDefault.css"/>
-        <script type="text/javascript" src="./assets/js/jQuery-1.8.2.js"></script>
-        <script type="text/javascript" src="./assets/js/mustache.js"></script>
-        <script type="text/javascript" src="./assets/js/tree.js"></script>
-        <script type="text/javascript" src="./assets/js/app.js"></script>
-        <script type="text/javascript" src="./assets/js/shCore.js"></script>
-        <script type="text/javascript" src="./assets/js/shBrushJScript.js"></script>
-        <script type="text/javascript" src="./assets/js/jshint.js"></script>
+        <script type="text/javascript" src="./assets/lib/sea.js"></script>
     </head>
     <body>
         <div class="hd">
@@ -32,10 +26,13 @@
             ?>
             <div class="toolbar">
                 <div class="options">
-                    <input type="checkbox" id="J_autoFixed" /><label for="J_autoFixed">发现错误时自动修复</label>
                     <input type="checkbox" id="J_hideOnPass" /><label for="J_hideOnPass">隐藏测试通过的文件</label>
                 </div>
-                <div class="actions"><button id="J_autoRun">批量测试</button></div>
+                <div class="actions">
+                    <button id="J_autoRunUnitTest">批量单元测试</button>
+                    <button id="J_autoRunStaticCheck">批量静态检查</button>
+                    <button id="J_autoRunSyntaxCheck">批量语法检查</button>
+                </div>
             </div>
         </div>
         <div class="content">
@@ -51,7 +48,7 @@
                         <h3>静态检查</h3>
                         <p>静态检查主要对文件编码、Bomb 头、缩进符进行检查。</p>
                         <h3>语法检查</h3>
-                        <p>语法检查主要对 js 的语法进行检查，包括意外暴露的全局变量等。</p>
+                        <p>语法检查主要对 js 的语法进行检查，包括意外暴露的全局变量、额外的逗号、debugger等。</p>
                         <h3>文档预览</h3>
                         <p>文档预览用于在本地查看代码注释的正确性。</p>
                     </div>
@@ -63,22 +60,48 @@
                             <li id="J_staticCheckTab">静态检查</li>
                             <li id="J_syntaxCheckTab">语法检查</li>
                             <li id="J_docPreviewTab">文档预览</li>
-                            <li id="J_srcTab">查看源码</li>
-                            <li id="J_unitTab">查看用例</li>
+                            <li id="J_showSrcTab">查看源码</li>
+                            <li id="J_showUnitTab">查看用例</li>
                         </ul>
                     </div>
                     <div id="J_unitTest" class="tab-item current"><iframe id="J_unitTestFrame" src="" frameborder="no" scrolling="auto" ></iframe></div>
                     <div id="J_staticCheck" class="testcase-wrap tab-item"></div>
                     <div id="J_syntaxCheck" class="syntax-wrap tab-item"></div>
                     <div id="J_docPreview" class="doc-wrap tab-item"></div>
-                    <div id="J_src" class="src-wrap tab-item"></div>
-                    <div id="J_unit" class="unit-wrap tab-item"></div>
+                    <div id="J_showSrc" class="src-wrap tab-item"></div>
+                    <div id="J_showUnit" class="unit-wrap tab-item"></div>
                 </div>
+            </div>
+        </div>
+
+        <div class="console-wrap console-close" id="J_consoleWrap">
+            <div class="console-bar" id="J_consoleBar"></div>
+            <div class="console" id="J_console"></div>
+            <div class="console-filterWrap">
+                <span class="console-clear" id="J_clearConsole" title="清除控制台日志">清除</span>
+                <span class="console-filter focus" filter="All">All</span>
+                <span class="console-filter" filter="Pass">Pass</span>
+                <span class="console-filter" filter="Error">Error</span>
+                <span class="console-filter" filter="Warning">Warning</span>
             </div>
         </div>
         <script type="text/javascript">
             (function(){
-                App.run();
+                seajs.config({
+                    alias: {
+                        'jQuery': '../lib/jQuery-1.8.2.js',
+                        'mustache': '../lib/mustache.js',
+                        'shCore': '../lib/shCore.js',
+                        'shBrushJScript': '../lib/shBrushJScript.js',
+                        'jshint': '../lib/jshint.js'
+                    },
+                    base: './assets/js',
+                    charset: 'utf-8'
+                });
+
+                seajs.use('App', function(app){
+                    app.run();
+                });
             })();
         </script>
     </body>

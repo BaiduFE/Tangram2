@@ -61,11 +61,11 @@ test('异常用例', function(){
 	equal(head.className,"","head sets classname");
 });
 
-//老接口测试
+//兼容1.x接口测试
 /**
  * 貌似依然需要遍历，这个是否可以考虑添加到tools.js中
  */
-test('老接口：add', function(){
+test('兼容1.x接口：add', function(){
 	//expect(2);
 	var div = document.createElement('div');
 	baidu.dom.toggleClass(div,"div_class1");

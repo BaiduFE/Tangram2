@@ -18,5 +18,5 @@ baidu.dom.setPosition = function(element, coordinate){
     element = baidu.dom.g(element);
     baidu.dom(element).offset(coordinate);
     return element;
-}
+};
 /// Tangram 1.x Code End
