@@ -22,7 +22,7 @@ baidu.id = function() {
     var maps = baidu.global("_maps_id")
         ,key = baidu.key;
 
-    baidu.global("_counter", 1, true);
+    baidu.global("_counter", 1);
 
     return function( object, command ) {
         var e
@@ -35,12 +35,12 @@ baidu.id = function() {
             switch ( command ) {
             case "get" :
                 return obj_1 ? id : maps[id];
-            break;
+//            break;
             case "remove" :
             case "delete" :
                 if ( e = maps[id] ) {
-                    // 20120827 mz IE低版本给 element[key] 赋值时会写入DOM树，因此在移除的时候需要使用remove
-                    if (baidu.isElement(e) && baidu.browser.ie < 7) {
+                    // 20120827 mz IE低版本(ie6,7)给 element[key] 赋值时会写入DOM树，因此在移除的时候需要使用remove
+                    if (baidu.isElement(e) && baidu.browser.ie < 8) {
                         e.removeAttribute(key);
                     } else {
                         delete e[ key ];
@@ -48,12 +48,12 @@ baidu.id = function() {
                     delete maps[ id ];
                 }
                 return id;
-            break;
+//            break;
             case "decontrol" : 
                 !(e = maps[id]) && obj_1 && ( object[ key ] = id = baidu.id() );
                 id && delete maps[ id ];
                 return id;
-            break;
+//            break;
             default :
                 if ( str_1 ) {
                     (e = maps[ id ]) && delete maps[ id ];

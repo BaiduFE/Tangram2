@@ -15,4 +15,4 @@ baidu._util_.smartAjax = baidu._util_.smartAjax || function(method){
             dataType: type
         });
     };
-}
+};

@@ -436,7 +436,7 @@ baidu.dom.extend({
 
                     //此处删除所有事件，如果用户有其他事件可能会一起删除。
                     //TODO：后续修改下。
-                    me.off('mousedown','**');
+                    me.off('mousedown');
                     drag = dragEle = focusEle = doc = opt = null;
                     for(var k in draggable){
                         delete draggable[k];

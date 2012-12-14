@@ -6,26 +6,26 @@
 
 void function(){
     var arr = ("blur focus focusin focusout load resize scroll unload click dblclick " +
-	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave mousewheel " +
-	"change select submit keydown keypress keyup error contextmenu").split(" ");
+    "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave mousewheel " +
+    "change select submit keydown keypress keyup error contextmenu").split(" ");
 
     var conf = {};
     var create = function( name ){
         conf[ name ] = function( data, fn ){
-		    if( fn == null )
-		    	fn = data,
-		    	data = null;
+            if( fn == null )
+                fn = data,
+                data = null;
 
-		    return arguments.length > 0 ?
-		    	this.on( name, null, data, fn ) :
-		    	this.trigger( name );
-		}
+            return arguments.length > 0 ?
+                this.on( name, null, data, fn ) :
+                this.trigger( name );
+        }
     };
 
-	for(var i = 0, l = arr.length; i < l; i ++)
-		create( arr[i] );
+    for(var i = 0, l = arr.length; i < l; i ++)
+        create( arr[i] );
 
-	baidu.dom.extend( conf );
+    baidu.dom.extend( conf );
 }();
 
 /**

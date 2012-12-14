@@ -19,14 +19,14 @@
  * @return {HTMLElement} 目标元素
  */
 baidu.dom.extend({
-setStyles : function ( styles) {
-    var element = this[0];
-
-    for (var key in styles) {
-        baidu.dom.setStyle(element, key, styles[key]);
-    }
-
-    return element;
-}	
+    setStyles : function ( styles) {
+        var element = this[0];
+    
+        for (var key in styles) {
+            baidu.dom.setStyle(element, key, styles[key]);
+        }
+    
+        return element;
+    }    
 });
 /// Tangram 1.x Code End

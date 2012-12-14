@@ -18,5 +18,5 @@
  */
 baidu.global.get = function(key){
     return baidu.global(key);
-}
+};
 /// support magic - Tangram 1.x Code End

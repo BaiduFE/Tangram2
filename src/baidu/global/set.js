@@ -20,5 +20,5 @@
  */
 baidu.global.set = function(key, value, overwrite){
     return baidu.global(key, value, !overwrite);
-}
+};
 /// support magic - Tangram 1.x Code End

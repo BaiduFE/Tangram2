@@ -8,9 +8,9 @@
 ///import baidu._util_.eventBase.listener;
 
 void function( base, be ){
-	var I = baidu.id;
-	var queue = base.queue = {};
-	var attaCache = queue.attaCache = baidu.global( "eventQueueCache" );
+    var I = baidu.id;
+    var queue = base.queue = {};
+    var attaCache = queue.attaCache = baidu.global( "eventQueueCache" );
     var listener = base.listener;
 
     queue.get = function( target, type, bindType, attachElements ){
@@ -30,7 +30,7 @@ void function( base, be ){
     };
 
     queue.add = function( target, type, bindType, item, attachElements ){
-    	this.get( target, type, bindType, attachElements ).push( item );
+        this.get( target, type, bindType, attachElements ).push( item );
     };
 
     queue.remove = function( target, type, fn ){
@@ -39,15 +39,15 @@ void function( base, be ){
             var arr = this.get( target, type );
             if( fn ){
                 for(var i = arr.length - 1; i >= 0; i --)
-                	if( arr[i].orig == fn )
-                		arr.splice( i, 1 );
+                    if( arr[i].orig == fn )
+                        arr.splice( i, 1 );
             }else{
                 arr.length = 0;
             }
         }else{
             var c = this.get( target );
             for(var i in c)
-            	c[i].length = 0;
+                c[i].length = 0;
         }
     };
 
