@@ -182,7 +182,8 @@ baidu.extend(baidu.base.Class.prototype, {
 
 
 /*
- * 按唯一标识guid字符串取得实例对象
+ * @description 按唯一标识guid字符串取得实例对象
+ * @modify 2012.12.14 mz 对1.x版本的兼容
  * @function
  * @param   {String}    guid
  * @return  {object}            实例对象
