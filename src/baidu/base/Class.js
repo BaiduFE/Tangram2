@@ -188,7 +188,8 @@ baidu.extend(baidu.base.Class.prototype, {
  * @return  {object}            实例对象
  */
 window["baiduInstance"] = function(guid) {
-    return baidu._global_._instances_[ guid ];
+    var global = window[baidu.guid];
+    return global._instances_[ guid ] || global._instances[ guid ];
 }
 
 
