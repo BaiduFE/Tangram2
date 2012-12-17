@@ -22,9 +22,10 @@
         </div>
     </body>
     <script type="text/javascript">
-    var s = baidu('.group').sortable({
+    var s = baidu('.group');
+    s.sortable({
         range:'#wrapper',
-        onstart:function(){}
+        onstart:function(){console.log(123);}
     });
     </script>
 </html>

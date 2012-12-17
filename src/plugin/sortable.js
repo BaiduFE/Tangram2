@@ -285,6 +285,7 @@ baidu.dom.extend({
     sortable : function(value,opts){
 
         var me = this,
+            argsNum = arguments.length,
 
             //每一个可以被拖拽的项
             item,
@@ -556,10 +557,10 @@ baidu.dom.extend({
             },
 
             //函数主逻辑
-            init = function(value,opts){
+            init = function(){
 
                 //函数参数逻辑
-                switch(arguments.length){
+                switch(argsNum){
 
                     //没有传参，默认执行
                     case 0:

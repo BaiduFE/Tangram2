@@ -81,7 +81,7 @@
 */
 
 /**
- * @description 取得当前正在被拖拽的元素，或者上次被拖拽的元素
+ * @description 取得当前正在被拖拽的元素，或者上次被拖拽的元素（如果未拖拽，则为空）
  * @function 
  * @name baidu().draggable().item()
  * @grammar baidu(args).draggable().item()
@@ -291,6 +291,9 @@ baidu.dom.extend({
             //drag enter的元素列表，在drag leave中会监测
             dragEnter = {},
 
+            //最初的位置
+            _offset,
+
             //初始化设置的值，挂在在实例上
             funs = {
 
@@ -386,9 +389,8 @@ baidu.dom.extend({
 
                 //重置方法，恢复到最初
                 reset:function(){
-                    var o = dragEle.data('offset');
-                    if(o.left){
-                        dragEle.offset(o);
+                    if(drag){
+                        dragEle.offset(_offset);
                     };
                     return draggable;
                 },
@@ -462,13 +464,13 @@ baidu.dom.extend({
                 if(drag){
                     drag.dispose();
                 };
+
                 drag = baidu.plugin._util_.drag(e.currentTarget);
                 dragEle = drag.target;
                 dragEle.addClass('tang-draggable-dragging');
                 draggable.fire('start',{target:dragEle,pageX:e.pageX,pageY:e.pageY});
-
-                if(!dragEle.data('offset')){
-                    dragEle.data('offset',dragEle.offset());
+                if(!_offset){
+                    _offset = dragEle.offset();
                 };
 
                 //限制了范围

@@ -199,6 +199,10 @@ baidu.plugin._util_.drag = function(selector){
 
                 case 1:
                     if(baidu.type(value)=='Object'){
+                        if(!value.left){value.left = 0;};
+                        if(!value.top){value.top = 0;};
+                        if(!value.right){value.right = 10000;};
+                        if(!value.bottom){value.bottom = 10000;};
                         _range = value;
                     }else{
                         //传入selector
