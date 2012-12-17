@@ -1,8 +1,7 @@
 (function(){
 	var h = setInterval(function(){
 		if(top.apicontent && top.count1 && top.count2){
-			$("body").append("<div></div>");
-			$("body").append('<script type="text/javascript">' + top.apicontent + '<\/script>');
+			$("head").append('<script type="text/javascript">' + top.apicontent + '<\/script>');
 			clearInterval(h);
 			if(top.flag == false){
 				download_test();
