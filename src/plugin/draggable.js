@@ -273,7 +273,6 @@
 ///import baidu.dom.contains;
 ///import baidu.dom.addClass;
 ///import baidu.dom.removeClass;
-///import baidu.dom.data;
 ///import plugin._util_.drag;
 ///import plugin._util_.isCrash;
 

@@ -360,7 +360,7 @@ baidu.dom.extend({
 
                         //set方法，内部接口
                         for(var i = 0,num = item.size();i<num;i++){
-                            item.eq(i).data('sortable-id',''+i);
+                            item.eq(i).data('sortable-id',i);
                         };
                     }else{
                         var index = [],
@@ -488,7 +488,7 @@ baidu.dom.extend({
 
                 //TODO：以后可以考虑根据需求开放clone这个元素的样式
                 dragEleClone.addClass('tang-sortable-clone');
-                dragEleClone.removeClass('tang-draggable-dragging');
+                dragEleClone.removeClass('tang-draggable-dragging tang-sortable-item');
                 dragEle.after(dragEleClone);
                 dragEleClone.css('visibility','hidden');
                 dragEle.css('position','absolute');

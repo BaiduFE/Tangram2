@@ -404,7 +404,7 @@ baidu.dom.extend({
                         me.find(value).removeClass('tang-selectable-selected');
                         return selectable;
                     }else{
-                        return me.not('.tang-selectable-selected');
+                        return item.not('.tang-selectable-selected');
                     };
                 },
 
