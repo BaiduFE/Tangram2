@@ -89,13 +89,20 @@ test('第二次排序', function() {
     move(div, 0, 0);
 });
 
-// test('cancel方法', function() {
-//     expect(2);
-//     var tang = baidu('#test-a');
-//     sortable.cancel();
-//     equal(tang.offset().left, 48, "stop left");
-//     equal(tang.offset().top, 88, "stop top");    
-// });
+test('index方法', function() {
+    expect(2);
+    var index = sortable.index();
+    console.log(index);
+    //equal(tang.offset().top, 88, "stop top");    
+});
+/*
+test('cancel方法', function() {
+    expect(2);
+    var tang = baidu('#test-a');
+    sortable.cancel();
+    equal(tang.offset().left, 48, "stop left");
+    equal(tang.offset().top, 88, "stop top");    
+});
 
 test('reset方法', function() {
     expect(2);
@@ -223,11 +230,11 @@ test('事件相关', function() {
         if (x >= 100) {
             ua.mouseup(ele);
             equal(startNum,1, "start事件");
-            equal(draggingNum,9, "dragging事件");
+            equal(draggingNum,10, "dragging事件");
             equal(endNum,1, "end事件");
             equal(changeNum,1, "change事件");
 
-            jQuery('#test-a').remove();
+            jQuery('#wrapper').remove();
 
             start();
         } else {
@@ -243,3 +250,4 @@ test('事件相关', function() {
 
     move(div, 0, 0);
 });
+*/
