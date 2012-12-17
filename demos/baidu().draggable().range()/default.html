@@ -4,32 +4,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="baidu().draggable().range() 示例"/>
     <title>方法相关</title>
-    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
     <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
-    <script type="text/javascript" src="../../src/import.php?f=plugin.draggable"></script>
+    <script type="text/javascript" src="http://wangxiao03.fe.baidu.com/cron/BaiduFE/Tangram2/src/import.php?f=plugin.draggable"></script>
     <style type="text/css">
         #draggable {
-            border: 2px dashed #000;
+            border: 1px dashed red;
             padding: 50px;
         }
 
         #draggable-ele {
             width: 100px;
-            height: 70px;
+            height: 60px;
             text-align: center;
             font-size: 12px;
-            color: red;
-            background:#ccc;
-            padding-top: 30px;
+            color: #000;
+            background: #abc8f2;
+            padding-top: 40px;
         }
 
         #outer {
             position: absolute;
             right: 40px;
             top: 120px;
-            width: 200px;
-            height: 200px;
-            border: 2px solid #000;
+            width: 150px;
+            height: 150px;
+            border: 1px solid #000;
         }
 
         #butArea {
@@ -45,18 +44,20 @@
         #method-exp {
             color: red;
             margin-left: 10px;
+            line-height: 24px;
         }
 
         #draggable-ele.tang-draggable-dragging {
-            background: #0FF;
+            background: #6BA5F5;
+            color: #fff;
         }
 
     </style>
 </head>
 <body>
+<link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
 <div class="demo" id="demo">
     <h1 class="ac-h1"><strong>baidu().draggable().range()</strong> 示例</h1>
-
     <div class="pannel">
         <div class="pannel-title">
             <span>相关方法说明：</span><span id="method-exp"></span>
@@ -68,18 +69,21 @@
             <div class="pannel-content-part">
                 <div id="draggable">
                     <div id="draggable-ele">
-                        拖我进黑色边框内
+                        拖我
                     </div>
                     <strong></strong>
                     <div id="outer">
                     </div>
                     <ul id="butArea">
-                        <li><a class="button" id="range">限定拖拽范围为黑色虚线框内</a></li>
-                        <li><a class="button" id="zIndex">取出或设置当前拖拽元素层级</a></li>
-                        <li><a class="button" id="cancel">取消本次拖拽</a></li>
                         <li><a class="button" id="disable">使当前拖拽元素无法拖拽</a></li>
                         <li><a class="button" id="enable">重新开启当前拖拽元素</a></li>
-                        <li><a class="button" id="endOf">限定拖拽元素一定要到达的黑色边框区域内</a></li>
+                        <li><a class="button" id="zIndex">取出或设置当前拖拽元素层级</a></li>
+                        <li><a class="button" id="item">取得当前正在被拖拽的元素，或者上次被拖拽的元素</a></li>
+                        <li><a class="button" id="cancel">取消本次拖拽</a></li>
+                        <li><a class="button" id="reset">重置拖拽，恢复到最初</a></li>
+                        <li><a class="button" id="range">限定拖拽范围为红色虚线框内</a></li>
+                        <li><a class="button" id="endOf">限定拖拽元素一定要到达黑色边框区域内</a></li>
+                        <li><a class="button" id="getBack">重新获取当前元素的 tangramDom 链头</a></li>
                     </ul>
                 </div>
             </div>
@@ -90,46 +94,64 @@
 </div>
 <script type="text/javascript">
     (function () {
-        var a = baidu( '#draggable-ele' ).draggable( {
+        var draggable = baidu( '#draggable-ele' ).draggable( {
                 zIndex:10
             } ),
             num,
             box = baidu( '#method-exp' );
 
-        //限定拖拽范围为黑色虚线框内
-        baidu( '#range' ).on('click', function () {
-            a.range( '.pannel-content-part' );
-            box.html( '设置拖拽范围为黑色虚线框内' );
-        } )
-
-        //取出或设置当前拖拽元素层级
-        baidu( '#zIndex' ).on('click', function () {
-            box.html( '取出当前拖拽元素层级：'+ a.zIndex() );
-        } )
-
-        //取消本次拖拽
-        baidu( '#cancel' ).on('click', function () {
-            a.cancel();
-            box.html( '取消了本次拖拽' );
-        } )
-
         //使当前拖拽元素无法拖拽
-        baidu( '#disable' ).on('click', function () {
-            a.disable();
+        baidu( '#disable' ).on( 'click', function () {
+            draggable.disable();
             box.html( '当前元素无法拖拽了' );
         } )
 
         //重新开启当前拖拽元素
-        baidu( '#enable' ).on('click', function () {
-            a.enable();
-            box.html( '激活了当前元素的拖拽' );
+        baidu( '#enable' ).on( 'click', function () {
+            draggable.enable();
+            box.html( '重新开启了当前元素的拖拽' );
         } )
 
-        //限定拖拽元素一定要到达的黑色边框区域内
-        baidu( '#endOf' ).on('click', function () {
-            a.endOf( '#outer' );
-            box.html( '限定了拖拽元素一定要到达的黑色边框区域内' );
+        //取出或设置当前拖拽元素层级
+        baidu( '#zIndex' ).on( 'click', function () {
+            box.html( '当前拖拽元素层级：' + draggable.zIndex() );
         } )
+
+        //取得当前正在被拖拽的元素，或者上次被拖拽的元素
+        baidu( '#item' ).on( 'click', function () {
+            box.html( '正在被拖拽的元素的 id 是：' + draggable.item().attr('id')+' 内容是：'+draggable.item().text() );
+        } )
+
+        //取消本次拖拽
+        baidu( '#cancel' ).on( 'click', function () {
+            draggable.cancel();
+            box.html( '取消了本次拖拽' );
+        } )
+
+        //重置拖拽，恢复到最初
+        baidu( '#reset' ).on( 'click', function () {
+            draggable.reset();
+            box.html( '取消了本次拖拽' );
+        } )
+
+        //限定拖拽范围为红色虚线框内
+        baidu( '#range' ).on( 'click', function () {
+            draggable.range( '#draggable' );
+            box.html( '设置拖拽范围为红色虚线框内' );
+        } )
+
+        //限定拖拽元素一定要到达黑色边框区域内
+        baidu( '#endOf' ).on( 'click', function () {
+            draggable.endOf( '#outer' );
+            box.html( '限定了拖拽元素一定要到达黑色边框区域内' );
+        } )
+
+        //重新获取当前元素的 tangramDom 链头
+        baidu( '#getBack' ).on( 'click', function () {
+            draggable.getBack().css('border','1px solid red');
+            box.html( '重新获取当前元素的 tangramDom 链头,设置可拖拽元素边框为红色' );
+        } )
+
     })();
 
 </script>
