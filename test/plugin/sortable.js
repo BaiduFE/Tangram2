@@ -1,4 +1,3 @@
-
 //准备工序
 var sortable;
 function prepareTest(){
