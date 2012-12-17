@@ -304,6 +304,10 @@ baidu.dom.extend({
             dragEleClone,
             dragEleCloneAttr = {},
 
+            //TODO:由于remove()方法不是很稳定，时而删除不掉元素，所以采用正则
+            rClassClone = /<[^>]*?class=['|"][^>]*?tang-sortable-clone[^>]*?>/g,
+            rPosition = /position\s*?:\s*?absolute\s*?;/g,
+
             //当前sortable内的HTML，为了能够完美实现reset方法
             htmlReset = '',
 
@@ -362,6 +366,7 @@ baidu.dom.extend({
                         for(var i = 0,num = item.size();i<num;i++){
                             item.eq(i).data('sortable-id',i);
                         };
+                        return sortable;
                     }else{
                         var index = [],
                             _item = me.find('.tang-sortable-item');
@@ -370,19 +375,22 @@ baidu.dom.extend({
                         };
                         return index;
                     };
-                    return sortable;
                 },
 
                 //取消拖拽，回到上一次
                 cancel:function(){
-                    me.html(htmlCancel);
+
+                    //TODO:由于remove()中存在bug，所以采用正则，如果bug修复，则去掉正则替换。
+                    me.html(htmlCancel.replace(rClassClone,'').replace(rPosition,''));
                     init();
                     return sortable;
                 },
 
                 //重置拖拽
                 reset:function(){
-                    me.html(htmlReset);
+                    
+                    //TODO:由于remove()中存在bug，所以采用正则，如果bug修复，则去掉正则替换。
+                    me.html(htmlReset.replace(rClassClone,'').replace(rPosition,''));
                     init();
                     return sortable;
                 },
@@ -539,7 +547,6 @@ baidu.dom.extend({
                 
                 //此处怀疑remove中的bug，所以使用display处理下，后续可以去掉。
                 dragEleClone.css('display','none').remove();
-                me.remove(dragEleClone);
                 sortable.fire('end');
             },
 

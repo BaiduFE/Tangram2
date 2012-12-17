@@ -90,18 +90,18 @@ test('第二次排序', function() {
 });
 
 test('index方法', function() {
-    expect(2);
+    expect(1);
     var index = sortable.index();
-    console.log(index);
-    //equal(tang.offset().top, 88, "stop top");    
+    var arr = [0, 2, 3, 1];
+    equal(index[2], arr[2], "排序后的索引");    
 });
-/*
+
 test('cancel方法', function() {
-    expect(2);
+    expect(1);
     var tang = baidu('#test-a');
-    sortable.cancel();
-    equal(tang.offset().left, 48, "stop left");
-    equal(tang.offset().top, 88, "stop top");    
+    var arr = [0,1,2,3];
+    var index = sortable.cancel().index();
+    equal(index[2], arr[2], "排序后的索引");    
 });
 
 test('reset方法', function() {
@@ -250,4 +250,3 @@ test('事件相关', function() {
 
     move(div, 0, 0);
 });
-*/
