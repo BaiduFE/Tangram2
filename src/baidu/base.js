@@ -10,4 +10,4 @@
  * @Object 
  * @name baidu.base
  */
-baidu.base = baidu.base || {};
+baidu.base = baidu.base || {blank: function(){}};

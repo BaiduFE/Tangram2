@@ -19,6 +19,7 @@
  * @param {Number|String} value 参数传递一个整型数据或是字符串数值时，接口设置所有匹配元素的竖向滚动条的滚动位置
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象
  */
+
 baidu.dom.extend({
     scrollTop: function(){
         var ret = baidu._util_.smartScroll('scrollTop');
