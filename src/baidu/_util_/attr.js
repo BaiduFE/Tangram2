@@ -42,7 +42,7 @@ baidu._util_.attr = function(){
                     if(!radioValue && val === 'radio' && util.nodeName(ele, 'input')){
                         var v = ele.value;
                         ele.setAttribute('type', val);
-                        v && (ele.value = v);                        
+                        v && (ele.value = v);
                         return val;
                     };
                     if(rtype.test(ele.nodeName) && ele.parentNode){return val;};

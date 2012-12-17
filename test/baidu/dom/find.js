@@ -55,3 +55,16 @@ test('逻辑特性测试（单个元素）', function () {
 		equal(target[i++].className, 'item-c');
 	});
 });
+test('查找单个HTMLElement', function(){
+    var div = document.createElement('div'),
+        ele, tang;
+    document.body.appendChild(div);
+    div.innerHTML = '<ul><li>A</li><li id="liId">B</li><li>C</li></ul>';
+    ele = document.getElementById('liId');
+    tang = baidu.dom(div).find(ele);
+    ok(tang.get(0) === ele, 'find HTMLElement');
+    ele = baidu.dom(ele);
+    tang = baidu.dom(div).find(ele);
+    ok(tang.get(0) === ele.get(0), 'find tangramDOM');
+    document.body.removeChild(div);
+});
