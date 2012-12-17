@@ -4,20 +4,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="baidu().selectable().disable() 示例"/>
     <title>方法相关</title>
-    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
     <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
-    <script type="text/javascript" src="../../src/import.php?f=plugin.selectable"></script>
+    <script type="text/javascript" src="http://wangxiao03.fe.baidu.com/cron/BaiduFE/Tangram2/src/import.php?f=plugin.selectable"></script>
     <style type="text/css">
         #selectable {
-            border: 2px dashed #000;
-            padding: 50px;
+            border: 1px dashed red;
+            padding: 50px 0 50px 20px;
             height: 500px;
         }
 
         #selectable ol, #selectable ul {
             list-style: none;
-            margin: 30px 100px 30px 0;
             float: left;
+        }
+
+        #selectable ul {
+            margin-right:60px ;
         }
 
         #selectable ul li {
@@ -39,6 +41,7 @@
         #method-exp {
             color: red;
             margin-left: 10px;
+            line-height: 24px;
         }
 
         #method-exp em {
@@ -56,12 +59,13 @@
 
         #selectable .tang-selectable-selected {
             background: #F39814;
-            color: white;
+            color: #fff;
         }
 
     </style>
 </head>
 <body>
+<link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
 <div class="demo" id="demo">
     <h1 class="ac-h1"><strong>baidu().selectable().disable()</strong> 示例</h1>
 
@@ -73,10 +77,16 @@
             <!--DemoViewStart-->
             <div id="selectable">
                 <ul>
-                    <li><a class="button" id="range">设置激活的范围为黑色虚线框内</a></li>
                     <li><a class="button" id="disable">关闭当前这个选择列表（selectable）的功能</a></li>
                     <li><a class="button" id="enable">开启当前这个选择列表（selectable）的功能</a></li>
+                    <li><a class="button" id="range">设置激活的范围为红色虚线框内</a></li>
+                    <li><a class="button" id="cancel">取消本次选择</a></li>
+                    <li><a class="button" id="reset">重置选择，恢复为一个都没选</a></li>
+                    <li><a class="button" id="selected">取得或设置当前被选择的元素</a></li>
+                    <li><a class="button" id="unselected">取得或设置当前没有被选择的元素</a></li>
+                    <li><a class="button" id="item">取得所有可以被选择的元素</a></li>
                     <li><a class="button" id="index">取得当前被选择元素的索引</a></li>
+                    <li><a class="button" id="getBack">重新获取当前元素的 tangramDom 链头</a></li>
                 </ul>
                 <ol>
                     <li>Item 1</li>
@@ -95,37 +105,98 @@
 </div>
 <script type="text/javascript">
     (function () {
-        var a = baidu( '#selectable ol' ).selectable(),
-            num,
+        var selectable = baidu( '#selectable ol' ).selectable(),
+            index,
+            item,
+            selectedELe,
+            unselectedEle,
+            text,
+            arr = [],
             box = baidu( '#method-exp' );
-
-        //设置当前选择列表（selectable）激活的范围为黑色虚线框内
-        baidu( '#range' ).on('mousedown', function () {
-            a.range( '#selectable' );
-            box.html( '设置当前排序列表（sortable）激活的范围为黑色虚线框内' );
-        } );
 
         //关闭当前这个选择列表（selectable）的功能
         baidu( '#disable' ).on('mousedown', function () {
-            a.disable();
+            selectable.disable();
             box.html( '关闭了当前选择列表（selectable）的功能' );
         } );
 
         //开启当前这个选择列表（selectable）的功能
         baidu( '#enable' ).on('mousedown', function () {
-            a.enable();
+            selectable.enable();
             box.html( '开启了当前选择列表（selectable）的功能' );
+        } );
+
+        //设置当前选择列表（selectable）激活的范围为黑色虚线框内
+        baidu( '#range' ).on('mousedown', function () {
+            selectable.range( '#selectable' );
+            box.html( '设置当前排序列表（sortable）激活的范围为黑色虚线框内' );
+        } );
+
+        //取消本次选择
+        baidu( '#cancel' ).on('mousedown', function () {
+            selectable.cancel( '#selectable' );
+            box.html( '取消了本次选择' );
+        } );
+
+        //重置选择，恢复到最初
+        baidu( '#reset' ).on( 'mousedown', function () {
+            selectable.reset();
+            box.html( '重置了本次选择' );
+        } )
+
+        //取得或设置当前被选择的元素
+        baidu( '#selected' ).on( 'mousedown', function () {
+            selectedELe = selectable.selected();
+            arr = [];
+            for ( var i = 0; i < selectedELe.length; i++ ) {
+                text = selectedELe.eq( i ).text();
+                arr.push( text );
+            }
+            arr.length == 0 ? box.html( '您还没有选择' ):box.html( '本次选择的元素内容是'+arr.join( ',' ) );
+
+        } )
+
+        //取得或设置当前没有被选择的元素
+        baidu( '#unselected' ).on( 'mousedown', function () {
+            debugger;
+            unselectedELe = selectable.unselected();
+            console.log(unselectedEle);
+            arr = [];
+            for ( var i = 0; i < unselectedELe.length; i++ ) {
+                text = unselectedELe.eq( i ).text();
+                arr.push( text );
+            }
+            arr.length == 0 ? box.html( '您全部选择了' ):box.html( '本次没有选择的元素内容是'+arr.join( ',' ) );
+
+        } )
+
+        //取得所有可以被选择的元素
+        baidu( '#item' ).on('mousedown', function () {
+            item = selectable.item();
+            arr = [];
+            for ( var i = 0; i < item.length; i++ ) {
+                text = item.eq( i ).text();
+                arr.push( text );
+            }
+            box.html( '所有可以被选择的元素是'+arr.join( ',' ) );
         } );
 
         //取得当前被选择元素的索引
         baidu( '#index' ).on('mousedown', function () {
-            num = (a.index()).toString();
-            if ( num.length == 0 ) {
+            index = (selectable.index()).toString();
+            if ( index.length == 0 ) {
                 box.html( '您还没有选择' );
             } else {
-                box.html( '您刚才选中的是索引为<em>' + num + '</em>的项' );
+                box.html( '您刚才选中的是索引为<em>' + index + '</em>的项' );
             }
         } );
+
+        //重新获取当前元素的 tangramDom 链头
+        baidu( '#getBack' ).on( 'mousedown', function () {
+            selectable.getBack().css('border','1px solid red');
+            box.html( '重新获取当前元素的 tangramDom 链头,设置可拖拽元素边框为红色' );
+        } );
+
     })();
 </script>
 </body>

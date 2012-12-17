@@ -2,22 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="description" content="baidu().sortable().index() 示例"/>
+    <meta name="description" content="baidu().sortable() 方法示例"/>
     <title>方法相关</title>
     <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
     <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
-    <script type="text/javascript" src="../../src/import.php?f=plugin.sortable"></script>
+    <script type="text/javascript" src="http://wangxiao03.fe.baidu.com/cron/BaiduFE/Tangram2/src/import.php?f=plugin.sortable"></script>
     <style type="text/css">
         #sortable {
-            border: 2px dashed #000;
-            padding: 50px;
+            border: 1px dashed red;
+            padding: 50px 0 50px 20px;
             height: 500px;
         }
 
         #sortable ol, #sortable ul {
             list-style: none;
-            margin: 30px 100px 30px 0;
             float: left;
+        }
+
+        #sortable ul {
+            margin-right: 30px;
         }
 
         #sortable ul li {
@@ -48,6 +51,7 @@
         #method-exp {
             color: red;
             margin-left: 10px;
+            line-height: 24px;
         }
 
         #method-exp em {
@@ -56,13 +60,14 @@
         }
 
         #sortable li.tang-draggable-dragging {
-            background: #0FF;
+            background: #6BA5F5;
         }
+
     </style>
 </head>
 <body>
 <div class="demo" id="demo">
-    <h1 class="ac-h1"><strong>baidu().sortable().index()</strong> 示例</h1>
+    <h1 class="ac-h1"><strong>baidu().sortable() 方法</strong> 示例</h1>
 
     <div class="pannel">
         <div class="pannel-title">
@@ -72,13 +77,14 @@
             <!--DemoViewStart-->
             <div id="sortable">
                 <ul>
-                    <li><a class="button" id="range">设置当前排序列表（sortable）拖拽的范围为黑色虚线框内</a></li>
                     <li><a class="button" id="disable">关闭当前排序列表（sortable）的功能</a></li>
                     <li><a class="button" id="enable">开启当前排序列表（sortable）的功能</a></li>
-                    <li><a class="button" id="element">取得当前排序列表（sortable）中所有元素</a></li>
+                    <li><a class="button" id="range">设置当前排序列表（sortable）拖拽的范围为红色虚线框内</a></li>
+                    <li><a class="button" id="item">取得当前排序列表（sortable）中所有元素</a></li>
                     <li><a class="button" id="index">取得当前排序列表（sortable）的元素索引</a></li>
                     <li><a class="button" id="cancel">取消本次排序操作，恢复为之前状态</a></li>
                     <li><a class="button" id="reset">重置排序列表（sortable），恢复为初始状态</a></li>
+                    <li><a class="button" id="getBack">重新获取当前元素的 tangramDom 链头</a></li>
                 </ul>
                 <ol>
                     <li><span></span>Item 1</li>
@@ -98,33 +104,34 @@
 <script type="text/javascript">
 
     (function () {
-        var a = baidu( '#sortable ol' ).sortable(),
-                num,
-                text,
-                arr = [],
-                box = baidu( '#method-exp' );
-
-        //设置当前排序列表（sortable）拖拽的范围为黑色虚线框内
-        baidu( '#range' ).on( 'click', function () {
-            a.range( '#sortable' );
-            box.html( '设置当前排序列表（sortable）拖拽的范围为黑色虚线框内' );
-        } );
+        var sortable = baidu( '#sortable ol' ).sortable(),
+            num,
+            text,
+            arr = [],
+            box = baidu( '#method-exp' );
 
         //关闭当前排序列表（sortable）的功能
         baidu( '#disable' ).on( 'click', function () {
-            a.disable();
+            sortable.disable();
             box.html( '关闭了当前排序列表（sortable）的功能' );
         } );
 
         //开启当前排序列表（sortable）的功能
         baidu( '#enable' ).on( 'click', function () {
-            a.enable();
+            sortable.enable();
             box.html( '开启了当前排序列表（sortable）的功能' );
         } );
 
+        //设置当前排序列表（sortable）拖拽的范围为红色虚线框内
+        baidu( '#range' ).on( 'click', function () {
+            sortable.range( '#sortable' );
+            box.html( '设置当前排序列表（sortable）拖拽的范围为黑色虚线框内' );
+        } );
+
         //取得当前排序列表（sortable）中所有元素
-        baidu( '#element' ).on( 'click', function () {
-            num = a.item();
+        baidu( '#item' ).on( 'click', function () {
+            num = sortable.item();
+            arr = [];
             for ( var i = 0; i < num.length; i++ ) {
                 text = num.eq( i ).text();
                 arr.push( text )
@@ -134,7 +141,7 @@
 
         //取得当前排序列表（sortable）的元素索引
         baidu( '#index' ).on( 'click', function () {
-            num = (a.index()).toString();
+            num = (sortable.index()).toString();
             if ( num.length == 0 ) {
                 box.html( '您还没有选择' );
             } else {
@@ -144,14 +151,19 @@
 
         //取消本次排序操作，恢复为之前状态
         baidu( '#cancel' ).on( 'click', function () {
-            a.cancel();
+            sortable.cancel();
             box.html( '取消了本次排序操作' );
         } );
 
         //重置排序列表（sortable），恢复为初始状态
         baidu( '#reset' ).on( 'click', function () {
-            a.reset();
+            sortable.reset();
             box.html( '重置了排序列表（sortable）' );
+        } );
+
+        baidu( '#getBack' ).on( 'mousedown', function () {
+            sortable.getBack().css('border','1px solid red');
+            box.html( '重新获取当前元素的 tangramDom 链头,设置可拖拽元素边框为红色' );
         } );
 
     })();
