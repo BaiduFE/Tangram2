@@ -38,7 +38,7 @@ baidu.dom.extend({
             ele = baidu.dom(selector).eq(0),
             o = ele.offset(),
             w = ele.outerWidth(),
-            h = ele.outerHeight()
+            h = ele.outerHeight(),
             num = me.size(),
 
             //检测算子，传入四个值比较，strict（是否严格）

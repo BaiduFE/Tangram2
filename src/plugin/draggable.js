@@ -294,6 +294,9 @@ baidu.dom.extend({
             //最初的位置
             _offset,
 
+            //关注的元素
+            focusEle,
+
             //初始化设置的值，挂在在实例上
             funs = {
 
