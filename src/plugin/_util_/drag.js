@@ -186,8 +186,8 @@ baidu.plugin._util_.drag = function(selector){
             doc.trigger('dragend');
             
             //解除鼠标粘滞
-            if (target.releaseCapture) {
-                target.releaseCapture();
+            if (ele[0].releaseCapture) {
+                ele[0].releaseCapture();
             } else if (window.releaseEvents) {
                 window.releaseEvents(Event.MOUSEMOVE|Event.MOUSEUP);
             };
@@ -244,6 +244,14 @@ baidu.plugin._util_.drag = function(selector){
         dispose:function(){
             doc.off('mousemove',handle);
             doc.off('selectstart',unselect);
+            
+            //解除鼠标粘滞
+            if (ele[0].releaseCapture) {
+                ele[0].releaseCapture();
+            } else if (window.releaseEvents) {
+                window.releaseEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+            };
+
             _w = _h = doc = ele = _o = _range = null;
             for(var k in this){
                 delete this[k];
