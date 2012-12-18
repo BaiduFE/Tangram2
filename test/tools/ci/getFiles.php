@@ -10,6 +10,7 @@
     }else{
         $treeDates = array('children' => array(
                     array('children' => array(), 'name' => 'baidu', 'type' => 'folder', 'dir' => $src_dir.'/baidu'),
+                    array('children' => array(), 'name' => 'plugin', 'type' => 'folder', 'dir' => $src_dir.'/plugin'),
                     array('children' => array(), 'name' => 'baidu.js', 'type' => 'file', 'dir' => $src_dir.'/baidu.js')
                 ));
     }
