@@ -166,6 +166,13 @@ baidu.plugin._util_.drag = function(selector){
             return e.preventDefault();
         };
 
+    //设置鼠标粘滞
+    if (ele[0].setCapture) {
+        target.setCapture();
+    } else if (window.captureEvents) {
+        window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+    };
+
     doc.trigger('dragstart',{target:ele});
 
     doc.on('mousemove',handle);
@@ -177,6 +184,14 @@ baidu.plugin._util_.drag = function(selector){
         target:ele,
         disable:function(){
             doc.trigger('dragend');
+            
+            //解除鼠标粘滞
+            if (target.releaseCapture) {
+                target.releaseCapture();
+            } else if (window.releaseEvents) {
+                window.releaseEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+            };
+            
             _w = _h = null;
             doc.off('mousemove',handle);
             doc.off('selectstart',unselect);

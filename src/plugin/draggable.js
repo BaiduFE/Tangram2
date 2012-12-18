@@ -492,11 +492,7 @@ baidu.dom.extend({
                 if(opt.zIndex){
                     draggable.zIndex(opt.zIndex);
                 };
-
-                if (window.captureEvents) {
-                    window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
-                };
-                
+                                
                 doc.on('mouseup',endHandle);
                 doc.on('dragging',ingHandle);
             },
