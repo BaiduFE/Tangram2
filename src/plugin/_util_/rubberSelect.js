@@ -206,7 +206,7 @@ baidu.plugin._util_.rubberSelect = function(options){
     //函数主逻辑开始
     mask = baidu.dom('.tang-rubberSelect');
     if(!mask.size()){
-        mask = baidu.dom('<div class="tang-rubberSelect">');
+        mask = baidu.dom('<div class="tang-rubberSelect" style="position:absolute;">');
     };
     setRange();
     mask.hide().appendTo(document.body);
