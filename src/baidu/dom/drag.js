@@ -95,8 +95,8 @@
         // 解除鼠标粘滞
         if (op.capture && target.releaseCapture) {
             target.releaseCapture();
-        } else if (op.capture && window.captureEvents) {
-            window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+        } else if (op.capture && window.releaseEvents) {
+            window.releaseEvents(Event.MOUSEMOVE|Event.MOUSEUP);
         }
         // 拖曳时网页内容被框选
         document.body.style.MozUserSelect = mozUserSelect;
