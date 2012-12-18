@@ -212,7 +212,8 @@ define(function(require, exports) {
                 $(JSHINT.errors).each(function(index, item){
                     if(!item){return};
                     // TODO 不能匹配出所有错误
-                    if(/(semicolon|debugger|Extra\scomma|is\snot\sdefined)/.test(item.reason) && !/nodeType/.test(item.evidence)){
+                    // if(/(semicolon|debugger|Extra\scomma|is\snot\sdefined)/.test(item.reason) && !/^(Missing\ssemicolon)/.test(item.reason) && !/nodeType/.test(item.evidence)){
+                        if(/(debugger|Extra\scomma|is\snot\sdefined)/.test(item.reason) && !/nodeType/.test(item.evidence)){
                         errors++;
                         failureList.push(node);
                         html += '<li><p><span class="line">Line ' + item.line + '</span>:<span class="code">' + Tools.encodeHTML(item.evidence) + '</span></p>'+
