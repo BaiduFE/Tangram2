@@ -114,49 +114,39 @@ baidu.plugin._util_.drag = function(selector){
         ele = baidu.dom(selector).eq(0),
 
         //拖拽前的offset值
-        _o = ele.offset(),
+        offset = ele.offset(),
 
         //相对宽度和高度
-        _w,_h,
+        width,height,
 
         //限定拖动范围，如果有值，则为 {top:,right:,bottom:,left:}
-        _range,
+        range,
 
         //跟随鼠标移动
         move = function(ele,x,y){
-            if(_range){
+            if(range){
 
-                //优化超速移动鼠标的变态情况，兼容有border的情况完美展现
-                if(x<_range.left){
-                    x = _range.left;
-                }else if( (x + _range.w) > _range.right ){
-                    x = _range.right - _range.w;
-                };
-                if(y<_range.top){
-                    y = _range.top;
-                }else if( (y + _range.h ) > _range.bottom ){
-                    y = _range.bottom - _range.h;
-                };
+                //优化超速移动鼠标的情况，兼容有border的情况
+                x = Math.min(range.right - range.width, Math.max(range.left, x));
+                y = Math.min(range.bottom - range.height, Math.max(range.top, y));
             };
-
-            //对全局派发事件
-            doc.trigger('dragging');
 
             //相对屏幕设置位置
             ele.offset({'left':x,'top':y});
+
+            //对全局派发事件
+            doc.trigger('dragging');
         },
 
-        handle = function(e){
+        handle = function(event){
 
             //增加函数节流，防止事件频繁触发函数，影响性能
             if(timer){return};
             timer = setTimeout(function(){
                 var o = ele.offset();
-                if(!_w){_w = e.pageX - o.left;};
-                if(!_h){_h = e.pageY - o.top;};
-                var x = e.pageX - _w,
-                    y = e.pageY - _h;
-                move(ele,x,y);
+                !width && (width = event.pageX - o.left);
+                !height && (height = event.pageY - o.top);
+                move(ele,event.pageX - width,event.pageY - height);
                 timer = null;
             },16);
         },
@@ -164,6 +154,25 @@ baidu.plugin._util_.drag = function(selector){
         //防止拖拽过程中选择上文字
         unselect = function (e) {
             return e.preventDefault();
+        },
+
+        onEvent = function(){
+
+            //修正拖曳过程中页面里的文字会被选中
+            doc.on('selectstart',unselect);
+            doc.on('mousemove',handle);
+        },
+
+        offEvent = function(){
+
+            //解除鼠标粘滞
+            if (ele[0].releaseCapture) {
+                ele[0].releaseCapture();
+            } else if (window.releaseEvents) {
+                window.releaseEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+            };
+            doc.off('mousemove',handle);
+            doc.off('selectstart',unselect);
         };
 
     //设置鼠标粘滞
@@ -174,33 +183,19 @@ baidu.plugin._util_.drag = function(selector){
     };
 
     doc.trigger('dragstart',{target:ele});
-
-    doc.on('mousemove',handle);
-
-    //修正拖曳过程中页面里的文字会被选中
-    doc.on('selectstart',unselect);
+    onEvent();
 
     return {
         target:ele,
         disable:function(){
+            offEvent();
             doc.trigger('dragend');
-            
-            //解除鼠标粘滞
-            if (ele[0].releaseCapture) {
-                ele[0].releaseCapture();
-            } else if (window.releaseEvents) {
-                window.releaseEvents(Event.MOUSEMOVE|Event.MOUSEUP);
-            };
-            
-            _w = _h = null;
-            doc.off('mousemove',handle);
-            doc.off('selectstart',unselect);
+            width = height = null;
             return this;
         },
         enable:function(){
             doc.trigger('dragstart');
-            doc.on('selectstart',unselect);
-            doc.on('mousemove',handle);
+            onEvent();
             return this;
         },
         range:function(value){
@@ -208,7 +203,7 @@ baidu.plugin._util_.drag = function(selector){
                 
                 //get方法
                 case 0:
-                    return _range;
+                    return range;
                 break;
 
                 case 1:
@@ -217,42 +212,33 @@ baidu.plugin._util_.drag = function(selector){
                         if(!value.top){value.top = 0;};
                         if(!value.right){value.right = 10000;};
                         if(!value.bottom){value.bottom = 10000;};
-                        _range = value;
+                        range = value;
                     }else{
                         //传入selector
                         var _ele = baidu.dom(value).eq(0);
-                        _range = _ele.offset();
-                        _range.right = _range.left + _ele.outerWidth(true);
-                        _range.bottom = _range.top + _ele.outerHeight(true);
+                        range = _ele.offset();
+                        range.right = range.left + _ele.outerWidth(true);
+                        range.bottom = range.top + _ele.outerHeight(true);
                     }
                 break;
             };
 
             //元素自身的宽和高
-            _range.w = ele.outerWidth(true);
-            _range.h = ele.outerHeight(true);
+            range.width = ele.outerWidth(true);
+            range.height = ele.outerHeight(true);
             return this;
         },
 
         //取消上一次拖拽
         cancel:function(){
-            ele.offset(_o);
+            ele.offset(offset);
             return this;
         },
 
         //析构函数
         dispose:function(){
-            doc.off('mousemove',handle);
-            doc.off('selectstart',unselect);
-            
-            //解除鼠标粘滞
-            if (ele[0].releaseCapture) {
-                ele[0].releaseCapture();
-            } else if (window.releaseEvents) {
-                window.releaseEvents(Event.MOUSEMOVE|Event.MOUSEUP);
-            };
-
-            _w = _h = doc = ele = _o = _range = null;
+            offEvent();
+            width = height = doc = ele = offset = range = null;
             for(var k in this){
                 delete this[k];
             };
