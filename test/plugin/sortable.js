@@ -234,7 +234,7 @@ test('事件相关', function() {
         if (x >= 100) {
             ua.mouseup(ele);
             equal(startNum,1, "start事件");
-            equal(draggingNum,10, "dragging事件");
+            equal(draggingNum,9, "dragging事件");
             equal(endNum,1, "end事件");
             equal(changeNum,1, "change事件");
 

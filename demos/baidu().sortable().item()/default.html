@@ -19,7 +19,7 @@
         }
 
         #sortable ul {
-            margin-right: 30px;
+            margin-top: 0px;
         }
 
         #sortable ul li {
@@ -76,16 +76,6 @@
         <div class="pannel-content">
             <!--DemoViewStart-->
             <div id="sortable">
-                <ul>
-                    <li><a class="button" id="disable">关闭当前排序列表（sortable）的功能</a></li>
-                    <li><a class="button" id="enable">开启当前排序列表（sortable）的功能</a></li>
-                    <li><a class="button" id="range">设置当前排序列表（sortable）拖拽的范围为红色虚线框内</a></li>
-                    <li><a class="button" id="item">取得当前排序列表（sortable）中所有元素</a></li>
-                    <li><a class="button" id="index">取得当前排序列表（sortable）的元素索引</a></li>
-                    <li><a class="button" id="cancel">取消本次排序操作，恢复为之前状态</a></li>
-                    <li><a class="button" id="reset">重置排序列表（sortable），恢复为初始状态</a></li>
-                    <li><a class="button" id="getBack">重新获取当前元素的 tangramDom 链头</a></li>
-                </ul>
                 <ol>
                     <li><span></span>Item 1</li>
                     <li><span></span>Item 2</li>
@@ -96,6 +86,16 @@
                     <li><span></span>Item 7</li>
                     <li><span></span>Item 8</li>
                 </ol>
+                <ul>
+                    <li><a class="button" id="disable">关闭排序列表（sortable）</a></li>
+                    <li><a class="button" id="enable">开启排序列表（sortable）</a></li>
+                    <li><a class="button" id="range">设置拖拽的范围为红色虚线框内</a></li>
+                    <li><a class="button" id="item">取得当前所有可排序元素</a></li>
+                    <li><a class="button" id="index">取得当前排序元素索引</a></li>
+                    <li><a class="button" id="cancel">取消本次排序操作，恢复为上次状态</a></li>
+                    <li><a class="button" id="reset">重置，恢复为初始状态</a></li>
+                    <li><a class="button" id="getBack">获取sortable实例的tangramDom链头</a></li>
+                </ul>
             </div>
             <!--DemoViewEnd-->
         </div>

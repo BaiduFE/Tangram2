@@ -149,7 +149,7 @@ baidu.plugin._util_.drag = function(selector){
         handle = function(e){
 
             //增加函数节流，防止事件频繁触发函数，影响性能
-            clearTimeout(timer);
+            if(timer){return};
             timer = setTimeout(function(){
                 var o = ele.offset();
                 if(!_w){_w = e.pageX - o.left;};
@@ -157,9 +157,8 @@ baidu.plugin._util_.drag = function(selector){
                 var x = e.pageX - _w,
                     y = e.pageY - _h;
                 move(ele,x,y);
-
-            //这里是因为我喜欢3这个数字，所以用3毫秒。   
-            },3);
+                timer = null;
+            },16);
         },
 
         //防止拖拽过程中选择上文字

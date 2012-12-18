@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="description" content="baidu().selectable().disable() 示例"/>
+    <meta name="description" content="baidu().selectable().cancel() 示例"/>
     <title>方法相关</title>
     <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
     <script type="text/javascript" src="http://wangxiao03.fe.baidu.com/cron/BaiduFE/Tangram2/src/import.php?f=plugin.selectable"></script>
@@ -19,7 +19,7 @@
         }
 
         #selectable ul {
-            margin-right:60px ;
+            margin:0px 0px 0px 10px;
         }
 
         #selectable ul li {
@@ -67,7 +67,7 @@
 <body>
 <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
 <div class="demo" id="demo">
-    <h1 class="ac-h1"><strong>baidu().selectable().disable()</strong> 示例</h1>
+    <h1 class="ac-h1"><strong>baidu().selectable().cancel()</strong> 示例</h1>
 
     <div class="pannel">
         <div class="pannel-title">
@@ -76,18 +76,6 @@
         <div class="pannel-content">
             <!--DemoViewStart-->
             <div id="selectable">
-                <ul>
-                    <li><a class="button" id="disable">关闭当前这个选择列表（selectable）的功能</a></li>
-                    <li><a class="button" id="enable">开启当前这个选择列表（selectable）的功能</a></li>
-                    <li><a class="button" id="range">设置激活的范围为红色虚线框内</a></li>
-                    <li><a class="button" id="cancel">取消本次选择</a></li>
-                    <li><a class="button" id="reset">重置选择，恢复为一个都没选</a></li>
-                    <li><a class="button" id="selected">取得或设置当前被选择的元素</a></li>
-                    <li><a class="button" id="unselected">取得或设置当前没有被选择的元素</a></li>
-                    <li><a class="button" id="item">取得所有可以被选择的元素</a></li>
-                    <li><a class="button" id="index">取得当前被选择元素的索引</a></li>
-                    <li><a class="button" id="getBack">重新获取当前元素的 tangramDom 链头</a></li>
-                </ul>
                 <ol>
                     <li>Item 1</li>
                     <li>Item 2</li>
@@ -98,6 +86,18 @@
                     <li>Item 7</li>
                     <li>Item 8</li>
                 </ol>
+                <ul>
+                    <li><a class="button" id="disable">关闭选择列表的功能</a></li>
+                    <li><a class="button" id="enable">开启选择列表的功能</a></li>
+                    <li><a class="button" id="range">设置激活的范围为红色虚线框内</a></li>
+                    <li><a class="button" id="cancel">取消本次选择</a></li>
+                    <li><a class="button" id="reset">重置选择，恢复为一个没选</a></li>
+                    <li><a class="button" id="selected">当前被选择的元素</a></li>
+                    <li><a class="button" id="unselected">没有被选择的元素</a></li>
+                    <li><a class="button" id="item">取得所有可以被选择的元素</a></li>
+                    <li><a class="button" id="index">当前被选择元素的索引</a></li>
+                    <li><a class="button" id="getBack">获取selectable的tangramDom链头</a></li>
+                </ul>
             </div>
             <!--DemoViewEnd-->
         </div>

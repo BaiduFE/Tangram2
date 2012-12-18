@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="baidu().sortable()、baidu().selectable() 混合示例"/>
-    <title>baidu().sortable()、baidu().selectable()混合示例</title>
+    <title>sortable和selectable混合示例</title>
     <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
     <script type="text/javascript" src="http://wangxiao03.fe.baidu.com/cron/BaiduFE/Tangram2/src/import.php?f=plugin.selectable,plugin.sortable"></script>
     <style type="text/css">
@@ -90,18 +90,26 @@
     </div>
 </div>
 <script type="text/javascript">
-    var sort = baidu( '#behavior ol' ).sortable( {
-        range:'#behavior'
-    });
-    var select = baidu( '#behavior ol' ).selectable( {
-        range:'#behavior'
-    });
 
-    sort.getBack().on('mousedown',function(){
+    var wrap = baidu('#behavior ol');
+
+    var select = wrap.selectable( {
+        range:'#behavior'
+    });
+    
+    var sort = wrap.sortable( {
+        range:'#behavior'
+    });
+    
+    var disSelect = function(){
         select.disable();
+    };
+
+    wrap.on('mousedown',function(){
+        disSelect();
     });
 
-    sort.getBack().on('mouseup',function(){
+    wrap.on('mouseup',function(){
         select.enable();
     });
 

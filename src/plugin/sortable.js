@@ -430,6 +430,13 @@ baidu.dom.extend({
                         sortable.on( evts[ i ] ,opt[ 'on'+evts[i] ] );
                     };
                 };
+
+                //在cancel和reset方法中，这些事件会被重绑，所以在这先清除。
+                draggable.off('start',handle);
+                draggable.off('dragging',ingHandle);
+                draggable.off('end',endHandle);
+                sortable.off('change',changeHandle);
+
                 draggable.on('start',handle);
                 draggable.on('dragging',ingHandle);
                 draggable.on('end',endHandle);
