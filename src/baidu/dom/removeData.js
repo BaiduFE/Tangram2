@@ -13,7 +13,7 @@
  */
 
 /**
- * 在 DOM 对象上存储数据
+ * 移除在 DOM 对象上存放的数据
  * @name baidu.dom().removeData()
  * @grammar baidu.dom().removeData(key)
  * @function
