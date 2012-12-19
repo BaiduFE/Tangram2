@@ -31,6 +31,29 @@ test('事件注册，派发和删除', function(){
     instance.dispose();
 });
 
+test('事件删除', function(){
+    expect(6);
+    var c = new baidu.base.Class(),
+        handler = function(evt){
+            ok(true, 'fire event: ' + evt.type);
+        };
+    ok(c.on('defaultEvent') === c, 'return instance');
+    c.on('defaultEvent-1', handler);
+    c.on('defaultEvent-2', handler);
+    c.on('defaultEvent-3', handler);
+    c.fire('defaultEvent-1');
+    c.fire('defaultEvent-2');
+    c.fire('defaultEvent-3');
+    c.off('defaultEvent-1', handler);
+    c.fire('defaultEvent-1');
+    c.fire('defaultEvent-2');
+    c.fire('defaultEvent-3');
+    c.off();
+    c.fire('defaultEvent-1');
+    c.fire('defaultEvent-2');
+    c.fire('defaultEvent-3');
+});
+
 test('调用一次的事件', function(){
     expect(2);
     var c = new baidu.base.Class();

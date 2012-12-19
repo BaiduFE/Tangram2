@@ -59,7 +59,7 @@ void function( base, be ){
     };
 
     var upp = function( str ){
-        return str.replace( /^\w/, function( s ){
+        return str.toLowerCase().replace( /^\w/, function( s ){
             return s.toUpperCase();
         } );
     };
@@ -83,10 +83,11 @@ void function( base, be ){
 
             if( eventReturn !== false && triggerEvents[type] ){
                 try{
+                    type = type.toLowerCase();
                     if( element[type] )
                         element[type]();
-                    else if( type = upp( type ), element[type] )
-                        element[type]();
+//                    else if( type = upp( type ), element[type] )
+//                        element[type]();
                 }catch(e){
                 }
             }
