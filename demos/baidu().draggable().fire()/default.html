@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu().draggable().on() 示例"/>
+    <title>基本事件</title>
+    <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+    <script type="text/javascript" src="http://wangxiao03.fe.baidu.com/cron/BaiduFE/Tangram2/src/import.php?f=plugin.draggable"></script>
+    <style type="text/css">
+        #draggable {
+            border: 1px dashed red;
+            padding: 50px;
+        }
+
+        #draggable-ele {
+            width: 100px;
+            height: 60px;
+            text-align: center;
+            font-size: 12px;
+            color: #000;
+            background: #abc8f2;
+            padding-top: 40px;
+        }
+
+        #method-exp {
+            color: red;
+            margin-left: 10px;
+            line-height: 24px;
+        }
+
+        #events {
+            width: 200px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        #events li {
+            margin: 10px 0;
+            padding: 5px 10px;
+            border: 1px solid #000;
+            background: #cacaca;
+            list-style: none;
+        }
+
+        #events span {
+            background-image: url(../../demos/ico.png);
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        #events strong {
+            color: red;
+        }
+
+        #event-start span {
+            background-position: 0 -160px;
+        }
+
+        #event-dragging span {
+            background-position: 0 -80px;
+        }
+
+        #event-end span {
+            background-position: -96px -160px;
+        }
+
+        #events .hightLight {
+            background: yellow;
+        }
+
+        #draggable-ele.tang-draggable-dragging {
+            background: #6BA5F5;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+<link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu().draggable().on()</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>基本事件说明：</span><span id="method-exp">触发 start、dragging、end 其中某个事件时，相对应按钮背景颜色变黄</span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div class="pannel-content-tool">
+            </div>
+            <div class="pannel-content-part">
+                <div id="draggable">
+                    <div id="draggable-ele">拖拽我触发的事件</div>
+                    <ul id="events">
+                        <li id="event-start"><span></span>"start" invoked <strong>0</strong></li>
+                        <li id="event-dragging"><span></span>"dragging" invoked <strong>0</strong></li>
+                        <li id="event-end"><span></span>"end" invoked <strong>0</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    baidu( function () {
+        var startBox = baidu( "#event-start" ),
+            draggingBox = baidu( "#event-dragging" ),
+            endBox = baidu( "#event-end" ),
+            num = [ 0, 0, 0 ];
+
+        baidu( "#draggable-ele" ).draggable( {
+            range:'#draggable',
+            onstart:function () {
+                num[ 0 ]++;
+                updateNum( startBox, num[ 0 ] );
+            },
+            ondragging:function () {
+                num[ 1 ]++;
+                updateNum( draggingBox, num[ 1 ] );
+            },
+            onend:function () {
+                num[ 2 ]++;
+                updateNum( endBox, num[ 2 ] );
+            }
+        } );
+
+        function updateNum( eventBox, numCount ) {
+            if ( !eventBox.hasClass( "hightLight" ) ) {
+                eventBox.addClass( "hightLight" ).siblings().removeClass( "hightLight" );
+            }
+            baidu( 'strong', eventBox.get( 0 ) ).html( numCount+'x' );
+        }
+    } );
+</script>
+</body>
+</html>
