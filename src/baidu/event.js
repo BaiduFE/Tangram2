@@ -37,11 +37,11 @@ baidu.createChain("event",
                     return event;
 
                 // event type
-                case "string" :
-                    var e = new baidu.event.$Event( event );
-                    if( typeof json == "object" ) 
-                        baidu.forEach( e, json );
-                    return e;
+//                case "string" :
+//                    var e = new baidu.event.$Event( event );
+//                    if( typeof json == "object" ) 
+//                        baidu.forEach( e, json );
+//                    return e;
             }
         }
     }(),
@@ -92,8 +92,8 @@ baidu.createChain("event",
         }
 
         // event.type
-        if( typeof event == "string" )
-            this.type = event;
+//        if( typeof event == "string" )
+//            this.type = event;
 
         // event.timeStamp
         this.timeStamp = new Date().getTime();
