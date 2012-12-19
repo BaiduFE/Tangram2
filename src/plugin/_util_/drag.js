@@ -206,7 +206,7 @@ baidu.plugin._util_.drag = function(selector){
             var uRange = value, el;
             if(baidu.type(value) !== 'object'){
                 el = baidu.dom(value).eq(0);
-                uRange = ele.offset();
+                uRange = el.offset();
                 uRange.right = uRange.left + el.outerWidth(true);
                 uRange.bottom = uRange.left + el.outerWidth(true);
             };

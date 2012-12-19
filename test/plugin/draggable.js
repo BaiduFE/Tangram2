@@ -186,9 +186,10 @@ test('enable方法', function() {
 test('range方法', function() {
     stop();
     expect(2);
-    var range = jQuery("<div style='width:250px;height:230px;border:2px solid #FFF;'></div>").prepend('body');
-    var div = baidu('#test-a').offset({left:10,top:10}).get(0);
-    draggable.range(range);
+    var range = jQuery("<div style='background-color:#F00;width:350px;height:330px;border:2px solid #FFF;'></div>").insertAfter('body').offset({left:0,top:0});
+    console.log(range[0]);
+    var div = baidu('#test-a').offset({left:0,top:0}).get(0);
+    draggable.enable().range(range);
 
     ua.mousedown(div, {
         clientX : 20,
@@ -201,7 +202,7 @@ test('range方法', function() {
             var tang = baidu(ele);
             equal(tang.offset().left, 50, "stop left");
             equal(tang.offset().top, 30, "stop top");
-            range.remove();
+            //range.remove();
             draggable.range();
             start();
         } else {
@@ -211,7 +212,7 @@ test('range方法', function() {
             });
             setTimeout(function() {
                 move(ele, x + 10, y + 5);
-            }, 200);
+            }, 20);
         }
     };
     move(div, 0, 0);
