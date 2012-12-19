@@ -95,6 +95,7 @@
  执行完毕后，会在原实例上面挂在唯一项，{dispose:true}
 */
 
+///import baidu.extend;
 ///import baidu.dom.on;
 ///import baidu.dom.off;
 ///import baidu.dom.eq;
@@ -161,6 +162,13 @@ baidu.plugin._util_.drag = function(selector){
             //修正拖曳过程中页面里的文字会被选中
             doc.on('selectstart',unselect);
             doc.on('mousemove',handle);
+
+            //设置鼠标粘滞
+            if (ele[0].setCapture) {
+                ele[0].setCapture();
+            } else if (window.captureEvents) {
+                window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+            };
         },
 
         offEvent = function(){
@@ -175,13 +183,6 @@ baidu.plugin._util_.drag = function(selector){
             doc.off('selectstart',unselect);
         };
 
-    //设置鼠标粘滞
-    if (ele[0].setCapture) {
-        target.setCapture();
-    } else if (window.captureEvents) {
-        window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
-    };
-
     doc.trigger('dragstart',{target:ele});
     onEvent();
 
@@ -189,8 +190,8 @@ baidu.plugin._util_.drag = function(selector){
         target:ele,
         disable:function(){
             offEvent();
-            doc.trigger('dragend');
             width = height = null;
+            doc.trigger('dragend');
             return this;
         },
         enable:function(){
@@ -199,33 +200,24 @@ baidu.plugin._util_.drag = function(selector){
             return this;
         },
         range:function(value){
-            switch(arguments.length){
-                
-                //get方法
-                case 0:
-                    return range;
-                break;
-
-                case 1:
-                    if(baidu.type(value)=='Object'){
-                        if(!value.left){value.left = 0;};
-                        if(!value.top){value.top = 0;};
-                        if(!value.right){value.right = 10000;};
-                        if(!value.bottom){value.bottom = 10000;};
-                        range = value;
-                    }else{
-                        //传入selector
-                        var _ele = baidu.dom(value).eq(0);
-                        range = _ele.offset();
-                        range.right = range.left + _ele.outerWidth(true);
-                        range.bottom = range.top + _ele.outerHeight(true);
-                    }
-                break;
+            if(value === undefined){
+                return range;
             };
-
-            //元素自身的宽和高
-            range.width = ele.outerWidth(true);
-            range.height = ele.outerHeight(true);
+            var uRange = value, el;
+            if(baidu.type(value) !== 'object'){
+                el = baidu.dom(value).eq(0);
+                uRange = ele.offset();
+                uRange.right = uRange.left + el.outerWidth(true);
+                uRange.bottom = uRange.left + el.outerWidth(true);
+            };
+            range = baidu.extend({
+                left: Number.MIN_VALUE,
+                top: Number.MIN_VALUE,
+                right: Number.MAX_VALUE,
+                bottom: Number.MAX_VALUE,
+                width: ele.outerWidth(true),
+                height: ele.outerHeight(true)
+            }, uRange);
             return this;
         },
 
