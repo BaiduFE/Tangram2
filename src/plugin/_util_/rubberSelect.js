@@ -173,14 +173,10 @@ baidu.plugin._util_.rubberSelect = function(options){
             doc.off('selectstart',unselect);    
             if(rangeFlag){
                 doc.off('mousemove',ingHandle);
-                if(delayTimer){return;};
+                clearTimeout(delayTimer);
                 delayTimer = setTimeout(function(){
-                    if(doc){
-                        doc.trigger('rubberselectend');
-                        mask.hide();
-                    }else{
-                        baidu.dom(document).trigger('rubberselectend');
-                    };
+                    baidu.dom(document).trigger('rubberselectend');
+                    mask.hide();
 
                 //用户选择阶段延时0.15秒取消，使用户可以续选，雅虎交互原则。    
                 },150);
