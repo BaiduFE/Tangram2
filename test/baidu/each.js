@@ -54,3 +54,11 @@ test("非法参数", function(){
     equal(baidu.each(false, a), false, "第二个参数非法");
     equal(baidu.each(1), 1, "第二个参数缺失");
 });
+
+test('数字测试', function(){
+    var len = 3;
+    expect(len);
+    baidu.each(len, function(index, item){
+        ok(true, 'number: ' + index + '; item: ' + item);
+    });
+});

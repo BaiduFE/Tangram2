@@ -56,16 +56,16 @@ define(function(require, exports) {
             $(this).removeClass('hover');
         });
 
-        $('#J_consoleWrap').css('top', $(window).scrollTop() + $(window).height() - 300);
         if($.browser.msie && /6/.test($.browser.version)){
-            $(window).scroll(function(){
-                // baidu.dom.setStyle("sidebar-wrap", "display", "none");
+            $('#J_consoleWrap').css('top', $(window).scrollTop() + $(window).height() - 300);
+            var fixHandler = function(){
                 timer && window.clearTimeout(timer);
                 timer = window.setTimeout(function(){
                     $('#J_consoleWrap').css('top', $(window).scrollTop() + $(window).height() - 300);
-                    // baidu.dom.setStyle("sidebar-wrap", "display", "block");
                 }, 30);
-            });
+            };
+
+            $(window).scroll(fixHandler).resize(fixHandler);
         }
 
     };

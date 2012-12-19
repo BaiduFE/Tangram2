@@ -58,11 +58,11 @@ void function( base, be ){
                return element.fireEvent( "on" + type, event );
     };
 
-    var upp = function( str ){
-        return str.replace( /^\w/, function( s ){
-            return s.toUpperCase();
-        } );
-    };
+//    var upp = function( str ){
+//        return str.toLowerCase().replace( /^\w/, function( s ){
+//            return s.toUpperCase();
+//        } );
+//    };
 
     var fire = function( element, type, triggerData, _eventOptions, special ){
         var evnt, eventReturn;
@@ -83,10 +83,11 @@ void function( base, be ){
 
             if( eventReturn !== false && triggerEvents[type] ){
                 try{
+                    type = type.toLowerCase();
                     if( element[type] )
                         element[type]();
-                    else if( type = upp( type ), element[type] )
-                        element[type]();
+//                    else if( type = upp( type ), element[type] )
+//                        element[type]();
                 }catch(e){
                 }
             }

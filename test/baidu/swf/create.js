@@ -5,6 +5,7 @@ test('test', function() {
 	stop();
 	ua.importsrc("baidu.swf.getMovie", function(){
 		var div = document.body.appendChild(document.createElement('div'));
+		  div.id = 'divId';
 		baidu.swf.create({
 			id : 'test0',
 			swliveconnect : 'true',
@@ -12,7 +13,7 @@ test('test', function() {
 			width : 100,
 			height : 100,
 			url : cpath + 'flips2.swf?time=' + new Date().getTime()
-		}, div);
+		}, 'divId');
 		var swf = baidu.swf.getMovie('test0');
 		var h = setInterval(function() {
 			try {
