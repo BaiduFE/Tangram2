@@ -39,13 +39,13 @@ baidu._util_.attr = function(){
             type: {
                 set: function(ele, key, val){
                     // We can't allow the type property to be changed (since it causes problems in IE)
+                    if(rtype.test(ele.nodeName) && ele.parentNode){return val;};
                     if(!radioValue && val === 'radio' && util.nodeName(ele, 'input')){
                         var v = ele.value;
                         ele.setAttribute('type', val);
                         v && (ele.value = v);                        
                         return val;
                     };
-                    if(rtype.test(ele.nodeName) && ele.parentNode){return val;};
                 }
             },
             value: {

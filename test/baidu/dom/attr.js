@@ -484,7 +484,6 @@ test("设置input",function(){
     dom.attr('type','radio');
     equal(dom.attr('type'),'radio','设置为radio');
 });
-
 //end
 
 //准备工序
