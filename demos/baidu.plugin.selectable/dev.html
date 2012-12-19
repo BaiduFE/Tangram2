@@ -23,19 +23,8 @@
         </div>
     </body>
     <script type="text/javascript">
-        //var s = baidu('.group').selectable('.select');
-        //var s = baidu.plugin._util_.rubberSelect().range('#wrapper');
         var s = baidu('.group').selectable({
-            //range:'#wrapper',
-            enable:false,
-            onstart:function(){console.log('start');},
-            ondragging:function(){console.log('dragging');},
-            onchange:function(e){
-                console.log('change');
-                console.log(e.target);
-            },
-            onend:function(){console.log('end');}
+            onend:function(){console.log(234);}
         });
-        //s.dispose();
     </script>
 </html>

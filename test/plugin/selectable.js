@@ -1,4 +1,4 @@
-/**
+/*
  * @author wangxiao
  */
 
@@ -15,7 +15,7 @@ function prepareTest(){
     var html = "<div id='wrapper'>"+
     			"<ul class='group'>"+
 	                "<li class='item'></li>"+
-	                "<li id='test-a' class='item' style='background-color:#F60;'></li>"+
+	                "<li class='item'></li>"+
 	                "<li class='item'></li>"+
 	                "<li class='item'></li>"+
 	            "</ul>"+
@@ -26,173 +26,154 @@ function prepareTest(){
 };
 
 test('prepareTest',function(){
-	prepareTest();
-    selectable = baidu('.group').selectable();
-    ok(selectable,'ok');
-});
-/*
-test('正常排序', function() {
     stop();
-    expect(2);
-    var tang = baidu('#test-a');
-    var div = tang.get(0);
-    var offset = tang.offset();
+    ua.importsrc('baidu.dom.css', function(){
+        prepareTest();
+        selectable = baidu('.group').selectable();
+        ok(selectable,'ok');
+        start();
+    }, "baidu.dom.css");
+});
 
-    ua.mousedown(div, {
-        clientX : offset.left +5,
-        clientY : offset.right +5
+test('selected方法', function() {
+    stop();
+    expect(1);
+
+    ua.mousedown(document, {
+        clientX : 300,
+        clientY : 20
     });
 
     var move = function(ele, x, y) {
-        if (x >= 100) {
+        if (x <= 150) {
             ua.mouseup(ele);
-            var tang = baidu(ele);
-            equal(tang.offset().left, 48, "stop left");
-            equal(tang.offset().top, 88, "stop top");
+            equal(selectable.selected().length, 3, "selected");
             start();
         } else {
             ua.mousemove(document, {
-                clientX : x + 10,
+                clientX : x - 10,
                 clientY : y + 5
             });
             setTimeout(function() {
-                move(ele, x + 10, y + 5);
+                move(ele, x - 10, y + 5);
             }, 20);
         }
     };
-    move(div, 0, 0);
+    move(document, 300, 20);
 });
 
-test('第二次排序', function() {
+test("item方法", function() {
     stop();
     expect(2);
-    var tang = baidu('#test-a');
-    var div = tang.get(0);
-    var offset = tang.offset();
 
-    ua.mousedown(div, {
-        clientX : offset.left +5,
-        clientY : offset.right +5
+    ua.mousedown(document, {
+        clientX : 200,
+        clientY : 160
     });
 
     var move = function(ele, x, y) {
-        if (x >= 200) {
+        if (y <= 100) {
             ua.mouseup(ele);
-            var tang = baidu(ele);
-            equal(tang.offset().left, 48, "stop left");
-            equal(tang.offset().top, 120, "stop top");
+            equal(selectable.selected().length, 2, "selected");
+            equal(selectable.item().length, 4, "item");
             start();
         } else {
             ua.mousemove(document, {
-                clientX : x + 10,
-                clientY : y + 5
+                clientX : x - 10,
+                clientY : y - 10
             });
             setTimeout(function() {
-                move(ele, x + 10, y + 5);
+                move(ele, x - 10, y - 10);
             }, 20);
         }
     };
-    move(div, 0, 0);
+    move(document, 200, 160);
 });
 
-// test('cancel方法', function() {
-//     expect(2);
-//     var tang = baidu('#test-a');
-//     selectable.cancel();
-//     equal(tang.offset().left, 48, "stop left");
-//     equal(tang.offset().top, 88, "stop top");    
-// });
+
+test('index方法', function() {
+    expect(1);
+    var index = selectable.index();
+    var arr = [2,3];
+    equal(index[1], arr[1], "选择后的索引");    
+});
+
+test('cancel方法', function() {
+    expect(1);
+    selectable.cancel();
+    var index = selectable.index();
+    var arr = [0,1,2];
+    equal(index[2], arr[2], "选择后的索引");    
+});
 
 test('reset方法', function() {
-    expect(2);
-    var tang = baidu('#test-a');
-    selectable.reset();
-    equal(tang.offset().left, 0, "stop left");
-    equal(tang.offset().top, 0, "stop top");    
-});
-
-test('item方法', function() {
     expect(1);
-    var tang = baidu('#test-a');
-    var item = selectable.item();
-    equal(item.get(1),tang.get(0), "item一致");
+    selectable.reset();
+    var index = selectable.index();
+    equal(index.length, 0, "选择后的索引");    
 });
 
 test('getBack方法', function() {
     expect(1);
-    selectable.getBack().css('background-color','#0FF');
+    selectable.getBack().css('background-color','#F0F');
     var tang = baidu('.group');
-    equal(tang.css('background-color'),'rgb(0, 255, 255)', "设置的当前DOM");
+    equal(tang.css('background-color'),'rgb(255, 0, 255)', "设置的当前DOM");
 });
 
 test('disable方法', function() {
-    expect(2);
-    selectable.disable();
-
-    var tang = baidu('#test-a');
-    var div = tang.get(0);
-    var offset = tang.offset();
+    expect(1);
 
     stop();
 
-    ua.mousedown(div, {
-        clientX : offset.left +5,
-        clientY : offset.right +5
-    });
+    //延时触发，防止前面的方法没有执行完毕
+    selectable.disable();
 
+    ua.mousedown(document, {
+        clientX : 300,
+        clientY : 20
+    });
     var move = function(ele, x, y) {
-        if (x >= 200) {
+        if (x <= 150) {
             ua.mouseup(ele);
-            var tang = baidu(ele);
-            equal(tang.offset().left, 48, "stop left");
-            equal(tang.offset().top, 56, "stop top");
+            equal(selectable.selected().length,0, "selected");
             start();
         } else {
             ua.mousemove(document, {
-                clientX : x + 10,
+                clientX : x - 10,
                 clientY : y + 5
             });
             setTimeout(function() {
-                move(ele, x + 10, y + 5);
+                move(ele, x - 10, y + 5);
             }, 20);
         }
     };
-    move(div, 0, 0);
+    move(document, 300, 20);
 });
 
 test('enable方法', function() {
-    expect(2);
-    selectable.enable();
-
-    var tang = baidu('#test-a');
-    var div = tang.get(0);
-    var offset = tang.offset();
-
     stop();
-
-    ua.mousedown(div, {
-        clientX : offset.left +5,
-        clientY : offset.right +5
+    expect(1);
+    selectable.enable();
+    ua.mousedown(document, {
+        clientX : 300,
+        clientY : 20
     });
-
     var move = function(ele, x, y) {
-        if (x >= 200) {
+        if (x <= 150) {
             ua.mouseup(ele);
-            var tang = baidu(ele);
-            equal(tang.offset().left, 48, "stop left");
-            equal(tang.offset().top, 120, "stop top");
+            equal(selectable.selected().length,3, "selected");
             start();
         } else {
             ua.mousemove(document, {
-                clientX : x + 10,
+                clientX : x - 10,
                 clientY : y + 5
             });
             setTimeout(function() {
-                move(ele, x + 10, y + 5);
+                move(ele, x - 10, y + 5);
             }, 20);
         }
     };
-    move(div, 0, 0);
+    move(document, 300, 20);
 });
 
 test('析构方法', function() {
@@ -200,7 +181,7 @@ test('析构方法', function() {
     selectable.reset();
     selectable.dispose();
     ok(selectable.dispose,'析构标示');
-    ok(!selectable.cancel,'实例方法清除')
+    ok(!selectable.cancel,'实例方法清除');
 });
 
 test('事件相关', function() {
@@ -208,11 +189,6 @@ test('事件相关', function() {
     expect(4);
     var startNum,draggingNum,endNum,changeNum;
     startNum = draggingNum = endNum = changeNum = 0;
-
-    var tang = baidu('#test-a');
-    var div = tang.get(0);
-    var offset = tang.offset();
-
     selectable = baidu('.group').selectable({
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
@@ -220,33 +196,30 @@ test('事件相关', function() {
         onchange:function(){changeNum++;}
     });
 
-    ua.mousedown(div, {
-        clientX : offset.left +5,
-        clientY : offset.right +5
+    ua.mousedown(document, {
+        clientX : 300,
+        clientY : 20
     });
 
     var move = function(ele, x, y) {
-        if (x >= 100) {
+        if (x <= 100) {
             ua.mouseup(ele);
             equal(startNum,1, "start事件");
-            equal(draggingNum,9, "dragging事件");
+            equal(draggingNum,21, "dragging事件");
             equal(endNum,1, "end事件");
-            equal(changeNum,1, "change事件");
-
-            jQuery('#test-a').remove();
-
+            equal(changeNum,4, "change事件");
             start();
+            jQuery('#wrapper').remove();
         } else {
             ua.mousemove(document, {
-                clientX : x + 10,
+                clientX : x - 10,
                 clientY : y + 5
             });
             setTimeout(function() {
-                move(ele, x + 10, y + 5);
+                move(ele, x - 10, y + 5);
             }, 20);
         }
     };
 
-    move(div, 0, 0);
+    move(document, 300, 20);
 });
-*/

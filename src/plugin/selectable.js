@@ -466,13 +466,13 @@ baidu.dom.extend({
                 };
 
                 //支持多选功能
-                selectable.on('end',function(){
-                    item.removeClass('tang-selectable-selecting');
+                selectable.on('start',function(){
+                    lastSelected = me.find('.tang-selectable-selected');
                 });
 
                 //支持多选功能
-                selectable.on('start',function(){
-                    lastSelected = me.find('.tang-selectable-selected');
+                selectable.on('end',function(){
+                    item.removeClass('tang-selectable-selecting');
                 });
             },
 
@@ -482,6 +482,7 @@ baidu.dom.extend({
                 clearTimeout(timer);
                 timer = setTimeout(function(){
                     selectable.fire('dragging');
+                    if(!item){return;};
                     if(!keydown){
 
                         //只能选择一次

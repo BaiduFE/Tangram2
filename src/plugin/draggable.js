@@ -477,15 +477,7 @@ baidu.dom.extend({
 
                 //限制了范围
                 if(opt.range){
-                    switch(baidu.type(opt.range)){
-                        case 'string':
-                            drag.range(opt.range);
-                        break;
-                        case 'object':
-                            var or = opt.range;
-                            drag.range(or);
-                        break;
-                    };
+                    drag.range(opt.range);
                 };
 
                 //是否有层级设置
