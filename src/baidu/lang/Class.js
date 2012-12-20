@@ -66,7 +66,7 @@ baidu.lang.Class.prototype.toString = function(){
  * @return  {object}            实例对象
  */
 window["baiduInstance"] = function(guid) {
-    return baidu._global_._instances[ guid ];
+    return window[baidu.guid]._instances[ guid ];
 };
 
 //  2011.11.23  meizz   添加 baiduInstance 这个全局方法，可以快速地通过guid得到实例对象
