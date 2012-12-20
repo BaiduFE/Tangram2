@@ -207,7 +207,7 @@ test('事件相关', function() {
             equal(startNum,1, "start事件");
             equal(draggingNum,21, "dragging事件");
             equal(endNum,1, "end事件");
-            equal(changeNum,4, "change事件");
+            equal(changeNum,3, "change事件");
             start();
             jQuery('#wrapper').remove();
         } else {
