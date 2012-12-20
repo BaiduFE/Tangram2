@@ -30,7 +30,8 @@ test('clone a text node', function(){
     txt = null;
 });
 
-test('event', function(){
+test('clone event but not deep', function(){
+    expect(6);
     stop();
     ua.importsrc('baidu.dom.on', function(){
         var div = new Elements('div'),
@@ -51,9 +52,10 @@ test('event', function(){
         tang = baidu.dom(div.get()).clone(true);
         equal(tang.get(0).firstChild.tagName.toUpperCase(), 'SPAN', 'DIV first child is SPAN');
         equal(tang.get(0).firstChild.firstChild.tagName.toUpperCase(), 'SPAN', 'SPAN first child is SPAN');
-        ok(tang.get(0)[baidu.key] !== div.get()[baidu.key], 'it is not same baidu.key');
+        ok(tang.get(0)[baidu.key] !== div.get()[baidu.key], 'it is not same baidu.key: ' + tang.get(0)[baidu.key]);
         ok(tang.get(0).firstChild[baidu.key] === undefined, 'div first child has not baidu.key');
         ok(tang.get(0).firstChild.firstChild[baidu.key] === undefined, 'span first child has not baidu.key');
+        
         ua.fireMouseEvent(tang.get(0), 'click');
         ua.fireMouseEvent(tang.get(0).firstChild, 'mouseover');
         ua.fireMouseEvent(tang.get(0).firstChild.firstChild, 'mouseout');
@@ -65,7 +67,7 @@ test('event', function(){
 });
 
 test('clone all', function(){
-    expect(6);
+    expect(9);
     var div = new Elements('div'),
         span = new Elements('span', false),
         span_child = new Elements('span', false),
@@ -91,14 +93,15 @@ test('clone all', function(){
         baidu.dom(span.get()).trigger('mouseover');
         baidu.dom(span_child.get()).trigger('mouseout');
         
+        ua.fireMouseEvent(tang.get(0), 'click');
+        ua.fireMouseEvent(tang.get(0).firstChild, 'mouseover');
+        ua.fireMouseEvent(tang.get(0).firstChild.firstChild, 'mouseout');
+        
         span_child.dispose();
         span.dispose();
         div.dispose();
         start();
     }, 'baidu.dom.trigger', 'baidu.dom.clone');
-//    ua.fireMouseEvent(tang.get(0), 'click');
-//    ua.fireMouseEvent(tang.get(0).firstChild, 'mouseover');
-//    ua.fireMouseEvent(tang.get(0).firstChild.firstChild, 'mouseout');
 });
 
 test('clone object, textarea, radio, option, script', function(){
@@ -135,3 +138,55 @@ test('clone object, textarea, radio, option, script', function(){
     opt = null;
     c.dispose();
 });
+
+test('clone once event', function(){
+    expect(1);
+    var div = new Elements('div'),
+        cloneNode;
+    stop();
+    ua.importsrc('baidu.dom.one', function(){
+        baidu(div.get(0)).one('click', function(){
+            ok(true, 'fire event');
+        });
+        cloneNode = baidu(div.get(0)).clone(true);
+        ua.fireMouseEvent(cloneNode.get(0), 'click');
+        ua.fireMouseEvent(cloneNode.get(0), 'click');
+        div.dispose();
+        start();
+    }, 'baidu.dom.one', 'baidu.dom.clone');
+});
+
+test('clone delegate event', function(){
+    expect(5);
+    var ul = new Elements('ul'),
+        li_one = new Elements('li', true),
+        li_two = new Elements('li', false),
+        nodeUL = ul.get(0),
+        cloneNode, child;
+    nodeUL.appendChild(li_one.get(0));
+    nodeUL.appendChild(li_two.get(0));
+    stop();
+    ua.importsrc('baidu.dom.delegate', function(){
+        baidu(nodeUL).delegate('li', 'click', function(){
+            ok(true, 'fire event');
+        });
+        ua.fireMouseEvent(li_one.get(0), 'click');
+        ua.fireMouseEvent(li_two.get(0), 'click');
+        cloneNode = baidu(nodeUL).clone(true, true).get(0);
+        child = cloneNode.childNodes;
+        ok(child.length === 2, 'there are two children');
+        document.body.appendChild(cloneNode);
+        ua.fireMouseEvent(child[0], 'click');
+        ua.fireMouseEvent(child[1], 'click');
+        
+        document.body.removeChild(cloneNode);
+        li_one.dispose();
+        li_two.dispose();
+        ul.dispose();
+        nodeUL = null;
+        cloneNode = null;
+        start();
+    }, 'baidu.dom.delegate', 'baidu.dom.clone');
+});
+
+
