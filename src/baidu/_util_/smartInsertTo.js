@@ -24,7 +24,7 @@ baidu._util_.smartInsertTo = function(tang, target, callback, orie){
         }
     }else{
         for(var i = 0, item; item = insert[i]; i++){
-            baidu._util_.smartInsert(baidu.dom(item), i > 0 ? tang.clone(true) : tang, callback);
+            baidu._util_.smartInsert(baidu.dom(item), i > 0 ? tang.clone(true, true) : tang, callback);
         }
     }
 };
