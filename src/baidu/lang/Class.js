@@ -23,8 +23,8 @@
  * @see baidu.lang.inherits,baidu.lang.Event
  */
 baidu.lang.Class = (function() {
-    var instances = (baidu._global_ = window[baidu.guid])._instances_;
-    instances || (instances = baidu._global_._instances_ = {});
+    var instances = (baidu._global_ = window[baidu.guid])._instances;
+    instances || (instances = baidu._global_._instances = {});
 
     // constructor
     return function() {
@@ -40,7 +40,7 @@ baidu.lang.Class = (function() {
  * TODO: 将_listeners中绑定的事件剔除掉
  */
 baidu.lang.Class.prototype.dispose = function(){
-    delete baidu._global_._instances_[this.guid];
+    delete baidu._global_._instances[this.guid];
 
     // this.__listeners && (for (var i in this.__listeners) delete this.__listeners[i]);
 
@@ -66,7 +66,7 @@ baidu.lang.Class.prototype.toString = function(){
  * @return  {object}            实例对象
  */
 window["baiduInstance"] = function(guid) {
-    return baidu._global_._instances_[ guid ];
+    return baidu._global_._instances[ guid ];
 };
 
 //  2011.11.23  meizz   添加 baiduInstance 这个全局方法，可以快速地通过guid得到实例对象

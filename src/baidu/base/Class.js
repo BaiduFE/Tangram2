@@ -16,8 +16,8 @@
  * @remark baidu.base.Class和它的子类的实例均包含一个全局唯一的标识guid。guid是在构造函数中生成的，因此，继承自baidu.base.Class的类应该直接或者间接调用它的构造函数。<br>baidu.base.Class的构造函数中产生guid的方式可以保证guid的唯一性，及每个实例都有一个全局唯一的guid。
  */
 baidu.base.Class = (function() {
-    var instances = (baidu._global_ = window[baidu.guid])._instances_;
-    instances || (instances = baidu._global_._instances_ = {});
+    var instances = (baidu._global_ = window[baidu.guid])._instances;
+    instances || (instances = baidu._global_._instances = {});
 
     // constructor
     return function() {
@@ -47,7 +47,7 @@ baidu.extend(baidu.base.Class.prototype, {
     ,dispose: function() {
         if (this.fire("ondispose")) {
             // decontrol
-            delete baidu._global_._instances_[this.guid];
+            delete baidu._global_._instances[this.guid];
 
             if (this._listeners_) {
                 for (var item in this._listeners_) {
@@ -190,7 +190,7 @@ baidu.extend(baidu.base.Class.prototype, {
  */
 window["baiduInstance"] = function(guid) {
     var global = window[baidu.guid];
-    return global._instances_[ guid ] || global._instances[ guid ];
+    return global._instances[ guid ];
 }
 
 

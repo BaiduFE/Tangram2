@@ -22,7 +22,8 @@ baidu.id = function() {
     var maps = baidu.global("_maps_id")
         ,key = baidu.key;
 
-    baidu.global("_counter", 1);
+    // 2012.12.21 与老版本同步
+    window[ baidu.guid ]._counter = window[ baidu.guid ]._counter || 1;
 
     return function( object, command ) {
         var e
@@ -69,7 +70,7 @@ baidu.id = function() {
             return maps[ object ];
         }
 
-        return "TANGRAM__" + baidu._global_._._counter ++;
+        return "TANGRAM__" + baidu._global_._counter ++;
     };
 }();
 
