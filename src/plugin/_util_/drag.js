@@ -207,16 +207,16 @@ baidu.plugin._util_.drag = function(selector){
             if(baidu.type(value) !== 'object'){
                 el = baidu.dom(value).eq(0);
                 uRange = el.offset();
-                uRange.right = uRange.left + el.outerWidth(true);
-                uRange.bottom = uRange.left + el.outerWidth(true);
+                uRange.right = uRange.left + el.outerWidth();
+                uRange.bottom = uRange.top + el.outerHeight();
             };
             range = baidu.extend({
                 left: Number.MIN_VALUE,
                 top: Number.MIN_VALUE,
                 right: Number.MAX_VALUE,
                 bottom: Number.MAX_VALUE,
-                width: ele.outerWidth(true),
-                height: ele.outerHeight(true)
+                width: ele.outerWidth(),
+                height: ele.outerHeight()
             }, uRange);
             return this;
         },

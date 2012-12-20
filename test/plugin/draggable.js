@@ -231,7 +231,6 @@ test('endOf方法', function() {
         if (x >= 300) {
             ua.mouseup(ele);
             var offset = baidu(ele).offset();
-            console.log(offset);
             equal(offset.left,0, "stop left");
             equal(offset.top,0, "stop top");
             endOf.remove();
