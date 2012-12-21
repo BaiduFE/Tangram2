@@ -169,6 +169,13 @@ baidu.plugin._util_.drag = function(selector){
             } else if (window.captureEvents) {
                 window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
             };
+
+            //清除鼠标已选择元素
+            if(document.selection){
+                document.selection.empty && document.selection.empty();
+            }else if(window.getSelection){
+                window.getSelection().removeAllRanges();
+            };
         },
 
         offEvent = function(){

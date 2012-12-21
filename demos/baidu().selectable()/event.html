@@ -15,6 +15,7 @@
         #selectable ol {
             list-style: none;
             margin-left: 10px;
+            width:170px;
         }
 
         #selectable ol li {
@@ -24,17 +25,25 @@
             height: 18px;
             border: 1px solid #ccc;
             background: #e6e6e6;
-            width: 300px;
+            width: 150px;
+        }
+
+        #selectable ul {
+            width: 240px;
+            height: 140px;
+            list-style: none;
+            position: absolute;
+            top: 220px;
+            left: 350px;
         }
 
         #selectable ul li {
-            margin: 10px;
+            margin: 4px;
             padding: 5px 10px;
             border: 1px solid #000;
             background: #cacaca;
             float: left;
             width: 200px;
-            list-style: none;
         }
 
         #selectable ul li strong {
@@ -89,17 +98,11 @@
     <div class="pannel">
         <div class="pannel-title">
             <span>基本事件说明：</span><span id="method-exp">触发 start、change、end、dragging 其中某个事件时，相对应按钮背景颜色变黄</span>
+            <div id="result">选择的结果是 <strong></strong></div>
         </div>
         <div class="pannel-content">
             <!--DemoViewStart-->
             <div id="selectable">
-                <ul>
-                    <li id="event-start">"start" invoked <strong>0</strong></li>
-                    <li id="event-change">"change" invoked <strong>0</strong></li>
-                    <li id="event-end">"end" invoked <strong>0</strong></li>
-                    <li id="event-dragging">"dragging" invoked <strong>0</strong></li>
-                </ul>
-                <div id="result">选择的结果是 <strong></strong></div>
                 <ol>
                     <li>Item 1</li>
                     <li>Item 2</li>
@@ -110,6 +113,12 @@
                     <li>Item 7</li>
                     <li>Item 8</li>
                 </ol>
+                <ul>
+                    <li id="event-start">"start" invoked <strong>0</strong></li>
+                    <li id="event-change">"change" invoked <strong>0</strong></li>
+                    <li id="event-end">"end" invoked <strong>0</strong></li>
+                    <li id="event-dragging">"dragging" invoked <strong>0</strong></li>
+                </ul>
             </div>
             <!--DemoViewEnd-->
         </div>

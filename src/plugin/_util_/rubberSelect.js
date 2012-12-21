@@ -109,16 +109,32 @@ baidu.plugin._util_.rubberSelect = function(options){
                     return;
                 };
             };
+
             rangeFlag = true;            
             doc.trigger('rubberselectstart');
 
             //为了兼容快速点击的情况
             doc.trigger('rubberselecting');
-            doc.on('mousemove',ingHandle);
             mask.width(0).height(0).show().offset({left:x1,top:y1});
+
+            doc.on('mousemove',ingHandle);
             
             //修正拖曳过程中页面里的文字会被选中
             doc.on('selectstart',unselect);
+
+            //设置鼠标粘滞
+            if (mask.setCapture) {
+                mask.setCapture();
+            } else if (window.captureEvents) {
+                window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+            };
+
+            //清除鼠标已选择元素
+            if(document.selection){
+                document.selection.empty && document.selection.empty();
+            }else if(window.getSelection){
+                window.getSelection().removeAllRanges();
+            };            
         },
 
         ingHandle = function(e){
@@ -170,9 +186,17 @@ baidu.plugin._util_.rubberSelect = function(options){
         },
 
         endHandle = function(){
-            doc.off('selectstart',unselect);    
             if(rangeFlag){
+
+                doc.off('selectstart',unselect);    
                 doc.off('mousemove',ingHandle);
+
+                //解除鼠标粘滞
+                if (mask.releaseCapture) {
+                    mask.releaseCapture();
+                } else if (window.releaseEvents) {
+                    window.releaseEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+                };
                 clearTimeout(delayTimer);
                 delayTimer = setTimeout(function(){
                     baidu.dom(document).trigger('rubberselectend');
@@ -210,6 +234,7 @@ baidu.plugin._util_.rubberSelect = function(options){
     };
     setRange();
     mask.hide().appendTo(document.body);
+
     doc.on('mousedown',handle);
     doc.on('mouseup',endHandle);
 
@@ -229,9 +254,11 @@ baidu.plugin._util_.rubberSelect = function(options){
 
         //析构函数
         dispose:function(){
+            
             doc.off('mousedown',handle);
             doc.off('mousemove',ingHandle);
             doc.off('mouseup',endHandle);
+
             mask.remove();
             doc = mask = timer = null;
             for(var k in this){

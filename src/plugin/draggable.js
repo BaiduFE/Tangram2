@@ -469,7 +469,7 @@ baidu.dom.extend({
 
                 drag = baidu.plugin._util_.drag(e.currentTarget);
                 dragEle = drag.target;
-                dragEle.addClass('tang-draggable-dragging');
+                dragEle.addClass('tang-draggable-dragging').css('cursor','move');
                 draggable.fire('start',{target:dragEle,pageX:e.pageX,pageY:e.pageY});
                 if(!_offset){
                     _offset = dragEle.offset();
