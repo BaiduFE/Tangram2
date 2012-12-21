@@ -28,6 +28,8 @@ if (typeof window["\x05TANGRAM"] != "object") {(function() {
 
     // 判断该模块是否已加载，避免重复加载
     var existent = {};
+    var existentCSS = {};
+    var cssList = [];
 
     // 模块的依赖关系图
     exports.dependenceDiagram = {};
@@ -36,11 +38,14 @@ if (typeof window["\x05TANGRAM"] != "object") {(function() {
     var codeStorage = exports.codeStorage = {};
 
     // 匹配源代码里的依赖模块的正则表达式
-    /// import mz.ajax.request;
-    /// Import("mz.ajax.request");
+    /// import amz.ajax.request;
+    /// Import("amz.ajax.request");
+    /// importCSS amzui.treeview;
     var r0_inc = /^[\t ]*\/{3,}[\t ]*(import|include)[\t \'\"\(]*([\w\-\$\.]+)[\t \'\"\)]*(\->[\t ]*([\w\$]+))?[\t ;]*$/mig;
     var r1_inc = /(import|include)[\t \'\"\(]*([\w\-\$\.]+)/;
     var r2_inc = /\/{3,}[\t ]*(import|include)[\t \(\'\"]*([\w\-\$\.]+)[\t \'\"\)]*(\->[\t ]*([\w\$]+))[; \t]/i;
+    var r0_css = /^[\t ]*\/{3,}[\t ]*(importCSS|includeCSS)[\t \'\"\(]*([\w\-\$\.]+)[\t \'\"\)]*[\t ;]*$/mig;
+    var r1_css = /(importCSS|importCSS)[\t \'\"\(]*([\w\-\$\.]+)/i;
 
 
 
@@ -141,6 +146,15 @@ if (typeof window["\x05TANGRAM"] != "object") {(function() {
             // 生成代码依赖项列表
             depend(namespace);
 
+            for (var i=0; i<cssList.length; i++) {
+                var link = document.createElement("LINK");
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = rootPath +"/_resource/"+ cssList +".css";
+                script.parentNode.appendChild(link);
+            }
+            cssList.length = 0;
+
             // 对于知名语句进行闭包处理
             if (r2_inc.test(code)) {
                 code = "(function(){\n"
@@ -207,13 +221,25 @@ if (typeof window["\x05TANGRAM"] != "object") {(function() {
 
     // 从源代码里分析出模块的直接依赖项，以数组形式返回
     function getDependList(module) {
-        /// import mz.ajax.request;
-        /// Import("mz.ajax.request");
+        /// import amz.ajax.request;
+        /// Import("amz.ajax.request");
+        /// importCSS("amzui.treeview");
 
         var re = [];
         var code = exports.codeStorage[module];
         if (!code) return re;
 
+        // import CSS
+        var a = code.match(r0_css)
+        if (a) {
+            for (var i=0, n=a.length; i<n; i++) {
+                r1_css.test(a[i]);
+                var css = RegExp.$2;
+                existentCSS[css] || ( (existentCSS[css]=true) && cssList.push(css) );
+            }
+        }
+
+        // import js
         var a = code.match(r0_inc)
         if (a) {
             for (var i=0, n=a.length; i<n; i++) {
@@ -221,6 +247,7 @@ if (typeof window["\x05TANGRAM"] != "object") {(function() {
                 re.push(RegExp.$2);
             }
         }
+
         return re;
     }
 
