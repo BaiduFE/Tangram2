@@ -24,16 +24,24 @@
             height: 18px;
             border: 1px solid #ccc;
             background: #e6e6e6;
-            width: 300px;
+            width: 150px;
+        }
+
+        #sortable ul {
+            width: 240px;
+            height: 140px;  
+            position: absolute;
+            top: 200px;
+            left: 350px;
         }
 
         #sortable ul li {
-            margin: 10px;
+            margin: 3px;
             padding: 5px 10px;
             border: 1px solid #000;
             background: #cacaca;
             float: left;
-            width: 170px;
+            width: 200px;
             list-style: none;
         }
 
@@ -99,7 +107,6 @@
                     <li id="event-end">"end" invoked <strong>0</strong></li>
                     <li id="event-dragging">"dragging" invoked <strong>0</strong></li>
                 </ul>
-                <div id="result">选择的结果是 <strong></strong></div>
                 <ol>
                     <li><span></span>Item 1</li>
                     <li><span></span>Item 2</li>
@@ -122,6 +129,7 @@
             changeBox = baidu( "#event-change" ),
             endBox = baidu( "#event-end" ),
             num = [ 0, 0, 0, 0 ];
+
         baidu( '#sortable ol' ).sortable( {
             range:'#sortable',
             ondragging:function () {
