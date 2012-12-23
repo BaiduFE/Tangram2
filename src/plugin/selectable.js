@@ -312,10 +312,10 @@ baidu.dom.extend({
                 options:{
 
                     //是否可用
-                    enable:true
+                    enable:true,
 
                     //通过按下ctrl或者command间隔选择
-                    intervalSelect:true,
+                    intervalSelect:true
                     
                     //可以激活选择功能的范围 
                     // range:undefined,
