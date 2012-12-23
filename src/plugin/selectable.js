@@ -11,7 +11,8 @@
  * @param {Selector|TangramDom|htmlElement} args 传入当前要被实例化为选择列表（selectable）的容器或者CSS选择器
  * @param {Selector|TangramDom|htmlElement} selector 可选参数，可以是CSS选择器或者是HTML元素，当前选择列表（selectable）中，可以被选择的项。
  * @param {Object} options 相关配置参数
- * @param {Boolean} options.enable 当前的选择列表（selectable）实例是否可使用。
+ * @param {Boolean} options.enable 当前的选择列表（selectable）实例是否可使用，默认为true。
+ * @param {Boolean} options.intervalSelect 是否开启间隔选择，用户可以通过按下ctrl或者command来间隔的选择多个元素，默认为true。 
  * @param {Selector|TangramDom|htmlElement|Object} options.range 当前选择列表（selectable）激活的范围，可以是CSS选择器或者HTML元素（如果是多个，只会取出第一个），限制范围在某一个元素内。传入Object要符合{'top':123,'right':123,'bottom':123,'left':123},top和bottom都是相对屏幕上边缘，left和right都是相对屏幕左边缘。
  * @param {Function} options.onstart 当用户框选操作开始时，实例会触发“start”内部事件，并且会触发onstart方法。
  * @param {Function} options.onend 当用户框选操作结束时，实例会触发“end”内部事件，并且会触发onend方法。
@@ -313,6 +314,9 @@ baidu.dom.extend({
                     //是否可用
                     enable:true
 
+                    //通过按下ctrl或者command间隔选择
+                    intervalSelect:true,
+                    
                     //可以激活选择功能的范围 
                     // range:undefined,
 
@@ -454,7 +458,7 @@ baidu.dom.extend({
             timer,
 
             //按键多选的标志量，可以多选为true
-            keydown = false,
+            keydownMore = false,
 
             //初始化事件相关绑定
             bindEvent = function(){
@@ -465,7 +469,6 @@ baidu.dom.extend({
                     };
                 };
 
-                //支持多选功能
                 selectable.on('start',function(){
                     lastSelected = me.find('.tang-selectable-selected');
                 });
@@ -483,7 +486,7 @@ baidu.dom.extend({
                 timer = setTimeout(function(){
                     selectable.fire('dragging');
                     if(!item){return;};
-                    if(!keydown){
+                    if(!keydownMore){
 
                         //只能选择一次
                         for(var i = 0 , num = item.size(); i < num; i ++){
@@ -529,7 +532,7 @@ baidu.dom.extend({
                     
                     //Win下Ctrl 和 Mac下 command 键
                     if(e.ctrlKey || e.keyCode == 91){
-                        keydown = true;
+                        keydownMore = true;
                     };
             },
 
@@ -537,7 +540,7 @@ baidu.dom.extend({
 
                     //Win下Ctrl 和 Mac下 command 键
                     if(!e.ctrlKey || e.keyCode == 91){
-                        keydown = false;
+                        keydownMore = false;
                         item.removeClass('tang-selectable-selecting');
                     };
             },
@@ -551,8 +554,10 @@ baidu.dom.extend({
             },
 
             bindDocEvent = function(){
-                doc.on('keydown',keyDownHandle);
-                doc.on('keyup',keyUpHandle);
+                if(opt.intervalSelect){
+                    doc.on('keydown',keyDownHandle);
+                    doc.on('keyup',keyUpHandle);
+                };
                 doc.on('rubberselecting',handle);
                 doc.on('rubberselectstart',fireStart);
                 doc.on('rubberselectend',fireEnd);
@@ -560,8 +565,10 @@ baidu.dom.extend({
 
             //统一的解绑事件
             offDocEvent = function(){
-                doc.off('keydown',keyDownHandle);
-                doc.off('keyup',keyUpHandle);
+                if(opt.intervalSelect){
+                    doc.off('keydown',keyDownHandle);
+                    doc.off('keyup',keyUpHandle);
+                };
                 doc.off('rubberselecting',handle);
                 doc.off('rubberselectstart',fireStart);
                 doc.off('rubberselectend',fireEnd);                    
