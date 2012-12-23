@@ -81,10 +81,8 @@ baidu.dom.extend({
             switch(typeof value){
                 case 'undefined':
                     return undefined;
-                break;
                 default:
                     return me;
-                break;
             }
         
         var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
@@ -124,8 +122,7 @@ baidu.dom.extend({
                 case 'undefined':
                     result = ( elem.nodeType === 1 ? elem.innerHTML : undefined );
                     return ;
-                break;
-
+ 
                 case 'number':
                     value = String(value);
 
