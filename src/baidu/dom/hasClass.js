@@ -59,10 +59,7 @@ baidu.dom.extend({
                     return;
                 };
             };
-            if(result!==false){
-                result = true;
-                return;
-            };
+            if(result!==false){result = true;return;};
         });
         return result;
     }

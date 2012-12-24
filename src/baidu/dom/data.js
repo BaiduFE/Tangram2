@@ -70,8 +70,8 @@ baidu.dom.extend({
                 baidu.forEach(this, function(dom){
                     var data = maps[ dom[ guid ] ] = maps[ dom[ guid ] ] || {};
 
-                    baidu.forEach( key , function(item) {
-                        data[ item ] = key[ item ];
+                    baidu.forEach( key , function(item,index) {
+                        data[ index ] = key[ index ];
                     });
                 });
             }

@@ -248,6 +248,13 @@ test("dom为空的情况",function(){
     ok(result,'有东西就行');
 });
 
+test("value为array情况",function(){
+    var result = baidu("<input>");
+    equal(result.val(),"",'get方法');
+    result.val([1,2,3]);
+    ok(result.val().toString(),'1,2,3','有东西就行');
+});
+
 //准备工序
 function prepareTest(){
 	var html = "<div id='body'>"+

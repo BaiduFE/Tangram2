@@ -111,3 +111,60 @@ test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").toggleClass("wangxiao");
     ok(result);
 });
+
+test("没有参数", function(){
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	
+	div.innerHTML = "<div class='A'></div><div class='B'></div><div class='C'></div>";
+	
+	baidu.dom("div", div).toggleClass();
+	equal(formatHTML(div.innerHTML), "<div class=></div><div class=></div><div class=></div>", "");
+	document.body.removeChild(div);
+});
+
+test("参数是一个 fn", function(){
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	
+	div.innerHTML = "<div class='A'></div><div class='B'></div><div class='C'></div>";
+	
+	baidu.dom("div", div).toggleClass(function(index, className){
+	    switch(index){
+	        case 0:
+	        	ok( className == "A" );
+	        	return "A";
+	        	break;
+	        case 1:
+	        	ok( className == "B" );
+	        	return "B";
+	        	break;
+	        case 2:
+	        	ok( className == "C" );
+	        	return "C";
+	        	break;
+	    }
+	});
+	equal(formatHTML(div.innerHTML), "<div class=></div><div class=></div><div class=></div>", "");
+
+	document.body.removeChild(div);
+});
+
+test("toggle传入状态量", function(){
+	//expect(4);
+	var div = document.createElement('div');
+
+	document.body.appendChild(div);
+	equal(div.className, "", "div no class");
+	
+	baidu.dom(div).toggleClass("div_class1",true);
+	equal(div.className, "div_class1", "div_class1");
+
+	baidu.dom(div).toggleClass("div_class2 div_class3",true);// 添加多个class
+	equal(div.className, "div_class1 div_class2 div_class3");
+
+	baidu.dom(div).toggleClass("div_class1",false);
+	equal(div.className, "div_class2 div_class3");
+
+	document.body.removeChild(div);
+});

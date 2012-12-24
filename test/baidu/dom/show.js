@@ -3,7 +3,7 @@ module("baidu.dom.show",{});
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.dom.hide,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.css,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.css,baidu.dom.append,baidu.dom.hide,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.css,baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');
@@ -117,10 +117,17 @@ test("show()", function() {
 
 });
 
-
 test("dom为空的情况",function(){
 	var result = baidu("#baidujsxiaozu").show("wangxiao");
 	ok(result);
+});
+
+test("dom为空的情况",function(){
+	var www = document.createElement('www');
+	document.body.appendChild(www);
+	www.style.display = 'none';
+	baidu(www).show();
+	equal(baidu(www).css('display'),'inline');
 });
 
 //准备工序

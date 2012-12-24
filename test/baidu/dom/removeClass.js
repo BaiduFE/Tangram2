@@ -6,7 +6,7 @@ test('prepareTest',function(){
 	stop();
 
 	//加载快捷方式
-	ua.importsrc("baidu.short", function(){
+	ua.importsrc("baidu.dom.hasClass,baidu.short", function(){
 		start();
 		ok(true,'ok');
 	}, "baidu.trim", "baidu.dom.removeClass");
@@ -127,4 +127,38 @@ test('异常用例', function(){
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").removeClass("wangxiao");
     ok(result);
+});
+
+test("参数为空的情况",function(){
+	var div = jQuery("<div class='testa testb'>")[0];
+	ok(baidu(div).hasClass('testa testb'));
+    var result = baidu(div).removeClass();
+    ok(!baidu(div).hasClass('testa testb'),'已经清空');
+});
+
+test("参数是一个 fn", function(){
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	
+	div.innerHTML = "<div class='A'></div><div class='B'></div><div class='C'></div>";
+	
+	baidu.dom("div", div).removeClass(function(index, className){
+	    switch(index){
+	        case 0:
+	        	ok( className == "A" );
+	        	return "A";
+	        	break;
+	        case 1:
+	        	ok( className == "B" );
+	        	return "B";
+	        	break;
+	        case 2:
+	        	ok( className == "C" );
+	        	return "C";
+	        	break;
+	    }
+	});
+	equal(formatHTML(div.innerHTML), "<div class=></div><div class=></div><div class=></div>", "");
+
+	document.body.removeChild(div);
 });
