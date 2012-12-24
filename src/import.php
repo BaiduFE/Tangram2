@@ -24,7 +24,7 @@ void function(){
             var link = document.createElement("LINK");
             link.type = "text/css";
             link.rel = "stylesheet";
-            link.href = rootPath +"/_resource/"+ css +".css";
+            link.href = rootPath +"/resource/"+ css +".css";
             script.parentNode.appendChild(link);
         }
     }
