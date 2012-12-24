@@ -25,7 +25,9 @@ void function( base, be ){
     var queue = base.queue;
     var dom = baidu.dom;
 
-    var triggerEvents = { submit: 1 };
+    var ie = !window.addEventListener;
+
+    var abnormals = { submit: 3, focus: ie ? 3 : 2, blur: ie ? 3 : 2 };
 
     var createEvent = function( type, opts ){
         var evnt;
@@ -52,10 +54,10 @@ void function( base, be ){
     };
 
     var dispatchEvent = function( element, type, event ){
-           if( element.dispatchEvent )
-               return element.dispatchEvent( event );
-           else if( element.fireEvent )
-               return element.fireEvent( "on" + type, event );
+       if( element.dispatchEvent )
+           return element.dispatchEvent( event );
+       else if( element.fireEvent )
+           return element.fireEvent( "on" + type, event );
     };
 
 //    var upp = function( str ){
@@ -75,20 +77,18 @@ void function( base, be ){
                 queue.call( element, type, null, evnt );
             else{
                 try{
-                    eventReturn = dispatchEvent( element, type, evnt );
+                    if( abnormals[ type ] & 1 || !( type in abnormals ) )
+                        eventReturn = dispatchEvent( element, type, evnt );
                 }catch(e){
-                    dom(element).triggerHandler( type, triggerData, evnt );
+                    dom( element ).triggerHandler( type, triggerData, evnt );
                 }
-            }
 
-            if( eventReturn !== false && triggerEvents[type] ){
-                try{
-                    type = type.toLowerCase();
-                    if( element[type] )
-                        element[type]();
-//                    else if( type = upp( type ), element[type] )
-//                        element[type]();
-                }catch(e){
+                if( eventReturn !== false && abnormals[ type ] & 2 ){
+                    try{
+                        if( element[ type ] )
+                            element[ type ]();
+                    }catch(e){
+                    }
                 }
             }
         }
