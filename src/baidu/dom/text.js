@@ -76,10 +76,10 @@ baidu.dom.extend({
             switch(typeof value){
                 case 'undefined':
                     return undefined;
-                break;
+                // break;
                 default:
                     return me;
-                break;
+                // break;
             }            
         }
 
@@ -123,9 +123,7 @@ baidu.dom.extend({
         baidu.forEach(me,function(elem, index){
             
             var tangramDom = bd(elem);
-            if(result){
-                return;
-            };
+            if(result){return;};
 
             switch(typeof value){
                 case 'undefined':
@@ -134,7 +132,7 @@ baidu.dom.extend({
                     result = getText(elem);
                     return result;
 
-                break;
+                // break;
 
                 case 'number':
                     value = String(value);

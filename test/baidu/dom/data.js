@@ -42,3 +42,13 @@ test('当传入值是0的时候', function(){
     ok(baidu.dom(a).data('tangram-key') === 0, 'get value is 0');
     document.body.removeChild(a);
 });
+
+test('Object类型', function(){
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    baidu.dom(div).data({a:123,b:234,c:345});
+    equal(baidu(div).data('a'),123);
+    equal(baidu(div).data('b'),234);
+    equal(baidu(div).data('c'),345);
+    document.body.removeChild(div);
+});

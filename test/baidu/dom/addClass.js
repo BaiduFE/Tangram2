@@ -156,5 +156,11 @@ test("给有className的元素添加", function() {
 
 test("dom为空的情况",function(){
 	var result = baidu("#baidujsxiaozu").addClass("wangxiao");
-	ok(result);
+	ok(result,"dom为空的情况");
+});
+
+test("参数为空的情况",function(){
+	var div = baidu('div')[0];
+	var result = baidu("div").addClass();
+	ok(div == result[0] ,"参数为空的情况");
 });

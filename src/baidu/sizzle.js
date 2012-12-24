@@ -1,5 +1,6 @@
 ///import baidu.merge;
 ///import baidu.makeArray;
+///import baidu.string.trim;
 ///import baidu._util_.isXML;
 ///import baidu._util_.contains;
 
@@ -167,6 +168,9 @@ void function( window, undefined ) {
 
         if ( !selector || typeof selector !== "string" ) {
             return results;
+        }else{
+            selector = baidu.string(selector).trim();
+            if(!selector){return results;};
         }
 
         contextXML = isXML( context );
