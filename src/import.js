@@ -150,7 +150,7 @@ if (typeof window["\x05TANGRAM"] != "object") {(function() {
                 var link = document.createElement("LINK");
                 link.type = "text/css";
                 link.rel = "stylesheet";
-                link.href = rootPath +"/_resource/"+ cssList +".css";
+                link.href = rootPath +"/resource/"+ cssList +".css";
                 script.parentNode.appendChild(link);
             }
             cssList.length = 0;
