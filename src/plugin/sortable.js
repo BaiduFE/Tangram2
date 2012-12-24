@@ -484,20 +484,23 @@ baidu.dom.extend({
                 dragEleAttr = {
                     id:dragEle.data('sortable-id'),
                     w:dragEle.outerWidth(),
-                    h:dragEle.outerHeight()
+                    h:dragEle.outerHeight(),
+                    zIndex:dragEle.css('z-index')
                 };
                 sortable.fire('start');
                 htmlTemp = me.html();
 
                 //清除掉draggable附加的className
-                dragEleClone = baidu.dom(dragEle).clone();
+                dragEleClone = dragEle.clone();
 
                 //TODO：以后可以考虑根据需求开放clone这个元素的样式
                 dragEleClone.addClass('tang-sortable-clone');
                 dragEleClone.removeClass('tang-draggable-dragging tang-sortable-item');
                 dragEle.after(dragEleClone);
                 dragEleClone.css('visibility','hidden');
-                dragEle.css('position','absolute');
+
+                //TODO:这里的z-index不应该被硬编码的，需要判断下周边的z-index来设定。
+                dragEle.css({'position':'absolute','z-index':200});
                 var o = dragEleClone.offset();
                 dragEleCloneAttr.left = o.left;
                 dragEleCloneAttr.top = o.top;
@@ -540,7 +543,7 @@ baidu.dom.extend({
                     sortable.fire('change');
                     dragEleClone.after(dragEle);
                 };
-                dragEle.css({'position':'static',left:'',top:''});
+                dragEle.css({'position':'static',left:'',top:'','z-index':dragEleAttr.zIndex});
                 dragEleClone.remove();
                 dragEleClone = null;
                 sortable.fire('end');

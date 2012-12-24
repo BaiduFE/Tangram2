@@ -423,7 +423,7 @@ baidu.dom.extend({
                     if(!opt.enable){
                         opt.enable = true;
                         if(value && baidu.type(value)!='object'){
-                            baidu.dom(value).css('cursor','move');
+                            me.find(value).css('cursor','move');
                         }else{
                             me.css('cursor','move');
                         };
@@ -469,7 +469,7 @@ baidu.dom.extend({
 
                 drag = baidu.plugin._util_.drag(e.currentTarget);
                 dragEle = drag.target;
-                dragEle.addClass('tang-draggable-dragging').css('cursor','move');
+                dragEle.addClass('tang-draggable-dragging');
                 draggable.fire('start',{target:dragEle,pageX:e.pageX,pageY:e.pageY});
                 if(!_offset){
                     _offset = dragEle.offset();
@@ -583,7 +583,7 @@ baidu.dom.extend({
 
                 };                
             };
-        
+
         //函数参数逻辑
         switch(arguments.length){
 
@@ -594,7 +594,6 @@ baidu.dom.extend({
 
             //传入一个参数
             case 1:
-
                 if( baidu.type(value) == 'object' ){
 
                     //value是options
