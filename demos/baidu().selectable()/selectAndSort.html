@@ -109,11 +109,11 @@
             if(selected.length){
                 selected.eq(0).before(div);
                 div.append(selected);
-                sort.dispose();
-                sort = baidu( '#behavior ol' ).sortable({
-                    range:'#behavior'
-                });
             };
+            sort.dispose();
+            sort = baidu( '#behavior ol' ).sortable({
+                range:'#behavior'
+            });
         }
     });
 
