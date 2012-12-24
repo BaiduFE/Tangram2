@@ -5,6 +5,8 @@
 ///import baidu._util_.eventBase;
 
 void function( base, listener ){
+    if( base.listener )return ;
+    
     listener = base.listener = {};
     
     if( window.addEventListener )

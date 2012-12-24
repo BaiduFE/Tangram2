@@ -8,6 +8,8 @@
 ///import baidu._util_.eventBase.listener;
 
 void function( base, be ){
+    if( base.queue )return ;
+
     var I = baidu.id;
     var queue = base.queue = {};
     var attaCache = queue.attaCache = baidu.global( "eventQueueCache" );
@@ -62,6 +64,9 @@ void function( base, be ){
 
             if( !e.currentTarget )
                 e.currentTarget = target;
+
+            if( !e.target )
+                e.target = target;
 
             for( var i = 0, r, l = fnAry.length; i < l; i ++ )
                 if(r = fnAry[i]){
