@@ -57,7 +57,7 @@ test('div trigger event', function(){
         c.dispose();
 
         start();
-    });    
+    }, "baidu.dom.on", "baidu.dom.trigger");    
     //
     
 });
@@ -77,7 +77,7 @@ test('custom event', function(){
         c.dispose();
         
         start();
-    }, "baidu.dom.fn.bind");
+    }, "baidu.dom.fn.bind", "baidu.dom.trigger");
 });
 
 test('all support event', function(){
