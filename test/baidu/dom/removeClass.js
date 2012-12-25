@@ -13,13 +13,7 @@ test('prepareTest',function(){
 });
 
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };
-var formatHTML = function(html){
-	html = html.toUpperCase();
-	html = html.replace(/[\r\n]/g, "").replace(/<([^>]+)>/g, function(s, a){
-	    return "<" + a.replace(/['"]/g, "").toLowerCase() + ">";
-	});
-	return html;
-};
+
 
 //新接口测试
 test('正常用例',function(){
@@ -137,6 +131,7 @@ test("参数为空的情况",function(){
 });
 
 test("参数是一个 fn", function(){
+    expect(6);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	
@@ -147,18 +142,18 @@ test("参数是一个 fn", function(){
 	        case 0:
 	        	ok( className == "A" );
 	        	return "A";
-	        	break;
 	        case 1:
 	        	ok( className == "B" );
 	        	return "B";
-	        	break;
 	        case 2:
 	        	ok( className == "C" );
 	        	return "C";
-	        	break;
 	    }
 	});
-	equal(formatHTML(div.innerHTML), "<div class=></div><div class=></div><div class=></div>", "");
-
+	
+	var array = baidu.dom('div', div);
+	for(var i = 0, item; item = array[i]; i++){
+	    equal(item.className, '', 'class is remove');
+	}
 	document.body.removeChild(div);
 });
