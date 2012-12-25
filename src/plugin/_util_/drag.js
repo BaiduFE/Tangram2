@@ -180,6 +180,9 @@ baidu.plugin._util_.drag = function(selector){
 
         offEvent = function(){
 
+            //防止最后一次的触发
+            clearTimeout(timer);
+
             //解除鼠标粘滞
             if (ele[0].releaseCapture) {
                 ele[0].releaseCapture();

@@ -311,9 +311,6 @@ baidu.dom.extend({
             htmlCancel = '',
             htmlTemp = '',
 
-            //函数节流计时器
-            timer,
-
             //初始化设置的值，挂在在实例上
             funs = {
 
@@ -406,7 +403,7 @@ baidu.dom.extend({
                 //析构函数
                 dispose:function(){
                     draggable.dispose();
-                    doc = opt = me = item = itemAttr = dragEle = dragEleAttr = dragEleClone = dragEleCloneAttr = timer = null;
+                    doc = opt = me = item = itemAttr = dragEle = dragEleAttr = dragEleClone = dragEleCloneAttr = null;
                     for(var k in sortable){
                         delete sortable[k];
                     };
@@ -496,7 +493,9 @@ baidu.dom.extend({
                 //TODO：以后可以考虑根据需求开放clone这个元素的样式
                 dragEleClone.addClass('tang-sortable-clone');
                 dragEleClone.removeClass('tang-draggable-dragging tang-sortable-item');
-                dragEle.after(dragEleClone);
+
+                //在ingHandle中已经创建了，所以不需要插入了。
+                //dragEle.after(dragEleClone);
                 dragEleClone.css('visibility','hidden');
 
                 //TODO:这里的z-index不应该被硬编码的，需要判断下周边的z-index来设定。
@@ -507,30 +506,29 @@ baidu.dom.extend({
             },
 
             ingHandle = function(){
-                clearTimeout(timer);
-                var timer = setTimeout(function(){
-                    var index,position;
-                    var o = dragEle.offset();
-                    dragEleAttr.top = o.top;
-                    dragEleAttr.left = o.left;
-                    dragEleAttr.bottom = o.top + dragEleAttr.h;
-                    dragEleAttr.right = o.left + dragEleAttr.w;
-                    for(var i = 0 ,num = itemAttr.length;i<num;i++){
-                        if(itemAttr[i].id != dragEleAttr.id ){
-                            position = checkCrash(itemAttr[i],dragEleAttr);
-                            if(position == 'up'){
-                                itemAttr[i].target.before(dragEleClone);
-                            }else if(position == 'down'){
-                                itemAttr[i].target.after(dragEleClone);
-                            }else if(position == 'both'){
-                                //itemAttr[i].target.before(dragEleClone);
-                            }else{
 
-                            };
+                //这段监听的dragging，dragging已经被函数节流过了。
+                var index,position;
+                var o = dragEle.offset();
+                dragEleAttr.top = o.top;
+                dragEleAttr.left = o.left;
+                dragEleAttr.bottom = o.top + dragEleAttr.h;
+                dragEleAttr.right = o.left + dragEleAttr.w;
+                for(var i = 0 ,num = itemAttr.length;i<num;i++){
+                    if(itemAttr[i].id != dragEleAttr.id ){
+                        position = checkCrash(itemAttr[i],dragEleAttr);
+                        if(position == 'up'){
+                            itemAttr[i].target.before(dragEleClone);
+                        }else if(position == 'down'){
+                            itemAttr[i].target.after(dragEleClone);
+                        }else if(position == 'both'){
+                            //itemAttr[i].target.before(dragEleClone);
+                        }else{
+
                         };
                     };
-                    sortable.fire('dragging');
-                },16);
+                };
+                sortable.fire('dragging');
             },
 
             endHandle = function(){
