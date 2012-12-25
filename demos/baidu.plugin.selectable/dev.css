@@ -1,0 +1,31 @@
+#wrapper{
+    width: 500px;
+    height: 400px;
+    margin-top: 30px;
+    border: 2px dashed #CC0;
+}
+
+ul.group{
+    list-style-type: none;
+}
+
+li.item{
+    width:180px;
+    height:30px;
+    border:1px solid #c00;
+}
+
+/* rubber select 的框选层默认样式 */
+.tang-rubberSelect{
+    border: 1px dotted #888;
+    background-color: #FFF;
+    filter:alpha(opacity=80);
+    -moz-opacity:0.8;
+    opacity: 0.8;
+}
+
+/* selectable 默认样式 */
+/* selectable 中被选中的元素默认样式 */
+.tang-selectable-selected{
+    background-color: #888;
+}

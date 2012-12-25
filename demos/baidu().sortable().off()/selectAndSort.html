@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu().sortable()、baidu().selectable() 混合示例"/>
+    <title>sortable和selectable混合示例</title>
+    <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.selectable,plugin.sortable"></script>
+    <style type="text/css">
+        #behavior {
+            border: 2px dashed red;
+            padding: 150px;
+            height: 400px;
+        }
+
+        #behavior ol {
+            list-style: none;
+            float: left;
+            overflow: hidden;
+        }
+
+        #behavior ol div{
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #behavior li {
+            width: 200px;
+            margin: 3px;
+            padding: 8px;
+            font-size: 12px;
+            height: 18px;
+            border: 1px solid #ccc;
+            background: #e6e6e6;
+        }
+
+        #behavior li span {
+            background: url(../../demos/ico.png) no-repeat -128px -48px;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: bottom;
+        }
+
+        #method-exp {
+            color: red;
+            margin-left: 10px;
+        }
+
+        #behavior .tang-draggable-dragging {
+            background: #6BA5F5;
+        }
+
+        .tang-rubberSelect {
+            border: 1px dotted #888;
+            background-color: #FFF;
+            filter: alpha(opacity = 80);
+            -moz-opacity: 0.8;
+            opacity: 0.8;
+        }
+
+        #behavior .tang-selectable-selected {
+            background: #F39814;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu().sortable()、baidu().selectable()混合</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>baidu().sortable()、baidu().selectable()混合示例</span><span id="method-exp"></span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div id="behavior">
+                <ol>
+                    <li><span></span>Item 1</li>
+                    <li><span></span>Item 2</li>
+                    <li><span></span>Item 3</li>
+                    <li><span></span>Item 4</li>
+                    <li><span></span>Item 5</li>
+                    <li><span></span>Item 6</li>
+                    <li><span></span>Item 7</li>
+                    <li><span></span>Item 8</li>
+                </ol>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var sort = baidu( '#behavior ol' ).sortable( {
+        range:'#behavior'
+    });
+
+    var div = baidu('<div>');
+    var selected;
+    var select = baidu( '#behavior ol' ).selectable( {
+        range:'#behavior',
+
+        //关闭通过ctrl或command键间隔选择元素
+        intervalSelect:false,
+        onstart:function(){
+            div.before(selected);
+        },
+        onend:function(){
+            selected = select.selected();
+            if(selected.length){
+                selected.eq(0).before(div);
+                div.append(selected);
+            };
+            sort.dispose();
+            sort = baidu( '#behavior ol' ).sortable({
+                range:'#behavior'
+            });
+        }
+    });
+
+    sort.getBack().on('mousedown',function(){
+        select.disable();
+    });
+
+    sort.getBack().on('mouseup',function(){
+        select.enable();
+    });
+
+</script>
+</body>
+</html>

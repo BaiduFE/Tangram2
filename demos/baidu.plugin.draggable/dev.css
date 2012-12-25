@@ -1,0 +1,28 @@
+#wrapper{
+    width: 500px;
+    height: 400px;
+    border: 2px dashed #CC0;
+    position: relative;
+}
+
+.wrap{
+    width:200px;
+    height:200px;
+    border:1px solid #F00;
+    position:relative;
+}
+
+.item{
+    width:180px;
+    height:30px;
+    border:1px solid #00F;
+    position:absolute;
+    left:10px;
+}
+
+.tang-draggable-dragging{
+    filter:alpha(opacity=60);
+    -moz-opacity:0.6;
+    opacity: 0.6;    
+    background-color: #0FF;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu().draggable() 示例"/>
+    <title>基本方法</title>
+    <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.draggable"></script>
+    <style type="text/css">
+        #draggable {
+            border: 2px dashed red;
+            padding: 50px;
+        }
+
+        #draggable div {
+            width: 100px;
+            height: 80px;
+            text-align: center;
+            font-size: 12px;
+            color: #000;
+            padding-top: 20px;
+            background: #abc8f2;
+            margin-bottom: 20px;
+        }
+
+        #draggable #draggable2 {
+            background: #cacaca;
+        }
+
+        #draggable2 p {
+            background: #abc8f2;
+            width: 65px;
+            height: 75px;
+            text-align: center;
+            margin: 0 auto;
+            padding-top: 5px;
+        }
+
+        #method-exp {
+            color: red;
+            margin-left: 10px;
+            line-height: 24px;
+        }
+
+        #draggable .tang-draggable-dragging {
+            background: #6BA5F5;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+<link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu().draggable()</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>基本方法说明：</span><span id="method-exp">将元素拖动到浏览器视口的任何地方(范围限定在 id 为 draggable 的红色虚线框容器内)拖拽时，当前被拖拽的元素此时会默认加一个 className 名为 “tang-draggable-dragging” (设置 class 样式：{ background: #6BA5F5; color:#fff })</span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div id="draggable">
+                <div id="draggable1">
+                    拖我<br/><br/>整个区域都能拖
+                </div>
+                <div id="draggable2">
+                    <p>拖我<br/><br/>只有蓝色区域能拖</p>
+                </div>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    baidu( '#draggable1' ).draggable( {
+        range:'#draggable'
+    } );
+    baidu( '#draggable2' ).draggable('p', {
+        range:'#draggable'
+    } );
+</script>
+</body>
+</html>

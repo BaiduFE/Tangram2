@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu.dom().selectable() 示例"/>
+    <title>基本事件</title>
+    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+    <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.selectable"></script>
+    <style type="text/css">
+        #selectable {
+            border: 2px dashed red;
+            padding: 50px;
+        }
+
+        #selectable ol {
+            list-style: none;
+            margin-left: 10px;
+        }
+
+        #selectable ol li {
+            margin: 3px;
+            padding: 8px;
+            font-size: 12px;
+            height: 18px;
+            border: 1px solid #ccc;
+            background: #e6e6e6;
+            width: 300px;
+        }
+
+        #selectable ul li {
+            margin: 10px;
+            padding: 5px 10px;
+            border: 1px solid #000;
+            background: #cacaca;
+            float: left;
+            width: 170px;
+            list-style: none;
+        }
+
+        #selectable ul li strong {
+            color: red;
+            margin-left: 5px;
+        }
+
+        #selectable #result {
+            clear: both;
+            margin: 0 0 20px 10px;
+        }
+
+        #selectable #result strong {
+            color: red;
+        }
+
+        #selectable ul .hightLight {
+            background: yellow;
+        }
+
+        #result strong em {
+            margin: 0 5px;
+            color: red;
+        }
+
+        #method-exp {
+            color: red;
+            margin-left: 10px;
+        }
+
+        .tang-rubberSelect {
+            border: 1px dotted #888;
+            background-color: #FFF;
+            filter: alpha(opacity = 80);
+            -moz-opacity: 0.8;
+            opacity: 0.8;
+        }
+
+        #selectable .tang-selectable-selected {
+            background: #F39814;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu.dom().selectable()</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>基本事件说明：</span><span id="method-exp">触发 start、change、end、dragging 其中某个事件时，相对应按钮背景颜色变黄</span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div id="selectable">
+                <ul>
+                    <li id="event-start">"start" invoked <strong>0</strong></li>
+                    <li id="event-change">"change" invoked <strong>0</strong></li>
+                    <li id="event-end">"end" invoked <strong>0</strong></li>
+                    <li id="event-dragging">"dragging" invoked <strong>0</strong></li>
+                </ul>
+                <div id="result">选择的结果是 <strong></strong></div>
+                <ol>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                    <li>Item 5</li>
+                    <li>Item 6</li>
+                    <li>Item 7</li>
+                    <li>Item 8</li>
+                </ol>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    baidu( function () {
+        var draggingBox = baidu( "#event-dragging" ),
+            startBox = baidu( "#event-start" ),
+            changeBox = baidu( "#event-change" ),
+            endBox = baidu( "#event-end" ),
+            num = [ 0, 0, 0, 0 ];
+        baidu( '#selectable ol' ).selectable( {
+            range:'#selectable',
+            ondragging:function () {
+                num[ 0 ]++;
+                updateColor( draggingBox, num[ 0 ] );
+            },
+            onstart:function () {
+                num[ 1 ]++;
+                updateColor( startBox, num[ 1 ] );
+            },
+            onchange:function () {
+
+                num[ 2 ]++;
+                updateColor( changeBox, num[ 2 ] );
+            },
+            onend:function () {
+                num[ 3 ]++;
+                var box = baidu( '#result strong' ).empty(), value;
+                baidu( '.tang-selectable-selected' ).each( function ( index, item ) {
+                    value = baidu( item ).html();
+                    box.append( '<em>' + value + '</em>' );
+                } );
+                updateColor( endBox, num[ 3 ] );
+            }
+        } );
+
+        function updateColor( eventBox, numCount ) {
+            if ( !eventBox.hasClass( "hightLight" ) ) {
+                eventBox.addClass( "hightLight" ).siblings().removeClass( "hightLight" );
+            }
+            baidu( 'strong', eventBox.get( 0 ) ).html( numCount+'x' );
+        }
+    } );
+</script>
+</body>
+</html>
