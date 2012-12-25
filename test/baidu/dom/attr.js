@@ -480,9 +480,17 @@ test("传入空的设置",function(){
 });
 
 test("设置input",function(){
-    var dom = baidu("<input>");    
+    var dom = baidu("<input>").appendTo('body');    
     dom.attr('type','radio');
     equal(dom.attr('type'),'radio','设置为radio');
+    dom.remove();
+});
+
+test("设置width和height",function(){
+    var dom = baidu("<div>").appendTo('body');    
+    dom.attr('width','');
+    equal(dom.attr('width'),'auto','设置为auto');
+    dom.remove();
 });
 //end
 
