@@ -22,7 +22,25 @@ test('新接口：显示或隐藏',function(){
 	ok(dis!='none',"change to display");
 
 	document.body.removeChild(div);
-})
+});
+
+test('新接口：显示或隐藏',function(){
+
+	var css = jQuery("<style type='text/css'>.display-none{display:none;}</style>").appendTo('body');
+	var div = jQuery("<div class='display-none'>123</div>").appendTo('body');
+
+	equal(div[0].style.display,'',"no style display");
+	equal(div.css('display'),'none',"css display:none");
+	baidu.dom(div[0]).toggle();
+	equal(div[0].style.display,'block',"show");
+	equal(div.css('display'),'block',"show");
+	baidu.dom(div[0]).toggle();
+	equal(div[0].style.display,'none',"hide");
+	equal(div.css('display'),'none',"hide");
+
+	css.remove();
+	div.remove();
+});
 
 //兼容1.x接口
 test('兼容1.x接口：element',function(){
