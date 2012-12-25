@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu.dom().sortable() 示例"/>
+    <title>基本方法</title>
+    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+    <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.sortable"></script>
+    <style type="text/css">
+        #sortable {
+            border: 2px dashed red;
+            padding: 50px;
+            height: 400px;
+        }
+
+        #sortable ol {
+            list-style: none;
+            float: left;
+            margin-right: 100px;
+            overflow: hidden;
+        }
+
+        #sortable li {
+            width: 200px;
+            margin: 3px;
+            padding: 8px;
+            font-size: 12px;
+            height: 18px;
+        }
+
+        .default {
+            border: 1px solid #ccc;
+            background: #e6e6e6;
+        }
+
+        .highLight {
+            border: 1px solid #FCEFA1;
+            background: #FBF9EE;
+        }
+
+        #sortable li span {
+            background: url(../../demos/ico.png) no-repeat -128px -48px;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: bottom;
+        }
+
+        #method-exp {
+            color: red;
+            margin-left: 10px;
+        }
+
+        #sortable li.tang-draggable-dragging {
+            background: #0FF;
+        }
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu.dom().sortable()</strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>基本方法说明：</span><span id="method-exp">启用一组 DOM 元素可排序(将范围限定在 id 为 sortable 的黑色虚线框容器内)排序时，当前被拖拽的元素此时会默认加一个 className 名为 “tang-draggable-dragging” (设置 class 样式：background: #6BA5F5 )</span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div id="sortable">
+                <ol>
+                    <li class="default"><span></span>Item 1</li>
+                    <li class="default"><span></span>Item 2</li>
+                    <li class="default"><span></span>Item 3</li>
+                    <li class="default"><span></span>Item 4</li>
+                    <li class="default"><span></span>Item 5</li>
+                    <li class="default"><span></span>Item 6</li>
+                    <li class="default"><span></span>Item 7</li>
+                    <li class="default"><span></span>Item 8</li>
+                </ol>
+                <ol>
+                    <li class="highLight"><span></span>Item 1</li>
+                    <li class="highLight"><span></span>Item 2</li>
+                    <li class="highLight"><span></span>Item 3</li>
+                    <li class="highLight"><span></span>Item 4</li>
+                    <li class="highLight"><span></span>Item 5</li>
+                    <li class="highLight"><span></span>Item 6</li>
+                    <li class="highLight"><span></span>Item 7</li>
+                    <li class="highLight"><span></span>Item 8</li>
+                </ol>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    baidu( '#sortable ol' ).sortable( {
+        range:'#sortable'
+    } );
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+/* baidu.plugin.selectable 相关CSS */
+
+/* @description 橡皮筋框选rubber select的框选层默认样式 */
+.tang-rubberSelect{
+    border: 1px dotted #888;
+    background-color: #FFF;
+    filter:alpha(opacity=80);
+    -moz-opacity:0.8;
+    opacity: 0.8;
+}
+
+/* selectable 默认样式 */
+/* @description selectable 中被选中的元素默认样式 */
+.tang-selectable-selected{
+    background-color: #888;
+}

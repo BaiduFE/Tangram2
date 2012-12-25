@@ -1,0 +1,10 @@
+/* baidu.plugin.draggable 相关CSS */
+
+/**
+ * @description 该className会在用户拖拽某一元素时被添加到该元素上，可以方便用户添加拖拽元素的样式。
+*/
+.tang-draggable-dragging{
+    filter:alpha(opacity=80);
+    -moz-opacity:0.8;
+    opacity: 0.8;
+}

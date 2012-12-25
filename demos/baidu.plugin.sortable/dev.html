@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="baidu.dom().selectable() 示例" />
+        <title>selectable组件</title>
+        <link rel="stylesheet" href="dev.css" type="text/css" /> 
+        <script type="text/javascript" src="../../src/import.php?f=plugin.sortable" ></script>
+    </head>
+    <body>
+        <div id='wrapper'>
+            <ul class='group'>
+                <li class='item a1 www'></li>
+                <li class='item a2 www'></li>
+                <li class='item a3'></li>
+                <li class='item a4'></li>
+                <li class='item'></li>
+                <li class='item'></li>
+                <li class='item www'></li>
+                <li class='item'></li>
+            </ul>
+        </div>
+    </body>
+    <script type="text/javascript">
+    var s = baidu('.group').sortable({
+        range:'#wrapper',
+        onstart:function(){console.log(123);}
+    });
+    </script>
+</html>

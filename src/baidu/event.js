@@ -19,6 +19,15 @@
  * @grammar baidu.event([event])
  * @param   {Event}         event   系统 event 对象
  * @return  {TangramEvebt}          返回 new TangramEvent 对象
+ * @example
+ 如果你想阻止当前事件的冒泡，或者屏蔽默认事件的触发，可以使用stopPropagation和preventDefault方法：
+
+ 示例代码：
+ baidu('#div-test').on('click',function(e){
+  e.stopPropagation();  //阻止冒泡
+  e.preventDefault();   //阻止默认事件
+  alert(123);
+ });
  */
 
 baidu.createChain("event",

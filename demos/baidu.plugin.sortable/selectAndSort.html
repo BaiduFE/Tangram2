@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="baidu.dom().sortable()、baidu.dom().selectable()混合 示例"/>
+    <title>baidu.dom().sortable()、baidu.dom().selectable()</title>
+    <link rel="stylesheet" href="../../demos/public.css" type="text/css"/>
+    <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.sortable"></script>
+    <script type="text/javascript" src="../../src/import.php?f=plugin.selectable"></script>
+    <style type="text/css">
+        #behavior {
+            border: 2px dashed red;
+            padding: 50px;
+            height: 660px;
+        }
+
+        #behavior ol {
+            list-style: none;
+            float: left;
+            margin-right: 100px;
+            overflow: hidden;
+        }
+
+        #behavior li {
+            width: 200px;
+            margin: 3px;
+            padding: 8px;
+            font-size: 12px;
+            height: 18px;
+            border: 1px solid #ccc;
+            background: #e6e6e6;
+        }
+
+        #behavior li span {
+            background: url(../../demos/ico.png) no-repeat -128px -48px;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: bottom;
+        }
+
+        #method-exp {
+            color: red;
+            margin-left: 10px;
+        }
+
+        #behavior li.tang-draggable-dragging {
+            background: #0FF;
+        }
+
+        .tang-rubberSelect {
+            border: 1px dotted #888;
+            background-color: #FFF;
+            filter: alpha(opacity = 80);
+            -moz-opacity: 0.8;
+            opacity: 0.8;
+        }
+
+        #behavior .tang-selectable-selected {
+            background: #F39814;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">
+    <h1 class="ac-h1"><strong>baidu.dom().sortable()、baidu.dom().selectable()混合 </strong> 示例</h1>
+
+    <div class="pannel">
+        <div class="pannel-title">
+            <span>baidu.dom().sortable()、baidu.dom().selectable()混合示例</span><span id="method-exp"></span>
+        </div>
+        <div class="pannel-content">
+            <!--DemoViewStart-->
+            <div id="behavior">
+                <ol>
+                    <li><span></span>Item 1</li>
+                    <li><span></span>Item 2</li>
+                    <li><span></span>Item 3</li>
+                    <li><span></span>Item 4</li>
+                    <li><span></span>Item 5</li>
+                    <li><span></span>Item 6</li>
+                    <li><span></span>Item 7</li>
+                    <li><span></span>Item 8</li>
+                </ol>
+            </div>
+            <!--DemoViewEnd-->
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var sort = baidu( '#behavior ol' ).sortable( {
+        range:'#behavior'
+    } );
+    var select = baidu( '#behavior ol' ).selectable( {
+        range:'#behavior'
+    } );
+
+    sort.getBack().on('mousedown',function(){
+        select.disable();
+    });
+    sort.getBack().on('mouseup',function(){
+        select.enable();
+    });
+
+</script>
+</body>
+</html>
