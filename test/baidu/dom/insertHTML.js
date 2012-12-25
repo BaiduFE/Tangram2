@@ -145,3 +145,21 @@ test('FF下的特殊情况',function(){
 	equals($("#table1")[0].parentNode.parentNode.id, 'test1', '确认table位置');
 	insertHtmlRemove(table);
 })
+
+if (jQuery("<div>").append('body')[0].insertAdjacentHTML && !baidu.browser.opera){}else{
+test('在元素的结束标签后插入html', function() {
+	var oDiv = insertHtmlCreate('div', "div1_ih");
+	var oP = insertHtmlCreate('p', "p1_ih", oDiv);
+	equals(oDiv.childNodes.length, 1);
+	equals(oDiv.childNodes[0].tagName, "P");
+	var op1 = baidu.dom.insertHTML(oP, "afterEnd",
+			"<input type='text' value='data'/>");
+	equals(oDiv.childNodes.length, 2);
+	equals(oDiv.childNodes[0].tagName, "P");
+	equals(oDiv.childNodes[1].tagName, "INPUT");
+	equals(op1, oP);
+	insertHtmlRemove(oDiv, oP);
+});
+}
+
+
