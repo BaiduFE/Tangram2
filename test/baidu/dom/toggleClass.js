@@ -113,17 +113,27 @@ test("dom为空的情况",function(){
 });
 
 test("没有参数", function(){
+    expect(3)
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	
 	div.innerHTML = "<div class='A'></div><div class='B'></div><div class='C'></div>";
 	
 	baidu.dom("div", div).toggleClass();
-	equal(formatHTML(div.innerHTML), "<div class=></div><div class=></div><div class=></div>", "");
+	
+	var array = baidu.dom('div', div);
+    for(var i = 0, item; item = array[i]; i++){
+        equal(item.className, '', 'class removed');
+    }
+	
+	
+	
+//	equal(formatHTML(div.innerHTML), "<div class=></div><div class=></div><div class=></div>", "");
 	document.body.removeChild(div);
 });
 
 test("参数是一个 fn", function(){
+    expect(6);
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	
@@ -145,8 +155,10 @@ test("参数是一个 fn", function(){
 	        	break;
 	    }
 	});
-	equal(formatHTML(div.innerHTML), "<div class=></div><div class=></div><div class=></div>", "");
-
+	var array = baidu.dom('div', div);
+	for(var i = 0, item; item = array[i]; i++){
+	    equal(item.className, '', 'class removed');
+	}
 	document.body.removeChild(div);
 });
 

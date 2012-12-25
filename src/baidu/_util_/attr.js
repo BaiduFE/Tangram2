@@ -5,6 +5,7 @@
 ///import baidu._util_.support.getSetAttribute;
 ///import baidu._util_.isXML;
 ///import baidu._util_.removeAttr;
+///import baidu._util_.contains;
 ///import baidu.forEach;
 baidu._util_.attr = function(){
     var util = baidu._util_,
@@ -39,6 +40,7 @@ baidu._util_.attr = function(){
             type: {
                 set: function(ele, key, val){
                     // We can't allow the type property to be changed (since it causes problems in IE)
+//                    if(rtype.test(ele.nodeName) && util.contains(document.body, ele)){return val;};
                     if(rtype.test(ele.nodeName) && ele.parentNode){return val;};
                     if(!radioValue && val === 'radio' && util.nodeName(ele, 'input')){
                         var v = ele.value;
