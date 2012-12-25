@@ -100,3 +100,35 @@ test(".add( selector, context )重载", function () {
         });
     });
 });
+
+test(".add( array )重载", function () {
+    useTangramDom(html1, function ($dom) {
+        var e9 = baidu("<div id='e9'>hzl</div>").get(0);
+        var e10 = baidu("<div id='e10'>ttt</div>").get(0);
+        var target = $dom.add([e9,e10]);
+        equal(target.length, 6, '结果长度');
+        equal(target[0].id, 'e1', '验证原有元素');
+        equal(target[1].id, 'e2', '验证原有元素');
+        equal(target[2].id, 'e3', '验证原有元素');
+        equal(target[3].id, 'e4', '验证原有元素');
+        equal(target[4].id, 'e9', '验证添加的元素');
+        equal(target[5].id, 'e10', '验证添加的元素');
+    });
+});
+
+test(".add( obj )默认重载", function () {
+    useTangramDom(html1, function ($dom) {
+        var e9 = baidu("<div id='e9'>hzl</div>").get(0);
+        var e10 = baidu("<div id='e10'>ttt</div>").get(0);
+        var obj = [e9,e10];
+        obj.a = 123;
+        var target = $dom.add(obj);
+        equal(target.length, 6, '结果长度');
+        equal(target[0].id, 'e1', '验证原有元素');
+        equal(target[1].id, 'e2', '验证原有元素');
+        equal(target[2].id, 'e3', '验证原有元素');
+        equal(target[3].id, 'e4', '验证原有元素');
+        equal(target[4].id, 'e9', '验证添加的元素');
+        equal(target[5].id, 'e10', '验证添加的元素');
+    });
+});
