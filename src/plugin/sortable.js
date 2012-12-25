@@ -374,6 +374,9 @@ baidu.dom.extend({
                 cancel:function(){
                     me.html(htmlCancel);
                     init();
+                    if(opt.enable == false){
+                        sortable.disable();
+                    };
                     return sortable;
                 },
 
@@ -381,6 +384,9 @@ baidu.dom.extend({
                 reset:function(){
                     me.html(htmlReset);
                     init();
+                    if(opt.enable == false){
+                        sortable.disable();
+                    };
                     return sortable;
                 },
 
@@ -485,7 +491,7 @@ baidu.dom.extend({
                     zIndex:dragEle.css('z-index')
                 };
                 sortable.fire('start');
-                htmlTemp = me.html();
+                htmlTemp = me.html().replace(/\stang-draggable-dragging/g,'');
 
                 //清除掉draggable附加的className
                 dragEleClone = dragEle.clone();
