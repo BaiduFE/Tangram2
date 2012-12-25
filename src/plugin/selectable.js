@@ -382,7 +382,6 @@ baidu.dom.extend({
 
                 //析构函数
                 dispose:function(){
-                    rubberSelect.dispose();
                     selectable.disable();
                     doc = rubberSelect = item = timer = null;
                     for(var k in selectable){

@@ -92,10 +92,13 @@ test("item方法", function() {
 
 
 test('index方法', function() {
-    expect(1);
+    expect(2);
     var index = selectable.index();
     var arr = [2,3];
-    equal(index[1], arr[1], "选择后的索引");    
+    equal(index[1], arr[1], "选择后的索引");  
+
+    var index = selectable.index([0,1,3]);
+    equal(selectable.selected().length, 3, "selected");  
 });
 
 test('cancel方法', function() {
@@ -113,6 +116,19 @@ test('reset方法', function() {
     equal(index.length, 0, "选择后的索引");    
 });
 
+
+test('selected和unselected方法', function() {
+    expect(4);
+    selectable.reset();
+    selectable.selected('.item');
+    equal(selectable.selected().length, 4, "selected");    
+    equal(selectable.unselected().length, 0, "selected");    
+    
+    selectable.unselected('.item');
+    equal(selectable.selected().length, 0, "selected");    
+    equal(selectable.unselected().length, 4, "selected");        
+});
+
 test('getBack方法', function() {
     expect(1);
     selectable.getBack().css('background-color','#F0F');
@@ -121,7 +137,7 @@ test('getBack方法', function() {
 });
 
 test('disable方法', function() {
-    expect(1);
+    expect(2);
 
     stop();
 
@@ -136,6 +152,7 @@ test('disable方法', function() {
         if (x <= 150) {
             ua.mouseup(ele);
             equal(selectable.selected().length,0, "selected");
+            equal(selectable.unselected().length,4,"unselected")
             start();
         } else {
             ua.mousemove(document, {
@@ -152,7 +169,7 @@ test('disable方法', function() {
 
 test('enable方法', function() {
     stop();
-    expect(1);
+    expect(2);
     selectable.enable();
     ua.mousedown(document, {
         clientX : 300,
@@ -162,6 +179,7 @@ test('enable方法', function() {
         if (x <= 150) {
             ua.mouseup(ele);
             equal(selectable.selected().length,3, "selected");
+            equal(selectable.unselected().length,1,"unselected")
             start();
         } else {
             ua.mousemove(document, {
@@ -208,8 +226,9 @@ test('事件相关', function() {
             equal(draggingNum,21, "dragging事件");
             equal(endNum,1, "end事件");
             equal(changeNum,3, "change事件");
+            selectable.dispose();
             start();
-            jQuery('#wrapper').remove();
+            //jQuery('#wrapper').remove();
         } else {
             ua.mousemove(document, {
                 clientX : x - 10,
@@ -221,5 +240,77 @@ test('事件相关', function() {
         }
     };
 
+    move(document, 300, 20);
+});
+
+//传入2个参数
+test('事件相关', function() {
+    stop();
+    expect(4);
+    var startNum,draggingNum,endNum,changeNum;
+    startNum = draggingNum = endNum = changeNum = 0;
+    selectable = baidu('.group').selectable('.item',{
+        onstart:function(){startNum++;},
+        ondragging:function(){draggingNum++;},
+        onend:function(){endNum++;},
+        onchange:function(){changeNum++;}
+    });
+
+    ua.mousedown(document, {
+        clientX : 300,
+        clientY : 20
+    });
+
+    var move = function(ele, x, y) {
+        if (x <= 100) {
+            ua.mouseup(ele);
+            equal(startNum,1, "start事件");
+            equal(draggingNum,21, "dragging事件");
+            equal(endNum,1, "end事件");
+            equal(changeNum,6, "change事件");
+            selectable.dispose();
+            start();
+            //jQuery('#wrapper').remove();
+        } else {
+            ua.mousemove(document, {
+                clientX : x - 10,
+                clientY : y + 5
+            });
+            setTimeout(function() {
+                move(ele, x - 10, y + 5);
+            }, 20);
+        }
+    };
+
+    move(document, 300, 20);
+});
+
+//传入1个参数
+test('selected方法', function() {
+    stop();
+    expect(1);
+    selectable = baidu('.group').selectable('.item');
+
+    ua.mousedown(document, {
+        clientX : 300,
+        clientY : 20
+    });
+
+    var move = function(ele, x, y) {
+        if (x <= 150) {
+            ua.mouseup(ele);
+            equal(selectable.selected().length, 2, "selected");
+            jQuery('#wrapper').remove();            
+            start();
+        } else {
+            ua.mousemove(document, {
+                clientX : x - 10,
+                clientY : y + 5
+            });
+            setTimeout(function() {
+                move(ele, x - 10, y + 5);
+            }, 20);
+        }
+    };
     move(document, 300, 20);
 });
