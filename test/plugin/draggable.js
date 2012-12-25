@@ -113,7 +113,8 @@ test('getBack方法', function() {
     expect(1);
     draggable.getBack().css('background-color','#0FF');
     var tang = baidu('#test-a');
-    equal(tang.css('background-color'),'rgb(0, 255, 255)', "设置的当前DOM");
+    var result = tang.css('background-color').replace(/rgb\(0, 255, 255\)/g,'#0ff');
+    equal(result ,'#0ff', "设置的当前DOM");
 });
 
 test('disable方法', function() {
@@ -201,7 +202,7 @@ test('range方法', function() {
         if (x >= 300) {
             ua.mouseup(ele);
             var tang = baidu(ele);
-            equal(tang.offset().left, 162, "stop left");
+            ok((tang.offset().left>160 && tang.offset().left<170), "stop left");
             equal(tang.offset().top, 145, "stop top");
             range.remove();
             start();
@@ -393,7 +394,7 @@ test('1个参数：移动', function() {
         if (x >= 300) {
             ua.mouseup(ele);
             var tang = baidu(ele);
-            equal(tang.offset().left, 172, "stop left");
+            ok((tang.offset().left>170 && tang.offset().left<180), "stop left");
             equal(tang.offset().top, 155, "stop top");
             range.remove();
             draggable.dispose();

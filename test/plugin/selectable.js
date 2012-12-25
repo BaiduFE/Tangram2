@@ -133,7 +133,8 @@ test('getBack方法', function() {
     expect(1);
     selectable.getBack().css('background-color','#F0F');
     var tang = baidu('.group');
-    equal(tang.css('background-color'),'rgb(255, 0, 255)', "设置的当前DOM");
+    var result = tang.css('background-color').replace(/rgb\(255, 0, 255\)/g,'#f0f');
+    equal(result,'#f0f', "设置的当前DOM");
 });
 
 test('disable方法', function() {
@@ -207,7 +208,7 @@ test('事件相关', function() {
     expect(4);
     var startNum,draggingNum,endNum,changeNum;
     startNum = draggingNum = endNum = changeNum = 0;
-    selectable = baidu('.group').selectable({
+    var selectable = baidu('.group').selectable({
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
         onend:function(){endNum++;},
@@ -249,7 +250,7 @@ test('事件相关', function() {
     expect(4);
     var startNum,draggingNum,endNum,changeNum;
     startNum = draggingNum = endNum = changeNum = 0;
-    selectable = baidu('.group').selectable('.item',{
+    var selectable = baidu('.group').selectable('.item',{
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
         onend:function(){endNum++;},
@@ -289,7 +290,7 @@ test('事件相关', function() {
 test('selected方法', function() {
     stop();
     expect(1);
-    selectable = baidu('.group').selectable('.item');
+    var selectable = baidu('.group').selectable('.item');
 
     ua.mousedown(document, {
         clientX : 300,
