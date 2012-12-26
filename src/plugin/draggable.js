@@ -340,17 +340,20 @@ baidu.dom.extend({
                         
                         //不传参，get方法
                         case 0:
+
+                            //内部endOf方法。
                             if(baidu.type(opt.endOf)=='object'){
 
                                 //endOf的范围是Object,{'top':123,'right':123,'bottom':123,'left':123}
-                                if(dragEle.w){
+                                if(!dragEle.w){
                                     dragEle.w = dragEle.outerWidth();
                                     dragEle.h = dragEle.outerHeight();
                                 };
                                 var o = dragEle.offset(),
                                     eo = opt.endOf;
-                                
-                                if((o.top+dragEle.h<eo.top)||(o.top>eo.bottom)||(o.left+dragEle.w<eo.left)||(o.left>eo.right)){
+                               
+                                if( o.left >= eo.left && o.left + dragEle.w <= eo.right && o.top >= eo.top && o.top + dragEle.h <= e.bottom){
+                                }else{
                                     draggable.cancel();
                                 };
                             }else{
@@ -361,12 +364,12 @@ baidu.dom.extend({
                                 };                                
                             };
                             return opt.endOf;
-                        break;
+                        //break;
 
                         //传一个参数
                         case 1:
 
-                            //value是selector
+                            //value是selector或者是object;
                             opt.endOf = value;
                         break;
                     };
