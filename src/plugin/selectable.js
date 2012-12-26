@@ -372,7 +372,7 @@ baidu.dom.extend({
                 enable:function(){
                     if(!opt.enable){
                         opt.enable = true;
-                        if(rubberSelect.dispose){
+                        if(rubberSelect && rubberSelect.dispose == true){
                             rubberSelect = baidu.plugin._util_.rubberSelect();
                         };
                         bindDocEvent();
@@ -382,7 +382,6 @@ baidu.dom.extend({
 
                 //析构函数
                 dispose:function(){
-                    rubberSelect.dispose();
                     selectable.disable();
                     doc = rubberSelect = item = timer = null;
                     for(var k in selectable){

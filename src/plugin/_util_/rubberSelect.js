@@ -134,7 +134,7 @@ baidu.plugin._util_.rubberSelect = function(options){
                 document.selection.empty && document.selection.empty();
             }else if(window.getSelection){
                 window.getSelection().removeAllRanges();
-            };            
+            };      
         },
 
         ingHandle = function(e){
@@ -256,7 +256,7 @@ baidu.plugin._util_.rubberSelect = function(options){
         dispose:function(){
             
             doc.off('mousedown',handle);
-            doc.off('mousemove',ingHandle);
+            //doc.off('mousemove',ingHandle);
             doc.off('mouseup',endHandle);
 
             mask.remove();
