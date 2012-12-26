@@ -25,9 +25,9 @@ void function( base, be ){
     var queue = base.queue;
     var dom = baidu.dom;
 
-    var ie = !window.addEventListener;
+    var ie = !window.addEventListener, firefox = /firefox/i.test(navigator.userAgent);
 
-    var abnormals = { submit: 3, focus: ie ? 3 : 2, blur: ie ? 3 : 2 };
+    var abnormals = { submit: 3, focus: ie ? 3 : 2, blur: ie ? 3 : firefox ? 1 : 2 };
 
     var createEvent = function( type, opts ){
         var evnt;
@@ -76,14 +76,16 @@ void function( base, be ){
             if( special )
                 queue.call( element, type, null, evnt );
             else{
+                var abnormalsType = element.window === window ? 3 : abnormals[ type ];
+
                 try{
-                    if( abnormals[ type ] & 1 || !( type in abnormals ) )
+                    if( abnormalsType & 1 || !( type in abnormals ) )
                         eventReturn = dispatchEvent( element, type, evnt );
                 }catch(e){
                     dom( element ).triggerHandler( type, triggerData, evnt );
                 }
 
-                if( eventReturn !== false && abnormals[ type ] & 2 ){
+                if( eventReturn !== false && abnormalsType & 2 ){
                     try{
                         if( element[ type ] )
                             element[ type ]();
