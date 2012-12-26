@@ -164,7 +164,7 @@ test('兼容Magic接口：focusin, focusout', function(){
         input = new Elements('input', true);
     div.get().appendChild(span.get());
     span.get().appendChild(input.get());
-    
+
     baidu.dom(div.get()).on('focusin, focusout', function(evt){
         ok(~'focusin|focusout'.indexOf(evt.type), 'event is: ' + evt.type);
     });
@@ -172,9 +172,11 @@ test('兼容Magic接口：focusin, focusout', function(){
     input.get().blur();
     baidu.dom(div.get()).focusin();
     baidu.dom(div.get()).focusout();
-    input.dispose();
-    span.dispose();
-    div.dispose();
+    // setTimeout(function(){
+        input.dispose();
+        span.dispose();
+        div.dispose();
+    // }, 1000);
 });
 
 test('兼容Magic接口：mousewheel', function(){
