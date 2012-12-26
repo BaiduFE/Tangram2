@@ -169,7 +169,7 @@ test("第一个参数不是数组", function() {
 });
 
 //foreach
-test("foreach", function() {
-	expect(1);
-	ok( [1,2,3].forEach.toString().match(/baidu.forEach/g) , "foreach");
-});
+//test("foreach", function() {
+//	expect(1);
+//	ok( [1,2,3].forEach.toString().match(/baidu.forEach/g) , "foreach");
+//});
