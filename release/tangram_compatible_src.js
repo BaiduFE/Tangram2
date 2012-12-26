@@ -15,7 +15,7 @@ var T, baidu = T = function(){
 	
 	var T, baidu = T = baidu || function(q, c) { return baidu.dom ? baidu.dom(q, c) : null; };
 	
-	baidu.version = '2.0.1.2';
+	baidu.version = '2.0.1.3';
 	baidu.guid = "$BAIDU$";
 	baidu.key = "tangram_guid";
 	
@@ -695,7 +695,8 @@ var T, baidu = T = function(){
 	    var maps = baidu.global("_maps_id")
 	        ,key = baidu.key;
 	
-	    baidu.global("_counter", 1);
+	    // 2012.12.21 与老版本同步
+	    window[ baidu.guid ]._counter = window[ baidu.guid ]._counter || 1;
 	
 	    return function( object, command ) {
 	        var e
@@ -708,7 +709,7 @@ var T, baidu = T = function(){
 	            switch ( command ) {
 	            case "get" :
 	                return obj_1 ? id : maps[id];
-	            break;
+	//            break;
 	            case "remove" :
 	            case "delete" :
 	                if ( e = maps[id] ) {
@@ -721,12 +722,7 @@ var T, baidu = T = function(){
 	                    delete maps[ id ];
 	                }
 	                return id;
-	            break;
-	            case "decontrol" : 
-	                !(e = maps[id]) && obj_1 && ( object[ key ] = id = baidu.id() );
-	                id && delete maps[ id ];
-	                return id;
-	            break;
+	//            break;
 	            default :
 	                if ( str_1 ) {
 	                    (e = maps[ id ]) && delete maps[ id ];
@@ -747,7 +743,7 @@ var T, baidu = T = function(){
 	            return maps[ object ];
 	        }
 	
-	        return "TANGRAM__" + baidu._global_._._counter ++;
+	        return "TANGRAM__" + baidu._global_._counter ++;
 	    };
 	}();
 	
@@ -806,11 +802,11 @@ var T, baidu = T = function(){
 	                    return event;
 	
 	                // event type
-	                case "string" :
-	                    var e = new baidu.event.$Event( event );
-	                    if( typeof json == "object" ) 
-	                        baidu.forEach( e, json );
-	                    return e;
+	//                case "string" :
+	//                    var e = new baidu.event.$Event( event );
+	//                    if( typeof json == "object" ) 
+	//                        baidu.forEach( e, json );
+	//                    return e;
 	            }
 	        }
 	    }(),
@@ -861,8 +857,8 @@ var T, baidu = T = function(){
 	        }
 	
 	        // event.type
-	        if( typeof event == "string" )
-	            this.type = event;
+	//        if( typeof event == "string" )
+	//            this.type = event;
 	
 	        // event.timeStamp
 	        this.timeStamp = new Date().getTime();
@@ -1156,9 +1152,11 @@ var T, baidu = T = function(){
 	    }
 	});
 	
-	baidu._util_.eventBase = {};
+	baidu._util_.eventBase = baidu._util_.eventBase || {};
 	
 	void function( base, listener ){
+	    if( base.listener )return ;
+	    
 	    listener = base.listener = {};
 	    
 	    if( window.addEventListener )
@@ -1172,6 +1170,8 @@ var T, baidu = T = function(){
 	}( baidu._util_.eventBase );
 	
 	void function( base, be ){
+	    if( base.queue )return ;
+	
 	    var I = baidu.id;
 	    var queue = base.queue = {};
 	    var attaCache = queue.attaCache = baidu.global( "eventQueueCache" );
@@ -1227,6 +1227,9 @@ var T, baidu = T = function(){
 	            if( !e.currentTarget )
 	                e.currentTarget = target;
 	
+	            if( !e.target )
+	                e.target = target;
+	
 	            for( var i = 0, r, l = fnAry.length; i < l; i ++ )
 	                if(r = fnAry[i]){
 	                    r.pkg.apply( target, args );
@@ -1264,6 +1267,8 @@ var T, baidu = T = function(){
 	}( baidu._util_.eventBase, baidu.event );
 	
 	void function( base, be ){
+	    if( base.core )return ;
+	
 	    var queue = base.queue;
 	    var core = base.core = {};
 	    var special = be.special = {};
@@ -1278,6 +1283,7 @@ var T, baidu = T = function(){
 	    core.build = function( target, name, fn, selector, data ){
 	
 	        var bindElements;
+	
 	        if( selector )
 	            bindElements = baidu.dom( selector, target );
 	
@@ -1309,6 +1315,7 @@ var T, baidu = T = function(){
 	        if(type in special)
 	            attachElements = special[type].attachElements,
 	            bindType = special[type].bindType || type;
+	
 	        queue.add( target, type, bindType, { type: type, pkg: pkg, orig: fn, one: one }, attachElements );
 	    };
 	
@@ -2816,11 +2823,11 @@ var T, baidu = T = function(){
 	};
 	
 	
-	baidu.base = baidu.base || {};
+	baidu.base = baidu.base || {blank: function(){}};
 	
 	baidu.base.Class = (function() {
-	    var instances = (baidu._global_ = window[baidu.guid])._instances_;
-	    instances || (instances = baidu._global_._instances_ = {});
+	    var instances = (baidu._global_ = window[baidu.guid])._instances;
+	    instances || (instances = baidu._global_._instances = {});
 	
 	    // constructor
 	    return function() {
@@ -2839,7 +2846,7 @@ var T, baidu = T = function(){
 	    ,dispose: function() {
 	        if (this.fire("ondispose")) {
 	            // decontrol
-	            delete baidu._global_._instances_[this.guid];
+	            delete baidu._global_._instances[this.guid];
 	
 	            if (this._listeners_) {
 	                for (var item in this._listeners_) {
@@ -2849,7 +2856,8 @@ var T, baidu = T = function(){
 	            }
 	
 	            for (var pro in this) {
-	                typeof this[pro] != "function" && delete this[pro];
+	                if ( !baidu.isFunction(this[pro]) ) delete this[pro];
+	                else this[pro] = baidu.base.blank;
 	            }
 	
 	            this.disposed = true;   //20100716
@@ -2952,7 +2960,7 @@ var T, baidu = T = function(){
 	});
 	
 	window["baiduInstance"] = function(guid) {
-	    return baidu._global_._instances_[ guid ];
+	    return window[baidu.guid]._instances[ guid ];
 	}
 	
 	baidu.base.Event = function(type, target) {
@@ -3484,10 +3492,8 @@ var T, baidu = T = function(){
 	            switch(typeof value){
 	                case 'undefined':
 	                    return undefined;
-	                break;
 	                default:
 	                    return me;
-	                break;
 	            }
 	        
 	        var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
@@ -3527,8 +3533,7 @@ var T, baidu = T = function(){
 	                case 'undefined':
 	                    result = ( elem.nodeType === 1 ? elem.innerHTML : undefined );
 	                    return ;
-	                break;
-	
+	 
 	                case 'number':
 	                    value = String(value);
 	
@@ -3677,7 +3682,7 @@ var T, baidu = T = function(){
 	                    }
 	                    dest.defaultValue = src.defaultValue;
 	                    break;
-	                case 'options':
+	                case 'option':
 	                    dest.selected = src.defaultSelected;
 	                    break;
 	                case 'script':
@@ -3692,7 +3697,7 @@ var T, baidu = T = function(){
 	            var defaultEvents = eventQueue.get(src);
 	            for(var i in defaultEvents){
 	                for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
-	                    eventCore.add(dest, i, handler);
+	                    eventCore.add(dest, i, handler.orig, null, null, handler.one);
 	                }
 	            }
 	        }
@@ -3788,7 +3793,7 @@ var T, baidu = T = function(){
 	        }
 	    }else{
 	        for(var i = 0, item; item = insert[i]; i++){
-	            baidu._util_.smartInsert(baidu.dom(item), i > 0 ? tang.clone(true) : tang, callback);
+	            baidu._util_.smartInsert(baidu.dom(item), i > 0 ? tang.clone(true, true) : tang, callback);
 	        }
 	    }
 	};
@@ -3980,13 +3985,14 @@ var T, baidu = T = function(){
 	            type: {
 	                set: function(ele, key, val){
 	                    // We can't allow the type property to be changed (since it causes problems in IE)
-	                    if(rtype.test(ele.nodeName) && ele.parentNode){return val;}
+	//                    if(rtype.test(ele.nodeName) && util.contains(document.body, ele)){return val;};
+	                    if(rtype.test(ele.nodeName) && ele.parentNode){return val;};
 	                    if(!radioValue && val === 'radio' && util.nodeName(ele, 'input')){
 	                        var v = ele.value;
 	                        ele.setAttribute('type', val);
 	                        v && (ele.value = v);
 	                        return val;
-	                    }
+	                    };
 	                }
 	            },
 	            value: {
@@ -4485,8 +4491,8 @@ var T, baidu = T = function(){
 	                baidu.forEach(this, function(dom){
 	                    var data = maps[ dom[ guid ] ] = maps[ dom[ guid ] ] || {};
 	
-	                    baidu.forEach( key , function(item) {
-	                        data[ item ] = key[ item ];
+	                    baidu.forEach( key , function(item,index) {
+	                        data[ index ] = key[ index ];
 	                    });
 	                });
 	            }
@@ -4500,8 +4506,8 @@ var T, baidu = T = function(){
 	/// support magic - Tangram 1.x Code Start
 	
 	baidu.lang.Class = (function() {
-	    var instances = (baidu._global_ = window[baidu.guid])._instances_;
-	    instances || (instances = baidu._global_._instances_ = {});
+	    var instances = (baidu._global_ = window[baidu.guid])._instances;
+	    instances || (instances = baidu._global_._instances = {});
 	
 	    // constructor
 	    return function() {
@@ -4511,7 +4517,7 @@ var T, baidu = T = function(){
 	})();
 	
 	baidu.lang.Class.prototype.dispose = function(){
-	    delete baidu._global_._instances_[this.guid];
+	    delete baidu._global_._instances[this.guid];
 	
 	    // this.__listeners && (for (var i in this.__listeners) delete this.__listeners[i]);
 	
@@ -4526,7 +4532,7 @@ var T, baidu = T = function(){
 	};
 	
 	window["baiduInstance"] = function(guid) {
-	    return baidu._global_._instances_[ guid ];
+	    return window[baidu.guid]._instances[ guid ];
 	};
 	
 	//  2011.11.23  meizz   添加 baiduInstance 这个全局方法，可以快速地通过guid得到实例对象
@@ -4870,8 +4876,8 @@ var T, baidu = T = function(){
 	        // 解除鼠标粘滞
 	        if (op.capture && target.releaseCapture) {
 	            target.releaseCapture();
-	        } else if (op.capture && window.captureEvents) {
-	            window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP);
+	        } else if (op.capture && window.releaseEvents) {
+	            window.releaseEvents(Event.MOUSEMOVE|Event.MOUSEUP);
 	        }
 	        // 拖曳时网页内容被框选
 	        document.body.style.MozUserSelect = mozUserSelect;
@@ -5283,10 +5289,7 @@ var T, baidu = T = function(){
 	                    return;
 	                };
 	            };
-	            if(result!==false){
-	                result = true;
-	                return;
-	            };
+	            if(result!==false){result = true;return;};
 	        });
 	        return result;
 	    }
@@ -5936,6 +5939,9 @@ var T, baidu = T = function(){
 	
 	        if ( !selector || typeof selector !== "string" ) {
 	            return results;
+	        }else{
+	            selector = baidu.string(selector).trim();
+	            if(!selector){return results;};
 	        }
 	
 	        contextXML = isXML( context );
@@ -7690,10 +7696,10 @@ var T, baidu = T = function(){
 	            switch(typeof value){
 	                case 'undefined':
 	                    return undefined;
-	                break;
+	                // break;
 	                default:
 	                    return me;
-	                break;
+	                // break;
 	            }            
 	        }
 	
@@ -7734,9 +7740,7 @@ var T, baidu = T = function(){
 	        baidu.forEach(me,function(elem, index){
 	            
 	            var tangramDom = bd(elem);
-	            if(result){
-	                return;
-	            };
+	            if(result){return;};
 	
 	            switch(typeof value){
 	                case 'undefined':
@@ -7745,7 +7749,7 @@ var T, baidu = T = function(){
 	                    result = getText(elem);
 	                    return result;
 	
-	                break;
+	                // break;
 	
 	                case 'number':
 	                    value = String(value);
@@ -7772,13 +7776,14 @@ var T, baidu = T = function(){
 	
 	baidu.dom.extend({
 	    toggle: function(){
-	        return this.each(function(index, ele){
-	            if(ele.style && ele.style.display == 'none'){
-	                baidu.dom(ele).show();
+	        for(var i = 0 , num = this.size(); i < num ; i++ ){
+	            var ele = this.eq(i);
+	            if(ele.css('display') != 'none'){
+	                ele.hide();
 	            }else{
-	                baidu.dom(ele).hide();
+	                ele.show();
 	            };
-	        });
+	        };
 	    }
 	});
 	
@@ -7857,8 +7862,9 @@ var T, baidu = T = function(){
 	
 	
 	void function( special ){
-	    
-	    var ff = /firefox/i.test(navigator.userAgent);
+	    if( special.mousewheel )return ;
+	    var ff = /firefox/i.test(navigator.userAgent), 
+	        ie = /msie/i.test(navigator.userAgent);
 	
 	    baidu.each( { mouseenter: "mouseover", mouseleave: "mouseout" }, function( name, fix ){
 	        special[ name ] = {
@@ -7875,7 +7881,7 @@ var T, baidu = T = function(){
 	        }
 	    } );
 	
-	    if( ff ) // firefox dont support focusin/focusout bubbles
+	    if( !ie )
 	        baidu.each( { focusin: "focus", focusout: "blur" }, function( name, fix ){
 	            special[ name ] = {
 	                bindType: fix,
@@ -7919,7 +7925,9 @@ var T, baidu = T = function(){
 	    var queue = base.queue;
 	    var dom = baidu.dom;
 	
-	    var triggerEvents = { submit: 1 };
+	    var ie = !window.addEventListener, firefox = /firefox/i.test(navigator.userAgent);
+	
+	    var abnormals = { submit: 3, focus: ie ? 3 : 2, blur: ie ? 3 : firefox ? 1 : 2 };
 	
 	    var createEvent = function( type, opts ){
 	        var evnt;
@@ -7946,17 +7954,17 @@ var T, baidu = T = function(){
 	    };
 	
 	    var dispatchEvent = function( element, type, event ){
-	           if( element.dispatchEvent )
-	               return element.dispatchEvent( event );
-	           else if( element.fireEvent )
-	               return element.fireEvent( "on" + type, event );
+	       if( element.dispatchEvent )
+	           return element.dispatchEvent( event );
+	       else if( element.fireEvent )
+	           return element.fireEvent( "on" + type, event );
 	    };
 	
-	    var upp = function( str ){
-	        return str.replace( /^\w/, function( s ){
-	            return s.toUpperCase();
-	        } );
-	    };
+	//    var upp = function( str ){
+	//        return str.toLowerCase().replace( /^\w/, function( s ){
+	//            return s.toUpperCase();
+	//        } );
+	//    };
 	
 	    var fire = function( element, type, triggerData, _eventOptions, special ){
 	        var evnt, eventReturn;
@@ -7968,20 +7976,21 @@ var T, baidu = T = function(){
 	            if( special )
 	                queue.call( element, type, null, evnt );
 	            else{
-	                try{
-	                    eventReturn = dispatchEvent( element, type, evnt );
-	                }catch(e){
-	                    dom(element).triggerHandler( type, triggerData, evnt );
-	                }
-	            }
+	                var abnormalsType = element.window === window ? 3 : abnormals[ type ];
 	
-	            if( eventReturn !== false && triggerEvents[type] ){
 	                try{
-	                    if( element[type] )
-	                        element[type]();
-	                    else if( type = upp( type ), element[type] )
-	                        element[type]();
+	                    if( abnormalsType & 1 || !( type in abnormals ) )
+	                        eventReturn = dispatchEvent( element, type, evnt );
 	                }catch(e){
+	                    dom( element ).triggerHandler( type, triggerData, evnt );
+	                }
+	
+	                if( eventReturn !== false && abnormalsType & 2 ){
+	                    try{
+	                        if( element[ type ] )
+	                            element[ type ]();
+	                    }catch(e){
+	                    }
 	                }
 	            }
 	        }
@@ -8684,9 +8693,9 @@ var T, baidu = T = function(){
 	
 	
 	baidu.lang.instance = function(guid){
-	    return baidu._global_._instances_[ guid ] || null
+	    return (baidu._global_ && baidu._global_._instances
+	        && baidu._global_._instances[ guid ]) || null;
 	};
-	
 	
 	
 	baidu.fx.current = function(element) {
@@ -8707,7 +8716,7 @@ var T, baidu = T = function(){
 	        for (var i=0; i<a.length; i++) {
 	            reg.test(a[i]);
 	//            a[i] = window[baidu.guid]._instances[RegExp["\x241"]];
-	            a[i] = baidu._global_._instances_[RegExp["\x241"]];
+	            a[i] = baidu._global_._instances[RegExp["\x241"]];
 	        }
 	    }
 	    return a;
@@ -9735,7 +9744,7 @@ var T, baidu = T = function(){
 	    
 	    format: function(dateObject, tLocale) {
 	        // 拿到对应locale的format类型配置
-	        var c = baidu.i18n.cultrues[tLocale || baidu.i18n.currentLocale];
+	        var c = baidu.i18n.cultures[tLocale || baidu.i18n.currentLocale];
 	        return baidu.date.format(
 	            baidu.i18n.date.toLocaleDate(dateObject, "", tLocale),
 	            c.calendar.dateFormat);
@@ -10602,7 +10611,7 @@ var T, baidu = T = function(){
 	    switch (typeof url) {
 	        case "string" :
 	            return new baidu.sio.$Sio(url);
-	        break;
+	        // break;
 	    };
 	},
 	

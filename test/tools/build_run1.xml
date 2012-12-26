@@ -35,7 +35,7 @@
 
 	<target name="coverage">
 		<delete dir="${coverage.path}" />
-		<exec executable="jscoverage">
+		<exec executable="/home/tangram/soft/jscoverage/bin/jscoverage">
 			<arg value="--encoding=UTF-8" />
 			<arg value="src" />
 			<arg value="${coverage.path}" />
@@ -50,6 +50,10 @@
 			<available file="${report.file}" />
 		</waitfor>
 		<echo>[report] : ${report.file}</echo>
+		<waitfor maxwait="20" maxwaitunit="second">
+		<istrue value="false"/>
+		</waitfor>
+
 		<!-- junit report and mail-->
 		<antcall target="mail" />
 		<!-- junit report and mail end -->

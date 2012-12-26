@@ -28,4 +28,15 @@ test('出错验证', function(){
     catch(e){ok(true, e);}
     try{baidu.check(undefined, 'test')}
     catch(e){ok(true, e);}
+    //第三参数类型不对的情况
+    try{baidu.check('\\s', 'baidu.check', [])}
+    catch(e){ok(true, e);}
+    //检查函数参数类型
+    try{
+        (function(){
+            baidu.check('\\s', 'baidu.check');
+        })(1);
+    }catch(e){
+        ok(true, e);
+    }
 });

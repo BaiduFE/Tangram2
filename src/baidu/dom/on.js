@@ -18,6 +18,15 @@
  * @param {Object} data 事件触发时携带的数据，JSON 格式，此参数可选。
  * @param {Function} fn 事件触发函数，fn 接受一个参数 e，为 baidu.event() 事件对象实例
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
+ * @example
+ 如果你想阻止当前事件的冒泡，或者屏蔽默认事件的触发，可以使用stopPropagation和preventDefault方法：
+
+ 示例代码：
+ baidu('#div-test').on('click',function(e){
+  e.stopPropagation();  //阻止冒泡
+  e.preventDefault();   //阻止默认事件
+  alert(123);
+});
  */
 
 /**
@@ -29,6 +38,15 @@
  * @param {String} selector 选择器表达式，用限制事件源对象范围，当符合表达式，才触发事件，此参数可选。
  * @param {Object} data 事件触发时携带的数据，JSON 格式，此参数可选。
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象 
+ * @example
+ 如果你想阻止当前事件的冒泡，或者屏蔽默认事件的触发，可以使用stopPropagation和preventDefault方法：
+
+ 示例代码：
+ baidu('#div-test').on('click',function(e){
+  e.stopPropagation();  //阻止冒泡
+  e.preventDefault();   //阻止默认事件
+  alert(123);
+});
  */
 
 

@@ -16,8 +16,8 @@
  * @remark baidu.base.Class和它的子类的实例均包含一个全局唯一的标识guid。guid是在构造函数中生成的，因此，继承自baidu.base.Class的类应该直接或者间接调用它的构造函数。<br>baidu.base.Class的构造函数中产生guid的方式可以保证guid的唯一性，及每个实例都有一个全局唯一的guid。
  */
 baidu.base.Class = (function() {
-    var instances = (baidu._global_ = window[baidu.guid])._instances_;
-    instances || (instances = baidu._global_._instances_ = {});
+    var instances = (baidu._global_ = window[baidu.guid])._instances;
+    instances || (instances = baidu._global_._instances = {});
 
     // constructor
     return function() {
@@ -47,7 +47,7 @@ baidu.extend(baidu.base.Class.prototype, {
     ,dispose: function() {
         if (this.fire("ondispose")) {
             // decontrol
-            delete baidu._global_._instances_[this.guid];
+            delete baidu._global_._instances[this.guid];
 
             if (this._listeners_) {
                 for (var item in this._listeners_) {
@@ -57,7 +57,8 @@ baidu.extend(baidu.base.Class.prototype, {
             }
 
             for (var pro in this) {
-                typeof this[pro] != "function" && delete this[pro];
+                if ( !baidu.isFunction(this[pro]) ) delete this[pro];
+                else this[pro] = baidu.base.blank;
             }
 
             this.disposed = true;   //20100716
@@ -181,13 +182,14 @@ baidu.extend(baidu.base.Class.prototype, {
 
 
 /*
- * 按唯一标识guid字符串取得实例对象
+ * @description 按唯一标识guid字符串取得实例对象
+ * @modify 2012.12.14 mz 对1.x版本的兼容
  * @function
  * @param   {String}    guid
  * @return  {object}            实例对象
  */
 window["baiduInstance"] = function(guid) {
-    return baidu._global_._instances_[ guid ];
+    return window[baidu.guid]._instances[ guid ];
 }
 
 

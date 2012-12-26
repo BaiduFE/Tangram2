@@ -23,7 +23,7 @@ function(url){
     switch (typeof url) {
         case "string" :
             return new baidu.sio.$Sio(url);
-        break;
+        // break;
     };
 },
 

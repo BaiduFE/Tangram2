@@ -92,7 +92,7 @@ baidu.dom.extend({
                     }
                     dest.defaultValue = src.defaultValue;
                     break;
-                case 'options':
+                case 'option':
                     dest.selected = src.defaultSelected;
                     break;
                 case 'script':
@@ -107,7 +107,7 @@ baidu.dom.extend({
             var defaultEvents = eventQueue.get(src);
             for(var i in defaultEvents){
                 for(var j = 0, handler; handler = defaultEvents[i][j]; j++){
-                    eventCore.add(dest, i, handler);
+                    eventCore.add(dest, i, handler.orig, null, null, handler.one);
                 }
             }
         }

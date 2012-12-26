@@ -1,3 +1,35 @@
+void function(){
+    function getActiveScript() {
+        // firefox
+        if (document.currentScript) return document.currentScript;
+
+        var ss = document.scripts || document.getElementsByTagName("script");
+        for (var i=0, s; s=ss[i++];) {
+            // IE
+            if (s.readyState == "interactive") return s;
+        }
+        // webkit opera [TODO debug]
+        return ss[ss.length - 1];
+    }
+
+    var script = getActiveScript();
+    var t = script.src.replace(/\\/g,"/");
+    var rootPath = (t.lastIndexOf("/")<0?".":t.substring(0,t.lastIndexOf("/")));
+
+    var existent = {};
+    window.importCSS = function(css){
+        if ( !existent[css] ) {
+            existent[css] = true;
+
+            var link = document.createElement("LINK");
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            link.href = rootPath +"/resource/"+ css +".css";
+            script.parentNode.appendChild(link);
+        }
+    }
+}();
+
 <?php
 /*
  * Tangram
@@ -28,7 +60,12 @@ if(isset($_GET['path'])){
     $PATH = array();
 }
 
-echo importTangram(explode(',', $_GET['f']), false);
+$output = importTangram(explode(',', $_GET['f']), false);
+
+// 添加对CSS模块加载的支持
+$output = preg_replace("/\/\/\/+\s*importCSS\s*([\w\-\$]+(\.[\w\-\$]+)*);/i", "importCSS('$1');", $output);
+
+echo ($output);
 
 // 无敌旋转分隔线
 

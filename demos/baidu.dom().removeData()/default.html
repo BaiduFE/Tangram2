@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().removeData() 示例" />
+		<title>移除在 DOM 对象上存放的数据</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().removeData()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>移除在 DOM 对象上存放的数据,与 baidu.dom().data(name, value) 函数作用相反</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+                        <p>点击下面的按钮，移除在 DOM 对象上存放的数据</p><br/>
+						<span class="button" id="demo_btn">移除在 DOM 对象上存放的数据</span>
+					</div>
+					<div class="pannel-content-part">
+
+					</div>
+					<div class="pannel-show">
+						运行结果：<span id="demo_execute_result"></span>
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script>
+            var result = baidu( '#demo_execute_result' )
+            result.data( 'name','myDiv' );
+			baidu( '#demo_btn' ).on( 'click',function( e ){
+                result.removeData( 'name' );
+                if(result.data( 'name' ) == null ){
+                    result.html( '已移除了在 DOM 对象上存放的数据' );
+                }
+			});
+		</script>
+	</body>
+</html>

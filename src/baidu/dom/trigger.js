@@ -25,7 +25,9 @@ void function( base, be ){
     var queue = base.queue;
     var dom = baidu.dom;
 
-    var triggerEvents = { submit: 1 };
+    var ie = !window.addEventListener, firefox = /firefox/i.test(navigator.userAgent);
+
+    var abnormals = { submit: 3, focus: ie ? 3 : 2, blur: ie ? 3 : firefox ? 1 : 2 };
 
     var createEvent = function( type, opts ){
         var evnt;
@@ -52,17 +54,17 @@ void function( base, be ){
     };
 
     var dispatchEvent = function( element, type, event ){
-           if( element.dispatchEvent )
-               return element.dispatchEvent( event );
-           else if( element.fireEvent )
-               return element.fireEvent( "on" + type, event );
+       if( element.dispatchEvent )
+           return element.dispatchEvent( event );
+       else if( element.fireEvent )
+           return element.fireEvent( "on" + type, event );
     };
 
-    var upp = function( str ){
-        return str.replace( /^\w/, function( s ){
-            return s.toUpperCase();
-        } );
-    };
+//    var upp = function( str ){
+//        return str.toLowerCase().replace( /^\w/, function( s ){
+//            return s.toUpperCase();
+//        } );
+//    };
 
     var fire = function( element, type, triggerData, _eventOptions, special ){
         var evnt, eventReturn;
@@ -74,20 +76,21 @@ void function( base, be ){
             if( special )
                 queue.call( element, type, null, evnt );
             else{
-                try{
-                    eventReturn = dispatchEvent( element, type, evnt );
-                }catch(e){
-                    dom(element).triggerHandler( type, triggerData, evnt );
-                }
-            }
+                var abnormalsType = element.window === window ? 3 : abnormals[ type ];
 
-            if( eventReturn !== false && triggerEvents[type] ){
                 try{
-                    if( element[type] )
-                        element[type]();
-                    else if( type = upp( type ), element[type] )
-                        element[type]();
+                    if( abnormalsType & 1 || !( type in abnormals ) )
+                        eventReturn = dispatchEvent( element, type, evnt );
                 }catch(e){
+                    dom( element ).triggerHandler( type, triggerData, evnt );
+                }
+
+                if( eventReturn !== false && abnormalsType & 2 ){
+                    try{
+                        if( element[ type ] )
+                            element[ type ]();
+                    }catch(e){
+                    }
                 }
             }
         }

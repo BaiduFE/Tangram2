@@ -3,6 +3,8 @@
  * @email  1988wangxiao@gmail.com
  */
 
+///import baidu.dom.eq;
+///import baidu.dom.css;
 ///import baidu.dom.show;
 ///import baidu.dom.hide;
 
@@ -35,13 +37,14 @@
 
 baidu.dom.extend({
     toggle: function(){
-        return this.each(function(index, ele){
-            if(ele.style && ele.style.display == 'none'){
-                baidu.dom(ele).show();
+        for(var i = 0 , num = this.size(); i < num ; i++ ){
+            var ele = this.eq(i);
+            if(ele.css('display') != 'none'){
+                ele.hide();
             }else{
-                baidu.dom(ele).hide();
+                ele.show();
             };
-        });
+        };
     }
 });
 

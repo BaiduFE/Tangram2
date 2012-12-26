@@ -29,7 +29,7 @@ test('兼容Magic接口：prepareTest',function(){
     start();
     ok(true,'ok');
     ie = baidu.browser.ie;
-  }, "baidu.browser", "baidu.dom.css");
+  }, "baidu.browser", "baidu.dom.on");
 });
 
 test('兼容Magic接口：bind event to div', function(){
@@ -158,27 +158,25 @@ test('兼容Magic接口：mouseenter, mouseleave', function(){
 });
 
 test('兼容Magic接口：focusin, focusout', function(){
-    stop();
-    ua.importsrc('baidu.dom.trigger', function(){
-        expect(4);
-        var div = new Elements('div'),
-            span = new Elements('span', true),
-            input = new Elements('input', true);
-        div.get().appendChild(span.get());
-        span.get().appendChild(input.get());
-        
-        baidu.dom(div.get()).on('focusin, focusout', function(evt){
-            ok(~'focusin|focusout'.indexOf(evt.type), 'event is: ' + evt.type);
-        });
-        input.get().focus();
-        input.get().blur();
-        baidu.dom(div.get()).focusin();
-        baidu.dom(div.get()).focusout();
+    expect(4);
+    var div = new Elements('div'),
+        span = new Elements('span', true),
+        input = new Elements('input', true);
+    div.get().appendChild(span.get());
+    span.get().appendChild(input.get());
+
+    baidu.dom(div.get()).on('focusin, focusout', function(evt){
+        ok(~'focusin|focusout'.indexOf(evt.type), 'event is: ' + evt.type);
+    });
+    input.get().focus();
+    input.get().blur();
+    baidu.dom(div.get()).focusin();
+    baidu.dom(div.get()).focusout();
+    // setTimeout(function(){
         input.dispose();
         span.dispose();
         div.dispose();
-        start();
-    }, 'baidu.dom.trigger', 'baidu.dom.on');
+    // }, 1000);
 });
 
 test('兼容Magic接口：mousewheel', function(){

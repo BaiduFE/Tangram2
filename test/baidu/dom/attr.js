@@ -473,6 +473,30 @@ test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").attr('type','wlkafjl');
     ok(result,'有东西就行');
 });
+
+test("传入空的设置",function(){
+    var dom = baidu("<div>").attr('width','');
+    equal(dom.attr('width'),'','传入空值');
+});
+
+test("设置input",function(){
+    var dom = baidu("<input>").appendTo('body');
+    dom.attr('type','radio');
+    ok(dom.attr('type') !== 'radio', '不能设置为radio');
+    dom.remove();
+    dom = baidu('<input/>');
+    dom.attr('type', 'radio').appendTo('body');
+    equal(dom.attr('type'), 'radio', '设置为radio');
+    dom.remove();
+});
+
+test("设置width和height",function(){
+    var dom = baidu("<div>").appendTo('body'),
+        val = dom.get(0).getAttribute ? '' : 'auto';
+    dom.attr('width', '');
+    equal(dom.attr('width'), val, '设置为auto');
+    dom.remove();
+});
 //end
 
 //准备工序

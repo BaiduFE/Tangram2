@@ -22,7 +22,8 @@ baidu.id = function() {
     var maps = baidu.global("_maps_id")
         ,key = baidu.key;
 
-    baidu.global("_counter", 1);
+    // 2012.12.21 与老版本同步
+    window[ baidu.guid ]._counter = window[ baidu.guid ]._counter || 1;
 
     return function( object, command ) {
         var e
@@ -35,7 +36,7 @@ baidu.id = function() {
             switch ( command ) {
             case "get" :
                 return obj_1 ? id : maps[id];
-            break;
+//            break;
             case "remove" :
             case "delete" :
                 if ( e = maps[id] ) {
@@ -48,12 +49,7 @@ baidu.id = function() {
                     delete maps[ id ];
                 }
                 return id;
-            break;
-            case "decontrol" : 
-                !(e = maps[id]) && obj_1 && ( object[ key ] = id = baidu.id() );
-                id && delete maps[ id ];
-                return id;
-            break;
+//            break;
             default :
                 if ( str_1 ) {
                     (e = maps[ id ]) && delete maps[ id ];
@@ -74,7 +70,7 @@ baidu.id = function() {
             return maps[ object ];
         }
 
-        return "TANGRAM__" + baidu._global_._._counter ++;
+        return "TANGRAM__" + baidu._global_._counter ++;
     };
 }();
 

@@ -7,8 +7,9 @@
 ///import baidu._util_.eventBase.core;
 
 void function( special ){
-    
-    var ff = /firefox/i.test(navigator.userAgent);
+    if( special.mousewheel )return ;
+    var ff = /firefox/i.test(navigator.userAgent), 
+        ie = /msie/i.test(navigator.userAgent);
 
     baidu.each( { mouseenter: "mouseover", mouseleave: "mouseout" }, function( name, fix ){
         special[ name ] = {
@@ -25,7 +26,7 @@ void function( special ){
         }
     } );
 
-    if( ff ) // firefox dont support focusin/focusout bubbles
+    if( !ie )
         baidu.each( { focusin: "focus", focusout: "blur" }, function( name, fix ){
             special[ name ] = {
                 bindType: fix,

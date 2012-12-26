@@ -59,7 +59,6 @@ test('div trigger event', function(){
         start();
     });    
     //
-    
 });
 
 test('custom event', function(){
@@ -77,7 +76,7 @@ test('custom event', function(){
         c.dispose();
         
         start();
-    }, "baidu.dom.fn.bind");
+    }, "baidu.dom.fn.bind", "baidu.dom.trigger");
 });
 
 test('all support event', function(){
@@ -152,8 +151,57 @@ test('all support event', function(){
     document.body.removeChild(div);
 });
 
+test('trigger mouseenter, mouseleave, focusin, focusout', function(){
+    expect(14);
 
-test("dom为空的情况",function(){
+    var div = document.createElement('div'),
+        span = document.createElement('span'),
+        input = document.createElement('input');
+    document.body.appendChild(div);
+    div.appendChild(span);
+    span.appendChild(input);
+
+    function handler(evt){
+        ok(true, 'fire event: ' + evt.target.tagName + '-' + evt.type);
+    }
+    
+    input.onfocus =
+    input.onblur= function(evt){
+        evt = evt || event;
+        ok(true, 'fire elemenet event: ' + ( evt.target || evt.srcElement ).tagName + '-' + evt.type);
+    };
+    baidu.dom(div).on('mouseenter', handler)
+        .on('mouseleave', handler);
+        baidu.dom(div).on('focusin', handler)
+        .on('focusout', handler);
+    baidu.dom(span).on('mouseover', handler)
+        .on('mouseout', handler);
+    baidu.dom(input).on('focus', handler)
+        .on('blur', handler);
+    // trigger
+    baidu.dom(div).trigger('mouseenter')
+        .trigger('mouseleave')
+        .trigger('focusin')
+        .trigger('focusout');
+    baidu.dom(span).trigger('mouseover')
+        .trigger('mouseout');
+    baidu.dom(input).trigger('focus')
+        .trigger('blur');
+
+    document.body.removeChild(div);
+});
+
+//test('submit event', function(){
+//    var form = document.createElement('form');
+//    document.body.appendChild(form);
+//    form.method = 'get';
+//    form.action = 'http://www.baidu.com';
+//    baidu.dom(form).on('submit', function)
+//    
+//    document.body.removeChild(form)
+//});
+
+test("dom 为空",function(){
     var result = baidu("#baidujsxiaozu").on("wangxiao");
     ok(result);
     var result = baidu("#baidujsxiaozu").click("wangxiao");

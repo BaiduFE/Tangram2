@@ -1,8 +1,4 @@
-﻿
-
-module("baidu.dom.removeData");
-
-
+﻿module("baidu.dom.removeData");
 test("第一个参数为 String ", function () {
 
     stop();
@@ -25,3 +21,17 @@ test("第一个参数为 String ", function () {
 
 });
 
+test('第一个参数为 array', function(){
+    var div = document.createElement('div'),
+        array = ['key0', 'key1', 'key2'];
+    document.body.appendChild(div);
+    $.each(array, function(index, item){
+        baidu.dom(div).data(item, item + '-value');
+        ok(baidu.dom(div).data(item) === item + '-value', 'set value: ' + item + '-value');
+    });
+    baidu.dom(div).removeData(array);
+    $.each(array, function(index, item){
+        ok(!baidu.dom(div).data(item), item + ' is remove');
+    });
+    document.body.removeChild(div);
+});

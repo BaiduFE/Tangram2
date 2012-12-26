@@ -7,6 +7,8 @@
 ///import baidu._util_.eventBase.queue;
 
 void function( base, be ){
+    if( base.core )return ;
+
     var queue = base.queue;
     var core = base.core = {};
     var special = be.special = {};
@@ -21,6 +23,7 @@ void function( base, be ){
     core.build = function( target, name, fn, selector, data ){
 
         var bindElements;
+
         if( selector )
             bindElements = baidu.dom( selector, target );
 
@@ -52,6 +55,7 @@ void function( base, be ){
         if(type in special)
             attachElements = special[type].attachElements,
             bindType = special[type].bindType || type;
+
         queue.add( target, type, bindType, { type: type, pkg: pkg, orig: fn, one: one }, attachElements );
     };
 

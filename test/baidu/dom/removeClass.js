@@ -6,20 +6,14 @@ test('prepareTest',function(){
 	stop();
 
 	//加载快捷方式
-	ua.importsrc("baidu.short", function(){
+	ua.importsrc("baidu.dom.hasClass,baidu.short", function(){
 		start();
 		ok(true,'ok');
 	}, "baidu.trim", "baidu.dom.removeClass");
 });
 
 var getWord = function(html){ return html.replace(/<[^>]+>|\s/g, ""); };
-var formatHTML = function(html){
-	html = html.toUpperCase();
-	html = html.replace(/[\r\n]/g, "").replace(/<([^>]+)>/g, function(s, a){
-	    return "<" + a.replace(/['"]/g, "").toLowerCase() + ">";
-	});
-	return html;
-};
+
 
 //新接口测试
 test('正常用例',function(){
@@ -127,4 +121,39 @@ test('异常用例', function(){
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").removeClass("wangxiao");
     ok(result);
+});
+
+test("参数为空的情况",function(){
+	var div = jQuery("<div class='testa testb'>")[0];
+	ok(baidu(div).hasClass('testa testb'));
+    var result = baidu(div).removeClass();
+    ok(!baidu(div).hasClass('testa testb'),'已经清空');
+});
+
+test("参数是一个 fn", function(){
+    expect(6);
+	var div = document.createElement('div');
+	document.body.appendChild(div);
+	
+	div.innerHTML = "<div class='A'></div><div class='B'></div><div class='C'></div>";
+	
+	baidu.dom("div", div).removeClass(function(index, className){
+	    switch(index){
+	        case 0:
+	        	ok( className == "A" );
+	        	return "A";
+	        case 1:
+	        	ok( className == "B" );
+	        	return "B";
+	        case 2:
+	        	ok( className == "C" );
+	        	return "C";
+	    }
+	});
+	
+	var array = baidu.dom('div', div);
+	for(var i = 0, item; item = array[i]; i++){
+	    equal(item.className, '', 'class is remove');
+	}
+	document.body.removeChild(div);
 });

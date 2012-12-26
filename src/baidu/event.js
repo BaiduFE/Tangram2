@@ -19,6 +19,15 @@
  * @grammar baidu.event([event])
  * @param   {Event}         event   系统 event 对象
  * @return  {TangramEvebt}          返回 new TangramEvent 对象
+ * @example
+ 如果你想阻止当前事件的冒泡，或者屏蔽默认事件的触发，可以使用stopPropagation和preventDefault方法：
+
+ 示例代码：
+ baidu('#div-test').on('click',function(e){
+  e.stopPropagation();  //阻止冒泡
+  e.preventDefault();   //阻止默认事件
+  alert(123);
+ });
  */
 
 baidu.createChain("event",
@@ -37,11 +46,11 @@ baidu.createChain("event",
                     return event;
 
                 // event type
-                case "string" :
-                    var e = new baidu.event.$Event( event );
-                    if( typeof json == "object" ) 
-                        baidu.forEach( e, json );
-                    return e;
+//                case "string" :
+//                    var e = new baidu.event.$Event( event );
+//                    if( typeof json == "object" ) 
+//                        baidu.forEach( e, json );
+//                    return e;
             }
         }
     }(),
@@ -92,8 +101,8 @@ baidu.createChain("event",
         }
 
         // event.type
-        if( typeof event == "string" )
-            this.type = event;
+//        if( typeof event == "string" )
+//            this.type = event;
 
         // event.timeStamp
         this.timeStamp = new Date().getTime();

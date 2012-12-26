@@ -93,10 +93,10 @@ module('baidu.event.fire');
 	test('老接口：on dom', function() {
 		var eList = [ 'keydown', 'keyup', 'keypress', 'click', 'dblclick',
 				'mousedown', 'mouseup', 'mouseover', 'mouseout' ];
-		var hList = [ 'abort', 'blur', 'change', 'focus', 'error','load','reset', 'select',
+		var hList = [ 'abort', 'change', 'error','load','reset', 'select',
 				 'scroll', 'submit' ];
 		var wList = [ 'scroll', 'resize', 'reset', 'submit', 'change',
-				'select', 'error', 'abort', 'unload' ];//opera下，只有scroll、resize、error、unload能派发
+				'select', 'error', 'abort', 'unload', 'blur', 'focus' ];//opera下，只有scroll、resize、error、unload能派发
 		for ( var e = 0; e < eList.length; e ++ ) {
 			check(eList[e]);
 		}
