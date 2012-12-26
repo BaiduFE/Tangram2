@@ -789,6 +789,8 @@ var UserAction =
 		url='?f='+f.substr(1)+'&e='+e;
 		if(pw.location.href.indexOf("release=true") > -1)
 			url += '&release=true';
+		if(pw.location.href.indexOf("cov=true") > -1)
+			url += '&cov=true';
 		if(pw.location.href.indexOf("compatible=true") > -1)
 			url += '&compatible=true';
 		if(pw.location.href.search("download=[0-9]") > 0)
@@ -899,6 +901,8 @@ var UserAction =
 		};
 		if (exclude)
 			ps.e = exclude;
+		if(location.search.indexOf("cov=true") > -1)
+			ps.cov = true;
 		var param1 = exclude || "";
 		/**
 		 * IE下重复载入会出现无法执行情况
@@ -912,6 +916,8 @@ var UserAction =
 			var sc = doc.createElement('script');
 			sc.type = 'text/javascript';
 			sc.src = srcpath + "?f=" + param0 + "&e=" + param1;
+			if(location.search.indexOf("cov=true") > -1)
+				sc.src += "&cov=true";
 			head.appendChild(sc);
 		}
 
