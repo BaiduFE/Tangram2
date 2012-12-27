@@ -76,7 +76,7 @@ test('custom event', function(){
         c.dispose();
         
         start();
-    }, "baidu.dom.bind", "baidu.dom.trigger");
+    }, "baidu.dom.fn.bind", "baidu.dom.trigger");
 });
 
 test('all support event', function(){
