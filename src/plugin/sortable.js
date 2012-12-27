@@ -500,8 +500,7 @@ baidu.dom.extend({
                 dragEleClone.addClass('tang-sortable-clone');
                 dragEleClone.removeClass('tang-draggable-dragging tang-sortable-item');
 
-                //在ingHandle中已经创建了，所以不需要插入了。
-                //dragEle.after(dragEleClone);
+                dragEle.after(dragEleClone);
                 dragEleClone.css('visibility','hidden');
 
                 //TODO:这里的z-index不应该被硬编码的，需要判断下周边的z-index来设定。

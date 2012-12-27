@@ -4,7 +4,7 @@
 ///import baidu.type;
 ///import baidu.global;
 
-/**
+/*
  * @fileoverview
  * @name baidu.dom.removeData
  * @create 2012-07-13
@@ -13,11 +13,11 @@
  */
 
 /**
- * 移除在 DOM 对象上存放的数据
+ * @description 移除在 DOM 对象上存放的数据
  * @name baidu.dom().removeData()
  * @grammar baidu.dom().removeData(key)
  * @function
- * @param {String} 数据的索引
+ * @param {String} key 数据的索引
  * @return {TangramDom} 返回之前的tangramDom对象
  */
 
