@@ -3896,7 +3896,7 @@ var T, baidu = T = function(){
 	                defaultValue = ele.offsetWidth === 0
 	                    && rdisplayswap.test(tang.getCurrentStyle('display'))
 	                    && (swap(ele, cssShow)),
-	                rect = ele['offset' + item] || parseInt(tang.getCurrentStyle(item.toLowerCase())),
+	                rect = ele['offset' + item] || parseInt(tang.getCurrentStyle(item.toLowerCase())) || 0,
 	                delString = 'padding|border';
 	            extra && baidu.forEach(extra.split('|'), function(val){
 	                if(!~delString.indexOf(val)){//if val is margin
