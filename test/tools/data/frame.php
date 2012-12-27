@@ -11,10 +11,15 @@
 <script type="text/javascript" src="../br/js/jquery-1.7.2.js"></script>
 <?php
 $release = preg_match('/release=true/i', $_SERVER['QUERY_STRING']);
+$cov = preg_match('/cov=true/i', $_SERVER['QUERY_STRING']);
 $compatible = preg_match('/compatible=true/i', $_SERVER['QUERY_STRING']);
 $download = preg_match('/download=/i', $_SERVER['QUERY_STRING']);
-if($release == 0 && $download == 0 && array_key_exists('f', $_GET))
-print "<script type='text/javascript' src='../br/import.php?f={$_GET['f']}'></script>";
+if($release == 0 && $download == 0 && array_key_exists('f', $_GET)){
+	$src = '../br/import.php?f='.$_GET['f'].$urldep[0];
+	if($cov)
+		$src .= "&cov=true";
+	print "<script type='text/javascript' src=".$src."></script>";
+}
 else{
 	if($download == 0){
 		if($compatible == 0)
