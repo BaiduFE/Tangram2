@@ -352,7 +352,7 @@ baidu.dom.extend({
                                 var o = dragEle.offset(),
                                     eo = opt.endOf;
                                
-                                if( o.left >= eo.left && o.left + dragEle.w <= eo.right && o.top >= eo.top && o.top + dragEle.h <= e.bottom){
+                                if( o.left >= eo.left && o.left + dragEle.w <= eo.right && o.top >= eo.top && o.top + dragEle.h <= eo.bottom){
                                 }else{
                                     draggable.cancel();
                                 };
