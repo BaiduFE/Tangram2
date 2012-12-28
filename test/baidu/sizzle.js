@@ -109,7 +109,7 @@ module("baidu.sizzle", {teardown: moduleTeardown});
         @example url("data/test.php?foo=bar") => "data/test.php?foo=bar&10538358345554"
 */
 
-test('prepareTest',function(){
+test('sizzle接口：prepareTest',function(){
     expect(1);
     stop();
     ua.importsrc('baidu.dom.appendTo,baidu.dom.removeAttr,baidu.dom.remove,baidu.dom.insertAfter,baidu.dom.prop,baidu.dom.contents,baidu.dom.text,baidu.dom.css,baidu.dom.height,baidu.dom.width,baidu.dom.html', function(){
@@ -119,7 +119,7 @@ test('prepareTest',function(){
     }, "baidu.dom.appendTo");
 });
 
-test("element", function() {
+test("sizzle接口：element", function() {
     //expect( 37 );
     expect(35);
 
@@ -201,7 +201,7 @@ test("element", function() {
     t( "Element name matches Object.prototype property", "toString#toString", ["toString"] );
 });
 
-// test("XML Document Selectors", function() {
+// test("sizzle接口：XML Document Selectors", function() {
 //     var xml = createWithFriesXML();
 //     expect( 10 );
 
@@ -217,7 +217,7 @@ test("element", function() {
 //     ok( Sizzle.matchesSelector( xml.lastChild, "soap\\:Envelope" ), "Check for namespaced element" );
 // });
 
-// test("broken", function() {
+// test("sizzle接口：broken", function() {
 //     expect( 26 );
 
 //     function broken( name, selector ) {
@@ -275,7 +275,7 @@ test("element", function() {
 //     attrbad.remove();
 // });
 
-test("id", function() {
+test("sizzle接口：id", function() {
     expect( 30 );
 
     t( "ID Selector", "#body", ["body"] );
@@ -327,7 +327,7 @@ test("id", function() {
     t( "ID with weird characters in it", "#name\\+value", ["name+value"] );
 });
 
-test("class", function() {
+test("sizzle接口：class", function() {
     //expect( 25 );
     expect(19);
 
@@ -370,7 +370,7 @@ test("class", function() {
     deepEqual( Sizzle(".e.hasOwnProperty.toString", div), [ div.lastChild ], "Classes match Object.prototype properties" );
 });
 
-test("name", function() {
+test("sizzle接口：name", function() {
     expect( 15 );
 
     t( "Name selector", "input[name=action]", ["text1"] );
@@ -405,7 +405,7 @@ test("name", function() {
     a.parent().remove();
 });
 
-test("multiple", function() {
+test("sizzle接口：multiple", function() {
     expect(6);
 
     t( "Comma Support", "h2, #qunit-fixture p", ["qunit-banner","qunit-userAgent","firstp","ap","sndp","en","sap","first"] );
@@ -416,7 +416,7 @@ test("multiple", function() {
     t( "Comma Support", "h2\t,\r#qunit-fixture p\n", ["qunit-banner","qunit-userAgent","firstp","ap","sndp","en","sap","first"] );
 });
 
-test("child and adjacent", function() {
+test("sizzle接口：child and adjacent", function() {
     //expect( 42 );
     expect(40);
 
@@ -476,7 +476,7 @@ test("child and adjacent", function() {
     t( "Non-existant ancestors", ".fototab > .thumbnails > a", [] );
 });
 
-test("attributes", function() {
+test("sizzle接口：attributes", function() {
     //expect( 62 );
     expect(51);
 
@@ -590,14 +590,14 @@ test("attributes", function() {
     div = null;
 });
 
-test("pseudo - (parent|empty)", function() {
+test("sizzle接口：pseudo - (parent|empty)", function() {
     expect( 3 );
     t( "Empty", "ul:empty", ["firstUL"] );
     t( "Empty with comment node", "ol:empty", ["empty"] );
     t( "Is A Parent", "#qunit-fixture p:parent", ["firstp","ap","sndp","en","sap","first"] );
 });
 
-test("pseudo - (first|last|only)-(child|of-type)", function() {
+test("sizzle接口：pseudo - (first|last|only)-(child|of-type)", function() {
     //expect( 12 );
     expect(10);
 
@@ -622,7 +622,7 @@ test("pseudo - (first|last|only)-(child|of-type)", function() {
     t( "Restored second child", "p:nth-child(2)", ["ap","en"] );
 });
 
-test("pseudo - nth-child", function() {
+test("sizzle接口：pseudo - nth-child", function() {
     //expect( 30 );
     expect(28);
 
@@ -661,7 +661,7 @@ test("pseudo - nth-child", function() {
     //deepEqual( Sizzle( ":nth-child(n)", null, null, [ document.createElement("a") ].concat( q("ap") ) ), q("ap"), "Seeded nth-child" );
 });
 
-test("pseudo - nth-last-child", function() {
+test("sizzle接口：pseudo - nth-last-child", function() {
     //expect( 30 );
     expect(1);
 
@@ -699,7 +699,7 @@ test("pseudo - nth-last-child", function() {
     //deepEqual( Sizzle( ":nth-last-child(n)", null, null, [ document.createElement("a") ].concat( q("ap") ) ), q("ap"), "Seeded nth-last-child" );
 });
 
-test("pseudo - nth-of-type", function() {
+test("sizzle接口：pseudo - nth-of-type", function() {
     //expect( 9 );
     expect(8);
 
@@ -714,7 +714,7 @@ test("pseudo - nth-of-type", function() {
     //t( "Nth-of-type(-n+2)", "#qunit-fixture > :nth-of-type(-n+2)", ["firstp", "ap", "foo", "nothiddendiv", "name+value", "firstUL", "empty", "form", "floatTest", "iframe", "lengthtest", "table"] );
 });
 
-test("pseudo - nth-last-of-type", function() {
+test("sizzle接口：pseudo - nth-last-of-type", function() {
     //expect( 9 );
     expect(8);
 
@@ -729,7 +729,7 @@ test("pseudo - nth-last-of-type", function() {
     //t( "Nth-last-of-type(-n+2)", "#qunit-fixture > :nth-last-of-type(-n+2)", ["ap", "name+value", "first", "firstUL", "empty", "floatTest", "iframe", "table", "name-tests", "testForm", "liveHandlerOrder", "siblingTest"] );
 });
 
-test("pseudo - misc", function() {
+test("sizzle接口：pseudo - misc", function() {
     //expect( 43 );
     expect(21);
 
@@ -858,7 +858,7 @@ test("pseudo - misc", function() {
 });
 
 
-test("pseudo - :not", function() {
+test("sizzle接口：pseudo - :not", function() {
     //expect( 43 );
     expect(41);
 
@@ -916,7 +916,7 @@ test("pseudo - :not", function() {
     //t( "positional :not() with post-filter", "#foo p:not(:first[lang])", ["sndp", "en", "sap"] );
 });
 
-test("pseudo - position", function() {
+test("sizzle接口：pseudo - position", function() {
     //expect( 34 );
     expect(29);
 
@@ -970,7 +970,7 @@ test("pseudo - position", function() {
     //delete Sizzle.selectors.setFilters["primary"];
 });
 
-test("pseudo - form", function() {
+test("sizzle接口：pseudo - form", function() {
     expect( 10 );
 
     var extraTexts = jQuery("<input id=\"impliedText\"/><input id=\"capitalText\" type=\"TEXT\">").appendTo("#form");
@@ -990,7 +990,7 @@ test("pseudo - form", function() {
     extraTexts.remove();
 });
 
-test("pseudo - :target and :root", function() {
+test("sizzle接口：pseudo - :target and :root", function() {
     expect( 2 );
 
     // Target
@@ -1011,7 +1011,7 @@ test("pseudo - :target and :root", function() {
     equal( Sizzle(":root")[0], document.documentElement, ":root selector" );
 });
 
-// test("pseudo - :lang", function() {
+// test("sizzle接口：pseudo - :lang", function() {
 //     expect( 24 );
 //     ok(false,'wangxiao');
 //     var previousLang = document.documentElement.lang;
@@ -1061,7 +1061,7 @@ test("pseudo - :target and :root", function() {
 //     document.documentElement.lang = previousLang;
 // });
 
-test("caching", function() {
+test("sizzle接口：caching", function() {
     expect( 1 );
     Sizzle( ":not(code)", document.getElementById("ap") );
     deepEqual( Sizzle( ":not(code)", document.getElementById("foo") ), q("sndp", "en", "yahoo", "sap", "anchor2", "simon"), "Reusing selector with new context" );
