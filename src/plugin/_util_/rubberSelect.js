@@ -265,8 +265,10 @@ baidu.plugin._util_.rubberSelect = function(options){
             //doc.off('mousemove',ingHandle);
             doc.off('mouseup',endHandle);
 
-            mask.remove();
-            doc = mask = timer = null;
+            //因为其他实例中可能会用到，所以不做清除。
+            //mask.remove();
+            
+            doc = timer = null;
             for(var k in this){
                 delete this[k];
             };
