@@ -24,10 +24,10 @@ void function( base, be ){
         c = attaCache[id];
 
         if( type ){
-            if( !c[type] ){
+            if( !c[type] && bindType ){
                 this.setupCall( target, type, bindType, c[ type ] = [], attachElements );
             }
-            return c[type];
+            return c[type] || [];
         }else return c;
     };
 
