@@ -529,19 +529,19 @@ baidu.dom.extend({
 
             keyDownHandle = function(e){
                     
-                    //Win下Ctrl 和 Mac下 command 键
-                    if(e.ctrlKey || e.keyCode == 91){
-                        keydownMore = true;
-                    };
+                //Win下Ctrl 和 Mac下 command 键
+                if(e.ctrlKey || e.keyCode == 91){
+                    keydownMore = true;
+                };
             },
 
             keyUpHandle = function(e){
 
-                    //Win下Ctrl 和 Mac下 command 键
-                    if(!e.ctrlKey || e.keyCode == 91){
-                        keydownMore = false;
-                        item.removeClass('tang-selectable-selecting');
-                    };
+                //Win下Ctrl 和 Mac下 command 键
+                if(!e.ctrlKey || e.keyCode == 91){
+                    keydownMore = false;
+                    item.removeClass('tang-selectable-selecting');
+                };
             },
 
             fireStart = function(){

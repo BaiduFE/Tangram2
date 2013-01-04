@@ -115,6 +115,9 @@ baidu.plugin._util_.rubberSelect = function(options){
 
             //为了兼容快速点击的情况
             doc.trigger('rubberselecting');
+
+            //防止其他实例将mask清除了。
+            setMask();
             mask.width(0).height(0).show().offset({left:x1,top:y1});
 
             doc.on('mousemove',ingHandle);
@@ -225,16 +228,19 @@ baidu.plugin._util_.rubberSelect = function(options){
                     range.right = range.left + _ele.outerWidth();
                 };
             };
+        },
+
+        setMask = function(){
+            mask = baidu.dom('.tang-rubberSelect');
+            if(!mask.size()){
+                mask = baidu.dom('<div class="tang-rubberSelect" style="position:absolute;">');
+            };
+            mask.hide().appendTo(document.body);
         };
 
     //函数主逻辑开始
-    mask = baidu.dom('.tang-rubberSelect');
-    if(!mask.size()){
-        mask = baidu.dom('<div class="tang-rubberSelect" style="position:absolute;">');
-    };
     setRange();
-    mask.hide().appendTo(document.body);
-
+    setMask();
     doc.on('mousedown',handle);
     doc.on('mouseup',endHandle);
 
@@ -259,8 +265,10 @@ baidu.plugin._util_.rubberSelect = function(options){
             //doc.off('mousemove',ingHandle);
             doc.off('mouseup',endHandle);
 
-            mask.remove();
-            doc = mask = timer = null;
+            //因为其他实例中可能会用到，所以不做清除。
+            //mask.remove();
+            
+            doc = timer = null;
             for(var k in this){
                 delete this[k];
             };

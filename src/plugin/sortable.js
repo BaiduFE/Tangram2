@@ -293,12 +293,14 @@ baidu.dom.extend({
             //每个元素的相关值
             itemAttr = [],
 
-            //draggable对象
+            //当前的draggable对象
             draggable,
 
             //当前被拖拽的项
             dragEle,
-            dragEleAttr,
+
+            //当前拖拽元素的相关属性信息
+            dragEleAttr = {},
 
             //克隆的拖拽元素
             dragEleClone,
@@ -393,6 +395,7 @@ baidu.dom.extend({
                 //关闭拖拽
                 disable:function(){
                     opt.enable = false;
+                    item.removeClass('tang-sortable-item');
                     draggable.disable();
                     return sortable;
                 },
@@ -408,6 +411,7 @@ baidu.dom.extend({
 
                 //析构函数
                 dispose:function(){
+                    sortable.disable();
                     draggable.dispose();
                     doc = opt = me = item = itemAttr = dragEle = dragEleAttr = dragEleClone = dragEleCloneAttr = null;
                     for(var k in sortable){
@@ -451,6 +455,10 @@ baidu.dom.extend({
                         w = ele.outerWidth(),
                         h = ele.outerHeight(),
                         o = ele.offset(),
+
+                        //TODO:如果想支持非列表类型，如块类型的并排横着摆放，在此加入left和right判断。
+                        // left = {},
+                        // right = {},
                         up = {top:o.top,bottom:o.top+h/2,left:o.left,right:o.left+w},
                         down = {top:o.top+h/2,bottom:o.top+h,left:o.left,right:o.left+w};
                     itemAttr.push({id:i,target:ele,up:up,down:down});
