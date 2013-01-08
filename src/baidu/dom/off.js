@@ -57,7 +57,8 @@ baidu.dom.extend({
 /// support - magic Tangram 1.x Code Start
 ///import baidu.dom.g;
 baidu.event.un = baidu.un = function(element, evtName, handler){
-    element = baidu.dom.g(element);
+    if( typeof element == "string" )
+        element = baidu.dom.g( element );
     baidu.dom(element).off(evtName.replace(/^\s*on/, ''), handler);
     return element;
  };
