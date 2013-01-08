@@ -22,8 +22,8 @@
  也就是说，返回的是宽度不会包括padding，border，margin的宽度值。
 
  这个方法可以计算window（浏览器可视宽度）和document（HTML文档）的宽度。
- $(window).width(); 
- $(document).width();
+ baidu.(window).width();
+ baidu.(document).width();
 
  示例代码：
  //HTML代码片段

@@ -22,9 +22,10 @@ baidu.dom.extend({
         return baidu.dom(this[0]);
     }
 });
-
+/// Tangram 1.x Code Start
 baidu.dom.first = function(e) {
     baidu.isString(e) && (e = "#"+ e);
 
     return baidu.dom(e).children()[0];
 };
+/// Tangram 1.x Code End

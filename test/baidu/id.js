@@ -11,7 +11,7 @@ test("第一个参数为对象", function(){
     var reg = /^[a-zA-Z_]+\d+$/;
     var obj = [1,2,3];
     var dom = document.body;
-    var key = baidu.id.key;
+    var key = baidu.key;
     var maps = window[ baidu.guid ]._._maps_id;
 
     var id = baidu.id(obj);
@@ -41,7 +41,7 @@ test("第一个参数为字符串", function(){
     var reg = /^[a-zA-Z_]+\d+$/;
     var obj = [1,2,3];
     var dom = document.body;
-    var key = baidu.id.key;
+    var key = baidu.key;
     var maps = window[ baidu.guid ]._._maps_id;
 
     var id = baidu.id(obj);
