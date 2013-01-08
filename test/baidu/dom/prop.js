@@ -6,7 +6,7 @@ var functionReturningObj = function(value) { return (function() { return value; 
 test('prepareTest',function(){
 	expect(1);
 	stop();
-	ua.importsrc("baidu.dom.append,baidu.each,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.attr,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.removePorp,baidu.dom.contents", function(){
+	ua.importsrc("baidu.dom.append,baidu.each,baidu.dom.each,baidu.dom.trigger,baidu.dom.find,baidu.dom.appendTo,baidu.dom.attr,baidu.dom.removeAttr,baidu.dom.insertAfter,baidu.dom.html,baidu.dom.eq,baidu.dom.remove,baidu.dom.removeProp,baidu.dom.contents", function(){
 		start();
 		prepareTest();
 		ok(true,'ok');

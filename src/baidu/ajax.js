@@ -650,7 +650,7 @@ void function(){
     baidu.ajax.setup({
         jsonp: 'callback',
         jsonpCallback: function(){
-            var callback = oldCallbacks.pop() || (baidu.id.key + '_' + (nonce++));
+            var callback = oldCallbacks.pop() || (baidu.key + '_' + (nonce++));
             this[callback] = true;
             return callback;
         }
