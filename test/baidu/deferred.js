@@ -1,5 +1,11 @@
 module("baidu.deferred", {});
-
+test('load when.js', function(){
+    stop();
+    ua.importsrc('baidu.when', function(){
+        ok(true, 'when loaded');
+        start();
+    }, 'baidu.when', 'baidu.deferred');
+});
 
 jQuery.each( [ "", " - new operator" ], function( _, withNew ) {
 
@@ -76,7 +82,6 @@ test( "baidu.Deferred - chainability", function() {
 test( "baidu.Deferred.then - filtering (done)", function() {
 
 	expect(4);
-
 	var defer = baidu.Deferred(),
 		piped = defer.then(function( a, b ) {
 			return a * b;
