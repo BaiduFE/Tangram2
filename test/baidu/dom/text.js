@@ -105,6 +105,17 @@ test("dom为空的情况",function(){
     ok(result,'有东西就行');
 });
 
+test("测试数字",function(){
+	var dom = baidu("<div>123<span>456</span></div>");
+	var result = dom.text();
+	equal(result,'123456','get方法');
+    var result = dom.text('');
+    equal(result,dom,'滞空');
+    dom.text(123);
+    var result = dom.text();
+   	equal(result,'123','输入数字');
+});
+
 //准备工序
 function prepareTest(){
 	var html = "<div id='body'>"+

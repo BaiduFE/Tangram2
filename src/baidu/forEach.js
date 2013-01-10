@@ -1,11 +1,6 @@
 ///import baidu;
 /**
- * @fileoverview forEach是ECMAScript 5 里的标准方法，而each不是标准；
- * 目前为了兼容jQuery保留baidu.each()，$.each()接口与标准的forEach有三大差异：
- *   1.iterator的参数forEach是value,index；
- *   2.forEach中iterator里的this默认是指向window；
- *   3.forEach中iterator返回false是不会中断迭代的
- * 因此添加baidu.forEach()接口，并且推行这个接口
+ * @fileoverview 
  * @author meizz
  * @create 2012-08-30
  */
@@ -19,8 +14,15 @@
  * @param   {Function}      iterator        遍历操作的函数，参数顺序iterator(value, index, object)
  * @param   {Object}        context         [可选]作用域
  * @return  {ArrayLike}     arrayLike
- */
- 
+ * @example
+ forEach是ECMAScript 5 里的标准方法，而each不是标准；
+ 目前为了兼容jQuery保留baidu.each()，$.each()接口与标准的forEach有三大差异：
+    1.iterator的参数forEach是value,index；
+    2.forEach中iterator里的this默认是指向window；
+    3.forEach中iterator返回false是不会中断迭代的
+  因此添加baidu.forEach()接口，并且推行这个接口
+*/
+
 baidu.forEach = function( enumerable, iterator, context ) {
     var i, n, t;
 

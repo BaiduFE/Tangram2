@@ -376,9 +376,7 @@ baidu.dom.extend({
                 cancel:function(){
                     me.html(htmlCancel);
                     init();
-                    if(opt.enable == false){
-                        sortable.disable();
-                    };
+                    (opt.enable == false) && sortable.disable();
                     return sortable;
                 },
 
@@ -386,9 +384,7 @@ baidu.dom.extend({
                 reset:function(){
                     me.html(htmlReset);
                     init();
-                    if(opt.enable == false){
-                        sortable.disable();
-                    };
+                    (opt.enable == false) && sortable.disable();
                     return sortable;
                 },
 
@@ -564,9 +560,7 @@ baidu.dom.extend({
                 for(var k in opts){
                     opt[k] = opts[k];
                 };
-                if(opt.enable == false){
-                    sortable.disable();
-                };
+                (opt.enable == false) && sortable.disable();
             },
 
             //函数主逻辑

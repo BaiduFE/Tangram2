@@ -28,6 +28,7 @@ function prepareTest(){
 test('prepareTest',function(){
 	prepareTest();
     sortable = baidu('.group').sortable({
+        range:document.body,
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
         onend:function(){endNum++;},
@@ -245,7 +246,6 @@ test('enable方法', function() {
     };
     move(div, 0, 0);
 });
-
 
 test('析构方法', function() {
     expect(2);
