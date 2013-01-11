@@ -1,5 +1,6 @@
-///import baidu.lang.Class.$removeEventListener;
-///import baidu.lang.Event;
+///import baidu.lang.Class;
+///import baidu.createSingle;
+
 
 /// Tangram 1.x Code Start
 /*
@@ -22,14 +23,5 @@
  *             
  * @return {Object} 一个实例
  */
-baidu.lang.createSingle = function (json) {
-    var c = new baidu.lang.Class();
-
-    for (var key in json) {
-        c[key] = json[key];
-    }
-    return c;
-};
-
-
+baidu.lang.createSingle = baidu.createSingle;
 /// Tangram 1.x Code End
