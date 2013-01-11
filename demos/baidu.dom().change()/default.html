@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().change() 示例" />
+		<title>集合添加 change 事件监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().change()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>该事件仅适用于文本域（text field），以及 textarea 和 select 元素。当用于 select 元素时，change 事件会在选择某个选项时发生。当用于 text field 或 text area 时，该事件会在元素失去焦点时触发。
+					</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+                        <p>在某个域被使用或改变时，它会改变颜色</p>
+					</div>
+					<div class="pannel-content-part">
+                        <p>
+                            <label>输入名字: </label>
+                            <input class="field" type="text" />
+                        </p>
+                        <p>
+                            <label>我组产品: </label>
+                            <select class="field">
+                                <option value="Tangram">Tangram</option>
+                                <option value="Magic">Magic</option>
+                                <option value="BaiduTemplate">BaiduTemplate</option>
+                            </select>
+                        </p>
+                        <p><label>反馈意见: </label>
+                            <textarea class="field" cols="30" rows="10">
+                                无任何意见
+                            </textarea>
+                        </p>
+					</div>
+					<div class="pannel-show">
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+            baidu('.field').change(function(){
+                baidu(this).css('background-color','#FFFFCC');
+            });
+		</script>
+	</body>
+</html>

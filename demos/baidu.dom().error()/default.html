@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="baidu.dom().error() 示例" />
+		<title>集合添加 error 事件监听</title>
+		<link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+		<script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+		<script type="text/javascript" src="../../demos/public.js"></script>
+	</head>
+	<body>
+		<div class="demo" id="demo">
+			<h1 class="ac-h1"><strong>baidu.dom().error()</strong> 示例</h1>
+			<div class="pannel">
+				<div class="pannel-title">
+					<span>当元素遇到错误（没有正确载入）时，触发 error 事件</span>
+				</div>
+				<div class="pannel-content">
+					<!--DemoViewStart-->
+					<div class="pannel-content-tool">
+
+					</div>
+					<div class="pannel-content-part">
+                        <p>如果图片没有正确地加载，会从节点树上去掉</p>
+					</div>
+					<div class="pannel-show">
+
+					</div>
+					<!--DemoViewEnd-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+            baidu('.pannel-content-part img').error(function(){
+                baidu(this).remove();
+            });
+		</script>
+	</body>
+</html>
