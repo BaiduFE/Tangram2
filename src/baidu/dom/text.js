@@ -109,14 +109,15 @@ baidu.dom.extend({
                     return elem.nodeValue;
                 }
                 // Do not include comment or processing instruction nodes
-            } else {
-
-                // If no nodeType, this is expected to be an array
-                for ( ; (node = elem[i]); i++ ) {
-                    // Do not traverse comment nodes
-                    ret += getText( node );
-                }
             }
+            //  else {
+
+            //     // If no nodeType, this is expected to be an array
+            //     for ( ; (node = elem[i]); i++ ) {
+            //         // Do not traverse comment nodes
+            //         ret += getText( node );
+            //     }
+            // }
             return ret;
         };
 

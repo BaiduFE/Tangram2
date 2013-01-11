@@ -122,12 +122,12 @@ test("dom为空的情况",function(){
 	ok(result);
 });
 
-test("dom为空的情况",function(){
-	var www = document.createElement('www');
-	document.body.appendChild(www);
-	www.style.display = 'none';
-	baidu(www).show();
-	equal(baidu(www).css('display'),'inline');
+test("创建一个独立标签",function(){
+	var span = document.createElement('span');
+	document.body.appendChild(span);
+	span.style.display = '';
+	baidu(span).show();
+	equal(baidu(span).css('display'),'inline');
 });
 
 //准备工序
