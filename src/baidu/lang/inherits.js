@@ -1,3 +1,6 @@
+///import baidu.lang;
+///import baidu.base.inherits;
+
 /// support magic - Tangram 1.x Code Start
 /*
  * Tangram
@@ -9,7 +12,7 @@
  * date: 2009/11/24
  */
 
-///import baidu.lang;
+
 
 /**
  * @description 为类型构造器建立继承关系
@@ -29,30 +32,7 @@
  * @meta standard
  * @see baidu.lang.Class
  */
-baidu.lang.inherits = function (subClass, superClass, type) {
-    var key, proto, 
-        selfProps = subClass.prototype, 
-        clazz = new Function();
-        
-    clazz.prototype = superClass.prototype;
-    proto = subClass.prototype = new clazz();
-
-    for (key in selfProps) {
-        proto[key] = selfProps[key];
-    }
-    subClass.prototype.constructor = subClass;
-    subClass.superClass = superClass.prototype;
-
-    // 类名标识，兼容Class的toString，基本没用
-    typeof type == "string" && (proto.__type = type);
-
-    subClass.extend = function(json) {
-        for (var i in json) proto[i] = json[i];
-        return subClass;
-    }
-    
-    return subClass;
-};
+baidu.lang.inherits = baidu.base.inherits;
 
 //  2011.11.22  meizz   为类添加了一个静态方法extend()，方便代码书写
 /// support magic - Tangram 1.x Code End

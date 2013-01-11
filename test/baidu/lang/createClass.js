@@ -20,7 +20,6 @@ test("default parent class", function(){
 			return this.company + ' emploee ' + this.givenName + ' can get money ' + this.salary;
 		}
 	});
-	
 	equals(sObject.getInfo(), "baidu emploee Jim can get money 10000", 'sObject.getInfo() = "baidu emploee Jim can get money 10000"');
 	equals(sObject.givenName, "Jim", 'givenName = "Jim"');
 	equals(sObject.salary, 10000, 'salary = 10000');
@@ -122,7 +121,6 @@ test("global config", function(){
 	var nObject = new NewClass({
 		givenName: 'Tom'
 	});
-	
 	equals(sObject.givenName, "Jim", 'sObject.givenName');
 	equals(nObject.givenName, "Tom", 'nObject.givenName');
 	equals(sObject.subtitle, "test", 'sObject.subtitle');
