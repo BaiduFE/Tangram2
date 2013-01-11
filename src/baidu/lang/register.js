@@ -1,3 +1,6 @@
+///import baidu.lang;
+///import baidu.base.register;
+
 /// support magic - Tangram 1.x Code Start
 /*
  * Tangram
@@ -9,7 +12,7 @@
  * date: 2011/11/29
  */
 
-///import baidu.lang;
+
 
 /**
  * @description 向某个类注册插件
@@ -22,14 +25,7 @@
  * @meta standard
  *             
  */
-baidu.lang.register = function (Class, constructorHook, methods) {
-    var reg = Class["\x06r"] || (Class["\x06r"] = []);
-    reg[reg.length] = constructorHook;
-
-    for (var method in methods) {
-        Class.prototype[method] = methods[method];
-    }
-};
+baidu.lang.register = baidu.base.register;
 
 // 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
 // 20111129    meizz    添加第三个参数，可以直接挂载方法到目标类原型链上

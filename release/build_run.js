@@ -10,7 +10,7 @@ var fs = require("fs"),
 //tangram源代码目录
 var tangramSrcPath = '../src';
 //需要排除的api
-var excludeFiles = ['baidu.check', 'baidu.short'];
+var excludeFiles = ['baidu.check', 'baidu.short', 'baidu.i18n', 'baidu.i18n.cultures.en-US', 'baidu.i18n.currency', 'baidu.i18n.number', 'baidu.i18n.string'];
 
 //已经导入的文件
 var imported = [];

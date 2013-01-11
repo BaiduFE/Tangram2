@@ -11,7 +11,6 @@ test("老接口：with params", function(){
 			return this.company + ' employee ' + this.givenName + ' can get money ' + this.salary;
 		}
 	});
-	
 	equals(so.getInfo(), "baidu employee Jim can get money 10000", 'so.getInfo() = "baidu employee Jim can get money 10000"');
 	equals(so.givenName, "Jim", 'so.givenName = "Jim"');
 	equals(so.salary, 10000, 'so.salary = 10000');

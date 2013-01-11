@@ -1,4 +1,4 @@
-///import baidu.lang.Event;
+///import baidu.lang.Class;
 ///import baidu.string.trim;
 
 /// Tangram 1.x Code Start
@@ -33,9 +33,8 @@ baidu.lang.Class.prototype.addEventListeners = function (events, fn) {
         events = events.split(',');
         var i = 0, len = events.length, event;
         for(; i < len; i++){
-            this.addEventListener(baidu.trim(events[i]), fn);
+            this.addEventListener(baidu.string.trim(events[i]), fn);
         }
     }
 };
-
 /// Tangram 1.x Code End

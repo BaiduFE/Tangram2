@@ -15,7 +15,8 @@ test("prepareTest",function(){
 
 			// 类名标识，兼容Class的toString，基本没用
 			if ("string" == typeof className) {
-				proto._className = className;
+//				proto._className = className;
+                proto._type_ = className;
 			}
 		};
 		/*
@@ -130,15 +131,15 @@ test("dispose", function() {
 			ok(true, "method is called");
 		}
 	}
+	
 	_inherits(myClass, baidu.lang.Class);
 	// 通过继承baidu.lang.Class来获取dispose方法
 		var obj = new myClass();
+		obj.method();
 		obj.dispose();
-
 		ok(obj.disposed, "disposed is set to true");
 		equal(obj.name, undefined, "name is disposed");// name返回:undefined
 		obj.method();
-
 	});
 
 test("toString", function() {
@@ -151,6 +152,90 @@ test("toString", function() {
 		equal(obj.toString(),"[object myclass]", "check toString : ");// name返回:undefined
 	});
 
+test("兼容Magic接口：removeEventListener", function() {
+    expect(2);
+    function myClass() {
+        this.nae = "myclass";
+    }
+    _inherits(myClass, baidu.lang.Class);// 通过继承baidu.lang.Class来获取它的dispatchEvent方法
+    var obj = new myClass();
+    function listner(){ok(true, "listner is added");}
+    var myEventWithoutOn = new baidu.base.Event("onMyEvent", obj);
+    obj.addEventListener("onMyEvent",listner,'pointMyEvent');
+    obj.dispatchEvent(myEventWithoutOn);
+    obj.removeEventListener("onMyEvent",'pointMyEvent');
+    obj.dispatchEvent(myEventWithoutOn);
+    ok(true,"listner is removed");
+});
+
+test("兼容Magic接口：removeEventListener - no key", function() {
+    function myClass() {
+        this.name = "myclass";
+    }
+
+    _inherits(myClass, baidu.lang.Class);// 通过继承baidu.lang.Class来获取它的dispatchEvent方法
+       expect(2);
+        var obj = new myClass();
+        function listner(){
+            ok(true, "listner is added");
+        }
+        
+        var myEventWithoutOn = new (baidu.base.Event)("onMyEvent", obj);
+        obj.addEventListener("onMyEvent", listner);
+        obj.dispatchEvent(myEventWithoutOn);
+        obj.removeEventListener("onMyEvent", listner);
+        obj.dispatchEvent(myEventWithoutOn);
+        ok(true, "listner is removed");
+
+    });
+
+test("兼容Magic接口：removeEventListener - no handler", function () {  // 2011-2-26, 无handler参数时移除所有事件
+    function myClass() {
+        this.name = "myclass";
+    }
+
+    _inherits(myClass, baidu.lang.Class);// 通过继承baidu.lang.Class来获取它的dispatchEvent方法
+       expect(5);
+        var obj = new myClass();
+        function listner1(){ok(true, "listner1 is added");}
+        function listner2(){ok(true, "listner2 is added");}
+
+        var myEventWithoutOn = new baidu.base.Event("onMyEvent", obj);
+        obj.addEventListener("onMyEvent", listner1);
+        obj.addEventListener("onMyEvent", listner2);
+        obj.dispatchEvent(myEventWithoutOn);
+        obj.removeEventListener("onMyEvent", function(){});
+        obj.dispatchEvent(myEventWithoutOn);
+        obj.removeEventListener("onMyEvent");
+        obj.dispatchEvent(myEventWithoutOn);
+        ok(true, "listner is removed");   
+});
+
+test("兼容Magic接口：removeEventListener - default params", function () {
+    function myClass() {
+        this.name = "myclass";
+    }
+
+    _inherits(myClass, baidu.lang.Class);// 通过继承baidu.lang.Class来获取它的dispatchEvent方法
+       expect(4);
+        var obj = new myClass();
+        function listner1(){ok(true, "listner1 is added");}
+        function listner2(){ok(true, "listner2 is added");}
+
+        var myEventWithoutOn = new baidu.base.Event("onMyEvent", obj);
+        var yourEventWithoutOn = new baidu.base.Event("YourEvent", obj);
+        obj.addEventListener("onMyEvent", listner1);
+        obj.addEventListener("onMyEvent", listner2);
+        obj.addEventListener("YourEvent", listner1);
+        obj.dispatchEvent(myEventWithoutOn);
+        obj.dispatchEvent(yourEventWithoutOn);  
+        obj.removeEventListener("onMyEvent");
+        obj.dispatchEvent(myEventWithoutOn);  
+        obj.dispatchEvent(yourEventWithoutOn);  
+        obj.removeEventListener();
+        obj.dispatchEvent(myEventWithoutOn);  
+        obj.dispatchEvent(yourEventWithoutOn);  
+});
 //
 //
 // describe('test baidu.lang.Class.create', {
