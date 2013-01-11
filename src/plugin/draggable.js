@@ -583,8 +583,7 @@ baidu.dom.extend({
                             dragEnter[k] = null;
                         };
                     };
-
-                };                
+                };
             };
 
         //函数参数逻辑

@@ -505,7 +505,6 @@ baidu.dom.extend({
                     }else{
 
                         //按下了ctrl 或 command 键，可以多次选择
-
                         for(var i = 0 , num = item.size(); i < num; i ++){
                             var _ele = item.eq(i);
 
