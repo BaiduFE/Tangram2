@@ -25,7 +25,7 @@ function prepareTest(){
    	jQuery('body').prepend(html);
 };
 
-test('prepareTest',function(){
+test('plugin接口：prepareTest',function(){
 	prepareTest();
     sortable = baidu('.group').sortable({
         onstart:function(){startNum++;},
@@ -36,7 +36,7 @@ test('prepareTest',function(){
     ok(sortable,'ok');
 });
 
-test('事件相关', function() {
+test('plugin接口：事件相关', function() {
     stop();
     expect(4);
     startNum = draggingNum = endNum = changeNum = 0;
@@ -74,7 +74,7 @@ test('事件相关', function() {
     move(div, 0, 0);
 });
 
-test('正常排序', function() {
+test('plugin接口：正常排序', function() {
     stop();
     expect(2);
     var tang = baidu('#test-a');
@@ -106,7 +106,7 @@ test('正常排序', function() {
     move(div, 0, 0);
 });
 
-test('第二次排序', function() {
+test('plugin接口：第二次排序', function() {
     stop();
     expect(2);
     var tang = baidu('#test-a');
@@ -138,14 +138,14 @@ test('第二次排序', function() {
     move(div, 0, 0);
 });
 
-test('index方法', function() {
+test('plugin接口：index方法', function() {
     expect(1);
     var index = sortable.index();
     var arr = [0, 2, 3, 1];
     equal(index[2], arr[2], "排序后的索引");    
 });
 
-test('cancel方法', function() {
+test('plugin接口：cancel方法', function() {
     expect(1);
     var tang = baidu('#test-a');
     var arr = [0,1,2,3];
@@ -153,7 +153,7 @@ test('cancel方法', function() {
     equal(index[2], arr[2], "排序后的索引");    
 });
 
-test('reset方法', function() {
+test('plugin接口：reset方法', function() {
     expect(2);
     var tang = baidu('#test-a');
     sortable.reset();
@@ -161,14 +161,14 @@ test('reset方法', function() {
     ok((tang.offset().top>-5&&tang.offset().top<5), "stop top");    
 });
 
-test('item方法', function() {
+test('plugin接口：item方法', function() {
     expect(1);
     var tang = baidu('#test-a');
     var item = sortable.item();
     equal(item.get(1),tang.get(0), "item一致");
 });
 
-test('getBack方法', function() {
+test('plugin接口：getBack方法', function() {
     expect(1);
     sortable.getBack().css('background-color','#0FF');
     var tang = baidu('.group');
@@ -176,7 +176,7 @@ test('getBack方法', function() {
     equal(result,'#0ff', "设置的当前DOM");
 });
 
-test('disable方法', function() {
+test('plugin接口：disable方法', function() {
     expect(2);
     sortable.disable();
 
@@ -211,7 +211,7 @@ test('disable方法', function() {
     move(div, 0, 0);
 });
 
-test('enable方法', function() {
+test('plugin接口：enable方法', function() {
     expect(2);
     sortable.enable();
 
@@ -247,7 +247,7 @@ test('enable方法', function() {
 });
 
 
-test('析构方法', function() {
+test('plugin接口：析构方法', function() {
     expect(2);
     sortable.reset();
     sortable.dispose();
