@@ -45,7 +45,8 @@ baidu.extend(baidu.base.Class.prototype, {
      * TODO: 将_listeners中绑定的事件剔除掉
      */
     ,dispose: function() {
-        if (this.fire("ondispose")) {
+        // 2013.1.11 暂时关闭此事件的派发
+        // if (this.fire("ondispose")) {
             // decontrol
             delete baidu._global_._instances[this.guid];
 
@@ -62,7 +63,7 @@ baidu.extend(baidu.base.Class.prototype, {
             }
 
             this.disposed = true;   //20100716
-        }
+        // }
     }
 
     /**
@@ -77,7 +78,7 @@ baidu.extend(baidu.base.Class.prototype, {
     ,fire: function(event, options) {
         baidu.isString(event) && (event = new baidu.base.Event(event));
 
-        var i, n, list
+        var i, n, list, item
             , t=this._listeners_
             , type=event.type
             // 20121023 mz 修正事件派发多参数时，参数的正确性验证
@@ -97,8 +98,9 @@ baidu.extend(baidu.base.Class.prototype, {
 
         if (baidu.isArray(list = t[type])) {
             for ( i=list.length-1; i>-1; i-- ) {
-                list[i].handler.apply( this, argu );
-                list[i].once && list.splice( i, 1 );
+                item = list[i];
+                item && item.handler.apply( this, argu );
+                item && item.once && list.splice( i, 1 );
             }
         }
 
