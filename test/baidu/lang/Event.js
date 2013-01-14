@@ -19,24 +19,23 @@ module("baidu.lang.Event");
 			proto._className = className;
 		}
 	};
+	
 	test("dispatchEvent", function() {
 		expect(2);
 		function myClass() {
 			this.name = "myclass";
 		}
-
 		_inherits(myClass, baidu.lang.Class);// 通过继承baidu.lang.Class来获取它的dispatchEvent方法
-			var obj = new myClass();
-			obj.onMyEvent = function() {
-				ok(true, "myEvent is dispatched");
-			};
+		var obj = new myClass();
+		obj.onMyEvent = function() {
+			ok(true, "myEvent is dispatched");
+		};
 
-			var myEventWithoutOn = new (baidu.lang.Event)("MyEvent", obj);// 自定义事件对象,不以on开头
-			var myEventWithOn = new (baidu.lang.Event)("onMyEvent")
-			obj.dispatchEvent(myEventWithoutOn);
-			obj.dispatchEvent(myEventWithOn);
-		
-		});
+		var myEventWithoutOn = new (baidu.lang.Event)("MyEvent", obj);// 自定义事件对象,不以on开头
+		var myEventWithOn = new (baidu.lang.Event)("onMyEvent")
+		obj.dispatchEvent(myEventWithoutOn);
+		obj.dispatchEvent(myEventWithOn);
+	});
 
 	test("addEventListener", function() {
 		expect(2);
@@ -77,9 +76,8 @@ module("baidu.lang.Event");
 			
 			var myEventWithoutOn = new (baidu.lang.Event)("onMyEvent", obj);
 			obj.addEventListener("onMyEvent",listner1);
-			obj.addEventListener("onMyEvent",listner1);
 			obj.addEventListener("onMyEvent",listner2);
-			
+			//注册相当事件相当侦听器仍然有效，不会视为一个
 			obj.dispatchEvent(myEventWithoutOn);
 		});
 
