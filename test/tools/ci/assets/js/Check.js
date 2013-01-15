@@ -23,6 +23,7 @@ define(function(require, exports) {
                                 '<li class="{{BombCheck.status}}"><span>文件Bomb头检查：{{BombCheck.status}}</span></li>' +
                                 '<li class="{{tabCheck.status}}"><span>文件缩进检查：{{tabCheck.status}}</span></li>' +
                                 '<li class="{{conflictCheck.status}}"><span>文件冲突检查：{{conflictCheck.status}}</span></li>' +
+                                '<li class="{{jQueryCheck.status}}"><span>$检查：{{jQueryCheck.status}}</span></li>' +
                                 '<li class="{{testCaseCheck.status}}">' +
                                     '<span>关联用例检查：{{testCaseCheck.status}}；</span>' +
                                     '<span>源码最后修改时间：{{testCaseCheck.msg.srcLastModify}}；</span>' +
@@ -167,7 +168,10 @@ define(function(require, exports) {
                                 autoRuning && hideOnPass && node.el.hide();
                                 if(data.encodingCheck.status == 'warning'){
                                     log.level = 'warning';
-                                    log.desc = '静态检查编码异常';
+                                    log.desc = '文件编码检查异常';
+                                }else if(data.jQueryCheck.status == 'warning'){
+                                    log.level = 'warning';
+                                    log.desc = '$检查异常';
                                 }else{
                                     node.el.css('color', '#00F');
                                     log.level = 'pass';

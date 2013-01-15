@@ -1,6 +1,6 @@
 ///import baidu._util_.smartAjax;
 /**
- * @description 通过服务器HTTP GET请求加载数据
+ * @description 通过服务器HTTP POST请求加载数据
  * @function 
  * @name baidu.post()
  * @grammar baidu.post(url[, data], [successtion], [dataType])
