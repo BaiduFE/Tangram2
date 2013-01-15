@@ -47,12 +47,19 @@
         }
     }
 
+    # 检查$
+    $jQueryCheck = 'pass';
+    if(preg_match('/\$/', $fileContent)){
+        $jQueryCheck = 'warning';
+    }
+
 
     
     $result['encodingCheck'] = array('status' => $fileencodingCheck, 'msg' => $fileencoding);
     $result['BombCheck'] = array('status' => $bombCheck);
     $result['tabCheck'] = array('status' => $tabCheck);
     $result['conflictCheck'] = array('status' => $conflictCheck);
+    $result['jQueryCheck'] = array('status' => $jQueryCheck);
     $result['testCaseCheck'] = array('status' => $testCaseCheck, 'msg' => array('srcLastModify' => $srcLastModifyTime, 'testCaseLastModify' => $testLastModifyTime));
     
     echo json_encode($result);
