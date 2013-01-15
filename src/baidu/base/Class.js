@@ -173,6 +173,13 @@ baidu.extend(baidu.base.Class.prototype, {
         return this;
     }
 });
+baidu.base.Class.prototype.addEventListener = 
+baidu.base.Class.prototype.on;
+baidu.base.Class.prototype.removeEventListener =
+baidu.base.Class.prototype.un =
+baidu.base.Class.prototype.off;
+baidu.base.Class.prototype.dispatchEvent =
+baidu.base.Class.prototype.fire;
 
 
 /*
