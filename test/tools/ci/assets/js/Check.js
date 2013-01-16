@@ -1,5 +1,4 @@
 define(function(require, exports) {
-    require('shCore');
     require('shBrushJScript');
     var Mustache = require('mustache');
     var JSHINT = require('jshint').JSHINT;
