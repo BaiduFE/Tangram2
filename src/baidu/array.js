@@ -25,7 +25,8 @@ baidu.createChain("array", function(array){
     baidu.type( array ) != "array" && ( array = [] );
 
     for ( key in pro ) {
-        ap[key] || (array[key] = pro[key]);
+        //ap[key] || (array[key] = pro[key]);
+        array[key] = pro[key];
     }
 
     return array;

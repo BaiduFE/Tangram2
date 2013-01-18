@@ -18,20 +18,19 @@
  * @param   {Object}        context     方法作用域
  * @return  {Array}                     映射操作后的数组
  */
-
-Array.prototype.map = function (iterator, context) {
-    baidu.check("function(,.+)?","baidu.array.map");
-    var i, n,
-        array = baidu.array([]);
-
-    for (i=0, n=this.length; i < n; i++) {
-        array[i] = iterator.call(context || this, this[i], i, this);
+baidu.array.extend({
+    map: function(iterator, context){
+        baidu.check("function(,.+)?","baidu.array.map");
+        var len = this.length,
+            array = baidu.array([]);
+        for(var i = 0; i < len; i++){
+            array[i] = iterator.call(context || this, this[i], i, this);
+        }
+        return array;
     }
-    return array;
-};
-
+});
 /// Tangram 1.x Code Start
 baidu.array.map = function(array, iterator, context){
-    return baidu.isArray(array) ? array.map(iterator, context) : array;
+    return baidu.isArray(array) ? baidu.array(array).map(iterator, context) : array;
 };
 /// Tangram 1.x Code End

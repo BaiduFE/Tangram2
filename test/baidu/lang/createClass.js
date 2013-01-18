@@ -111,7 +111,7 @@ test("class extend", function(){
 });
 
 test("global config", function(){
-	expect(4);
+	expect(2);
 	var NewClass = baidu.lang.createClass(myClass, {
 		options : {subtitle : "test"}
 	});
@@ -123,8 +123,8 @@ test("global config", function(){
 	});
 	equals(sObject.givenName, "Jim", 'sObject.givenName');
 	equals(nObject.givenName, "Tom", 'nObject.givenName');
-	equals(sObject.subtitle, "test", 'sObject.subtitle');
-	equals(nObject.subtitle, "test", 'nObject.subtitle');
+//	equals(sObject.subtitle, "test", 'sObject.subtitle');//不再把options.options上的东西挂到constructor上
+//	equals(nObject.subtitle, "test", 'nObject.subtitle');
 });
 
 //describe('baidu.lang.createClass', {
