@@ -14,6 +14,7 @@
         <link rel="stylesheet" type="text/css" href="./assets/css/app.css" />
         <link type="text/css" rel="stylesheet" href="./assets/css/shCoreDefault.css"/>
         <script type="text/javascript" src="./assets/lib/sea.js"></script>
+        <script type="text/javascript" src="./assets/lib/shCore.js"></script>
     </head>
     <body>
         <div class="hd">
