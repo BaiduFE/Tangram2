@@ -1,5 +1,4 @@
 ///import baidu.array;
-///import baidu.type;
 /**
  * @fileoverview
  * @author meizz
@@ -27,25 +26,27 @@
  * @param   {context}       context  方法作用域
  * @return  {Array}             已经过滤后的数组
  */
-Array.prototype.filter = function(iterator, context) {
-    var result = baidu.array([]),
-        i, n, item, index=0;
-
-    if (baidu.type(iterator) === "function") {
-        for (i=0, n=this.length; i<n; i++) {
-            item = this[i];
-
-            if (iterator.call(context || this, item, i, this) === true) {
-                result[index ++] = item;
+/// Tangram 1.x Code Start
+// TODO: delete in tangram 3.0
+baidu.array.filter = function (source, iterator, thisObject) {
+    var result = [],
+        resultIndex = 0,
+        len = source.length,
+        item,
+        i;
+    
+    if ('function' == typeof iterator) {
+        for (i = 0; i < len; i++) {
+            item = source[i];
+            //TODO
+            //和标准不符，see array.each
+            if (true === iterator.call(thisObject || source, item, i)) {
+                // resultIndex用于优化对result.length的多次读取
+                result[resultIndex++] = item;
             }
         }
     }
-
+    
     return result;
-};
-/// Tangram 1.x Code Start
-// TODO: delete in tangram 3.0
-baidu.array.filter = function(array, filter, context) {
-    return baidu.isArray(array) ? array.filter(filter, context) : [];
 };
 /// Tangram 1.x Code End

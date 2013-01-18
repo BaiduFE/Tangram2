@@ -197,3 +197,9 @@ test("get style from fixer", function() {
     equal(baidu.dom.getComputedStyle(img, 'opacity'), '1');
     document.body.removeChild(div);
 });
+
+test('get style from document', function(){
+    var ret = baidu(document).getComputedStyle('display');
+    ok(!ret, 'can not get document style');
+    
+});

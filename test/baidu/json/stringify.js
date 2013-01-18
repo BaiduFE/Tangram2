@@ -124,7 +124,7 @@ test("hasOwnProperty", function() {
 		"toString" : null
 	};
 
-	if (ua.browser.ie && ua.browser.ie <= 8) {
+	if (ua.browser.ie && ua.browser.ie < 8) {
 		equals(baidu.json.stringify(object), '{}');
 	} else {
 		equals(baidu.json.stringify(object), '{"hasOwnProperty":null,'
