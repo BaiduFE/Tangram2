@@ -88,7 +88,6 @@ baidu._util_.attr = function(){
     }
     // Some attributes require a special call on IE
     if(!hrefNormalized){
-        [ "href", "src", "width", "height" ]
         baidu.forEach(['href', 'src', 'width', 'height'], function(item){
             attrHooks[item] = {
                 get: function(ele, key){
