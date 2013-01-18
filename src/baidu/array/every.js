@@ -1,5 +1,4 @@
 ///import baidu.array;
-///import baidu.type;
 /**
  * @fileoverview
  * @author meizz
@@ -27,20 +26,16 @@
  * @param   {Object}        context   方法作用域
  * @return  {Boolean}           是否全部满足条件
  */
-Array.prototype.every = function(iterator, context) {
-    baidu.check("function(,.+)?", "baidu.array.every");
-    var i, n;
-
-    for (i=0, n=this.length; i<n; i++) {
-        if (!iterator.call(context || this, this[i], i, this)) {
+/// Tangram 1.x Code Start
+// TODO: delete in tangram 3.0
+baidu.array.every = function(source, iterator, thisObject) {
+    var i = 0,
+        len = source.length;
+    for (; i < len; i++) {
+        if (i in source && !iterator.call(thisObject || source, source[i], i)) {
             return false;
         }
     }
     return true;
-};
-/// Tangram 1.x Code Start
-// TODO: delete in tangram 3.0
-baidu.array.every = function(array, iterator, context) {
-    return baidu.isArray(array) ? array.every(iterator, context) : array;
 };
 /// Tangram 1.x Code End

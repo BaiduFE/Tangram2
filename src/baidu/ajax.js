@@ -5,6 +5,7 @@
 ///import baidu.type;
 ///import baidu.deferred;
 ///import baidu.callbacks;
+///import baidu.when;
 ///import baidu.id;
 ///import baidu._util_.support;
 ///import baidu.dom.on;

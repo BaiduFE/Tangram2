@@ -151,8 +151,10 @@ baidu.createChain('Callbacks', function(options){
                 if(!fnArray){return this;}
                 var index = fnArray && fnArray.length;
                 (function add(args){
-                    var type;
-                    for(var i = 0, item; item = args[i]; i++){
+                    var len = args.length,
+                        type, item;
+                    for(var i = 0, item; i < len; i++){
+                        if(!(item = args[i])){continue;}
                         type = baidu.type(item);
                         if(type === 'function'){
                             (!opts.unique || !callbacks.has(item)) && fnArray.push(item);
