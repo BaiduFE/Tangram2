@@ -481,6 +481,7 @@ test('plugin接口：enter和leave事件相关:enter', function() {
             equal(draggingNum,10, "dragging事件");
             equal(endNum,1, "end事件");
             equal(enterNum,1, "enter事件");
+            draggable.disable();
             draggable.dispose();
             range.remove();
             start();
@@ -507,7 +508,7 @@ test('plugin接口：enter和leave事件相关:leave', function() {
     startNum = draggingNum = endNum = enterNum = leaveNum = 0;
     var range = jQuery("<div id='focus' style='background-color:#F00;width:350px;height:350px;border:2px solid #0FF;'></div>").prependTo('body').offset({left:250,top:0});
     var div = baidu('#test-a').offset({left:200,top:20}).get(0);
-    draggable = baidu('#test-a').draggable({
+    var draggable = baidu('#test-a').draggable({
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
         onend:function(){endNum++;},

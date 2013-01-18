@@ -28,7 +28,7 @@ function prepareTest(){
 test('plugin接口：prepareTest',function(){
 	prepareTest();
     sortable = baidu('.group').sortable({
-        range:document.body,
+        range:'body',
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
         onend:function(){endNum++;},

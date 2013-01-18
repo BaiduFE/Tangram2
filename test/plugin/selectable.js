@@ -264,6 +264,7 @@ test('plugin接口：事件相关', function() {
     var startNum,draggingNum,endNum,changeNum;
     startNum = draggingNum = endNum = changeNum = 0;
     var selectable = baidu('.group').selectable('.item',{
+        range:'body',
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
         onend:function(){endNum++;},
