@@ -30,7 +30,7 @@ test('兼容Magic接口：isLeapYear', function(){
 	ok(!baidu.i18n.date.isLeapYear(2010), '2010');
 });
 
-test('兼容Magic接口：toLocaleDate', function(){
+test('废弃接口：toLocaleDate', function(){
 	var date = new Date();
 	localTime = date.getTime();
 	localOffset=date.getTimezoneOffset()*60000; //获得当地时间偏移的毫秒数

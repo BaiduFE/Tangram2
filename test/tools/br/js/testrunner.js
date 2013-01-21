@@ -111,6 +111,11 @@ var QUnit = {
 			}
 		}
 		
+		if((window.location.href.indexOf("release=true") > -1 || window.location.href.indexOf("download=") > -1) && testName.indexOf("废弃接口") > -1){
+			callback = function(){
+			}
+		}
+		
 		// is 2nd argument a testEnvironment?
 		if ( expected && typeof expected === 'object') {
 			testEnvironmentArg =  expected;
