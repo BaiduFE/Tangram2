@@ -505,7 +505,6 @@ baidu.dom.extend({
                     }else{
 
                         //按下了ctrl 或 command 键，可以多次选择
-
                         for(var i = 0 , num = item.size(); i < num; i ++){
                             var _ele = item.eq(i);
 
@@ -529,19 +528,19 @@ baidu.dom.extend({
 
             keyDownHandle = function(e){
                     
-                    //Win下Ctrl 和 Mac下 command 键
-                    if(e.ctrlKey || e.keyCode == 91){
-                        keydownMore = true;
-                    };
+                //Win下Ctrl 和 Mac下 command 键
+                if(e.ctrlKey || e.keyCode == 91){
+                    keydownMore = true;
+                };
             },
 
             keyUpHandle = function(e){
 
-                    //Win下Ctrl 和 Mac下 command 键
-                    if(!e.ctrlKey || e.keyCode == 91){
-                        keydownMore = false;
-                        item.removeClass('tang-selectable-selecting');
-                    };
+                //Win下Ctrl 和 Mac下 command 键
+                if(!e.ctrlKey || e.keyCode == 91){
+                    keydownMore = false;
+                    item.removeClass('tang-selectable-selecting');
+                };
             },
 
             fireStart = function(){

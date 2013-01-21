@@ -98,11 +98,13 @@
     </div>
 </div>
 <script type="text/javascript">
-    baidu( '#selectable1' ).selectable( {
+    var a = baidu( '#selectable1' ).selectable( {
         range:'#selectable'
     } );
-    baidu('#selectable2').selectable('.select',{
+    var b = baidu('#selectable2').selectable('.select',{
         range:'#selectable'
+        // onstart:function(){console.log('start');},
+        // onend:function(){console.log('end');}
     });
 </script>
 </body>

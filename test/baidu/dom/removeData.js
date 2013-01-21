@@ -4,7 +4,7 @@ test("第一个参数为 String ", function () {
     stop();
     ua.importsrc("baidu.dom.data", function(){
 
-        var guid = baidu.id.key
+        var guid = baidu.key
             , $dom = baidu.dom(document.body)
             , maps = baidu.global("_maps_HTMLElementData");
 

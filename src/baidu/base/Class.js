@@ -45,7 +45,8 @@ baidu.extend(baidu.base.Class.prototype, {
      * TODO: 将_listeners中绑定的事件剔除掉
      */
     ,dispose: function() {
-        if (this.fire("ondispose")) {
+        // 2013.1.11 暂时关闭此事件的派发
+        // if (this.fire("ondispose")) {
             // decontrol
             delete baidu._global_._instances[this.guid];
 
@@ -62,7 +63,7 @@ baidu.extend(baidu.base.Class.prototype, {
             }
 
             this.disposed = true;   //20100716
-        }
+        // }
     }
 
     /**
@@ -77,7 +78,7 @@ baidu.extend(baidu.base.Class.prototype, {
     ,fire: function(event, options) {
         baidu.isString(event) && (event = new baidu.base.Event(event));
 
-        var i, n, list
+        var i, n, list, item
             , t=this._listeners_
             , type=event.type
             // 20121023 mz 修正事件派发多参数时，参数的正确性验证
@@ -96,13 +97,10 @@ baidu.extend(baidu.base.Class.prototype, {
         (i=this._options) && baidu.isFunction(i[type]) && i[type].apply(this, argu);
 
         if (baidu.isArray(list = t[type])) {
-            for (i=0, n=list.length; i<n; i++) {
-                list[i].apply(this, argu);
-            }
-
-            if (list.once) {
-                for(i=list.once.length-1; i>-1; i--) list.splice(list.once[i], 1);
-                delete list.once;
+            for ( i=list.length-1; i>-1; i-- ) {
+                item = list[i];
+                item && item.handler.apply( this, argu );
+                item && item.once && list.splice( i, 1 );
             }
         }
 
@@ -127,11 +125,7 @@ baidu.extend(baidu.base.Class.prototype, {
         type.indexOf("on") && (type = "on" + type);
 
         !baidu.isArray(list = t[type]) && (list = t[type] = []);
-        if (once) {
-            !list.once && (list.once = []);
-            list.once.push(list.length);
-        }
-        t[type].push( handler );
+        t[type].unshift( {handler: handler, once: !!once} );
 
         return this;
     }
@@ -172,13 +166,20 @@ baidu.extend(baidu.base.Class.prototype, {
         } else if (list = t[type]) {
 
             for (i = list.length - 1; i >= 0; i--) {
-                list[i] === handler && list.splice(i, 1);
+                list[i].handler === handler && list.splice(i, 1);
             }
         }
 
         return this;
     }
 });
+baidu.base.Class.prototype.addEventListener = 
+baidu.base.Class.prototype.on;
+baidu.base.Class.prototype.removeEventListener =
+baidu.base.Class.prototype.un =
+baidu.base.Class.prototype.off;
+baidu.base.Class.prototype.dispatchEvent =
+baidu.base.Class.prototype.fire;
 
 
 /*

@@ -15,7 +15,7 @@ var T, baidu = T = function(){
 	
 	var T, baidu = T = baidu || function(q, c) { return baidu.dom ? baidu.dom(q, c) : null; };
 	
-	baidu.version = '2.0.1.3';
+	baidu.version = '2.0.2.0';
 	baidu.guid = "$BAIDU$";
 	baidu.key = "tangram_guid";
 	
@@ -31,7 +31,6 @@ var T, baidu = T = function(){
 	 
 	baidu.lang = baidu.lang || {};
 	
-	 
 	baidu.forEach = function( enumerable, iterator, context ) {
 	    var i, n, t;
 	
@@ -279,7 +278,8 @@ var T, baidu = T = function(){
 	    baidu.type( array ) != "array" && ( array = [] );
 	
 	    for ( key in pro ) {
-	        ap[key] || (array[key] = pro[key]);
+	        //ap[key] || (array[key] = pro[key]);
+	        array[key] = pro[key];
 	    }
 	
 	    return array;
@@ -310,332 +310,210 @@ var T, baidu = T = function(){
 	    }
 	});
 	
-	baidu.createChain("Callbacks",
-	//copy from jquery 1.8.2,thanks for jquery
-	
-	// 执行方法
-	function(options){
-	
-	    // String to Object options format cache
-	    var optionsCache = {};
-	
-	    // Convert String-formatted options into Object-formatted ones and store in cache
-	    function createOptions( options ) {
-	        var object = optionsCache[ options ] = {};
-	        baidu.forEach( options.split(/\s+/), function( flag, _ ) {
-	            object[ flag ] = true;
+	baidu.createChain('Callbacks', function(options){
+	    var opts = options;
+	    if(baidu.type(options) === 'string'){
+	        opts = {};
+	        baidu.forEach(options.split(/\s/), function(item){
+	            opts[item] = true;
 	        });
-	        return object;
-	    };
-	
-	    
-	    // Convert options from String-formatted to Object-formatted if needed
-	    // (we check in cache first)
-	    options = typeof options === "string" ?
-	        ( optionsCache[ options ] || createOptions( options ) ) :
-	        baidu.extend( {}, options );
-	
-	    var // Last fire value (for non-forgettable lists)
-	        memory,
-	        // Flag to know if list was already fired
-	        fired,
-	        // Flag to know if list is currently firing
-	        firing,
-	        // First callback to fire (used internally by add and fireWith)
-	        firingStart,
-	        // End of the loop when firing
-	        firingLength,
-	        // Index of currently firing callback (modified by remove if needed)
-	        firingIndex,
-	        // Actual callback list
-	        list = [],
-	        // Stack of fire calls for repeatable lists
-	        stack = !options.once && [],
-	        // Fire callbacks
-	        fire = function( data ) {
-	            memory = options.memory && data;
-	            fired = true;
-	            firingIndex = firingStart || 0;
-	            firingStart = 0;
-	            firingLength = list.length;
-	            firing = true;
-	            for ( ; list && firingIndex < firingLength; firingIndex++ ) {
-	                if ( list[ firingIndex ].apply( data[ 0 ], data[ 1 ] ) === false && options.stopOnFalse ) {
-	                    memory = false; // To prevent further calls using add
-	                    break;
-	                }
-	            }
-	            firing = false;
-	            if ( list ) {
-	                if ( stack ) {
-	                    if ( stack.length ) {
-	                        fire( stack.shift() );
+	    }
+	    return new baidu.Callbacks.$Callbacks(opts);
+	}, function(options){
+	    var opts = baidu.extend({}, options || {}),
+	        fnArray = [],
+	        fireQueue = [],
+	        fireIndex = 0,
+	        memory, isLocked, isFired, isFiring,
+	        fireCore = function(data, index){
+	            var item, fn;
+	            if(!fireQueue || !fnArray){return;}
+	            memory = opts.memory && data;
+	            isFired = true;
+	            fireQueue.push(data);
+	            if(isFiring){return;}
+	            isFiring = true;
+	            while(item = fireQueue.shift()){
+	                for(fireIndex = index || 0; fn = fnArray[fireIndex]; fireIndex++){
+	                    if(fn.apply(item[0], item[1]) === false
+	                        && opts.stopOnFalse){
+	                        memory = false;
+	                        break;
 	                    }
-	                } else if ( memory ) {
-	                    list = [];
-	                } else {
-	                    self.disable();
 	                }
 	            }
+	            isFiring = false;
+	            opts.once && (fnArray = []);
 	        },
-	        // Actual Callbacks object
-	        self = {
-	            // Add a callback or a collection of callbacks to the list
-	            add: function() {
-	                if ( list ) {
-	                    // First, we save the current length
-	                    var start = list.length;
-	                    (function add( args ) {
-	                        baidu.forEach( args, function( arg, _) {
-	                            if ( (typeof arg === 'function') && ( !options.unique || !self.has( arg ) ) ) {
-	                                list.push( arg );
-	                            } else if ( arg && arg.length ) {
-	                                // Inspect recursively
-	                                add( arg );
-	                            }
-	                        });
-	                    })( arguments );
-	                    // Do we need to add the callbacks to the
-	                    // current firing batch?
-	                    if ( firing ) {
-	                        firingLength = list.length;
-	                    // With memory, if we're not firing then
-	                    // we should call right away
-	                    } else if ( memory ) {
-	                        firingStart = start;
-	                        fire( memory );
-	                    }
-	                }
-	                return this;
-	            },
-	            // Remove a callback from the list
-	            remove: function() {
-	                if ( list ) {
-	                    baidu.forEach( arguments, function( arg, _ ) {
-	                        var index;
-	                        while( ( index = baidu.array(list).indexOf(arg,index) ) > -1 ) {
-	                            list.splice( index, 1 );
-	                            // Handle firing indexes
-	                            if ( firing ) {
-	                                if ( index <= firingLength ) {
-	                                    firingLength--;
-	                                }
-	                                if ( index <= firingIndex ) {
-	                                    firingIndex--;
-	                                }
-	                            }
+	        callbacks = {
+	            add: function(){
+	                if(!fnArray){return this;}
+	                var index = fnArray && fnArray.length;
+	                (function add(args){
+	                    var len = args.length,
+	                        type, item;
+	                    for(var i = 0, item; i < len; i++){
+	                        if(!(item = args[i])){continue;}
+	                        type = baidu.type(item);
+	                        if(type === 'function'){
+	                            (!opts.unique || !callbacks.has(item)) && fnArray.push(item);
+	                        }else if(item && item.length && type !== 'string'){
+	                            add(item);
 	                        }
-	                    });
-	                }
-	                return this;
-	            },
-	            // Control if a given callback is in the list
-	            has: function( fn ) {
-	                return baidu.array(list).indexOf(fn) > -1;
-	            },
-	            // Remove all callbacks from the list
-	            empty: function() {
-	                list = [];
-	                return this;
-	            },
-	            // Have the list do nothing anymore
-	            disable: function() {
-	                list = stack = memory = undefined;
-	                return this;
-	            },
-	            // Is it disabled?
-	            disabled: function() {
-	                return !list;
-	            },
-	            // Lock the list in its current state
-	            lock: function() {
-	                stack = undefined;
-	                if ( !memory ) {
-	                    self.disable();
-	                }
-	                return this;
-	            },
-	            // Is it locked?
-	            locked: function() {
-	                return !stack;
-	            },
-	            // Call all callbacks with the given context and arguments
-	            fireWith: function( context, args ) {
-	                args = args || [];
-	                args = [ context, args.slice ? args.slice() : args ];
-	                if ( list && ( !fired || stack ) ) {
-	                    if ( firing ) {
-	                        stack.push( args );
-	                    } else {
-	                        fire( args );
 	                    }
-	                }
+	                })(arguments);
+	                !isFiring && memory && fireCore(memory, index);
 	                return this;
 	            },
-	            // Call all the callbacks with the given arguments
-	            fire: function() {
-	                self.fireWith( this, arguments );
+	            
+	            remove: function(){
+	                if(!fnArray){return this;}
+	                var index;
+	                baidu.forEach(arguments, function(item){
+	                    while((index = baidu.array(fnArray).indexOf(item)) > -1){
+	                        fnArray.splice(index, 1);
+	                        isFiring && index < fireIndex && fireIndex--;
+	                    }
+	                });
 	                return this;
 	            },
-	            // To know if the callbacks have already been called at least once
-	            fired: function() {
-	                return !!fired;
+	            
+	            has: function(fn){
+	                return baidu.array(fnArray).indexOf(fn) > -1;
+	            },
+	            
+	            empty: function(){
+	                return fnArray = [], this;
+	            },
+	            disable: function(){
+	                return fnArray = fireQueue = memory = undefined, this;
+	            },
+	            disabled: function(){
+	                return !fnArray;
+	            },
+	            lock: function(){
+	                isLocked = true;
+	                !memory && callbacks.disable();
+	                return this;
+	            },
+	            fired: function(){
+	                return isFired;
+	            },
+	            fireWith: function(context, args){
+	                if(isFired && opts.once
+	                    || isLocked){return this;}
+	                args = args || [];
+	                args = [context, args.slice ? args.slice() : args];
+	                fireCore(args);
+	                return this;
+	            },
+	            fire: function(){
+	                callbacks.fireWith(this, arguments);
+	                return this;
 	            }
 	        };
+	    return callbacks;
+	});
 	
-	    return self;
-	},
-	// constructor
-	function(){});
-	
-	baidu.createChain("Deferred",
-	//copy from jquery 1.8.2,thanks for jquery
-	
-	// 执行方法
-	function( func ) {
-	    var slice = Array.prototype.slice;
-	    var tuples = [
-	            // action, add listener, listener list, final state
-	            [ "resolve", "done", baidu.Callbacks("once memory"), "resolved" ],
-	            [ "reject", "fail", baidu.Callbacks("once memory"), "rejected" ],
-	            [ "notify", "progress", baidu.Callbacks("memory") ]
+	baidu.createChain('Deferred', function(fn){
+	    return new baidu.Deferred.$Deferred(fn);
+	}, function(fn){
+	    var me = this,
+	        state = 'pending',
+	        tuples = [
+	            ['resolve', 'done', baidu.Callbacks('once memory'), 'resolved'],
+	            ['reject', 'fail', baidu.Callbacks('once memory'), 'rejected'],
+	            ['notify', 'progress', baidu.Callbacks('memory')]
 	        ],
-	        state = "pending",
 	        promise = {
-	            state: function() {
-	                return state;
-	            },
-	            always: function() {
-	                deferred.done( arguments ).fail( arguments );
+	            state: function(){return state;},
+	            always: function(){
+	                me.done(arguments).fail(arguments);
 	                return this;
 	            },
-	            then: function(  ) {
-	                var fns = arguments;
-	                return baidu.Deferred(function( newDefer ) {
-	                    baidu.forEach( tuples, function( tuple, i ) {
-	                        var action = tuple[ 0 ],
-	                            fn = fns[ i ];
-	                        // deferred[ done | fail | progress ] for forwarding actions to newDefer
-	                        deferred[ tuple[1] ]( (typeof fn === 'function') ?
-	                            function() {
-	                                var returned = fn.apply( this, arguments );
-	                                if ( returned && ( typeof returned.promise === 'function') ) {
-	                                    returned.promise()
-	                                        .done( newDefer.resolve )
-	                                        .fail( newDefer.reject )
-	                                        .progress( newDefer.notify );
-	                                } else {
-	                                    newDefer[ action + "With" ]( this === deferred ? newDefer : this, [ returned ] );
-	                                }
-	                            } :
-	                            newDefer[ action ]
-	                        );
+	            then: function(){
+	                
+	                var args = arguments;
+	                return baidu.Deferred(function(defer){
+	                    baidu.forEach(tuples, function(item, index){
+	                        var action = item[0],
+	                            fn = args[index];
+	                        me[item[1]](baidu.type(fn) === 'function' ? function(){
+	                            var ret = fn.apply(this, arguments);
+	                            if(ret && baidu.type(ret.promise) === 'function'){
+	                                ret.promise()
+	                                    .done(defer.resolve)
+	                                    .fail(defer.reject)
+	                                    .progress(defer.notify);
+	                            }else{
+	                                defer[action + 'With'](this === me ? defer : this, [ret]);
+	                            }
+	                        } : defer[action]);
 	                    });
-	                    fns = null;
 	                }).promise();
+	                
 	            },
-	            // Get a promise for this deferred
-	            // If obj is provided, the promise aspect is added to the object
-	            promise: function( obj ) {
-	                return typeof obj === "object" ? baidu.extend( obj, promise ) : promise;
+	            promise: function(instance){
+	                return instance != null ? baidu.extend(instance, promise) : promise;
 	            }
-	        },
-	        deferred = {};
-	
-	    // Keep pipe for back-compat
+	        };
+	    //
 	    promise.pipe = promise.then;
-	
-	    // Add list-specific methods
-	    baidu.forEach( tuples, function( tuple,i ) {
-	        var list = tuple[ 2 ],
-	            stateString = tuple[ 3 ];
-	
+	    baidu.forEach(tuples, function(item, index){
+	        var callbacks = item[2],
+	            stateName = item[3];
 	        // promise[ done | fail | progress ] = list.add
-	        promise[ tuple[1] ] = list.add;
-	
-	        // Handle state
-	        if ( stateString ) {
-	            list.add(function() {
-	                // state = [ resolved | rejected ]
-	                state = stateString;
-	
+	        promise[item[1]] = callbacks.add;
+	        stateName && callbacks.add(function(){
+	            // state = [ resolved | rejected ]
+	            state = stateName;
 	            // [ reject_list | resolve_list ].disable; progress_list.lock
-	            }, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
-	        }
-	
+	        }, tuples[index ^ 1][2].disable, tuples[2][2].lock);
 	        // deferred[ resolve | reject | notify ] = list.fire
-	        deferred[ tuple[0] ] = list.fire;
-	        deferred[ tuple[0] + "With" ] = list.fireWith;
+	        me[item[0]] = callbacks.fire;
+	        me[item[0] + 'With'] = callbacks.fireWith;
 	    });
+	    promise.promise(me);
+	    fn && fn.call(me, me);
+	});
 	
-	    // Make the deferred a promise
-	    promise.promise( deferred );
-	
-	    // Call given func if any
-	    if ( func ) {
-	        func.call( deferred, deferred );
+	baidu.when = baidu.when || function(subordinate ){
+	    var args = arguments,
+	        len = arguments.length,
+	        remaining = len !== 1 || (subordinate && baidu.type(subordinate.promise) === 'function') ? len : 0,
+	        defer = remaining === 1 ? subordinate : baidu.Deferred(),
+	        progressVals, progressContexts, resolveContexts;
+	    function update(index, contexts, vals){
+	        return function(val){
+	            contexts[index] = this;
+	            vals[index] = arguments.length > 1 ? arguments : val;
+	            if(vals === progressVals){
+	                defer.notifyWith(contexts, vals);
+	            }else if(!(--remaining)){
+	                defer.resolveWith(contexts, vals);
+	            }
+	        };
 	    }
-	
-	    baidu.extend(baidu,{
-	        // Deferred helper
-	        when: function( subordinate  ) {
-	            var i = 0,
-	                resolveValues = slice.call( arguments ),
-	                length = resolveValues.length,
-	
-	                // the count of uncompleted subordinates
-	                remaining = length !== 1 || ( subordinate && (typeof subordinate.promise === 'function') ) ? length : 0,
-	
-	                // the master Deferred. If resolveValues consist of only a single Deferred, just use that.
-	                deferred = remaining === 1 ? subordinate : baidu.Deferred(),
-	
-	                // Update function for both resolve and progress values
-	                updateFunc = function( i, contexts, values ) {
-	                    return function( value ) {
-	                        contexts[ i ] = this;
-	                        values[ i ] = arguments.length > 1 ? slice.call( arguments ) : value;
-	                        if( values === progressValues ) {
-	                            deferred.notifyWith( contexts, values );
-	                        } else if ( !( --remaining ) ) {
-	                            deferred.resolveWith( contexts, values );
-	                        }
-	                    };
-	                },
-	
-	                progressValues, progressContexts, resolveContexts;
-	
-	            // add listeners to Deferred subordinates; treat others as resolved
-	            if ( length > 1 ) {
-	                progressValues = new Array( length );
-	                progressContexts = new Array( length );
-	                resolveContexts = new Array( length );
-	                for ( ; i < length; i++ ) {
-	                    if ( resolveValues[ i ] && (typeof resolveValues[ i ].promise ==='function') ) {
-	                        resolveValues[ i ].promise()
-	                            .done( updateFunc( i, resolveContexts, resolveValues ) )
-	                            .fail( deferred.reject )
-	                            .progress( updateFunc( i, progressContexts, progressValues ) );
-	                    } else {
-	                        --remaining;
-	                    }
-	                }
+	    
+	    if(len > 1){
+	        progressVals = new Array(len);
+	        progressContexts = new Array(len);
+	        resolveContexts = new Array(len);
+	        for(var i = 0; i < len; i++){
+	            if(args[i] && baidu.type(args[i].promise) === 'function'){
+	                args[i].promise()
+	                    .done(update(i, resolveContexts, args))
+	                    .fail(defer.reject)
+	                    .progress(update(i, progressContexts, progressVals));
+	            }else{
+	                --remaining;
 	            }
-	
-	            // if we're not waiting on anything, resolve the master
-	            if ( !remaining ) {
-	                deferred.resolveWith( resolveContexts, resolveValues );
-	            }
-	
-	            return deferred.promise();
-	        }    
-	    });
-	
-	    // All done!
-	    return deferred;
-	},
-	
-	// constructor
-	function(){});
+	        }
+	        
+	    }
+	    !remaining && defer.resolveWith(resolveContexts, args);
+	    return defer.promise();
+	}
 	
 	baidu.global = baidu.global || (function() {
 	    var me = baidu._global_ = window[ baidu.guid ],
@@ -743,11 +621,9 @@ var T, baidu = T = function(){
 	            return maps[ object ];
 	        }
 	
-	        return "TANGRAM__" + baidu._global_._counter ++;
+	        return "TANGRAM_" + baidu._global_._counter ++;
 	    };
 	}();
-	
-	baidu.id.key = "tangram_guid";
 	
 	//TODO: mz 20120827 在低版本IE做delete操作时直接 delete e[key] 可能出错，这里需要重新评估，重写
 	
@@ -1085,10 +961,13 @@ var T, baidu = T = function(){
 	    } else if (typeof selector == "string") {
 	        // HTMLString
 	        if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 2) {
-	            if ( baidu.dom.createElements ) {
-	                baidu.merge( me, baidu.dom.createElements( selector ) );
-	            }
-	
+	            // Match a standalone tag
+	            var rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+	                doc = context && context._type_ === '$DOM' ? context[0] : context,
+	                ret = rsingleTag.exec(selector);
+	            doc = doc && doc.nodeType ? doc.ownerDocument || doc : document;
+	            ret = ret ? [doc.createElement(ret[1])] : (baidu.dom.createElements ? baidu.dom.createElements( selector ) : []);
+	            baidu.merge( me, ret);
 	        // baidu.query
 	        } else {
 	            baidu.query(selector, context, me);
@@ -1186,10 +1065,10 @@ var T, baidu = T = function(){
 	        c = attaCache[id];
 	
 	        if( type ){
-	            if( !c[type] ){
+	            if( !c[type] && bindType ){
 	                this.setupCall( target, type, bindType, c[ type ] = [], attachElements );
 	            }
-	            return c[type];
+	            return c[type] || [];
 	        }else return c;
 	    };
 	
@@ -1968,7 +1847,7 @@ var T, baidu = T = function(){
 	    baidu.ajax.setup({
 	        jsonp: 'callback',
 	        jsonpCallback: function(){
-	            var callback = oldCallbacks.pop() || (baidu.id.key + '_' + (nonce++));
+	            var callback = oldCallbacks.pop() || (baidu.key + '_' + (nonce++));
 	            this[callback] = true;
 	            return callback;
 	        }
@@ -2416,24 +2295,24 @@ var T, baidu = T = function(){
 	    return enumerable;
 	};
 	
-	void function () {
-	
-	    Array.prototype.each = function(iterator, context){
+	baidu.array.extend({
+	    each: function(iterator, context){
 	        return baidu.each(this, iterator, context);
-	    };
+	    },
 	    
-	    Array.prototype.forEach = function(iterator, context){
+	    forEach: function(iterator, context){
 	        return baidu.forEach(this, iterator, context);
-	    };
+	    }
+	});
 	
-	    // TODO: delete in tangram 3.0
-	    baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
-	        var fn = function(index, item, array){
-	            return iterator.call(context || array, item, index, array);
-	        };
-	        return baidu.isEnumerable(array) ? baidu.each(array, typeof iterator == "function" ? fn : "", context) : array;
+	// TODO: delete in tangram 3.0
+	baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
+	    var fn = function(index, item, array){
+	        return iterator.call(context || array, item, index, array);
 	    };
-	}();
+	    return baidu.isEnumerable(array) ? baidu.each(array, typeof iterator == "function" ? fn : "", context) : array;
+	};
+	
 	
 	baidu.array.extend({
 	    empty : function () {
@@ -2442,44 +2321,42 @@ var T, baidu = T = function(){
 	    }
 	});
 	
-	Array.prototype.every = function(iterator, context) {
-	    baidu.check("function(,.+)?", "baidu.array.every");
-	    var i, n;
 	
-	    for (i=0, n=this.length; i<n; i++) {
-	        if (!iterator.call(context || this, this[i], i, this)) {
+	// TODO: delete in tangram 3.0
+	baidu.array.every = function(source, iterator, thisObject) {
+	    var i = 0,
+	        len = source.length;
+	    for (; i < len; i++) {
+	        if (i in source && !iterator.call(thisObject || source, source[i], i)) {
 	            return false;
 	        }
 	    }
 	    return true;
 	};
 	
+	
+	
 	// TODO: delete in tangram 3.0
-	baidu.array.every = function(array, iterator, context) {
-	    return baidu.isArray(array) ? array.every(iterator, context) : array;
-	};
-	
-	
-	Array.prototype.filter = function(iterator, context) {
-	    var result = baidu.array([]),
-	        i, n, item, index=0;
-	
-	    if (baidu.type(iterator) === "function") {
-	        for (i=0, n=this.length; i<n; i++) {
-	            item = this[i];
-	
-	            if (iterator.call(context || this, item, i, this) === true) {
-	                result[index ++] = item;
+	baidu.array.filter = function (source, iterator, thisObject) {
+	    var result = [],
+	        resultIndex = 0,
+	        len = source.length,
+	        item,
+	        i;
+	    
+	    if ('function' == typeof iterator) {
+	        for (i = 0; i < len; i++) {
+	            item = source[i];
+	            //TODO
+	            //和标准不符，see array.each
+	            if (true === iterator.call(thisObject || source, item, i)) {
+	                // resultIndex用于优化对result.length的多次读取
+	                result[resultIndex++] = item;
 	            }
 	        }
 	    }
-	
+	    
 	    return result;
-	};
-	
-	// TODO: delete in tangram 3.0
-	baidu.array.filter = function(array, filter, context) {
-	    return baidu.isArray(array) ? array.filter(filter, context) : [];
 	};
 	
 	
@@ -2531,46 +2408,48 @@ var T, baidu = T = function(){
 	    }
 	});
 	
-	Array.prototype.map = function (iterator, context) {
-	    baidu.check("function(,.+)?","baidu.array.map");
-	    var i, n,
-	        array = baidu.array([]);
-	
-	    for (i=0, n=this.length; i < n; i++) {
-	        array[i] = iterator.call(context || this, this[i], i, this);
+	baidu.array.extend({
+	    map: function(iterator, context){
+	        baidu.check("function(,.+)?","baidu.array.map");
+	        var len = this.length,
+	            array = baidu.array([]);
+	        for(var i = 0; i < len; i++){
+	            array[i] = iterator.call(context || this, this[i], i, this);
+	        }
+	        return array;
 	    }
-	    return array;
-	};
-	
+	});
 	
 	baidu.array.map = function(array, iterator, context){
-	    return baidu.isArray(array) ? array.map(iterator, context) : array;
+	    return baidu.isArray(array) ? baidu.array(array).map(iterator, context) : array;
 	};
 	
 	
-	Array.prototype.reduce = function (iterator, initializer) {
-	    baidu.check("function(,.+)?","baidu.array.reduce");
-	    var i = 0, 
-	        n = this.length,
-	        found = false;
 	
-	    if (typeof initializer == "undefined") {
-	        initializer = this[i++];
+	// TODO: delete in tangram 3.0
+	baidu.array.reduce = function(source, iterator, initializer) {
+	    var i = 0,
+	        l = source.length,
+	        found = 0;
 	
-	        if (typeof initializer == "undefined") {
+	    if( arguments.length < 3){
+	        //没有initializer的情况，找到第一个可用的值
+	        for(; i < l; i++){
+	            initializer = source[i++];
+	            found = 1;
+	            break;
+	        }
+	        if(!found){
 	            return ;
 	        }
 	    }
 	
-	    for (; i < n; i++) {
-	        initializer = iterator(initializer, this[i] , i , this);
+	    for (; i < l; i++) {
+	        if( i in source){
+	            initializer = iterator(initializer, source[i] , i , source);
+	        }
 	    }
 	    return initializer;
-	};
-	
-	// TODO: delete in tangram 3.0
-	baidu.array.reduce = function(array, iterator, initializer) {
-	    return baidu.isArray(array) ? array.reduce(iterator, initializer) : array;
 	};
 	
 	
@@ -2594,232 +2473,17 @@ var T, baidu = T = function(){
 	    }
 	});
 	
-	Array.prototype.some = function(iterator, context){
-	    baidu.check("function(,.+)?", "baidu.array.some");
-	    var i, n;
 	
-	    for (i=0, n=this.length; i<n; i++) {
-	        if (iterator.call(context || this, this[i], i, this)) {
+	// TODO: delete in tangram 3.0
+	baidu.array.some = function(source, iterator, thisObject) {
+	    var i = 0,
+	        len = source.length;
+	    for (; i < len; i++) {
+	        if (i in source && iterator.call(thisObject || source, source[i], i)) {
 	            return true;
 	        }
 	    }
 	    return false;
-	};
-	
-	// TODO: delete in tangram 3.0
-	baidu.array.some = function(array, iterator, context) {
-	    return array.some(iterator, context);
-	};
-	
-	
-	//baidu.object.extend = function (target, source) {
-	//    for (var p in source) {
-	//        if (source.hasOwnProperty(p)) {
-	//            target[p] = source[p];
-	//        }
-	//    }
-	//    
-	//    return target;
-	//};
-	baidu.object.extend = baidu.extend;
-	
-	
-	
-	baidu.createChain("async",
-	
-	// 执行方法
-	function(url){
-	    return typeof url === 'string'? new baidu.async.$Async(url):new baidu.async.$Async();
-	},
-	
-	// constructor
-	function(url){
-	    this.url = url;
-	});
-	
-	
-	
-	//baidu.lang.isFunction = function (source) {
-	    // chrome下,'function' == typeof /a/ 为true.
-	//    return '[object Function]' == Object.prototype.toString.call(source);
-	//};
-	baidu.lang.isFunction = baidu.isFunction;
-	
-	
-	
-	baidu.async._isDeferred = function(obj) {
-	    var isFn = baidu.lang.isFunction;
-	    return obj && isFn(obj.success) && isFn(obj.then)
-	        && isFn(obj.fail) && isFn(obj.cancel);
-	};
-	
-	
-	baidu.createChain("fn",
-	
-	// 执行方法
-	function(fn){
-	    return new baidu.fn.$Fn(~'function|string'.indexOf(baidu.type(fn)) ? fn : function(){});
-	},
-	
-	// constructor
-	function(fn){
-	    this.fn = fn;
-	});
-	
-	
-	
-	baidu.fn.blank = function () {};
-	
-	
-	
-	
-	 
-	baidu.async.extend({
-	    Deferred:function(){
-	        baidu.async.Deferred.apply(this,arguments);
-	        return this;
-	    }
-	});
-	
-	baidu.async.Deferred = function() {
-	    var me = this;
-	    baidu.extend(me, {
-	        _fired: 0,
-	        _firing: 0,
-	        _cancelled: 0,
-	        _resolveChain: [],
-	        _rejectChain: [],
-	        _result: [],
-	        _isError: 0
-	    });
-	
-	    function fire() {
-	        if (me._cancelled || me._firing) {
-	            return;
-	        }
-	        //如果已有nextDeferred对象,则转移到nextDeferred上.
-	        if (me._nextDeferred) {
-	            me._nextDeferred.then(me._resolveChain[0], me._rejectChain[0]);
-	            return;
-	        }
-	        me._firing = 1;
-	        var chain = me._isError ? me._rejectChain : me._resolveChain,
-	            result = me._result[me._isError ? 1 : 0];
-	        // 此处使用while而非for循环,是为了避免firing时插入新函数.
-	        while (chain[0] && (! me._cancelled)) {
-	            //所有函数仅调用一次.
-	            //TODO: 支持传入 this 和 arguments, 而不是仅仅一个值.
-	            try {
-	                var chainResult = chain.shift().call(me, result);
-	                //若方法返回Deferred,则将剩余方法延至Deferred中执行
-	                if (baidu.async._isDeferred(chainResult)) {
-	                    me._nextDeferred = chainResult;
-	                    [].push.apply(chainResult._resolveChain, me._resolveChain);
-	                    [].push.apply(chainResult._rejectChain, me._rejectChain);
-	                    chain = me._resolveChain = [];
-	                    me._rejectChain = [];
-	                }
-	            } catch (error) {
-	                throw error;
-	            } finally {
-	                me._fired = 1;
-	                me._firing = 0;
-	            }
-	        }
-	    }
-	
-	    
-	    me.resolve = me.fireSuccess = function(value) {
-	        me._result[0] = value;
-	        fire();
-	        return me;
-	    };
-	
-	    
-	    me.reject = me.fireFail = function(error) {
-	        me._result[1] = error;
-	        me._isError = 1;
-	        fire();
-	        return me;
-	    };
-	
-	    
-	    me.then = function(onSuccess, onFail) {
-	        me._resolveChain.push(onSuccess);
-	        me._rejectChain.push(onFail);
-	        if (me._fired) {
-	            fire();
-	        }
-	        return me;
-	    };
-	    
-	    
-	    me.success = function(onSuccess) {
-	        return me.then(onSuccess, baidu.fn.blank);
-	    };
-	
-	    
-	    me.fail = function(onFail) {
-	        return me.then(baidu.fn.blank, onFail);
-	    };
-	     
-	    
-	    me.cancel = function() {
-	        me._cancelled = 1;
-	    };
-	};
-	
-	
-	
-	
-	baidu.async.extend({
-	    get : function(){
-	        var url = this.url;
-	        var deferred = new baidu.async.Deferred();
-	        baidu.ajax.request(url, {
-	            onsuccess: function(xhr, responseText) {
-	                deferred.resolve({xhr: xhr, responseText: responseText}); 
-	            },
-	            onfailure: function(xhr) {
-	                deferred.reject({xhr: xhr});
-	            }
-	        });
-	        return deferred;
-	    }
-	});
-	
-	
-	
-	
-	baidu.async.extend({
-	post : function(data){
-	    var url = this.url;
-	    var deferred = new baidu.async.Deferred();
-	    baidu.ajax.request(url, {
-	        method: 'POST',
-	        data: data,
-	        onsuccess: function(xhr, responseText) {
-	            deferred.resolve({xhr: xhr, responseText: responseText}); 
-	        },
-	        onfailure: function(xhr) {
-	            deferred.reject({xhr: xhr});
-	        }
-	    });
-	    return deferred;
-	}    
-	});
-	
-	
-	
-	
-	baidu.async.when = function(deferredOrValue, onResolve, onReject) {
-	    if (baidu.async._isDeferred(deferredOrValue)) {
-	        deferredOrValue.then(onResolve, onReject);
-	        return deferredOrValue;
-	    }
-	    var deferred = new baidu.async.Deferred();
-	    deferred.then(onResolve, onReject).resolve(deferredOrValue);
-	    return deferred;
 	};
 	
 	
@@ -2844,7 +2508,8 @@ var T, baidu = T = function(){
 	
 	    
 	    ,dispose: function() {
-	        if (this.fire("ondispose")) {
+	        // 2013.1.11 暂时关闭此事件的派发
+	        // if (this.fire("ondispose")) {
 	            // decontrol
 	            delete baidu._global_._instances[this.guid];
 	
@@ -2861,14 +2526,14 @@ var T, baidu = T = function(){
 	            }
 	
 	            this.disposed = true;   //20100716
-	        }
+	        // }
 	    }
 	
 	    
 	    ,fire: function(event, options) {
 	        baidu.isString(event) && (event = new baidu.base.Event(event));
 	
-	        var i, n, list
+	        var i, n, list, item
 	            , t=this._listeners_
 	            , type=event.type
 	            // 20121023 mz 修正事件派发多参数时，参数的正确性验证
@@ -2887,13 +2552,10 @@ var T, baidu = T = function(){
 	        (i=this._options) && baidu.isFunction(i[type]) && i[type].apply(this, argu);
 	
 	        if (baidu.isArray(list = t[type])) {
-	            for (i=0, n=list.length; i<n; i++) {
-	                list[i].apply(this, argu);
-	            }
-	
-	            if (list.once) {
-	                for(i=list.once.length-1; i>-1; i--) list.splice(list.once[i], 1);
-	                delete list.once;
+	            for ( i=list.length-1; i>-1; i-- ) {
+	                item = list[i];
+	                item && item.handler.apply( this, argu );
+	                item && item.once && list.splice( i, 1 );
 	            }
 	        }
 	
@@ -2912,11 +2574,7 @@ var T, baidu = T = function(){
 	        type.indexOf("on") && (type = "on" + type);
 	
 	        !baidu.isArray(list = t[type]) && (list = t[type] = []);
-	        if (once) {
-	            !list.once && (list.once = []);
-	            list.once.push(list.length);
-	        }
-	        t[type].push( handler );
+	        t[type].unshift( {handler: handler, once: !!once} );
 	
 	        return this;
 	    }
@@ -2951,13 +2609,20 @@ var T, baidu = T = function(){
 	        } else if (list = t[type]) {
 	
 	            for (i = list.length - 1; i >= 0; i--) {
-	                list[i] === handler && list.splice(i, 1);
+	                list[i].handler === handler && list.splice(i, 1);
 	            }
 	        }
 	
 	        return this;
 	    }
 	});
+	baidu.base.Class.prototype.addEventListener = 
+	baidu.base.Class.prototype.on;
+	baidu.base.Class.prototype.removeEventListener =
+	baidu.base.Class.prototype.un =
+	baidu.base.Class.prototype.off;
+	baidu.base.Class.prototype.dispatchEvent =
+	baidu.base.Class.prototype.fire;
 	
 	window["baiduInstance"] = function(guid) {
 	    return window[baidu.guid]._instances[ guid ];
@@ -4033,7 +3698,6 @@ var T, baidu = T = function(){
 	    }
 	    // Some attributes require a special call on IE
 	    if(!hrefNormalized){
-	        [ "href", "src", "width", "height" ]
 	        baidu.forEach(['href', 'src', 'width', 'height'], function(item){
 	            attrHooks[item] = {
 	                get: function(ele, key){
@@ -4278,6 +3942,7 @@ var T, baidu = T = function(){
 	
 	baidu.dom.extend({
 	    getComputedStyle: function(key){
+	        if(!this[0].ownerDocument){return;}// document can not get style;
 	        var defaultView = this[0].ownerDocument.defaultView,
 	            computedStyle = defaultView && defaultView.getComputedStyle
 	                && defaultView.getComputedStyle(this[0], null),
@@ -4501,162 +4166,24 @@ var T, baidu = T = function(){
 	        }
 	    }()
 	});
-	/// support magic - Tangram 1.x Code Start
 	
 	/// support magic - Tangram 1.x Code Start
 	
-	baidu.lang.Class = (function() {
-	    var instances = (baidu._global_ = window[baidu.guid])._instances;
-	    instances || (instances = baidu._global_._instances = {});
-	
-	    // constructor
-	    return function() {
-	        this.guid = baidu.id();
-	        this._decontrol_ || (instances[this.guid] = this);
-	    }
-	})();
-	
-	baidu.lang.Class.prototype.dispose = function(){
-	    delete baidu._global_._instances[this.guid];
-	
-	    // this.__listeners && (for (var i in this.__listeners) delete this.__listeners[i]);
-	
-	    for(var property in this){
-	        typeof this[property] != "function" && delete this[property];
-	    }
-	    this.disposed = true;   // 20100716
-	};
-	
-	baidu.lang.Class.prototype.toString = function(){
-	    return "[object " + (this._type_ || this.__type || this._className || "Object") + "]";
-	};
-	
-	window["baiduInstance"] = function(guid) {
-	    return window[baidu.guid]._instances[ guid ];
-	};
-	
+	baidu.lang.Class = baidu.base.Class;
 	//  2011.11.23  meizz   添加 baiduInstance 这个全局方法，可以快速地通过guid得到实例对象
 	//  2011.11.22  meizz   废除创建类时指定guid的模式，guid只作为只读属性
 	//  2011.11.22  meizz   废除 baidu.lang._instances 模块，由统一的global机制完成；
 	
 	/// support magic - Tangram 1.x Code End
 	
-	 
 	
-	baidu.lang.Class.prototype.un =
-	baidu.lang.Class.prototype.removeEventListener = function (type, handler) {
-	    var i,
-	        t = this.__listeners;
-	    if (!t) return;
 	
-	    // remove all event listener
-	    if (typeof type == "undefined") {
-	        for (i in t) {
-	            delete t[i];
-	        }
-	        return;
-	    }
+	baidu.lang.createSingle = baidu.createSingle;
 	
-	    type.indexOf("on") && (type = "on" + type);
-	
-	    // 移除某类事件监听
-	    if (typeof handler == "undefined") {
-	        delete t[type];
-	    } else if (t[type]) {
-	        // [TODO delete 2013] 支持按 key 删除注册的函数
-	        typeof handler=="string" && (handler=t[type][handler]) && delete t[type][handler];
-	
-	        for (i = t[type].length - 1; i >= 0; i--) {
-	            if (t[type][i] === handler) {
-	                t[type].splice(i, 1);
-	            }
-	        }
-	    }
-	};
-	
-	// 2011.12.19 meizz 为兼容老版本的按 key 删除，添加了一行代码
-	/// support magic - Tangram 1.x Code End
-	/// support magic - Tangram 1.x Code Start
 	
 	/// support magic - Tangram 1.x Code Start
 	
-	baidu.lang.guid = function() {
-	    return baidu.id();
-	};
-	
-	//不直接使用window，可以提高3倍左右性能
-	//baidu.$$._counter = baidu.$$._counter || 1;
-	
-	// 20111129    meizz    去除 _counter.toString(36) 这步运算，节约计算量
-	/// support magic - Tangram 1.x Code End
-	
-	//baidu.lang.isString = function (source) {
-	//    return '[object String]' == Object.prototype.toString.call(source);
-	//};
-	baidu.lang.isString = baidu.isString;
-	
-	baidu.lang.Event = function (type, target) {
-	    this.type = type;
-	    this.returnValue = true;
-	    this.target = target || null;
-	    this.currentTarget = null;
-	};
-	 
-	
-	baidu.lang.Class.prototype.fire =
-	baidu.lang.Class.prototype.dispatchEvent = function (event, options) {
-	    baidu.lang.isString(event) && (event = new baidu.lang.Event(event));
-	
-	    !this.__listeners && (this.__listeners = {});
-	
-	    // 20100603 添加本方法的第二个参数，将 options extend到event中去传递
-	    options = options || {};
-	    for (var i in options) {
-	        event[i] = options[i];
-	    }
-	
-	    var i, n, me = this, t = me.__listeners, p = event.type;
-	    event.target = event.target || (event.currentTarget = me);
-	
-	    // 支持非 on 开头的事件名
-	    p.indexOf("on") && (p = "on" + p);
-	
-	    typeof me[p] == "function" && me[p].apply(me, arguments);
-	
-	    if (typeof t[p] == "object") {
-	        for (i=0, n=t[p].length; i<n; i++) {
-	            t[p][i] && t[p][i].apply(me, arguments);
-	        }
-	    }
-	    return event.returnValue;
-	};
-	
-	baidu.lang.Class.prototype.on =
-	baidu.lang.Class.prototype.addEventListener = function (type, handler, key) {
-	    if (typeof handler != "function") {
-	        return;
-	    }
-	
-	    !this.__listeners && (this.__listeners = {});
-	
-	    var i, t = this.__listeners;
-	
-	    type.indexOf("on") && (type = "on" + type);
-	
-	    typeof t[type] != "object" && (t[type] = []);
-	
-	    // 避免函数重复注册
-	    for (i = t[type].length - 1; i >= 0; i--) {
-	        if (t[type][i] === handler) return handler;
-	    };
-	
-	    t[type].push(handler);
-	
-	    // [TODO delete 2013] 2011.12.19 兼容老版本，2013删除此行
-	    key && typeof key == "string" && (t[type][key] = handler);
-	
-	    return handler;
-	};
+	baidu.lang.Event = baidu.base.Event;
 	
 	//  2011.12.19  meizz   很悲剧，第三个参数 key 还需要支持一段时间，以兼容老版本脚本
 	//  2011.11.24  meizz   事件添加监听方法 addEventListener 移除第三个参数 key，添加返回值 handler
@@ -4664,19 +4191,6 @@ var T, baidu = T = function(){
 	//  2011.11.22  meizz   将 removeEventListener 方法分拆到 baidu.lang.Class.removeEventListener 中，以节约主程序代码
 	
 	/// support magic - Tangram 1.x Code End
-	
-	
-	
-	baidu.lang.createSingle = function (json) {
-	    var c = new baidu.lang.Class();
-	
-	    for (var key in json) {
-	        c[key] = json[key];
-	    }
-	    return c;
-	};
-	
-	
 	
 	
 	//为兼容Tangram1.x的magic增加的接口
@@ -4725,6 +4239,17 @@ var T, baidu = T = function(){
 	        return this.remove(selector, true);
 	    }
 	});/// support magic - Tangram 1.x Code Start
+	
+	//baidu.object.extend = function (target, source) {
+	//    for (var p in source) {
+	//        if (source.hasOwnProperty(p)) {
+	//            target[p] = source[p];
+	//        }
+	//    }
+	//    
+	//    return target;
+	//};
+	baidu.object.extend = baidu.extend;
 	
 	/// support magic - Tangram 1.x Code Start
 	
@@ -4813,7 +4338,8 @@ var T, baidu = T = function(){
 	/// support - magic Tangram 1.x Code Start
 	
 	baidu.event.un = baidu.un = function(element, evtName, handler){
-	    element = baidu.dom.g(element);
+	    if( typeof element == "string" )
+	        element = baidu.dom.g( element );
 	    baidu.dom(element).off(evtName.replace(/^\s*on/, ''), handler);
 	    return element;
 	 };
@@ -4932,6 +4458,12 @@ var T, baidu = T = function(){
 	/// support maigc - Tangram 1.x Code Start
 	
 	/// support maigc - Tangram 1.x Code End
+	
+	//baidu.lang.isFunction = function (source) {
+	    // chrome下,'function' == typeof /a/ 为true.
+	//    return '[object Function]' == Object.prototype.toString.call(source);
+	//};
+	baidu.lang.isFunction = baidu.isFunction;
 	
 	
 	//为兼容Tangram1.x的magic增加的接口
@@ -5052,6 +4584,7 @@ var T, baidu = T = function(){
 	
 	    return baidu.dom(e).children()[0];
 	};
+	
 	
 	
 	
@@ -7726,14 +7259,15 @@ var T, baidu = T = function(){
 	                    return elem.nodeValue;
 	                }
 	                // Do not include comment or processing instruction nodes
-	            } else {
-	
-	                // If no nodeType, this is expected to be an array
-	                for ( ; (node = elem[i]); i++ ) {
-	                    // Do not traverse comment nodes
-	                    ret += getText( node );
-	                }
 	            }
+	            //  else {
+	
+	            //     // If no nodeType, this is expected to be an array
+	            //     for ( ; (node = elem[i]); i++ ) {
+	            //         // Do not traverse comment nodes
+	            //         ret += getText( node );
+	            //     }
+	            // }
 	            return ret;
 	        };
 	
@@ -8272,6 +7806,18 @@ var T, baidu = T = function(){
 	};
 	
 	
+	baidu.createChain("fn",
+	
+	// 执行方法
+	function(fn){
+	    return new baidu.fn.$Fn(~'function|string'.indexOf(baidu.type(fn)) ? fn : function(){});
+	},
+	
+	// constructor
+	function(fn){
+	    this.fn = fn;
+	});
+	
 	baidu.fn.extend({
 	    bind: function(scope){
 	        var func = this.fn,
@@ -8289,6 +7835,11 @@ var T, baidu = T = function(){
 	    var fn = baidu.fn(func);
 	    return fn.bind.apply(fn, Array.prototype.slice.call(arguments, 1));
 	};
+	
+	
+	
+	
+	baidu.fn.blank = function () {};
 	
 	
 	
@@ -8453,30 +8004,7 @@ var T, baidu = T = function(){
 	
 	/// support magic - Tangram 1.x Code Start
 	
-	baidu.lang.inherits = function (subClass, superClass, type) {
-	    var key, proto, 
-	        selfProps = subClass.prototype, 
-	        clazz = new Function();
-	        
-	    clazz.prototype = superClass.prototype;
-	    proto = subClass.prototype = new clazz();
-	
-	    for (key in selfProps) {
-	        proto[key] = selfProps[key];
-	    }
-	    subClass.prototype.constructor = subClass;
-	    subClass.superClass = superClass.prototype;
-	
-	    // 类名标识，兼容Class的toString，基本没用
-	    typeof type == "string" && (proto.__type = type);
-	
-	    subClass.extend = function(json) {
-	        for (var i in json) proto[i] = json[i];
-	        return subClass;
-	    }
-	    
-	    return subClass;
-	};
+	baidu.lang.inherits = baidu.base.inherits;
 	
 	//  2011.11.22  meizz   为类添加了一个静态方法extend()，方便代码书写
 	/// support magic - Tangram 1.x Code End
@@ -9517,58 +9045,12 @@ var T, baidu = T = function(){
 	
 	/// support magic - Tangram 1.x Code Start
 	
+	/// support magic - Tangram 1.x Code Start
+	
 	baidu.i18n = baidu.i18n || {};
 	/// support magic - Tangram 1.x Code End
 	baidu.i18n.cultures = baidu.i18n.cultures || {};
 	/// support magic - Tangram 1.x Code End
-	
-	
-	
-	baidu.i18n.cultures['en-US'] = baidu.object.extend(baidu.i18n.cultures['en-US'] || {}, {
-	    calendar: {
-	        dateFormat: 'yyyy-MM-dd',
-	        titleNames: '#{MM}&nbsp;#{yyyy}',
-	        monthNames: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
-	        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-	        dayNames: {mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun'}
-	    },
-	    
-	    timeZone: -5,
-	    whitespace: new RegExp("(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)", "g"),
-	
-	    number: {
-	        group: ",",
-	        groupLength: 3,
-	        decimal: ".",
-	        positive: "",
-	        negative: "-",
-	
-	        _format: function(number, isNegative){
-	            return baidu.i18n.number._format(number, {
-	                group: this.group,
-	                groupLength: this.groupLength,
-	                decimal: this.decimal,
-	                symbol: isNegative ? this.negative : this.positive 
-	            });
-	        }
-	    },
-	
-	    currency: {
-	        symbol: '$'           
-	    },
-	
-	    language: {
-	        ok: 'ok',
-	        cancel: 'cancel',
-	        signin: 'signin',
-	        signup: 'signup'
-	    }
-	});
-	
-	baidu.i18n.currentLocale = 'en-US';
-	
-	
-	/// support magic - Tangram 1.x Code Start
 	
 	baidu.i18n.cultures['zh-CN'] = baidu.object.extend(baidu.i18n.cultures['zh-CN'] || {}, {
 	    calendar: {
@@ -9612,94 +9094,7 @@ var T, baidu = T = function(){
 	});
 	
 	baidu.i18n.currentLocale = 'zh-CN';
-	/// support magic - Tangram 1.x Code End
-	
-	
-	
-	baidu.i18n.number = baidu.i18n.number || {
-	
-	    
-	    format: function(number, sLocale, tLocale){
-	        var me = this,
-	            sOpt = sLocale && baidu.i18n.cultures[sLocale].number,
-	            tOpt = baidu.i18n.cultures[tLocale || baidu.i18n.currentLocale].number,
-	            isNegative = false;
-	
-	        if(typeof number === 'string'){
-	            
-	            if(~number.indexOf(sOpt.negative)){
-	                isNegative = true;
-	                number = number.replace(sOpt.negative, "");   
-	            }else if(~number.indexOf(sOpt.positive)){
-	                number = number.replace(sOpt.positive, "");
-	            }
-	            number = number.replace(new RegExp(sOpt.group,'g'), "");
-	        }else{
-	            if(number < 0){
-	                isNegative = true;
-	                number *= -1;       
-	            }
-	        }
-	        number = parseFloat(number);
-	        if(isNaN(number)){
-	            return 'NAN'; 
-	        }
-	        
-	        return tOpt._format ? tOpt._format(number, isNegative) : me._format(number, {
-	            group: tOpt.group || ',',
-	            decimal: tOpt.decimal || '.',
-	            groupLength: tOpt.groupLength,
-	            symbol: isNegative ? tOpt.negative : tOpt.positive
-	        });
-	    },
-	
-	    
-	    _format: function(number, options){
-	        var numberArray = String(number).split(options.decimal),
-	            preNum = numberArray[0].split('').reverse(),
-	            aftNum = numberArray[1] || '',
-	            len = 0,remainder = 0,
-	            result = '';
-	        
-	        len = parseInt(preNum.length / options.groupLength);
-	        remainder = preNum.length % options.groupLength;
-	        len = remainder == 0 ? len - 1 : len;
-	
-	        for(var i = 1; i <= len; i++){
-	            preNum.splice(options.groupLength * i + (i - 1), 0, options.group);    
-	        }
-	        preNum = preNum.reverse();
-	        result = options.symbol + preNum.join('') + (aftNum.length > 0 ? options.decimal + aftNum : '');
-	
-	        return result;
-	    }
-	};
-	
-	
-	
-	
-	baidu.i18n.currency = baidu.i18n.currency || {
-	    
-	    
-	    format: function(number, sLocale, tLocale) {
-	        var me = this,
-	            sOpt = sLocale && baidu.i18n.cultures[sLocale].currency,
-	            tOpt = baidu.i18n.cultures[tLocale || baidu.i18n.currentLocale].currency,
-	            result;
-	
-	        if(typeof number === "string"){
-	            number = number.replace(sOpt.symbol);
-	        }
-	        
-	        return tOpt.symbol + this._format(number, sLocale, tLocale);
-	    },
-	
-	    
-	    _format: function(number, sLocale, tLocale){
-	        return baidu.i18n.number.format(number, sLocale, tLocale || baidu.i18n.currentLocale); 
-	    }
-	};
-	/// support magic - Tangram 1.x Code Start
+	/// support magic - Tangram 1.x Code End/// support magic - Tangram 1.x Code Start
 	
 	baidu.i18n.date = baidu.i18n.date || {
 	
@@ -9751,25 +9146,6 @@ var T, baidu = T = function(){
 	    }
 	};
 	/// support magic -  Tangram 1.x Code End
-	
-	
-	
-	baidu.i18n.string = baidu.i18n.string || {
-	    
-	    
-	    trim: function(source, locale){
-	        var pat = baidu.i18n.cultures[locale || baidu.i18n.currentLocale].whitespace;
-	        return String(source).replace(pat,"");
-	    },
-	
-	    
-	    translation: function(source, locale){
-	        var tOpt = baidu.i18n.cultures[locale || baidu.i18n.currentLocale].language;
-	
-	        return tOpt[source] || '';
-	    }
-	};
-	
 	
 	baidu.isDate = function( unknow ) {
 	    return baidu.type(unknow) == "date" && unknow.toString() != 'Invalid Date' && !isNaN(unknow);
@@ -9986,67 +9362,15 @@ var T, baidu = T = function(){
 	        events = events.split(',');
 	        var i = 0, len = events.length, event;
 	        for(; i < len; i++){
-	            this.addEventListener(baidu.trim(events[i]), fn);
+	            this.addEventListener(baidu.string.trim(events[i]), fn);
 	        }
 	    }
 	};
 	
+	
 	/// support magic - Tangram 1.x Code Start
 	
-	baidu.lang.createClass = function(constructor, options) {
-	    options = options || {};
-	    var superClass = options.superClass || baidu.lang.Class;
-	
-	    // 创建新类的真构造器函数
-	    var fn = function(){
-	        var me = this;
-	
-	        // 20101030 某类在添加该属性控制时，guid将不在全局instances里控制
-	        options.decontrolled && (me.__decontrolled = true);
-	
-	        // 继承父类的构造器
-	        superClass.apply(me, arguments);
-	
-	        // 全局配置
-	        for (i in fn.options) me[i] = fn.options[i];
-	
-	        constructor.apply(me, arguments);
-	
-	        for (var i=0, reg=fn["\x06r"]; reg && i<reg.length; i++) {
-	            reg[i].apply(me, arguments);
-	        }
-	    };
-	
-	    // [TODO delete 2013] 放置全局配置，这个全局配置可以直接写到类里面
-	    fn.options = options.options || {};
-	
-	    var C = function(){},
-	        cp = constructor.prototype;
-	    C.prototype = superClass.prototype;
-	
-	    // 继承父类的原型（prototype)链
-	    var fp = fn.prototype = new C();
-	
-	    // 继承传参进来的构造器的 prototype 不会丢
-	    for (var i in cp) fp[i] = cp[i];
-	
-	    // 20111122 原className参数改名为type
-	    var type = options.className || options.type;
-	    typeof type == "string" && (fp.__type = type);
-	
-	    // 修正这种继承方式带来的 constructor 混乱的问题
-	    fp.constructor = cp.constructor;
-	
-	    // 给类扩展出一个静态方法，以代替 baidu.object.extend()
-	    fn.extend = function(json){
-	        for (var i in json) {
-	            fn.prototype[i] = json[i];
-	        }
-	        return fn;  // 这个静态方法也返回类对象本身
-	    };
-	
-	    return fn;
-	};
+	baidu.lang.createClass = baidu.createClass;
 	
 	// 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
 	
@@ -10088,6 +9412,17 @@ var T, baidu = T = function(){
 	};
 	
 	
+	/// support magic - Tangram 1.x Code Start
+	
+	baidu.lang.guid = function() {
+	    return baidu.id();
+	};
+	
+	//不直接使用window，可以提高3倍左右性能
+	//baidu.$$._counter = baidu.$$._counter || 1;
+	
+	// 20111129    meizz    去除 _counter.toString(36) 这步运算，节约计算量
+	/// support magic - Tangram 1.x Code End
 	
 	//baidu.lang.isArray = function (source) {
 	//    return '[object Array]' == Object.prototype.toString.call(source);
@@ -10120,6 +9455,11 @@ var T, baidu = T = function(){
 	//    return 'function' == typeof source || !!(source && 'object' == typeof source);
 	//};
 	baidu.lang.isObject = baidu.isObject;
+	
+	//baidu.lang.isString = function (source) {
+	//    return '[object String]' == Object.prototype.toString.call(source);
+	//};
+	baidu.lang.isString = baidu.isString;
 	
 	
 	baidu.lang.isWindow = function(unknow) {
@@ -10161,16 +9501,10 @@ var T, baidu = T = function(){
 	    }
 	};
 	
+	
 	/// support magic - Tangram 1.x Code Start
 	
-	baidu.lang.register = function (Class, constructorHook, methods) {
-	    var reg = Class["\x06r"] || (Class["\x06r"] = []);
-	    reg[reg.length] = constructorHook;
-	
-	    for (var method in methods) {
-	        Class.prototype[method] = methods[method];
-	    }
-	};
+	baidu.lang.register = baidu.base.register;
 	
 	// 20111221 meizz   修改插件函数的存放地，重新放回类构造器静态属性上
 	// 20111129    meizz    添加第三个参数，可以直接挂载方法到目标类原型链上
@@ -10443,67 +9777,6 @@ var T, baidu = T = function(){
 	
 	
 	
-	baidu.page.lazyLoadImage = function(options) {
-	    options = options || {};
-	    options.preloadHeight = options.preloadHeight || 0;
-	
-	    baidu.dom.ready(function() {
-	        var imgs = document.getElementsByTagName('IMG'),
-	                targets = imgs,
-	                len = imgs.length,
-	                i = 0,
-	                viewOffset = getLoadOffset(),
-	                srcAttr = 'data-tangram-ori-src',
-	                target;
-	        //避免循环中每次都判断className
-	        if (options.className) {
-	            targets = [];
-	            for (; i < len; ++i) {
-	                if (baidu.dom.hasClass(imgs[i], options.className)) {
-	                    targets.push(imgs[i]);
-	                }
-	            }
-	        }
-	        //计算需要加载图片的页面高度
-	        function getLoadOffset() {
-	            return baidu.page.getScrollTop() + baidu.page.getViewHeight() + options.preloadHeight;
-	        }
-	        //加载可视图片
-	        for (i = 0, len = targets.length; i < len; ++i) {
-	            target = targets[i];
-	            if (baidu.dom.getPosition(target).top > viewOffset) {
-	                target.setAttribute(srcAttr, target.src);
-	                options.placeHolder ? target.src = options.placeHolder : target.removeAttribute('src');
-	            }
-	        }
-	        //处理延迟加载
-	        var loadNeeded = function() {
-	            var viewOffset = getLoadOffset(),
-	                imgSrc,
-	                finished = true,
-	                i = 0,
-	                len = targets.length;
-	            for (; i < len; ++i) {
-	                target = targets[i];
-	                imgSrc = target.getAttribute(srcAttr);
-	                imgSrc && (finished = false);
-	                if (baidu.dom.getPosition(target).top < viewOffset && imgSrc) {
-	                    target.src = imgSrc;
-	                    target.removeAttribute(srcAttr);
-	                    baidu.lang.isFunction(options.onlazyload) && options.onlazyload(target);
-	                }
-	            }
-	            //当全部图片都已经加载, 去掉事件监听
-	            finished && baidu.dom(window).off('scroll', loadNeeded);
-	        };
-	
-	        baidu.dom(window).on('scroll', loadNeeded);
-	    });
-	};
-	
-	
-	
-	
 	baidu.page.loadCssFile = function (path) {
 	    var element = document.createElement("link");
 	    
@@ -10527,22 +9800,6 @@ var T, baidu = T = function(){
 	    document.getElementsByTagName("head")[0].appendChild(element);    
 	};
 	
-	
-	baidu.param = function(arg) {
-	    arg = arg || arguments.callee.caller.arguments;
-	
-	    var s = "",
-	        n = arg.length;
-	
-	    for (var i = 0; i < n; i++) {
-	        s += "," + baidu.type(arg[i]);
-	    }
-	
-	    return s ? s.substr(1) : "";
-	};
-	
-	// [Notice] meizz callee等操作是一个低性能的处理，因此 arg 参数尽量传过来，尽管不传这个参数本方法也能正确执行
-	// [Notice] meizz 本方法是一个被其它方法调用的方法，在不传arg又不是被调用的状态下，本方法会报错
 	
 	baidu.platform = baidu.platform || function(){
 	    var ua = navigator.userAgent,
@@ -10571,31 +9828,6 @@ var T, baidu = T = function(){
 	
 	baidu.post = baidu.post || baidu._util_.smartAjax('post');
 	
-	baidu.regexp = baidu.regexp || function(maps){
-	    var modalReg = /[^mig]/;
-	
-	    return function(reg, modal){
-	        var key, result;
-	
-	        if ( baidu.isString(reg) ) {
-	        
-	            modalReg.test(modal) && (modal = "");
-	            key = reg + "$$" + (modal || "");
-	            (result = maps[ key ]) || (result = maps[ key ] = new RegExp( reg, modal ));
-	        
-	        } else if ( baidu.isRegExp(reg) ) {
-	        
-	            modal = (reg.global ? "g" : "") + (reg.ignoreCase ? "i" : "") + (reg.multiline ? "m" : "");
-	            key = reg.source + "$$" + modal;
-	            result = maps[key] || (maps[key] = reg);
-	        }
-	
-	        // 注意：加了这句代码之后，会对 g 模式的 lastIndex 赋值的情况产生影响
-	        (result || (result = reg)) && reg.lastIndex > 0 && ( reg.lastIndex = 0 );
-	        return result;
-	    }
-	}( baidu.global("_maps_RegExp") );
-	
 	baidu.setBack = function(current, oldChain) {
 	    current._back_ = oldChain;
 	    current.getBack = function() {
@@ -10612,7 +9844,7 @@ var T, baidu = T = function(){
 	        case "string" :
 	            return new baidu.sio.$Sio(url);
 	        // break;
-	    };
+	    }
 	},
 	
 	// constructor

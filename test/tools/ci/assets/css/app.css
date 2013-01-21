@@ -251,7 +251,8 @@ body {
 }
 .tab-item iframe {
 	width: 710px;
-	height: 0px;
+	min-height: 500px;
+	_height: 500px;
 	border: none;
 }
 .testcase-wrap {

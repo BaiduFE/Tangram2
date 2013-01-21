@@ -113,10 +113,13 @@ function(selector, context) {
     } else if (typeof selector == "string") {
         // HTMLString
         if (selector.charAt(0) == "<" && selector.charAt(selector.length - 1) == ">" && selector.length > 2) {
-            if ( baidu.dom.createElements ) {
-                baidu.merge( me, baidu.dom.createElements( selector ) );
-            }
-
+            // Match a standalone tag
+            var rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+                doc = context && context._type_ === '$DOM' ? context[0] : context,
+                ret = rsingleTag.exec(selector);
+            doc = doc && doc.nodeType ? doc.ownerDocument || doc : document;
+            ret = ret ? [doc.createElement(ret[1])] : (baidu.dom.createElements ? baidu.dom.createElements( selector ) : []);
+            baidu.merge( me, ret);
         // baidu.query
         } else {
             baidu.query(selector, context, me);

@@ -12,13 +12,13 @@ function prepareTest(){
     jQuery('body').prepend(html);
 };
 
-test('prepareTest',function(){
+test('plugin接口：prepareTest',function(){
     prepareTest();
     draggable = baidu('#test-a').draggable();
     ok(draggable,'ok');
 });
 
-test('正常拖拽', function() {
+test('plugin接口：正常拖拽', function() {
     stop();
     expect(2);
     var div = baidu('#test-a').offset({left:0,top:0}).get(0);
@@ -48,7 +48,7 @@ test('正常拖拽', function() {
     move(div, 0, 0);
 });
 
-test('第二次正常拖拽', function() {
+test('plugin接口：第二次正常拖拽', function() {
     stop();
     expect(2);
     var div = baidu('#test-a').get(0);
@@ -78,7 +78,7 @@ test('第二次正常拖拽', function() {
     move(div, 0, 0);
 });
 
-test('cancel方法', function() {
+test('plugin接口：cancel方法', function() {
     expect(2);
     var tang = baidu('#test-a');
     draggable.cancel();
@@ -86,7 +86,7 @@ test('cancel方法', function() {
     equal(tang.offset().top, 45, "stop top");    
 });
 
-test('reset方法', function() {
+test('plugin接口：reset方法', function() {
     expect(2);
     var tang = baidu('#test-a');
     draggable.reset();
@@ -94,7 +94,7 @@ test('reset方法', function() {
     equal(tang.offset().top, 0, "stop top");    
 });
 
-test('z-index方法', function() {
+test('plugin接口：z-index方法', function() {
     expect(2);
     var tang = baidu('#test-a');
     draggable.zIndex(200);
@@ -102,14 +102,14 @@ test('z-index方法', function() {
     equal(draggable.zIndex(), 200, "z-index");
 });
 
-test('item方法', function() {
+test('plugin接口：item方法', function() {
     expect(1);
     var tang = baidu('#test-a');
     var item = draggable.item();
     equal(item.get(0),tang.get(0), "item一致");
 });
 
-test('getBack方法', function() {
+test('plugin接口：getBack方法', function() {
     expect(1);
     draggable.getBack().css('background-color','#0FF');
     var tang = baidu('#test-a');
@@ -117,7 +117,7 @@ test('getBack方法', function() {
     equal(result ,'#0ff', "设置的当前DOM");
 });
 
-test('disable方法', function() {
+test('plugin接口：disable方法', function() {
     expect(2);
     draggable.disable();
 
@@ -151,7 +151,7 @@ test('disable方法', function() {
     move(div, 0, 0);
 });
 
-test('enable方法', function() {
+test('plugin接口：enable方法', function() {
     expect(2);
     draggable.enable();
 
@@ -185,7 +185,7 @@ test('enable方法', function() {
     move(div, 0, 0);
 });
 
-test('range方法', function() {
+test('plugin接口：range方法', function() {
     stop();
     expect(3);
     var range = jQuery("<div id='range' style='background-color:#F00;width:350px;height:350px;border:2px solid #0FF;'></div>").prependTo('body');
@@ -219,7 +219,7 @@ test('range方法', function() {
     move(div, 20, 20);
 });
 
-test('endOf方法：传入htmlElement', function() {
+test('plugin接口：endOf方法：传入htmlElement', function() {
     stop();
     expect(2);
     var endOf = jQuery("<div id='endOf' style='background-color:#F00;width:250px;height:250px;border:2px solid #0FF;'></div>").prependTo('body');
@@ -252,7 +252,7 @@ test('endOf方法：传入htmlElement', function() {
     move(div, 0, 0);
 });
 
-test('endOf方法：传入object', function() {
+test('plugin接口：endOf方法：传入object', function() {
     stop();
     expect(2);
     var endOf = jQuery("<div id='endOf' style='background-color:#F00;width:250px;height:250px;border:2px solid #0FF;'></div>").prependTo('body');
@@ -286,14 +286,14 @@ test('endOf方法：传入object', function() {
     move(div, 0, 0);
 });
 
-test('析构方法', function() {
+test('plugin接口：析构方法', function() {
     expect(2);
     draggable.dispose();
     ok(draggable.dispose,'析构标示');
     ok(!draggable.range,'实例方法清除')
 });
 
-test('事件相关', function() {
+test('plugin接口：事件相关', function() {
     stop();
     expect(3);
     var startNum,draggingNum,endNum;
@@ -336,7 +336,7 @@ test('事件相关', function() {
 
 
 //传入1个参数
-test('1个参数：不移动', function() {
+test('plugin接口：1个参数：不移动', function() {
     expect(3);
     stop();
     var startNum,draggingNum,endNum;
@@ -376,7 +376,7 @@ test('1个参数：不移动', function() {
     move(div, 0, 0);
 });
 
-test('1个参数：移动', function() {
+test('plugin接口：1个参数：移动', function() {
     stop();
     expect(3);
     var range = jQuery("<div id='range' style='background-color:#F00;width:350px;height:350px;border:2px solid #0FF;'></div>").prependTo('body');
@@ -413,7 +413,7 @@ test('1个参数：移动', function() {
 });
 
 //传入2个参数
-test('事件相关', function() {
+test('plugin接口：事件相关', function() {
     stop();
     expect(3);
     var startNum,draggingNum,endNum;
@@ -453,7 +453,7 @@ test('事件相关', function() {
     move(div, 0, 0);
 });
 
-test('enter和leave事件相关:enter', function() {
+test('plugin接口：enter和leave事件相关:enter', function() {
    stop();
     expect(4);
     var startNum,draggingNum,endNum,enterNum,leaveNum;
@@ -481,6 +481,7 @@ test('enter和leave事件相关:enter', function() {
             equal(draggingNum,10, "dragging事件");
             equal(endNum,1, "end事件");
             equal(enterNum,1, "enter事件");
+            draggable.disable();
             draggable.dispose();
             range.remove();
             start();
@@ -500,14 +501,14 @@ test('enter和leave事件相关:enter', function() {
 });
 
 
-test('enter和leave事件相关:leave', function() {
+test('plugin接口：enter和leave事件相关:leave', function() {
    stop();
     expect(5);
     var startNum,draggingNum,endNum,enterNum,leaveNum;
     startNum = draggingNum = endNum = enterNum = leaveNum = 0;
     var range = jQuery("<div id='focus' style='background-color:#F00;width:350px;height:350px;border:2px solid #0FF;'></div>").prependTo('body').offset({left:250,top:0});
     var div = baidu('#test-a').offset({left:200,top:20}).get(0);
-    draggable = baidu('#test-a').draggable({
+    var draggable = baidu('#test-a').draggable({
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
         onend:function(){endNum++;},

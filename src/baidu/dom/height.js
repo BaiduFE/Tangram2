@@ -21,8 +21,8 @@
  也就是说，返回的是高度不会包括padding，border，margin的宽度值。
 
  这个方法可以计算window（浏览器可视高度）和document（HTML文档）的高度。
- T(window).height();
- T(document).height();
+ baidu(window).height();
+ baidu(document).height();
 
  示例代码：
  //HTML代码片段

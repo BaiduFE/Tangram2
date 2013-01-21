@@ -5,6 +5,7 @@
 ///import baidu.type;
 ///import baidu.deferred;
 ///import baidu.callbacks;
+///import baidu.when;
 ///import baidu.id;
 ///import baidu._util_.support;
 ///import baidu.dom.on;
@@ -650,7 +651,7 @@ void function(){
     baidu.ajax.setup({
         jsonp: 'callback',
         jsonpCallback: function(){
-            var callback = oldCallbacks.pop() || (baidu.id.key + '_' + (nonce++));
+            var callback = oldCallbacks.pop() || (baidu.key + '_' + (nonce++));
             this[callback] = true;
             return callback;
         }

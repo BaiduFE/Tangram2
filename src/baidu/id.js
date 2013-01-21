@@ -70,10 +70,8 @@ baidu.id = function() {
             return maps[ object ];
         }
 
-        return "TANGRAM__" + baidu._global_._counter ++;
+        return "TANGRAM_" + baidu._global_._counter ++;
     };
 }();
-
-baidu.id.key = "tangram_guid";
 
 //TODO: mz 20120827 在低版本IE做delete操作时直接 delete e[key] 可能出错，这里需要重新评估，重写

@@ -2,12 +2,15 @@ var fs = require("fs"),
     path = require("path"),
     exec = require('child_process').exec,
     util = require('./build_util').util,
-    uglify = require('./tools/UglifyJS/uglify-js');
-
+    uglify = require('./tools/UglifyJS2/tools/node');
+//    uglify = require('./tools/UglifyJS/uglify-js');
+    
+    
+    
 //tangram源代码目录
 var tangramSrcPath = '../src';
 //需要排除的api
-var excludeFiles = ['baidu.check', 'baidu.short'];
+var excludeFiles = ['baidu.check', 'baidu.short', 'baidu.i18n.cultures.en-US', 'baidu.i18n.currency', 'baidu.i18n.number', 'baidu.i18n.string'];
 
 //已经导入的文件
 var imported = [];
@@ -105,6 +108,11 @@ function pack( content ){
     
     fs.writeFileSync('tangram_compatible_src.js', tangramCompatibleContent, 'utf-8');
     fs.writeFileSync('tangram_base_src.js', tangramBaseContent, 'utf-8');
+//    exec('node tools/UglifyJS2/bin/uglifyjs tangram_compatible_src.js -o tangram_compatible.js', {}, function(error, stdout, stderr){
+//        console.log(error);
+//    });
+//    exec('node tools/Uglify2/bin/uglifyjs tangram_base_src.js -o tangram_base.js');
+    
     
     //打包fis
     fs.writeFileSync('tangram_compatible_fis.js',
@@ -115,23 +123,21 @@ function pack( content ){
         tangramBaseContent + '\r\nexports = baidu;\r\n',
         'utf-8');
 
-    function uglifyCompress( content, outputFile ){
-        var jsp = uglify.parser;
-        var pro = uglify.uglify;
-        var ast = jsp.parse( content ); // parse code and get the initial AST
-        ast = pro.ast_mangle( ast ); // get a new AST with mangled names
-        ast = pro.ast_squeeze( ast ); // get an AST with compression optimizations
-        content = pro.gen_code(ast); // compressed code here
-        fs.writeFileSync(outputFile, content, 'utf-8');
+//    function uglifyCompress( content, outputFile ){
+//        var jsp = uglify.parser;
+//        var pro = uglify.uglify;
+//        var ast = jsp.parse( content ); // parse code and get the initial AST
+//        ast = pro.ast_mangle( ast ); // get a new AST with mangled names
+//        ast = pro.ast_squeeze( ast ); // get an AST with compression optimizations
+//        content = pro.gen_code(ast); // compressed code here
+//        fs.writeFileSync(outputFile, content, 'utf-8');
+//    }
+//    uglifyCompress( tangramCompatibleContent, "tangram_compatible.js" );
+//    uglifyCompress( tangramBaseContent, "tangram_base.js" );
+    function uglifyjsCompress(input, output){
+        var ret = uglify.minify(input);
+        fs.writeFileSync(output, ret.code, 'utf-8');
     }
+    uglifyjsCompress('tangram_compatible_src.js', 'tangram_compatible.js');
+    uglifyjsCompress('tangram_base_src.js', 'tangram_base.js');
 
-    uglifyCompress( tangramCompatibleContent, "tangram_compatible.js" );
-    uglifyCompress( tangramBaseContent, "tangram_base.js" );
-
-// Task:compress release files
-    // exec('java -jar ../test/tools/lib/yuicompressor-2.4.2.jar --type js --charset UTF-8 tangram_compatible_src.js -o tangram_compatible.js', function(error, stdout, stderr){
-    //     // console.log(stdout);
-    // });
-    // exec('java -jar ../test/tools/lib/yuicompressor-2.4.2.jar --type js --charset UTF-8 tangram_base_src.js -o tangram_base.js', function(error, stdout, stderr){
-    //     // console.log(stdout);
-    // });

@@ -1,13 +1,11 @@
-/**
- * @author wangxiao
- * @email  1988wangxiao@gmail.com
- */
 
-///import baidu;
-///import baidu.forEach;
-///import baidu.extend;
+///import baidu.createChain;
 ///import baidu.array.indexOf;
-
+///import baidu.type;
+///import baidu.forEach;
+/**
+ * @author wangxiao, linlingyu
+ */
 /**
  * @description 一个多用途的回调列表对象，提供了强大的的方式来管理回调函数列表
  * @function 
@@ -113,201 +111,107 @@
  * @return {Callbacks} 返回当前的Callbacks对象
  */
 
-baidu.createChain("Callbacks",
-//copy from jquery 1.8.2,thanks for jquery
-
-// 执行方法
-function(options){
-
-    // String to Object options format cache
-    var optionsCache = {};
-
-    // Convert String-formatted options into Object-formatted ones and store in cache
-    function createOptions( options ) {
-        var object = optionsCache[ options ] = {};
-        baidu.forEach( options.split(/\s+/), function( flag, _ ) {
-            object[ flag ] = true;
+baidu.createChain('Callbacks', function(options){
+    var opts = options;
+    if(baidu.type(options) === 'string'){
+        opts = {};
+        baidu.forEach(options.split(/\s/), function(item){
+            opts[item] = true;
         });
-        return object;
-    };
-
-    /*
-     * Create a callback list using the following parameters:
-     *
-     *    options: an optional list of space-separated options that will change how
-     *            the callback list behaves or a more traditional option object
-     *
-     * By default a callback list will act like an event callback list and can be
-     * "fired" multiple times.
-     *
-     * Possible options:
-     *
-     *    once:            will ensure the callback list can only be fired once (like a Deferred)
-     *
-     *    memory:            will keep track of previous values and will call any callback added
-     *                    after the list has been fired right away with the latest "memorized"
-     *                    values (like a Deferred)
-     *
-     *    unique:            will ensure a callback can only be added once (no duplicate in the list)
-     *
-     *    stopOnFalse:    interrupt callings when a callback returns false
-     *
-     */
-    // Convert options from String-formatted to Object-formatted if needed
-    // (we check in cache first)
-    options = typeof options === "string" ?
-        ( optionsCache[ options ] || createOptions( options ) ) :
-        baidu.extend( {}, options );
-
-    var // Last fire value (for non-forgettable lists)
-        memory,
-        // Flag to know if list was already fired
-        fired,
-        // Flag to know if list is currently firing
-        firing,
-        // First callback to fire (used internally by add and fireWith)
-        firingStart,
-        // End of the loop when firing
-        firingLength,
-        // Index of currently firing callback (modified by remove if needed)
-        firingIndex,
-        // Actual callback list
-        list = [],
-        // Stack of fire calls for repeatable lists
-        stack = !options.once && [],
-        // Fire callbacks
-        fire = function( data ) {
-            memory = options.memory && data;
-            fired = true;
-            firingIndex = firingStart || 0;
-            firingStart = 0;
-            firingLength = list.length;
-            firing = true;
-            for ( ; list && firingIndex < firingLength; firingIndex++ ) {
-                if ( list[ firingIndex ].apply( data[ 0 ], data[ 1 ] ) === false && options.stopOnFalse ) {
-                    memory = false; // To prevent further calls using add
-                    break;
-                }
-            }
-            firing = false;
-            if ( list ) {
-                if ( stack ) {
-                    if ( stack.length ) {
-                        fire( stack.shift() );
+    }
+    return new baidu.Callbacks.$Callbacks(opts);
+}, function(options){
+    var opts = baidu.extend({}, options || {}),
+        fnArray = [],
+        fireQueue = [],
+        fireIndex = 0,
+        memory, isLocked, isFired, isFiring,
+        fireCore = function(data, index){
+            var item, fn;
+            if(!fireQueue || !fnArray){return;}
+            memory = opts.memory && data;
+            isFired = true;
+            fireQueue.push(data);
+            if(isFiring){return;}
+            isFiring = true;
+            while(item = fireQueue.shift()){
+                for(fireIndex = index || 0; fn = fnArray[fireIndex]; fireIndex++){
+                    if(fn.apply(item[0], item[1]) === false
+                        && opts.stopOnFalse){
+                        memory = false;
+                        break;
                     }
-                } else if ( memory ) {
-                    list = [];
-                } else {
-                    self.disable();
                 }
             }
+            isFiring = false;
+            opts.once && (fnArray = []);
         },
-        // Actual Callbacks object
-        self = {
-            // Add a callback or a collection of callbacks to the list
-            add: function() {
-                if ( list ) {
-                    // First, we save the current length
-                    var start = list.length;
-                    (function add( args ) {
-                        baidu.forEach( args, function( arg, _) {
-                            if ( (typeof arg === 'function') && ( !options.unique || !self.has( arg ) ) ) {
-                                list.push( arg );
-                            } else if ( arg && arg.length ) {
-                                // Inspect recursively
-                                add( arg );
-                            }
-                        });
-                    })( arguments );
-                    // Do we need to add the callbacks to the
-                    // current firing batch?
-                    if ( firing ) {
-                        firingLength = list.length;
-                    // With memory, if we're not firing then
-                    // we should call right away
-                    } else if ( memory ) {
-                        firingStart = start;
-                        fire( memory );
-                    }
-                }
-                return this;
-            },
-            // Remove a callback from the list
-            remove: function() {
-                if ( list ) {
-                    baidu.forEach( arguments, function( arg, _ ) {
-                        var index;
-                        while( ( index = baidu.array(list).indexOf(arg,index) ) > -1 ) {
-                            list.splice( index, 1 );
-                            // Handle firing indexes
-                            if ( firing ) {
-                                if ( index <= firingLength ) {
-                                    firingLength--;
-                                }
-                                if ( index <= firingIndex ) {
-                                    firingIndex--;
-                                }
-                            }
+        callbacks = {
+            add: function(){
+                if(!fnArray){return this;}
+                var index = fnArray && fnArray.length;
+                (function add(args){
+                    var len = args.length,
+                        type, item;
+                    for(var i = 0, item; i < len; i++){
+                        if(!(item = args[i])){continue;}
+                        type = baidu.type(item);
+                        if(type === 'function'){
+                            (!opts.unique || !callbacks.has(item)) && fnArray.push(item);
+                        }else if(item && item.length && type !== 'string'){
+                            add(item);
                         }
-                    });
-                }
-                return this;
-            },
-            // Control if a given callback is in the list
-            has: function( fn ) {
-                return baidu.array(list).indexOf(fn) > -1;
-            },
-            // Remove all callbacks from the list
-            empty: function() {
-                list = [];
-                return this;
-            },
-            // Have the list do nothing anymore
-            disable: function() {
-                list = stack = memory = undefined;
-                return this;
-            },
-            // Is it disabled?
-            disabled: function() {
-                return !list;
-            },
-            // Lock the list in its current state
-            lock: function() {
-                stack = undefined;
-                if ( !memory ) {
-                    self.disable();
-                }
-                return this;
-            },
-            // Is it locked?
-            locked: function() {
-                return !stack;
-            },
-            // Call all callbacks with the given context and arguments
-            fireWith: function( context, args ) {
-                args = args || [];
-                args = [ context, args.slice ? args.slice() : args ];
-                if ( list && ( !fired || stack ) ) {
-                    if ( firing ) {
-                        stack.push( args );
-                    } else {
-                        fire( args );
                     }
-                }
+                })(arguments);
+                !isFiring && memory && fireCore(memory, index);
                 return this;
             },
-            // Call all the callbacks with the given arguments
-            fire: function() {
-                self.fireWith( this, arguments );
+            
+            remove: function(){
+                if(!fnArray){return this;}
+                var index;
+                baidu.forEach(arguments, function(item){
+                    while((index = baidu.array(fnArray).indexOf(item)) > -1){
+                        fnArray.splice(index, 1);
+                        isFiring && index < fireIndex && fireIndex--;
+                    }
+                });
                 return this;
             },
-            // To know if the callbacks have already been called at least once
-            fired: function() {
-                return !!fired;
+            
+            has: function(fn){
+                return baidu.array(fnArray).indexOf(fn) > -1;
+            },
+            
+            empty: function(){
+                return fnArray = [], this;
+            },
+            disable: function(){
+                return fnArray = fireQueue = memory = undefined, this;
+            },
+            disabled: function(){
+                return !fnArray;
+            },
+            lock: function(){
+                isLocked = true;
+                !memory && callbacks.disable();
+                return this;
+            },
+            fired: function(){
+                return isFired;
+            },
+            fireWith: function(context, args){
+                if(isFired && opts.once
+                    || isLocked){return this;}
+                args = args || [];
+                args = [context, args.slice ? args.slice() : args];
+                fireCore(args);
+                return this;
+            },
+            fire: function(){
+                callbacks.fireWith(this, arguments);
+                return this;
             }
         };
-
-    return self;
-},
-// constructor
-function(){});
+    return callbacks;
+});

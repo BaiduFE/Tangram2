@@ -1,4 +1,5 @@
 ///import baidu.lang.createSingle;
+///import baidu.lang.Event;
 
 /// Tangram 1.x Code Start
 /*
