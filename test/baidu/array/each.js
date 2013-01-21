@@ -94,7 +94,7 @@ test("第一个参数不是数组", function() {
 });
 
 //老接口
-test("遍历array元素", function() {
+test("老接口：遍历array元素", function() {
 	expect(2);
 	var aArray = [ 1, 2, 3 ];
 	baidu.array.each(aArray, function(iVal, iIndex) {
@@ -107,7 +107,7 @@ test("遍历array元素", function() {
 	equal(aArray.toString(), "1,4,7", "遍历array元素");
 });
 
-test("测试this指针", function() {
+test("老接口：测试this指针", function() {
 	var aArray = [ 1, 2, 3 ], thisObject = {
 		a : 'b'
 	};
@@ -121,7 +121,7 @@ test("测试this指针", function() {
 	});
 });
 
-test("调用回调函数的测试", function() {
+test("老接口：调用回调函数的测试", function() {
 	expect(1);
 	var aArray = [ 1, 2, 3, 10, 4, 5 ];
 	var fnHandle1 = function(iVal, iIndex) {
@@ -135,7 +135,7 @@ test("调用回调函数的测试", function() {
 	equal(aArray.toString(), "2,3,4,10,4,5", "有条件地调用回调函数的测试");
 });
 
-test("第二个参数不是函数", function() {
+test("老接口：第二个参数不是函数", function() {
 	expect(1);
 	var aArray = [ 1, 2, 3 ];
 	var a = 0;
@@ -143,7 +143,7 @@ test("第二个参数不是函数", function() {
 	equal(aArray.toString(), "1,2,3", "第二个参数不是函数");
 });
 
-test("数组有未定义的元素", function() {
+test("老接口：数组有未定义的元素", function() {
 	expect(1);
 	var aArray = [ 1, , 2, 3 ];
 	baidu.array.each(aArray, function(iVal, iIndex) {
@@ -152,7 +152,7 @@ test("数组有未定义的元素", function() {
 	equal(aArray.toString(), "1,NaN,4,6", "数组中有元素没有显式设值");
 });
 
-test("第二个参数是空函数", function() {
+test("老接口：第二个参数是空函数", function() {
 	expect(1);
 	var aArray = [ 1, 2, 3 ];
 	baidu.array.each(aArray, function() {
@@ -160,7 +160,7 @@ test("第二个参数是空函数", function() {
 	equal(aArray.toString(), "1,2,3", "empty function");
 });
 
-test("第一个参数不是数组", function() {
+test("老接口：第一个参数不是数组", function() {
 	expect(1);
 	var iNumber = 10;
 	equal(baidu.array.each(iNumber, function() {
