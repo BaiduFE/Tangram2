@@ -1,6 +1,6 @@
 module("baidu.i18n.string");
 
-test('老接口：trim', function(){
+test('废弃接口：trim', function(){
 	stop();
 	ua.importsrc('baidu.i18n.cultures.en-US,baidu.i18n.cultures.zh-CN', function(){
 		equals(baidu.i18n.string.trim('', 'zh-CN'), '', 'check ""');
@@ -17,7 +17,7 @@ test('老接口：trim', function(){
 	}, 'baidu.i18n.cultures.en-US','baidu.i18n.string');
 });
 
-test('老接口：translation', function(){
+test('废弃接口：translation', function(){
 	equals(baidu.i18n.string.translation('ok', 'zh-CN'), '确定', 'en-US to zh-CN');
 	equals(baidu.i18n.string.translation('cancel', 'zh-CN'), '取消', 'en-US to zh-CN');
 	equals(baidu.i18n.string.translation('signin', 'zh-CN'), '注册', 'en-US to zh-CN');
@@ -28,7 +28,7 @@ test('老接口：translation', function(){
 	equals(baidu.i18n.string.translation('signup', 'en-US'), 'signup', 'en-US to en-US');
 });
 
-test('老接口：custom language', function(){
+test('废弃接口：custom language', function(){
 	baidu.i18n.currentLocale = 'en-CA';
 	equals(baidu.i18n.string.trim(''), '', 'check ""');
 	equals(baidu.i18n.string.trim(' '), '', 'check " "');
