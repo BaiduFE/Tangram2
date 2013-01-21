@@ -24,7 +24,7 @@ test("获得第1个元素（集合不包含元素）", function () {
 
 //老用例
 
-test("第一个子节点为空节点",function(){
+test("老接口：第一个子节点为空节点",function(){
     expect(2);
     var div = document.createElement('div');
     var text = document.createTextNode('textnode');
@@ -41,7 +41,7 @@ test("第一个子节点为空节点",function(){
 })
 
 
-test("第一个子节点不是空节点",function(){
+test("老接口：第一个子节点不是空节点",function(){
     expect(2);
     var div = document.createElement('div');
     var img = document.createElement('img');
@@ -55,14 +55,14 @@ test("第一个子节点不是空节点",function(){
     document.body.removeChild(div);
 })
 
-test("html",function(){
+test("老接口：html",function(){
 //  alert(baidu.dom.first(document));
     expect(2);
     equal(baidu.dom.first(document),document.documentElement,"first child is html");
     equal(baidu.dom.first(document.documentElement),document.documentElement.firstChild,"first child of html is head ");
 })
 
-test("没有子节点",function(){
+test("老接口：没有子节点",function(){
     expect(1);
     var div = document.createElement('div');
     equal(baidu.dom.first(div),null,"no child");
