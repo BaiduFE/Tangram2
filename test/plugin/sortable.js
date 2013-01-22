@@ -28,13 +28,20 @@ function prepareTest(){
 test('plugin接口：prepareTest',function(){
 	prepareTest();
     sortable = baidu('.group').sortable({
-        range:'body',
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
         onend:function(){endNum++;},
         onchange:function(){changeNum++;}
     });
     ok(sortable,'ok');
+});
+
+test('plugin接口：range方法',function(){
+    var range = sortable.range();
+    equal(range,undefined,'此时设置的是body');
+    sortable.range('body');
+    var range = sortable.range();
+    equal(range,'body','此时设置的是body');
 });
 
 test('plugin接口：事件相关', function() {
