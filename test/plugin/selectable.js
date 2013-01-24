@@ -209,6 +209,12 @@ test('plugin接口：析构方法', function() {
     ok(!selectable.cancel,'实例方法清除');
 });
 
+//检查多实例是否会清除rubberSelect
+test('plugin接口：是否会清除rubberSelect', function() {
+    expect(1);
+    ok(baidu('#tang-rubberSelect'),'析构标示');
+});
+
 test('plugin接口：事件相关', function() {
     stop();
     expect(3);
