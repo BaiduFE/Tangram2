@@ -188,6 +188,10 @@ test('plugin接口：disable方法', function() {
     expect(2);
     sortable.disable();
 
+    //检查disable后，cancel和reset不会改变sortable的排序
+    sortable.cancel();
+    sortable.reset();
+
     var tang = baidu('#test-a');
     var div = tang.get(0);
     var offset = tang.offset();
