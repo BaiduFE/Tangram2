@@ -237,7 +237,7 @@ test('plugin接口：事件相关', function() {
         if (x <= 100) {
             ua.mouseup(ele);
             equal(startNum,1, "start事件");
-            equal(draggingNum,21, "dragging事件");
+            ok((draggingNum > 19 && draggingNum < 22), "dragging事件");
             equal(endNum,1, "end事件");
             //equal(changeNum,3, "change事件");
             selectable.dispose();
@@ -264,6 +264,7 @@ test('plugin接口：事件相关', function() {
     var startNum,draggingNum,endNum,changeNum;
     startNum = draggingNum = endNum = changeNum = 0;
     var selectable = baidu('.group').selectable('.item',{
+        range:'body',
         onstart:function(){startNum++;},
         ondragging:function(){draggingNum++;},
         onend:function(){endNum++;},
@@ -279,7 +280,7 @@ test('plugin接口：事件相关', function() {
         if (x <= 100) {
             ua.mouseup(ele);
             equal(startNum,1, "start事件");
-            equal(draggingNum,21, "dragging事件");
+            ok((draggingNum > 19 && draggingNum < 22), "dragging事件");
             equal(endNum,1, "end事件");
             //equal(changeNum,3, "change事件");
             selectable.disable();

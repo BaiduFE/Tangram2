@@ -21,6 +21,7 @@
  */
 baidu.dom.extend({
     getComputedStyle: function(key){
+        if(!this[0].ownerDocument){return;}// document can not get style;
         var defaultView = this[0].ownerDocument.defaultView,
             computedStyle = defaultView && defaultView.getComputedStyle
                 && defaultView.getComputedStyle(this[0], null),
