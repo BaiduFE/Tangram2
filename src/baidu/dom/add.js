@@ -41,8 +41,8 @@
  * @description 给当前TangramDom对象添加新的DOM元素
  * @function
  * @name baidu.dom().add()
- * @grammar baidu.dom(args).add(TangramDom)
- * @param   {TangramDom}    TangramDom
+ * @grammar baidu.dom(args).add(tangramDom)
+ * @param   {TangramDom} tangramDom TangramDom元素
  * @return {TangramDom} 返回之前匹配元素的TangramDom对象    new TangramDom
  */
 baidu.dom.extend({

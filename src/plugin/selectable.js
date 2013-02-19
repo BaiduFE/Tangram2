@@ -64,7 +64,6 @@
  * @function 
  * @name baidu().selectable().disable()
  * @grammar baidu(args).selectable().disable()
- * @param {Null}
  * @return {Selectable} 返回Selectable的一个实例。
 */
 
