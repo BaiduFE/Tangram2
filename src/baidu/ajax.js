@@ -606,7 +606,7 @@ void function(){
     //
     
     function addParam(array, key, val){
-        val = baidu.type(val) === 'function' ? val() : (val || '');
+        val = baidu.type(val) === 'function' ? val() : (typeof val == 'undefined' || val == null ? '' : val);
         array.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
     }
     function buildParams(array, key, val, traditional){
