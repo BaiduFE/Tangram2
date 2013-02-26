@@ -101,14 +101,14 @@ module("baidu.array.reduce");
 //	},1), 2, 'check holes');
 //});
 
-//兼容1.x接口
+//老接口
 /**
  * https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/reduce
  * Apply a function against an accumulator and each value of the array (from
  * left-to-right) as to reduce it to a single value.
  */
 
-test("兼容1.x接口：基础校验", function() {
+test("老接口：基础校验", function() {
 	var arr = [ 1, 2, 3 ], ite = function(last, now, index, arr) {
 		return last + now;
 	};
@@ -129,7 +129,7 @@ test("兼容1.x接口：基础校验", function() {
 
 });
 
-test("兼容1.x接口：特殊情况", function() {
+test("老接口：特殊情况", function() {
 	// 空数组
 	var arr = [], ite = function(acc, i) {
 		return acc + 1;
@@ -156,7 +156,7 @@ test("兼容1.x接口：特殊情况", function() {
  * <li>// array is always the object [0,1,2,3,4] upon which reduce was called //
  * Return Value: 10
  */
-test('兼容1.x接口：参数判断', function() {
+test('老接口：参数判断', function() {
 	var step = 0;
 	equals(baidu.array.reduce([ 0, 1, 2, 3, 4 ],
 			function(last, now, index, arr) {
@@ -182,14 +182,14 @@ test('兼容1.x接口：参数判断', function() {
  * a.concat(b); });
  * 
  */
-test('兼容1.x接口：混合数组，来自w3c示例', function() {
+test('老接口：混合数组，来自w3c示例', function() {
 	var flatended = [ [ 0, 1 ], [ 2, 3 ], [ 4, 5 ] ];
 	deepEqual(baidu.array.reduce(flatended, function(last, now) {
 		return last.concat(now);
 	}), [ 0, 1, 2, 3, 4, 5 ], 'check mix array');
 });
 
-test('兼容1.x接口：excluding holes in the array', function() {
+test('老接口：excluding holes in the array', function() {
 	equals(baidu.array.reduce([ 0, null, 1 ], function(a, b) {
 		return a + b;
 	}), 1, 'check holes');
