@@ -31,7 +31,7 @@ test('remove a event', function(){
 
 test('div uninstall event', function(){
     stop();
-    ua.importsrc('baidu.dom.on', function(){
+    ua.importsrc('baidu.dom.on,baidu.dom.trigger', function(){
         expect(10);
         var c = new Div(),
             div = c.get();
@@ -149,4 +149,15 @@ test('span uninstall event', function(){
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").off("wangxiao");
     ok(result);
+});
+
+test('window事件解绑定', function(){
+    expect(1);
+    function resizeHandler(){
+        ok(true, 'resize event trigger');
+    }
+    baidu(top.window).on('resize', resizeHandler);
+    baidu(top.window).trigger('resize');
+    baidu(top.window).off('resize', resizeHandler);
+    baidu(top.window).trigger('resize');
 });
