@@ -58,7 +58,6 @@
  * @function 
  * @name baidu().sortable().disable()
  * @grammar baidu(args).sortable().disable()
- * @param {Null}
  * @return {Sortable} 返回Sortable的一个实例。
 */
 
@@ -67,7 +66,6 @@
  * @function 
  * @name baidu().sortable().enable()
  * @grammar baidu(args).sortable().enable()
- * @param {Null}
  * @return {Sortable} 返回Sortable的一个实例。
  * @example
  该方法与disable()方法结合使用，初始化sortable时，默认是enable的状态，无需手动触发enable方法。
@@ -87,7 +85,6 @@
  * @function 
  * @name baidu().sortable().dispose()
  * @grammar baidu(args).sortable().dispose()
- * @param {Null}
  * @return {Null} 被析构后，当前的sortable实例只会有一个元素{dispose:true}
 */
 
@@ -96,7 +93,6 @@
  * @function 
  * @name baidu().sortable().item()
  * @grammar baidu(args).sortable().item()
- * @param {Null}
  * @return {TangramDom} 直接返回当前排序列表（sortable）中所有元素组成的tangramDom，可以直接调用tangram2.0的DOM操作方法。
  * @example
  排序列表（sortable）中所有元素都会默认被加上名为“tang-sortable-item”的className，方便用户改变每个元素样式，或者这些元素做操作。
@@ -107,7 +103,6 @@
  * @function 
  * @name baidu().sortable().index()
  * @grammar baidu(args).sortable().index()
- * @param {Null}
  * @return {Array} 返回当前排序列表（sortable）元素的索引组成的数组。
  * @example
  排序列表（sortable）的元素默认会按照当前顺序设置索引，初始化时为[0,1,2....]。当排序之后，顺序变化，再次取出，就可以比对和之前的索引顺序。
@@ -118,7 +113,6 @@
  * @function 
  * @name baidu().sortable().cancel()
  * @grammar baidu(args).sortable().cancel()
- * @param {Null}
  * @return {Sortable} 返回Sortable的一个实例。
 */
 
@@ -127,7 +121,6 @@
  * @function 
  * @name baidu().sortable().reset()
  * @grammar baidu(args).sortable().reset()
- * @param {Null}
  * @return {Sortable} 返回Sortable的一个实例。
 */
 
@@ -136,7 +129,6 @@
  * @function 
  * @name baidu().sortable().getBack()
  * @grammar baidu(args).sortable().getBack()
- * @param {Null}
  * @return {TangramDom} 返回当前拖拽元素的tangramDom对象，可以继续使用tangram的Dom操作方法
  * @example
  调用该方法可以继续使用tangram的Dom操作方法，如：

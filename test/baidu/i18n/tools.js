@@ -1,5 +1,7 @@
 (function() {
 	function mySetup() {
+		if(!baidu.i18n)
+			return;
 		baidu.i18n.cultures = baidu.i18n.cultures || {};
 		baidu.i18n.cultures['en-CA'] = {
 			calendar : {
