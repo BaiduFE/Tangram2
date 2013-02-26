@@ -1,4 +1,3 @@
-/// support magic - Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -48,4 +47,3 @@ baidu.i18n.cultures['zh-CN'] = baidu.object.extend(baidu.i18n.cultures['zh-CN'] 
 });
 
 baidu.i18n.currentLocale = 'zh-CN';
-/// support magic - Tangram 1.x Code End
