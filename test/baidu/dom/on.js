@@ -33,10 +33,20 @@ test('兼容Magic接口：prepareTest',function(){
 });
 
 test('兼容Magic接口：bind event to div', function(){
-    expect( 10 );
+    expect( 11 );
+    stop();
     var c = new Elements(),
         array = [];
         
+    ua.importsrc('baidu.dom.off', function(){
+        baidu.dom(c.get()).off( "click" );
+        ok( true, "off click" );
+
+        // baidu.dom(c.get()).on('click', function(){
+        //     array.push('A');
+        //     ok(array.join('') === 'A', 'div click trigger');
+        // });
+            
     baidu.dom(c.get()).on('click', function(){
         array.push('A');
         ok(array.join('') === 'A', 'div click trigger');
@@ -90,6 +100,9 @@ test('兼容Magic接口：bind event to div', function(){
     ua.fireMouseEvent(c.get(), 'click');//7.8.9
     c.dispose();
     equal(array.join(''), 'ABBCDEFFF', 'array is in order');//10
+
+        start();
+    }, 'baidu.dom.off', 'baidu.dom.on');
 });
 
 test('兼容Magic接口：selector event', function(){
