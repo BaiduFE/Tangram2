@@ -15,7 +15,7 @@ var T, baidu = T = function(){
 	
 	var T, baidu = T = baidu || function(q, c) { return baidu.dom ? baidu.dom(q, c) : null; };
 	
-	baidu.version = '2.0.2.0';
+	baidu.version = '2.0.2.1';
 	baidu.guid = "$BAIDU$";
 	baidu.key = "tangram_guid";
 	
@@ -1802,7 +1802,7 @@ var T, baidu = T = function(){
 	    //
 	    
 	    function addParam(array, key, val){
-	        val = baidu.type(val) === 'function' ? val() : (val || '');
+	        val = baidu.type(val) === 'function' ? val() : (typeof val == 'undefined' || val == null ? '' : val);
 	        array.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
 	    }
 	    function buildParams(array, key, val, traditional){
@@ -4691,56 +4691,44 @@ var T, baidu = T = function(){
 	
 	baidu.dom.extend({
 	    offset: function(){
-	        var offset = {
-	            setOffset: function(ele, options, index){
-	                var tang = tang = baidu.dom(ele),
-	                    position = tang.getCurrentStyle('position');
-	                position === 'static' && (ele.style.position = 'relative');
-	                var currOffset = tang.offset(),
-	                    currLeft = tang.getCurrentStyle('left'),
-	                    currTop = tang.getCurrentStyle('top'),
-	                    calculatePosition = (~'absolute|fixed'.indexOf(position)) && ~('' + currLeft + currTop).indexOf('auto'),
-	                    curPosition = calculatePosition && tang.position();
-	                currLeft = curPosition && curPosition.left || parseFloat(currLeft) || 0;
-	                currTop = curPosition && curPosition.top || parseFloat(currTop) || 0;
-	                baidu.type('options') === 'function' && (options = options.call(ele, index, currOffset));
-	                options.left != undefined && (ele.style.left = options.left - currOffset.left + currLeft + 'px');
-	                options.top != undefined && (ele.style.top = options.top - currOffset.top + currTop + 'px');
-	            },
-	            //
-	            bodyOffset: function(body){
-	                var tang = baidu.dom(body);
-	                return {
-	                    left: body.offsetLeft + parseFloat(tang.getCurrentStyle('marginLeft')) || 0,
-	                    top: body.offsetTop + parseFloat(tang.getCurrentStyle('marginTop')) || 0
-	                }
-	            }
-	        };
+	        
+	        function setOffset(ele, options, index){
+	            var tang = tang = baidu.dom(ele),
+	                position = tang.getCurrentStyle('position');
+	            position === 'static' && (ele.style.position = 'relative');
+	            var currOffset = tang.offset(),
+	                currLeft = tang.getCurrentStyle('left'),
+	                currTop = tang.getCurrentStyle('top'),
+	                calculatePosition = (~'absolute|fixed'.indexOf(position)) && ~('' + currLeft + currTop).indexOf('auto'),
+	                curPosition = calculatePosition && tang.position();
+	            currLeft = curPosition && curPosition.left || parseFloat(currLeft) || 0;
+	            currTop = curPosition && curPosition.top || parseFloat(currTop) || 0;
+	            baidu.type('options') === 'function' && (options = options.call(ele, index, currOffset));
+	            options.left != undefined && (ele.style.left = options.left - currOffset.left + currLeft + 'px');
+	            options.top != undefined && (ele.style.top = options.top - currOffset.top + currTop + 'px');
+	        }
 	        
 	        return function(options){
-	            if(!options){
-	                var ele = this[0],
-	                    doc = this.getDocument(),
-	                    box = {left: 0, top: 0},
-	                    win, docElement, body;
-	                if(ele === doc.body){return offset.bodyOffset(ele, doc);}
-	                if (typeof ele.getBoundingClientRect !== 'undefined'){
-	                    box = ele.getBoundingClientRect();
-	                }
-	                win = this.getWindow();
-	                docElement = doc.documentElement;
-	                body = doc.body;
-	                return {
-	                    left: box.left + (win.pageXOffset || Math.max(docElement.scrollLeft, body.scrollLeft)) - (docElement.clientLeft || body.clientLeft),
-	                    top: box.top + (win.pageYOffset || Math.max(docElement.scrollTop, body.scrollTop)) - (docElement.clientTop || body.clientTop)
-	                };
-	            }else{
+	            if(options){
 	                baidu.check('^(?:object|function)$', 'baidu.dom.offset');
 	                for(var i = 0, item; item = this[i]; i++){
-	                    offset.setOffset(item, options, i);
+	                    setOffset(item, options, i);
 	                }
 	                return this;
-	           }
+	            }
+	            var ele = this[0],
+	                doc = this.getDocument(),
+	                box = {left: 0, top: 0},
+	                win, docElement;
+	            if(!doc){return;}
+	            docElement = doc.documentElement;
+	            if(!baidu._util_.contains(docElement, ele)){return box;}
+	            (typeof ele.getBoundingClientRect) !== 'undefined' && (box = ele.getBoundingClientRect());
+	            win = this.getWindow();
+	            return {
+	                left: box.left + (win.pageXOffset || docElement.scrollLeft) - (docElement.clientLeft || 0),
+	                top: box.top  + (win.pageYOffset || docElement.scrollTop)  - (docElement.clientTop  || 0)
+	            };
 	        }
 	    }()
 	});
@@ -9044,25 +9032,23 @@ var T, baidu = T = function(){
 	
 	/// support magic - Tangram 1.x Code Start
 	
-	/// support magic - Tangram 1.x Code Start
-	
 	baidu.i18n = baidu.i18n || {};
 	/// support magic - Tangram 1.x Code End
 	baidu.i18n.cultures = baidu.i18n.cultures || {};
 	/// support magic - Tangram 1.x Code End
 	
-	baidu.i18n.cultures['zh-CN'] = baidu.object.extend(baidu.i18n.cultures['zh-CN'] || {}, {
+	baidu.i18n.cultures['en-US'] = baidu.object.extend(baidu.i18n.cultures['en-US'] || {}, {
 	    calendar: {
 	        dateFormat: 'yyyy-MM-dd',
-	        titleNames: '#{yyyy}年&nbsp;#{MM}月',
-	        monthNames: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
-	        monthNamesShort: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-	        dayNames: {mon: '一', tue: '二', wed: '三', thu: '四', fri: '五', sat: '六', sun: '日'}
+	        titleNames: '#{MM}&nbsp;#{yyyy}',
+	        monthNames: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
+	        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+	        dayNames: {mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun'}
 	    },
 	    
-	    timeZone: 8,
+	    timeZone: -5,
 	    whitespace: new RegExp("(^[\\s\\t\\xa0\\u3000]+)|([\\u3000\\xa0\\s\\t]+\x24)", "g"),
-	    
+	
 	    number: {
 	        group: ",",
 	        groupLength: 3,
@@ -9081,19 +9067,18 @@ var T, baidu = T = function(){
 	    },
 	
 	    currency: {
-	        symbol: '￥'  
+	        symbol: '$'           
 	    },
 	
 	    language: {
-	        ok: '确定',
-	        cancel: '取消',
-	        signin: '注册',
-	        signup: '登录'
+	        ok: 'ok',
+	        cancel: 'cancel',
+	        signin: 'signin',
+	        signup: 'signup'
 	    }
 	});
 	
-	baidu.i18n.currentLocale = 'zh-CN';
-	/// support magic - Tangram 1.x Code End/// support magic - Tangram 1.x Code Start
+	baidu.i18n.currentLocale = 'en-US';/// support magic - Tangram 1.x Code Start
 	
 	baidu.i18n.date = baidu.i18n.date || {
 	
