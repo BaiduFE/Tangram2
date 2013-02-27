@@ -72,7 +72,7 @@ baidu.dom.extend({
             (typeof ele.getBoundingClientRect) !== 'undefined' && (box = ele.getBoundingClientRect());
             win = this.getWindow();
             return {
-                left: box.left + (win.pagXOffset || docElement.scrollLeft) - (docElement.clientLeft || 0),
+                left: box.left + (win.pageXOffset || docElement.scrollLeft) - (docElement.clientLeft || 0),
                 top: box.top  + (win.pageYOffset || docElement.scrollTop)  - (docElement.clientTop  || 0)
             };
         }
