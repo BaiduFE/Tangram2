@@ -287,6 +287,22 @@ function get(id){
 
 
 test("dom为空的情况",function(){
-    var result = baidu("#baidujsxiaozu").offset("wangxiao");
+    var result = baidu("#baidujsxiaozu").offset('hello world');
     ok(result);
+});
+
+test('document.body的位置', function(){
+    var body = document.body,
+        c = baidu.dom(body).offset(),
+        ie = ua.browser.ie,
+        margin = {
+            left: parseInt($(body).css('marginLeft') || 0),
+            top: parseInt($(body).css('marginTop') || 0)
+        },
+        box = {
+            left: body.offsetLeft + ( !ie || ie > 7 ? margin.left : 0),
+            top: body.offsetTop + (!ie || ie > 7 ? margin.top : 0)
+        };
+    equal(c.left, box.left, '');
+    equal(c.top, box.top, '');
 });
