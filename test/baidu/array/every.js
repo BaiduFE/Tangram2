@@ -19,7 +19,7 @@ module("baidu.array.every");
 //});
 
 //老接口
-test("兼容1.x接口：基础校验", function(){
+test("老接口：基础校验", function(){
     var source = [1,2,3, '4'];
 
     equals(baidu.array.every(source, function(item, i){
@@ -27,7 +27,7 @@ test("兼容1.x接口：基础校验", function(){
             return true;
     }), false,  "基础校验");
 });
-test("兼容1.x接口：基础校验", function(){
+test("老接口：基础校验", function(){
     var source = [1,2,3];
 
     equals(baidu.array.every(source, function(item, i){

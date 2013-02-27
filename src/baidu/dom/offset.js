@@ -7,6 +7,7 @@
 ///import baidu.dom.getDocument;
 ///import baidu.dom.getCurrentStyle;
 ///import baidu.dom.position;
+///import baidu._util_.contains;
 
 /**
  * @description 取得第一个匹配元素或是设置多个匹配元素相对于文档的偏移量
@@ -36,56 +37,44 @@
 
 baidu.dom.extend({
     offset: function(){
-        var offset = {
-            setOffset: function(ele, options, index){
-                var tang = tang = baidu.dom(ele),
-                    position = tang.getCurrentStyle('position');
-                position === 'static' && (ele.style.position = 'relative');
-                var currOffset = tang.offset(),
-                    currLeft = tang.getCurrentStyle('left'),
-                    currTop = tang.getCurrentStyle('top'),
-                    calculatePosition = (~'absolute|fixed'.indexOf(position)) && ~('' + currLeft + currTop).indexOf('auto'),
-                    curPosition = calculatePosition && tang.position();
-                currLeft = curPosition && curPosition.left || parseFloat(currLeft) || 0;
-                currTop = curPosition && curPosition.top || parseFloat(currTop) || 0;
-                baidu.type('options') === 'function' && (options = options.call(ele, index, currOffset));
-                options.left != undefined && (ele.style.left = options.left - currOffset.left + currLeft + 'px');
-                options.top != undefined && (ele.style.top = options.top - currOffset.top + currTop + 'px');
-            },
-            //
-            bodyOffset: function(body){
-                var tang = baidu.dom(body);
-                return {
-                    left: body.offsetLeft + parseFloat(tang.getCurrentStyle('marginLeft')) || 0,
-                    top: body.offsetTop + parseFloat(tang.getCurrentStyle('marginTop')) || 0
-                }
-            }
-        };
+        
+        function setOffset(ele, options, index){
+            var tang = tang = baidu.dom(ele),
+                position = tang.getCurrentStyle('position');
+            position === 'static' && (ele.style.position = 'relative');
+            var currOffset = tang.offset(),
+                currLeft = tang.getCurrentStyle('left'),
+                currTop = tang.getCurrentStyle('top'),
+                calculatePosition = (~'absolute|fixed'.indexOf(position)) && ~('' + currLeft + currTop).indexOf('auto'),
+                curPosition = calculatePosition && tang.position();
+            currLeft = curPosition && curPosition.left || parseFloat(currLeft) || 0;
+            currTop = curPosition && curPosition.top || parseFloat(currTop) || 0;
+            baidu.type('options') === 'function' && (options = options.call(ele, index, currOffset));
+            options.left != undefined && (ele.style.left = options.left - currOffset.left + currLeft + 'px');
+            options.top != undefined && (ele.style.top = options.top - currOffset.top + currTop + 'px');
+        }
         
         return function(options){
-            if(!options){
-                var ele = this[0],
-                    doc = this.getDocument(),
-                    box = {left: 0, top: 0},
-                    win, docElement, body;
-                if(ele === doc.body){return offset.bodyOffset(ele, doc);}
-                if (typeof ele.getBoundingClientRect !== 'undefined'){
-                    box = ele.getBoundingClientRect();
-                }
-                win = this.getWindow();
-                docElement = doc.documentElement;
-                body = doc.body;
-                return {
-                    left: box.left + (win.pageXOffset || Math.max(docElement.scrollLeft, body.scrollLeft)) - (docElement.clientLeft || body.clientLeft),
-                    top: box.top + (win.pageYOffset || Math.max(docElement.scrollTop, body.scrollTop)) - (docElement.clientTop || body.clientTop)
-                };
-            }else{
+            if(options){
                 baidu.check('^(?:object|function)$', 'baidu.dom.offset');
                 for(var i = 0, item; item = this[i]; i++){
-                    offset.setOffset(item, options, i);
+                    setOffset(item, options, i);
                 }
                 return this;
-           }
+            }
+            var ele = this[0],
+                doc = this.getDocument(),
+                box = {left: 0, top: 0},
+                win, docElement;
+            if(!doc){return;}
+            docElement = doc.documentElement;
+            if(!baidu._util_.contains(docElement, ele)){return box;}
+            (typeof ele.getBoundingClientRect) !== 'undefined' && (box = ele.getBoundingClientRect());
+            win = this.getWindow();
+            return {
+                left: box.left + (win.pageXOffset || docElement.scrollLeft) - (docElement.clientLeft || 0),
+                top: box.top  + (win.pageYOffset || docElement.scrollTop)  - (docElement.clientTop  || 0)
+            };
         }
     }()
 });

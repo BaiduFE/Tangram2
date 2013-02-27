@@ -53,8 +53,10 @@ test("兼容Magic接口：有滚动条", function() {
 			w.$(w.document.body).css('border', 0);
 			w.$(w.document.body).append('<div id="test1"></div>');
 			w.$('div#test1').css('width', 600).css('height', 600);
-      		equals(w.baidu.page.getViewHeight(), 200 - getScrollBarWidth());
-			op.finish();
+			setTimeout(function(){
+			    equals(w.baidu.page.getViewHeight(), 200 - getScrollBarWidth());
+			    op.finish();
+			}, 0);
 		}
 	});
 });

@@ -56,7 +56,6 @@
  * @function 
  * @name baidu().draggable().disable()
  * @grammar baidu(args).draggable().disable()
- * @param {Null}
  * @return {Draggable} 返回Draggable的一个实例
 */
 
@@ -65,7 +64,6 @@
  * @function 
  * @name baidu().draggable().enable()
  * @grammar baidu(args).draggable().enable()
- * @param {Null}
  * @return {Draggable} 返回Draggable的一个实例
  * @example
  该方法与disable()方法结合使用，初始化draggable时，默认是enable的状态，无需手动触发enable方法。
@@ -85,7 +83,6 @@
  * @function 
  * @name baidu().draggable().item()
  * @grammar baidu(args).draggable().item()
- * @param {Null}
  * @return {TangramDom|Undefined} 返回对应元素的tangramDom对象，用户可以直接用tangram2.0的dom方法继续操作下去。
 */
 
@@ -94,7 +91,6 @@
  * @function 
  * @name baidu().draggable().cancel()
  * @grammar baidu(args).draggable().cancel()
- * @param {Null}
  * @return {Draggable} 返回Draggable的一个实例
 */
 
@@ -103,7 +99,6 @@
  * @function 
  * @name baidu().draggable().reset()
  * @grammar baidu(args).draggable().reset()
- * @param {Null}
  * @return {Draggable} 返回Draggable的一个实例
 */
 
@@ -130,7 +125,6 @@
  * @function 
  * @name baidu().draggable().dispose()
  * @grammar baidu(args).draggable().dispose()
- * @param {Null}
  * @return {Null}
  * @example
  执行完毕后，会在原实例上面挂在唯一项，{dispose:true}
@@ -141,7 +135,6 @@
  * @function 
  * @name baidu().draggable().getBack()
  * @grammar baidu(args).draggable().getBack()
- * @param {Null}
  * @return {TangramDom} 返回当前拖拽元素的tangramDom对象，可以继续使用tangram的Dom操作方法
  * @example
  调用该方法可以继续使用tangram的Dom操作方法，如：

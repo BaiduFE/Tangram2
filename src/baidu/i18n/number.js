@@ -1,6 +1,4 @@
 ///import baidu.i18n;
-
-/// Tangram 1.x Code Start
 /*
  * Tangram
  * Copyright 2009 Baidu Inc. All rights reserved.
@@ -82,4 +80,3 @@ baidu.i18n.number = baidu.i18n.number || /**@lends baidu.i18n.number.prototype*/
         return result;
     }
 };
-/// Tangram 1.x Code End

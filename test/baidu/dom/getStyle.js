@@ -64,14 +64,14 @@ test("兼容Magic接口：img height,width by id", function() {
 	var img = document.createElement('img');
 	img.id = 'img_id';
 	document.body.appendChild(img);
-	//注意该处设置高度，由于img没有内容，在ff下即使设置高度，高度依然保持是21px的实际高度，是正确现象
+	//注意该处设置高度，由于img没有内容，在ff下即使设置高度，高度依然保持是22px的实际高度，是正确现象
 	check('img_id', {
         style : 'height',
-        value : '21px'
+        value : '22px'
     });
     check('img_id', {
         style : 'width',
-        value : '21px'
+        value : '22px'
     });
 });
 // 4
