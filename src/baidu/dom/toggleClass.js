@@ -143,7 +143,3 @@ baidu.dom.extend({
 });
 
 
-///import baidu.dom.addClass;
-///import baidu.dom.removeClass;
-///import baidu.dom.hasClass;
-

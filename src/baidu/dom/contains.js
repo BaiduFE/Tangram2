@@ -32,5 +32,5 @@ baidu.dom.extend({
         return baidu._util_.contains(container, contained);
     }    
 });
-///import baidu.dom._g;
+
 

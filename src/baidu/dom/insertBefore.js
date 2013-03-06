@@ -55,7 +55,3 @@ baidu.dom.extend({
         return this;
     }
 });
-
-
-///import baidu.dom._g;
-

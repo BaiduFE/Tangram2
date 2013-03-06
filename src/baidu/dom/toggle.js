@@ -48,5 +48,4 @@ baidu.dom.extend({
     }
 });
 
-///import baidu.dom.g;
 
