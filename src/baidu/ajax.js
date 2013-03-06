@@ -1,5 +1,5 @@
 ///import baidu.createChain;
-///import baidu.object.isPlain;
+///import baidu.isPlainObject;
 ///import baidu.extend;
 ///import baidu.string.trim;
 ///import baidu.type;
@@ -7,8 +7,8 @@
 ///import baidu.callbacks;
 ///import baidu.when;
 ///import baidu.id;
-///import baidu._util_.support;
-///import baidu.dom.on;
+///import baidu.support;
+///import baidu.query.on;
 
 /**
  * @description 执行一个异步的ajax请求
@@ -302,7 +302,7 @@ void function(){
     }
     
     baidu.createChain('ajax', function(url, options){
-        if(baidu.object.isPlain(url)){
+        if(baidu.isPlainObject(url)){
             options = url;
             url = undefined;
         }
@@ -771,15 +771,15 @@ void function(){
     } : createStandardXHR;
     
     void function(xhr){
-        baidu.extend(baidu._util_.support, {
+        baidu.extend(baidu.dom._support, {
             ajax: !!xhr,
             cors: !!xhr && ('withCredentials' in xhr)
         });
     }(baidu.ajax.settings.xhr());
     
-    if(baidu._util_.support.ajax){
+    if(baidu.dom._support.ajax){
         baidu.ajax.transport(function(opts){
-            if(!opts.crossDomain || baidu._util_.support.cors){
+            if(!opts.crossDomain || baidu.dom._support.cors){
                 var callback;
                 return {
                     send: function(headers, complete){

@@ -1,5 +1,4 @@
 ///import baidu;
-///import baidu.lang;
 ///import baidu.forEach;
 /*
  * @fileoverview

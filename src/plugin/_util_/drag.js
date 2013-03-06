@@ -96,13 +96,13 @@
 */
 
 ///import baidu.extend;
-///import baidu.dom.on;
-///import baidu.dom.off;
-///import baidu.dom.eq;
-///import baidu.dom.trigger;
-///import baidu.dom.outerWidth;
-///import baidu.dom.outerHeight;
-///import baidu.dom.offset;
+///import baidu.query.on;
+///import baidu.query.off;
+///import baidu.query.eq;
+///import baidu.query.trigger;
+///import baidu.query.outerWidth;
+///import baidu.query.outerHeight;
+///import baidu.query.offset;
 ///import plugin._util_;
 
 baidu.plugin._util_.drag = function(selector){

@@ -1,8 +1,8 @@
 ///import baidu.merge;
 ///import baidu.makeArray;
 ///import baidu.string.trim;
-///import baidu._util_.isXML;
-///import baidu._util_.contains;
+///import baidu.dom._isXML;
+///import baidu.dom._contains;
 
 
 /*
@@ -352,7 +352,7 @@ void function( window, undefined ) {
         return results;
     };
 
-    var isXML = baidu._util_.isXML;
+    var isXML = baidu.dom._isXML;
     //var isXML = Sizzle.isXML = function( elem ) {
     //    // documentElement is verified for cases where it doesn't yet exist
     //    // (such as loading iframes in IE - #4833)
@@ -415,7 +415,7 @@ void function( window, undefined ) {
     //        }
     //        return false;
     //    };
-    var contains = baidu._util_.contains;
+    var contains = baidu.dom._contains;
 
 
     // Sizzle.matchesSelector = function( node, expr ) {

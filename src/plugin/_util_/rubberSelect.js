@@ -52,19 +52,19 @@
 */
 
 ///import baidu.type;
-///import baidu.dom.appendTo;
-///import baidu.dom.show;
-///import baidu.dom.hide;
-///import baidu.dom.width;
-///import baidu.dom.height;
-///import baidu.dom.outerWidth;
-///import baidu.dom.outerHeight;
-///import baidu.dom.on;
-///import baidu.dom.off;
-///import baidu.dom.eq;
-///import baidu.dom.trigger;
-///import baidu.dom.offset;
-///import baidu.dom.remove;
+///import baidu.query.appendTo;
+///import baidu.query.show;
+///import baidu.query.hide;
+///import baidu.query.width;
+///import baidu.query.height;
+///import baidu.query.outerWidth;
+///import baidu.query.outerHeight;
+///import baidu.query.on;
+///import baidu.query.off;
+///import baidu.query.eq;
+///import baidu.query.trigger;
+///import baidu.query.offset;
+///import baidu.query.remove;
 ///import plugin._util_;
 
 baidu.plugin._util_.rubberSelect = function(options){

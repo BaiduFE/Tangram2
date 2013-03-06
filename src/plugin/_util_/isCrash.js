@@ -22,12 +22,12 @@
  * @return {Boolean} 新传入元素如果在前匹配元素组中的任何一个之内（包括边缘完全对齐），则返回true；没在任何一个内，则返回false。
 */
 
-///import baidu.dom.eq;
-///import baidu.dom.offset;
-///import baidu.dom.outerWidth;
-///import baidu.dom.outerHeight;
+///import baidu.query.eq;
+///import baidu.query.offset;
+///import baidu.query.outerWidth;
+///import baidu.query.outerHeight;
 
-baidu.dom.extend({
+baidu.query.extend({
     isCrash : function(selector,strict){
         if(!arguments.length){ 
             return false; 
