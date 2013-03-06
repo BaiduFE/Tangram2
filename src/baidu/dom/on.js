@@ -95,13 +95,4 @@ baidu.dom.extend({
     //     return this;
     // }
 });
-
-/// support - magic Tangram 1.x Code Start
-///import baidu.dom.g;
-baidu.event.on = baidu.on = function( element, evtName, handler ){
-    if( typeof element == "string" )
-        element = baidu.dom.g( element );
-    baidu.dom( element ).on( evtName.replace(/^\s*on/, ""), handler );
-    return element;
-};
-/// support - magic Tangram 1.x Code End
+

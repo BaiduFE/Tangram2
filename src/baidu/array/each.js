@@ -37,13 +37,4 @@ baidu.array.extend({
     forEach: function(iterator, context){
         return baidu.forEach(this, iterator, context);
     }
-});
-/// Tangram 1.x Code Start
-// TODO: delete in tangram 3.0
-baidu.array.each = baidu.array.forEach = function(array, iterator, context) {
-    var fn = function(index, item, array){
-        return iterator.call(context || array, item, index, array);
-    };
-    return baidu.isEnumerable(array) ? baidu.each(array, typeof iterator == "function" ? fn : "", context) : array;
-};
-/// Tangram 1.x Code End
+});

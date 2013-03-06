@@ -56,19 +56,4 @@ baidu.dom.extend({
 });
 
 ///import baidu.dom._g;
-
-/// Tangram 1.x Code Start
-/**
- * @description 将目标元素添加到基准元素之后
- * @function 
- * @name baidu.dom.insertAfter
- * @grammar baidu.dom.insertAfter(newElement, existElement)
- * @param {String|Element} newElement 目标元素或是元素的id字符串
- * @param {String|Element} existElement 基准元素或是元素的id字符串
- * @return {Element} 被插入的目标元素
- */
-baidu.dom.insertAfter = function(newElement, existElement){
-    var get = baidu.dom._g;
-    return baidu.dom(get(newElement)).insertAfter(get(existElement))[0];
-};
-/// Tangram 1.x Code End
+

@@ -42,16 +42,4 @@ baidu.dom.extend({
         return this;
     }
 });
-
-/// Tangram 1.x Code Start
-
-/**
- * @description 删除一个节点下面的所有子节点
- * @function 
- * @name baidu.dom.empty
- * @grammar baidu.dom.empty(element)
- * @param {String|Element} element 目标元素或目标元素的id
- * @return {Element} 目标元素
- */
-
-/// Tangram 1.x Code End
+

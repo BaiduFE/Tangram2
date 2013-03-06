@@ -73,10 +73,4 @@ baidu.array.extend({
         }
         return result;
     }
-});
-/// Tangram 1.x Code Start
-// TODO: delete in tangram 3.0
-baidu.array.filter = function(array, filter, context) {
-    return baidu.isArray(array) ? baidu.array(array).filter(filter, context) : [];
-};
-/// Tangram 1.x Code End
+});

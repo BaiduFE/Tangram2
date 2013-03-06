@@ -23,17 +23,4 @@ baidu.dom.extend({
 });
 
 ///import baidu.dom.g;
-
-/// Tangram 1.x Code Start
-baidu.dom.last = function(element) {
-    element = baidu.dom.g(element);
-
-    for (var node = element.lastChild; node; node = node.previousSibling) {
-        if (node.nodeType == 1) {
-            return node;
-        }
-    }
-
-    return null;
-};
-/// Tangram 1.x Code End
+
