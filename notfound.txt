@@ -1,0 +1,3 @@
+src/baidu/browser/isStrict.js in file ./src/baidu/dom/_getWindowOrDocumentWidthOrHeight.js;
+src/baidu/browser/isStrict.js in file ./src/baidu/dom/_smartScroll.js;
+src/baidu/browser.js in file ./src/baidu/id.js;

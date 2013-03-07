@@ -2,7 +2,7 @@
  * @author dron
  */
 
-///import baidu._util_.eventBase.core;
+///import baidu.event._core;
 
 void function(){
     var arr = ("blur focus focusin focusout load resize scroll unload click dblclick " +
@@ -25,7 +25,7 @@ void function(){
     for(var i = 0, l = arr.length; i < l; i ++)
         create( arr[i] );
 
-    baidu.dom.extend( conf );
+    baidu.query.extend( conf );
 }();
 
 /**

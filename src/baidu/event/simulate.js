@@ -2,9 +2,9 @@
  * @author dron
  */
 
-///import baidu.dom.contains;
+///import baidu.query.contains;
 ///import baidu.each;
-///import baidu._util_.eventBase.core;
+///import baidu.event._core;
 
 void function( special ){
     if( special.mousewheel )return ;
@@ -15,7 +15,7 @@ void function( special ){
         special[ name ] = {
             bindType: fix,
             pack: function( fn ){
-                var contains = baidu.dom.contains;
+                var contains = baidu.query.contains;
                 return function( e ){ // e instance of baidu.event
                     var related = e.relatedTarget;
                     e.type = name;

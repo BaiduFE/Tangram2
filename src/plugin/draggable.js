@@ -260,16 +260,16 @@
 ///import baidu.type;
 ///import baidu.setBack;
 ///import baidu.createSingle;
-///import baidu.dom.not;
-///import baidu.dom.css;
-///import baidu.dom.find;
-///import baidu.dom.contains;
-///import baidu.dom.addClass;
-///import baidu.dom.removeClass;
+///import baidu.query.not;
+///import baidu.query.css;
+///import baidu.query.find;
+///import baidu.query.contains;
+///import baidu.query.addClass;
+///import baidu.query.removeClass;
 ///import plugin._util_.drag;
 ///import plugin._util_.isCrash;
 
-baidu.dom.extend({
+baidu.query.extend({
     draggable:function(value,opts){
 
         var me = this,

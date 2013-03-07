@@ -287,19 +287,19 @@
 ///import baidu.type;
 ///import baidu.setBack;
 ///import baidu.createSingle;
-///import baidu.dom.hasClass;
-///import baidu.dom.addClass;
-///import baidu.dom.removeClass;
-///import baidu.dom.eq;
-///import baidu.dom.on;
-///import baidu.dom.off;
-///import baidu.dom.children;
-///import baidu.dom.find;
-///import baidu.dom.not;
+///import baidu.query.hasClass;
+///import baidu.query.addClass;
+///import baidu.query.removeClass;
+///import baidu.query.eq;
+///import baidu.query.on;
+///import baidu.query.off;
+///import baidu.query.children;
+///import baidu.query.find;
+///import baidu.query.not;
 ///import plugin._util_.isCrash;
 ///import plugin._util_.rubberSelect;
 
-baidu.dom.extend({
+baidu.query.extend({
     selectable:function(value,opts){
 
         var me = this,

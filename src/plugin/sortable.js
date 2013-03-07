@@ -258,22 +258,22 @@
 ///import baidu.createSingle;
 ///import baidu.setBack;
 ///import baidu.type;
-///import baidu.dom.find;
-///import baidu.dom.children;
-///import baidu.dom.clone;
-///import baidu.dom.addClass;
-///import baidu.dom.removeClass;
-///import baidu.dom.remove;
-///import baidu.dom.before;
-///import baidu.dom.after;
-///import baidu.dom.data;
-///import baidu.dom.css;
-///import baidu.dom.html;
-///import baidu.dom.outerWidth;
-///import baidu.dom.outerHeight;
+///import baidu.query.find;
+///import baidu.query.children;
+///import baidu.query.clone;
+///import baidu.query.addClass;
+///import baidu.query.removeClass;
+///import baidu.query.remove;
+///import baidu.query.before;
+///import baidu.query.after;
+///import baidu.query.data;
+///import baidu.query.css;
+///import baidu.query.html;
+///import baidu.query.outerWidth;
+///import baidu.query.outerHeight;
 ///import plugin.draggable;
 
-baidu.dom.extend({
+baidu.query.extend({
     sortable : function(value,opts){
 
         var me = this,
