@@ -56,7 +56,7 @@ void function( base, be ){
             attachElements = special[type].attachElements,
             bindType = special[type].bindType || type;
 
-        queue.add( target, type, bindType, { type: type, pkg: pkg, orig: fn, one: one }, attachElements );
+        queue.add( target, type, bindType, { type: type, pkg: pkg, orig: fn, one: one, delegate: selector }, attachElements );
     };
 
     core.remove = function( target, type, fn, selector ){
