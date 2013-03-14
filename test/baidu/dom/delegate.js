@@ -143,3 +143,24 @@ test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").delegate("wangxiao");
     ok(result);
 });
+
+test('两次注册delegate', function(){
+    expect(2);
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    div.className = 'add-style';
+    
+    baidu(document).delegate('.add-style', 'click', function(){
+        div.className = 'remove-style';
+        ok(true, 'div class change');
+    });
+    
+    baidu(document).delegate('.remove-style', 'click', function(){
+        ok(true, 'event trigger');
+    });
+    
+    ua.fireMouseEvent(div, 'click');
+    ua.fireMouseEvent(div, 'click');
+    document.body.removeChild(div);
+    div = null;
+});

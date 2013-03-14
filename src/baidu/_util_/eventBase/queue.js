@@ -52,6 +52,19 @@ void function( base, be ){
                 c[i].length = 0;
         }
     };
+    
+    queue.handlerList = function(target, fnAry){
+        var handlerQueue = [];
+        //对delegate进行处理，这里牺牲性能换取事件执行顺序
+        for(var i = 0, item; item = fnAry[i]; i++){
+            if(item.delegate
+                && baidu.dom(item.delegate, target).size() < 1){
+                continue;
+            }
+            handlerQueue.push(item);
+        }
+        return handlerQueue;
+    }
 
     queue.call = function( target, type, fnAry, e ){
         if( fnAry ){
@@ -67,7 +80,10 @@ void function( base, be ){
 
             if( !e.target )
                 e.target = target;
-
+                
+            //这里加入判断处理delegate 过滤fnAry 类似jq的功能
+            fnAry = queue.handlerList(target, fnAry);
+            
             for( var i = 0, r, l = fnAry.length; i < l; i ++ )
                 if(r = fnAry[i]){
                     r.pkg.apply( target, args );
