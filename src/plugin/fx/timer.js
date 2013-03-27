@@ -1,7 +1,8 @@
 ///import plugin.fx;
 ///import baidu.extend;
-void function( ns, undefined ){
-    var interval = 13,//当animation frame不支持时有用
+void function( undefined ){
+    var fx = baidu.fx,
+        interval = 13,//当animation frame不支持时有用
         //方法池子
         timers = [],
         //timer ID
@@ -65,7 +66,7 @@ void function( ns, undefined ){
             timerId = null;
         };
 
-    baidu.extend(ns, {
+    baidu.extend(fx, {
         //添加方法到池子，如果fn有返回值，此方法将在下个tick再次执行。
         //获取池子
         timer: function( fn ){
@@ -80,4 +81,4 @@ void function( ns, undefined ){
             return fxNow || createFxNow();
         }
     });
-}( baidu.fx );
+}();
