@@ -1,0 +1,2 @@
+module("baidu.fx.animate");
+
