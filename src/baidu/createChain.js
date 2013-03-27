@@ -20,11 +20,12 @@
  */
 baidu.createChain = function(chainName, fn, constructor) {
     // 创建一个内部类名
-    var className = chainName=="dom"?"$DOM":"$"+chainName.charAt(0).toUpperCase()+chainName.substr(1);
-    var slice = Array.prototype.slice;
-
+    var className = chainName=="dom"?"$DOM":"$"+chainName.charAt(0).toUpperCase()+chainName.substr(1),
+        slice = Array.prototype.slice,
+        chain = baidu[chainName];
+    if(chain){return chain}
     // 构建链头执行方法
-    var chain = baidu[chainName] = baidu[chainName] || fn || function(object) {
+    chain = baidu[chainName] = fn || function(object) {
         return baidu.extend(object, baidu[chainName].fn);
     };
 
