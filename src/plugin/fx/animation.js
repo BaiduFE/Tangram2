@@ -302,18 +302,17 @@ void function( undefined ){
             }
         }
 
+
         if ( opts.overflow ) {
             style.overflow = "hidden";
-            if ( !jQuery.support.shrinkWrapBlocks ) {
+            //if ( !jQuery.support.shrinkWrapBlocks ) {
                 anim.always(function() {
                     style.overflow = opts.overflow[ 0 ];
                     style.overflowX = opts.overflow[ 1 ];
                     style.overflowY = opts.overflow[ 2 ];
                 });
-            }
+            //}
         }
-
-
         // show/hide pass
         for ( index in props ) {
             value = props[ index ];
