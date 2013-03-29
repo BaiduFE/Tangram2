@@ -41,7 +41,7 @@ void function( undefined ){
 
 
     baidu.dom.extend({
-        queue: function( type, value ){
+        queue: function( type, value, dontstart ){
             var key;
 
             if ( typeof type !== "string" ) {
@@ -64,7 +64,7 @@ void function( undefined ){
                     // 确保queue有hooks, 在promise调用之前必须要有hooks
                     baidu._queueHooks( this, type );
 
-                    if ( type === "fx" && queue[0] !== "inprogress" ) {
+                    if ( !dontstart && type === "fx" && queue[0] !== "inprogress" ) {
                         baidu.dequeue( this, type );
                     }
                 }

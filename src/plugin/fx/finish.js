@@ -28,7 +28,7 @@ void function(){
                 data.finish = true;
 
                 // empty the queue first
-                baidu.queue( this, type, [] );
+                baidu.queue( this, type, [], true );
 
                 if ( hooks && hooks.cur && hooks.cur.finish ) {
                     hooks.cur.finish.call( this );

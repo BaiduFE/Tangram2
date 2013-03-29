@@ -49,18 +49,15 @@ void function(){
         var cssFn = baidu.dom.fn[ name ];
         presets[ name ] = function( speed, easing, callback ) {
             return speed == null || typeof speed === "boolean" ?
-                cssFn.apply( this, arguments ) :
+                cssFn ? cssFn.apply( this, arguments ) : this :
                 this.animate( genFx( name, true ), speed, easing, callback );
         };
     });
 
     presets.fadeTo = function( speed, to, easing, callback ) {
 
-        // show any hidden elements after setting opacity to 0
-        return this.filter( isHidden ).css( "opacity", 0 ).show()
-
-            // animate to the value specified
-            .end().animate({ opacity: to }, speed, easing, callback );
+        this.filter( isHidden ).css( "opacity", 0 ).show();
+        return this.animate({ opacity: to }, speed, easing, callback );
     }
 
     baidu.dom.extend(presets);
