@@ -208,7 +208,7 @@ void function( undefined ){
         }
     }
 
-    fx.Animation = jQuery.extend( Animation, {
+    fx.Animation = baidu.extend( Animation, {
 
         tweener: function( props, callback ) {
             if ( baidu.isFunction( props ) ) {

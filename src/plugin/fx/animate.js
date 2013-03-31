@@ -30,7 +30,7 @@ void function(){
             complete: fn || !fn && easing ||
                 baidu.isFunction( speed ) && speed,
             duration: speed,
-            easing: fn && easing || easing && !jQuery.isFunction( easing ) && easing
+            easing: fn && easing || easing && !baidu.isFunction( easing ) && easing
         };
 
         opt.duration = fx.off ? 0 : typeof opt.duration === "number" ? opt.duration :
