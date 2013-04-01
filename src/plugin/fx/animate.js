@@ -1,4 +1,5 @@
 ///import baidu;
+///import baidu.plugin;
 ///import baidu.isFunction;
 ///import baidu.dom.data;
 ///import baidu.extend;
@@ -57,8 +58,7 @@ void function(){
         return opt;
     };
 
-
-    baidu.dom.extend({
+    baidu.plugin('dom', {
         animate: function( prop, speed, easing, callback ) {
             var empty = isEmptyObject( prop ),
                 opt = parseOpt( speed, easing, callback ),

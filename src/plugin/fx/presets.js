@@ -1,4 +1,5 @@
 ///import baidu;
+///import baidu.plugin;
 ///import baidu.each;
 ///import plugin._util_.fx;
 ///import plugin.fx;
@@ -60,5 +61,5 @@ void function(){
         return this.animate({ opacity: to }, speed, easing, callback );
     }
 
-    baidu.dom.extend(presets);
+    baidu.plugin( "dom", presets );
 }();

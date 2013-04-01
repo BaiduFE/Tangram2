@@ -1,4 +1,5 @@
 ///import baidu;
+///import baidu.plugin;
 ///import baidu.global;
 ///import plugin.fx;
 ///import plugin.fx.queue;
@@ -10,12 +11,12 @@ void function(){
         getAllData = helper.getAllData;
 
 
-    baidu.dom.extend({
+    baidu.plugin( "dom", {
         finish: function( type ) {
             if ( type !== false ) {
                 type = type || "fx";
             }
-            return this.each(function() {
+            return this.each( function() {
                 var index,
                     data = getAllData( this ),
                     queue = data[ type + "queue" ],
@@ -53,9 +54,7 @@ void function(){
 
                 // turn off finishing flag
                 delete data.finish;
-            });
+            } );
         }
-    });
-
-
+    } );
 }();

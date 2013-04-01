@@ -1,4 +1,5 @@
 ///import baidu;
+///import baidu.plugin;
 ///import baidu.dom
 ///import baidu.dom.each
 ///import baidu.dom.data
@@ -40,7 +41,7 @@ void function( undefined ){
     }
 
 
-    baidu.dom.extend({
+    baidu.plugin( "dom", {
         queue: function( type, value, dontstart ){
             var key;
 
