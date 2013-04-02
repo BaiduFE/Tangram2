@@ -13,6 +13,7 @@
 ///import baidu.isFunction;
 ///import baidu.isArray;
 ///import baidu.string.toCamelCase;
+///import baidu._util_.support.inlineBlockNeedsLayout
 
 void function( undefined ){
 
@@ -248,7 +249,8 @@ void function( undefined ){
             style = elem.style,
             orig = {},
             handled = [],
-            hidden = elem.nodeType && isHidden( elem );
+            hidden = elem.nodeType && isHidden( elem ),
+            support = baidu._util_.support;
 
         // handle queue: false promises
         if ( !opts.queue ) {
@@ -293,25 +295,24 @@ void function( undefined ){
 
                 // inline-level elements accept inline-block;
                 // block-level elements need to be inline with layout
-                /*if ( !jQuery.support.inlineBlockNeedsLayout || css_defaultDisplay( elem.nodeName ) === "inline" ) {
+                if ( !support.inlineBlockNeedsLayout /*|| css_defaultDisplay( elem.nodeName ) === "inline"*/ ) {
                     style.display = "inline-block";
-
                 } else {
                     style.zoom = 1;
-                }*/
+                }
             }
         }
 
 
         if ( opts.overflow ) {
             style.overflow = "hidden";
-            //if ( !jQuery.support.shrinkWrapBlocks ) {
+            if ( !support.shrinkWrapBlocks ) {
                 anim.always(function() {
                     style.overflow = opts.overflow[ 0 ];
                     style.overflowX = opts.overflow[ 1 ];
                     style.overflowY = opts.overflow[ 2 ];
                 });
-            //}
+            }
         }
         // show/hide pass
         for ( index in props ) {
