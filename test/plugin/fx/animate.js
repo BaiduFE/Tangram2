@@ -31,6 +31,7 @@ test("载入js和css", function(){
     });
 });
 
+
 test("animate(Hash, Object, Function)", function() {
     expect(1);
     stop();
@@ -1002,12 +1003,14 @@ test( "Animate properly sets overflow hidden when animating width/height (#12117
         baidu.each( [ 100, 0 ], function( _, value ) {
             var div = baidu("<div>").css( "overflow", "auto" ),
                 props = {};
-            props[ prop ] = value;
+
+            props[ prop ] = value || 0;
             div.animate( props, 1 );
             equal( div.css( "overflow" ), "hidden",
                 "overflow: hidden set when animating " + prop + " to " + value );
             div.stop();
-            if ( false && baidu.support.shrinkWrapBlocks ) {
+
+            if ( baidu._util_.support.shrinkWrapBlocks ) {
                 ok( true, "cannot restore overflow, shrinkWrapBlocks" );
             } else {
                 equal( div.css( "overflow" ), "auto",
