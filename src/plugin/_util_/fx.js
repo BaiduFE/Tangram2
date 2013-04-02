@@ -67,7 +67,7 @@ void function () {
 
         isHidden: function (elem, el) {
             elem = el || elem;
-            return css(elem, "display") === "none" || !baidu.dom.contains(elem.ownerDocument, elem);
+            return css(elem, "display") === "none" || elem.ownerDocument && !baidu.dom.contains(elem.ownerDocument, elem);
         }
     });
 

@@ -1,4 +1,5 @@
 ///import baidu;
+///import baidu.plugin;
 ///import baidu.global;
 ///import plugin.fx;
 ///import plugin.fx.queue;
@@ -10,7 +11,7 @@ void function(){
         rrun = /queueHooks$/,
         getAllData = helper.getAllData;
 
-    baidu.dom.extend({
+    baidu.plugin( "dom", {
         stop: function( type, clearQueue, gotoEnd ) {
             var stopQueue = function( hooks ) {
                 var stop = hooks.stop;

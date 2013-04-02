@@ -79,6 +79,8 @@ void function( undefined ){
         //获取当前时间，有缓存机制
         now: function(){
             return fxNow || createFxNow();
-        }
+        },
+
+        tick: tick
     });
 }();
