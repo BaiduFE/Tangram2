@@ -1,5 +1,5 @@
 var frame;
-module("baidu.fx.animate", {
+module("baidu.fx.stop", {
     setup: function(){
         if (baidu.dom.appendTo) {
             frame = baidu('<div id="qunit-fixture">' +
@@ -37,7 +37,7 @@ module("baidu.fx.animate", {
 
                 '   <div id="fx-tests"></div>' +
                 '   <span id="display"></span>' +
-                '</div>' +
+                    '</div>' +
                 '</div>').appendTo(document.body);
         }
     },
@@ -52,11 +52,11 @@ test("载入js和css", function(){
         ua.importsrc('baidu.dom.appendTo,baidu.dom.append,baidu.dom.children'+
             ',baidu.dom.width,baidu.dom.height,baidu.dom.remove,baidu.dom.css'+
             ',baidu.dom.attr,baidu.dom.eq,baidu.dom.hide,plugin.fx.presets'+
-            ',baidu.dom.removeData'+
+            ',baidu.dom.removeData,baidu.dom.add'+
             ',baidu.each,baidu.dom.find,baidu.dom.css', function(){
             ok(true,'ok');
             start();
-        }, "baidu");
+        }, "baidu.dom.css");
     });
 });
 
@@ -103,4 +103,131 @@ test("stop()", function() {
             }
         });
     }, 50);
+});
+
+
+test("stop() - several in queue", function() {
+    expect( 5 );
+
+    var nw, time,
+        $foo = baidu( "#foo" ),
+        w = 0;
+
+    // default duration is 400ms, so 800px ensures we aren't 0 or 1 after 1ms
+    $foo.hide().css( "width", 800 );
+
+    $foo.animate({ "width": "show" }, 400, "linear");
+    $foo.animate({ "width": "hide" });
+    $foo.animate({ "width": "show" });
+
+    // could be replaced by something nicer using sinon.
+    time = (new Date()).getTime();
+    while( time === (new Date()).getTime() ) {}
+
+    baidu.fx.tick();
+    equal( $foo.queue().length, 3, "3 in the queue" );
+
+    nw = $foo.css( "width" );
+    console.log($foo.css( "width" ));
+    notEqual( parseFloat( nw ), 1, "An animation occurred " + nw );
+    $foo.stop();
+
+    equal( $foo.queue().length, 2, "2 in the queue" );
+    nw = $foo.css( "width" );
+    notEqual( parseFloat( nw ), 1, "Stop didn't reset the animation " + nw );
+
+    $foo.stop( true );
+
+    equal( $foo.queue().length, 0, "0 in the queue" );
+});
+
+test("stop(clearQueue)", function() {
+    expect(4);
+    stop();
+
+    var $foo = baidu("#foo");
+    var w = 0;
+    $foo.hide().css( "width", 200 ).css("width");
+
+    $foo.animate({ "width": "show" }, 1000);
+    $foo.animate({ "width": "hide" }, 1000);
+    $foo.animate({ "width": "show" }, 1000);
+    setTimeout(function(){
+        var nw = $foo.css("width");
+        ok( parseFloat( nw ) != w, "An animation occurred " + nw + " " + w + "px");
+        $foo.stop(true);
+
+        nw = $foo.css("width");
+        ok( parseFloat( nw ) != w, "Stop didn't reset the animation " + nw + " " + w + "px");
+
+        equal( $foo.queue().length, 0, "The animation queue was cleared" );
+        setTimeout(function(){
+            equal( nw, $foo.css("width"), "The animation didn't continue" );
+            start();
+        }, 100);
+    }, 100);
+});
+
+test("stop(clearQueue, gotoEnd)", function() {
+    expect(1);
+    stop();
+
+    var $foo = baidu("#foo");
+    var w = 0;
+    $foo.hide().css( "width", 200 ).css("width");
+
+    $foo.animate({ width: "show" }, 1000);
+    $foo.animate({ width: "hide" }, 1000);
+    $foo.animate({ width: "show" }, 1000);
+    $foo.animate({ width: "hide" }, 1000);
+    setTimeout(function(){
+        var nw = $foo.css("width");
+        ok( parseFloat( nw ) != w, "An animation occurred " + nw + " " + w + "px");
+        $foo.stop(false, true);
+
+        nw = $foo.css("width");
+        // Disabled, being flaky
+        //equal( nw, 1, "Stop() reset the animation" );
+
+        setTimeout(function(){
+            // Disabled, being flaky
+            //equal( $foo.queue().length, 2, "The next animation continued" );
+            $foo.stop(true);
+            start();
+        }, 100);
+    }, 100);
+});
+
+asyncTest( "stop( queue, ..., ... ) - Stop single queues", function() {
+    expect( 3 );
+    var saved,
+        foo = baidu("#foo").css({ width: 200, height: 200 });
+
+    foo.animate({
+        width: 400
+    },{
+        duration: 500,
+        complete: function() {
+            equal( parseFloat( foo.css("width") ), 400, "Animation completed for standard queue" );
+            equal( parseFloat( foo.css("height") ), saved, "Height was not changed after the second stop");
+            start();
+        }
+    });
+
+    foo.animate({
+        height: 400
+    },{
+        duration: 1000,
+        queue: "height"
+    }).dequeue("height").stop( "height", false, true );
+
+    equal( parseFloat( foo.css("height") ), 400, "Height was stopped with gotoEnd" );
+
+    foo.animate({
+        height: 200
+    },{
+        duration: 1000,
+        queue: "height"
+    }).dequeue( "height" ).stop( "height", false, false );
+    saved = parseFloat( foo.css("height") );
 });

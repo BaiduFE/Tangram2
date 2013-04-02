@@ -1,4 +1,5 @@
 ///import baidu;
+///import baidu.plugin;
 ///import baidu.isFunction;
 ///import baidu.dom.data;
 ///import baidu.extend;
@@ -30,7 +31,7 @@ void function(){
             complete: fn || !fn && easing ||
                 baidu.isFunction( speed ) && speed,
             duration: speed,
-            easing: fn && easing || easing && !jQuery.isFunction( easing ) && easing
+            easing: fn && easing || easing && !baidu.isFunction( easing ) && easing
         };
 
         opt.duration = fx.off ? 0 : typeof opt.duration === "number" ? opt.duration :
@@ -57,8 +58,7 @@ void function(){
         return opt;
     };
 
-
-    baidu.dom.extend({
+    baidu.plugin('dom', {
         animate: function( prop, speed, easing, callback ) {
             var empty = isEmptyObject( prop ),
                 opt = parseOpt( speed, easing, callback ),

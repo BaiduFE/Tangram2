@@ -2,7 +2,13 @@ var frame;
 module("baidu.fx.presets", {
     setup: function(){
         if( baidu.dom.appendTo ) {
-            frame = baidu('<div id="qunit-fixture"></div>').appendTo(document.body);
+            frame = baidu('<div id="qunit-fixture">' +
+                '<div id="foo">' +
+                '<p id="sndp">Everything inside the red border is inside a div with <code>id="foo"</code>.</p>' +
+                '<p lang="en" id="en">This is a normal link: <a id="yahoo" href="http://www.yahoo.com/" class="blogTest">Yahoo</a></p>' +
+                '<p id="sap">This link has <code><a href="#2" id="anchor2">class="blog"</a></code>: <a href="http://simon.incutio.com/" class="blog link" id="simon">Simon Willison\'s Weblog</a></p>' +
+                '</div>' +
+                '</div>').appendTo(document.body);
         }
     },
     teardown: function(){
@@ -13,7 +19,9 @@ module("baidu.fx.presets", {
 test("载入js和css", function(){
     stop();
     ua.loadcss(upath+'fx.css', function(){
-        ua.importsrc('baidu.dom.appendTo,baidu.dom.append,baidu.dom.remove,baidu.dom.css,baidu.each,baidu.dom.find,baidu.dom.css', function(){
+        ua.importsrc('baidu.dom.appendTo,baidu.dom.append,baidu.dom.remove,' +
+            'baidu.dom.css,baidu.dom.is' +
+            ',baidu.each,baidu.dom.find,baidu.dom.css', function(){
             ok(true,'ok');
             start();
         }, "baidu");
