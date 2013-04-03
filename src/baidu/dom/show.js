@@ -44,7 +44,10 @@ baidu.dom.extend({
         
         return this.each(function(index, ele){
             if(!ele.style){return;}
-            ele.style.display = vals[index] || '';
+            if(ele.style.display === 'none'
+                || ele.style.display === ''){
+                    ele.style.display = vals[index] || '';
+            }
         });
     }
 });
