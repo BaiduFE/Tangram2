@@ -38,7 +38,7 @@ baidu.dom.extend({
             }
             if(ele.style.display === ''
                 && baidu._util_.isHidden(ele)){
-                    vals[index] = tang.data('olddisplay', baidu._util_.getDefaultDisplayValue(ele.nodeName))
+                    tang.data('olddisplay', (vals[index] = baidu._util_.getDefaultDisplayValue(ele.nodeName)));
             }
         });
         
