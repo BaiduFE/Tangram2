@@ -103,8 +103,9 @@ test("baidu.dom(div).css(name,value)", function(){
         css("font-weight");
       equal( css("font-weight"), 700, "font-weight" );
       equal( css("fontWeight"), 700, "fontWeight" );
-        
-      css( "line-height", 20 );
+      
+      //在新版本中，line-height需要加上单位
+      css( "line-height", '20px' );
       equal( css("line-height"), "20px", "line-height" );
       equal( css("lineHeight"), "20px", "line-height" );
 
