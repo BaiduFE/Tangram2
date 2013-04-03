@@ -4,6 +4,9 @@
  */
 
 ///import baidu.dom.each;
+///import baidu.dom.data;
+///import baidu.dom.getCurrentStyle;
+///import baidu._util_.isHidden;
 
 /**
  * @description 隐藏匹配的元素
@@ -23,8 +26,19 @@
  */
 baidu.dom.extend({
     hide: function(){
+        var vals = [],
+            tang, isHidden, display;
         return this.each(function(index, ele){
-            if(!ele.style){return;}
+            if(!ele.style){return;}//当前的这个不做操作
+            tang = baidu(ele);
+            vals[index] = tang.data('olddisplay');
+            display = ele.style.display;
+            if(!vals[index]){
+                isHidden = baidu._util_.isHidden(ele);
+                if(display && display !== 'nonde' || !isHidden){
+                    tang.data('olddisplay', isHidden ? display : tang.getCurrentStyle('display'));
+                }
+            }
             ele.style.display = 'none';
         });
     }
