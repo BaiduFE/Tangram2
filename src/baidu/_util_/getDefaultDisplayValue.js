@@ -25,4 +25,4 @@ baidu._util_.getDefaultDisplayValue = function(){
         ele = null;
         return valMap[tagName] = val;
     }
-};
+}();
