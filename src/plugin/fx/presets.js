@@ -58,7 +58,9 @@ void function(){
 
     presets.fadeTo = function( speed, to, easing, callback ) {
 
-        this.filter( isHidden ).css( "opacity", 0 ).show();
+        this.filter(function(){
+            return isHidden(this);
+        }).css( "opacity", 0 ).show();
         return this.animate({ opacity: to }, speed, easing, callback );
     }
 
