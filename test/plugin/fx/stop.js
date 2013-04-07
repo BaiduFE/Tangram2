@@ -128,7 +128,7 @@ test("stop() - several in queue", function() {
     equal( $foo.queue().length, 3, "3 in the queue" );
 
     nw = $foo.css( "width" );
-    console.log($foo.css( "width" ));
+
     notEqual( parseFloat( nw ), 1, "An animation occurred " + nw );
     $foo.stop();
 

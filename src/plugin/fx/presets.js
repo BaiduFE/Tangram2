@@ -4,10 +4,11 @@
 ///import plugin._util_.fx;
 ///import plugin.fx;
 ///import plugin.fx.animate;
+///import baidu._util_.isHidden
 
 void function(){
     var helper = baidu.plugin._util_.fx,
-        isHidden = helper.isHidden,
+        isHidden = baidu._util_.isHidden,
         cssExpand = [ "Top", "Right", "Bottom", "Left" ],
         presets = {};
 
