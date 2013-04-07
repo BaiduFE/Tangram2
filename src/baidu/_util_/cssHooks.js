@@ -36,6 +36,8 @@ baidu._util_.cssHooks = function(){
             opacity: {},
             width: {},
             height: {},
+            borderWidth: {set: setValue},
+            padding: {set: setValue},
             fontWeight: {
                 get: function(ele, key){
                     var ret = style.get(ele, key);
@@ -43,6 +45,11 @@ baidu._util_.cssHooks = function(){
                 }
             }
         };
+    //
+    function setValue(ele, key, val){
+        baidu.type(val) === 'string' && (val = baidu._util_.setPositiveNumber(ele, val));
+        style.set(ele, key, val);
+    }
     //
     baidu.extend(cssHooks.opacity, /^0.5/.test(anchor.style.opacity) ? {
         get: function(ele, key){
@@ -67,11 +74,7 @@ baidu._util_.cssHooks = function(){
             get: function(ele){
                 return baidu._util_.getWidthOrHeight(ele, item) + 'px';
             },
-            set: function(ele, key, val){
-                baidu.type(val) === 'number' && val < 0 && (val = 0);
-                baidu.type(val) === 'string' && (val = baidu._util_.setPositiveNumber(ele, val));
-                style.set(ele, key, val);
-            }
+            set: setValue
         };
     });
     return cssHooks;
