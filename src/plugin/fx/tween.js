@@ -4,7 +4,7 @@
 ///import baidu.extend;
 ///import baidu._util_.cssHooks;
 
-void function( undefined ){
+(function( undefined ){
 
     var fx  = baidu.fx,
         helper = baidu.plugin._util_.fx,
@@ -114,4 +114,4 @@ void function( undefined ){
         Tween: Tween,
         easing: easing
     });
-}();
+})();

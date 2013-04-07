@@ -1,41 +1,61 @@
 ///import plugin.fx;
 ///import baidu.extend;
-void function( undefined ){
+(function( undefined ){
     var fx = baidu.fx,
-        interval = 13,//当animation frame不支持时有用
+
+        //当animation frame不支持时有用
+        interval = 13,
+
         //方法池子
         timers = [],
-        //timer ID
-        timerId,
-        fxNow,
-        nextFrame = (function() {
-            return window.requestAnimationFrame ||
-                window.webkitRequestAnimationFrame ||
-                window.mozRequestAnimationFrame ||
-                window.oRequestAnimationFrame ||
-                window.msRequestAnimationFrame ||
-                function(callback) { return setTimeout(callback, interval); };
+
+        getStrategy = (function(){
+            var strategies = {
+                    _default: {
+                        next: function( cb ){
+                            return setTimeout( cb, interval );
+                        },
+
+                        cancel: function( id ){ //不包一层，在id里面报错
+                            return clearTimeout( id );
+                        }
+                    }
+                },
+
+                nextFrame = window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    window.oRequestAnimationFrame ||
+                    window.msRequestAnimationFrame,
+
+                cancelFrame = window.cancelRequestAnimationFrame ||
+                    window.webkitCancelAnimationFrame ||
+                    window.webkitCancelRequestAnimationFrame ||
+                    window.mozCancelRequestAnimationFrame ||
+                    window.oCancelRequestAnimationFrame ||
+                    window.msCancelRequestAnimationFrame;
+
+            nextFrame && cancelFrame && (strategies.frame = {
+                next: nextFrame,
+                cancel: cancelFrame
+            });
+
+            return function( stra ){
+                return strategies[stra] || strategies._default;
+            };
         })(),
-        cancelFrame = (function () {
-            return window.cancelRequestAnimationFrame ||
-                window.webkitCancelAnimationFrame ||
-                window.webkitCancelRequestAnimationFrame ||
-                window.mozCancelRequestAnimationFrame ||
-                window.oCancelRequestAnimationFrame ||
-                window.msCancelRequestAnimationFrame ||
-                clearTimeout;
-        })(),
-        //取得当前时间
+
         now = function(){
             return ( new Date() ).getTime();
         },
-        //
+
         createFxNow = function(){
             setTimeout(function(){
                 fxNow = undefined;
             }, 0);
             return fxNow = now();
         },
+
         //统一调配
         tick = function(){
             var timer,
@@ -56,17 +76,30 @@ void function( undefined ){
             }
             fxNow = undefined;
         },
+
         //开始定期执行
         start = function( force ){
-            timerId = ( force ? false : timerId ) || nextFrame(tick);
+
+            //暴露到fx给测试用例用
+            strategy = strategy || ( fx.strategy = getStrategy( fx.useAnimationFrame ? 'frame' : '_default' ) );
+
+            timerId = ( force ? false : timerId ) || strategy.next.call( null, tick );//必须使用call，否则会报错
         },
+
         //结束定期执行
         stop = function(){
-            cancelFrame(timerId);
-            timerId = null;
-        };
+            strategy && strategy.cancel.call( null, timerId );//必须使用call，否则会报错
+            timerId = strategy = null;
+        },
+
+        //timer ID
+        timerId,
+        fxNow,
+        strategy;
+
 
     baidu.extend(fx, {
+
         //添加方法到池子，如果fn有返回值，此方法将在下个tick再次执行。
         //获取池子
         timer: function( fn ){
@@ -81,6 +114,8 @@ void function( undefined ){
             return fxNow || createFxNow();
         },
 
-        tick: tick
+        tick: tick,
+
+        useAnimationFrame: true
     });
-}();
+})();

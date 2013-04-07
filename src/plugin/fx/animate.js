@@ -7,7 +7,7 @@
 ///import plugin.fx.animation;
 ///import plugin.fx.queue;
 
-void function(){
+(function(){
     var fx = baidu.fx,
         Animation = fx.Animation,
         data = baidu.dom.data,
@@ -86,4 +86,4 @@ void function(){
         speeds: speeds,
         off: false
     })
-}();
+})();

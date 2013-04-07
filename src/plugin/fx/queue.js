@@ -1,19 +1,11 @@
-///import baidu;
 ///import baidu.plugin;
 ///import baidu.dom
 ///import baidu.dom.each
 ///import baidu.dom.data
 ///import baidu.makearray
 ///import baidu.callbacks
-///import baidu.deferred
 
-/*
- * @description 添加队列方法。
- * @author lxz
- * @create 2013-03-25
- */
-
-void function( undefined ){
+(function( undefined ){
     var data = baidu.dom.data,
 
         //baidu._util_.access中value不能是fn,所以这里重写一个
@@ -104,49 +96,6 @@ void function( undefined ){
 
                 !remaining && hooks && hooks.empty.fire();
             });
-        },
-
-        delay: function( duration, type ){
-            type = type || "fx";
-            return this.queue(type, function( next, hooks ){
-                var timer = setTimeout(next, duration || 0);
-                hooks.stop = function(){
-                    clearTimeout( timer );
-                }
-            });
-        },
-
-        clearQueue: function( type ) {
-            return this.queue( type || "fx", [] );
-        },
-
-        promise: function( type, obj ) {
-            var tmp,
-                count = 1,
-                defer = baidu.Deferred(),
-                elements = this,
-                i = this.length,
-                resolve = function() {
-                    if ( !( --count ) ) {
-                        defer.resolveWith( elements, [ elements ] );
-                    }
-                };
-
-            if ( typeof type !== "string" ) {
-                obj = type;
-                type = undefined;
-            }
-            type = type || "fx";
-
-            while( i-- ) {
-                tmp = data( elements[ i ], type + "queueHooks" );
-                if ( tmp && tmp.empty ) {
-                    count++;
-                    tmp.empty.add( resolve );
-                }
-            }
-            resolve();
-            return defer.promise( obj );
         }
     });
 
@@ -154,4 +103,4 @@ void function( undefined ){
     baidu.queue = baidu.dom.queue;
     baidu.dequeue = baidu.dom.dequeue;
 
-}();
+})();
