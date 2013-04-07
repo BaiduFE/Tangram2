@@ -1,0 +1,49 @@
+div.cssloaded {
+    width: 20px;
+}
+
+html, body{
+    overflow: auto;
+}
+
+#qunit-fixture {
+    position: absolute;
+    top: -10000px;
+    left: -10000px;
+    width: 1000px;
+    height: 1000px;
+}
+
+div#show-tests * { display: none; }
+
+div.hidden {
+    display: none;
+}
+
+.chain-test,
+.chain-test div {
+    width: 100px;
+    height: 20px;
+    position: relative;
+    float: left;
+}
+.chain-test div {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.chain-test {
+    background: red;
+}
+.chain-test div {
+    background: green;
+}
+
+.chain-test-out {
+    background: green;
+}
+.chain-test-out div {
+    background: red;
+    display: none;
+}

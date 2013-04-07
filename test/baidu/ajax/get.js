@@ -43,7 +43,8 @@ test("老接口：输入不存在url以及设定onsuccess事件", function() {
 			return xhr.readyState != 1 && xhr.responseText.length > 0;
 		},
 		onsuccess : function() {
-			ok(xhr.responseText.indexOf('404')>=0, 'responseText should contain 404');
+			ok(xhr.status == 404, 'status code should be 404');
+			// ok(xhr.responseText.indexOf('404')>=0, 'responseText should contain 404');
 			start();
 		}
 	});

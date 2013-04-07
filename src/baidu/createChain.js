@@ -20,11 +20,12 @@
  */
 baidu.createChain = function(chainName, fn, constructor) {
     // 创建一个内部类名
-    var className = chainName=="dom"?"$DOM":"$"+chainName.charAt(0).toUpperCase()+chainName.substr(1);
-    var slice = Array.prototype.slice;
-
+    var className = chainName=="dom"?"$DOM":"$"+chainName.charAt(0).toUpperCase()+chainName.substr(1),
+        slice = Array.prototype.slice,
+        chain = baidu[chainName];
+    if(chain){return chain}
     // 构建链头执行方法
-    var chain = baidu[chainName] = baidu[chainName] || fn || function(object) {
+    chain = baidu[chainName] = fn || function(object) {
         return baidu.extend(object, baidu[chainName].fn);
     };
 
@@ -34,21 +35,23 @@ baidu.createChain = function(chainName, fn, constructor) {
 
         // 直接构建静态接口方法，如 baidu.array.each() 指向到 baidu.array().each()
         for (method in extended) {
-            // 20121128 这个if判断是防止console按鸭子判断规则将本方法识别成数组
-            if (method != "splice") {
-                chain[method] = function() {
-                    var id = arguments[0];
+            (function(method){//解决通过静态方法调用的时候，调用的总是最后一个的问题。
+                // 20121128 这个if判断是防止console按鸭子判断规则将本方法识别成数组
+                if (method != "splice") {
+                    chain[method] = function() {
+                        var id = arguments[0];
 
-                    // 在新版接口中，ID选择器必须用 # 开头
-                    chainName=="dom" && baidu.type(id)=="string" && (id = "#"+ id);
+                        // 在新版接口中，ID选择器必须用 # 开头
+                        chainName=="dom" && baidu.type(id)=="string" && (id = "#"+ id);
 
-                    var object = chain(id);
-                    var result = object[method].apply(object, slice.call(arguments, 1));
+                        var object = chain(id);
+                        var result = object[method].apply(object, slice.call(arguments, 1));
 
-                    // 老版接口返回实体对象 getFirst
-                    return baidu.type(result) == "$DOM" ? result.get(0) : result;
+                        // 老版接口返回实体对象 getFirst
+                        return baidu.type(result) == "$DOM" ? result.get(0) : result;
+                    }
                 }
-            }
+            })(method);
         }
         return baidu.extend(baidu[chainName].fn, extended);
     };
