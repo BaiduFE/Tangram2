@@ -93,3 +93,48 @@ test("时间获取是否统一", function(){
         setTimeout(start, 1000);
     });
 });
+
+test("不使用animation frame", function(){
+    expect(2);
+    stop();
+
+    var flag = true;
+
+    baidu.fx.useAnimationFrame = false;
+
+    baidu.fx.timer(function(){
+        if( !flag ) {
+            equal( baidu.fx.strategy.cancel, clearTimeout, "此时采用的策略为非animation frame" );
+        }
+        return flag;
+    });
+
+    flag = false;
+
+    baidu.fx.useAnimationFrame = true;
+
+    if( window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ) {
+
+        setTimeout(function(){
+
+            var flag = true;
+
+            baidu.fx.timer(function(){
+                if( !flag ) {
+                    notEqual( baidu.fx.strategy.cancel, clearTimeout, "此时采用的策略为animation frame" );
+                }
+                return flag;
+            });
+
+            flag = false;
+
+        }, 1000);
+
+    }
+
+    setTimeout(start, 2000);
+});
