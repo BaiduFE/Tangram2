@@ -40,7 +40,7 @@ function importSrc($d, $cov=false){
 	return "";
 	array_push($IGNORE, $d);
 	$ccnt = Analysis::get_src_cnt($d, $cov);
-	return preg_replace("/\/\/\/import\s+([\w\-\$]+(\.[\w\-\$]+)*);?/ies", "importSrc('\\1')", $ccnt['c']);
+	return preg_replace("/\/\/\/import\s+([\w\-\$]+(\.[\w\-\$]+)*);?/ies", "importSrc('\\1')", isset($ccnt['c'])?$ccnt['c']:'');
 }
 //update by bell 2011-03-25, 更新覆盖率相关逻辑
 if(!$cov){

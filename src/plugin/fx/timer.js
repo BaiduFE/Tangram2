@@ -1,6 +1,6 @@
 ///import plugin.fx;
 ///import baidu.extend;
-void function( undefined ){
+(function( undefined ){
     var fx = baidu.fx,
         interval = 13,//当animation frame不支持时有用
         //方法池子
@@ -83,4 +83,4 @@ void function( undefined ){
 
         tick: tick
     });
-}();
+})();

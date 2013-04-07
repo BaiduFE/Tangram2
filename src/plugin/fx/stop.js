@@ -5,7 +5,7 @@
 ///import plugin.fx.queue;
 ///import plugin._util_.fx;
 
-void function(){
+(function(){
     var fx = baidu.fx,
         helper = baidu.plugin._util_.fx,
         rrun = /queueHooks$/,
@@ -63,4 +63,4 @@ void function(){
             });
         }
     });
-}();
+})();

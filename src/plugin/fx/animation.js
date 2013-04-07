@@ -16,7 +16,7 @@
 ///import baidu._util_.isHidden
 ///import baidu._util_.support.inlineBlockNeedsLayout
 
-void function( undefined ){
+(function( undefined ){
 
     var fx  = baidu.fx,
         helper = baidu.plugin._util_.fx,
@@ -370,4 +370,4 @@ void function( undefined ){
         }
     }
 
-}();
+})();

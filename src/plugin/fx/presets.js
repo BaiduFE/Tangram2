@@ -1,14 +1,12 @@
 ///import baidu;
 ///import baidu.plugin;
 ///import baidu.each;
-///import plugin._util_.fx;
 ///import plugin.fx;
 ///import plugin.fx.animate;
 ///import baidu._util_.isHidden
 
-void function(){
-    var helper = baidu.plugin._util_.fx,
-        isHidden = baidu._util_.isHidden,
+(function(){
+    var isHidden = baidu._util_.isHidden,
         cssExpand = [ "Top", "Right", "Bottom", "Left" ],
         presets = {};
 
@@ -65,4 +63,4 @@ void function(){
     }
 
     baidu.plugin( "dom", presets );
-}();
+})();

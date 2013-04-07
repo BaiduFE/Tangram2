@@ -52,11 +52,11 @@ test("载入js和css", function(){
         ua.importsrc('baidu.dom.appendTo,baidu.dom.append,baidu.dom.children'+
             ',baidu.dom.width,baidu.dom.height,baidu.dom.remove,baidu.dom.css'+
             ',baidu.dom.attr,baidu.dom.eq,baidu.dom.hide,plugin.fx.presets'+
-            ',baidu.dom.removeData,baidu.dom.add'+
+            ',baidu.dom.removeData,baidu.dom.add,plugin.fx.promise,plugin.fx.delay,plugin.fx.clearQueue'+
             ',baidu.each,baidu.dom.find,baidu.dom.css', function(){
             ok(true,'ok');
             start();
-        }, "baidu.dom.remove", 'baidu.fx.stop');
+        }, "baidu.dom.remove");
     });
 });
 

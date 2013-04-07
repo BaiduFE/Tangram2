@@ -1,5 +1,13 @@
 module("baidu.queue");
 
+test("载入js和css", function(){
+    stop();
+    ua.importsrc('plugin.fx.promise,plugin.fx.delay,plugin.fx.clearQueue', function(){
+        ok(true,'ok');
+        start();
+    }, "baidu.dom.clearQueue");
+});
+
 test("测试type为非fx的情况", function(undefined){
     expect(14);
     stop();
