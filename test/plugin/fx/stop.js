@@ -80,7 +80,6 @@ test("stop()", function() {
         notEqual( parseFloat( nw ), w, "Stop didn't reset the animation " + nw + " " + w + "px" );
         setTimeout(function() {
             $foo.removeData();
-            $foo.removeData(undefined, true);
             equal( nw, $foo.css("width"), "The animation didn't continue" );
             if ( --tests === 0 ) {
                 start();
