@@ -1,5 +1,5 @@
 var frame;
-module("baidu.fx.presets", {
+module("baidu.fx.finish", {
     setup: function(){
         if( baidu.dom.appendTo ) {
             frame = baidu('<div id="qunit-fixture">' +
@@ -24,7 +24,7 @@ test("载入js和css", function(){
             ',baidu.each,baidu.dom.find,baidu.dom.css', function(){
             ok(true,'ok');
             start();
-        }, "baidu");
+        }, "baidu.dom.remove", 'baidu.fx.finish');
     });
 });
 
