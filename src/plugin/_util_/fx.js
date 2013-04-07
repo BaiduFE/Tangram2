@@ -4,15 +4,16 @@
 ///import baidu.each;
 ///import baidu.global;
 ///import baidu.dom.data;
+///import baidu._util_.cssNumber;
 ///import plugin._util_;
 
 void function () {
     var css = baidu.dom.css,
-        cssNumber = 'fillOpacity,fontWeight,opacity,orphans,widows,zIndex,zoom';
+        cssNumber = baidu._util_.cssNumber;
 
     baidu.extend(baidu.plugin._util_.fx = {}, {
         cssUnit: function (prop) {
-            return ~cssNumber.indexOf(prop) ? "" : "px";
+            return cssNumber[prop] ? "" : "px";
         },
 
         getCss: function (elem, key) {
@@ -63,12 +64,7 @@ void function () {
                 var key = elem[guid];
                 return key && maps[key] || [];
             }
-        })(),
-
-        isHidden: function (elem, el) {
-            elem = el || elem;
-            return css(elem, "display") === "none" || elem.ownerDocument && !baidu.dom.contains(elem.ownerDocument, elem);
-        }
+        })()
     });
 
 

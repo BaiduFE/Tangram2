@@ -2,6 +2,7 @@
 ///import plugin._util_.fx;
 ///import baidu.dom.css;
 ///import baidu.extend;
+///import baidu._util_.cssHooks;
 
 void function( undefined ){
 
@@ -9,6 +10,7 @@ void function( undefined ){
         helper = baidu.plugin._util_.fx,
         css = baidu.dom.css,
         cssUnit = helper.cssUnit,
+        cssHooks = baidu._util_.cssHooks,
         getCss = helper.getCss,
         easing = {
             linear: function( p ) {
@@ -88,8 +90,7 @@ void function( undefined ){
                 var elem = tween.elem,
                     style = elem.style;
 
-                //todo 检测cssHook, 和 cssProp
-                if ( style && ( style[ tween.prop ] != null ) ) {
+                if ( style && ( style[ tween.prop ] != null || cssHooks[tween.prop] ) ) {
                     css( elem, tween.prop, tween.now + tween.unit );
                 } else {
                     elem[ tween.prop ] = tween.now;

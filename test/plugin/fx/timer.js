@@ -10,27 +10,29 @@ test("timer方法测试", function(){
         if( --times ){
             return true;
         } else {
-            start();
+            setTimeout(start, 100);
             return false;
         }
     });
 });
 
 test("顺序测试", function(){
-    expect(1);
+    expect(3);
     stop();
 
     var counter = 0,
         flag = true;
     baidu.fx.timer(function(){
         counter++;
+        equal(counter, flag?1:3, "ok");
         return flag;
     });
 
     baidu.fx.timer(function(){
-        ok(counter>0, "ok");
+        counter++;
+        equal(counter, 2, "ok");
         flag = false;
-        start();
+        setTimeout(start, 100);
     });
 });
 
@@ -48,35 +50,46 @@ test("数据获取", function(){
     });
 
     baidu.fx.timer(function(){
-        setTimeout(function(){
-            flag = false;
-            start();
-        }, 0);
+        if(!flag){
+            setTimeout(start, 100);
+        }
         return flag;
     });
 
     var timers = baidu.fx.timer();
+    flag = false;
     equal(timers.length, 3, "ok");
 });
 
 test("时间获取是否统一", function(){
-    expect(1);
+    expect(2);
     stop();
 
     var flag = true,
         time;
     baidu.fx.timer(function(){
+        if(flag)return true;
         time = baidu.fx.now();
-        return flag;
     });
 
     baidu.fx.timer(function(){
+        if(flag)return true;
         equal(time, baidu.fx.now(), "ok");
-        return flag;
+
+        var now = +(new Date());
+        while(+(new Date())===now){}
     });
 
     baidu.fx.timer(function(){
-        flag = false;
-        start();
+        if(flag)return true;
+        equal(time, baidu.fx.now(), "ok");
+    });
+
+    baidu.fx.timer(function(){
+        if(flag) {
+            flag = false;
+            return true;
+        }
+        setTimeout(start, 1000);
     });
 });

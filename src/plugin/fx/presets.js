@@ -4,10 +4,11 @@
 ///import plugin._util_.fx;
 ///import plugin.fx;
 ///import plugin.fx.animate;
+///import baidu._util_.isHidden
 
 void function(){
     var helper = baidu.plugin._util_.fx,
-        isHidden = helper.isHidden,
+        isHidden = baidu._util_.isHidden,
         cssExpand = [ "Top", "Right", "Bottom", "Left" ],
         presets = {};
 
@@ -57,7 +58,9 @@ void function(){
 
     presets.fadeTo = function( speed, to, easing, callback ) {
 
-        this.filter( isHidden ).css( "opacity", 0 ).show();
+        this.filter(function(){
+            return isHidden(this);
+        }).css( "opacity", 0 ).show();
         return this.animate({ opacity: to }, speed, easing, callback );
     }
 

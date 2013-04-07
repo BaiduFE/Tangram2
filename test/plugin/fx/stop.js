@@ -80,7 +80,6 @@ test("stop()", function() {
         notEqual( parseFloat( nw ), w, "Stop didn't reset the animation " + nw + " " + w + "px" );
         setTimeout(function() {
             $foo.removeData();
-            $foo.removeData(undefined, true);
             equal( nw, $foo.css("width"), "The animation didn't continue" );
             if ( --tests === 0 ) {
                 start();
@@ -128,7 +127,7 @@ test("stop() - several in queue", function() {
     equal( $foo.queue().length, 3, "3 in the queue" );
 
     nw = $foo.css( "width" );
-    console.log($foo.css( "width" ));
+
     notEqual( parseFloat( nw ), 1, "An animation occurred " + nw );
     $foo.stop();
 
