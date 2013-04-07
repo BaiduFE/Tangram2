@@ -13,6 +13,7 @@
 ///import baidu.isFunction;
 ///import baidu.isArray;
 ///import baidu.string.toCamelCase;
+///import baidu._util_.isHidden
 ///import baidu._util_.support.inlineBlockNeedsLayout
 
 void function( undefined ){
@@ -22,7 +23,7 @@ void function( undefined ){
         cssUnit = helper.cssUnit,
         css = baidu.dom.css,
         data = baidu.dom.data,
-        isHidden = helper.isHidden,
+        isHidden = baidu._util_.isHidden,
         getCss = helper.getCss,
         propExpand = helper.propExpand,
         toCamelCase = baidu.string.toCamelCase,

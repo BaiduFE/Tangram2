@@ -1,4 +1,5 @@
 ///import baidu.extend;
+///import baidu.each;
 ///import baidu.dom.getCurrentStyle;
 ///import baidu._util_.getWidthOrHeight;
 ///import baidu._util_.support;
@@ -36,8 +37,6 @@ baidu._util_.cssHooks = function(){
             opacity: {},
             width: {},
             height: {},
-            borderWidth: {set: setValue},
-            padding: {set: setValue},
             fontWeight: {
                 get: function(ele, key){
                     var ret = style.get(ele, key);
@@ -76,6 +75,20 @@ baidu._util_.cssHooks = function(){
             },
             set: setValue
         };
+    });
+
+    baidu.each({
+        padding: "",
+        border: "Width"
+    }, function( prefix, suffix ) {
+        var cssExpand = [ "Top", "Right", "Bottom", "Left" ],
+            i=0;
+
+        for ( ; i < 4; i++ ) {
+            cssHooks[ prefix + cssExpand[ i ] + suffix ] ={
+                set: setValue
+            };
+        }
     });
     return cssHooks;
 }();
