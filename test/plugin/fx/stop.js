@@ -56,7 +56,7 @@ test("载入js和css", function(){
             ',baidu.each,baidu.dom.find,baidu.dom.css', function(){
             ok(true,'ok');
             start();
-        }, "baidu.dom.css");
+        }, "baidu.dom.remove", 'baidu.fx.stop');
     });
 });
 
