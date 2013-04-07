@@ -24,7 +24,7 @@ test("载入js和css", function(){
             ',baidu.each,baidu.dom.find,baidu.dom.css', function(){
             ok(true,'ok');
             start();
-        }, "baidu");
+        }, "baidu.dom.css", 'baidu.fx.presets');
     });
 });
 
