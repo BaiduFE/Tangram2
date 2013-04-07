@@ -95,7 +95,6 @@ test("时间获取是否统一", function(){
 });
 
 test("不使用animation frame", function(){
-    expect(2);
     stop();
 
     var flag = true;
@@ -104,7 +103,7 @@ test("不使用animation frame", function(){
 
     baidu.fx.timer(function(){
         if( !flag ) {
-            equal( baidu.fx.strategy.cancel, clearTimeout, "此时采用的策略为非animation frame" );
+            ok( /clearTimeout/.test( Object.toString.call(baidu.fx.strategy.cancel) ),  "此时采用的策略为非animation frame");
         }
         return flag;
     });
@@ -125,7 +124,7 @@ test("不使用animation frame", function(){
 
             baidu.fx.timer(function(){
                 if( !flag ) {
-                    notEqual( baidu.fx.strategy.cancel, clearTimeout, "此时采用的策略为animation frame" );
+                    ok( !/clearTimeout/.test( Object.toString.call(baidu.fx.strategy.cancel) ),  "此时采用的策略为animation frame");
                 }
                 return flag;
             });

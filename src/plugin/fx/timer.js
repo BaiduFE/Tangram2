@@ -11,12 +11,14 @@
 
         getStrategy = (function(){
             var strategies = {
-                    default: {
+                    _default: {
                         next: function( cb ){
                             return setTimeout( cb, interval );
                         },
 
-                        cancel: clearTimeout
+                        cancel: function( id ){ //不包一层，在id里面报错
+                            return clearTimeout( id );
+                        }
                     }
                 },
 
@@ -39,7 +41,7 @@
             });
 
             return function( stra ){
-                return strategies[stra] || strategies.default;
+                return strategies[stra] || strategies._default;
             };
         })(),
 
@@ -78,15 +80,15 @@
         //开始定期执行
         start = function( force ){
 
-            //暴露给测试用例用
-            strategy = strategy || ( fx.strategy = getStrategy( fx.useAnimationFrame ? 'frame' : 'default' ) );
+            //暴露到fx给测试用例用
+            strategy = strategy || ( fx.strategy = getStrategy( fx.useAnimationFrame ? 'frame' : '_default' ) );
 
             timerId = ( force ? false : timerId ) || strategy.next.call( null, tick );//必须使用call，否则会报错
         },
 
         //结束定期执行
         stop = function(){
-            strategy.cancel.call( null, timerId );//必须使用call，否则会报错
+            strategy && strategy.cancel.call( null, timerId );//必须使用call，否则会报错
             timerId = strategy = null;
         },
 
