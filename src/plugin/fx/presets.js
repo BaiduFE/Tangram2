@@ -3,7 +3,7 @@
 ///import baidu.each;
 ///import plugin.fx;
 ///import plugin.fx.animate;
-///import baidu._util_.isHidden
+///import baidu._util_.isHidden;
 
 (function(){
     var isHidden = baidu._util_.isHidden,

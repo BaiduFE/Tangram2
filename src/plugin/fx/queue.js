@@ -1,9 +1,9 @@
 ///import baidu.plugin;
-///import baidu.dom
-///import baidu.dom.each
-///import baidu.dom.data
-///import baidu.makearray
-///import baidu.callbacks
+///import baidu.dom;
+///import baidu.dom.each;
+///import baidu.dom.data;
+///import baidu.makeArray;
+///import baidu.callbacks;
 
 (function( undefined ){
     var data = baidu.dom.data,
