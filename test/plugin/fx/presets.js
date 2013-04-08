@@ -20,11 +20,11 @@ test("载入js和css", function(){
     stop();
     ua.loadcss(upath+'fx.css', function(){
         ua.importsrc('baidu.dom.appendTo,baidu.dom.append,baidu.dom.remove,' +
-            'baidu.dom.css,baidu.dom.is' +
+            'baidu.dom.css,baidu.dom.is,plugin.fx.promise,plugin.fx.delay,plugin.fx.clearQueue' +
             ',baidu.each,baidu.dom.find,baidu.dom.css', function(){
             ok(true,'ok');
             start();
-        }, "baidu.dom.css", 'baidu.fx.presets');
+        }, "baidu.dom.css");
     });
 });
 
