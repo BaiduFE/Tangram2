@@ -1,5 +1,23 @@
 module("baidu.dom.show",{});
 
+
+function appendStyle(text){
+  var style;
+
+  if( arguments.length > 1 )
+    text = [].join.call( arguments, "" );
+
+  if( document.createStyleSheet )
+    style = document.createStyleSheet(),
+    style.cssText = text;
+  else
+    style = document.createElement( "style" ),
+    style.type = "text/css",
+    style.appendChild( document.createTextNode( text ) ),
+    document.documentElement.appendChild( style );
+}
+appendStyle(' .default-hide {display: none; width: 100px; height: 100px; border: red solid 1px;}');
+
 test('prepareTest',function(){
 	expect(1);
 	stop();
@@ -128,6 +146,26 @@ test("创建一个独立标签",function(){
 	span.style.display = '';
 	baidu(span).show();
 	equal(baidu(span).css('display'),'inline');
+});
+
+test('inline', function(){
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    div.style.display = 'inline';
+    baidu.dom(div).hide();
+    baidu.dom(div).show();
+    equal(div.style.display, 'inline', 'keep display value');
+    document.body.removeChild(div);
+});
+
+test('default css setting', function(){
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    div.className = 'default-hide';
+    baidu(div).hide();
+    baidu(div).show();
+    equal(div.style.display, 'block', 'div style is');
+    document.body.removeChild(div);
 });
 
 //准备工序
@@ -393,7 +431,7 @@ test('Element',function(){
 	baidu.dom.show(div);
 	equal(div.style.display,"",'show again');
 	document.body.removeChild(div);
-})
+});
 
 test('id',function(){
 	var div = document.createElement('div');
@@ -406,7 +444,7 @@ test('id',function(){
 	baidu.dom.show('div_id');
 	equal(div.style.display,"",'after show');
 	document.body.removeChild(div);
-})
+});
 
 test('shortcut',function(){
 	expect(3);
@@ -421,5 +459,4 @@ test('shortcut',function(){
 	baidu.show(div);
 	equal(div.style.display,"",'show again');
 	document.body.removeChild(div);
-})
-
+});
