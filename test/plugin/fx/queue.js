@@ -1,6 +1,6 @@
 module("baidu.queue");
 
-test("载入js和css", function(){
+test("plugin接口：载入js和css", function(){
     stop();
     ua.importsrc('plugin.fx.promise,plugin.fx.delay,plugin.fx.clearQueue', function(){
         ok(true,'ok');
@@ -8,7 +8,7 @@ test("载入js和css", function(){
     }, "baidu.dom.clearQueue");
 });
 
-test("测试type为非fx的情况", function(undefined){
+test("plugin接口：测试type为非fx的情况", function(undefined){
     expect(14);
     stop();
     var counter = 0,
@@ -62,7 +62,7 @@ test("测试type为非fx的情况", function(undefined){
 });
 
 
-test("queue(name) passes in the next item in the queue as a parameter", function() {
+test("plugin接口：queue(name) passes in the next item in the queue as a parameter", function() {
     expect(2);
 
     var counter = 0,
@@ -81,7 +81,7 @@ test("queue(name) passes in the next item in the queue as a parameter", function
     tang.dequeue("foo");
 });
 
-test('载入baidu.when.js',function(){
+test('plugin接口：载入baidu.when.js',function(){
     stop();
     ua.importsrc('baidu.when', function(){
         ok(true,'ok');
@@ -89,7 +89,7 @@ test('载入baidu.when.js',function(){
     }, "baidu.when");
 });
 
-test("queue() passes in the next item in the queue as a parameter to fx queues", function() {
+test("plugin接口：queue() passes in the next item in the queue as a parameter to fx queues", function() {
     expect(3);
     stop();
 
@@ -113,7 +113,7 @@ test("queue() passes in the next item in the queue as a parameter to fx queues",
 });
 
 
-test("callbacks keep their place in the queue", function() {
+test("plugin接口：callbacks keep their place in the queue", function() {
     expect(5);
     stop();
     var div = baidu("<div>"),
@@ -140,7 +140,7 @@ test("callbacks keep their place in the queue", function() {
     });
 });
 
-test("delay()", function() {
+test("plugin接口：delay()", function() {
     expect(2);
     stop();
 
@@ -155,7 +155,7 @@ test("delay()", function() {
     equal( run, 0, "The delay delayed the next function from running." );
 });
 
-test("clearQueue(name) clears the queue", function() {
+test("plugin接口：clearQueue(name) clears the queue", function() {
     expect(2);
 
     stop();
@@ -181,7 +181,7 @@ test("clearQueue(name) clears the queue", function() {
     equal(counter, 1, "the queue was cleared");
 });
 
-test("clearQueue() clears the fx queue", function() {
+test("plugin接口：clearQueue() clears the fx queue", function() {
     expect(1);
 
     var div = baidu('<div></div>');
@@ -198,7 +198,7 @@ test("clearQueue() clears the fx queue", function() {
     equal(counter, 1, "the queue was cleared");
 });
 
-test( "fn.promise() - called when fx queue is empty", function() {
+test( "plugin接口：fn.promise() - called when fx queue is empty", function() {
     var foo = baidu( "<div></div>" ),
         promised = false;
 
@@ -213,7 +213,7 @@ test( "fn.promise() - called when fx queue is empty", function() {
     });
 });
 
-test( "fn.promise( \"queue\" ) - called whenever last queue function is dequeued", function() {
+test( "plugin接口：fn.promise( \"queue\" ) - called whenever last queue function is dequeued", function() {
     var foo = baidu( "<div></div>" ),
         test;
     foo.promise( "queue" ).done( function() {
@@ -259,7 +259,7 @@ test( "fn.promise( \"queue\" ) - called whenever last queue function is dequeued
 
  });*/
 
-test( ".promise(obj)", function() {
+test( "plugin接口：.promise(obj)", function() {
     expect(2);
 
     var obj = {};
