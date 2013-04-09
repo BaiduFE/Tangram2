@@ -387,7 +387,7 @@ test('Element',function(){
 	baidu.dom.hide(div);
 	equal(div.style.display,'none','hide again');
 	document.body.removeChild(div);
-})
+});
 
 test('id',function(){
 	var div = document.createElement('div');
@@ -397,7 +397,7 @@ test('id',function(){
 	baidu.dom.hide('div_id');
 	equal(div.style.display,"none",'after hide');
 	document.body.removeChild(div);
-})
+});
 
 test('shortcut',function(){
 	expect(3);
@@ -412,4 +412,4 @@ test('shortcut',function(){
 	baidu.hide(div);
 	equal(div.style.display,"none",'hide again');
 	document.body.removeChild(div);
-})
+});

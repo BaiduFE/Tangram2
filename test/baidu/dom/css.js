@@ -31,6 +31,7 @@ var get = function( name ){ return getStyle( div, name ); }
 
 appendStyle(" .a{ color: red; opacity: .5; filter: alpha(opacity=50); display: inline; } ");
 
+
 test('prepareTest',function(){
   expect(1);
   stop();
@@ -128,4 +129,31 @@ test("baidu.dom(div).css(name,value)", function(){
 test("dom为空的情况",function(){
     var result = baidu("#baidujsxiaozu").css("wangxiao");
     ok(result);
+});
+
+test('width, height, padding, borderWidth 为负值的情况', function(){
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    div.style.width =
+    div.style.height = 
+    div.style.padding = '30px';
+    div.style.border = 'red solid 10px';
+    baidu(div).css('width', '-100px')
+        .css('height', '-100px')
+        .css('padding', '-100px')
+        .css('borderWidth', '-10px');
+        
+    baidu(div).css('padding', '-100px');
+    equal(div.style.width, '0px', 'width is');
+    equal(div.style.height, '0px', 'height is');
+    equal(div.style.padding, '0px', 'padding is');
+    equal(div.style.borderWidth, '0px', 'borderWidth is');
+    
+    div.style.padding = '20px';
+    div.style.border = 'red solid 10px';
+    baidu(div).css('paddingTop', '-100px')
+        .css('borderTopWidth', '-10px');
+    equal(div.style.paddingTop, '0px', 'paddingTop is');
+    equal(div.style.borderTopWidth, '0px', 'borderTopWidth is');
+    document.body.removeChild(div);
 });
