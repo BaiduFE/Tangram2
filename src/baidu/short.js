@@ -60,7 +60,7 @@ baidu.setStyles = baidu.dom.setStyles ||{};
 baidu.show = baidu.dom.show ||{};
 
 //链头
-baidu.e = baidu.element = baidu.element ||{};
+//baidu.e = baidu.element = baidu.element ||{};
 
 //链头
 baidu.event = baidu.event ||{};

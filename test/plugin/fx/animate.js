@@ -17,7 +17,7 @@ module("baidu.fx.animate", {
     }
 });
 
-test("载入js和css", function(){
+test("plugin接口：载入js和css", function(){
     stop();
     ua.loadcss(upath+'fx.css', function(){
         ua.importsrc('baidu.dom.appendTo,baidu.dom.append,baidu.dom.children'+
@@ -32,7 +32,7 @@ test("载入js和css", function(){
 });
 
 
-test("animate(Hash, Object, Function)", function() {
+test("plugin接口：animate(Hash, Object, Function)", function() {
     expect(1);
     stop();
     var hash = {opacity: "show"};
@@ -60,7 +60,7 @@ test("animate(Hash, Object, Function)", function() {
     });
 });*/
 
-test("animate negative margin", function() {
+test("plugin接口：animate negative margin", function() {
     expect(1);
     stop();
     baidu("#foo").animate({ "marginTop": -100 }, 100, function() {
@@ -69,7 +69,7 @@ test("animate negative margin", function() {
     });
 });
 
-test("animate negative margin with px", function() {
+test("plugin接口：animate negative margin with px", function() {
     expect(1);
     stop();
     baidu("#foo").animate({ marginTop: "-100px" }, 100, function() {
@@ -78,7 +78,7 @@ test("animate negative margin with px", function() {
     });
 });
 
-test("animate negative padding", function() {
+test("plugin接口：animate negative padding", function() {
     expect(1);
     stop();
     baidu("#foo").animate({ "paddingBottom": -100 }, 100, function() {
@@ -87,7 +87,7 @@ test("animate negative padding", function() {
     });
 });
 
-test("animate block as inline width/height", function() {
+test("plugin接口：animate block as inline width/height", function() {
     expect(3);
 
     var span = baidu("<span>").css("display", "inline-block").appendTo("body"),
@@ -113,7 +113,7 @@ test("animate block as inline width/height", function() {
     }
 });
 
-test("animate native inline width/height", function() {
+test("plugin接口：animate native inline width/height", function() {
     expect(3);
 
     var span = baidu("<span>").css("display", "inline-block").appendTo("body"),
@@ -141,7 +141,7 @@ test("animate native inline width/height", function() {
     }
 });
 
-test( "animate block width/height", function() {
+test( "plugin接口：animate block width/height", function() {
     expect( 3 );
     stop();
 
@@ -169,7 +169,7 @@ test( "animate block width/height", function() {
         });
 });
 
-test("animate table width/height", function() {
+test("plugin接口：animate table width/height", function() {
     expect(1);
     stop();
 
@@ -181,7 +181,7 @@ test("animate table width/height", function() {
     });
 });
 
-test("animate table-row width/height", function() {
+test("plugin接口：animate table-row width/height", function() {
     expect(3);
     stop();
     var tr = baidu("#table")
@@ -200,7 +200,7 @@ test("animate table-row width/height", function() {
     });
 });
 
-test("animate table-cell width/height", function() {
+test("plugin接口：animate table-cell width/height", function() {
     expect(3);
     stop();
     var td = baidu("#table")
@@ -219,7 +219,7 @@ test("animate table-cell width/height", function() {
     });
 });
 
-test("animate percentage(%) on width/height", function() {
+test("plugin接口：animate percentage(%) on width/height", function() {
     expect( 2 );
 
     var $div = baidu("<div style='position:absolute;top:-999px;left:-999px;width:60px;height:60px;'><div style='width:50%;height:50%;'></div></div>")
@@ -234,7 +234,7 @@ test("animate percentage(%) on width/height", function() {
     });
 });
 
-test("animate resets overflow-x and overflow-y when finished", function() {
+test("plugin接口：animate resets overflow-x and overflow-y when finished", function() {
     expect(2);
     stop();
     baidu("#foo")
@@ -335,7 +335,7 @@ asyncTest( "animate option { queue: 'name' }", function() {
 
 });
 
-test("animate with no properties", function() {
+test("plugin接口：animate with no properties", function() {
     expect(2);
 
     var divs = baidu("div"), count = 0;
@@ -357,7 +357,7 @@ test("animate with no properties", function() {
     });
 });
 
-test("animate duration 0", function() {
+test("plugin接口：animate duration 0", function() {
     expect(2);
 
     stop();
@@ -407,7 +407,7 @@ test("animate duration 0", function() {
     $elem.remove();
 });
 
-test("animate hyphenated properties", function() {
+test("plugin接口：animate hyphenated properties", function() {
     expect(1);
     stop();
 
@@ -433,7 +433,7 @@ test("animate hyphenated properties", function() {
 });*/
 
 
-test("animate with per-property easing", function(){
+test("plugin接口：animate with per-property easing", function(){
 
     expect(5);
     stop();
@@ -480,7 +480,7 @@ test("animate with per-property easing", function(){
 
 });
 
-test("animate with CSS shorthand properties", function(){
+test("plugin接口：animate with CSS shorthand properties", function(){
     expect(11);
     stop();
 
@@ -527,7 +527,7 @@ test("animate with CSS shorthand properties", function(){
         });
 });
 
-test("hide hidden elements, with animation (bug #7141)", function() {
+test("plugin接口：hide hidden elements, with animation (bug #7141)", function() {
     expect(2);
     stop();
 
@@ -541,7 +541,7 @@ test("hide hidden elements, with animation (bug #7141)", function() {
     });
 });
 
-test("animate unit-less properties (#4966)", 2, function() {
+test("plugin接口：animate unit-less properties (#4966)", 2, function() {
     stop();
     var div = baidu( "<div style='z-index: 0; position: absolute;'></div>" ).appendTo( "#qunit-fixture" );
     equal( div.css( "z-index" ), "0", "z-index is 0" );
@@ -551,7 +551,7 @@ test("animate unit-less properties (#4966)", 2, function() {
     });
 });
 
-test( "animate properties missing px w/ opacity as last (#9074)", 2, function() {
+test( "plugin接口：animate properties missing px w/ opacity as last (#9074)", 2, function() {
     expect( 6 );
     stop();
     var div = baidu( "<div style='position: absolute; margin-left: 0; left: 0px;'></div>" )
@@ -578,7 +578,7 @@ test( "animate properties missing px w/ opacity as last (#9074)", 2, function() 
     }, 500);
 });
 
-test("callbacks should fire in correct order (#9100)", function() {
+test("plugin接口：callbacks should fire in correct order (#9100)", function() {
     expect( 1 );
 
     stop();
@@ -596,7 +596,7 @@ test("callbacks should fire in correct order (#9100)", function() {
             });
 });
 
-test("animate will scale margin properties individually", function() {
+test("plugin接口：animate will scale margin properties individually", function() {
     expect( 2 );
     stop();
 
@@ -623,7 +623,7 @@ test("animate will scale margin properties individually", function() {
     start();
 });
 
-test("Do not append px to 'fill-opacity' #9548", 1, function() {
+test("plugin接口：Do not append px to 'fill-opacity' #9548", 1, function() {
     var $div = baidu("<div>").appendTo("#qunit-fixture");
 
     $div.css("fill-opacity", 0).animate({ "fill-opacity": 1.0 }, 0, function () {
@@ -998,7 +998,7 @@ asyncTest("Animation callbacks (#11797)", 15, function() {
 });
 
 
-test( "Animate properly sets overflow hidden when animating width/height (#12117)", 8, function() {
+test( "plugin接口：Animate properly sets overflow hidden when animating width/height (#12117)", 8, function() {
     baidu.each( [ "height", "width" ], function( _, prop ) {
         baidu.each( [ 100, 0 ], function( _, value ) {
             var div = baidu("<div>").css( "overflow", "auto" ),
@@ -1020,7 +1020,7 @@ test( "Animate properly sets overflow hidden when animating width/height (#12117
     });
 });
 
-test( "Each tick of the timer loop uses a fresh time (#12837)", function() {
+test( "plugin接口：Each tick of the timer loop uses a fresh time (#12837)", function() {
     var lastVal, current,
         tmp = baidu('<div></div>');
 
@@ -1051,7 +1051,7 @@ test( "Each tick of the timer loop uses a fresh time (#12837)", function() {
     tmp.stop();
 });
 
-test( "Animations with 0 duration don't ease (#12273)", 1, function() {
+test( "plugin接口：Animations with 0 duration don't ease (#12273)", 1, function() {
     baidu.fx.easing.test = function() {
         ok( false, "Called easing" );
     };
