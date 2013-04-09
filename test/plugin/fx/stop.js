@@ -46,7 +46,7 @@ module("baidu.fx.stop", {
     }
 });
 
-test("载入js和css", function(){
+test("plugin接口：载入js和css", function(){
     stop();
     ua.loadcss(upath+'fx.css', function(){
         ua.importsrc('baidu.dom.appendTo,baidu.dom.append,baidu.dom.children'+
@@ -60,7 +60,7 @@ test("载入js和css", function(){
     });
 });
 
-test("stop()", function() {
+test("plugin接口：stop()", function() {
     expect( 4 );
     stop();
 
@@ -105,7 +105,7 @@ test("stop()", function() {
 });
 
 
-test("stop() - several in queue", function() {
+test("plugin接口：stop() - several in queue", function() {
     expect( 5 );
 
     var nw, time,
@@ -140,7 +140,7 @@ test("stop() - several in queue", function() {
     equal( $foo.queue().length, 0, "0 in the queue" );
 });
 
-test("stop(clearQueue)", function() {
+test("plugin接口：stop(clearQueue)", function() {
     expect(4);
     stop();
 
@@ -167,7 +167,7 @@ test("stop(clearQueue)", function() {
     }, 100);
 });
 
-test("stop(clearQueue, gotoEnd)", function() {
+test("plugin接口：stop(clearQueue, gotoEnd)", function() {
     expect(1);
     stop();
 

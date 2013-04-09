@@ -16,7 +16,7 @@ module("baidu.fx.finish", {
     }
 });
 
-test("载入js和css", function(){
+test("plugin接口：载入js和css", function(){
     stop();
     ua.loadcss(upath+'fx.css', function(){
         ua.importsrc('baidu.dom.appendTo,baidu.dom.append,baidu.dom.remove,' +
@@ -29,7 +29,7 @@ test("载入js和css", function(){
 });
 
 
-test( ".finish() completes all queued animations", function() {
+test( "plugin接口：.finish() completes all queued animations", function() {
     var animations = {
             top: 100,
             left: 100,
@@ -62,7 +62,7 @@ test( ".finish() completes all queued animations", function() {
     baidu.fx.tick();
 });
 
-test( ".finish( false ) - unqueued animations", function() {
+test( "plugin接口：.finish( false ) - unqueued animations", function() {
     var animations = {
             top: 100,
             left: 100,
@@ -96,7 +96,7 @@ test( ".finish( false ) - unqueued animations", function() {
     baidu.fx.tick();
 });
 
-test( ".finish( \"custom\" ) - custom queue animations", function() {
+test( "plugin接口：.finish( \"custom\" ) - custom queue animations", function() {
     var animations = {
             top: 100,
             left: 100,
@@ -133,7 +133,7 @@ test( ".finish( \"custom\" ) - custom queue animations", function() {
     baidu.fx.tick();
 });
 
-test( ".finish() calls finish of custom queue functions", function() {
+test( "plugin接口：.finish() calls finish of custom queue functions", function() {
     function queueTester( next ) {
 
     }

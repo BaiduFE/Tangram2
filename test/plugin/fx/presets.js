@@ -16,7 +16,7 @@ module("baidu.fx.presets", {
     }
 });
 
-test("载入js和css", function(){
+test("plugin接口：载入js和css", function(){
     stop();
     ua.loadcss(upath+'fx.css', function(){
         ua.importsrc('baidu.dom.appendTo,baidu.dom.append,baidu.dom.remove,' +
@@ -28,7 +28,7 @@ test("载入js和css", function(){
     });
 });
 
-test("show() basic", function() {
+test("plugin接口：show() basic", function() {
     var div,
         hiddendiv = baidu("<div class=\"hidden\"></div>").appendTo(frame);
 
@@ -41,7 +41,7 @@ test("show() basic", function() {
     equal( div.css("display"), "block", "Make sure pre-hidden divs show" );
 });
 
-test("show()", 26, function (undefined) {
+test("plugin接口：show()", 26, function (undefined) {
     var div,
         css = baidu.dom.css,
         hiddendiv = baidu("<div class=\"hidden\"></div>").appendTo(frame);
@@ -124,7 +124,7 @@ test("show()", 26, function (undefined) {
     baidu("<div>test</div> text <span>test</span>").hide().remove();
 });
 
-test("show(Number) - other displays", function() {
+test("plugin接口：show(Number) - other displays", function() {
     expect(15);
     stop();
 
@@ -166,7 +166,7 @@ test("show(Number) - other displays", function() {
 
 
 // Supports #7397
-test("Persist correct display value", function() {
+test("plugin接口：Persist correct display value", function() {
     expect(3);
     stop();
 

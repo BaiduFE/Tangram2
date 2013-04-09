@@ -1,6 +1,6 @@
 module("baidu.fx.timer");
 
-test("timer方法测试", function(){
+test("plugin接口：timer方法测试", function(){
     expect(10);
     stop();
 
@@ -16,7 +16,7 @@ test("timer方法测试", function(){
     });
 });
 
-test("顺序测试", function(){
+test("plugin接口：顺序测试", function(){
     expect(3);
     stop();
 
@@ -36,7 +36,7 @@ test("顺序测试", function(){
     });
 });
 
-test("数据获取", function(){
+test("plugin接口：数据获取", function(){
     expect(1);
     stop();
 
@@ -61,7 +61,7 @@ test("数据获取", function(){
     equal(timers.length, 3, "ok");
 });
 
-test("时间获取是否统一", function(){
+test("plugin接口：时间获取是否统一", function(){
     expect(2);
     stop();
 
@@ -94,7 +94,7 @@ test("时间获取是否统一", function(){
     });
 });
 
-test("不使用animation frame", function(){
+test("plugin接口：不使用animation frame", function(){
     stop();
 
     var flag = true;
