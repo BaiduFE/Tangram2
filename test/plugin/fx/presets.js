@@ -41,7 +41,9 @@ test("plugin接口：show() basic", function() {
     equal( div.css("display"), "block", "Make sure pre-hidden divs show" );
 });
 
-test("plugin接口：show()", 26, function (undefined) {
+test("plugin接口：show()", function (undefined) {
+    stop();
+    expect(26);
     var div,
         css = baidu.dom.css,
         hiddendiv = baidu("<div class=\"hidden\"></div>").appendTo(frame);
@@ -122,6 +124,7 @@ test("plugin接口：show()", 26, function (undefined) {
     // Make sure that showing or hiding a text node doesn't cause an error
     baidu("<div>test</div> text <span>test</span>").show().remove();
     baidu("<div>test</div> text <span>test</span>").hide().remove();
+    start();
 });
 
 test("plugin接口：show(Number) - other displays", function() {
