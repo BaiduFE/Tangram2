@@ -5,6 +5,7 @@
 ///import baidu.dom.each;
 ///import baidu.dom.data;
 ///import baidu._util_.getDefaultDisplayValue;
+///import baidu._util_.isHidden;
 
 /**
  * @description 显示匹配的元素

@@ -35,7 +35,7 @@ baidu.dom.extend({
             display = ele.style.display;
             if(!vals[index]){
                 isHidden = baidu._util_.isHidden(ele);
-                if(display && display !== 'nonde' || !isHidden){
+                if(display && display !== 'none' || !isHidden){
                     tang.data('olddisplay', isHidden ? display : tang.getCurrentStyle('display'));
                 }
             }
