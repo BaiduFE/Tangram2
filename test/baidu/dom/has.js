@@ -27,3 +27,22 @@ test('逻辑特性测试', function () {
 		equal(target[1].id, 'e3');
 	});
 });
+
+test('dom.extend test', function(){
+    var array = [];
+    baidu.dom.extend({
+        a: function(){
+            array.push('A');
+            return this;
+        },
+        
+        b: function(){
+            array.push('B');
+            return this;
+        }
+    });
+    baidu.dom('#none').a().b();
+    baidu.dom.a();
+    baidu.dom.b();
+    equal(array.join(''), 'ABAB', 'dom.extend success');
+});
