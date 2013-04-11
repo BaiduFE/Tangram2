@@ -48,11 +48,13 @@
  */
 baidu.dom.extend({
     appendTo: function(target){
-        var ret = [];
+        var ret = [],
+            array_push = ret.push;
+
         baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.appendTo');
         baidu._util_.smartInsertTo(this, target, function(child){
+            array_push.apply(ret, child.childNodes);
             this.appendChild(child);
-            ret.push(child);
         });
         return this.pushStack(ret);
     }

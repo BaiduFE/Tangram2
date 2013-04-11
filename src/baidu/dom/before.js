@@ -3,7 +3,6 @@
  */
 ///import baidu._util_.smartInsert;
 ///import baidu.dom.getDocument;
-///import baidu.dom.pushStack;
 ///import baidu.merge;
 /**
  * @description 在匹配的每个DOM元素前面插入新的内容
@@ -57,15 +56,11 @@
 baidu.dom.extend({
     before: function(){
         baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.before');
-        var parentNode = this[0] && this[0].parentNode,
-            array = [],
-            array_push = array.push;
-        
+
         baidu._util_.smartInsert(this, arguments, function(node){
-            parentNode && parentNode.insertBefore(node, this);
-            array_push.apply( array, node.childNodes );
+            this.parentNode && this.parentNode.insertBefore(node, this);
         });
 
-        return this.pushStack( array );
+        return this;
     }
 });

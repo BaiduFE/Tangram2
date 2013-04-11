@@ -30,6 +30,7 @@ test("appendTo HTMLElement", function(){
 test("appendTo HTML", function(){
     div.innerHTML = "<div class='A'>A</div><div class='A'>A</div><div class='B'>B</div><div class='B'>B</div>";
     var a = baidu.dom("div.A").appendTo( "<div class='C'>C</div><div class='D'>D</div>" );
+    console.log(a);
     equal( a[0].parentNode.className, "C", "div.a appendTo HTML parentNode className" );
 	// equal( formatHTML(div.innerHTML), "", "div.a appendTo HTML" );
 });

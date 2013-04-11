@@ -41,11 +41,12 @@
  */
 baidu.dom.extend({
     prependTo: function(target){
-        var ret = [];
+        var ret = [],
+            array_push = ret.push;
         baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.prependTo');
         baidu._util_.smartInsertTo(this, target, function(child){
+            array_push.apply(ret, child.childNodes);
             this.insertBefore(child, this.firstChild);
-            ret.push( child );
         });
         return this.pushStack( ret );
     }
