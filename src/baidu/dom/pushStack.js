@@ -14,7 +14,6 @@ baidu.dom.extend({
     pushStack : function ( elems ) {
         var ret = baidu.dom();
 
-
         baidu.merge(ret, elems);
 
         ret.prevObject = this;

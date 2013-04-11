@@ -19,6 +19,7 @@
 baidu.dom.extend({
     eq : function (index) {
         baidu.check("number","baidu.dom.eq");
-        return this.pushStack( [ this.get( index ) ] );
+        var item = this.get( index );
+        return this.pushStack( typeof item === "undefined" ? []: [item] );
     }
 });

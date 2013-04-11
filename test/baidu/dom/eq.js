@@ -27,7 +27,6 @@ test("从后面获得第2个div", function () {
 
 test("参数容错测试：从前面获得第10个div", function () {
     useTangramDom(html, function ($dom) {
-        console.log($dom);
         var target = $dom.eq(10);
         equal(target.length, 0, "获得的元素个数");
     });
