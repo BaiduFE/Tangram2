@@ -1,4 +1,5 @@
 ///import baidu.dom;
+///import baidu.dom.eq;
 ///import baidu.dom.children;
 ///import baidu.type;
 
@@ -19,7 +20,7 @@
  */
 baidu.dom.extend({
     first : function () {
-        return baidu.dom(this[0]);
+        return this.eq( 0 );
     }
 });
 /// Tangram 1.x Code Start

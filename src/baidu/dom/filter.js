@@ -1,4 +1,5 @@
 ///import baidu.dom;
+///import baidu.dom.pushStack;
 ///import baidu.dom.match;
 
 /**
@@ -46,6 +47,6 @@
 
 baidu.dom.extend({
     filter : function (selector) {
-        return baidu.dom(baidu.dom.match(this, selector));
+        return this.pushStack( baidu.dom.match(this, selector) );
     }
 });

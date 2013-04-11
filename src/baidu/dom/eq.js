@@ -1,4 +1,5 @@
 ///import baidu.dom;
+///import baidu.dom.pushStack;
 
 /**
  * @fileoverview
@@ -18,6 +19,6 @@
 baidu.dom.extend({
     eq : function (index) {
         baidu.check("number","baidu.dom.eq");
-        return baidu.dom(this.get(index));
+        return this.pushStack( [ this.get( index ) ] );
     }
 });

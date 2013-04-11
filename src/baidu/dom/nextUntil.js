@@ -1,6 +1,7 @@
 ///import baidu.dom;
 ///import baidu.forEach;
 ///import baidu.dom.match;
+///import baidu.dom.pushStack;
 ///import baidu.array.indexOf;
 
 /**
@@ -40,6 +41,6 @@ baidu.dom.extend({
             baidu.merge(array, a);
         });
 
-        return baidu.dom( baidu.dom.match(array, filter) );
+        return this.pushStack( baidu.dom.match(array, filter) );
     }
 });

@@ -1,5 +1,6 @@
 ///import baidu.forEach;
 ///import baidu.dom.match;
+///import baidu.dom.pushStack;
 ///import baidu.array.unique;
 
 /**
@@ -33,6 +34,6 @@ baidu.dom.extend({
             t.length && results.push(t[0]);
         });
         
-        return baidu.dom( results.unique() );
+        return this.pushStack( results.unique() );
     }
 });

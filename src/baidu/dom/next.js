@@ -1,6 +1,7 @@
 ///import baidu.dom;
 ///import baidu.forEach;
-///import baidu.dom.filter;
+///import baidu.dom.match;
+///import baidu.dom.pushStack;
 
 /**
  * @fileoverview
@@ -19,13 +20,13 @@
  */
 baidu.dom.extend({
     next : function (filter) {
-        var td = baidu.dom();
+        var td = [];
 
         baidu.forEach(this, function(dom){
             while((dom = dom.nextSibling) && dom && dom.nodeType != 1);
             dom && (td[td.length ++] = dom);
         });
 
-        return filter ? td.filter(filter) : td;
+        return this.pushStack( filter ? baidu.dom.match(td, filter) : td );
     }
 });

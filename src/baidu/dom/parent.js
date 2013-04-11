@@ -1,5 +1,6 @@
 ///import baidu.dom;
 ///import baidu.forEach;
+///import baidu.dom.pushStack;
 ///import baidu.dom.match;
 
 /**
@@ -26,6 +27,6 @@ baidu.dom.extend({
             (dom = dom.parentNode) && dom.nodeType == 1 && array.push(dom);
         });
 
-        return baidu.dom( baidu.dom.match(array, filter) );
+        return this.pushStack( baidu.dom.match(array, filter) );
     }
 });

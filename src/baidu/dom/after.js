@@ -4,6 +4,7 @@
 
 ///import baidu._util_.smartInsert;
 ///import baidu.dom.getDocument;
+///import baidu.dom.pushStack;
 ///import baidu.merge;
 
 /**
@@ -58,12 +59,14 @@ baidu.dom.extend({
     after: function(){
         baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.after');
         var parentNode = this[0] && this[0].parentNode,
-            array = !parentNode && [];
+            array = [],
+            array_push = array.push;
+
         baidu._util_.smartInsert(this, arguments, function(node){
-            parentNode ? parentNode.insertBefore(node, this.nextSibling)
-                : baidu.merge(array, node.childNodes);
+            parentNode && parentNode.insertBefore(node, this.nextSibling);
+            array_push.apply(array, node.childNodes);
         });
-        array && baidu.merge(this, array);
-        return this;
+
+        return this.pushStack( array );
     }
 });
