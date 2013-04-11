@@ -2,6 +2,7 @@
  * @author linlingyu
  */
 ///import baidu.dom;
+///import baidu.dom.pushStack;
 ///import baidu._util_.smartInsertTo;
 /**
  * @description 将匹配到的DOM元素插入到参数指定的DOM元素内部的开始
@@ -40,10 +41,13 @@
  */
 baidu.dom.extend({
     prependTo: function(target){
+        var ret = [],
+            array_push = ret.push;
         baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.prependTo');
         baidu._util_.smartInsertTo(this, target, function(child){
+            array_push.apply(ret, child.childNodes);
             this.insertBefore(child, this.firstChild);
         });
-        return this;
+        return this.pushStack( ret );
     }
 });

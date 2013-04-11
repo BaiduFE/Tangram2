@@ -541,8 +541,9 @@ test("plugin接口：hide hidden elements, with animation (bug #7141)", function
     });
 });
 
-test("plugin接口：animate unit-less properties (#4966)", 2, function() {
+test("plugin接口：animate unit-less properties (#4966)", function() {
     stop();
+    expect(2);
     var div = baidu( "<div style='z-index: 0; position: absolute;'></div>" ).appendTo( "#qunit-fixture" );
     equal( div.css( "z-index" ), "0", "z-index is 0" );
     div.animate({ zIndex: 2 }, function() {
@@ -551,7 +552,7 @@ test("plugin接口：animate unit-less properties (#4966)", 2, function() {
     });
 });
 
-test( "plugin接口：animate properties missing px w/ opacity as last (#9074)", 2, function() {
+test( "plugin接口：animate properties missing px w/ opacity as last (#9074)", function() {
     expect( 6 );
     stop();
     var div = baidu( "<div style='position: absolute; margin-left: 0; left: 0px;'></div>" )
@@ -623,17 +624,21 @@ test("plugin接口：animate will scale margin properties individually", functio
     start();
 });
 
-test("plugin接口：Do not append px to 'fill-opacity' #9548", 1, function() {
+test("plugin接口：Do not append px to 'fill-opacity' #9548", function() {
+    stop();
+    expect(1);
     var $div = baidu("<div>").appendTo("#qunit-fixture");
 
     $div.css("fill-opacity", 0).animate({ "fill-opacity": 1.0 }, 0, function () {
         equal( baidu(this).css("fill-opacity"), 1, "Do not append px to 'fill-opacity'");
         $div.remove();
+        start();
     });
 });
 
 
-asyncTest( "Animate Option: step: function( percent, tween )", 1, function() {
+asyncTest( "Animate Option: step: function( percent, tween )", function() {
+    expect(1);
     var counter = {};
     baidu( "#foo" ).animate({
         prop1: 1,
@@ -998,7 +1003,11 @@ asyncTest("Animation callbacks (#11797)", 15, function() {
 });
 
 
-test( "plugin接口：Animate properly sets overflow hidden when animating width/height (#12117)", 8, function() {
+test( "plugin接口：Animate properly sets overflow hidden when animating width/height (#12117)",  function() {
+    stop();
+
+    expect(8);
+
     baidu.each( [ "height", "width" ], function( _, prop ) {
         baidu.each( [ 100, 0 ], function( _, value ) {
             var div = baidu("<div>").css( "overflow", "auto" ),
@@ -1018,6 +1027,8 @@ test( "plugin接口：Animate properly sets overflow hidden when animating width
             }
         });
     });
+
+    start();
 });
 
 test( "plugin接口：Each tick of the timer loop uses a fresh time (#12837)", function() {
@@ -1051,7 +1062,9 @@ test( "plugin接口：Each tick of the timer loop uses a fresh time (#12837)", f
     tmp.stop();
 });
 
-test( "plugin接口：Animations with 0 duration don't ease (#12273)", 1, function() {
+test( "plugin接口：Animations with 0 duration don't ease (#12273)",  function() {
+    stop();
+    expect(1);
     baidu.fx.easing.test = function() {
         ok( false, "Called easing" );
     };
@@ -1067,6 +1080,7 @@ test( "plugin接口：Animations with 0 duration don't ease (#12273)", 1, functi
     });
 
     delete baidu.fx.easing.test;
+    start();
 });
 
 jQuery.map([ "toggle", "slideToggle", "fadeToggle" ], function ( method ) {

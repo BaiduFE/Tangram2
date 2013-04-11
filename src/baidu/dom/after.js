@@ -57,13 +57,11 @@
 baidu.dom.extend({
     after: function(){
         baidu.check('^(?:string|function|HTMLElement|\\$DOM)(?:,(?:string|array|HTMLElement|\\$DOM))*$', 'baidu.dom.after');
-        var parentNode = this[0] && this[0].parentNode,
-            array = !parentNode && [];
+
         baidu._util_.smartInsert(this, arguments, function(node){
-            parentNode ? parentNode.insertBefore(node, this.nextSibling)
-                : baidu.merge(array, node.childNodes);
+            this.parentNode && this.parentNode.insertBefore(node, this.nextSibling);
         });
-        array && baidu.merge(this, array);
+
         return this;
     }
 });

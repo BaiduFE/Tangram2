@@ -3,6 +3,7 @@
  */
 
 ///import baidu.dom;
+///import baidu.dom.pushStack;
 ///import baidu._util_.smartInsertTo;
 
 /**
@@ -47,11 +48,17 @@
 
 baidu.dom.extend({
     insertAfter: function(target){
+        var ret = [],
+            array_push = ret.push;
+
         baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertAfter');
+
         baidu._util_.smartInsertTo(this, target, function(node){
+            array_push.apply(ret, node.childNodes);
             this.parentNode.insertBefore(node, this.nextSibling);
         }, 'after');
-        return this;
+
+        return this.pushStack(ret);
     }
 });
 

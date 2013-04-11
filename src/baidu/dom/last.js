@@ -1,4 +1,5 @@
 ///import baidu.dom;
+///import baidu.dom.eq;
 
 
 /**
@@ -18,7 +19,7 @@
  */
 baidu.dom.extend({
     last : function () {
-        return baidu.dom(this.get(-1));
+        return this.eq( -1 );
     }
 });
 
