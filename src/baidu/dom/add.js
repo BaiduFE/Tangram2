@@ -3,6 +3,7 @@
 ///import baidu.type;
 ///import baidu.query;
 ///import baidu.array.unique;
+///import baidu.dom.pushStack;
 ///import baidu.dom.createElements;
 
 /**
@@ -69,7 +70,7 @@ baidu.dom.extend({
                     baidu.merge(a, object)
                 }
         }
-        return baidu.dom( a.unique() );
+        return this.pushStack( a.unique() );
     }
 });
 

@@ -1,4 +1,5 @@
 ///import baidu.dom;
+///import baidu.dom.pushStack;
 ///import baidu.forEach;
 
 /**
@@ -20,13 +21,13 @@
 baidu.dom.extend({
     map : function (iterator) {
         baidu.check("function","baidu.dom.map");
-        var me = this,
-            td = baidu.dom();
+        var ret = [],
+            i = 0;
 
         baidu.forEach(this, function( dom, index ){
-            td[td.length ++] = iterator.call( dom, index, dom, dom );
+            ret[ i++ ] = iterator.call( dom, index, dom, dom );
         });
 
-        return td;
+        return this.pushStack( ret );
     }
 });

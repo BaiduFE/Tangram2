@@ -2,6 +2,7 @@
 ///import baidu.forEach;
 ///import baidu.merge;
 ///import baidu.dom.match;
+///import baidu.dom.pushStack;
 ///import baidu.array.unique;
 
 /**
@@ -31,6 +32,6 @@ baidu.dom.extend({
             baidu.merge(array, a.reverse());
         });
 
-        return baidu.dom(typeof filter == "string" ? baidu.dom.match(array, filter) : array.unique());
+        return this.pushStack(typeof filter == "string" ? baidu.dom.match(array, filter) : array.unique());
     }
 });

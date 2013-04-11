@@ -3,6 +3,7 @@
 ///import baidu.type;
 ///import baidu.dom.each;
 ///import baidu.dom.match;
+///import baidu.dom.pushStack;
 
 /**
  * @fileoverview
@@ -21,15 +22,15 @@
  */
 baidu.dom.extend({
     children : function (selector) {
-        var result, a = [];
+        var a = [];
 
-        this.each(function(index){
+        this.each(function(){
             baidu.forEach(this.children || this.childNodes, function(dom){
                 dom.nodeType == 1 && a.push(dom);
             });
         });
 
-        return baidu.dom( baidu.dom.match(a, selector) );
+        return this.pushStack( baidu.dom.match(a, selector) );
     }
 });
 

@@ -1,4 +1,5 @@
 ///import baidu.dom;
+///import baidu.dom.pushStack;
 ///import baidu.type;
 ///import baidu.dom.match;
 
@@ -49,6 +50,6 @@ baidu.dom.extend({
             }
         }
 
-        return baidu.dom(all);
+        return this.pushStack(all);
     }
 });

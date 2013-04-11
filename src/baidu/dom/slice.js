@@ -1,4 +1,5 @@
 ///import baidu.dom;
+///import baidu.dom.pushStack;
 
 /**
  * @fileoverview
@@ -26,7 +27,7 @@ baidu.dom.extend({
 
             // ie bug
             // return baidu.dom( this.toArray().slice(start, end) );
-            return baidu.dom( slice.apply(this, arguments) );
+            return this.pushStack( slice.apply(this, arguments) );
         }
     }()
 });

@@ -1,4 +1,5 @@
 ///import baidu.dom;
+///import baidu.dom.pushStack;
 ///import baidu.dom.each;
 ///import baidu.query;
 ///import baidu.merge;
@@ -25,7 +26,7 @@ baidu.dom.extend({
         var a=[],
             expr,
             id = "__tangram__find__",
-            td = baidu.dom();
+            td = [];
 
         switch (baidu.type(selector)) {
         case "string" :
@@ -48,6 +49,6 @@ baidu.dom.extend({
             });
             break;        
         }
-        return td;
+        return this.pushStack( td );
     }
 });
