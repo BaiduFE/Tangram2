@@ -2,6 +2,7 @@
  * @author linlingyu
  */
 
+///import baidu.makeArray;
 ///import baidu.dom;
 ///import baidu.dom.pushStack;
 ///import baidu._util_.smartInsertTo;
@@ -54,7 +55,7 @@ baidu.dom.extend({
         baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.insertAfter');
 
         baidu._util_.smartInsertTo(this, target, function(node){
-            array_push.apply(ret, node.childNodes);
+            array_push.apply(ret, baidu.makeArray(node.childNodes));
             this.parentNode.insertBefore(node, this.nextSibling);
         }, 'after');
 
