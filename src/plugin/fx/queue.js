@@ -15,8 +15,8 @@
             if( !tang.size() ) {
                 return tang;
             }
-
-            return setter || value ? ( tang.each(fn), tang ): fn.call( tmp = tang[0], 0, tmp );
+//            return setter || value ? ( tang.each(fn), tang ): fn.call( tmp = tang[0], 0, tmp );
+            return setter || value ? tang.each(fn) : fn.call( tmp = tang[0], 0, tmp );
         };
 
     baidu._queueHooks = function(elem, type){
