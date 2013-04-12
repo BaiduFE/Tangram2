@@ -18,7 +18,7 @@ var fs = require('fs'),
 
 
 function Import(basePath){
-    basePath = path.normalize(basePath);
+    basePath = basePath ? path.normalize(basePath) : undefined;
     this._basePath = fs.existsSync(basePath) ? basePath
         : path.join('..', 'src');
 }
