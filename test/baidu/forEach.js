@@ -1,14 +1,14 @@
 module("baidu.forEach");
 
 test("数组", function(){
-    var a = [2,1,3],
+    var a = [2,1,3,0],
         result = "";
     baidu.forEach(a, function(item, index){result += item});
     equal(a.join(""), result, "数组正常");
 
     result="";
     baidu.forEach(a, function(item, index){result += index});
-    equal("012", result, "iterator 的第二个参数 index 正常");
+    equal("0123", result, "iterator 的第二个参数 index 正常");
 
     result="";
     baidu.forEach(a, function(index, item, target){result = target});
