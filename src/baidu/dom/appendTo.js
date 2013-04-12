@@ -1,6 +1,7 @@
 /**
  * @author linlingyu
  */
+///import baidu.makeArray;
 ///import baidu.dom;
 ///import baidu.dom.pushStack;
 ///import baidu._util_.smartInsertTo;
@@ -53,7 +54,7 @@ baidu.dom.extend({
 
         baidu.check('^(?:string|HTMLElement|\\$DOM)$', 'baidu.dom.appendTo');
         baidu._util_.smartInsertTo(this, target, function(child){
-            array_push.apply(ret, child.childNodes);
+            array_push.apply(ret, baidu.makeArray(child.childNodes));
             this.appendChild(child);
         });
         return this.pushStack(ret);
