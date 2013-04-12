@@ -81,11 +81,11 @@ baidu._util_.cssHooks = function(){
         padding: "",
         border: "Width"
     }, function( prefix, suffix ) {
+        cssHooks[prefix + suffix] = {set: setValue};
         var cssExpand = [ "Top", "Right", "Bottom", "Left" ],
             i=0;
-
         for ( ; i < 4; i++ ) {
-            cssHooks[ prefix + cssExpand[ i ] + suffix ] ={
+            cssHooks[ prefix + cssExpand[ i ] + suffix ] = {
                 set: setValue
             };
         }
