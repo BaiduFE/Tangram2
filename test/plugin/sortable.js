@@ -17,7 +17,7 @@ function prepareTest(){
 	                "<li class='item'></li>"+
 	                "<li id='test-a' class='item' style='background-color:#0F0;'></li>"+
 	                "<li class='item'></li>"+
-	                "<li class='item'></li>"+
+	                "<li id='test-d' class='item'></li>"+
 	            "</ul>"+
 	            "</div>";
 
@@ -230,6 +230,8 @@ test('plugin接口：enable方法', function() {
     var tang = baidu('#test-a');
     var div = tang.get(0);
     var offset = tang.offset();
+    
+    var l = offset.left, t = $("#test-d").offset().top;
 
     stop();
 
@@ -242,8 +244,8 @@ test('plugin接口：enable方法', function() {
         if (x >= 200) {
             ua.mouseup(ele);
             var tang = baidu(ele);
-            ok((tang.offset().left>45&&tang.offset().left<55), "stop left");
-            ok((tang.offset().top>45&&tang.offset().top<60)||(tang.offset().top==120),"stop top");
+            ok(l, "stop left");
+            ok(t, "stop top");
             start();
         } else {
             ua.mousemove(document, {
