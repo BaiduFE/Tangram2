@@ -1,7 +1,5 @@
-///import baidu;
 ///import baidu.plugin;
-///import baidu.each;
-///import plugin.fx;
+///import baidu.forEach;
 ///import plugin.fx.animate;
 ///import baidu._util_.isHidden;
 
@@ -32,20 +30,20 @@
     }
 
     // Generate shortcuts for custom animations
-    baidu.each({
+    baidu.forEach({
         slideDown: genFx("show"),
         slideUp: genFx("hide"),
         slideToggle: genFx("toggle"),
         fadeIn: { opacity: "show" },
         fadeOut: { opacity: "hide" },
         fadeToggle: { opacity: "toggle" }
-    }, function( name, props ) {
+    }, function( props, name ) {
         presets[ name ] = function( speed, easing, callback ) {
             return this.animate( props, speed, easing, callback );
         };
     });
 
-    baidu.each([ "toggle", "show", "hide" ], function( i, name ) {
+    baidu.forEach([ "toggle", "show", "hide" ], function( name, i ) {
         var cssFn = baidu.dom.fn[ name ];
         presets[ name ] = function( speed, easing, callback ) {
             return speed == null || typeof speed === "boolean" ?
