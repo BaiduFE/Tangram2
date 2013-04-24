@@ -1,4 +1,3 @@
-///import baidu;
 ///import baidu.plugin;
 ///import plugin.fx.queue;
 

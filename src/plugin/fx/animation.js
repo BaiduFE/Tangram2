@@ -1,4 +1,3 @@
-///import plugin.fx;
 ///import plugin.fx.queue;
 ///import plugin.fx.timer;
 ///import plugin.fx.tween;

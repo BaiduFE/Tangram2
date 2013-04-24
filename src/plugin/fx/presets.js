@@ -1,7 +1,5 @@
-///import baidu;
 ///import baidu.plugin;
 ///import baidu.each;
-///import plugin.fx;
 ///import plugin.fx.animate;
 ///import baidu._util_.isHidden;
 
