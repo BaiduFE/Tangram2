@@ -1,7 +1,6 @@
-///import baidu.dom;
 ///import baidu.dom.css;
 ///import baidu.dom.contains;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.global;
 ///import baidu.dom.data;
 ///import baidu._util_.cssNumber;
@@ -27,11 +26,11 @@ void function () {
             var hooks = {},
                 cssExpand = [ "Top", "Right", "Bottom", "Left" ];
 
-            baidu.each({
+            baidu.forEach({
                 margin: "",
                 padding: "",
                 border: "Width"
-            }, function (prefix, suffix) {
+            }, function (suffix, prefix) {
                 hooks[ prefix + suffix ] = {
                     expand: function (value) {
                         var i = 0,
