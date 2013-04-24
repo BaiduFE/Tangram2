@@ -6,7 +6,7 @@
 ///import baidu.dom.css;
 ///import baidu.dom.contains;
 ///import baidu.dom.data;
-///import baidu.each;
+///import baidu.forEach;
 ///import baidu.extend;
 ///import baidu.deferred;
 ///import baidu.isFunction;
@@ -63,7 +63,7 @@
         };
 
     function createTweens( animation, props ) {
-        baidu.each( props, function( prop, value ) {
+        baidu.forEach( props, function( value, prop ) {
             var collection = ( tweeners[ prop ] || [] ).concat( tweeners[ "*" ] ),
                 index = 0,
                 length = collection.length;
