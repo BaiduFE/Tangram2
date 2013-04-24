@@ -1,9 +1,7 @@
-///import baidu;
 ///import baidu.plugin;
 ///import baidu.isFunction;
 ///import baidu.dom.data;
 ///import baidu.extend;
-///import plugin.fx;
 ///import plugin.fx.animation;
 ///import plugin.fx.queue;
 
