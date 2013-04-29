@@ -454,15 +454,14 @@ baidu.dom.extend({
 
             //拖拽执行（主逻辑），mousedown时触发
             handle = function(e){
-                
                 //拖拽是否可用
-                if(!opt.enable){return};
-
+                //表单不可拖拽，原因是如果父元素可拖拽，子元素是表单元素，在mousedown的情况下改变父元素的position值，在ff和ie下会导致子元素永远取不到焦点，无法在表单中输入内容
+                if(~'input|textarea|select|option'.indexOf(e.target.tagName.toLowerCase())
+                    || !opt.enable){
+                    return;
+                }
                 //实例一个drag
-                if(drag){
-                    drag.dispose();
-                };
-
+                drag && drag.dispose();
                 drag = baidu.plugin._util_.drag(e.currentTarget);
                 dragEle = drag.target;
                 dragEle.addClass('tang-draggable-dragging');
