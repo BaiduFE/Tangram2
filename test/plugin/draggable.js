@@ -532,7 +532,7 @@ test('plugin接口：enter和leave事件相关:leave', function() {
             equal(leaveNum,1, "leave事件");
             draggable.dispose();
             range.remove();
-            jQuery('#test-a').remove();
+//            jQuery('#test-a').remove();
             start();
         } else {
             ua.mousemove(document, {
@@ -547,4 +547,49 @@ test('plugin接口：enter和leave事件相关:leave', function() {
 
     move(div, 200 + 20, 20 + 20);
 
+});
+test('plugin接口：拖拽子元素为表单元素时', function(){
+    var jq = $('#test-a').offset({left: 0, top: 0}).html('<input id="inputId" type="text"><textarea id="textareaId">hello world</textarea><select id="selectId"><option>1</option><option>2</option></select>'),
+        draggable = baidu('#test-a').draggable({
+            onstart: function(){},
+            ondragging: function(){},
+            onend: function(){}
+        });
+    
+    function drag(ele){
+        var dtd = $.Deferred();
+        ele = ele.get(0);
+        ua.mousedown(ele, {
+            clientX : 10,
+            clientY : 10
+        });
+        function move(x, y){
+            if(x >= 100){
+                ua.mouseup(document);
+                var d = $('#test-a').offset();
+                equal(d.left, 90, ele.tagName + ' left');
+                equal(d.top, 90, ele.tagName + ' top');
+                dtd.resolve();
+            }else{
+                ua.mousemove(document, {
+                    clientX: x += 10,
+                    clientY: y += 10
+                });
+                setTimeout(function(){
+                    move(x, y);
+                }, 16);
+            }
+        }
+        move(0, 0);
+        return dtd.promise();
+    }
+    
+    stop();
+    $.when(drag(jq),
+        drag($('#inputId')),
+        drag($('#textareaId')),
+        drag($('#selectId'))).done(function(){
+            $('#test-a').remove();
+            start();
+        });
 });
