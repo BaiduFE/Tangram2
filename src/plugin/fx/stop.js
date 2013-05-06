@@ -4,6 +4,26 @@
 ///import plugin.fx.queue;
 ///import plugin._util_.fx;
 
+/**
+ * @description 停止所选元素正在执行的动画
+ * @function
+ * @name baidu.dom().stop()
+ * @grammar baidu.dom().stop( [clearQueue ] [, jumpToEnd ] )
+ * @param    {Boolean}    clearQueue    是否清楚队列
+ * @param    {Boolean}    jumpToEnd    是否让当前动画直接设置目标值
+ * @return self
+ */
+
+ /**
+ * @description 停止所选元素正在执行的动画
+ * @function
+ * @name baidu.dom().stop()
+ * @grammar baidu.dom().stop( [queue ] [, clearQueue ] [, jumpToEnd ] )
+ * @param    {String}    queue    队列名称，默认为fx
+ * @param    {Boolean}    clearQueue    是否清楚队列
+ * @param    {Boolean}    jumpToEnd    是否让当前动画直接设置目标值
+ * @return self
+ */
 (function(){
     var fx = baidu.fx,
         helper = baidu.plugin._util_.fx,

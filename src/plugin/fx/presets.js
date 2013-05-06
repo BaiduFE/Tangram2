@@ -2,7 +2,253 @@
 ///import baidu.forEach;
 ///import plugin.fx.animate;
 ///import baidu._util_.isHidden;
+/**
+ * @description 调整所选元素的透明度
+ * @function
+ * @name baidu.dom().fadeTo()
+ * @grammar baidu.dom().fadeTo( duration, opacity [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {Number}    opacity    目标透明度
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+/**
+ * @description 调整所选元素的透明度
+ * @function
+ * @name baidu.dom().fadeTo()
+ * @grammar baidu.dom().fadeTo( duration, opacity [, easing ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {Number}    opacity    目标透明度
+ * @param   {String}    easing    设置动画的缓动函数，默认为swing
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过透明度渐变隐藏所选元素。
+ * @function
+ * @name baidu.dom().fadeOut()
+ * @grammar baidu.dom().fadeOut( [duration ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过透明度渐变隐藏所选元素。
+ * @function
+ * @name baidu.dom().fadeOut()
+ * @grammar baidu.dom().fadeOut( [duration ] [, easing ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {String}    easing    设置动画的缓动函数，默认为swing
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过透明度渐变隐藏所选元素。
+ * @function
+ * @name baidu.dom().fadeOut()
+ * @grammar baidu.dom().fadeOut( options )
+ * @param   {Object}    options    配置项
+ * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
+ * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
+ * @param   {Boolean|String}    options.queue    设置队列名称，如果传入true, 队列名称为fx, 传入false或空，将不以队列形式运行此动画。
+ * @param   {Object}    options.specialEasing    设置特定属性的缓动方式。比如{width: 'linner', height: 'swing'}
+ * @param   {Function}    options.step   这个方法将会在每个元素的每个属性值的每一次变化时执行。 
+ * @param   {Function}    options.progress   这个方法将会在每次变化属性的时候触发，次数小于或等于step的触发次数。执行次数跟dom集合和变化样式集合多少无关。 
+ * @param   {Function}    options.complete   动画执行完后的回掉函数 
+ * @param   {Function}    options.done   complete的一个别名，意义相同(符合promise规范) 
+ * @param   {Function}    options.fail   当某个动画执行失败时触发（stop方法有可能中断一个动画执行）。
+ * @param   {Function}    options.always   不管成功与失败，动画执行完后触发。
+ * @return self
+ */
+/**
+ * @description 通过透明度渐变显示所选元素。
+ * @function
+ * @name baidu.dom().fadeIn()
+ * @grammar baidu.dom().fadeIn( [duration ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过透明度渐变显示所选元素。
+ * @function
+ * @name baidu.dom().fadeIn()
+ * @grammar baidu.dom().fadeIn( [duration ] [, easing ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {String}    easing    设置动画的缓动函数，默认为swing
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过透明度渐变显示所选元素。
+ * @function
+ * @name baidu.dom().fadeIn()
+ * @grammar baidu.dom().fadeIn( options )
+ * @param   {Object}    options    配置项
+ * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
+ * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
+ * @param   {Boolean|String}    options.queue    设置队列名称，如果传入true, 队列名称为fx, 传入false或空，将不以队列形式运行此动画。
+ * @param   {Object}    options.specialEasing    设置特定属性的缓动方式。比如{width: 'linner', height: 'swing'}
+ * @param   {Function}    options.step   这个方法将会在每个元素的每个属性值的每一次变化时执行。 
+ * @param   {Function}    options.progress   这个方法将会在每次变化属性的时候触发，次数小于或等于step的触发次数。执行次数跟dom集合和变化样式集合多少无关。 
+ * @param   {Function}    options.complete   动画执行完后的回掉函数 
+ * @param   {Function}    options.done   complete的一个别名，意义相同(符合promise规范) 
+ * @param   {Function}    options.fail   当某个动画执行失败时触发（stop方法有可能中断一个动画执行）。
+ * @param   {Function}    options.always   不管成功与失败，动画执行完后触发。
+ * @return self
+ */
+ /**
+ * @description 通过透明度渐变显示或者隐藏所选元素。
+ * @function
+ * @name baidu.dom().fadeToggle()
+ * @grammar baidu.dom().fadeToggle( [duration ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过透明度渐变显示或者隐藏所选元素。
+ * @function
+ * @name baidu.dom().fadeToggle()
+ * @grammar baidu.dom().fadeToggle( [duration ] [, easing ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {String}    easing    设置动画的缓动函数，默认为swing
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过透明度渐变显示或者隐藏所选元素。
+ * @function
+ * @name baidu.dom().fadeToggle()
+ * @grammar baidu.dom().fadeToggle( options )
+ * @param   {Object}    options    配置项
+ * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
+ * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
+ * @param   {Boolean|String}    options.queue    设置队列名称，如果传入true, 队列名称为fx, 传入false或空，将不以队列形式运行此动画。
+ * @param   {Object}    options.specialEasing    设置特定属性的缓动方式。比如{width: 'linner', height: 'swing'}
+ * @param   {Function}    options.step   这个方法将会在每个元素的每个属性值的每一次变化时执行。 
+ * @param   {Function}    options.progress   这个方法将会在每次变化属性的时候触发，次数小于或等于step的触发次数。执行次数跟dom集合和变化样式集合多少无关。 
+ * @param   {Function}    options.complete   动画执行完后的回掉函数 
+ * @param   {Function}    options.done   complete的一个别名，意义相同(符合promise规范) 
+ * @param   {Function}    options.fail   当某个动画执行失败时触发（stop方法有可能中断一个动画执行）。
+ * @param   {Function}    options.always   不管成功与失败，动画执行完后触发。
+ * @return self
+ */
 
+// Slide
+// ---------------------------------------
+
+ /**
+ * @description 通过一个上拉的动画隐藏所选元素，原理是高度内外上下边距同时变化到零的一个动画。
+ * @function
+ * @name baidu.dom().slideUp()
+ * @grammar baidu.dom().slideUp( [duration ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过一个上拉的动画隐藏所选元素，原理是高度内外上下边距同时变化到零的一个动画。
+ * @function
+ * @name baidu.dom().slideUp()
+ * @grammar baidu.dom().slideUp( [duration ] [, easing ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {String}    easing    设置动画的缓动函数，默认为swing
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过一个上拉的动画隐藏所选元素，原理是高度内外上下边距同时变化到零的一个动画。
+ * @function
+ * @name baidu.dom().slideUp()
+ * @grammar baidu.dom().slideUp( options )
+ * @param   {Object}    options    配置项
+ * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
+ * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
+ * @param   {Boolean|String}    options.queue    设置队列名称，如果传入true, 队列名称为fx, 传入false或空，将不以队列形式运行此动画。
+ * @param   {Object}    options.specialEasing    设置特定属性的缓动方式。比如{width: 'linner', height: 'swing'}
+ * @param   {Function}    options.step   这个方法将会在每个元素的每个属性值的每一次变化时执行。 
+ * @param   {Function}    options.progress   这个方法将会在每次变化属性的时候触发，次数小于或等于step的触发次数。执行次数跟dom集合和变化样式集合多少无关。 
+ * @param   {Function}    options.complete   动画执行完后的回掉函数 
+ * @param   {Function}    options.done   complete的一个别名，意义相同(符合promise规范) 
+ * @param   {Function}    options.fail   当某个动画执行失败时触发（stop方法有可能中断一个动画执行）。
+ * @param   {Function}    options.always   不管成功与失败，动画执行完后触发。
+ * @return self
+ */
+/**
+ * @description 通过一个下拉的动画显示所选元素，原理是高度内外上下边距同时变化到最大的一个动画。
+ * @function
+ * @name baidu.dom().slideDown()
+ * @grammar baidu.dom().slideDown( [duration ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过一个下拉的动画显示所选元素，原理是高度内外上下边距同时变化到最大的一个动画。
+ * @function
+ * @name baidu.dom().slideDown()
+ * @grammar baidu.dom().slideDown( [duration ] [, easing ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {String}    easing    设置动画的缓动函数，默认为swing
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 通过一个下拉的动画显示所选元素，原理是高度内外上下边距同时变化到最大的一个动画。
+ * @function
+ * @name baidu.dom().slideDown()
+ * @grammar baidu.dom().slideDown( options )
+ * @param   {Object}    options    配置项
+ * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
+ * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
+ * @param   {Boolean|String}    options.queue    设置队列名称，如果传入true, 队列名称为fx, 传入false或空，将不以队列形式运行此动画。
+ * @param   {Object}    options.specialEasing    设置特定属性的缓动方式。比如{width: 'linner', height: 'swing'}
+ * @param   {Function}    options.step   这个方法将会在每个元素的每个属性值的每一次变化时执行。 
+ * @param   {Function}    options.progress   这个方法将会在每次变化属性的时候触发，次数小于或等于step的触发次数。执行次数跟dom集合和变化样式集合多少无关。 
+ * @param   {Function}    options.complete   动画执行完后的回掉函数 
+ * @param   {Function}    options.done   complete的一个别名，意义相同(符合promise规范) 
+ * @param   {Function}    options.fail   当某个动画执行失败时触发（stop方法有可能中断一个动画执行）。
+ * @param   {Function}    options.always   不管成功与失败，动画执行完后触发。
+ * @return self
+ */
+ /**
+ * @description 上拉动画slideUp与下拉动画slideDown的切换执行
+ * @function
+ * @name baidu.dom().slideToggle()
+ * @grammar baidu.dom().slideToggle( [duration ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 上拉动画slideUp与下拉动画slideDown的切换执行
+ * @function
+ * @name baidu.dom().slideToggle()
+ * @grammar baidu.dom().slideToggle( [duration ] [, easing ] [, complete ] )
+ * @param   {String|Number}    duration    动画执行总时间, 默认400ms
+ * @param   {String}    easing    设置动画的缓动函数，默认为swing
+ * @param   {Function}    complete    动画执行完后的回掉函数
+ * @return self
+ */
+ /**
+ * @description 上拉动画slideUp与下拉动画slideDown的切换执行
+ * @function
+ * @name baidu.dom().slideToggle()
+ * @grammar baidu.dom().slideToggle( options )
+ * @param   {Object}    options    配置项
+ * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
+ * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
+ * @param   {Boolean|String}    options.queue    设置队列名称，如果传入true, 队列名称为fx, 传入false或空，将不以队列形式运行此动画。
+ * @param   {Object}    options.specialEasing    设置特定属性的缓动方式。比如{width: 'linner', height: 'swing'}
+ * @param   {Function}    options.step   这个方法将会在每个元素的每个属性值的每一次变化时执行。 
+ * @param   {Function}    options.progress   这个方法将会在每次变化属性的时候触发，次数小于或等于step的触发次数。执行次数跟dom集合和变化样式集合多少无关。 
+ * @param   {Function}    options.complete   动画执行完后的回掉函数 
+ * @param   {Function}    options.done   complete的一个别名，意义相同(符合promise规范) 
+ * @param   {Function}    options.fail   当某个动画执行失败时触发（stop方法有可能中断一个动画执行）。
+ * @param   {Function}    options.always   不管成功与失败，动画执行完后触发。
+ * @return self
+ */
 (function(){
     var isHidden = baidu._util_.isHidden,
         cssExpand = [ "Top", "Right", "Bottom", "Left" ],

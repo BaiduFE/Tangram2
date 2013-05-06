@@ -3,6 +3,40 @@
 ///import baidu.dom.data;
 ///import baidu.makeArray;
 ///import baidu.callbacks;
+/**
+ * @description 获取所选元素的队列
+ * @function
+ * @name baidu.dom().queue()
+ * @grammar baidu.dom().queue( [queueName ] )
+ * @param    {String}    queueName    队列名称，默认为fx
+ * @return Queue数组
+ */
+ /**
+ * @description 替换所选元素队列数组
+ * @function
+ * @name baidu.dom().queue()
+ * @grammar baidu.dom().queue( [queueName ], newQueue )
+ * @param    {String}    queueName    队列名称，默认为fx
+ * @param    {Array}    newQueue    队列数组，成员为fn
+ * @return self
+ */
+ /**
+ * @description 添加fn到所选元素的队列中
+ * @function
+ * @name baidu.dom().queue()
+ * @grammar baidu.dom().queue( [queueName ], callback(next, hook) )
+ * @param    {String}    queueName    队列名称，默认为fx
+ * @param    {Function}    callback    插入一个方法到队列中，执行next方法可以开始队列中的下一个方法
+ * @return self
+ */
+ /**
+ * @description 开始执行所选元素队列中的下一个成员
+ * @function
+ * @name baidu.dom().dequeue()
+ * @grammar baidu.dom().dequeue( [queueName ] )
+ * @param    {String}    queueName    队列名称，默认为fx
+ * @return self
+ */
 
 (function( undefined ){
     var data = baidu.dom.data,
