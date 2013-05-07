@@ -3,6 +3,14 @@
 ///import plugin.fx;
 ///import plugin.fx.queue;
 ///import plugin._util_.fx;
+/**
+ * @description 停止所选元素当前正在运行的动画，让它直接设置成目标值，同时清除所选元素所有在队列中的动画, 所有在队列中动画，也会立即被设置成目标值
+ * @function
+ * @name baidu.dom().finish()
+ * @grammar baidu.dom().finish([queue])
+ * @param    {String}    queue    队列名称，默认为fx
+ * @return self
+ */
 
 (function(){
     var fx = baidu.fx,
