@@ -1,6 +1,3 @@
-/*var baidu = require('tangram:base');*/
-
-
 (function( undefined ){
     var data = baidu.dom.data,
 
@@ -101,18 +98,6 @@
 })();
 
 baidu.fx = baidu.fx || {};
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 (function( undefined ){
     var fx = baidu.fx,
@@ -766,6 +751,8 @@ void function () {
 
 })();
 
+ 
+
 (function(){
     var fx = baidu.fx,
         Animation = fx.Animation,
@@ -847,6 +834,7 @@ void function () {
     })
 })();
 
+ 
 baidu.plugin( "dom", {
 
     clearQueue: function( type ) {
@@ -920,6 +908,28 @@ baidu.plugin( "dom", {
     } );
 })();
 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+// Slide
+// ---------------------------------------
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
 (function(){
     var isHidden = baidu._util_.isHidden,
         cssExpand = [ "Top", "Right", "Bottom", "Left" ],
@@ -1019,6 +1029,7 @@ baidu.plugin( "dom", {
 
 })();
 
+ 
 (function(){
     var fx = baidu.fx,
         helper = baidu.plugin._util_.fx,
@@ -1078,5 +1089,3 @@ baidu.plugin( "dom", {
         }
     });
 })();
-
- /*exports = baidu;*/
