@@ -60,17 +60,16 @@ test('兼容Magic接口：custom language', function(){
 	utc = localTime + localOffset; //utc即GMT时间
 	offset = -4; //-4区 加拿大时间
 	ca = utc + (3600000*offset);
-	us = utc + (3600000*(-5));
 	date_4 = new Date(ca);
-	var newentozh= baidu.i18n.date.toLocaleDate(date_4, 'en-CA', 'en-US');
-	equals(newentozh.getTime(), us, 'Convert to en-US time');
-	var newzhtoen = baidu.i18n.date.toLocaleDate(new Date(us), 'en-US', 'en-CA');
-	equals(newzhtoen.getTime() ,date_4.getTime(), 'Convert to en-US time');
+	var newentozh= baidu.i18n.date.toLocaleDate(date_4, 'en-CA', 'zh-CN');
+	equals(newentozh.toString(), date.toString(), 'Convert to zh-CN time');
+	var newzhtoen = baidu.i18n.date.toLocaleDate(date, 'zh-CN', 'en-CA');
+	equals(newzhtoen.toString() ,date_4.toString(), 'Convert to en-US time');
 });
 
 test('老接口：format date', function(){
     var date = new Date(),
-        dateText = baidu.i18n.date.format(date, 'en-US');
+        dateText = baidu.i18n.date.format(date, 'zh-CN');
         m = date.getMonth() + 1,
         d = date.getDate();
     equal(dateText, date.getFullYear() + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d), 'the date is');
