@@ -2,7 +2,7 @@ void function(){
     var Import = require('./Import'),
     fs = require('fs'),
     impt = new Import(),
-    blackList = ['baidu.check', 'baidu.short', 'baidu.i18n.cultures.zh-CN', 'baidu.i18n.currency', 'baidu.i18n.number', 'baidu.i18n.string'],
+    blackList = ['baidu.check', 'baidu.short', 'baidu.i18n.cultures.en-US', 'baidu.i18n.currency', 'baidu.i18n.number', 'baidu.i18n.string'],
     code = [],
     imports = {};
 
