@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="description" content="baidu.string().format() 示例" />
-        <title>baidu.fx.useAnimationFrame使用示例</title>
+        <title>Step function</title>
         <link rel="stylesheet" href="../../demos/public.css" type="text/css" />
         <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
         <script type="text/javascript" src='../../src/import.php?f=plugin.fx.animate'></script>
@@ -21,38 +21,45 @@
             .stage {
                 margin-top: 10px;
                 position: relative;
-                height: 50px;
+                height: 80px;
             }
         </style>
     </head>
     <body>
         <div class="demo" id="demo">
-            <h1 class="ac-h1"><strong>baidu.fx.useAnimationFrame</strong> 使用示例</h1>
             <p class="ac-des">
-                "requestAnimationFrame"方式执行动画，性能上比"setTimeout/setInterval"快，但是存在一个问题，就是当页面被切换到不可见后，"callback"不会像"setTimeout"一样一会就执行，而是要等页面再次切换回来后才继续执行。这样会让动画看起来怪怪的，所以添加了一个接口，可以全局地设置动画采不采用"requestionAnimationFrame"。
+                
             </p>
             <div class="pannel">
                 <div class="pannel-title">
-                    <input id="useAnimation" checked="checked" type="checkbox" / >
-                    <label for="useAnimation">baidu.fx.useAnimationFrame?</label>
+                    Step方法示例
                 </div>
                 <div class="pannel-content">
                     <button id="run" class="button">执行动画</button>
                     <div class="stage">
                         <div id="box"></div>
                     </div>
+                    <div id="log"></div>
                 </div>
             </div>
         </div>        
         <script type="text/javascript">
-            var flag = false;
             baidu('#run').on('click', function(){
-                baidu('#box').animate({left: flag?'0%':'90%'}, 'slow');
-                flag = !flag;
-            });
-
-            baidu('#useAnimation').on('change', function(){
-                baidu.fx.useAnimationFrame = baidu(this).prop('checked');
+                baidu('#box').queue(function( next ){
+                    baidu('#log').empty();
+                    next();
+                }).animate({
+                    left: '+100',
+                    top: '50'
+                }, {
+                    step: function(now, fx){
+                        var data = fx.elem.id + ' ' + fx.prop + ': ' + now;
+                        baidu('#log').append('<div>' + data + '</div>');
+                    }
+                }).animate({
+                    left: 0,
+                    top: 0
+                });
             });
         </script>
     </body>
