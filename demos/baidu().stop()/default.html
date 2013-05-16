@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="baidu.string().format() 示例" />
+        <title>stop示例</title>
+        <link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+        <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+        <script type="text/javascript" src='../../src/import.php?f=plugin.fx.stop,plugin.fx.animate'></script>
+        <script type="text/javascript" src="../../demos/public.js"></script>
+        <style type="text/css">
+            #box {
+                position: absolute;
+                width: 32px;
+                height: 32px;
+                overflow: hidden;
+                background: red;
+                left: 0;
+                top: 0;
+            }
+            #box.blue {
+                background: blue;
+            }
+            .stage {
+                margin-top: 10px;
+                position: relative;
+                height: 80px;
+                width: 232px;
+                border-left: 1px dotted blue;
+                border-bottom: 1px dotted red;
+                border-right: 1px dotted blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="demo" id="demo">
+            <div class="pannel">
+                <div class="pannel-title">
+                    
+                </div>
+                <div class="pannel-content">
+                    <button id="run" class="button">开始</button>
+                    <button id="stop" class="button">stop()</button>
+                    <button id="stop2" class="button">stop(true)</button>
+                    <button id="stop3" class="button">stop(true, true)</button>
+                    <button id="stop4" class="button">stop(false, true)</button>
+                    <div class="stage">
+                        <div id="box"></div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <script type="text/javascript">
+
+            baidu('#run').click(function(){
+                baidu('#box')
+                    .queue(function(){
+                        baidu(this)
+                            .css({left: 0, top: 0})
+                            .dequeue();
+                    })
+                    .animate({
+                        top: 50
+                    }, 1000)
+                    .animate({
+                        left: 200
+                    }, 1000)
+                    .animate({
+                        top: 0
+                    }, 1000);
+            });
+
+            baidu('#stop').click(function(){
+                baidu('#box').stop();
+            });
+            baidu('#stop2').click(function(){
+                baidu('#box').stop(true);
+            });
+            baidu('#stop3').click(function(){
+                baidu('#box').stop(true, true);
+            });
+            baidu('#stop4').click(function(){
+                baidu('#box').stop(false, true);
+            });
+        </script>
+    </body>
+</html>
