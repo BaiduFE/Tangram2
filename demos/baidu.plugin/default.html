@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="baidu.plugin() 示例" />
+        <title>baidu.plugin() 示例</title>
+        <link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+        <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+        <script type="text/javascript" src="../../demos/public.js"></script>
+    </head>
+    <body>
+        <div class="demo" id="demo">
+            <h1 class="ac-h1"><strong>baidu.plugin()</strong> 示例</h1>
+            <div class="pannel">
+                <div class="pannel-title">
+                    <span>扩展DOM的接口getTagName来取得元素的tagName</span>
+                </div>
+                <div class="pannel-content">
+                    <div class="pannel-content-tool">
+                        <a class="button" id="demo_btn_1">点击运行</a>
+                    </div>
+                    <div class="pannel-show">运行结果：
+                        <span id="demo_execute_result_1"></span>
+                    </div>
+                </div>
+
+                <div class="pannel-title">
+                    <span>扩展一个自定义的链头</span>
+                </div>
+                <div class="pannel-content">
+                    <div class="pannel-content-tool">
+                        <a class="button" id="demo_btn_2">点击运行</a>
+                    </div>
+                    <div class="pannel-show">运行结果：
+                        <span id="demo_execute_result_2"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            baidu('#demo_btn_1').click(function(evt) {
+                baidu.plugin('dom').extend({
+                    getTagName: function(){
+                        return this[0].tagName;
+                    }
+                });
+                
+                baidu('#demo_execute_result_1').html(
+                    baidu.dom('body').getTagName()
+                );
+            });
+            
+            baidu('#demo_btn_2').click(function(evt){
+                baidu.plugin('edifice', {
+                    run1: function(){
+                        return 'run1 launch';
+                    },
+                    run2: function(){
+                        return 'run2 launch';
+                    }
+                }, function(args){
+                    alert('fn: ' + args);
+                    return new baidu.edifice.$Edifice('this is param');
+                }, function(options){
+                    alert('constructor: ' + options);
+                });
+                
+                var edifice = baidu.edifice('this is fn');
+                baidu('#demo_execute_result_2').html(
+                    edifice.run1() + '; ' + edifice.run2()
+                );
+            });
+        </script>
+    </body>
+</html>
