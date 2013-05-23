@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="baidu.string().format() 示例" />
+        <title>show/hide/toggle</title>
+        <link rel="stylesheet" href="../../demos/public.css" type="text/css" />
+        <script type="text/javascript" src="../../demos/tangram2.0-all.js"></script>
+        <script type="text/javascript" src='../../src/import.php?f=plugin.fx.animate'></script>
+        <script type="text/javascript" src="../../demos/public.js"></script>
+        <style type="text/css">
+            #box {
+                position: absolute;
+                width: 100%;
+                height: 80px;
+                overflow: hidden;
+                background: red;
+                left: 0;
+                top: 0;
+            }
+            .stage {
+                margin-top: 10px;
+                position: relative;
+                height: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="demo" id="demo">
+            <p class="ac-des">
+                
+            </p>
+            <div class="pannel">
+                <div class="pannel-title">
+                    属性的值可以是show/hide/toggle
+                </div>
+                <div class="pannel-content">
+                    <button id="run" class="button">执行动画</button>
+                    <div class="stage">
+                        <div id="box"></div>
+                    </div>
+                    <div id="log"></div>
+                </div>
+            </div>
+        </div>        
+        <script type="text/javascript">
+            baidu('#run').on('click', function(){
+                baidu('#box').animate({
+                    width: 'toggle',
+                    height: 'toggle'
+                });
+            });
+
+            // 或者通过specialEasing设定
+            baidu('#box').animate({
+                width: 'hide',
+                height: 'hide'
+            });
+        </script>
+    </body>
+</html>
