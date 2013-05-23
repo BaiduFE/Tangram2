@@ -14,7 +14,7 @@
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {String}    easing    设置动画的缓动函数，默认为swing
  * @param   {Function}    complete    动画执行完后的回掉函数
- * @return self
+ * @return {Object} self
  * @example proerties: 是一个包含css属性和值的对象，值必须是数值的才有意义。如果传入{overflow: 'hidden'}将没有任何意义。
  
 

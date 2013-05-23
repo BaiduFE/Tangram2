@@ -10,7 +10,7 @@
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {Number}    opacity    目标透明度
  * @param   {Function}    complete    动画执行完后的回掉函数
- * @return self
+ * @return {Object} self
  */
 /**
  * @description 调整所选元素的透明度
