@@ -5,8 +5,8 @@
 /**
  * @description 调整所选元素的透明度
  * @function
- * @name baidu.dom().fadeTo()
- * @grammar baidu.dom().fadeTo( duration, opacity [, complete ] )
+ * @name baidu().fadeTo()
+ * @grammar baidu(args).fadeTo( duration, opacity [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {Number}    opacity    目标透明度
  * @param   {Function}    complete    动画执行完后的回掉函数
@@ -15,8 +15,8 @@
 /**
  * @description 调整所选元素的透明度
  * @function
- * @name baidu.dom().fadeTo()
- * @grammar baidu.dom().fadeTo( duration, opacity [, easing ] [, complete ] )
+ * @name baidu().fadeTo()
+ * @grammar baidu(args).fadeTo( duration, opacity [, easing ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {Number}    opacity    目标透明度
  * @param   {String}    easing    设置动画的缓动函数，默认为swing
@@ -26,8 +26,8 @@
  /**
  * @description 通过透明度渐变隐藏所选元素。
  * @function
- * @name baidu.dom().fadeOut()
- * @grammar baidu.dom().fadeOut( [duration ] [, complete ] )
+ * @name baidu().fadeOut()
+ * @grammar baidu(args).fadeOut( [duration ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {Function}    complete    动画执行完后的回掉函数
  * @return self
@@ -35,8 +35,8 @@
  /**
  * @description 通过透明度渐变隐藏所选元素。
  * @function
- * @name baidu.dom().fadeOut()
- * @grammar baidu.dom().fadeOut( [duration ] [, easing ] [, complete ] )
+ * @name baidu().fadeOut()
+ * @grammar baidu(args).fadeOut( [duration ] [, easing ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {String}    easing    设置动画的缓动函数，默认为swing
  * @param   {Function}    complete    动画执行完后的回掉函数
@@ -45,8 +45,8 @@
  /**
  * @description 通过透明度渐变隐藏所选元素。
  * @function
- * @name baidu.dom().fadeOut()
- * @grammar baidu.dom().fadeOut( options )
+ * @name baidu().fadeOut()
+ * @grammar baidu(args).fadeOut( options )
  * @param   {Object}    options    配置项
  * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
  * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
@@ -63,8 +63,8 @@
 /**
  * @description 通过透明度渐变显示所选元素。
  * @function
- * @name baidu.dom().fadeIn()
- * @grammar baidu.dom().fadeIn( [duration ] [, complete ] )
+ * @name baidu().fadeIn()
+ * @grammar baidu(args).fadeIn( [duration ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {Function}    complete    动画执行完后的回掉函数
  * @return self
@@ -72,8 +72,8 @@
  /**
  * @description 通过透明度渐变显示所选元素。
  * @function
- * @name baidu.dom().fadeIn()
- * @grammar baidu.dom().fadeIn( [duration ] [, easing ] [, complete ] )
+ * @name baidu().fadeIn()
+ * @grammar baidu(args).fadeIn( [duration ] [, easing ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {String}    easing    设置动画的缓动函数，默认为swing
  * @param   {Function}    complete    动画执行完后的回掉函数
@@ -82,8 +82,8 @@
  /**
  * @description 通过透明度渐变显示所选元素。
  * @function
- * @name baidu.dom().fadeIn()
- * @grammar baidu.dom().fadeIn( options )
+ * @name baidu().fadeIn()
+ * @grammar baidu(args).fadeIn( options )
  * @param   {Object}    options    配置项
  * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
  * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
@@ -100,8 +100,8 @@
  /**
  * @description 通过透明度渐变显示或者隐藏所选元素。
  * @function
- * @name baidu.dom().fadeToggle()
- * @grammar baidu.dom().fadeToggle( [duration ] [, complete ] )
+ * @name baidu().fadeToggle()
+ * @grammar baidu(args).fadeToggle( [duration ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {Function}    complete    动画执行完后的回掉函数
  * @return self
@@ -109,8 +109,8 @@
  /**
  * @description 通过透明度渐变显示或者隐藏所选元素。
  * @function
- * @name baidu.dom().fadeToggle()
- * @grammar baidu.dom().fadeToggle( [duration ] [, easing ] [, complete ] )
+ * @name baidu().fadeToggle()
+ * @grammar baidu(args).fadeToggle( [duration ] [, easing ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {String}    easing    设置动画的缓动函数，默认为swing
  * @param   {Function}    complete    动画执行完后的回掉函数
@@ -119,8 +119,8 @@
  /**
  * @description 通过透明度渐变显示或者隐藏所选元素。
  * @function
- * @name baidu.dom().fadeToggle()
- * @grammar baidu.dom().fadeToggle( options )
+ * @name baidu().fadeToggle()
+ * @grammar baidu(args).fadeToggle( options )
  * @param   {Object}    options    配置项
  * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
  * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
@@ -141,8 +141,8 @@
  /**
  * @description 通过一个上拉的动画隐藏所选元素，原理是高度内外上下边距同时变化到零的一个动画。
  * @function
- * @name baidu.dom().slideUp()
- * @grammar baidu.dom().slideUp( [duration ] [, complete ] )
+ * @name baidu().slideUp()
+ * @grammar baidu(args).slideUp( [duration ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {Function}    complete    动画执行完后的回掉函数
  * @return self
@@ -150,8 +150,8 @@
  /**
  * @description 通过一个上拉的动画隐藏所选元素，原理是高度内外上下边距同时变化到零的一个动画。
  * @function
- * @name baidu.dom().slideUp()
- * @grammar baidu.dom().slideUp( [duration ] [, easing ] [, complete ] )
+ * @name baidu().slideUp()
+ * @grammar baidu(args).slideUp( [duration ] [, easing ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {String}    easing    设置动画的缓动函数，默认为swing
  * @param   {Function}    complete    动画执行完后的回掉函数
@@ -160,8 +160,8 @@
  /**
  * @description 通过一个上拉的动画隐藏所选元素，原理是高度内外上下边距同时变化到零的一个动画。
  * @function
- * @name baidu.dom().slideUp()
- * @grammar baidu.dom().slideUp( options )
+ * @name baidu().slideUp()
+ * @grammar baidu(args).slideUp( options )
  * @param   {Object}    options    配置项
  * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
  * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
@@ -178,8 +178,8 @@
 /**
  * @description 通过一个下拉的动画显示所选元素，原理是高度内外上下边距同时变化到最大的一个动画。
  * @function
- * @name baidu.dom().slideDown()
- * @grammar baidu.dom().slideDown( [duration ] [, complete ] )
+ * @name baidu().slideDown()
+ * @grammar baidu(args).slideDown( [duration ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {Function}    complete    动画执行完后的回掉函数
  * @return self
@@ -187,8 +187,8 @@
  /**
  * @description 通过一个下拉的动画显示所选元素，原理是高度内外上下边距同时变化到最大的一个动画。
  * @function
- * @name baidu.dom().slideDown()
- * @grammar baidu.dom().slideDown( [duration ] [, easing ] [, complete ] )
+ * @name baidu().slideDown()
+ * @grammar baidu(args).slideDown( [duration ] [, easing ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {String}    easing    设置动画的缓动函数，默认为swing
  * @param   {Function}    complete    动画执行完后的回掉函数
@@ -197,8 +197,8 @@
  /**
  * @description 通过一个下拉的动画显示所选元素，原理是高度内外上下边距同时变化到最大的一个动画。
  * @function
- * @name baidu.dom().slideDown()
- * @grammar baidu.dom().slideDown( options )
+ * @name baidu().slideDown()
+ * @grammar baidu(args).slideDown( options )
  * @param   {Object}    options    配置项
  * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
  * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
@@ -215,8 +215,8 @@
  /**
  * @description 上拉动画slideUp与下拉动画slideDown的切换执行
  * @function
- * @name baidu.dom().slideToggle()
- * @grammar baidu.dom().slideToggle( [duration ] [, complete ] )
+ * @name baidu().slideToggle()
+ * @grammar baidu(args).slideToggle( [duration ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {Function}    complete    动画执行完后的回掉函数
  * @return self
@@ -224,8 +224,8 @@
  /**
  * @description 上拉动画slideUp与下拉动画slideDown的切换执行
  * @function
- * @name baidu.dom().slideToggle()
- * @grammar baidu.dom().slideToggle( [duration ] [, easing ] [, complete ] )
+ * @name baidu().slideToggle()
+ * @grammar baidu(args).slideToggle( [duration ] [, easing ] [, complete ] )
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {String}    easing    设置动画的缓动函数，默认为swing
  * @param   {Function}    complete    动画执行完后的回掉函数
@@ -234,8 +234,8 @@
  /**
  * @description 上拉动画slideUp与下拉动画slideDown的切换执行
  * @function
- * @name baidu.dom().slideToggle()
- * @grammar baidu.dom().slideToggle( options )
+ * @name baidu().slideToggle()
+ * @grammar baidu(args).slideToggle( options )
  * @param   {Object}    options    配置项
  * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
  * @param   {String}    options.easing    设置动画的缓动函数，默认为swing
