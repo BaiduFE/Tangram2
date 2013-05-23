@@ -9,7 +9,7 @@
  * @name baidu.dom().queue()
  * @grammar baidu.dom().queue( [queueName ] )
  * @param    {String}    queueName    队列名称，默认为fx
- * @return Queue数组
+ * @return {Object} Queue数组
  */
  /**
  * @description 替换所选元素队列数组

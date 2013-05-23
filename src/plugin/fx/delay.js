@@ -7,7 +7,7 @@
  * @grammar baidu.dom().delay(duration[, queueName])
  * @param    {Number}    duration    设置延时时间
  * @param    {String}    queueName    队列名称，默认为fx
- * @return self
+ * @return {Object} self
  * @example 在队列中插入一个延时。
 
  示例代码：

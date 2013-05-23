@@ -9,7 +9,7 @@
  * @name baidu.dom().finish()
  * @grammar baidu.dom().finish([queue])
  * @param    {String}    queue    队列名称，默认为fx
- * @return self
+ * @return {Object} self
  */
 
 (function(){
