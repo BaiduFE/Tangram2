@@ -5,8 +5,7 @@
  * @name baidu.fx.useAnimationFrame
  * @function
  * @grammar baidu.fx.useAnimationFrame
- * @description 设置成true表示采用animation frame来间隔执行动画, 否则采用setTimeout来来执行。默认为true。
-   如果浏览器本身不支持requestAnimationFrame，此处设置成true亦无效，仍然还是setTimeout来间隔执行。
+ * @description 设置成true表示采用animation frame来间隔执行动画, 否则采用setTimeout来来执行。默认为true, 如果浏览器本身不支持requestAnimationFrame，此处设置成true亦无效，仍然还是setTimeout来间隔执行。
  */
 
 (function( undefined ){

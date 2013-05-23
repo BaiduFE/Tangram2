@@ -10,7 +10,7 @@
  * @grammar baidu.dom().promise( [type ] [, target ] )
  * @param    {String}    type    队列名称，默认为fx
  * @param    {Object}    target    参考baidu.deferred.promise方法，promise的api将附加到此对象上.
- * @return Promise对象
+ * @return {Object} Promise对象
  */
 (function( undefined ){
     var data = baidu.dom.data;

@@ -11,7 +11,7 @@
  * @grammar baidu.dom().stop( [clearQueue ] [, jumpToEnd ] )
  * @param    {Boolean}    clearQueue    是否清楚队列
  * @param    {Boolean}    jumpToEnd    是否让当前动画直接设置目标值
- * @return self
+ * @return {Object} self
  */
 
  /**
