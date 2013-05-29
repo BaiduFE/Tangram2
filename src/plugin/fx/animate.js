@@ -8,13 +8,13 @@
 /**
  * @description 执行一个自定的样式集的动画
  * @function
- * @name    baidu.dom().animate()
- * @grammar baidu.dom().animate( properties [, duration ] [, easing ] [, complete ] )
+ * @name    baidu().animate()
+ * @grammar baidu(args).animate( properties [, duration ] [, easing ] [, complete ] )
  * @param   {Object}    properties    动画目标值，可以包含dom样式或者属性
  * @param   {String|Number}    duration    动画执行总时间, 默认400ms
  * @param   {String}    easing    设置动画的缓动函数，默认为swing
  * @param   {Function}    complete    动画执行完后的回掉函数
- * @return {Object} self
+ * @return  {TangramDom} 返回之前匹配元素的TangramDom对象
  * @example proerties: 是一个包含css属性和值的对象，值必须是数值的才有意义。如果传入{overflow: 'hidden'}将没有任何意义。
  
 
@@ -32,8 +32,8 @@
  /**
  * @description 执行一个自定的样式集动画
  * @function
- * @name baidu.dom().animate()
- * @grammar baidu.dom().animate( properties [, options ] )
+ * @name baidu().animate()
+ * @grammar baidu(args).animate( properties [, options ] )
  * @param   {Object}    properties    动画目标值，可以包含样式或者属性
  * @param   {Object}    options    配置项
  * @param   {String|Number}    options.duration    动画执行总时间, 默认400ms
@@ -46,7 +46,7 @@
  * @param   {Function}    options.done   complete的一个别名，意义相同(符合promise规范) 
  * @param   {Function}    options.fail   当某个动画执行失败时触发（stop方法有可能中断一个动画执行）。
  * @param   {Function}    options.always   不管成功与失败，动画执行完后触发。
- * @return self
+ * @return  {TangramDom} 返回之前匹配元素的TangramDom对象
  */
 
 (function(){

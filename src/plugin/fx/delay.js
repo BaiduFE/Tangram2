@@ -3,8 +3,8 @@
 /**
  * @description 插入一个指定延时的方法到队列中。
  * @function
- * @name baidu.dom().delay()
- * @grammar baidu.dom().delay(duration[, queueName])
+ * @name baidu().delay()
+ * @grammar baidu().delay(duration[, queueName])
  * @param    {Number}    duration    设置延时时间
  * @param    {String}    queueName    队列名称，默认为fx
  * @return {Object} self
