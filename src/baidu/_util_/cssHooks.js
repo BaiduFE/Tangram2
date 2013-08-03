@@ -26,7 +26,7 @@ baidu._util_.style = baidu.extend({
 });
 
 baidu._util_.cssHooks = function(){
-    var alpha = /alpha\s*\(\s*opacity\s*=\s*(\d{1,3})/i,
+    var alpha = /alpha\s*\(\s*opacity\s*=\s*([^)]*)/i,
         style = baidu._util_.style,
 //        nonpx = /^-?(?:\d*\.)?\d+(?!px)[^\d\s]+$/i,
         anchor = baidu._util_.support.dom.a,
