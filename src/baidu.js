@@ -111,7 +111,7 @@
 
 var T, baidu = T = baidu || function(q, c) { return baidu.dom ? baidu.dom(q, c) : null; };
 
-baidu.version = '2.0.2.4';
+baidu.version = '2.0.2.5';
 baidu.guid = "$BAIDU$";
 baidu.key = "tangram_guid";
 
