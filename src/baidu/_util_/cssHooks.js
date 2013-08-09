@@ -57,7 +57,7 @@ baidu._util_.cssHooks = function(){
         }
     } : {
         get: function(ele){
-            return alpha.test((ele.currentStyle || ele.style).filter || '') ? parseFloat(RegExp.$1) / 100 : '1';
+            return alpha.test((ele.currentStyle || ele.style).filter || '') ? (parseFloat(RegExp.$1) / 100) + '' : '1';
         },
         set: function(ele, key, value){
             var filterString = (ele.currentStyle || ele.style).filter || '',
