@@ -15,7 +15,7 @@ var T, baidu = T = function(){
 
 var T, baidu = T = baidu || function(q, c) { return baidu.dom ? baidu.dom(q, c) : null; };
 
-baidu.version = '2.0.2.4';
+baidu.version = '2.0.2.5';
 baidu.guid = "$BAIDU$";
 baidu.key = "tangram_guid";
 
@@ -3783,7 +3783,7 @@ baidu._util_.style = baidu.extend({
 });
 
 baidu._util_.cssHooks = function(){
-    var alpha = /alpha\s*\(\s*opacity\s*=\s*(\d{1,3})/i,
+    var alpha = /alpha\s*\(\s*opacity\s*=\s*([^)]*)/i,
         style = baidu._util_.style,
 //        nonpx = /^-?(?:\d*\.)?\d+(?!px)[^\d\s]+$/i,
         anchor = baidu._util_.support.dom.a,
@@ -3814,7 +3814,7 @@ baidu._util_.cssHooks = function(){
         }
     } : {
         get: function(ele){
-            return alpha.test((ele.currentStyle || ele.style).filter || '') ? parseFloat(RegExp.$1) / 100 : '1';
+            return alpha.test((ele.currentStyle || ele.style).filter || '') ? (parseFloat(RegExp.$1) / 100) + '' : '1';
         },
         set: function(ele, key, value){
             var filterString = (ele.currentStyle || ele.style).filter || '',
