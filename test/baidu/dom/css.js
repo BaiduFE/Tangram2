@@ -50,6 +50,10 @@ test('baidu.dom(div).css(name)', function(){
         equal( css("position"), "static", "position" );
         ok( css("color") == "red" || css("color") == "rgb(255, 0, 0)" || css("color") == "#f00", "color" );
         equal( css("opacity"), .5, "opacity" );
+        css('opacity', 0.9527);
+        css('opacity', 0.1527);
+        ok(~css('opacity').indexOf('0.1527'), css('opacity') + ' include 0.1527');
+        
         equal( css("display"), "inline", "display" );
         ok(~'0|auto'.indexOf(css('z-index')), 'z-index');//是否需要抹平？
         div.className = "";
