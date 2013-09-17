@@ -53,7 +53,7 @@ baidu.browser = baidu.browser || function(){
 	} else if ( win.opera && opera.version ) {
 		//老版本Opera(<=12)，>=15以后采用Chrome内核
 		result.opera = opera.version();
-	} else if ( win.netscape && nav.product == "Gecko" ) {
+	} else if ( win.netscape ) {
 		result.isGecko = true;
 		result.gecko = getver("rv", ":");
 		result.firefox = getver("Firefox");
