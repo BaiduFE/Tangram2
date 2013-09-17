@@ -31,75 +31,75 @@
  */
 
 baidu.browser = baidu.browser || function(){
-	var win = window,
-		ext = win.external || {},
- 		doc = win.document,
-		ie = doc.documentMode,
-		strict = doc.compatMode,
-		nav = win.navigator,
-		ua = nav.userAgent,
-		result = {
-			isStrict : (strict && strict !== "BackCompat")
-			,isWebkit: false
-			,isGecko: false
-	};
+    var win = window,
+        ext = win.external || {},
+        doc = win.document,
+        ie = doc.documentMode,
+        strict = doc.compatMode,
+        nav = win.navigator,
+        ua = nav.userAgent,
+        result = {
+            isStrict : (strict && strict !== "BackCompat")
+            ,isWebkit: false
+            ,isGecko: false
+    };
 
-	function getver(name, split) {
-		return new RegExp("\\b" + name + (split || "/") + "([\\w.]+)\\b").test(ua) ? RegExp['\x241'] : true;
-	}
+    function getver(name, split) {
+        return new RegExp("\\b" + name + (split || "/") + "([\\w.]+)\\b").test(ua) ? RegExp['\x241'] : true;
+    }
 
-	if( ie || !doc.querySelector ){
-		result.ie = ie || (result.isStrict ? "XMLHttpRequest" in win ? 7 : 6 : 5);
-	} else if ( win.opera && opera.version ) {
-		//老版本Opera(<=12)，>=15以后采用Chrome内核
-		result.opera = opera.version();
-	} else if ( win.netscape ) {
-		result.isGecko = true;
-		result.gecko = getver("rv", ":");
-		result.firefox = getver("Firefox");
-	} else {
-		ua = nav.appVersion;
+    if( ie || !doc.querySelector ){
+        result.ie = ie || (result.isStrict ? "XMLHttpRequest" in win ? 7 : 6 : 5);
+    } else if ( win.opera && opera.version ) {
+        //老版本Opera(<=12)，>=15以后采用Chrome内核
+        result.opera = opera.version();
+    } else if ( win.netscape ) {
+        result.isGecko = true;
+        result.gecko = getver("rv", ":");
+        result.firefox = getver("Firefox");
+    } else {
+        ua = nav.appVersion;
 
-		result.webkit = getver("\\w*WebKit");
-		result.isWebkit = true;
+        result.webkit = getver("\\w*WebKit");
+        result.isWebkit = true;
 
-		if( win.chrome ){
-			//判定为Chrome
-			result.chrome = getver("Chrome");
-		} else if ( /^Apple/.test(nav.vendor) ){
-			//判定为Safari
-			result.safari = getver("Version");
-		}
+        if( win.chrome ){
+            //判定为Chrome
+            result.chrome = getver("Chrome");
+        } else if ( /^Apple/.test(nav.vendor) ){
+            //判定为Safari
+            result.safari = getver("Version");
+        }
 
-		function setver(name, split){
-			var ver = getver(name, split);
-			if(ver !== true){
-				return result[name.toLowerCase()] = ver;
-			}
-		}
+        function setver(name, split){
+            var ver = getver(name, split);
+            if(ver !== true){
+                return result[name.toLowerCase()] = ver;
+            }
+        }
 
-		//搜狗浏览器
-		(ext.SEVersion && (result.sogou = ext.SEVersion() || true)) ||
+        //搜狗浏览器
+        (ext.SEVersion && (result.sogou = ext.SEVersion() || true)) ||
 
-		//猎豹
-		(ext.LiebaoGetVersion && (result.liebao = ext.LiebaoGetVersion() || true)) ||
-		
-		//傲游
-		( "max_version" in ext && setver("Maxthon") ) ||
-		
-		//TheWorld
-		setver("TheWorld", "\\s") ||
+        //猎豹
+        (ext.LiebaoGetVersion && (result.liebao = ext.LiebaoGetVersion() || true)) ||
+        
+        //傲游
+        ( "max_version" in ext && setver("Maxthon") ) ||
+        
+        //TheWorld
+        setver("TheWorld", "\\s") ||
 
-		//淘宝浏览器
-		setver("TaoBrowser") ||
+        //淘宝浏览器
+        setver("TaoBrowser") ||
 
-		//枫树浏览器
-		( "coolnovo" in ext && setver("CoolNovo") );
-		
-		//QQ浏览器,360急速,360安全3款浏览器无探测方法
-	}
+        //枫树浏览器
+        ( "coolnovo" in ext && setver("CoolNovo") );
+        
+        //QQ浏览器,360急速,360安全3款浏览器无探测方法
+    }
 
-	baidu.extend(baidu, result);
+    baidu.extend(baidu, result);
 
-	return result;
+    return result;
 }();
