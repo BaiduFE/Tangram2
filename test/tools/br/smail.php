@@ -1,8 +1,8 @@
 <?php
 function sendmail($body, $debug = false){
 	include('Mail.php');
-	$headers['From']    = 'test@baidu.com';
-	$headers['To']      = 'test <test@baidu.com>';
+	$headers['From']    = 'xxxx@baidu.com';
+	$headers['To']      = 'xxxx <xxxx@baidu.com>';
 	//$headers['Cc']      = 'liujinlong <liujinlong@baidu.com>, '
 		//.'berg <leizhixing@baidu.com>, huangtiantian <huangtiantian@baidu.com>';
 //		.'wangpengcheng <wangpengcheng@baidu.com>, lixiaopeng<lixiaopeng@baidu.com>';
