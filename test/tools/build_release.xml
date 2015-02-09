@@ -2,9 +2,9 @@
 <project name="project" default="releaserun" basedir="../">
 	<import file="build_run.xml" />
 
-	<property name="release_file.mailcc" value="tianlili@baidu.com" />
-	<property name="release_file.mailto" value="tianlili@baidu.com" />
-	<property name="release_file.mailfrom" value="tianlili@baidu.com" />
+	<property name="release_file.mailcc" value="test@baidu.com" />
+	<property name="release_file.mailto" value="test@baidu.com" />
+	<property name="release_file.mailfrom" value="test@baidu.com" />
 
 	<target name="importSrc">
 		<!-- delete release file -->

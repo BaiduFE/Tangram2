@@ -15,9 +15,9 @@
 	<property name="report.style" value="test/tools/br/reportstyle/junit-noframes.xsl" />
 	<property name="report.output" value="test/tools/br/report/html/junit-noframes.html" />
 	<property name="report.xml" value="test/tools/br/report.xml" />
-	<property name="report.mailto" value="tianlili@baidu.com" />
-	<property name="report.mailcc" value="tianlili@baidu.com" />
-	<property name="report.mailfrom" value="tianlili@baidu.com" />
+	<property name="report.mailto" value="test@baidu.com" />
+	<property name="report.mailcc" value="test@baidu.com" />
+	<property name="report.mailfrom" value="test@baidu.com" />
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: mail                      
